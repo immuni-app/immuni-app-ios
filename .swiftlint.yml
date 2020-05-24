@@ -1,0 +1,96 @@
+included:
+  - AppTests
+  - App
+  - Modules
+  - UITests
+
+excluded:
+  - App/Resources
+  - App/Style
+  - Pods
+
+opt_in_rules:
+  - closure_end_indentation
+  - closure_spacing
+  - collection_alignment
+  - contains_over_filter_count
+  - contains_over_filter_is_empty
+  - contains_over_first_not_nil
+  - convenience_type
+  - discouraged_optional_collection
+  - empty_collection_literal
+  - empty_count
+  - empty_string
+  - explicit_self
+  - first_where
+  - force_unwrapping
+  - identical_operands
+  - implicitly_unwrapped_optional
+  - last_where
+  - legacy_multiple
+  - legacy_random
+  - literal_expression_end_indentation
+  - multiline_arguments
+  - multiline_function_chains
+  - multiline_literal_brackets
+  - multiline_parameters
+  - multiline_parameters_brackets
+  - object_literal
+  - operator_usage_whitespace
+  - overridden_super_call
+  - prohibited_super_call
+  - redundant_nil_coalescing
+  - redundant_type_annotation
+  - single_test_class
+  - sorted_first_last
+  - sorted_imports
+  - static_operator
+  - toggle_bool
+  - unneeded_parentheses_in_closure_argument
+  - unused_declaration
+  - unused_import
+  - vertical_parameter_alignment_on_call
+  - vertical_whitespace_closing_braces
+  - yoda_condition
+
+disabled_rules:
+  - cyclomatic_complexity
+  - type_body_length
+  - file_length
+  - function_parameter_count
+  - nesting
+  - redundant_string_enum_value
+  - redundant_optional_initialization
+  - shorthand_operator
+  - opening_brace
+
+line_length: 130
+
+function_body_length: 100
+
+identifier_name:
+  excluded:
+    - id
+    - ls
+    - to
+    - vc
+    - vm
+    - in
+    - no
+    - ok
+    - x
+    - y
+    - or
+    - at
+    - operationalInfoWithoutExposureSamplingRate
+    - operationalInfoWithoutExposureSamplingRate
+
+type_name:
+  max_length: 60
+  excluded:
+    - ID
+    - T
+    - V
+    - VC
+    - Id
+    - VM

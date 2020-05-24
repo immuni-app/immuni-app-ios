@@ -1,0 +1,47 @@
+# fastlane/Fastfile
+default_platform :ios
+
+platform :ios do
+  PRODUCTS_FOLDER = 'Products'
+
+  desc 'Build the iOS app'
+  lane :build do |options|
+    build_app(
+      archive_path: "#{PRODUCTS_FOLDER}/Immuni.xcarchive",
+      clean: true,
+      configuration: options[:configuration],
+      export_options: "CI/Export/#{options[:distribution_method]}.plist",
+      output_directory: PRODUCTS_FOLDER,
+      output_name: 'Immuni.ipa',
+      scheme: 'Immuni',
+      silent: true,
+      workspace: 'Immuni.xcworkspace'
+    )
+  end
+
+  desc 'Build the iOS app for the App Store'
+  lane :build_appstore do
+    build(
+      configuration: 'Release',
+      distribution_method: 'app-store'
+    )
+  end
+
+  desc 'Build the iOS app for development'
+  lane :build_development do
+    build(
+      configuration: 'Debug',
+      distribution_method: 'development'
+    )
+  end
+
+  desc 'Upload binary to App Store'
+  lane :upload_appstore do
+    # Upload the binary to App Store Connect + TestFlight
+    ENV['DELIVER_ITMSTRANSPORTER_ADDITIONAL_UPLOAD_PARAMETERS'] = '-t Aspera'
+    pilot(
+      ipa: 'Products/Immuni.ipa',
+      skip_waiting_for_build_processing: true
+    )
+  end
+end

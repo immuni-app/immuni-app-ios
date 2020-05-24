@@ -1,0 +1,16 @@
+# This file specifies the people currently responsible for code reviews in the repository.
+# For information about the owners of the code, please refer to the LICENSE and README files.
+
+@bolismauro
+
+/.circleci @valerio-castelli
+/CI @valerio-castelli
+
+/App/UI @ParideBifulco
+/App/Style @ParideBifulco
+/App/Resources @ParideBifulco
+
+/Modules/ImmuniExposureNotification @LorDisturbia
+/App/Dependencies/ExposureDetection @LorDisturbia
+/App/Logic/ExposureDetectionLogic.swift @LorDisturbia
+/App/Application/AppDelegate.swift @LorDisturbia

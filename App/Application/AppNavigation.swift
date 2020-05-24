@@ -1,0 +1,523 @@
+// AppNavigation.swift
+// Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
+// Please refer to the AUTHORS file for more information.
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as
+// published by the Free Software Foundation, either version 3 of the
+// License, or (at your option) any later version.
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU Affero General Public License for more details.
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+import Extensions
+import Foundation
+import Katana
+import Models
+import Tempura
+
+enum Screen: String, CaseIterable {
+  // app setup
+  case appSetup
+  case welcome
+  case forceUpdate
+
+  // onboarding
+  case onboardingStep
+
+  // main
+  case tabBar
+
+  // common
+  case loading
+  case permissionTutorial
+  case permissionOverlay
+  case web
+  case confirmation
+  case alert
+  case privacy
+
+  // home
+  case home
+  case fixActiveService
+  case suggestions
+
+  // settings
+  case settings
+  case uploadData
+  case confirmUpload
+  case updateProvince
+  case faq
+  case question
+}
+
+// MARK: - Root
+
+extension AppDelegate {
+  func installRoot(identifier: RouteElementIdentifier, context: Any?, completion: @escaping () -> Void) -> Bool {
+    guard let rootScreen = Screen(rawValue: identifier) else {
+      return false
+    }
+
+    let mainViewController: UIViewController
+
+    switch rootScreen {
+    case .appSetup:
+      mainViewController = AppSetupVC(store: self.store)
+
+    case .forceUpdate:
+      let localState = context as? ForceUpdateLS ?? AppLogger.fatalError("Invalid context")
+      mainViewController = ForceUpdateVC(store: self.store, localState: localState)
+
+    case .tabBar:
+      mainViewController = TabbarVC(store: self.store)
+
+    case .welcome:
+      mainViewController = WelcomeVC(store: self.store, localState: WelcomeLS())
+
+    case .onboardingStep:
+      let navigationContext = context as? OnboardingContainerNC.NavigationContext ?? AppLogger.fatalError("Invalid context")
+      mainViewController = OnboardingContainerNC(with: self.store, navigationContext: navigationContext)
+
+    default:
+      AppLogger.fatalError("Root screen not handled: \(rootScreen.rawValue)")
+    }
+
+    self.window?.rootViewController = mainViewController
+    completion()
+    return true
+  }
+}
+
+// MARK: - App Setup
+
+extension AppSetupVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.appSetup.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [:]
+  }
+}
+
+// MARK: Welcome
+
+extension WelcomeVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.welcome.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [
+      .show(Screen.privacy): .presentModally { [unowned self] _ in
+        let vc = PrivacyVC(store: self.store, localState: .init(kind: .onboarding))
+        vc.modalPresentationStyle = .fullScreen
+        return vc
+      },
+
+      .show(Screen.permissionTutorial): .presentModally { context in
+        let localState = context as? PermissionTutorialLS ?? AppLogger.fatalError("Invalid context")
+        return PermissionTutorialVC(store: self.store, localState: localState)
+      },
+
+      .show(Screen.web): .presentModally { [unowned self] context in
+        let localState = context as? WebLS ?? AppLogger.fatalError("invalid context")
+        let vc = WebVC(store: self.store, localState: localState)
+        return vc
+      },
+
+      .hide(Screen.permissionTutorial): .dismissModally(behaviour: .hard),
+      .hide(Screen.privacy): .dismissModally(behaviour: .hard)
+    ]
+  }
+}
+
+// MARK: Force Update
+
+extension ForceUpdateVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.forceUpdate.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [
+      .show(Screen.permissionTutorial): .presentModally { context in
+        let localState = context as? PermissionTutorialLS ?? AppLogger.fatalError("Invalid context")
+        return PermissionTutorialVC(store: self.store, localState: localState)
+      }
+    ]
+  }
+}
+
+// MARK: - Onboarding
+
+extension OnboardingContainerNC: RoutableWithConfiguration {
+  // the routeIdentifier and the navigationConfiguration are defined
+  // in the main class body. This is because we need to subclass and change these properties
+  // (see UpdateProvinceNC) but this is not possible if variables are defined within an extension
+}
+
+// MARK: Onboarding Privacy
+
+extension PrivacyVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.privacy.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [
+      .show(Screen.onboardingStep): .presentModally { context in
+        let navigationContext = context as? OnboardingContainerNC.NavigationContext ?? AppLogger.fatalError("Invalid context")
+        let vc = OnboardingContainerNC(with: self.store, navigationContext: navigationContext)
+        vc.modalPresentationStyle = .fullScreen
+        return vc
+      },
+      .hide(Screen.onboardingStep): .dismissModally(behaviour: .hard)
+    ]
+  }
+}
+
+// MARK: - Tab Bar
+
+extension TabbarVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.tabBar.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [
+      // Loading
+      .show(Screen.loading): .presentModally { [unowned self] context in
+        let ls = context as? LoadingLS ?? AppLogger.fatalError("Invalid context")
+        let vc = LoadingVC(store: self.store, localState: ls)
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        return vc
+      },
+      .hide(Screen.loading): .dismissModally(behaviour: .soft),
+
+      // Web
+      .show(Screen.web): .presentModally { [unowned self] context in
+        let localState = context as? WebLS ?? AppLogger.fatalError("invalid context")
+        let vc = WebVC(store: self.store, localState: localState)
+        return vc
+      },
+
+      // Confirm Upload
+      .show(Screen.confirmUpload): .presentModally { [unowned self] context in
+        let localState = context as? ConfirmUploadLS ?? AppLogger.fatalError("invalid context")
+        let vc = ConfirmUploadVC(store: self.store, localState: localState)
+        vc.isModalInPresentation = true
+        return vc
+      },
+      .hide(Screen.confirmUpload): .dismissModally(behaviour: .hard),
+
+      // Alert
+      .show(Screen.alert): .custom { [weak self] _, _, animated, context, completion in
+        let content = context as? Alert.Model ?? AppLogger.fatalError("Invalid context")
+        let vc = UIAlertController(content: content)
+        self?.recursivePresent(vc, animated: false, completion: completion)
+      },
+
+      // Permission Tutorial
+      .show(Screen.permissionTutorial): .presentModally { context in
+        let localState = context as? PermissionTutorialLS ?? AppLogger.fatalError("Invalid context")
+        return PermissionTutorialVC(store: self.store, localState: localState)
+      },
+      .hide(Screen.permissionTutorial): .dismissModally(behaviour: .hard),
+
+      // Suggestions
+      .show(Screen.suggestions): .presentModally { [unowned self] context in
+        SuggestionsVC(store: self.store, localState: SuggestionsLS())
+      },
+      .hide(Screen.suggestions): .dismissModally(behaviour: .hard)
+    ]
+  }
+}
+
+// MARK: - Common
+
+// MARK: Confirmation
+
+extension ConfirmationVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.confirmation.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [
+      .hide(Screen.confirmation): .dismissModally(behaviour: .soft)
+    ]
+  }
+}
+
+// MARK: Loading
+
+extension LoadingVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.loading.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [
+      .hide(Screen.loading): .dismissModally(behaviour: .soft)
+    ]
+  }
+}
+
+// MARK: Permission Tutorial
+
+extension PermissionTutorialVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.permissionTutorial.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [
+      .show(Screen.faq): .presentModally { _ in
+        FaqVC(store: self.store, localState: FAQLS(isPresentedModally: true))
+      },
+      .show(Screen.loading): .presentModally { [unowned self] context in
+        let ls = context as? LoadingLS ?? AppLogger.fatalError("Invalid context")
+        let vc = LoadingVC(store: self.store, localState: ls)
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        return vc
+      },
+      .show(Screen.alert): .custom { [weak self] _, _, animated, context, completion in
+        let content = context as? Alert.Model ?? AppLogger.fatalError("Invalid context")
+        let vc = UIAlertController(content: content)
+        self?.recursivePresent(vc, animated: false, completion: completion)
+      },
+
+      .hide(Screen.loading): .dismissModally(behaviour: .soft),
+      .hide(Screen.faq): .dismissModally(behaviour: .hard)
+    ]
+  }
+}
+
+// MARK: Permission Overlay
+
+extension OnboardingPermissionOverlayVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.permissionOverlay.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [:]
+  }
+}
+
+// MARK: Web
+
+extension WebVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.web.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [
+      .hide(Screen.web): .dismissModally(behaviour: .soft)
+    ]
+  }
+}
+
+// MARK: - Home
+
+extension HomeVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.home.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [
+      .show(Screen.fixActiveService): .presentModally { context in
+        let navigationContext = context as? OnboardingContainerNC.NavigationContext ?? AppLogger.fatalError("Invalid context")
+
+        return FixActiveService(with: self.store, navigationContext: navigationContext)
+      },
+
+      .hide(Screen.fixActiveService): .dismissModally(behaviour: .hard)
+    ]
+  }
+}
+
+// MARK: Fix Service
+
+class FixActiveService: OnboardingContainerNC {
+  override var routeIdentifier: RouteElementIdentifier {
+    return Screen.fixActiveService.rawValue
+  }
+
+  override var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [
+      .show(Screen.fixActiveService): .custom { _, _, animated, context, completion in
+        let navContext = context as? OnboardingContainerNC.NavigationContext ?? AppLogger.fatalError("Invalid Context")
+        self.pushViewController(using: navContext, animated: animated)
+        completion()
+      },
+
+      .show(Screen.permissionTutorial): .presentModally { context in
+        let localState = context as? PermissionTutorialLS ?? AppLogger.fatalError("Invalid context")
+        return PermissionTutorialVC(store: self.store, localState: localState)
+      },
+
+      .show(Screen.permissionOverlay): .presentModally { context in
+        let localState = context as? OnboardingPermissionOverlayLS ?? AppLogger.fatalError("Invalid Context")
+        let vc = OnboardingPermissionOverlayVC(store: self.store, localState: localState)
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .crossDissolve
+
+        return vc
+      },
+
+      .hide(Screen.permissionTutorial): .dismissModally(behaviour: .hard),
+      .hide(Screen.permissionOverlay): .dismissModally(behaviour: .hard)
+    ]
+  }
+}
+
+// MARK: Suggestions
+
+extension SuggestionsVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.suggestions.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [:]
+  }
+}
+
+// MARK: - Settings
+
+extension SettingsNC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.settings.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [
+      .show(Screen.uploadData): .push { context in
+        let ls = context as? UploadDataLS ?? AppLogger.fatalError("invalid context")
+        return UploadDataVC(store: self.store, localState: ls)
+      },
+
+      .show(Screen.faq): .push { _ in
+        FaqVC(store: self.store, localState: FAQLS(isPresentedModally: false))
+      },
+
+      .show(Screen.updateProvince): .presentModally { context in
+        let province = context as? Province ?? AppLogger.fatalError("Invalid context")
+        return UpdateProvinceNC(
+          with: self.store,
+          navigationContext: .init(child: .updateRegion(currentUserProvince: province))
+        )
+      },
+
+      .show(Screen.privacy): .presentModally { context in
+        PrivacyVC(store: self.store, localState: .init(kind: .settings))
+      },
+
+      .hide(Screen.uploadData): .pop,
+      .hide(Screen.faq): .pop,
+      .hide(Screen.updateProvince): .dismissModally(behaviour: .hard),
+      .hide(Screen.privacy): .dismissModally(behaviour: .hard)
+    ]
+  }
+}
+
+// MARK: Upload Data
+
+extension UploadDataVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.uploadData.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [:]
+  }
+}
+
+extension ConfirmUploadVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.confirmUpload.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [
+      .show(Screen.permissionTutorial): .presentModally { context in
+        let localState = context as? PermissionTutorialLS ?? AppLogger.fatalError("Invalid context")
+        return PermissionTutorialVC(store: self.store, localState: localState)
+      },
+
+      .show(Screen.permissionOverlay): .presentModally { context in
+        let localState = context as? OnboardingPermissionOverlayLS ?? AppLogger.fatalError("Invalid Context")
+        let vc = OnboardingPermissionOverlayVC(store: self.store, localState: localState)
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .crossDissolve
+
+        return vc
+      },
+
+      .show(Screen.confirmation): .presentModally { context in
+        let localState = context as? ConfirmationLS ?? AppLogger.fatalError("Invalid context")
+        return ConfirmationVC(store: self.store, localState: localState)
+      },
+
+      .hide(Screen.permissionTutorial): .dismissModally(behaviour: .hard),
+      .hide(Screen.permissionOverlay): .dismissModally(behaviour: .hard)
+    ]
+  }
+}
+
+// MARK: Update Province
+
+class UpdateProvinceNC: OnboardingContainerNC {
+  override var routeIdentifier: RouteElementIdentifier {
+    return Screen.updateProvince.rawValue
+  }
+
+  override var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [
+      .show(Screen.onboardingStep): .custom { _, _, animated, context, completion in
+        let navContext = context as? OnboardingContainerNC.NavigationContext ?? AppLogger.fatalError("Invalid Context")
+        self.pushViewController(using: navContext, animated: animated)
+        completion()
+      }
+    ]
+  }
+}
+
+// MARK: FAQ
+
+extension FaqVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.faq.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [
+      .show(Screen.question): .presentModally { [unowned self] context in
+        let localState = context as? QuestionLS ?? AppLogger.fatalError("invalid context")
+        let vc = QuestionVC(store: self.store, localState: localState)
+        return vc
+      },
+
+      .hide(Screen.question): .dismissModally(behaviour: .hard)
+    ]
+  }
+}
+
+extension QuestionVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.question.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [:]
+  }
+}

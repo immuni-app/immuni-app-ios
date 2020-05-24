@@ -1,0 +1,12 @@
+include:
+  - project.yml
+targets:
+  Immuni:
+    dependencies:
+      - target: DebugMenu
+
+  DebugMenu:
+    templates:
+      - Module
+    dependencies:
+      - target: Extensions

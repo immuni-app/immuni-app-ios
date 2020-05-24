@@ -1,0 +1,30 @@
+{
+   "protected_files": [
+      ".gitmodules",
+      "scheduler_config.json",
+      "package.json",
+      "yarn.lock",
+      "dangerfile.ts",
+      "CI/danger/danger.ts",
+      "CI/danger/swiftformat.ts",
+      "CI/danger/swiftlint.ts",
+      "CI/danger/utils.ts",
+      "CI/danger/commitlint/index.ts",
+      "CI/danger/commitlint/rules.ts",
+      "CI/Export/app-store.plist",
+      "CI/Export/development.plist",
+      "CI/changelog_config.tpl",
+      "fastlane/Appfile",
+      "fastlane/Fastfile",
+      "Podfile",
+      "Podfile.lock",
+      ".swiftformat",
+      ".swiftlint.yml",
+      "project.yml",
+      "swiftgen.yml",
+      "Brewfile",
+      "Makefile",
+      "project_debug.yml",
+      "publiccode.yml"
+   ]
+}

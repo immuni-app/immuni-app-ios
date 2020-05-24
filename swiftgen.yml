@@ -1,0 +1,11 @@
+xcassets:
+  - inputs: App/Style/Images.xcassets
+    outputs:
+      - templateName: swift4
+        output: App/Style/Assets.swift
+
+strings:
+  inputs: App/Resources/en-GB.lproj/Localizable.strings
+  outputs:
+    templateName: structured-swift4
+    output: App/Resources/Localizable.swift

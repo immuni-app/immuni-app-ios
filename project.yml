@@ -1,0 +1,164 @@
+name: Immuni
+
+targetTemplates:
+  Module:
+    platform: iOS
+    type: framework
+    deploymentTarget: "13.0"
+    sources:
+      - Modules/${target_name}
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.immuni.$(SWIFT_MODULE_NAME)
+        TARGETED_DEVICE_FAMILY: 1
+        SWIFT_VERSION: 5.2
+        SUPPORTS_MACCATALYST: NO
+
+options:
+  developmentLanguage: "en-GB"
+
+targets:
+  Immuni:
+    platform: iOS
+    type: application
+    deploymentTarget: "13.0"
+    sources:
+      - path: App
+
+    dependencies:
+      - target: ImmuniExposureNotification
+      - target: Extensions
+      - target: Models
+      - target: Networking
+      - target: Persistence
+      - target: PushNotification
+      - target: StorePersistence
+
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: it.ministerodellasalute.immuni
+        SWIFT_VERSION: 5.2
+        CODE_SIGN_STYLE: Manual
+        DEVELOPMENT_TEAM: NFBYJRA8B5
+        TARGETED_DEVICE_FAMILY: 1
+      configs:
+        Debug:
+          CODE_SIGN_ENTITLEMENTS: App/Resources/Entitlements/Development.entitlements
+          CODE_SIGN_IDENTITY: iPhone Developer
+          DEVELOPMENT_TEAM: NFBYJRA8B5
+          PROVISIONING_PROFILE_SPECIFIER: ImmuniBSDevProfile
+        Release:
+          CODE_SIGN_ENTITLEMENTS: App/Resources/Entitlements/Production.entitlements
+          CODE_SIGN_IDENTITY: iPhone Distribution
+          DEVELOPMENT_TEAM: NFBYJRA8B5
+          PROVISIONING_PROFILE_SPECIFIER: ImmuniCIProdProfile
+
+    info:
+      path: Immuni.plist
+      properties:
+        BGTaskSchedulerPermittedIdentifiers:
+          [$(PRODUCT_BUNDLE_IDENTIFIER).exposure-notification]
+        CFBundleName: Immuni
+        CFBundleDisplayName: Immuni
+        CFBundleIcons: {}
+        CFBundleVersion: "${BUNDLE_VERSION}"
+        IMAppstoreID: "${APPSTORE_ID}"
+        IMSupportEmail: "${SUPPORT_EMAIL}"
+        ITSAppUsesNonExemptEncryption: false
+        LSApplicationQueriesSchemes: ["googlegmail"]
+        LSRequiresIPhoneOS: true
+        UIAppFonts:
+          [
+            EuclidCircularB-Bold.otf,
+            EuclidCircularB-Medium.otf,
+            EuclidCircularB-Semibold.otf,
+            SourceCodePro-Bold.ttf,
+          ]
+        UIBackgroundModes: [processing]
+        UILaunchStoryboardName: LaunchScreen
+        UIRequiredDeviceCapabilities: [armv7, bluetooth-le, telephony]
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        UI_TEST_DIR: $(SOURCE_ROOT)/UITests/Screenshots
+        UIViewControllerBasedStatusBarAppearance: YES
+
+    scheme:
+      gatherCoverageData: true
+      testTargets:
+        - name: Immuni Tests
+          parallelizable: false
+          randomExecutionOrder: true
+
+        - name: Immuni UITests
+          parallelizable: false
+          randomExecutionOrder: true
+
+  Immuni Tests:
+    platform: iOS
+    type: bundle.unit-test
+    deploymentTarget: "13.0"
+    sources:
+      - AppTests
+    dependencies:
+      - target: Immuni
+    settings:
+      base:
+        SWIFT_VERSION: 5.2
+
+  Immuni UITests:
+    platform: iOS
+    type: bundle.unit-test
+    deploymentTarget: "13.0"
+    sources:
+      - path: UITests
+        excludes:
+          - "**/*.py"
+          - "**/*.png"
+    dependencies:
+      - target: Immuni
+    settings:
+      base:
+        SWIFT_VERSION: 5.2
+
+  # Modules
+  Extensions:
+    templates:
+      - Module
+
+  ImmuniExposureNotification:
+    templates:
+      - Module
+    dependencies:
+      - target: Extensions
+      - target: Models
+
+  Models:
+    templates:
+      - Module
+    dependencies:
+      - target: Extensions
+
+  Networking:
+    templates:
+      - Module
+    dependencies:
+      - target: Extensions
+      - target: Models
+      - target: ImmuniExposureNotification
+
+  Persistence:
+    templates:
+      - Module
+    dependencies:
+      - target: Extensions
+
+  PushNotification:
+    templates:
+      - Module
+    dependencies:
+      - target: Extensions
+
+  StorePersistence:
+    templates:
+      - Module
+    dependencies:
+      - target: Extensions

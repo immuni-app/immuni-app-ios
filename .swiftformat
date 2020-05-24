@@ -1,0 +1,40 @@
+--allman false
+--binarygrouping 4,8
+--closingparen balanced
+--conflictmarkers reject
+--decimalgrouping 3,6
+--elseposition same-line
+--empty void
+--exponentcase lowercase
+--exponentgrouping disabled
+--fractiongrouping disabled
+--fragment false
+--header ignore
+--hexgrouping 4,8
+--hexliteralcase uppercase
+--ifdef indent
+--importgrouping alphabetized
+--indent 2
+--indentcase false
+--linebreaks lf
+--maxwidth 130
+--nospaceoperators 
+--octalgrouping 4,8
+--operatorfunc spaced
+--patternlet inline
+--self insert
+--selfrequired 
+--semicolons inline
+--stripunusedargs always
+--tabwidth 2
+--trailingclosures 
+--trimwhitespace always
+--wraparguments before-first
+--wrapcollections before-first
+--wrapparameters before-first
+--xcodeindentation enabled
+--disable andOperator,unusedArguments,trailingCommas
+--enable redundantVoidReturnType
+--header "{file}\nCopyright (C) {year} Presidenza del Consiglio dei Ministri.\nPlease refer to the AUTHORS file for more information.\nThis program is free software: you can redistribute it and/or modify\nit under the terms of the GNU Affero General Public License as\npublished by the Free Software Foundation, either version 3 of the\nLicense, or (at your option) any later version.\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\nGNU Affero General Public License for more details.\nYou should have received a copy of the GNU Affero General Public License\nalong with this program. If not, see <https://www.gnu.org/licenses/>."
+--swiftversion 5
+--exclude Pods
