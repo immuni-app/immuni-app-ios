@@ -18,7 +18,7 @@ import Tempura
 
 struct SuggestionsVM: ViewModelWithLocalState {
   enum CellType: Equatable {
-    case header(daysDistance: Int)
+    case header(dayOfContact: CalendarDay?)
     case spacer(size: SuggestionsSpacerVM.Size)
     case alert(text: String)
     case info(text: String, subtitle: String)
@@ -28,8 +28,6 @@ struct SuggestionsVM: ViewModelWithLocalState {
     case separator
   }
 
-  /// The calendar day that represents the current day.
-  let today: CalendarDay
   /// The current covid status of the user.
   let covidStatus: CovidStatus
   /// Whether the header is visible in the view. The header is shown only when the content is scrolled.
@@ -40,7 +38,7 @@ struct SuggestionsVM: ViewModelWithLocalState {
     case .neutral:
       return Self.neutralCells()
     case .risk(let lastContact):
-      return Self.riskCells(lastContact: lastContact, today: self.today)
+      return Self.riskCells(lastContact: lastContact)
     case .positive:
       return Self.positiveCells()
     }
@@ -60,7 +58,7 @@ struct SuggestionsVM: ViewModelWithLocalState {
     case .neutral, .positive:
       return L10n.Suggestions.Header.ShortTitle.neutral
     case .risk:
-      return L10n.Suggestions.Header.ShortTitle.risk
+      return L10n.Suggestions.Risk.title
     }
   }
 
@@ -89,8 +87,8 @@ struct SuggestionsVM: ViewModelWithLocalState {
       return nil
     }
     switch cellType {
-    case .header(let daysDistance):
-      return SuggestionsHeaderCellVM(covidStatus: self.covidStatus, contactDaysDistance: daysDistance)
+    case .header(let dayOfContact):
+      return SuggestionsHeaderCellVM(covidStatus: self.covidStatus, dayOfContact: dayOfContact)
     case .spacer(let size):
       return SuggestionsSpacerVM(size: size)
     case .alert(let text):
@@ -116,14 +114,13 @@ extension SuggestionsVM {
     }
     self.covidStatus = state.user.covidStatus
     self.isHeaderVisible = localState.isHeaderVisible
-    self.today = state.environment.today
   }
 }
 
 extension SuggestionsVM {
   static func neutralCells() -> [CellType] {
     return [
-      .header(daysDistance: 0),
+      .header(dayOfContact: nil),
       .spacer(size: .big),
       .alert(text: L10n.Suggestions.Neutral.alert),
       .spacer(size: .small),
@@ -140,17 +137,16 @@ extension SuggestionsVM {
     ]
   }
 
-  static func riskCells(lastContact: CalendarDay, today: CalendarDay) -> [CellType] {
-    let daysDistance = today.daysSince(lastContact)
+  static func riskCells(lastContact: CalendarDay) -> [CellType] {
     return [
-      .header(daysDistance: daysDistance),
+      .header(dayOfContact: lastContact),
       .spacer(size: .big),
-      .message(text: L10n.Suggestions.Risk.titleMessage),
+      .message(text: L10n.Suggestions.Instruction.followInstructions),
       .button(interaction: .dismissContactNotifications),
       .spacer(size: .small),
       .separator,
       .spacer(size: .medium),
-      .message(text: L10n.Suggestions.Risk.instructionMessage),
+      .message(text: L10n.Suggestions.Instruction.HideIfContactDoctor.message),
       .spacer(size: .medium),
       .instruction(instruction: .socialDistance),
       .spacer(size: .tiny),
@@ -164,7 +160,7 @@ extension SuggestionsVM {
       .spacer(size: .medium),
       .separator,
       .spacer(size: .medium),
-      .message(text: L10n.Suggestions.HideCovid.message),
+      .message(text: L10n.Suggestions.Instruction.HideAlert.message),
       .spacer(size: .medium),
       .button(interaction: .dismissCovidNotifications),
       .spacer(size: .big)
@@ -173,13 +169,13 @@ extension SuggestionsVM {
 
   static func positiveCells() -> [CellType] {
     return [
-      .header(daysDistance: 0),
+      .header(dayOfContact: nil),
       .spacer(size: .big),
       .info(text: L10n.Suggestions.Positive.Info.title, subtitle: L10n.Suggestions.Positive.Info.subtitle),
       .spacer(size: .medium),
       .separator,
       .spacer(size: .medium),
-      .message(text: L10n.Suggestions.Negative.message),
+      .message(text: L10n.Suggestions.Positive.CovidNegative.message),
       .spacer(size: .medium),
       .button(interaction: .covidNegative),
       .spacer(size: .big)

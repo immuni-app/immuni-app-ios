@@ -116,8 +116,8 @@ extension Logic.CovidStatus {
       #warning("use copy provided by mds when available")
       manager.scheduleLocalNotification(
         .init(
-          title: L10n.Notifications.RiskReminder.title,
-          body: L10n.Notifications.RiskReminder.description,
+          title: L10n.Notifications.Risk.title,
+          body: L10n.Notifications.Risk.description,
           userInfo: [:],
           identifier: RiskNotificationID.contactReminder.rawValue
         ),

@@ -201,7 +201,6 @@ extension Logic.DataUpload {
       let title: String
       let message: String
       let cancelAction: String
-      let retryAction: String
 
       let typedError = self.error as? NetworkManager.Error
 
@@ -210,21 +209,18 @@ extension Logic.DataUpload {
         // Treat it as a generic connection error
         title = L10n.UploadData.ConnectionError.title
         message = L10n.UploadData.ConnectionError.message
-        cancelAction = L10n.UploadData.ConnectionError.cancel
-        retryAction = L10n.UploadData.ConnectionError.retry
+        cancelAction = L10n.UploadData.ConnectionError.action
 
       case .connectionError:
         title = L10n.UploadData.ConnectionError.title
         message = L10n.UploadData.ConnectionError.message
-        cancelAction = L10n.UploadData.ConnectionError.cancel
-        retryAction = L10n.UploadData.ConnectionError.retry
+        cancelAction = L10n.UploadData.ConnectionError.action
 
       case .unknownError, .badRequest, .bodyNotCompliant, .tooManyKeysUploaded, .unauthorizedOTP, .batchNotFound, .noBatchesFound,
            .provinceNotValid, .otpAlreadyAuthorized:
         title = L10n.UploadData.ApiError.title
         message = L10n.UploadData.ApiError.message
-        cancelAction = L10n.UploadData.ApiError.cancel
-        retryAction = L10n.UploadData.ApiError.retry
+        cancelAction = L10n.UploadData.ApiError.action
       }
 
       let model = Alert.Model(
@@ -232,13 +228,7 @@ extension Logic.DataUpload {
         message: message,
         preferredStyle: .alert,
         actions: [
-          .init(title: cancelAction, style: .cancel),
-
-          .init(title: retryAction, style: .default) {
-            if let retryDispatchable = self.retryDispatchable {
-              context.dispatch(retryDispatchable)
-            }
-          }
+          .init(title: cancelAction, style: .cancel)
         ]
       )
 

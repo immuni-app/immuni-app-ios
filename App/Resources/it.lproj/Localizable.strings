@@ -2,20 +2,132 @@
 "accessibility.close" = "Chiudi";
 "accessibility.app_name" = "Immuni";
 
-"app_setup_view.network_error" = "Non è possibile rilevare la rete Internet. Controlla la tua connessione e riprova.";
-"app_setup_view.generic_error" = "Ci dispiace, è stato impossibile connettersi. Riprova più tardi.";
+"tabbar.title.home" = "Home";
+"tabbar.title.settings" = "Impostazioni";
 
-"faq.loading" = "Caricamento\nFAQ...";
 
-"force_update_view.app.title" = "Aggiorna l'app per proseguire";
-"force_update_view.app.details" = "È disponibile un aggiornamento importante. Aggiorna subito l'app per garantirne il funzionamento.";
+"notifications.update_os.title" = "Il servizio non è ancora attivo";
+"notifications.update_os.description" = "Apri l’app per completare l’attivazione.";
+"notifications.update_app.title" = "⚠️ È necessario aggiornare l'applicazione";
+"notifications.update_app.description" = "È disponibile un aggiornamento importante. Aggiorna subito l’app per garantirne il funzionamento. ";
+"notifications.not_active_service.title" = "⚠️ Il servizio non è attivo";
+"notifications.not_active_service.description" = "Riattiva Immuni al più presto perché ti possa avvertire in caso di rischio.";
+"notifications.apple_exposure_notification.message" = "Una persona con cui hai avuto un contatto ravvicinato è risultata positiva al test.";
+"notifications.risk.title" = "Avviso importante per te";
+"notifications.risk.description" = "Apri l’app per avere più informazioni.";
+"notifications.update_positive_state.title" = "Aggiorna il tuo stato";
+"notifications.update_positive_state.description" = "Apri l’app se ci sono novità sulla tua situazione.";
+ 
+"force_update_view.app.title" = "Aggiorna l’app per proseguire";
+"force_update_view.app.details" = "È disponibile un aggiornamento importante. Aggiorna subito l’app per garantirne il funzionamento.";
 "force_update_view.update" = "Aggiorna";
 
 "force_update_view.os.title" = "Aggiorna il sistema operativo per proseguire";
-"force_update_view.os.details" = "Una versione più recente di iOS (13.5 o superiore) è necessaria per attivare il tracciamento di prossimità.";
+"force_update_view.os.details" = "Una versione più recente di iOS (13.5 o superiore) è necessaria per attivare le notifiche di esposizione.";
 
-"tabbar.title.home" = "Home";
-"tabbar.title.settings" = "Impostazioni";
+"permission_tutorial.update_os.title" = "Per aggiornare il tuo sistema operativo";
+"permission_tutorial.update_os.first" = "<b>1. Apri le impostazioni di sistema</b>";
+"permission_tutorial.update_os.second" = "<b>2. Entra in \"Generali\"</b>";
+"permission_tutorial.update_os.third" = "<b>3. Entra in \"Aggiornamento Software\"</b>";
+"permission_tutorial.update_os.fourth" = "<b>4. Seleziona \"Scarica e installa\" e segui le istruzioni</b>";
+
+"app_setup_view.network_error" = "Connessione non riuscita. Controlla la tua connessione a Internet e riprova.";
+"app_setup_view.generic_error" = "Impossibile connettersi. Riprova più tardi.";
+
+"welcome_view.items.first.title" = "Ciao!";
+"welcome_view.items.first.description" = "Con il contributo di tutti, Immuni aiuta a contenere il virus e a tornare il prima possibile alla normalità.";
+"welcome_view.items.second.title" = "Immuni si prende cura di te";
+"welcome_view.items.second.description" = "Se sei entrato in contatto con un utente in seguito risultato positivo al virus, Immuni ti avverte e ti fornisce indicazioni per proteggere la tua salute e quella dei tuoi cari. ";
+"welcome_view.items.third.title" = "Rallentiamo insieme l'epidemia";
+"welcome_view.items.third.description" = "Gli utenti che scoprono di essere stati esposti al virus possono isolarsi, rallentando così la diffusione del virus e  accelerando il ritorno alla vita normale.";
+"welcome_view.items.fourth.title" = "La tua privacy è tutelata";
+"welcome_view.items.fourth.description" = "L’app funziona senza seguire i tuoi spostamenti e senza conoscere la tua identità o quella delle persone con cui entri in contatto.";
+"welcome_view.discover_more" = "Scopri di più";
+"welcome_view.next_page_title" = "Avanti";
+"welcome_view.go_next" = "Iniziamo";
+
+"privacy.title" = "La tua privacy è al sicuro";
+"privacy.item.identity" = "<b>Immuni non raccoglie il tuo nome, cognome, data di nascita, indirizzo, numero di telefono o email.</b>";
+"privacy.item.people" = "<b>Immuni non può risalire alla tua identità</b> o a quella delle persone con cui entri in contatto.";
+"privacy.item.location" = "<b>Immuni non raccoglie alcun dato di geolocalizzazione</b>, inclusi i dati del GPS. I tuoi spostamenti non sono tracciati in alcun modo.";
+"privacy.item.secure" = "<b>I dati salvati sul tuo smartphone e le connessioni al server sono cifrati.</b>";
+"privacy.item.ministry" = "<b>Per aiutare il Servizio Sanitario Nazionale</b> a prendersi cura di te, Immuni invia al server del Ministero della Salute:\n• La tua provincia di domicilio\n• Se l’app funziona correttamente\n• Se sei stato avvertito di un contatto a rischio";
+"privacy.item.italy" = "I tuoi dati sono salvati su server in Italia, <b>sono gestiti da soggetti pubblici e controllati dal Ministero della Salute.</b>";
+"privacy.item.data_deletion" = "<b>Tutti i dati sono eliminati quando non più necessari</b> e in ogni caso non più tardi del 31 dicembre 2020.";
+"privacy.checkbox.above14" = "Dichiaro di avere almeno 14 anni";
+"privacy.checkbox.privacyPolicyRead" = "Ho letto l'<l>informativa privacy</l>";
+"privacy.tos" = "Proseguendo, dichiaro di aver letto e accettato i <l>termini di utilizzo</l>";
+"privacy.next" = "Avanti";
+"privacy.settings.title" = "La tua privacy è al sicuro";
+"privacy.settings.show_full" = "Informativa completa";
+
+"onboarding.common.next" = "Avanti";
+"onboarding.common.discover_more" = "Scopri di più";
+"onboarding.region.title" = "In che regione vivi?";
+"onboarding.region.description" = "Seleziona la tua regione di domicilio per aiutare il Sistema Sanitario Nazionale ad assisterti al meglio.";
+"onboarding.province.title" = "In che provincia vivi?";
+"onboarding.province.description" = "Seleziona la tua provincia di domicilio per aiutare il Sistema Sanitario Nazionale ad assisterti al meglio.";
+
+"onboarding.exposure_permission.title" = "Abilita le notifiche di esposizione al COVID-19";
+"onboarding.exposure_permission.description" = "Immuni registra i contatti con altri utenti usando il Bluetooth Low Energy, così da poterti informare in caso di esposizione al virus.";
+"onboarding.exposure_permission.action" = "Attiva";
+"onboarding.exposure_permission.overlay.hint" = "Seleziona \"<b>Abilita </b>\" nel popup che apparirà qui sotto";
+"onboarding.bluetooth_off.title" = "Attiva il Bluetooth";
+"onboarding.bluetooth_off.description" = "Immuni utilizza il Bluetooth Low Energy per registrare i tuoi contatti con altri utenti e permettere notifiche di esposizione al COVID-19.";
+"onboarding.bluetooth_off.action" = "Attiva";
+"onboarding.push_permission.title" = "Consentici di comunicare con te";
+"onboarding.push_permission.description" = "Le notiche permettono a Immuni di avvisarti tempestivamente in caso di necessità. ";
+"onboarding.push_permission.action" = "Consenti";
+"onboarding.push_permission.overlay.hint" = "Seleziona \"<b>Consenti</b>\" nel popup che apparirà qui sotto";
+"onboarding.pin_advice.title" = "Proteggi il tuo dispositivo";
+"onboarding.pin_advice.description" = "Se non l’hai già fatto, imposta un codice sul tuo dispositivo per proteggerlo e impedire ad altri di accedere ai tuoi dati e alle tue app, inclusa Immuni.";
+"onboarding.pin_advice.action" = "Ho capito";
+"onboarding.communication_advice.title" = "Fai attenzione alle false comunicazioni";
+"onboarding.communication_advice.description" = "Immuni comunicherà con te sempre e solamente attraverso l’app e relative notifiche. <b>Diffida di qualunque SMS, telefonata, email o altro tipo di avviso</b> che sembri arrivare da Immuni, soprattutto se ti vengono richieste informazioni personali.";
+"onboarding.communication_advice.action" = "Ho capito";
+"onboarding.complete.title" = "Configurazione completata";
+
+"home_view.service.active.title" = "Servizio\n<b>attivo</b>";
+"home_view.service.active.subtitle" = "Immuni resta operativa anche quando l'app è chiusa.";
+"home_view.service.not_active.title" = "Servizio\n<b>non attivo</b>";
+"home_view.service.not_active.subtitle" = "Intervieni subito per permettere a Immuni di funzionare correttamente.";
+"home_view.service.not_active.button" = "Riattiva Immuni"; 
+"home_view.info.protection.title" = "Cosa puoi fare per proteggerti";
+"home_view.info.app.title" = "Come funziona l'app";
+"home_view.info.button.title" = "Scopri di più";
+"home_view.info_header.title" = "Informazioni";
+"home_view.header_card.risk.title" = "Rilevata esposizione a rischio con una persona COVID-19 positiva";
+"home_view.header_card.risk.button" = "Scopri subito cosa fare ›";
+"home_view.header_card.positive.title" = "Segui le indicazioni che ti hanno fornito il tuo medico o la tua ASL";
+"home_view.header_card.positive.button" = "Sei guarito? Aggiorna il tuo stato ›";
+
+"permission_tutorial.how_immuni_works.title" = "Come funziona l’app?";
+"permission_tutorial.how_immuni_works.first.title" = "<h>Immuni associa a ogni telefono un codice casuale</h>";
+"permission_tutorial.how_immuni_works.first.message" = "Il codice è generato in modo casuale e non contiene informazioni sul tuo dispositivo, tanto meno su di te. Inoltre, cambia diverse volte ogni ora, per tutelare al meglio la tua privacy.";
+"permission_tutorial.how_immuni_works.second.title" = "<h>I telefoni che si incontrano si scambiano i rispettivi codici casuali</h>";
+"permission_tutorial.how_immuni_works.second.message" = "Quando entri in contatto con un altro utente di Immuni, i dispositivi si scambiano i rispettivi codici tramite Bluetooth Low Energy. L'app riesce così a tenere traccia del contatto avvenuto, ma non può conoscere le vostre identità, né sapere dove vi siete incontrati.";
+"permission_tutorial.how_immuni_works.third.title" = "<h>Chi risulta positivo sceglie se condividere i propri codici casuali</h>";
+"permission_tutorial.how_immuni_works.third.message" = "Gli utenti che sono risultati positivi al virus possono caricare su un server i codici casuali che i loro dispositivi hanno trasmesso nei giorni precedenti, in modo da renderli disponibili agli altri utenti.";
+"permission_tutorial.how_immuni_works.fourth.title" = "<h>Ogni telefono verifica se ha incontrato in precedenza uno o più dei codici condivisi</h>";
+"permission_tutorial.how_immuni_works.fourth.message" = "Immuni controlla periodicamente i codici presenti sul server e li confronta con quelli salvati sul tuo dispositivo. In questo modo determina se sei stato esposto a un potenziale contagio.";
+"permission_tutorial.how_immuni_works.fifth.title" = "<h>In caso di riscontro positivo, l'utente viene avvertito</h>";
+"permission_tutorial.how_immuni_works.fifth.message" = "Se sei stato in contatto con un utente positivo, Immuni ti avverte e ti dice cosa fare. Riesce a fare tutto questo senza mai sapere dove vai e con chi ti incontri. La tua privacy è al sicuro.";
+"permission_tutorial.how_immuni_works.action.description" = "Vuoi saperne di più?";
+"permission_tutorial.how_immuni_works.action.cta" = "Esplora le domande frequenti";
+
+"settings.setting.section.data" = "Gestione dati";
+"settings.setting.section.info" = "Informazioni";
+"settings.setting.section.general" = "Generale";
+"settings.setting.load_data" = "Caricamento dati";
+"settings.setting.faq" = "Domande frequenti";
+"settings.setting.tos" = "Termini di utilizzo";
+"settings.setting.privacy" = "Informativa privacy";
+"settings.setting.chage_province" = "Cambia la provincia";
+"settings.setting.leave_review" = "Lascia una recensione";
+"settings.setting.contact_support" = "Contatta il supporto";
+"settings.setting.debug_utilities" = "Menu di Debug";
+"settings.update_province.update_province" = "Aggiorna"; 
+
 
 "permission_tutorial.notifications.title" = "Per attivare le notifiche";
 "permission_tutorial.notifications.first" = "<b>1. Apri le impostazioni</b> dal bottone in basso";
@@ -40,115 +152,10 @@
 "permission_tutorial.exposure_notification.unauthorized.second" = "<b>2. Abilita le notifiche di esposizione</b>";
 "permission_tutorial.exposure_notification.unauthorized.action" = "Apri Impostazioni";
 
-"permission_tutorial.update_os.title" = "Per aggiornare il tuo sistema operativo";
-"permission_tutorial.update_os.first" = "<b>1. Apri le impostazioni di sistema</b>";
-"permission_tutorial.update_os.second" = "<b>2. Entra in \"Generali\"</b>";
-"permission_tutorial.update_os.third" = "<b>3. Entra in \"Aggiornamento Software\"</b>";
-"permission_tutorial.update_os.fourth" = "<b>4. Seleziona \"Scarica e installa\" e segui le istruzioni</b>";
-
-"permission_tutorial.how_immuni_works.title" = "Come funziona l'app?";
-"permission_tutorial.how_immuni_works.first.title" = "<h>Immuni associa a ogni telefono un codice casuale</h>";
-"permission_tutorial.how_immuni_works.first.message" = "Il codice è generato in modo casuale e non contiene informazioni sul tuo dispositivo, tanto meno su di te. Inoltre, cambia diverse volte ogni ora, per tutelare al meglio la tua privacy.";
-"permission_tutorial.how_immuni_works.second.title" = "<h>I telefoni che si incontrano si scambiano i rispettivi codici casuali</h>";
-"permission_tutorial.how_immuni_works.second.message" = "Quando entri in contatto con un altro utente di Immuni, i dispositivi si scambiano i rispettivi codici tramite Bluetooth Low Energy. L'app riesce così a tenere traccia del contatto avvenuto, ma non può conoscere le vostre identità, né sapere dove vi siete incontrati.";
-"permission_tutorial.how_immuni_works.third.title" = "<h>Chi risulta positivo sceglie se condividere i propri codici casuali</h>";
-"permission_tutorial.how_immuni_works.third.message" = "Gli utenti che sono risultati positivi al virus possono caricare su un server i codici casuali che i loro dispositivi hanno trasmesso nei giorni precedenti, in modo da renderli disponibili agli altri utenti.";
-"permission_tutorial.how_immuni_works.fourth.title" = "<h>Ogni telefono verifica se ha incontrato in precedenza uno o più dei codici condivisi</h>";
-"permission_tutorial.how_immuni_works.fourth.message" = "Immuni controlla periodicamente i codici presenti sul server e li confronta con quelli salvati sul tuo dispositivo. In questo modo determina se sei stato esposto a un potenziale contagio.";
-"permission_tutorial.how_immuni_works.fifth.title" = "<h>In caso di riscontro positivo, l'utente viene avvertito</h>";
-"permission_tutorial.how_immuni_works.fifth.message" = "Se sei stato in contatto con un utente positivo, Immuni ti avverte e ti dice cosa fare. Riesce a fare tutto questo senza mai sapere dove vai e con chi ti incontri. La tua privacy è al sicuro.";
-"permission_tutorial.how_immuni_works.action.description" = "Vuoi saperne di più?";
-"permission_tutorial.how_immuni_works.action.cta" = "Esplora le domande frequenti";
-
-"home_view.header_card.positive.button" = "Sei guarito? Aggiorna lo stato ›";
-"home_view.header_card.risk.button" = "Scopri subito cosa fare ›";
-"home_view.header_card.positive.title" = "Continua a seguire tutte le indicazioni ricevute dall'ASL";
-"home_view.header_card.risk.title" = "Rilevato contatto con una persona positiva al COVID-19";
-"home_view.info_header.title" = "Informazioni";
-"home_view.info.protection.title" = "Cosa puoi fare per proteggerti";
-"home_view.info.app.title" = "Come funziona l'app";
-"home_view.info.button.title" = "Scopri di più";
-"home_view.service.active.title" = "Servizio\n<b>attivo</b>";
-"home_view.service.active.subtitle" = "Immuni resta operativa anche quando l'app è chiusa.";
-"home_view.service.not_active.button" = "Riattiva Immuni";
-"home_view.service.not_active.title" = "Servizio\n<b>non attivo</b>";
-"home_view.service.not_active.subtitle" = "Intervieni subito per permettere a Immuni di proteggerti.";
-
-"settings.setting.section.data" = "Gestione dati";
-"settings.setting.section.info" = "Informazioni";
-"settings.setting.section.general" = "Generale";
-
-"settings.setting.load_data" = "Caricamento dati";
-"settings.setting.faq" = "Domande frequenti";
-"settings.setting.tos" = "Termini di utilizzo";
-"settings.setting.privacy" = "Informativa privacy";
-"settings.setting.chage_province" = "Cambia la provincia";
-"settings.setting.leave_review" = "Lascia una recensione";
-"settings.setting.contact_support" = "Contatta il supporto";
-"settings.setting.debug_utilities" = "Menu di Debug";
-"settings.update_province.update_province" = "Aggiorna";
-
-"privacy.title" = "La tua privacy è al sicuro";
-"privacy.item.identity" = "<b>Immuni non raccoglie il tuo nome, cognome, data di nascita, indirizzo, numero di telefono o email.</b>";
-"privacy.item.people" = "<b>Immuni non può risalire alla tua identità</b> o a quella delle persone con cui entri in contatto.";
-"privacy.item.location" = "<b>Immuni non raccoglie alcun dato di geolocalizzazione</b>, inclusi i dati del GPS. I tuoi spostamenti non sono tracciati in alcun modo.";
-"privacy.item.secure" = "<b>I dati salvati sul tuo smartphone e le connessioni al server sono cifrati.</b>";
-"privacy.item.ministry" = "<b>Per aiutare il Servizio Sanitario Nazionale</b> a prendersi cura di te, Immuni invia al server del Ministero della Salute:\n• La tua provincia di domicilio\n• Se l’app funziona correttamente\n• Se sei stato avvertito di un contatto a rischio";
-"privacy.item.italy" = "I tuoi dati sono salvati su server in Italia, <b>sono gestiti da soggetti pubblici e controllati dal Ministero della Salute.</b>";
-"privacy.item.data_deletion" = "<b>Tutti i dati sono eliminati quando non più necessari</b> e in ogni caso non più tardi del 31 dicembre 2020.";
-"privacy.checkbox.above14" = "Dichiaro di avere almeno 14 anni";
-"privacy.checkbox.privacyPolicyRead" = "Ho letto l'<l>informativa privacy</l>";
-"privacy.tos" = "Proseguendo, dichiaro di aver letto e accettato i <l>termini di utilizzo</l>";
-"privacy.next" = "Avanti";
-
-"privacy.settings.title" = "La tua privacy è al sicuro";
-"privacy.settings.show_full" = "Informativa completa";
-
-"onboarding.common.next" = "Avanti";
-"onboarding.common.discover_more" = "Scopri di più";
-"onboarding.region.title" = "Qual è la tua regione?";
-"onboarding.region.description" = "Seleziona la tua regione di domicilio per permettere a Immuni di fornirti indicazioni più precise in caso di necessità.";
-"onboarding.province.title" = "Qual è la tua provincia?";
-"onboarding.province.description" = "Seleziona la tua provincia di domicilio per permettere a Immuni di fornirti indicazioni più precise in caso di necessità.";
-
-"onboarding.exposure_permission.title" = "Attiva le notifiche di esposizione al COVID-19";
-"onboarding.exposure_permission.description" = "Immuni registra i contatti con altri utenti così da poterti informare in caso di esposizione al virus.";
-"onboarding.exposure_permission.action" = "Attiva";
-"onboarding.exposure_permission.overlay.hint" = "Seleziona \"<b>Consenti</b>\" nel popup che apparirà qui sotto";
-"onboarding.bluetooth_off.title" = "Attiva il Bluetooth";
-"onboarding.bluetooth_off.description" = "Immuni utilizza il Bluetooth Low Energy per registrare i tuoi contatti con altri utenti e permettere notifiche di esposizione al COVID-19.";
-"onboarding.bluetooth_off.action" = "Attiva";
-"onboarding.push_permission.title" = "Consentici di comunicare con te";
-"onboarding.push_permission.description" = "Le notifiche permettono a Immuni di avvisarti tempestivamente in caso di contatto con un utente positivo al virus.";
-"onboarding.push_permission.action" = "Consenti";
-"onboarding.push_permission.overlay.hint" = "Seleziona \"<b>Consenti</b>\" nel popup che apparirà qui sotto";
-
-"onboarding.pin_advice.title" = "Proteggi il tuo dispositivo";
-"onboarding.pin_advice.description" = "Se non l'hai già fatto, imposta un codice sul tuo dispositivo per proteggerlo e impedire ad altri di accedere ai tuoi dati e alle tue app, inclusa Immuni.";
-"onboarding.pin_advice.action" = "Ho capito";
-
-"onboarding.communication_advice.title" = "Fai attenzione alle false comunicazioni";
-"onboarding.communication_advice.description" = "Immuni comunicherà con te sempre e solamente attraverso l'app e relative notifiche. <b>Diffida di qualunque SMS, telefonata, email o altro tipo di avviso che sembri arrivare da Immuni, soprattutto se ti vengono richieste informazioni personali.</b>";
-"onboarding.communication_advice.action" = "Ho capito";
-
-"onboarding.complete.title" = "Configurazione completata";
-
-"welcome_view.items.first.title" = "Benvenuto";
-"welcome_view.items.first.description" = "Con il contributo di tutti, Immuni può aiutarci a contenere il COVID-19 e a tornare il prima possibile alla normalità.";
-"welcome_view.items.second.title" = "Immuni si prende cura di te";
-"welcome_view.items.second.description" = "Se sei entrato in contatto con un utente in seguito risultato positivo al virus, Immuni ti notifica e ti fornisce indicazioni per proteggere la tua salute e quella dei tuoi cari.";
-"welcome_view.items.third.title" = "Rallentiamo insieme l'epidemia";
-"welcome_view.items.third.description" = "Isolandosi, gli utenti che scoprono di essere potenzialmente contagiosi rallentano la diffusione del virus, accelerando il ritorno alla vita normale.";
-"welcome_view.items.fourth.title" = "La tua privacy è tutelata";
-"welcome_view.items.fourth.description" = "L'app funziona senza seguire i tuoi spostamenti e senza conoscere la tua identità o quella delle persone con cui entri in contatto.";
-"welcome_view.discover_more" = "Scopri di più";
-"welcome_view.next_page_title" = "Avanti";
-"welcome_view.go_next" = "Iniziamo";
-
-"upload_data.warning.message" = "Questa funzione richiede l'autorizzazione di un operatore sanitario incaricato";
+"upload_data.warning.message" = "Questa funzione richiede l'assistenza di un operatore sanitario autorizzato";
 "upload_data.code.message" = "Comunica questo codice all'operatore sanitario:";
 "upload_data.wait_operator.message" = "Attendi la conferma dell'operatore";
-"upload_data.verify.message" = "Per proseguire, verifica l'autorizzazione";
+"upload_data.verify.message" = "Per proseguire, verifica l'autorizzazione ";
 "upload_data.verify.button" = "Verifica";
 "upload_data.verify.error" = "Codice non ancora autorizzato";
 "upload_data.verify.loading" = "Verifica\nautorizzazione...";
@@ -160,90 +167,81 @@
 "upload_data.missing_authorization.title" = "Riattiva le notifiche di esposizione per continuare";
 "upload_data.missing_authorization.message" = "Le notifiche di esposizione sono necessarie durante questa procedura. Riattivale subito per continuare.";
 "upload_data.missing_authorization.close" = "Chiudi";
-"upload_data.missing_authorization.enable" = "Attiva";
+"upload_data.missing_authorization.enable" = "Attiva"; 
 "upload_data.connection_error.title" = "Errore di connessione";
 "upload_data.connection_error.message" = "Qualcosa è andato storto, controlla la tua connessione internet e riprova.";
-"upload_data.connection_error.cancel" = "Annulla";
-"upload_data.connection_error.retry" = "Riprova";
+"upload_data.connection_error.action" = "OK";
 "upload_data.api_error.title" = "Qualcosa è andato storto";
-"upload_data.api_error.message" = "È stato riscontrato un problema durante la procedura, riprova per continuare.";
-"upload_data.api_error.cancel" = "Annulla";
-"upload_data.api_error.retry" = "Riprova";
+"upload_data.api_error.message" = "Si è verificato un errore durante l’operazione. Ti invitiamo a riprovare. Nel caso il problema persista, ti suggeriamo di utilizzare una rete mobile.";
+"upload_data.api_error.action" = "OK";
+"upload_data.vpn_error.title" = "Qualcosa è andato storto";
+"upload_data.vpn_error.message" = "Si è verificato un errore durante l’operazione. Ti invitiamo a riprovare. Se stai utilizzando una VPN, ti suggeriamo di selezionare un server europeo o di disabilitarla temporaneamente.";
+"upload_data.vpn_error.action" = "OK";
 
 "confirm_data.title" = "Ecco i dati che verranno caricati";
 "confirm_data.footer_message" = "Attendi conferma da parte dell'operatore per caricare i tuoi dati.";
 "confirm_data.button.title" = "Carica i dati";
-"confirm_data.cell.result.title" = "Il risultato del test";
-"confirm_data.cell.proximity_data.title" = "I tuoi codici di prossimità";
-"confirm_data.cell.exposition_data.title" = "I dettagli della tua esposizione a utenti positivi (ad esempio la durata del contatto)";
+"confirm_data.cell.result.title" = "Il risultato dell'esame";
+"confirm_data.cell.proximity_data.title" = "I tuoi codici casuali";
+"confirm_data.cell.exposition_data.title" = "Gli indicatori di rischio di precedenti contatti con persone COVID-19 positive";
 "confirm_data.cell.province.title" = "La tua provincia";
 "confirm_data.confirmation.title" = "Dati caricati con successo";
 "confirm_data.confirmation.subtitle" = "Grazie per il tuo contributo";
-
-"notifications.update_app.title" = "⚠️ È necessario aggiornare l'applicazione";
-"notifications.update_app.description" = "È disponibile un aggiornamento importante. Aggiorna subito l'app per garantirne il funzionamento.";
-"notifications.update_os.title" = "Il servizio non è ancora attivo";
-"notifications.update_os.description" = "Apri l'app per completare l'attivazione.";
-"notifications.not_active_service.title" = "⚠️ Il servizio non è attivo";
-"notifications.not_active_service.description" = "Riattiva Immuni al più presto perché ti possa avvertire in caso di rischio.";
-
-"notifications.risk.title" = "⚠️ NOTIFICA DI CONTATTO";
-"notifications.risk.description" = "Un utente con cui sei entrato in contatto è risultato positivo al COVID-19. Scopri subito cosa devi fare.";
-
-"notifications.risk_reminder.title" = "⚠️ NOTIFICA DI CONTATTO";
-"notifications.risk_reminder.description" = "TODO";
-
-"notifications.update_positive_state.title" = "Sei guarito?";
-"notifications.update_positive_state.description" = "Apri l'app se la tua ASL ti ha confermato di essere negativo al virus.";
-
-"notifications.apple_exposure.message" = "TODO";
-
-"error.faq_download.title" = "Errore";
-"error.faq_download.message" = "Non è stato possibile scaricare le FAQ. Controlla la tua connessione di rete e riprova";
-"error.faq_download.action" = "Ok";
-
-"suggestions.header.title.neutral" = "Cosa posso fare per proteggermi";
-"suggestions.header.title.risk" = "Rilevato un contatto ad alto rischio";
-"suggestions.header.title.positive" = "Segui le indicazioni della tua ASL";
-"suggestions.header.subtitle.risk" = "<b>Immuni ha rilevato che %@ hai avuto l'ultimo contatto con un utente positivo al COVID-19.</b>";
-"suggestions.header.subtitle.positive" = "<b>Segui tutte le indicazioni che hai ricevuto dal Dipartimento di Prevenzione della tua ASL.</b>";
+"confirm_data.exposure_permission.overlay.hint" = "Seleziona \"<b>OK</b>\" nel popup che apparirà qui sotto";
+"confirm_data.close_verify_alert.title" = "Sei sicuro di voler uscire?";
+"confirm_data.close_verify_alert.message" = "I tuoi dati non sono ancora stati caricati.";
+"confirm_data.close_verify_alert.affermative_answer" = "Sì, esci";
+"confirm_data.close_verify_alert.negative_answer" = "Annulla";
 
 "suggestions.header.short_title.neutral" = "Indicazioni per te";
-"suggestions.header.short_title.risk" = "Contatto stretto";
-
-"suggestions.instruction.ministerial_decree" = "<b>Rispetta i decreti ministeriali in funzione nella tua area</b>";
-"suggestions.instruction.wash_hands" = "<b>Lavati frequentemente le mani</b>";
-"suggestions.instruction.use_napkins" = "<b>Tossisci e starnutisci direttamente su un fazzoletto di carta o nella piega del gomito</b>";
-"suggestions.instruction.social_distance" = "<b>Rispetta le misure di distanziamento fisico</b> (almeno 1 metro) se devi uscire di casa";
-"suggestions.instruction.check_symptoms" = "<b>Valuta due volte al giorno la comparsa dei sintomi compatibili con il COVID-19:</b> febbre di qualsiasi grado, tosse, affaticamento, difficoltà respiratoria e perdita di gusto o di olfatto";
-"suggestions.instruction.isolate" = "<b>In caso di comparsa dei sintomi, isolati immediatamente</b> dal resto dei conviventi e indossa una mascherina protettiva";
-
-"suggestions.neutral.alert" = "Se sei in contatto con il Dipartimento di Prevenzione della tua ASL, segui tutte le indicazioni che hai ricevuto.";
+"suggestions.neutral.alert" = "Se sei in contatto con il tuo medico o con il Dipartimento di Prevenzione della tua ASL, segui tutte le indicazioni che hai ricevuto.";
 "suggestions.neutral.message" = "In ogni caso, <b>cerca sempre di rispettare queste indicazioni generali:</b>";
 
-"suggestions.risk.title_message" = "<b>Contatta immediatamente il Dipartimento di Prevenzione della tua ASL</b>, se non lo hai già fatto.";
-"suggestions.risk.instruction_message" = "In attesa di ricevere istruzioni dalla tua ASL, <b>segui queste semplici indicazioni:</b>";
+"suggestions.risk.title" = "Esposizione a rischio";
+"suggestions.risk.subtitle" = "Immuni ha rilevato che il giorno %@ sei stato vicino a un utente COVID-19 positivo.";
 
-"suggestions.positive.info.title" = "Immuni sta continuando a funzionare, non disinstallarla";
-"suggestions.positive.info.subtitle" = "Per il momento, non riceverai eventuali nuove notifiche in caso di contatto con un utente positivo al COVID-19.";
+"suggestions.positive.title" = "Segui le indicazioni";
+"suggestions.positive.subtitle" = "<b>Segui tutte le indicazioni che hai ricevuto dal tuo medico o dal Dipartimento di Prevenzione della tua ASL.</b>";
 
-"suggestions.hide_covid.message" = "Puoi nascondere questo avviso toccando il tasto qui sotto. A meno che tu abbia una ragione valida per farlo (sei un operatore sanitario a contatto con casi di COVID-19, sei già in contatto con la tua ASL, ecc.), <b>ti sconsigliamo vivamente di farlo.</b>";
-"suggestions.negative.message" = "<b>Nel caso tu abbia ricevuto conferma di negatività al COVID-19 da parte della tua ASL</b>, tocca il tasto qui sotto per riattivare le notifiche in caso di contatto.";
+"suggestions.instruction.ministerial_decree" = "<b>Rispetta la normativa vigente nella tua area</b>";
+"suggestions.instruction.wash_hands" = "<b>Lavati frequentemente le mani </b>con acqua e sapone o con soluzioni idroalcoliche";
+"suggestions.instruction.use_napkins" = "<b>Tossisci e starnutisci direttamente su un fazzoletto di carta o nella piega del gomito</b>";
+"suggestions.instruction.social_distance" = "<b>Rispetta le misure di distanziamento fisico </b>se devi uscire di casa";
+"suggestions.instruction.mask" = "<b>Indossa una mascherina nei luoghi al chiuso accessibili al pubblico</b>, inclusi i mezzi di trasporto e comunque in tutte le occasioni in cui non sia possibile garantire continuativamente il mantenimento della distanza di sicurezza";
 
-"suggestions.button.dismiss_contact_notifications" = "Sono in contatto con la ASL";
-"suggestions.button.dismiss_covid_notifications" = "Nascondi avviso";
-"suggestions.button.covid_negative" = "Sono negativo al COVID-19";
+"suggestions.instruction.follow_instructions" = "Per proteggere la tua salute e quella dei tuoi cari, <b>rispetta le seguenti indicazioni:</b>";
 
-"suggestions.alert.hide_suggestion.title" = "Vuoi nascondere questo avviso?";
-"suggestions.alert.hide_suggestion.description" = " A meno che tu abbia una ragione valida per farlo, ti sconsigliamo vivamente di farlo. Ne potrebbe andare della tua salute e di quella delle persone che ti circondano.";
+"suggestions.instruction.contact_doctor.title" = "Contatta il tuo Medico di Medicina Generale (o il Pediatra di Libera Scelta)";
+"suggestions.instruction.contact_doctor.message" = "Spiega al medico di aver ricevuto una notifica di contatto stretto di COVID-19 da Immuni. Segui le indicazioni del tuo medico.";
+
+"suggestions.intruction.hide_if_contact_doctor.message" = "Se sei in contatto con il tuo medico o la tua ASL, puoi nascondere questo avviso.";
+"suggestions.intruction.hide_if_contact_doctor.action" = "Ho contattato il medico";
+
+"suggestions.intruction.while_waiting_doctor" = "In via precauzionale, <b>in attesa delle indicazioni del tuo medico:</b>";
+"suggestions.intruction.stay_home" = "<b>Rimani a casa per i 14 giorni</b> successivi alla data del contatto";
+
+"suggestions.intruction.check_symptoms.title" = "Misura la temperatura corporea almeno due volte al giorno e valuta la comparsa di sintomi, anche lievi.";
+"suggestions.intruction.check_symptoms.message" = "In particolare febbre o almeno uno dei seguenti: mal di gola, tosse, raffreddore o naso chiuso, difficoltà respiratoria, dolori muscolari, perdita o alterazioni di olfatto o gusto, diarrea";
+
+"suggestions.intruction.isolate.title" = "In caso di comparsa dei sintomi, isolati dal resto dei tuoi conviventi";
+"suggestions.intruction.isolate.message" = "Indossa una mascherina chirurgica e contatta immediatamente il tuo Medico di Medicina Generale (o il Pediatra di Libera Scelta) e il Dipartimento di Prevenzione della ASL";
+
+"suggestions.intruction.phone_contact" = "In caso di sintomi gravi, contatta il 112 o il 118";
+
+"suggestions.intruction.hide_alert.message" = "Se necessario puoi nascondere questo avviso. A meno che tu abbia una ragione valida, ti sconsigliamo vivamente di farlo.";
+"suggestions.intruction.hide_alert.action" = "Nascondi avviso";
+
 "suggestions.alert.asl_contact_confirmation.title" = "Confermi di essere in contatto con la tua ASL?";
-"suggestions.alert.asl_contact_confirmation.description" = "Immuni nasconderà l'avviso di contatto. Dovrai comunque seguire tutte le indicazione che hai ricevuto dalla tua ASL.";
-"suggestions.alert.covid_negative.title" = "Confermi di essere negativo al COVID-19?";
+"suggestions.alert.asl_contact_confirmation.description" = "Immuni nasconderà l’avviso di contatto. Dovrai comunque seguire tutte le indicazione che hai ricevuto dalla tua ASL.";
+
+"suggestions.positive.info.title" = "Immuni sta continuando a funzionare: non disinstallarla!";
+"suggestions.positive.info.subtitle" = "Per il momento, non riceverai eventuali nuove notifiche in caso di esposizione a rischio con un utente COVID-19 positivo.";
+
+"suggestions.positive.covid_negative.message" = "<b>Indicaci se la tua ASL ha confermato che sei COVID-19 negativo per riattivare le notifiche in caso di esposizione a rischio.</b>";
+"suggestions.positive.covid_negative.action" = "Sono COVID-19 negativo";
+
+
+"suggestions.alert.covid_negative.title" = "Confermi di essere COVID-19 negativo?";
 "suggestions.alert.covid_negative.description" = "La tua ASL deve aver confermato che sei negativo al virus e che puoi tornare a uscire di casa.";
-
-"suggestions.alert.negative_answer" = "No";
-"suggestions.alert.affermative_answer" = "Sì";
-"suggestions.alert.confirmation_answer" = "Confermo";
-
-"days_distance.single" = "un giorno fa";
-"days_distance.plural" = "%d giorni fa";
+"suggestions.alert.covid_negative.negative_answer" = "No";
+"suggestions.alert.covid_negative.positive_answer" = "Confermo";

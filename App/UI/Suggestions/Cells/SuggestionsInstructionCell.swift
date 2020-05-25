@@ -39,9 +39,9 @@ struct SuggestionsInstructionCellVM: ViewModel {
     case .socialDistance:
       return L10n.Suggestions.Instruction.socialDistance
     case .checkSymptoms:
-      return L10n.Suggestions.Instruction.checkSymptoms
+      return L10n.Suggestions.Instruction.CheckSymptoms.title
     case .isolate:
-      return L10n.Suggestions.Instruction.isolate
+      return L10n.Suggestions.Instruction.Isolate.title
     }
   }
 

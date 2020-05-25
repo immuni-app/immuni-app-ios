@@ -52,11 +52,11 @@ struct SuggestionsButtonCellVM: ViewModel {
   var title: String {
     switch self.interaction {
     case .dismissContactNotifications:
-      return L10n.Suggestions.Button.dismissContactNotifications
+      return L10n.Suggestions.Instruction.HideIfContactDoctor.action
     case .dismissCovidNotifications:
-      return L10n.Suggestions.Button.dismissCovidNotifications
+      return L10n.Suggestions.Instruction.HideAlert.action
     case .covidNegative:
-      return L10n.Suggestions.Button.covidNegative
+      return L10n.Suggestions.Positive.CovidNegative.action
     }
   }
 
