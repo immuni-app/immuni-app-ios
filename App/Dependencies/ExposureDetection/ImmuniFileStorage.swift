@@ -16,7 +16,7 @@ import Extensions
 import Foundation
 import Hydra
 import Persistence
-import SSZipArchive
+import ZIPFoundation
 
 /// The default implementation of `FileStorage`. It reads the input `data` as a zip archive, expecting it to include two files,
 /// as explained in [Apple's documentation]
@@ -42,9 +42,10 @@ public class ImmuniFileStorage: FileStorage {
         try? self.fileManager.removeItem(at: zipFileURL)
       }
 
-      guard SSZipArchive.unzipFile(atPath: zipFileURL.path, toDestination: unzipDirectoryURL.path) else {
+      do {
+        try self.fileManager.unzipItem(at: zipFileURL, to: unzipDirectoryURL)
+      } catch {
         reject(Error.unzipError)
-        return
       }
 
       let unzippedFiles = try self.fileManager.contentsOfDirectory(at: unzipDirectoryURL, includingPropertiesForKeys: nil)
