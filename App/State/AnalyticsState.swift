@@ -70,7 +70,7 @@ extension AnalyticsState {
       guard self.windowDuration > 0 else {
         return false
       }
-      
+
       return (self.windowStart ..< self.windowEnd).contains(date)
     }
   }
