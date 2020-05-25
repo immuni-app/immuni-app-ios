@@ -173,6 +173,9 @@ extension Logic.Lifecycle {
       /// Initialize the stochastic parameters required for the generation of dummy analytics traffic.
       try context.awaitDispatch(Logic.Analytics.UpdateDummyTrafficOpportunityWindow())
 
+      /// Initialize the stochastic parameters required for the generation of dummy analytics traffic.
+      try context.awaitDispatch(Logic.DataUpload.UpdateDummyTrafficOpportunityWindow())
+
       // flags the first launch as done to prevent further downloads during the startup phase
       try context.awaitDispatch(PassFirstLaunchExecuted())
     }

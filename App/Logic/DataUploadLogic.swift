@@ -232,6 +232,27 @@ extension Logic.DataUpload {
   }
 }
 
+// MARK: - Dummy traffic
+
+extension Logic.DataUpload {
+  /// Updates the dummy ingestion traffic opportunity window taking the parameters from the Configuration and the RNGs.
+  struct UpdateDummyTrafficOpportunityWindow: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      let state = context.getState()
+
+      let dummyTrafficStochasticDelay = context.dependencies.exponentialDistributionGenerator
+        .exponentialRandom(with: state.configuration.dummyIngestionMeanStochasticDelay)
+
+      try context.awaitDispatch(
+        SetDummyTrafficOpportunityWindow(
+          dummyTrafficStochasticDelay: dummyTrafficStochasticDelay,
+          now: context.dependencies.now()
+        )
+      )
+    }
+  }
+}
+
 // MARK: - StateUpdaters
 
 extension Logic.DataUpload {
@@ -248,6 +269,18 @@ extension Logic.DataUpload {
     func updateState(_ state: inout AppState) {
       state.ingestion.lastOtpUploadFailedAttempt = nil
       state.ingestion.otpUploadFailedAttempts = 0
+    }
+  }
+
+  /// Sets the opportunity window for the dummy ingestion traffic
+  struct SetDummyTrafficOpportunityWindow: AppStateUpdater {
+    let dummyTrafficStochasticDelay: Double
+    let now: Date
+
+    func updateState(_ state: inout AppState) {
+      let windowStart = self.now.addingTimeInterval(self.dummyTrafficStochasticDelay)
+      let windowDuration = OpportunityWindow.secondsInDay
+      state.ingestion.dummyTrafficOpportunityWindow = .init(windowStart: windowStart, windowDuration: windowDuration)
     }
   }
 }

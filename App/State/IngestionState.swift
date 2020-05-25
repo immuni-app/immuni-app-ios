@@ -20,6 +20,7 @@ struct IngestionState: Codable {
   enum CodingKeys: String, CodingKey {
     case otpUploadFailedAttempts
     case lastOtpUploadFailedAttempt
+    case dummyTrafficOpportunityWindow
   }
 
   // MARK: - Persisted slices
@@ -29,6 +30,9 @@ struct IngestionState: Codable {
 
   /// The time of last failed OTP validation
   var lastOtpUploadFailedAttempt: Date? = nil
+
+  /// The opportunity window for Ingestion-related dummy traffic.
+  var dummyTrafficOpportunityWindow: OpportunityWindow = .distantPast
 
   // MARK: - Not persisted slices
 
