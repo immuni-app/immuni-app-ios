@@ -205,13 +205,8 @@ extension Logic.DataUpload {
       let typedError = self.error as? NetworkManager.Error
 
       switch typedError {
-      case .none:
-        // Treat it as a generic connection error
-        title = L10n.UploadData.ConnectionError.title
-        message = L10n.UploadData.ConnectionError.message
-        cancelAction = L10n.UploadData.ConnectionError.action
-
-      case .connectionError:
+      case .none, .connectionError:
+        // Treat none as a generic connection error
         title = L10n.UploadData.ConnectionError.title
         message = L10n.UploadData.ConnectionError.message
         cancelAction = L10n.UploadData.ConnectionError.action
