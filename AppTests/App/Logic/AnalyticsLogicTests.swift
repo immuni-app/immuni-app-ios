@@ -708,7 +708,7 @@ extension AnalyticsLogicTests {
       )
 
       let context = AppSideEffectContext(dependencies: dependencies)
-      
+
       try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
       try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.UpdateDummyTrafficOpportunityWindow.self)
     }
@@ -794,7 +794,7 @@ extension AnalyticsLogicTests {
         exposureNotificationStatus: state.environment.exposureNotificationAuthorizationStatus,
         pushNotificationStatus: state.environment.pushNotificationAuthorizationStatus,
         riskyExposureDetected: true,
-        deviceToken: token.data(using: .utf8)!.base64EncodedString()
+        deviceToken: token.data(using: .utf8)!
       ),
       isDummy: false
     )
@@ -851,7 +851,7 @@ extension AnalyticsLogicTests {
         exposureNotificationStatus: state.environment.exposureNotificationAuthorizationStatus,
         pushNotificationStatus: state.environment.pushNotificationAuthorizationStatus,
         riskyExposureDetected: false,
-        deviceToken: token.data(using: .utf8)!.base64EncodedString()
+        deviceToken: token.data(using: .utf8)!
       ),
       isDummy: false
     )
@@ -891,7 +891,7 @@ extension AnalyticsLogicTests {
 
     try XCTAssertType(requestExecutor.executeMethodCalls.first, AnalyticsRequest.self) { request in
       XCTAssertEqual(request.isDummy, true)
-      XCTAssertNotEqual(request.jsonParameter.deviceToken, token)
+      XCTAssertEqual(request.jsonParameter.deviceToken, token.data(using: .utf8)!.base64EncodedString())
     }
   }
 }

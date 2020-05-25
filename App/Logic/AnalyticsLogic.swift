@@ -42,7 +42,7 @@ extension Logic.Analytics {
       } else if Self.shouldSendDummyAnalytics(state: analyticsState, now: now) {
         try context.awaitDispatch(SendDummyAnalyticsAndUpdateOpportunityWindow())
       }
-      
+
       if Self.isDummyAnalyticsOpportunityWindowExpired(state: analyticsState, now: now) {
         try context.awaitDispatch(UpdateDummyTrafficOpportunityWindow())
       }
@@ -246,7 +246,7 @@ extension Logic.Analytics {
       let userProvince = state.user.province ?? AppLogger.fatalError("User has not set a province")
       let userExposureNotificationStatus = state.environment.exposureNotificationAuthorizationStatus
       let userPushNotificationStatus = state.environment.pushNotificationAuthorizationStatus
-      let deviceToken = try await(context.dependencies.tokenGenerator.generateToken()).base64EncodedString()
+      let deviceToken = try await(context.dependencies.tokenGenerator.generateToken())
 
       let body: AnalyticsRequest.Body
       let isDummy: Bool
@@ -270,7 +270,7 @@ extension Logic.Analytics {
         )
         isDummy = false
       case .dummy:
-        body = .dummy(deviceTokenLength: deviceToken.count)
+        body = .dummy(deviceToken: deviceToken)
         isDummy = true
       }
 
@@ -327,13 +327,13 @@ extension Logic.Analytics {
 
 private extension AnalyticsRequest.Body {
   /// Creates a dummy request
-  static func dummy(deviceTokenLength: Int) -> Self {
+  static func dummy(deviceToken: Data) -> Self {
     return Self(
       province: Province.allCases.randomElement() ?? AppLogger.fatalError("No provinces defined"),
       exposureNotificationStatus: ExposureNotificationStatus.randomCase(),
       pushNotificationStatus: UNAuthorizationStatus.randomCase(),
       riskyExposureDetected: Bool.random(),
-      deviceToken: String.random(length: deviceTokenLength)
+      deviceToken: deviceToken
     )
   }
 }
@@ -357,21 +357,5 @@ private extension UNAuthorizationStatus {
   /// This is to avoid making `UNAuthorizationStatus` conform `CaseIterable` just for this specific use case.
   static func randomCase() -> Self {
     Self.allCases.randomElement() ?? AppLogger.fatalError("No statuses defined")
-  }
-}
-
-private extension String {
-  static let allowedAlphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-
-  static func random(length: Int) -> Self {
-    guard length > 0 else {
-      return ""
-    }
-
-    let characters = (0 ..< length).map { _ in
-      allowedAlphabet.randomElement() ?? AppLogger.fatalError("No characters in alphabet")
-    }
-
-    return String(characters)
   }
 }

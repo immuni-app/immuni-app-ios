@@ -71,7 +71,7 @@ public extension AnalyticsRequest {
       exposureNotificationStatus: ExposureNotificationStatus,
       pushNotificationStatus: UNAuthorizationStatus,
       riskyExposureDetected: Bool,
-      deviceToken: String
+      deviceToken: Data
     ) {
       self.province = province.rawValue
       self.exposurePermission = exposureNotificationStatus.canPerformDetection.intValue
@@ -81,7 +81,7 @@ public extension AnalyticsRequest {
       self.bluetoothActive = isBluetoothActive.intValue
 
       self.exposureNotification = riskyExposureDetected.intValue
-      self.deviceToken = deviceToken
+      self.deviceToken = deviceToken.base64EncodedString()
     }
   }
 }
