@@ -21,35 +21,29 @@ import Tempura
 import XCTest
 
 final class AppSetupLogicTests: XCTestCase {
-  func testPerformsSetupFirstLaunch() throws {
-    let getState = { AppState() }
-    let dispatchInterceptor = DispatchInterceptor()
-    let dependencies = AppDependencies.mocked(getAppState: getState, dispatch: dispatchInterceptor.dispatchFunction)
-    let context = AppSideEffectContext(dependencies: dependencies)
-
-    try Logic.AppSetup.PerformSetup().sideEffect(context)
-
-    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 3)
-
-    try XCTAssertType(dispatchInterceptor.dispatchedItems.first, Logic.Configuration.DownloadAndUpdateConfiguration.self)
-    try XCTAssertType(dispatchInterceptor.dispatchedItems[1], Logic.AppSetup.PassFirstLaunchExecuted.self)
-    try XCTAssertType(dispatchInterceptor.dispatchedItems[2], Logic.AppSetup.ChangeRoot.self)
-  }
-
-  func testPerformsSetup() throws {
+  func testAwaitsForFirstLaunchSetup() throws {
     var state = AppState()
-    state.toggles.isFirstLaunchPerformed = true
-
     let getState = { state }
     let dispatchInterceptor = DispatchInterceptor()
     let dependencies = AppDependencies.mocked(getAppState: getState, dispatch: dispatchInterceptor.dispatchFunction)
     let context = AppSideEffectContext(dependencies: dependencies)
 
+    DispatchQueue.global().asyncAfter(deadline: .now() + 5) {
+      do {
+        XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 1)
+        try XCTAssertType(dispatchInterceptor.dispatchedItems.first, WaitForState.self)
+
+        // Simulate the first launch setup performed
+        state.toggles.isFirstLaunchSetupPerformed = true
+
+        self.expectToEventually(dispatchInterceptor.dispatchedItems.count == 2)
+        try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.AppSetup.ChangeRoot.self)
+      } catch {
+        XCTFail("Assertion failed \(error)")
+      }
+    }
+
     try Logic.AppSetup.PerformSetup().sideEffect(context)
-
-    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 1)
-
-    try XCTAssertType(dispatchInterceptor.dispatchedItems.first, Logic.AppSetup.ChangeRoot.self)
   }
 
   func testChangeRootWithForceUpdate() throws {

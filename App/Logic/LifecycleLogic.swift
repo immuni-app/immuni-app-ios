@@ -36,6 +36,11 @@ extension Logic {
           try context.awaitDispatch(SetAppVersion(appVersion: "\(appVersion) (\(bundleVersion))"))
         }
 
+        let state = context.getState()
+
+        // Perform the setup related to the first launch of the application, if needed
+        try context.awaitDispatch(PerformFirstLaunchSetupIfNeeded())
+
         /// starts the exposure manager if possible
         try await(context.dependencies.exposureNotificationManager.startIfAuthorized())
 
@@ -133,6 +138,28 @@ extension Logic {
 // MARK: Helper Side Effects
 
 extension Logic.Lifecycle {
+  struct PerformFirstLaunchSetupIfNeeded: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      let state = context.getState()
+
+      guard !state.toggles.isFirstLaunchSetupPerformed else {
+        // The first launch setup was already performed
+        return
+      }
+
+      // Download the Configuration with a given timeout
+      let configurationFetch = context
+        .dispatch(Logic.Configuration.DownloadAndUpdateConfiguration())
+        .timeout(timeout: 10)
+
+      // Fail silently in case of error (for example, the timeout triggering)
+      try? await(configurationFetch)
+
+      // flags the first launch as done to prevent further downloads during the startup phase
+      try context.awaitDispatch(PassFirstLaunchExecuted())
+    }
+  }
+
   struct RefreshAuthorizationStatuses: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let pushStatus = try await(context.dependencies.pushNotification.getCurrentAuthorizationStatus())
@@ -184,6 +211,13 @@ private extension Logic.Lifecycle {
 
     func updateState(_ state: inout AppState) {
       state.environment.userLanguage = self.language
+    }
+  }
+
+  /// Marks the first launch executed as done
+  struct PassFirstLaunchExecuted: AppStateUpdater {
+    func updateState(_ state: inout AppState) {
+      state.toggles.isFirstLaunchSetupPerformed = true
     }
   }
 }
