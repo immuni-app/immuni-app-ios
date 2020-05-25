@@ -154,7 +154,7 @@ Please check the [AUTHORS](AUTHORS) file for extended reference.
 | [Lottie](https://github.com/airbnb/lottie-ios)             | Apache 2.0 |
 | [PinLayout](https://github.com/layoutBox/PinLayout)        | MIT        |
 | [SwiftLog](https://github.com/apple/swift-log/)            | Apache 2.0 |
-| [ZipArchive](https://github.com/ZipArchive/ZipArchive)     | MIT        |
+| [ZIPFoundation](https://github.com/weichsel/ZIPFoundation) | MIT        |
 
 ## License details
 
