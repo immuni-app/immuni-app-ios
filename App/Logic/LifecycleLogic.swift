@@ -96,7 +96,7 @@ extension Logic {
       }
 
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-        // dismiss sensitive data overlay
+        // dismiss sensitive data overlay. Check `SensitiveDataCoverVC` documentation.
         context.dispatch(Logic.Shared.HideSensitiveDataCoverIfPresent())
 
         // refresh statuses
@@ -119,7 +119,7 @@ extension Logic {
       }
 
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-        // show sensitive data overlay
+        // show sensitive data overlay. Check `SensitiveDataCoverVC` documentation.
         context.dispatch(Logic.Shared.ShowSensitiveDataCoverIfNeeded())
       }
     }
