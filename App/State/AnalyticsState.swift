@@ -37,11 +37,16 @@ extension AnalyticsState {
   struct OpportunityWindow: Codable, Equatable {
     static let secondsInDay: TimeInterval = 86400
 
-    /// The shift, in seconds, with respect to the start of the month
+    /// The start of this opportunity window
     let windowStart: Date
 
     /// The duration of the opportunity window
     let windowDuration: TimeInterval
+
+    /// The end of this opportunity window
+    var windowEnd: Date {
+      return self.windowStart.addingTimeInterval(self.windowDuration)
+    }
 
     /// The month in which the opportunity window occurs
     var month: CalendarMonth {
@@ -62,8 +67,7 @@ extension AnalyticsState {
 
     /// Whether the given date falls in the opportunity window
     func contains(_ date: Date) -> Bool {
-      let windowEnd = self.windowStart.addingTimeInterval(self.windowDuration)
-      return (self.windowStart ..< windowEnd).contains(date)
+      return (self.windowStart ..< self.windowEnd).contains(date)
     }
   }
 }

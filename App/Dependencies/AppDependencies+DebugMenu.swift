@@ -113,12 +113,12 @@
       items.append(contentsOf: [
         .init(
           title: "[Analytics] Trigger send without exposure logic",
-          dispatchable: Logic.Analytics.SendOperationalInfoWithoutExposureIfNeeded()
+          dispatchable: Logic.Analytics.StochasticallySendOperationalInfoWithoutExposure()
         ),
 
         .init(
           title: "[Analytics] Trigger send with exposure logic",
-          dispatchable: Logic.Analytics.SendOperationalInfoWithExposureIfNeeded()
+          dispatchable: Logic.Analytics.StochasticallySendOperationalInfoWithExposure()
         )
       ])
 

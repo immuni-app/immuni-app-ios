@@ -26,16 +26,18 @@ public struct AnalyticsRequest: Equatable, JSONRequest {
   public var method: HTTPMethod = .post
 
   public let jsonParameter: Body
+  public let isDummy: Bool
 
   public var headers: [HTTPHeader] {
     return [
       .contentType("application/json; charset=UTF-8"),
-      .dummyData(false)
+      .dummyData(self.isDummy)
     ]
   }
 
-  public init(body: Body) {
+  public init(body: Body, isDummy: Bool) {
     self.jsonParameter = body
+    self.isDummy = isDummy
   }
 }
 

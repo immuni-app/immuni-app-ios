@@ -13,6 +13,7 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 import Hydra
+import Extensions
 import ImmuniExposureNotification
 import Katana
 import Models
@@ -31,15 +32,59 @@ extension Logic.Analytics {
     let outcome: ExposureDetectionOutcome
 
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      switch self.outcome {
-      case .error, .noDetectionNecessary:
-        return
-      case .partialDetection:
-        try context.awaitDispatch(SendOperationalInfoWithoutExposureIfNeeded())
+      let analyticsState = context.getState().analytics
+      let now = context.dependencies.now()
 
-      case .fullDetection:
-        try context.awaitDispatch(SendOperationalInfoWithExposureIfNeeded())
+      if Self.shouldSendOperationInfoWithExposure(outcome: self.outcome, state: analyticsState, now: now) {
+        try context.awaitDispatch(StochasticallySendOperationalInfoWithExposure())
+      } else if Self.shouldSendOperationInfoWithoutExposure(outcome: self.outcome, state: analyticsState, now: now) {
+        try context.awaitDispatch(StochasticallySendOperationalInfoWithoutExposure())
       }
+    }
+
+    /// Whether a genuine Operation Info With Exposure should be sent
+    private static func shouldSendOperationInfoWithExposure(outcome: ExposureDetectionOutcome, state: AnalyticsState, now: Date) -> Bool {
+      guard case .fullDetection = outcome else {
+        // Operational Info with Exposure only refer to full detections.
+        return false
+      }
+
+      let lastSent = state.eventWithExposureLastSent
+      let today = now.utcCalendarDay
+
+      guard today.month != lastSent.month else {
+        // Only one genuine Operational Info with Exposure per month is sent.
+        // Note that the device's clock may be changed to alter this sequence, but the backend will rate limit the event
+        // nonetheless
+        return false
+      }
+
+      return true
+    }
+
+    /// Whether a genuine Operation Info Without Exposure should be sent
+    private static func shouldSendOperationInfoWithoutExposure(outcome: ExposureDetectionOutcome, state: AnalyticsState, now: Date) -> Bool {
+      guard case .partialDetection = outcome else {
+        // Operational Info without Exposure only refer to partial detections.
+        return false
+      }
+
+      let lastSent = state.eventWithoutExposureLastSent
+      let today = now.utcCalendarDay
+
+      guard today.month != lastSent.month else {
+        // Only one genuine Operational Info without Exposure per month is sent
+        // Note that the device's clock may be changed to alter this sequence, but the backend will rate limit the event
+        // nonetheless
+        return false
+      }
+
+      guard state.eventWithoutExposureWindow.contains(now) else {
+        // The opportunity window is not open
+        return false
+      }
+
+      return true
     }
   }
 }
@@ -47,26 +92,11 @@ extension Logic.Analytics {
 // MARK: Operational Info with exposure
 
 extension Logic.Analytics {
-  /// Attempts to send an analytic event if the logic allows for it
-  struct SendOperationalInfoWithExposureIfNeeded: AppSideEffect {
+  /// Attempts to send an analytic event with a certain probability
+  struct StochasticallySendOperationalInfoWithExposure: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let currentDay = context.dependencies.now().utcCalendarDay
       let state = context.getState()
-      let lastSent = state.analytics.eventWithExposureLastSent
-
-      guard let province = state.user.province else {
-        // no province, just skip the flow
-        return
-      }
-
-      // we can send this event only if the month is different from the
-      // `last sent` one
-      guard currentDay.month != lastSent.month else {
-        // return if the month is the same. Note that the
-        // device's clock may be changed to alter this sequence,
-        // but the backend will rate limit the event nonetheless
-        return
-      }
 
       // the month is "immediately used" regardless of the checks done below
       try context.awaitDispatch(UpdateEventWithExposureLastSent(day: currentDay))
@@ -75,23 +105,12 @@ extension Logic.Analytics {
       let samplingRate = state.configuration.operationalInfoWithExposureSamplingRate
 
       guard randomNumber < samplingRate else {
-        // skip the analytic event
+        // Avoid sending the request
         return
       }
 
-      let deviceToken = try await(context.dependencies.tokenGenerator.generateToken())
-
-      let body = AnalyticsRequest.Body(
-        province: province,
-        exposureNotificationStatus: state.environment.exposureNotificationAuthorizationStatus,
-        pushNotificationStatus: state.environment.pushNotificationAuthorizationStatus,
-        riskyExposureDetected: true,
-        deviceToken: deviceToken.base64EncodedString()
-      )
-
-      // send the request and wait for the response to prevent the background
-      // task from being killed. However, we don't need to manage the response
-      _ = try? await(context.dependencies.networkManager.request(AnalyticsRequest(body: body)))
+      // Send the request
+      try context.awaitDispatch(SendRequest(kind: .withExposure))
     }
   }
 }
@@ -99,32 +118,12 @@ extension Logic.Analytics {
 // MARK: Operational Info without exposure
 
 extension Logic.Analytics {
-  /// Attempts to send an analytic event if the logic allows for it
-  struct SendOperationalInfoWithoutExposureIfNeeded: AppSideEffect {
+  /// Attempts to send an analytic event with a certain probability
+  struct StochasticallySendOperationalInfoWithoutExposure: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let now = context.dependencies.now()
       let currentDay = now.utcCalendarDay
       let state = context.getState()
-      let lastSent = state.analytics.eventWithExposureLastSent
-
-      guard let province = state.user.province else {
-        // no province, just skip the flow
-        return
-      }
-
-      // we can send this event only if the month is different from the
-      // `last sent` one
-      guard currentDay.month != lastSent.month else {
-        // return if the month is the same. Note that the
-        // device's clock may be changed to alter this sequence,
-        // but the backend will rate limit the event nonetheless
-        return
-      }
-
-      guard state.analytics.eventWithoutExposureWindow.contains(now) else {
-        // the opportunity window is not open
-        return
-      }
 
       // the month is "immediately used" regardless of the checks done below
       try context.awaitDispatch(UpdateEventWithoutExposureLastSent(day: currentDay))
@@ -133,28 +132,17 @@ extension Logic.Analytics {
       let samplingRate = state.configuration.operationalInfoWithoutExposureSamplingRate
 
       guard randomNumber < samplingRate else {
-        // skip the analytic event
+        // Avoid sending the request
         return
       }
 
-      let deviceToken = try await(context.dependencies.tokenGenerator.generateToken())
-
-      let body = AnalyticsRequest.Body(
-        province: province,
-        exposureNotificationStatus: state.environment.exposureNotificationAuthorizationStatus,
-        pushNotificationStatus: state.environment.pushNotificationAuthorizationStatus,
-        riskyExposureDetected: false,
-        deviceToken: deviceToken.base64EncodedString()
-      )
-
-      // send the request and wait for the response to prevent the background
-      // task from being killed. However, we don't need to manage the response
-      _ = try? await(context.dependencies.networkManager.request(AnalyticsRequest(body: body)))
+      // Send the request
+      try context.awaitDispatch(SendRequest(kind: .withoutExposure))
     }
   }
 
   /// Updates the event without exposure opportunity window if required
-  struct UpdateOpportunityWindowIfNeeded: AppSideEffect {
+  struct UpdateEventWithoutExposureOpportunityWindowIfNeeded: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let state = context.getState()
       let now = context.dependencies.now()
@@ -172,7 +160,7 @@ extension Logic.Analytics {
       let maxShift = Double(numDays - 1) * AnalyticsState.OpportunityWindow.secondsInDay
       let shift = context.dependencies.uniformDistributionGenerator.random(in: 0 ..< maxShift)
       let opportunityWindow = AnalyticsState.OpportunityWindow(month: currentMonth, shift: shift)
-      try context.awaitDispatch(UpdateEventWithoutExposureOppurtunityWindow(window: opportunityWindow))
+      try context.awaitDispatch(SetEventWithoutExposureOppurtunityWindow(window: opportunityWindow))
     }
   }
 }
@@ -191,6 +179,53 @@ extension Logic.Analytics {
         dummyTrafficStochasticDelay: dummyTrafficStochasticDelay,
         now: context.dependencies.now())
       )
+    }
+  }
+}
+
+// MARK: Send Request
+extension Logic.Analytics {
+  struct SendRequest: AppSideEffect {
+    /// The kind of request to send to the backend
+    enum Kind {
+      case withExposure
+      case withoutExposure
+    }
+
+    let kind: Kind
+
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      let state = context.getState()
+      let userProvince = state.user.province ?? AppLogger.fatalError("User has not set a province")
+      let userExposureNotificationStatus = state.environment.exposureNotificationAuthorizationStatus
+      let userPushNotificationStatus = state.environment.pushNotificationAuthorizationStatus
+      let deviceToken = try await(context.dependencies.tokenGenerator.generateToken()).base64EncodedString()
+
+      let body: AnalyticsRequest.Body
+      let isDummy: Bool
+      switch self.kind {
+      case .withExposure:
+        body = .init(
+          province: userProvince,
+          exposureNotificationStatus: userExposureNotificationStatus,
+          pushNotificationStatus: userPushNotificationStatus,
+          riskyExposureDetected: true,
+          deviceToken: deviceToken
+        )
+        isDummy = false
+      case .withoutExposure:
+        body = .init(
+          province: userProvince,
+          exposureNotificationStatus: userExposureNotificationStatus,
+          pushNotificationStatus: userPushNotificationStatus,
+          riskyExposureDetected: false,
+          deviceToken: deviceToken
+        )
+        isDummy = false
+      }
+
+      // Await for the request to be fulfilled but catch errors silently
+      _ = try? await(context.dependencies.networkManager.sendAnalytics(body: body, isDummy: isDummy))
     }
   }
 }
@@ -217,7 +252,7 @@ extension Logic.Analytics {
   }
 
   /// Updates the opportunity window for the event without exposure
-  struct UpdateEventWithoutExposureOppurtunityWindow: AppStateUpdater {
+  struct SetEventWithoutExposureOppurtunityWindow: AppStateUpdater {
     let window: AnalyticsState.OpportunityWindow
 
     func updateState(_ state: inout AppState) {

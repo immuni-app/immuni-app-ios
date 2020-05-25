@@ -57,7 +57,7 @@ extension Logic {
         context.dispatch(Logic.CovidStatus.RemoveRiskReminderNotification())
 
         // update analaytics info
-        try context.awaitDispatch(Logic.Analytics.UpdateOpportunityWindowIfNeeded())
+        try context.awaitDispatch(Logic.Analytics.UpdateEventWithoutExposureOpportunityWindowIfNeeded())
 
         // Perform exposure detection if necessary
         context.dispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground))
@@ -87,8 +87,8 @@ extension Logic {
         // check whether to show force update
         try context.awaitDispatch(ForceUpdate.CheckAppVersion())
 
-        // update analaytics info
-        try context.awaitDispatch(Logic.Analytics.UpdateOpportunityWindowIfNeeded())
+        // update analytics info
+        try context.awaitDispatch(Logic.Analytics.UpdateEventWithoutExposureOpportunityWindowIfNeeded())
 
         // Perform exposure detection if necessary
         context.dispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground))
@@ -122,8 +122,8 @@ extension Logic {
         // clears `PositiveExposureResults` older than 14 days from the `ExposureDetectionState`
         try context.awaitDispatch(Logic.ExposureDetection.ClearOutdatedResults(now: context.dependencies.now()))
 
-        // update analaytics info
-        try context.awaitDispatch(Logic.Analytics.UpdateOpportunityWindowIfNeeded())
+        // update analytics info
+        try context.awaitDispatch(Logic.Analytics.UpdateEventWithoutExposureOpportunityWindowIfNeeded())
 
         // Update the configuration, with a timeout. Continue in any case in order not to waste an Exposure Detection cycle.
         try? await(context.dispatch(Logic.Configuration.DownloadAndUpdateConfiguration()).timeout(timeout: 10))
@@ -156,7 +156,7 @@ extension Logic.Lifecycle {
       try? await(configurationFetch)
 
       /// Initialize the stochastic parameters required for the generation of dummy analytics traffic.
-      try context.awaitDispatch(Logic.Analytics.InitializeDummyTrafficParameters())
+      try context.awaitDispatch(Logic.Analytics.InitializeDummyTrafficOpportunityWindow())
 
       // flags the first launch as done to prevent further downloads during the startup phase
       try context.awaitDispatch(PassFirstLaunchExecuted())

@@ -79,6 +79,11 @@ public class NetworkManager {
   public func uploadData(body: DataUploadRequest.Body, otp: OTP) -> Promise<Void> {
     return self.request(DataUploadRequest(body: body, otp: otp, now: self.unwrappedDependencies.now)).safeVoid
   }
+
+  /// Sends a request to the Analytics server, following a cycle of Exposure Detection.
+  public func sendAnalytics(body: AnalyticsRequest.Body, isDummy: Bool) -> Promise<Void> {
+    return self.request(AnalyticsRequest(body: body, isDummy: isDummy)).safeVoid
+  }
 }
 
 public extension NetworkManager {
