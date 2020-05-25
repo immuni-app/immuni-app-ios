@@ -246,8 +246,8 @@ private extension Logic.Settings {
     let language: UserLanguage
 
     func updateState(_ state: inout AppState) {
-      state.faqState.fetchedFAQs = self.faqs
-      state.faqState.latestFetchLanguage = self.language
+      state.faq.fetchedFAQs = self.faqs
+      state.faq.latestFetchLanguage = self.language
     }
   }
 

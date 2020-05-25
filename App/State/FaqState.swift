@@ -15,7 +15,8 @@
 import Foundation
 import Models
 
-struct FaqState {
+/// Slice of state that manages the app's FAQs
+struct FaqState: Codable {
   /// The latest fetched FAQs
   var fetchedFAQs: [FAQ]? = nil
 
