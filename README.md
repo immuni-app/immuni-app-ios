@@ -58,6 +58,9 @@ This repository contains the source code of Immuni's iOS client. More detailed i
 - [High-Level Description](https://github.com/immuni-app/immuni-documentation)
 - [Product Description](https://github.com/immuni-app/immuni-documentation/blob/master/Product%20Description.md)
 - [Technology Description](https://github.com/immuni-app/immuni-documentation/blob/master/Technology%20Description.md)
+- [Traffic Analysis Mitigation](https://github.com/immuni-app/immuni-documentation/blob/master/Traffic%20Analysis%20Mitigation.md)
+
+**Please take the time to read and consider these documents in full before digging into the source code or opening an Issue. They contain a lot of details that are fundamental to understanding the source code and this repository's documentation.**
 
 # Installation
 
@@ -151,7 +154,7 @@ Please check the [AUTHORS](AUTHORS) file for extended reference.
 | [Lottie](https://github.com/airbnb/lottie-ios)             | Apache 2.0 |
 | [PinLayout](https://github.com/layoutBox/PinLayout)        | MIT        |
 | [SwiftLog](https://github.com/apple/swift-log/)            | Apache 2.0 |
-| [ZipArchive](https://github.com/ZipArchive/ZipArchive)     | MIT        |
+| [ZIPFoundation](https://github.com/weichsel/ZIPFoundation) | MIT        |
 
 ## License details
 

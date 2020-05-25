@@ -63,6 +63,31 @@ extension Logic.Shared {
     }
   }
 
+  /// Show sensitive data cover.
+  struct ShowSensitiveDataCoverIfNeeded: AppSideEffect {
+    static let possiblePresenters: [String] = [Screen.tabBar.rawValue, Screen.onboardingStep.rawValue]
+
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      guard
+        context.dependencies.application.currentRoutableIdentifiers
+        .contains(where: { Self.possiblePresenters.contains($0) }) else {
+          return
+      }
+      context.dispatch(Show(Screen.sensitiveDataCover, animated: true))
+    }
+  }
+
+  /// Hide sensitive data cover.
+  struct HideSensitiveDataCoverIfPresent: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      guard context.dependencies.application.currentRoutableIdentifiers.contains(Screen.sensitiveDataCover.rawValue) else {
+        return
+      }
+      context.dispatch(Hide(Screen.sensitiveDataCover, animated: true))
+    }
+  }
+
+  /// Opens App's settings page in the native setting app
   struct OpenSettings: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       guard let url = URL(string: UIApplication.openSettingsURLString) else {
@@ -70,6 +95,15 @@ extension Logic.Shared {
       }
 
       try await(context.dependencies.application.goTo(url: url).run())
+    }
+  }
+
+  /// Opens an external link using `UIApplication`
+  struct OpenExternalLink: AppSideEffect {
+    let url: URL
+
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      _ = context.dependencies.application.goTo(url: self.url).run()
     }
   }
 }

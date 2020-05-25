@@ -115,10 +115,8 @@ public extension NetworkManager {
     case bodyNotCompliant = 1002
     /// Raised when a request to upload a bunch of keys contains too many keys.
     case tooManyKeysUploaded = 1101
-    /// Raised when the province code sent is not valid.
-    case provinceNotValid = 1102
     /// Raised when a user is attempting to upload data with an unauthorised OTP code.
-    case unauthorizedOTP = 1103
+    case unauthorizedOTP = 1102
     /// Exception raised when the requested batch is not found.
     case batchNotFound = 1301
     /// Exception raised when there are no batches.
