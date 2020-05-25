@@ -5,8 +5,6 @@
 "app_setup_view.network_error" = "Non è possibile rilevare la rete Internet. Controlla la tua connessione e riprova.";
 "app_setup_view.generic_error" = "Ci dispiace, è stato impossibile connettersi. Riprova più tardi.";
 
-"faq.loading" = "Caricamento\nFAQ...";
-
 "force_update_view.app.title" = "Aggiorna l'app per proseguire";
 "force_update_view.app.details" = "È disponibile un aggiornamento importante. Aggiorna subito l'app per garantirne il funzionamento.";
 "force_update_view.update" = "Aggiorna";
@@ -197,10 +195,6 @@
 "notifications.update_positive_state.description" = "Apri l'app se la tua ASL ti ha confermato di essere negativo al virus.";
 
 "notifications.apple_exposure.message" = "TODO";
-
-"error.faq_download.title" = "Errore";
-"error.faq_download.message" = "Non è stato possibile scaricare le FAQ. Controlla la tua connessione di rete e riprova";
-"error.faq_download.action" = "Ok";
 
 "suggestions.header.title.neutral" = "Cosa posso fare per proteggermi";
 "suggestions.header.title.risk" = "Rilevato un contatto ad alto rischio";
