@@ -79,7 +79,8 @@ final class PrivacyVC: ViewControllerWithLocalState<PrivacyView> {
 
     guard
       let cell = checkBoxCell,
-      cell.convert(cell.bounds.origin, to: nil).y < self.rootView.frame.height
+      cell.convert(cell.bounds.origin, to: nil).y + cell.bounds.size.height <
+      self.rootView.frame.height - self.rootView.scrollableGradientView.bounds.size.height
       else {
         let items = self.viewModel?.items.count ?? 0
         self.rootView.contentCollection.scrollToItem(at: IndexPath(item: items - 1, section: 0), at: .bottom, animated: true)

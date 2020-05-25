@@ -85,6 +85,7 @@ extension Logic.Shared {
     }
   }
 
+  /// Opens App's settings page in the native setting app
   struct OpenSettings: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       guard let url = URL(string: UIApplication.openSettingsURLString) else {
@@ -92,6 +93,15 @@ extension Logic.Shared {
       }
 
       try await(context.dependencies.application.goTo(url: url).run())
+    }
+  }
+
+  /// Opens an external link using `UIApplication`
+  struct OpenExternalLink: AppSideEffect {
+    let url: URL
+
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      _ = context.dependencies.application.goTo(url: self.url).run()
     }
   }
 }
