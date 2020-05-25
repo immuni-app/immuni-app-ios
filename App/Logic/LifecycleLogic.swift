@@ -199,7 +199,7 @@ private extension Logic.Lifecycle {
 
   /// Updates the authorization statuses
   private struct UpdateAuthorizationStatus: AppStateUpdater {
-    let pushNotificationAuthorizationStatus: UNAuthorizationStatus
+    let pushNotificationAuthorizationStatus: PushNotificationStatus
     let exposureNotificationAuthorizationStatus: ExposureNotificationStatus
 
     func updateState(_ state: inout AppState) {
