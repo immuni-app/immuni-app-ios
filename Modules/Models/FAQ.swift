@@ -28,3 +28,27 @@ public struct FAQ: Equatable, Codable {
     self.content = content
   }
 }
+
+// MARK: Italian default FAQs
+
+extension FAQ {
+  static let italianDefaultValues: [FAQ] = [
+    .init(title: "[IT] Domanda", content: "[EN] Questa é una risposta")
+  ]
+}
+
+// MARK: English default FAQs
+
+extension FAQ {
+  static let englishDefaultValues: [FAQ] = [
+    .init(title: "[EN] Domanda", content: "[EN] Questa é una risposta")
+  ]
+}
+
+// MARK: German default FAQs
+
+extension FAQ {
+  static let germanDefaultValues: [FAQ] = [
+    .init(title: "[DE] Domanda", content: "[DE] Questa é una risposta")
+  ]
+}
