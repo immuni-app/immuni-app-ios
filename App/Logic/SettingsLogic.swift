@@ -38,13 +38,13 @@ extension Logic.Settings {
       try context.awaitDispatch(RefreshOTP())
 
       let now = context.dependencies.now()
-      let failedAttempts = state.user.otpUploadFailedAttempts
+      let failedAttempts = state.ingestion.otpUploadFailedAttempts
 
       let errorSecondsLeft: Int
       let recentFailedAttempts: Int
 
       if
-        let lastOtpFailedAttempt = state.user.lastOtpUploadFailedAttempt,
+        let lastOtpFailedAttempt = state.ingestion.lastOtpUploadFailedAttempt,
         now.timeIntervalSince(lastOtpFailedAttempt) <= Self.recentFailedAttemptsThreshold {
         let backOffDuration = UploadDataLS.backOffDuration(failedAttempts: failedAttempts)
         let backOffEnd = lastOtpFailedAttempt.addingTimeInterval(TimeInterval(backOffDuration))
@@ -183,7 +183,7 @@ private extension Logic.Settings {
   /// Refreshes the OTP
   struct RefreshOTP: AppStateUpdater {
     func updateState(_ state: inout AppState) {
-      state.user.otp = OTP()
+      state.ingestion.otp = OTP()
     }
   }
 }

@@ -239,15 +239,15 @@ extension Logic.DataUpload {
     let date: Date
 
     func updateState(_ state: inout AppState) {
-      state.user.lastOtpUploadFailedAttempt = self.date
-      state.user.otpUploadFailedAttempts += 1
+      state.ingestion.lastOtpUploadFailedAttempt = self.date
+      state.ingestion.otpUploadFailedAttempts += 1
     }
   }
 
   struct TrackOTPValidationSuccessfulAttempt: AppStateUpdater {
     func updateState(_ state: inout AppState) {
-      state.user.lastOtpUploadFailedAttempt = nil
-      state.user.otpUploadFailedAttempts = 0
+      state.ingestion.lastOtpUploadFailedAttempt = nil
+      state.ingestion.otpUploadFailedAttempts = 0
     }
   }
 }

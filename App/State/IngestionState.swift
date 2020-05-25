@@ -1,4 +1,4 @@
-// UserState.swift
+// IngestionState.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -15,14 +15,23 @@
 import Foundation
 import Models
 
-/// Slice of state related to the user
-struct UserState: Codable {
-  /// The user's province
-  var province: Province?
+/// Slice of state related to the communication to the Ingestion Service
+struct IngestionState: Codable {
+  enum CodingKeys: String, CodingKey {
+    case otpUploadFailedAttempts
+    case lastOtpUploadFailedAttempt
+  }
 
-  /// The date of the last service not active local notification
-  var lastServiceNotActiveDate = Date.distantPast
+  // MARK: - Persisted slices
 
-  /// The current user's covid status
-  var covidStatus: CovidStatus = .neutral
+  /// The number of consequent failed requests of OTP validation
+  var otpUploadFailedAttempts: Int = 0
+
+  /// The time of last failed OTP validation
+  var lastOtpUploadFailedAttempt: Date? = nil
+
+  // MARK: - Not persisted slices
+
+  /// The user's OTP. Must change at every request
+  var otp = OTP()
 }

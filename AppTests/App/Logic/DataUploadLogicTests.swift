@@ -313,26 +313,26 @@ final class DataUploadLogicTests: XCTestCase {
 
   func testFailedOTPValidationUpdatesState() throws {
     var state = AppState()
-    state.user.otpUploadFailedAttempts = 7
-    state.user.lastOtpUploadFailedAttempt = Date(timeIntervalSince1970: 0)
+    state.ingestion.otpUploadFailedAttempts = 7
+    state.ingestion.lastOtpUploadFailedAttempt = Date(timeIntervalSince1970: 0)
 
     let now = Date(timeIntervalSince1970: 1_590_073_834)
 
     Logic.DataUpload.TrackOTPValidationFailedAttempt(date: now).updateState(&state)
 
-    XCTAssertEqual(state.user.otpUploadFailedAttempts, 8)
-    XCTAssertEqual(state.user.lastOtpUploadFailedAttempt, now)
+    XCTAssertEqual(state.ingestion.otpUploadFailedAttempts, 8)
+    XCTAssertEqual(state.ingestion.lastOtpUploadFailedAttempt, now)
   }
 
   func testSuccessfulOTPValidationUpdatesState() throws {
     var state = AppState()
-    state.user.otpUploadFailedAttempts = 7
-    state.user.lastOtpUploadFailedAttempt = Date(timeIntervalSince1970: 0)
+    state.ingestion.otpUploadFailedAttempts = 7
+    state.ingestion.lastOtpUploadFailedAttempt = Date(timeIntervalSince1970: 0)
 
     Logic.DataUpload.TrackOTPValidationSuccessfulAttempt().updateState(&state)
 
-    XCTAssertEqual(state.user.otpUploadFailedAttempts, 0)
-    XCTAssertEqual(state.user.lastOtpUploadFailedAttempt, nil)
+    XCTAssertEqual(state.ingestion.otpUploadFailedAttempts, 0)
+    XCTAssertEqual(state.ingestion.lastOtpUploadFailedAttempt, nil)
   }
 }
 
