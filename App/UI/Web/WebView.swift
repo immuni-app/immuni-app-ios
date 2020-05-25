@@ -70,7 +70,7 @@ class WebView: UIView, ViewControllerModellableView {
   func update(oldModel: WebVM?) {
     guard let model = self.model, model != oldModel else { return }
 
-    self.webView.load(URLRequest(url: URL(string: "https://www.apple.com")!))
+    self.webView.load(URLRequest(url: model.url))
   }
 
   // MARK: - Layout
