@@ -191,9 +191,3 @@ extension SuggestionsVM {
     ]
   }
 }
-
-private extension CalendarDay {
-  var dateString: String {
-    "\(self.day)\\\(self.month)\\\(self.year)"
-  }
-}

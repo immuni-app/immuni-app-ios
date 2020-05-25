@@ -22,8 +22,7 @@ struct SuggestionsHeaderCellVM: ViewModel {
   let dayOfContact: CalendarDay?
 
   var dayOfContactString: String {
-    #warning("evaluate this")
-    return "24/03/20"
+    return self.dayOfContact?.dateString ?? ""
   }
 
   var gradient: Gradient {
@@ -273,5 +272,11 @@ private extension SuggestionsHeaderCell {
       view.image = image
       view.contentMode = .scaleAspectFit
     }
+  }
+}
+
+private extension CalendarDay {
+  var dateString: String {
+    "\(self.day)\\\(self.month)\\\(self.year)"
   }
 }
