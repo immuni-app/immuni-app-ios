@@ -106,7 +106,7 @@
         .init(
           title: "🎮 [Status] Simulate Recover Confirmed",
           dispatchable: Logic.CovidStatus.UpdateStatusWithEvent(event: .userEvent(.recoverConfirmed))
-        ),
+        )
       ])
 
       // analytics
