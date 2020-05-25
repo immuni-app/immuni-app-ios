@@ -12,13 +12,6 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-//
-// MockBackgroundTask.swift
-// Immuni
-//
-// Copyright © 2020 Bending Spoons S.p.a. All rights reserved.
-// Created by Immuni Team.
-//
 import Foundation
 @testable import Immuni
 
