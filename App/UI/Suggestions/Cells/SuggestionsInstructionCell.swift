@@ -22,6 +22,7 @@ struct SuggestionsInstructionCellVM: ViewModel {
     case washHands
     case useNapkins
     case socialDistance
+    case wearMask
     case checkSymptoms
     case isolate
   }
@@ -38,6 +39,8 @@ struct SuggestionsInstructionCellVM: ViewModel {
       return L10n.Suggestions.Instruction.useNapkins
     case .socialDistance:
       return L10n.Suggestions.Instruction.socialDistance
+    case .wearMask:
+      return L10n.Suggestions.Instruction.mask
     case .checkSymptoms:
       return L10n.Suggestions.Instruction.CheckSymptoms.title
     case .isolate:
@@ -55,6 +58,8 @@ struct SuggestionsInstructionCellVM: ViewModel {
       return Asset.Suggestions.useNapkins.image
     case .socialDistance:
       return Asset.Suggestions.socialDistance.image
+    case .wearMask:
+      return Asset.Suggestions.mask.image
     case .checkSymptoms:
       return Asset.Suggestions.checkSymptoms.image
     case .isolate:

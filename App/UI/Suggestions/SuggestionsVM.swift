@@ -133,6 +133,8 @@ extension SuggestionsVM {
       .instruction(instruction: .useNapkins),
       .spacer(size: .tiny),
       .instruction(instruction: .socialDistance),
+      .spacer(size: .tiny),
+      .instruction(instruction: .wearMask),
       .spacer(size: .big)
     ]
   }
