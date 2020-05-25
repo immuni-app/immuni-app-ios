@@ -87,9 +87,11 @@ extension Logic.AppSetup {
   }
 }
 
-private extension Logic.AppSetup {
+// MARK: State Updater
+
+extension Logic.AppSetup {
   /// Marks the first launch executed as done
-  private struct PassFirstLaunchExecuted: AppStateUpdater {
+  struct PassFirstLaunchExecuted: AppStateUpdater {
     func updateState(_ state: inout AppState) {
       state.toggles.isFirstLaunchPerformed = true
     }
