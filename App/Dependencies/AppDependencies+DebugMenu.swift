@@ -107,14 +107,6 @@
           title: "🎮 [Status] Simulate Recover Confirmed",
           dispatchable: Logic.CovidStatus.UpdateStatusWithEvent(event: .userEvent(.recoverConfirmed))
         ),
-
-        .init(
-          title: "🎮 Simulate 1 Day Passed (until next app close/open)",
-          closure: {
-            let now = self.getAppState().environment.today
-            _ = self.dispatch(Logic.Shared.UpdateToday(today: now.byAdding(days: 1)))
-          }
-        )
       ])
 
       // analytics
