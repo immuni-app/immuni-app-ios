@@ -63,37 +63,38 @@ extension Logic.Settings {
   /// Shows the FAQs screen
   struct ShowFAQs: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      let state = context.getState()
-      let hasLocalFAQs = !state.faqState.faqs.isEmpty
-
-      try context.awaitDispatch(Logic.Loading.Show(message: L10n.Faq.loading))
-
-      do {
-        if hasLocalFAQs {
-          // loads faqs best effort (that is, wait 5 seconds and proceed with old data)
-          // note the try? that prevents the throw
-          try? await(context.dispatch(PerformFAQFetch()).timeout(timeout: 5))
-        } else {
-          try context.awaitDispatch(PerformFAQFetch())
-        }
-
-        try context.awaitDispatch(Logic.Loading.Hide())
-        try context.awaitDispatch(Show(Screen.faq, animated: true))
-      } catch {
-        try context.awaitDispatch(Logic.Loading.Hide())
-
-        // handle errors by showing an error
-        let model = Alert.Model(
-          title: L10n.Error.FaqDownload.title,
-          message: L10n.Error.FaqDownload.message,
-          preferredStyle: .alert,
-          actions: [
-            .init(title: L10n.Error.FaqDownload.action, style: .default)
-          ]
-        )
-
-        context.dispatch(Logic.Alert.Show(alertModel: model))
-      }
+      #warning("rework")
+//      let state = context.getState()
+//      let hasLocalFAQs = !state.faqState.faqs.isEmpty
+//
+//      try context.awaitDispatch(Logic.Loading.Show(message: L10n.Faq.loading))
+//
+//      do {
+//        if hasLocalFAQs {
+//          // loads faqs best effort (that is, wait 5 seconds and proceed with old data)
+//          // note the try? that prevents the throw
+//          try? await(context.dispatch(PerformFAQFetch()).timeout(timeout: 5))
+//        } else {
+//          try context.awaitDispatch(PerformFAQFetch())
+//        }
+//
+//        try context.awaitDispatch(Logic.Loading.Hide())
+//        try context.awaitDispatch(Show(Screen.faq, animated: true))
+//      } catch {
+//        try context.awaitDispatch(Logic.Loading.Hide())
+//
+//        // handle errors by showing an error
+//        let model = Alert.Model(
+//          title: L10n.Error.FaqDownload.title,
+//          message: L10n.Error.FaqDownload.message,
+//          preferredStyle: .alert,
+//          actions: [
+//            .init(title: L10n.Error.FaqDownload.action, style: .default)
+//          ]
+//        )
+//
+//        context.dispatch(Logic.Alert.Show(alertModel: model))
+//      }
     }
   }
 
@@ -213,24 +214,25 @@ private extension Logic.Settings {
   /// Performs a network request and stores the FAQs in the state
   struct PerformFAQFetch: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      let state = context.getState()
-
-      guard
-        let faqURL = state.configuration.faqURL(for: state.environment.userLanguage),
-        var components = URLComponents(url: faqURL, resolvingAgainstBaseURL: false)
-
-        else {
-          throw FAQError.invalidConfiguration
-      }
-
-      let path = components.path
-
-      // remove path
-      components.path = ""
-      let baseURL = try components.asURL()
-
-      let faqs: [FAQ] = try await(context.dependencies.networkManager.getFAQ(baseURL: baseURL, path: path))
-      try context.awaitDispatch(UpdateFAQs(faqs: faqs))
+      #warning("rework")
+//      let state = context.getState()
+//
+//      guard
+//        let faqURL = state.configuration.faqURL(for: state.environment.userLanguage),
+//        var components = URLComponents(url: faqURL, resolvingAgainstBaseURL: false)
+//
+//        else {
+//          throw FAQError.invalidConfiguration
+//      }
+//
+//      let path = components.path
+//
+//      // remove path
+//      components.path = ""
+//      let baseURL = try components.asURL()
+//
+//      let faqs: [FAQ] = try await(context.dependencies.networkManager.getFAQ(baseURL: baseURL, path: path))
+//      try context.awaitDispatch(UpdateFAQs(faqs: faqs))
     }
   }
 }
@@ -241,9 +243,11 @@ private extension Logic.Settings {
   /// Updates the local FAQs
   struct UpdateFAQs: AppStateUpdater {
     let faqs: [FAQ]
+    let language: UserLanguage
 
     func updateState(_ state: inout AppState) {
-      state.faqState.faqs = self.faqs
+      state.faqState.fetchedFAQs = self.faqs
+      state.faqState.latestFetchLanguage = self.language
     }
   }
 

@@ -53,7 +53,7 @@ extension FaqVM {
       return nil
     }
 
-    self.faqs = state.faqState.faqs
+    self.faqs = state.faqState.faqs(for: state.environment.userLanguage)
     self.isPresentedModally = localState.isPresentedModally
     self.isHeaderVisible = localState.isHeaderVisible
   }
