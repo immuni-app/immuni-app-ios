@@ -26,7 +26,7 @@ class AnalyticsRequestTests: XCTestCase {
       exposureNotificationStatus: .authorized,
       pushNotificationStatus: .authorized,
       riskyExposureDetected: true,
-      deviceToken: "token"
+      deviceToken: "token".data(using: .utf8)!
     )
 
     XCTAssertEqual(body.operatingSystem, "ios")
@@ -35,7 +35,7 @@ class AnalyticsRequestTests: XCTestCase {
     XCTAssertEqual(body.notificationPermission, 1)
     XCTAssertEqual(body.bluetoothActive, 1)
     XCTAssertEqual(body.exposureNotification, 1)
-    XCTAssertEqual(body.deviceToken, "token")
+    XCTAssertEqual(body.deviceToken, "token".data(using: .utf8)!.base64EncodedString())
   }
 
   func testNotAuthorized() {
@@ -44,7 +44,7 @@ class AnalyticsRequestTests: XCTestCase {
       exposureNotificationStatus: .notAuthorized,
       pushNotificationStatus: .denied,
       riskyExposureDetected: true,
-      deviceToken: "token"
+      deviceToken: "token".data(using: .utf8)!
     )
 
     XCTAssertEqual(body.operatingSystem, "ios")
@@ -53,7 +53,7 @@ class AnalyticsRequestTests: XCTestCase {
     XCTAssertEqual(body.notificationPermission, 0)
     XCTAssertEqual(body.bluetoothActive, 1)
     XCTAssertEqual(body.exposureNotification, 1)
-    XCTAssertEqual(body.deviceToken, "token")
+    XCTAssertEqual(body.deviceToken, "token".data(using: .utf8)!.base64EncodedString())
   }
 
   func testRestricted() {
@@ -62,7 +62,7 @@ class AnalyticsRequestTests: XCTestCase {
       exposureNotificationStatus: .restricted,
       pushNotificationStatus: .denied,
       riskyExposureDetected: true,
-      deviceToken: "token"
+      deviceToken: "token".data(using: .utf8)!
     )
 
     XCTAssertEqual(body.operatingSystem, "ios")
@@ -71,7 +71,7 @@ class AnalyticsRequestTests: XCTestCase {
     XCTAssertEqual(body.notificationPermission, 0)
     XCTAssertEqual(body.bluetoothActive, 1)
     XCTAssertEqual(body.exposureNotification, 1)
-    XCTAssertEqual(body.deviceToken, "token")
+    XCTAssertEqual(body.deviceToken, "token".data(using: .utf8)!.base64EncodedString())
   }
 
   func testUnknown() {
@@ -80,7 +80,7 @@ class AnalyticsRequestTests: XCTestCase {
       exposureNotificationStatus: .unknown,
       pushNotificationStatus: .notDetermined,
       riskyExposureDetected: true,
-      deviceToken: "token"
+      deviceToken: "token".data(using: .utf8)!
     )
 
     XCTAssertEqual(body.operatingSystem, "ios")
@@ -89,7 +89,7 @@ class AnalyticsRequestTests: XCTestCase {
     XCTAssertEqual(body.notificationPermission, 0)
     XCTAssertEqual(body.bluetoothActive, 1)
     XCTAssertEqual(body.exposureNotification, 1)
-    XCTAssertEqual(body.deviceToken, "token")
+    XCTAssertEqual(body.deviceToken, "token".data(using: .utf8)!.base64EncodedString())
   }
 
   func testBluetoothOff() {
@@ -98,7 +98,7 @@ class AnalyticsRequestTests: XCTestCase {
       exposureNotificationStatus: .authorizedAndBluetoothOff,
       pushNotificationStatus: .denied,
       riskyExposureDetected: true,
-      deviceToken: "token"
+      deviceToken: "token".data(using: .utf8)!
     )
 
     XCTAssertEqual(body.operatingSystem, "ios")
@@ -107,7 +107,7 @@ class AnalyticsRequestTests: XCTestCase {
     XCTAssertEqual(body.notificationPermission, 0)
     XCTAssertEqual(body.bluetoothActive, 0)
     XCTAssertEqual(body.exposureNotification, 1)
-    XCTAssertEqual(body.deviceToken, "token")
+    XCTAssertEqual(body.deviceToken, "token".data(using: .utf8)!.base64EncodedString())
   }
 
   func testEncodedCorrectly() throws {
@@ -116,7 +116,7 @@ class AnalyticsRequestTests: XCTestCase {
       exposureNotificationStatus: .authorized,
       pushNotificationStatus: .authorized,
       riskyExposureDetected: true,
-      deviceToken: "token"
+      deviceToken: "token".data(using: .utf8)!
     )
 
     let data = try JSONEncoder().encode(body)
@@ -128,6 +128,6 @@ class AnalyticsRequestTests: XCTestCase {
     XCTAssertEqual(dictionary?["notification_permission"] as? Int, 1)
     XCTAssertEqual(dictionary?["bluetooth_active"] as? Int, 1)
     XCTAssertEqual(dictionary?["exposure_notification"] as? Int, 1)
-    XCTAssertEqual(dictionary?["device_token"] as? String, "token")
+    XCTAssertEqual(dictionary?["device_token"] as? String, "token".data(using: .utf8)!.base64EncodedString())
   }
 }

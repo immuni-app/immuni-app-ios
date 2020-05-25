@@ -21,12 +21,10 @@ import XCTest
 class SuggestionsUITests: AppViewTestCase, ViewTestCase {
   typealias V = SuggestionsView
 
-  let mockedToday = CalendarDay(year: 2020, month: 2, day: 28)
   let mockedLastContact = CalendarDay(year: 2020, month: 3, day: 04)
 
   var neutralVM: SuggestionsVM {
     return SuggestionsVM(
-      today: self.mockedToday,
       covidStatus: .neutral,
       isHeaderVisible: false
     )
@@ -34,7 +32,6 @@ class SuggestionsUITests: AppViewTestCase, ViewTestCase {
 
   var neutralWithHeaderVM: SuggestionsVM {
     return SuggestionsVM(
-      today: self.mockedToday,
       covidStatus: .neutral,
       isHeaderVisible: true
     )
@@ -42,7 +39,6 @@ class SuggestionsUITests: AppViewTestCase, ViewTestCase {
 
   var riskVM: SuggestionsVM {
     return SuggestionsVM(
-      today: self.mockedToday,
       covidStatus: .risk(lastContact: self.mockedLastContact),
       isHeaderVisible: false
     )
@@ -50,7 +46,6 @@ class SuggestionsUITests: AppViewTestCase, ViewTestCase {
 
   var riskWithHeaderVM: SuggestionsVM {
     return SuggestionsVM(
-      today: self.mockedToday,
       covidStatus: .risk(lastContact: self.mockedLastContact),
       isHeaderVisible: true
     )
@@ -58,7 +53,6 @@ class SuggestionsUITests: AppViewTestCase, ViewTestCase {
 
   var positiveVM: SuggestionsVM {
     return SuggestionsVM(
-      today: self.mockedToday,
       covidStatus: .positive(lastUpload: self.mockedLastContact),
       isHeaderVisible: false
     )
@@ -66,7 +60,6 @@ class SuggestionsUITests: AppViewTestCase, ViewTestCase {
 
   var positiveWithHeaderVM: SuggestionsVM {
     return SuggestionsVM(
-      today: self.mockedToday,
       covidStatus: .positive(lastUpload: self.mockedLastContact),
       isHeaderVisible: true
     )

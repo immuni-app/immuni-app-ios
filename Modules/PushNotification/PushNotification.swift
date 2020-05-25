@@ -48,20 +48,20 @@ public final class PushNotificationManager {
   @discardableResult
   public func askForPermission(
     _ permissions: UNAuthorizationOptions = .all
-  ) -> Promise<UNAuthorizationStatus> {
+  ) -> Promise<PushNotificationStatus> {
     return Promise(in: .userInitiated) { resolve, _, _ in
       let result = try await(self.notificationPermissionsProvider.requestPermissions(permissions: permissions))
-      resolve(result)
+      resolve(PushNotificationStatus(from: result))
     }
   }
 
   /**
    Returns the current authorization state of the notification's permissions.
    */
-  public func getCurrentAuthorizationStatus() -> Promise<UNAuthorizationStatus> {
+  public func getCurrentAuthorizationStatus() -> Promise<PushNotificationStatus> {
     return Promise(in: .userInitiated) { resolve, _, _ in
       UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { settings in
-        resolve(settings.authorizationStatus)
+        resolve(PushNotificationStatus(from: settings.authorizationStatus))
       })
     }
   }

@@ -24,6 +24,7 @@ struct AppState: State, Codable {
     case user
     case exposureDetection
     case analytics
+    case faq
   }
 
   // MARK: Persisted slices
@@ -43,11 +44,12 @@ struct AppState: State, Codable {
   /// Slice of state related to the analytics part of the app
   var analytics = AnalyticsState()
 
+  /// Slice of state related to the FAQ
+  var faq = FaqState()
+
   // MARK: Not Persisted slices
 
   var environment = EnvironmentState()
-
-  var faqState = FaqState()
 
   init() {}
 }

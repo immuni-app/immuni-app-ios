@@ -24,25 +24,11 @@ extension Logic.AppSetup {
   /// Performs the initial setup before proceeding to the appropriate view
   struct PerformSetup: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      let state = context.getState()
-
-      // Start a best-effort download the configuration from the server
-      let configurationDownload = context.dispatch(Logic.Configuration.DownloadAndUpdateConfiguration())
-        .timeout(timeout: Self.configurationDownloadTimeout(state))
-
-      try? await(configurationDownload)
+      // Await that the setup related to the first launch of the application is performed.
+      try context.awaitDispatch(WaitForState { $0.toggles.isFirstLaunchSetupPerformed })
 
       // Navigate to the approprivate view
       context.dispatch(ChangeRoot())
-    }
-
-    /// The method returns a different timeout based on whether the client has already downloaded a remote configuration.
-    /// The client waits a little bit more during the first download to maximise the chances of retrieving the latest
-    /// configuration.
-    private static func configurationDownloadTimeout(_ state: AppState) -> TimeInterval {
-      return state.toggles.isConfigurationEverDownloaded
-        ? 2
-        : 10
     }
   }
 

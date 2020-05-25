@@ -36,32 +36,38 @@ extension Logic {
           try context.awaitDispatch(SetAppVersion(appVersion: "\(appVersion) (\(bundleVersion))"))
         }
 
+        let state = context.getState()
+
+        // Perform the setup related to the first launch of the application, if needed
+        try context.awaitDispatch(PerformFirstLaunchSetupIfNeeded())
+
         /// starts the exposure manager if possible
         try await(context.dependencies.exposureNotificationManager.startIfAuthorized())
 
         // refresh statuses
         try context.awaitDispatch(Logic.Lifecycle.RefreshAuthorizationStatuses())
 
-        // update today variable
-        let now = context.dependencies.now()
-        try context.awaitDispatch(Logic.Shared.UpdateToday(today: now.calendarDay))
+        // Update user language
+        try context.awaitDispatch(SetUserLanguage(language: UserLanguage(from: context.dependencies.locale)))
 
         // clears `PositiveExposureResults` older than 14 days from the `ExposureDetectionState`
         try context.awaitDispatch(Logic.ExposureDetection.ClearOutdatedResults(now: context.dependencies.now()))
 
-        // Update user language
-        try context.awaitDispatch(SetUserLanguage(language: UserLanguage(from: context.dependencies.locale)))
+        // Removes notifications as the user has opened the app
+        context.dispatch(Logic.CovidStatus.RemoveRiskReminderNotification())
+
+        // update analaytics info
+        try context.awaitDispatch(Logic.Analytics.UpdateEventWithoutExposureOpportunityWindowIfNeeded())
 
         // Perform exposure detection if necessary
         context.dispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground))
-
-        // Removes notifications as the user has opened the app
-        context.dispatch(Logic.CovidStatus.RemoveRiskReminderNotification())
       }
     }
 
     /// Launched when app is about to enter in foreground
     struct WillEnterForeground: AppSideEffect, NotificationObserverDispatchable {
+      init() {}
+
       init?(notification: Notification) {
         guard notification.name == UIApplication.willEnterForegroundNotification else {
           return nil
@@ -72,24 +78,20 @@ extension Logic {
         // refresh statuses
         try context.awaitDispatch(RefreshAuthorizationStatuses())
 
-        // update today variable
-        let now = context.dependencies.now()
-        try context.awaitDispatch(Logic.Shared.UpdateToday(today: now.calendarDay))
-
         // clears `PositiveExposureResults` older than 14 days from the `ExposureDetectionState`
         try context.awaitDispatch(Logic.ExposureDetection.ClearOutdatedResults(now: context.dependencies.now()))
+
+        // Removes notifications as the user has opened the app
+        context.dispatch(Logic.CovidStatus.RemoveRiskReminderNotification())
 
         // check whether to show force update
         try context.awaitDispatch(ForceUpdate.CheckAppVersion())
 
-        // Update the configuration, with a timeout. Continue in any case in order not to waste an Exposure Detection cycle.
-        try? await(context.dispatch(Logic.Configuration.DownloadAndUpdateConfiguration()).timeout(timeout: 10))
+        // update analytics info
+        try context.awaitDispatch(Logic.Analytics.UpdateEventWithoutExposureOpportunityWindowIfNeeded())
 
         // Perform exposure detection if necessary
         context.dispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground))
-
-        // Removes notifications as the user has opened the app
-        context.dispatch(Logic.CovidStatus.RemoveRiskReminderNotification())
       }
     }
 
@@ -97,6 +99,8 @@ extension Logic {
     /// Note that when the app is in foreground and the command center is opened / closed, `didBecomeActiveNotification`
     /// will be dispatched, but not `willEnterForegroundNotification`.
     struct DidBecomeActive: AppSideEffect, NotificationObserverDispatchable {
+      init() {}
+
       init?(notification: Notification) {
         guard notification.name == UIApplication.didBecomeActiveNotification else {
           return nil
@@ -104,51 +108,39 @@ extension Logic {
       }
 
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        // dismiss sensitive data overlay. Check `SensitiveDataCoverVC` documentation.
+        context.dispatch(Logic.Shared.HideSensitiveDataCoverIfPresent())
+
         // refresh statuses
         try context.awaitDispatch(RefreshAuthorizationStatuses())
-
-        // update today variable
-        let now = context.dependencies.now()
-        try context.awaitDispatch(Logic.Shared.UpdateToday(today: now.calendarDay))
-
-        // update analaytics info
-        try context.awaitDispatch(Logic.Analytics.UpdateOpportunityWindowIfNeeded())
-
-        // Perform exposure detection if necessary
-        context.dispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground))
       }
     }
 
-    /// Launched when there is a significant change in time, for example, change to a new day.
-    struct SignificantTimeChange: AppSideEffect, NotificationObserverDispatchable {
+    /// Launched when app will resign active.
+    struct WillResignActive: AppSideEffect, NotificationObserverDispatchable {
       init?(notification: Notification) {
-        guard notification.name == UIApplication.significantTimeChangeNotification else {
+        guard notification.name == UIApplication.willResignActiveNotification else {
           return nil
         }
       }
 
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-        // update today variable
-        let now = context.dependencies.now()
-        try context.awaitDispatch(Logic.Shared.UpdateToday(today: now.calendarDay))
+        // show sensitive data overlay. Check `SensitiveDataCoverVC` documentation.
+        context.dispatch(Logic.Shared.ShowSensitiveDataCoverIfNeeded())
       }
     }
 
     /// Performed when the system launches the app in the background to run the exposure detection task.
     struct HandleExposureDetectionBackgroundTask: AppSideEffect {
       /// The background task that dispatched this SideEffect
-      var task: BGTask
+      var task: BackgroundTask
 
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-        // update today variable
-        let now = context.dependencies.now()
-        try context.awaitDispatch(Logic.Shared.UpdateToday(today: now.calendarDay))
-
         // clears `PositiveExposureResults` older than 14 days from the `ExposureDetectionState`
         try context.awaitDispatch(Logic.ExposureDetection.ClearOutdatedResults(now: context.dependencies.now()))
 
-        // update analaytics info
-        try context.awaitDispatch(Logic.Analytics.UpdateOpportunityWindowIfNeeded())
+        // update analytics info
+        try context.awaitDispatch(Logic.Analytics.UpdateEventWithoutExposureOpportunityWindowIfNeeded())
 
         // Update the configuration, with a timeout. Continue in any case in order not to waste an Exposure Detection cycle.
         try? await(context.dispatch(Logic.Configuration.DownloadAndUpdateConfiguration()).timeout(timeout: 10))
@@ -163,6 +155,31 @@ extension Logic {
 // MARK: Helper Side Effects
 
 extension Logic.Lifecycle {
+  struct PerformFirstLaunchSetupIfNeeded: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      let state = context.getState()
+
+      guard !state.toggles.isFirstLaunchSetupPerformed else {
+        // The first launch setup was already performed
+        return
+      }
+
+      // Download the Configuration with a given timeout
+      let configurationFetch = context
+        .dispatch(Logic.Configuration.DownloadAndUpdateConfiguration())
+        .timeout(timeout: 10)
+
+      // Fail silently in case of error (for example, the timeout triggering)
+      try? await(configurationFetch)
+
+      /// Initialize the stochastic parameters required for the generation of dummy analytics traffic.
+      try context.awaitDispatch(Logic.Analytics.UpdateDummyTrafficOpportunityWindow())
+
+      // flags the first launch as done to prevent further downloads during the startup phase
+      try context.awaitDispatch(PassFirstLaunchExecuted())
+    }
+  }
+
   struct RefreshAuthorizationStatuses: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let pushStatus = try await(context.dependencies.pushNotification.getCurrentAuthorizationStatus())
@@ -199,7 +216,7 @@ private extension Logic.Lifecycle {
 
   /// Updates the authorization statuses
   private struct UpdateAuthorizationStatus: AppStateUpdater {
-    let pushNotificationAuthorizationStatus: UNAuthorizationStatus
+    let pushNotificationAuthorizationStatus: PushNotificationStatus
     let exposureNotificationAuthorizationStatus: ExposureNotificationStatus
 
     func updateState(_ state: inout AppState) {
@@ -214,6 +231,13 @@ private extension Logic.Lifecycle {
 
     func updateState(_ state: inout AppState) {
       state.environment.userLanguage = self.language
+    }
+  }
+
+  /// Marks the first launch executed as done
+  struct PassFirstLaunchExecuted: AppStateUpdater {
+    func updateState(_ state: inout AppState) {
+      state.toggles.isFirstLaunchSetupPerformed = true
     }
   }
 }

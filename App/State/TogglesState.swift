@@ -27,8 +27,8 @@ struct TogglesState: Codable {
   /// Whether the onboarding has been completed
   var isOnboardingCompleted: Bool = false
 
-  /// Whether the configuration was ever downloaded from the server
-  var isConfigurationEverDownloaded: Bool = false
+  /// Whether the setup related to the first launch has been performed.
+  var isFirstLaunchSetupPerformed: Bool = false
 
   // MARK: - Debug values
 

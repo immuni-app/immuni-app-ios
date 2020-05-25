@@ -29,6 +29,7 @@ enum Screen: String, CaseIterable {
 
   // main
   case tabBar
+  case sensitiveDataCover
 
   // common
   case loading
@@ -189,6 +190,14 @@ extension TabbarVC: RoutableWithConfiguration {
 
   var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
     return [
+      // Sensitive Data Cover
+      .show(Screen.sensitiveDataCover): .presentModally { [unowned self] _ in
+        let vc = SensitiveDataCoverVC(store: self.store)
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        return vc
+      },
+
       // Loading
       .show(Screen.loading): .presentModally { [unowned self] context in
         let ls = context as? LoadingLS ?? AppLogger.fatalError("Invalid context")
@@ -234,6 +243,20 @@ extension TabbarVC: RoutableWithConfiguration {
         SuggestionsVC(store: self.store, localState: SuggestionsLS())
       },
       .hide(Screen.suggestions): .dismissModally(behaviour: .hard)
+    ]
+  }
+}
+
+// MARK: SensitiveDataCover
+
+extension SensitiveDataCoverVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.sensitiveDataCover.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [
+      .hide(Screen.sensitiveDataCover): .dismissModally(behaviour: .soft)
     ]
   }
 }

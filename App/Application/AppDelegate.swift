@@ -157,8 +157,8 @@ extension AppDelegate {
       .onNotification(UIApplication.didBecomeActiveNotification, [
         Logic.Lifecycle.DidBecomeActive.self
       ]),
-      .onNotification(UIApplication.significantTimeChangeNotification, [
-        Logic.Lifecycle.SignificantTimeChange.self
+      .onNotification(UIApplication.willResignActiveNotification, [
+        Logic.Lifecycle.WillResignActive.self
       ]),
       .onStateChange(Logic.ForceUpdate.minimumAppVersionDidChange, [
         Logic.ForceUpdate.CheckAppVersion.self

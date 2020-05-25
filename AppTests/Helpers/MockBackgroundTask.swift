@@ -1,4 +1,4 @@
-// UNAuthorizationStatus+PushNotificationManager.swift
+// MockBackgroundTask.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -13,18 +13,14 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 import Foundation
-import UserNotifications
+@testable import Immuni
 
-public extension UNAuthorizationStatus {
-  /// Whether the authorization status allows the app to send notification to the user
-  var allowsSendingNotifications: Bool {
-    switch self {
-    case .authorized, .provisional:
-      return true
-    case .denied, .notDetermined:
-      return false
-    @unknown default:
-      return false
-    }
+class MockBackgroundTask: BackgroundTask {
+  var setTaskCompletedMethodCalls: [Bool] = []
+
+  var expirationHandler: (() -> Void)?
+
+  func setTaskCompleted(success: Bool) {
+    self.setTaskCompletedMethodCalls.append(success)
   }
 }

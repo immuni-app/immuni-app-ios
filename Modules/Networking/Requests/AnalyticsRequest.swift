@@ -13,6 +13,7 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 import Alamofire
+import Extensions
 import Foundation
 import ImmuniExposureNotification
 import Models
@@ -26,16 +27,18 @@ public struct AnalyticsRequest: Equatable, JSONRequest {
   public var method: HTTPMethod = .post
 
   public let jsonParameter: Body
+  public let isDummy: Bool
 
   public var headers: [HTTPHeader] {
     return [
       .contentType("application/json; charset=UTF-8"),
-      .dummyData(false)
+      .dummyData(self.isDummy)
     ]
   }
 
-  public init(body: Body) {
+  public init(body: Body, isDummy: Bool) {
     self.jsonParameter = body
+    self.isDummy = isDummy
   }
 }
 
@@ -67,9 +70,9 @@ public extension AnalyticsRequest {
     public init(
       province: Province,
       exposureNotificationStatus: ExposureNotificationStatus,
-      pushNotificationStatus: UNAuthorizationStatus,
+      pushNotificationStatus: PushNotificationStatus,
       riskyExposureDetected: Bool,
-      deviceToken: String
+      deviceToken: Data
     ) {
       self.province = province.rawValue
       self.exposurePermission = exposureNotificationStatus.canPerformDetection.intValue
@@ -79,8 +82,30 @@ public extension AnalyticsRequest {
       self.bluetoothActive = isBluetoothActive.intValue
 
       self.exposureNotification = riskyExposureDetected.intValue
-      self.deviceToken = deviceToken
+      self.deviceToken = deviceToken.base64EncodedString()
     }
+  }
+}
+
+public extension AnalyticsRequest.Body {
+  /// Instantiates a dummy request body which contains random data and a given `deviceToken`.
+  static func dummy(deviceToken: Data) -> Self {
+    let province = Province.allCases.randomElement()
+      ?? LibLogger.fatalError("No provinces defined")
+
+    let exposureNotificationStatus = ExposureNotificationStatus.allCases.randomElement()
+      ?? LibLogger.fatalError("No exposure notification statuses defined")
+
+    let pushNotificationStatus = PushNotificationStatus.allCases.randomElement()
+      ?? LibLogger.fatalError("No push notification authorization status")
+
+    return Self(
+      province: province,
+      exposureNotificationStatus: exposureNotificationStatus,
+      pushNotificationStatus: pushNotificationStatus,
+      riskyExposureDetected: Bool.random(),
+      deviceToken: deviceToken
+    )
   }
 }
 

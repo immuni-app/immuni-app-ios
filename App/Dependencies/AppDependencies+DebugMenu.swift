@@ -106,14 +106,6 @@
         .init(
           title: "🎮 [Status] Simulate Recover Confirmed",
           dispatchable: Logic.CovidStatus.UpdateStatusWithEvent(event: .userEvent(.recoverConfirmed))
-        ),
-
-        .init(
-          title: "🎮 Simulate 1 Day Passed (until next app close/open)",
-          closure: {
-            let now = self.getAppState().environment.today
-            _ = self.dispatch(Logic.Shared.UpdateToday(today: now.byAdding(days: 1)))
-          }
         )
       ])
 
@@ -121,12 +113,12 @@
       items.append(contentsOf: [
         .init(
           title: "[Analytics] Trigger send without exposure logic",
-          dispatchable: Logic.Analytics.SendOperationalInfoWithoutExposureIfNeeded()
+          dispatchable: Logic.Analytics.StochasticallySendOperationalInfoWithoutExposure()
         ),
 
         .init(
           title: "[Analytics] Trigger send with exposure logic",
-          dispatchable: Logic.Analytics.SendOperationalInfoWithExposureIfNeeded()
+          dispatchable: Logic.Analytics.StochasticallySendOperationalInfoWithExposure()
         )
       ])
 

@@ -21,18 +21,18 @@ import Tempura
 import XCTest
 
 final class AppSetupLogicTests: XCTestCase {
-  func testPerformsSetup() throws {
-    let getState = { AppState() }
+  func testAwaitsForFirstLaunchSetup() throws {
+    var state = AppState()
+    state.toggles.isFirstLaunchSetupPerformed = true
+
+    let getState = { state }
     let dispatchInterceptor = DispatchInterceptor()
     let dependencies = AppDependencies.mocked(getAppState: getState, dispatch: dispatchInterceptor.dispatchFunction)
     let context = AppSideEffectContext(dependencies: dependencies)
 
     try Logic.AppSetup.PerformSetup().sideEffect(context)
-
-    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 2)
-
-    try XCTAssertType(dispatchInterceptor.dispatchedItems.first, Logic.Configuration.DownloadAndUpdateConfiguration.self)
-    try XCTAssertType(dispatchInterceptor.dispatchedItems[1], Logic.AppSetup.ChangeRoot.self)
+    self.expectToEventually(dispatchInterceptor.dispatchedItems.contains(where: { $0 is WaitForState }))
+    self.expectToEventually(dispatchInterceptor.dispatchedItems.contains(where: { $0 is Logic.AppSetup.ChangeRoot }))
   }
 
   func testChangeRootWithForceUpdate() throws {

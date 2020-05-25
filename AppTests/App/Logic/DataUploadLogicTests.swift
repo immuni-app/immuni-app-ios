@@ -192,7 +192,6 @@ final class DataUploadLogicTests: XCTestCase {
 
     try Logic.DataUpload.ConfirmData(code: OTP()).sideEffect(context)
 
-    #warning("This test fails because it uses the DEBUG environment")
     XCTAssertEqual(enProvider.getDiagnosisKeysMethodCalls, 1)
   }
 

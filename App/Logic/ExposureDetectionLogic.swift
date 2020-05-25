@@ -53,7 +53,7 @@ extension Logic.ExposureDetection {
         latestProcessedKeyChunkIndex: state.exposureDetection.latestProcessedKeyChunkIndex,
         exposureDetectionConfiguration: state.configuration.exposureConfiguration,
         exposureInfoRiskScoreThreshold: state.configuration.exposureInfoMinimumRiskScore,
-        userExplanationMessage: L10n.Notifications.AppleExposure.message,
+        userExplanationMessage: L10n.Notifications.AppleExposureNotification.message,
         enManager: context.dependencies.exposureNotificationManager,
         tekProvider: context.dependencies.temporaryExposureKeyProvider,
         now: context.dependencies.now,
@@ -71,7 +71,7 @@ extension Logic.ExposureDetection {
       }
 
       try context.awaitDispatch(TrackExposureDetectionPerformed(outcome: outcome, type: self.type))
-      try context.awaitDispatch(Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome))
+      try? context.awaitDispatch(Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome))
       try context.awaitDispatch(UpdateUserStatusIfNecessary(outcome: outcome))
       try? context.awaitDispatch(SignalBackgroundTask(outcome: outcome, type: self.type))
 
