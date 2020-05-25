@@ -41,7 +41,9 @@ extension Logic.Analytics {
         try context.awaitDispatch(StochasticallySendOperationalInfoWithoutExposure())
       } else if Self.shouldSendDummyAnalytics(state: analyticsState, now: now) {
         try context.awaitDispatch(SendDummyAnalyticsAndUpdateOpportunityWindow())
-      } else if Self.isDummyAnalyticsOpportunityWindowExpired(state: analyticsState, now: now) {
+      }
+      
+      if Self.isDummyAnalyticsOpportunityWindowExpired(state: analyticsState, now: now) {
         try context.awaitDispatch(UpdateDummyTrafficOpportunityWindow())
       }
     }

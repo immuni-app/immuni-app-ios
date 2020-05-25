@@ -42,10 +42,8 @@ extension AnalyticsLogicTests {
 
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
 
-    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 1)
-
-    try XCTAssertType(
-      dispatchInterceptor.dispatchedItems.first,
+    try XCTAssertContainsType(
+      dispatchInterceptor.dispatchedItems,
       Logic.Analytics.StochasticallySendOperationalInfoWithExposure.self
     )
   }
@@ -201,10 +199,8 @@ extension AnalyticsLogicTests {
 
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
 
-    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 1)
-
-    try XCTAssertType(
-      dispatchInterceptor.dispatchedItems.first,
+    try XCTAssertContainsType(
+      dispatchInterceptor.dispatchedItems,
       Logic.Analytics.StochasticallySendOperationalInfoWithoutExposure.self
     )
   }
@@ -689,23 +685,33 @@ extension AnalyticsLogicTests {
     )
   }
 
-  func testUpdatesDummyOpportunityWindowIfExpired() throws {
+  func testAlwaysUpdatesDummyOpportunityWindowIfExpired() throws {
     var state = AppState()
     state.analytics.dummyTrafficOpportunityWindow = .distantPast
 
     let getState = { state }
-    let dispatchInterceptor = DispatchInterceptor()
 
-    let dependencies = AppDependencies.mocked(
-      getAppState: getState,
-      dispatch: dispatchInterceptor.dispatchFunction,
-      uniformDistributionGenerator: DeterministicGenerator.self
-    )
+    let possibleOutcomes: [ExposureDetectionOutcome] = [
+      .error(.notAuthorized),
+      .fullDetection(Date(), .noMatch, [], 0, 0),
+      .partialDetection(Date(), .noMatch, 0, 0),
+      .noDetectionNecessary
+    ]
 
-    let context = AppSideEffectContext(dependencies: dependencies)
+    for outcome in possibleOutcomes {
+      let dispatchInterceptor = DispatchInterceptor()
 
-    try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: .noDetectionNecessary).sideEffect(context)
-    try XCTAssertType(dispatchInterceptor.dispatchedItems.first, Logic.Analytics.UpdateDummyTrafficOpportunityWindow.self)
+      let dependencies = AppDependencies.mocked(
+        getAppState: getState,
+        dispatch: dispatchInterceptor.dispatchFunction,
+        uniformDistributionGenerator: DeterministicGenerator.self
+      )
+
+      let context = AppSideEffectContext(dependencies: dependencies)
+      
+      try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
+      try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.UpdateDummyTrafficOpportunityWindow.self)
+    }
   }
 
   func testSetsTheCorrectDummyTrafficOpportunityWindow() throws {
