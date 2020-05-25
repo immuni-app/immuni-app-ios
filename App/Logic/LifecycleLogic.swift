@@ -82,9 +82,6 @@ extension Logic {
         // check whether to show force update
         try context.awaitDispatch(ForceUpdate.CheckAppVersion())
 
-        // Update the configuration, with a timeout. Continue in any case in order not to waste an Exposure Detection cycle.
-        try? await(context.dispatch(Logic.Configuration.DownloadAndUpdateConfiguration()).timeout(timeout: 10))
-
         // Perform exposure detection if necessary
         context.dispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground))
 

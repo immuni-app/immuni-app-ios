@@ -26,23 +26,24 @@ extension Logic.AppSetup {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let state = context.getState()
 
-      // Start a best-effort download the configuration from the server
-      let configurationDownload = context.dispatch(Logic.Configuration.DownloadAndUpdateConfiguration())
-        .timeout(timeout: Self.configurationDownloadTimeout(state))
+      // Start a best-effort download the configuration / faq from the server
+      // in case this is the first launch
+      if !state.toggles.isFirstLaunchPerformed {
+        let fetchPromise = context
+          .dispatch(Logic.Configuration.DownloadAndUpdateConfiguration())
+          .timeout(timeout: 10)
 
-      try? await(configurationDownload)
+        // here we are not interested in the result
+        // (e.g., the timeout made the promise fail)
+        try? await(fetchPromise)
+
+        // flags the first launch as done to prevent further downloads
+        // during the startup phase
+        try context.awaitDispatch(PassFirstLaunchExecuted())
+      }
 
       // Navigate to the approprivate view
       context.dispatch(ChangeRoot())
-    }
-
-    /// The method returns a different timeout based on whether the client has already downloaded a remote configuration.
-    /// The client waits a little bit more during the first download to maximise the chances of retrieving the latest
-    /// configuration.
-    private static func configurationDownloadTimeout(_ state: AppState) -> TimeInterval {
-      return state.toggles.isConfigurationEverDownloaded
-        ? 2
-        : 10
     }
   }
 
@@ -82,6 +83,15 @@ extension Logic.AppSetup {
   struct ShowWelcome: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       try context.awaitDispatch(Show(Screen.welcome, animated: true))
+    }
+  }
+}
+
+private extension Logic.AppSetup {
+  /// Marks the first launch executed as done
+  private struct PassFirstLaunchExecuted: AppStateUpdater {
+    func updateState(_ state: inout AppState) {
+      state.toggles.isFirstLaunchPerformed = true
     }
   }
 }

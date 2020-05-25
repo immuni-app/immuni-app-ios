@@ -22,7 +22,8 @@ extension Logic {
 }
 
 extension Logic.Configuration {
-  /// Download the updated configuration from the server and persist it in the state
+  /// Download the updated configuration from the server and persist it in the state.
+  /// This will also trigger a refresh of the FAQs
   struct DownloadAndUpdateConfiguration: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       guard let buildNumber = context.dependencies.bundle.intBuildVersion else {
@@ -71,7 +72,6 @@ private extension Logic.Configuration {
 
     func updateState(_ state: inout AppState) {
       state.configuration = self.configuration
-      state.toggles.isConfigurationEverDownloaded = true
     }
   }
 
