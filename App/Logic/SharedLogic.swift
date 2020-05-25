@@ -71,7 +71,7 @@ extension Logic.Shared {
         context.dependencies.application.currentRoutableIdentifiers.contains(where: { possiblePresenters.contains($0) }) else {
           return
       }
-      context.dispatch(Show(Screen.sensitiveDataCover))
+      context.dispatch(Show(Screen.sensitiveDataCover, animated: true))
     }
   }
 
@@ -81,7 +81,7 @@ extension Logic.Shared {
       guard context.dependencies.application.currentRoutableIdentifiers.contains(Screen.sensitiveDataCover.rawValue) else {
         return
       }
-      context.dispatch(Hide(Screen.sensitiveDataCover))
+      context.dispatch(Hide(Screen.sensitiveDataCover, animated: true))
     }
   }
 
