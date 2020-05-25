@@ -15,8 +15,8 @@
 import ImmuniExposureNotification
 import Katana
 import Models
-import UIKit
 import PushNotification
+import UIKit
 
 // MARK: - Environment State
 
