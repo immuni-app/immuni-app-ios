@@ -23,8 +23,11 @@ struct SuggestionsInstructionCellVM: ViewModel {
     case useNapkins
     case socialDistance
     case wearMask
+    case contactDoctor
+    case stayHome
     case checkSymptoms
     case isolate
+    case contactAuthorities
   }
 
   let instruction: Instruction
@@ -41,10 +44,16 @@ struct SuggestionsInstructionCellVM: ViewModel {
       return L10n.Suggestions.Instruction.socialDistance
     case .wearMask:
       return L10n.Suggestions.Instruction.mask
+    case .contactDoctor:
+      return L10n.Suggestions.Instruction.ContactDoctor.title
+    case .stayHome:
+      return L10n.Suggestions.Instruction.stayHome
     case .checkSymptoms:
       return L10n.Suggestions.Instruction.CheckSymptoms.title
     case .isolate:
       return L10n.Suggestions.Instruction.Isolate.title
+    case .contactAuthorities:
+      return L10n.Suggestions.Instruction.phoneContact
     }
   }
 
@@ -60,11 +69,34 @@ struct SuggestionsInstructionCellVM: ViewModel {
       return Asset.Suggestions.socialDistance.image
     case .wearMask:
       return Asset.Suggestions.mask.image
+    case .contactDoctor:
+      return Asset.Suggestions.contactDoctor.image
+    case .stayHome:
+      return Asset.Suggestions.home.image
     case .checkSymptoms:
       return Asset.Suggestions.checkSymptoms.image
     case .isolate:
       return Asset.Suggestions.isolate.image
+    case .contactAuthorities:
+      return Asset.Suggestions.emergency.image
     }
+  }
+
+  var subtitle: String? {
+    switch self.instruction {
+    case .ministerialDecree, .washHands, .useNapkins, .socialDistance, .wearMask, .stayHome, .contactAuthorities:
+      return nil
+    case .checkSymptoms:
+      return L10n.Suggestions.Instruction.CheckSymptoms.message
+    case .isolate:
+      return L10n.Suggestions.Instruction.Isolate.message
+    case .contactDoctor:
+      return L10n.Suggestions.Instruction.ContactDoctor.message
+    }
+  }
+
+  var hasSubtitle: Bool {
+    return self.subtitle != nil
   }
 }
 
@@ -74,12 +106,14 @@ class SuggestionsInstructionCell: UICollectionViewCell, ModellableView, Reusable
   private static let imageSize: CGFloat = 40
   private static let contentInset: CGFloat = 20
   private static let imageToMessage: CGFloat = 15
+  private static let titleToSubtitle: CGFloat = 15
   private static let totalHorizontalMargin: CGFloat =
     2 * SuggestionsView.cellContainerInset + SuggestionsInstructionCell.imageSize +
       SuggestionsInstructionCell.imageToMessage + 2 * SuggestionsInstructionCell.contentInset
 
   let container = UIView()
   let message = UILabel()
+  let subtitle = UILabel()
   let icon = UIImageView()
 
   override init(frame: CGRect) {
@@ -98,6 +132,7 @@ class SuggestionsInstructionCell: UICollectionViewCell, ModellableView, Reusable
     self.contentView.addSubview(self.container)
     self.container.addSubview(self.message)
     self.container.addSubview(self.icon)
+    self.container.addSubview(self.subtitle)
   }
 
   func style() {
@@ -111,6 +146,7 @@ class SuggestionsInstructionCell: UICollectionViewCell, ModellableView, Reusable
     }
 
     Self.Style.title(self.message, content: model.title)
+    Self.Style.subtitle(self.subtitle, content: model.subtitle ?? "")
     Self.Style.icon(self.icon, icon: model.icon)
   }
 
@@ -122,23 +158,38 @@ class SuggestionsInstructionCell: UICollectionViewCell, ModellableView, Reusable
       .bottom()
       .horizontally(SuggestionsView.cellContainerInset)
 
-    self.icon.pin
-      .size(Self.imageSize)
-      .left(Self.contentInset)
-      .vCenter()
-
     self.message.pin
       .left(Self.imageSize + Self.contentInset + Self.imageToMessage)
       .right(Self.contentInset)
       .sizeToFit(.width)
-      .vCenter()
+      .top(SuggestionsView.cellContainerInset)
+
+    self.icon.pin
+      .size(Self.imageSize)
+      .left(Self.contentInset)
+      .vCenter(to: self.message.edge.vCenter)
+
+    self.subtitle.pin
+      .horizontally(Self.contentInset)
+      .sizeToFit(.width)
+      .bottom(SuggestionsView.cellContainerInset)
   }
 
   override func sizeThatFits(_ size: CGSize) -> CGSize {
     let labelWidth = size.width - SuggestionsInstructionCell.totalHorizontalMargin
     let titleSize = self.message.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
 
-    return CGSize(width: size.width, height: titleSize.height + 2 * SuggestionsView.cellContainerInset)
+    if self.model?.hasSubtitle ?? false {
+      let subtitleWidth = size.width - 2 * (SuggestionsView.cellContainerInset + SuggestionsInstructionCell.contentInset)
+      let subtitleSize = self.subtitle.sizeThatFits(CGSize(width: subtitleWidth, height: CGFloat.infinity))
+      return CGSize(
+        width: size.width,
+        height: titleSize.height + subtitleSize.height + 2 * SuggestionsView.cellContainerInset
+          + SuggestionsInstructionCell.titleToSubtitle
+      )
+    } else {
+      return CGSize(width: size.width, height: titleSize.height + 2 * SuggestionsView.cellContainerInset)
+    }
   }
 }
 
@@ -169,6 +220,19 @@ private extension SuggestionsInstructionCell {
         .color(Palette.grayDark),
         .alignment(.left),
         .xmlRules([.style("b", boldStyle)])
+      )
+
+      TempuraStyles.styleStandardLabel(
+        label,
+        content: content,
+        style: textStyle
+      )
+    }
+
+    static func subtitle(_ label: UILabel, content: String) {
+      let textStyle = TextStyles.p.byAdding(
+        .color(Palette.grayNormal),
+        .alignment(.left)
       )
 
       TempuraStyles.styleStandardLabel(
