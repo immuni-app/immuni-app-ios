@@ -52,7 +52,7 @@ final class PrivacyView: UIView, ViewControllerModellableView {
   private var actionButton = ButtonWithInsets()
 
   private let backgroundGradientView = GradientView()
-  private let scrollableGradientView = GradientView()
+  let scrollableGradientView = GradientView()
 
   private let headerView = UIView()
   private let headerTitleView = UILabel()
