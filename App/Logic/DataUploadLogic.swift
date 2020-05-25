@@ -212,7 +212,7 @@ extension Logic.DataUpload {
         cancelAction = L10n.UploadData.ConnectionError.action
 
       case .unknownError, .badRequest, .bodyNotCompliant, .tooManyKeysUploaded, .unauthorizedOTP, .batchNotFound, .noBatchesFound,
-           .provinceNotValid, .otpAlreadyAuthorized:
+           .otpAlreadyAuthorized:
         title = L10n.UploadData.ApiError.title
         message = L10n.UploadData.ApiError.message
         cancelAction = L10n.UploadData.ApiError.action
