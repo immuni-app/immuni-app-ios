@@ -194,6 +194,7 @@ extension TabbarVC: RoutableWithConfiguration {
       .show(Screen.sensitiveDataCover): .presentModally { [unowned self] _ in
         let vc = SensitiveDataCoverVC(store: self.store)
         vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .crossDissolve
         return vc
       },
 
