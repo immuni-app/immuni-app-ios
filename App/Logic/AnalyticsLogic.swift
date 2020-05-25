@@ -191,9 +191,9 @@ extension Logic.Analytics {
 
       // we need to update the opportunity window
       let numDays = currentMonth.numberOfDays
-      let maxShift = Double(numDays - 1) * AnalyticsState.OpportunityWindow.secondsInDay
+      let maxShift = Double(numDays - 1) * OpportunityWindow.secondsInDay
       let shift = context.dependencies.uniformDistributionGenerator.random(in: 0 ..< maxShift)
-      let opportunityWindow = AnalyticsState.OpportunityWindow(month: currentMonth, shift: shift)
+      let opportunityWindow = OpportunityWindow(month: currentMonth, shift: shift)
       try context.awaitDispatch(SetEventWithoutExposureOpportunityWindow(window: opportunityWindow))
     }
   }
@@ -307,7 +307,7 @@ extension Logic.Analytics {
 
   /// Updates the opportunity window for the event without exposure
   struct SetEventWithoutExposureOpportunityWindow: AppStateUpdater {
-    let window: AnalyticsState.OpportunityWindow
+    let window: OpportunityWindow
 
     func updateState(_ state: inout AppState) {
       state.analytics.eventWithoutExposureWindow = self.window
@@ -321,7 +321,7 @@ extension Logic.Analytics {
 
     func updateState(_ state: inout AppState) {
       let windowStart = self.now.addingTimeInterval(self.dummyTrafficStochasticDelay)
-      let windowDuration = AnalyticsState.OpportunityWindow.secondsInDay
+      let windowDuration = OpportunityWindow.secondsInDay
       state.analytics.dummyTrafficOpportunityWindow = .init(windowStart: windowStart, windowDuration: windowDuration)
     }
   }
