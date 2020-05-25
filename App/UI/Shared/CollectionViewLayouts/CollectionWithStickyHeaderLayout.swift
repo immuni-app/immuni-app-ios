@@ -58,10 +58,7 @@ class CollectionWithStickyCellsLayout: UICollectionViewFlowLayout {
         frame.size.height = max(cellMinimumHeight, cellStandardHeight - offset.y)
         frame.origin.y = frame.minY + offset.y
 
-        if frame != cellAttributes.frame {
-          cellAttributes.frame = frame
-          cell.frame = frame
-        }
+        cell.frame = frame
       }
     }
 
