@@ -63,6 +63,28 @@ extension Logic.Shared {
     }
   }
 
+  /// Show sensitive data cover.
+  struct ShowSensitiveDataCoverIfNeeded: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      let possiblePresenters: [String] = [Screen.tabBar.rawValue, Screen.onboardingStep.rawValue]
+      guard
+        context.dependencies.application.currentRoutableIdentifiers.contains(where: { possiblePresenters.contains($0) }) else {
+          return
+      }
+      context.dispatch(Show(Screen.sensitiveDataCover))
+    }
+  }
+
+  /// Hide sensitive data cover.
+  struct HideSensitiveDataCoverIfPresent: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      guard context.dependencies.application.currentRoutableIdentifiers.contains(Screen.sensitiveDataCover.rawValue) else {
+        return
+      }
+      context.dispatch(Hide(Screen.sensitiveDataCover))
+    }
+  }
+
   struct OpenSettings: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       guard let url = URL(string: UIApplication.openSettingsURLString) else {
