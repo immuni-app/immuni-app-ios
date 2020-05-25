@@ -48,9 +48,9 @@ public struct CalendarMonth: Codable, Equatable, Hashable, Comparable {
     return range.count
   }
 
-  /// The interval between the beginning of the month  (UTC timezone) and 00:00:00 UTC on 1 January 1970
-  public var utcTimeIntervalSince1970: TimeInterval {
-    return self.underlyingCalendarDay.utcDateAtBeginningOfTheDay.timeIntervalSince1970
+  /// The date of the beginning of the month (UTC timezone)
+  public var utcDateAtBeginningOfTheMonth: Date {
+    return self.underlyingCalendarDay.utcDateAtBeginningOfTheDay
   }
 }
 
