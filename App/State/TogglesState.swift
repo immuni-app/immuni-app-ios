@@ -27,8 +27,11 @@ struct TogglesState: Codable {
   /// Whether the onboarding has been completed
   var isOnboardingCompleted: Bool = false
 
-  /// Whether the configuration was ever downloaded from the server
-  var isConfigurationEverDownloaded: Bool = false
+  /// Whether the first launch has been performed.
+  /// This variable is used because the application shouldn't
+  /// perform config/faqs fetching on foreground. Howoever,
+  /// during the first launch, this is allowed
+  var isFirstLaunchPerformed: Bool = false
 
   // MARK: - Debug values
 

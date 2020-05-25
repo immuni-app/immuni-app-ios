@@ -15,7 +15,35 @@
 import Foundation
 import Models
 
-struct FaqState {
+/// Slice of state that manages the app's FAQs
+struct FaqState: Codable {
   /// The latest fetched FAQs
-  var faqs: [FAQ] = []
+  // swiftlint:disable:next discouraged_optional_collection
+  var fetchedFAQs: [FAQ]? = nil
+
+  /// The language of the latest fetched FAQs
+  var latestFetchLanguage: UserLanguage? = nil
+
+  /// Returns the most updated FAQs available for the given language.
+  /// - note: the app currently supports only one language at the time
+  /// when it comes to fetched FAQs. In case of a change in the language,
+  /// then the default FAQs are used instead
+  func faqs(for language: UserLanguage) -> [FAQ] {
+    if self.latestFetchLanguage == language, let faqs = self.fetchedFAQs {
+      // use fetched language if possible
+      return faqs
+    }
+
+    // fallback on default FAQs
+    switch language {
+    case .english:
+      return FAQ.englishDefaultValues
+
+    case .italian:
+      return FAQ.italianDefaultValues
+
+    case .german:
+      return FAQ.germanDefaultValues
+    }
+  }
 }

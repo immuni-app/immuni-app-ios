@@ -42,22 +42,27 @@ extension Logic {
         // refresh statuses
         try context.awaitDispatch(Logic.Lifecycle.RefreshAuthorizationStatuses())
 
-        // clears `PositiveExposureResults` older than 14 days from the `ExposureDetectionState`
-        try context.awaitDispatch(Logic.ExposureDetection.ClearOutdatedResults(now: context.dependencies.now()))
-
         // Update user language
         try context.awaitDispatch(SetUserLanguage(language: UserLanguage(from: context.dependencies.locale)))
 
-        // Perform exposure detection if necessary
-        context.dispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground))
+        // clears `PositiveExposureResults` older than 14 days from the `ExposureDetectionState`
+        try context.awaitDispatch(Logic.ExposureDetection.ClearOutdatedResults(now: context.dependencies.now()))
 
         // Removes notifications as the user has opened the app
         context.dispatch(Logic.CovidStatus.RemoveRiskReminderNotification())
+
+        // update analaytics info
+        try context.awaitDispatch(Logic.Analytics.UpdateOpportunityWindowIfNeeded())
+
+        // Perform exposure detection if necessary
+        context.dispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground))
       }
     }
 
     /// Launched when app is about to enter in foreground
     struct WillEnterForeground: AppSideEffect, NotificationObserverDispatchable {
+      init() {}
+
       init?(notification: Notification) {
         guard notification.name == UIApplication.willEnterForegroundNotification else {
           return nil
@@ -71,33 +76,11 @@ extension Logic {
         // clears `PositiveExposureResults` older than 14 days from the `ExposureDetectionState`
         try context.awaitDispatch(Logic.ExposureDetection.ClearOutdatedResults(now: context.dependencies.now()))
 
-        // check whether to show force update
-        try context.awaitDispatch(ForceUpdate.CheckAppVersion())
-
-        // Update the configuration, with a timeout. Continue in any case in order not to waste an Exposure Detection cycle.
-        try? await(context.dispatch(Logic.Configuration.DownloadAndUpdateConfiguration()).timeout(timeout: 10))
-
-        // Perform exposure detection if necessary
-        context.dispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground))
-
         // Removes notifications as the user has opened the app
         context.dispatch(Logic.CovidStatus.RemoveRiskReminderNotification())
-      }
-    }
 
-    /// Launched when app did become active.
-    /// Note that when the app is in foreground and the command center is opened / closed, `didBecomeActiveNotification`
-    /// will be dispatched, but not `willEnterForegroundNotification`.
-    struct DidBecomeActive: AppSideEffect, NotificationObserverDispatchable {
-      init?(notification: Notification) {
-        guard notification.name == UIApplication.didBecomeActiveNotification else {
-          return nil
-        }
-      }
-
-      func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-        // refresh statuses
-        try context.awaitDispatch(RefreshAuthorizationStatuses())
+        // check whether to show force update
+        try context.awaitDispatch(ForceUpdate.CheckAppVersion())
 
         // update analaytics info
         try context.awaitDispatch(Logic.Analytics.UpdateOpportunityWindowIfNeeded())
@@ -107,10 +90,28 @@ extension Logic {
       }
     }
 
+    /// Launched when app did become active.
+    /// Note that when the app is in foreground and the command center is opened / closed, `didBecomeActiveNotification`
+    /// will be dispatched, but not `willEnterForegroundNotification`.
+    struct DidBecomeActive: AppSideEffect, NotificationObserverDispatchable {
+      init() {}
+
+      init?(notification: Notification) {
+        guard notification.name == UIApplication.didBecomeActiveNotification else {
+          return nil
+        }
+      }
+
+      func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        // refresh statuses
+        try context.awaitDispatch(RefreshAuthorizationStatuses())
+      }
+    }
+
     /// Performed when the system launches the app in the background to run the exposure detection task.
     struct HandleExposureDetectionBackgroundTask: AppSideEffect {
       /// The background task that dispatched this SideEffect
-      var task: BGTask
+      var task: BackgroundTask
 
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
         // clears `PositiveExposureResults` older than 14 days from the `ExposureDetectionState`

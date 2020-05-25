@@ -21,7 +21,7 @@ import Tempura
 import XCTest
 
 final class AppSetupLogicTests: XCTestCase {
-  func testPerformsSetup() throws {
+  func testPerformsSetupFirstLaunch() throws {
     let getState = { AppState() }
     let dispatchInterceptor = DispatchInterceptor()
     let dependencies = AppDependencies.mocked(getAppState: getState, dispatch: dispatchInterceptor.dispatchFunction)
@@ -29,10 +29,27 @@ final class AppSetupLogicTests: XCTestCase {
 
     try Logic.AppSetup.PerformSetup().sideEffect(context)
 
-    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 2)
+    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 3)
 
     try XCTAssertType(dispatchInterceptor.dispatchedItems.first, Logic.Configuration.DownloadAndUpdateConfiguration.self)
-    try XCTAssertType(dispatchInterceptor.dispatchedItems[1], Logic.AppSetup.ChangeRoot.self)
+    try XCTAssertType(dispatchInterceptor.dispatchedItems[1], Logic.AppSetup.PassFirstLaunchExecuted.self)
+    try XCTAssertType(dispatchInterceptor.dispatchedItems[2], Logic.AppSetup.ChangeRoot.self)
+  }
+
+  func testPerformsSetup() throws {
+    var state = AppState()
+    state.toggles.isFirstLaunchPerformed = true
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: getState, dispatch: dispatchInterceptor.dispatchFunction)
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.AppSetup.PerformSetup().sideEffect(context)
+
+    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 1)
+
+    try XCTAssertType(dispatchInterceptor.dispatchedItems.first, Logic.AppSetup.ChangeRoot.self)
   }
 
   func testChangeRootWithForceUpdate() throws {
