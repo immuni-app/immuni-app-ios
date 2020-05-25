@@ -65,6 +65,8 @@ extension Logic {
 
     /// Launched when app is about to enter in foreground
     struct WillEnterForeground: AppSideEffect, NotificationObserverDispatchable {
+      init() {}
+
       init?(notification: Notification) {
         guard notification.name == UIApplication.willEnterForegroundNotification else {
           return nil
@@ -100,6 +102,8 @@ extension Logic {
     /// Note that when the app is in foreground and the command center is opened / closed, `didBecomeActiveNotification`
     /// will be dispatched, but not `willEnterForegroundNotification`.
     struct DidBecomeActive: AppSideEffect, NotificationObserverDispatchable {
+      init() {}
+
       init?(notification: Notification) {
         guard notification.name == UIApplication.didBecomeActiveNotification else {
           return nil
@@ -130,7 +134,7 @@ extension Logic {
     /// Performed when the system launches the app in the background to run the exposure detection task.
     struct HandleExposureDetectionBackgroundTask: AppSideEffect {
       /// The background task that dispatched this SideEffect
-      var task: BGTask
+      var task: BackgroundTask
 
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
         // update today variable

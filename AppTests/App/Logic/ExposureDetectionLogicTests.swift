@@ -684,16 +684,6 @@ extension ExposureDetectionError {
   }
 }
 
-private class MockBackgroundTask: BackgroundTask {
-  var setTaskCompletedMethodCalls: [Bool] = []
-
-  var expirationHandler: (() -> Void)?
-
-  func setTaskCompleted(success: Bool) {
-    self.setTaskCompletedMethodCalls.append(success)
-  }
-}
-
 private extension RiskLevel {
   var intValue: Int {
     switch self {
