@@ -23,27 +23,16 @@ import XCTest
 final class AppSetupLogicTests: XCTestCase {
   func testAwaitsForFirstLaunchSetup() throws {
     var state = AppState()
+    state.toggles.isFirstLaunchSetupPerformed = true
+
     let getState = { state }
     let dispatchInterceptor = DispatchInterceptor()
     let dependencies = AppDependencies.mocked(getAppState: getState, dispatch: dispatchInterceptor.dispatchFunction)
     let context = AppSideEffectContext(dependencies: dependencies)
 
-    DispatchQueue.global().asyncAfter(deadline: .now() + 5) {
-      do {
-        XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 1)
-        try XCTAssertType(dispatchInterceptor.dispatchedItems.first, WaitForState.self)
-
-        // Simulate the first launch setup performed
-        state.toggles.isFirstLaunchSetupPerformed = true
-
-        self.expectToEventually(dispatchInterceptor.dispatchedItems.count == 2)
-        try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.AppSetup.ChangeRoot.self)
-      } catch {
-        XCTFail("Assertion failed \(error)")
-      }
-    }
-
     try Logic.AppSetup.PerformSetup().sideEffect(context)
+    self.expectToEventually(dispatchInterceptor.dispatchedItems.contains(where: { $0 is WaitForState }))
+    self.expectToEventually(dispatchInterceptor.dispatchedItems.contains(where: { $0 is Logic.AppSetup.ChangeRoot }))
   }
 
   func testChangeRootWithForceUpdate() throws {
