@@ -26,62 +26,22 @@ struct SuggestionsButtonCellVM: ViewModel {
 
   let interaction: ButtonInteraction
 
-  static func titleStyle(color: UIColor) -> TextStyles {
+  static var titleStyle: TextStyles {
     return TextStyles.h4Bold.byAdding([
-      .color(color),
+      .color(Palette.white),
       .alignment(.center)
     ])
-  }
-
-  static func underlinedTitleStyle(color: UIColor) -> TextStyles {
-    return TextStyles.pLink.byAdding([
-      .color(color),
-      .alignment(.left)
-    ])
-  }
-
-  var useSmallStyle: Bool {
-    switch self.interaction {
-    case .dismissContactNotifications:
-      return true
-    case .dismissCovidNotifications, .covidNegative:
-      return false
-    }
   }
 
   var title: String {
     switch self.interaction {
     case .dismissContactNotifications:
-      return L10n.Suggestions.Button.dismissContactNotifications
+      return L10n.Suggestions.Instruction.HideIfContactDoctor.action
     case .dismissCovidNotifications:
-      return L10n.Suggestions.Button.dismissCovidNotifications
+      return L10n.Suggestions.Instruction.HideAlert.action
     case .covidNegative:
-      return L10n.Suggestions.Button.covidNegative
+      return L10n.Suggestions.Positive.CovidNegative.action
     }
-  }
-
-  var backgroundColor: UIColor {
-    return self.useSmallStyle ? .clear : Palette.grayPurple
-  }
-
-  var tintColor: UIColor {
-    return self.useSmallStyle ? Palette.grayNormal : Palette.white
-  }
-
-  var shadow: UIView.Shadow {
-    return self.useSmallStyle ? .none : .cardPurple
-  }
-
-  var textStyle: TextStyles {
-    return self.useSmallStyle ? Self.underlinedTitleStyle(color: self.tintColor) : Self.titleStyle(color: self.tintColor)
-  }
-
-  var cornerRadius: CGFloat {
-    return self.useSmallStyle ? 0 : 25
-  }
-
-  var contentAlignment: UIControl.ContentHorizontalAlignment {
-    return self.useSmallStyle ? .left : .center
   }
 }
 
@@ -123,12 +83,7 @@ class SuggestionsButtonCell: UICollectionViewCell, ModellableView, ReusableView 
       return
     }
 
-    self.button.setBackgroundColor(model.backgroundColor, for: .normal)
-    self.button.setAttributedTitle(model.title.styled(with: model.textStyle), for: .normal)
-    self.button.tintColor = model.tintColor
-    self.button.addShadow(model.shadow)
-    self.button.layer.cornerRadius = model.cornerRadius
-    self.button.contentHorizontalAlignment = model.contentAlignment
+    self.button.setAttributedTitle(model.title.styled(with: VM.titleStyle), for: .normal)
 
     self.setNeedsLayout()
   }
@@ -146,8 +101,7 @@ class SuggestionsButtonCell: UICollectionViewCell, ModellableView, ReusableView 
     let labelWidth = buttonWidth - self.button.insets.horizontal
     let titleSize = self.button.titleLabel?.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity)) ?? .zero
 
-    let useSmallStyle = self.model?.useSmallStyle ?? false
-    let minimumButtonHeight: CGFloat = useSmallStyle ? 40 : 52
+    let minimumButtonHeight: CGFloat = 52
     let buttonHeight = min(minimumButtonHeight, titleSize.height + self.button.insets.vertical)
 
     return CGSize(width: size.width, height: buttonHeight)
@@ -162,6 +116,10 @@ private extension SuggestionsButtonCell {
       button.adjustsImageWhenHighlighted = false
       button.setOverlayOpacity(0, for: .highlighted)
       button.setOpacity(0.85, for: .highlighted)
+      button.setBackgroundColor(Palette.grayDark, for: .normal)
+      button.tintColor = Palette.white
+      button.addShadow(.cardPurple)
+      button.layer.cornerRadius = 25
     }
   }
 }

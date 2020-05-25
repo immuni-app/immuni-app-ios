@@ -19,14 +19,10 @@ import Tempura
 
 struct SuggestionsHeaderCellVM: ViewModel {
   let covidStatus: CovidStatus
-  let contactDaysDistance: Int
+  let dayOfContact: CalendarDay?
 
-  var contactDaysDistanceString: String {
-    if self.contactDaysDistance > 1 {
-      return L10n.DaysDistance.plural(self.contactDaysDistance)
-    } else {
-      return L10n.DaysDistance.single
-    }
+  var dayOfContactString: String {
+    return self.dayOfContact?.dateString ?? ""
   }
 
   var gradient: Gradient {
@@ -50,11 +46,11 @@ struct SuggestionsHeaderCellVM: ViewModel {
   var title: String {
     switch self.covidStatus {
     case .neutral:
-      return L10n.Suggestions.Header.Title.neutral
+      return L10n.Suggestions.Header.ShortTitle.neutral
     case .risk:
-      return L10n.Suggestions.Header.Title.risk
+      return L10n.Suggestions.Risk.title
     case .positive:
-      return L10n.Suggestions.Header.Title.positive
+      return L10n.Suggestions.Positive.title
     }
   }
 
@@ -63,9 +59,9 @@ struct SuggestionsHeaderCellVM: ViewModel {
     case .neutral:
       return ""
     case .risk:
-      return L10n.Suggestions.Header.Subtitle.risk(self.contactDaysDistanceString)
+      return L10n.Suggestions.Risk.subtitle(self.dayOfContactString)
     case .positive:
-      return L10n.Suggestions.Header.Subtitle.positive
+      return L10n.Suggestions.Positive.subtitle
     }
   }
 
@@ -276,5 +272,17 @@ private extension SuggestionsHeaderCell {
       view.image = image
       view.contentMode = .scaleAspectFit
     }
+  }
+}
+
+private extension CalendarDay {
+  static let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .short
+    return formatter
+  }()
+
+  var dateString: String {
+    return Self.dateFormatter.string(from: self.dateAtBeginningOfTheDay)
   }
 }

@@ -53,7 +53,7 @@ extension Logic.ExposureDetection {
         latestProcessedKeyChunkIndex: state.exposureDetection.latestProcessedKeyChunkIndex,
         exposureDetectionConfiguration: state.configuration.exposureConfiguration,
         exposureInfoRiskScoreThreshold: state.configuration.exposureInfoMinimumRiskScore,
-        userExplanationMessage: L10n.Notifications.AppleExposure.message,
+        userExplanationMessage: L10n.Notifications.AppleExposureNotification.message,
         enManager: context.dependencies.exposureNotificationManager,
         tekProvider: context.dependencies.temporaryExposureKeyProvider,
         now: context.dependencies.now,

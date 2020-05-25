@@ -66,7 +66,8 @@ extension Logic.Settings {
       let state = context.getState()
       let hasLocalFAQs = !state.faqState.faqs.isEmpty
 
-      try context.awaitDispatch(Logic.Loading.Show(message: L10n.Faq.loading))
+      #warning("check copy")
+      try context.awaitDispatch(Logic.Loading.Show(message: L10n.Settings.Setting.loadData))
 
       do {
         if hasLocalFAQs {
@@ -82,13 +83,14 @@ extension Logic.Settings {
       } catch {
         try context.awaitDispatch(Logic.Loading.Hide())
 
+        #warning("check copy")
         // handle errors by showing an error
         let model = Alert.Model(
-          title: L10n.Error.FaqDownload.title,
-          message: L10n.Error.FaqDownload.message,
+          title: L10n.UploadData.ConnectionError.title,
+          message: L10n.UploadData.ConnectionError.message,
           preferredStyle: .alert,
           actions: [
-            .init(title: L10n.Error.FaqDownload.action, style: .default)
+            .init(title: L10n.UploadData.ConnectionError.action, style: .default)
           ]
         )
 
