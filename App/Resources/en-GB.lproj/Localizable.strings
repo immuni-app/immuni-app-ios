@@ -6,35 +6,36 @@
 "tabbar.title.settings" = "Settings";
 
 
-"notifications.update_os.title" = "The service isn't enabled ";
+"notifications.update_os.title" = "The service isn't enabled yet";
 "notifications.update_os.description" = "Open the app to complete activation.";
 "notifications.update_app.title" = "⚠️ Application needs updating.";
 "notifications.update_app.description" = "An important update is available. Update the app as soon as possible to keep it working.";
 "notifications.not_active_service.title" = "⚠️ The service isn't enabled yet";
-"notifications.not_active_service.description" = "Riattiva Immuni al più presto perché ti possa avvertire in caso di rischio.";
-"notifications.apple_exposure_notification.message" = "Una persona con cui hai avuto un contatto ravvicinato è risultata positiva al test.";
-"notifications.risk.title" = "Avviso importante per te";
+"notifications.not_active_service.description" = "Re-enable Immuni as soon as possible so it can notify you in case of risk.";
+"notifications.apple_exposure_notification.message" = "A person you had contact with was positive to the test.";
+"notifications.risk.title" = "Important Notice";
 "notifications.risk.description" = "Open the app to get more information.";
 "notifications.update_positive_state.title" = "Update your status";
 "notifications.update_positive_state.description" = "Open the app to see if there are updates.";
 
-"force_update_view.app.title" = "Aggiorna l’app per proseguire";
-"force_update_view.app.details" = "È disponibile un aggiornamento importante. Aggiorna subito l’app per garantirne il funzionamento.";
-"force_update_view.update" = "Aggiorna";
+"force_update_view.app.title" = "Update the app to progress.";
+"force_update_view.app.details" = "There's a new version. Update the app as soon as possible to keep it working.";
+"force_update_view.update" = "Update";
 
-"force_update_view.os.title" = "Aggiorna il sistema operativo per proseguire";
-"force_update_view.os.details" = "Una versione più recente di iOS (13.5 o superiore) è necessaria per attivare le notifiche di esposizione.";
+"force_update_view.os.title" = "Update the operating system to go next.";
+"force_update_view.os.details" = "You need a newer version of iOS (13.5+) to enable exposure notifications.";
 
-"permission_tutorial.update_os.title" = "Per aggiornare il tuo sistema operativo";
-"permission_tutorial.update_os.first" = "<b>1. Apri le impostazioni di sistema</b>";
-"permission_tutorial.update_os.second" = "<b>2. Entra in \"Generali\"</b>";
-"permission_tutorial.update_os.third" = "<b>3. Entra in \"Aggiornamento Software\"</b>";
-"permission_tutorial.update_os.fourth" = "<b>4. Seleziona \"Scarica e installa\" e segui le istruzioni</b>";
+"permission_tutorial.update_os.title" = "To update the operating system";
+"permission_tutorial.update_os.first" = "<b>1. Open Settings</b>";
+"permission_tutorial.update_os.second" = "<b>2. Tap \"General\"</b>";
+"permission_tutorial.update_os.third" = "<b>3. Tap \"Software Update\"</b>";
+"permission_tutorial.update_os.fourth" = "<b>4. Tap \"Download and Install\" and follow the instructions.</b>";
 
-"app_setup_view.network_error" = "Connessione non riuscita. Controlla la tua connessione a Internet e riprova.";
-"app_setup_view.generic_error" = "Impossibile connettersi. Riprova più tardi.";
+"app_setup_view.network_error" = "Check your internet connection.";
+"app_setup_view.generic_error" = "Can't connect. Try later.";
 
-"welcome_view.items.first.title" = "Ciao!";
+/* Should change. */
+"welcome_view.items.first.title" = "Hi!";
 "welcome_view.items.first.description" = "Con il contributo di tutti, Immuni aiuta a contenere il virus e a tornare il prima possibile alla normalità.";
 "welcome_view.items.second.title" = "Immuni si prende cura di te";
 "welcome_view.items.second.description" = "Se sei entrato in contatto con un utente in seguito risultato positivo al virus, Immuni ti avverte e ti fornisce indicazioni per proteggere la tua salute e quella dei tuoi cari. ";
