@@ -63,6 +63,7 @@ extension Logic.Shared {
     }
   }
 
+  /// Opens App's settings page in the native setting app
   struct OpenSettings: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       guard let url = URL(string: UIApplication.openSettingsURLString) else {
@@ -73,7 +74,7 @@ extension Logic.Shared {
     }
   }
 
-  /// Opens App's settings page in the native setting app
+  /// Opens an external link using `UIApplication`
   struct OpenExternalLink: AppSideEffect {
     let url: URL
 
