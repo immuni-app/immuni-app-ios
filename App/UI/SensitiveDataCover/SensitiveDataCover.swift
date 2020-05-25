@@ -15,6 +15,10 @@
 import Foundation
 import Tempura
 
+/// This screen is a blur cover of the app's screen and is meant to be used when the app becomes inactive or goes to background
+/// while it's presenting sensitive data.
+/// This is done to avoid a possible low-level malware to access the screenshots that are stored by the OS to implement the
+/// multi-tasking functionality.
 class SensitiveDataCoverVC: ViewController<SensitiveDataCoverView> {}
 
 struct SensitiveDataCoverVM: ViewModelWithState {}
