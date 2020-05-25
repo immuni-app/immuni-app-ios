@@ -12,8 +12,8 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-import Hydra
 import Extensions
+import Hydra
 import ImmuniExposureNotification
 import Katana
 import Models
@@ -47,7 +47,11 @@ extension Logic.Analytics {
     }
 
     /// Whether a genuine Operation Info With Exposure should be sent
-    private static func shouldSendOperationInfoWithExposure(outcome: ExposureDetectionOutcome, state: AnalyticsState, now: Date) -> Bool {
+    private static func shouldSendOperationInfoWithExposure(
+      outcome: ExposureDetectionOutcome,
+      state: AnalyticsState,
+      now: Date
+    ) -> Bool {
       guard case .fullDetection = outcome else {
         // Operational Info with Exposure only refer to full detections.
         return false
@@ -67,7 +71,11 @@ extension Logic.Analytics {
     }
 
     /// Whether a genuine Operation Info Without Exposure should be sent
-    private static func shouldSendOperationInfoWithoutExposure(outcome: ExposureDetectionOutcome, state: AnalyticsState, now: Date) -> Bool {
+    private static func shouldSendOperationInfoWithoutExposure(
+      outcome: ExposureDetectionOutcome,
+      state: AnalyticsState,
+      now: Date
+    ) -> Bool {
       guard case .partialDetection = outcome else {
         // Operational Info without Exposure only refer to partial detections.
         return false
@@ -190,6 +198,7 @@ extension Logic.Analytics {
 }
 
 // MARK: Dummy traffic
+
 extension Logic.Analytics {
   /// Sends a dummy analytics request to the backend
   struct SendDummyAnalyticsAndUpdateOpportunityWindow: AppSideEffect {
@@ -207,15 +216,18 @@ extension Logic.Analytics {
       let dummyTrafficStochasticDelay = context.dependencies.exponentialDistributionGenerator
         .exponentialRandom(with: state.configuration.dummyAnalyticsMeanStochasticDelay)
 
-      try context.awaitDispatch(SetDummyTrafficOpportunityWindow(
-        dummyTrafficStochasticDelay: dummyTrafficStochasticDelay,
-        now: context.dependencies.now())
+      try context.awaitDispatch(
+        SetDummyTrafficOpportunityWindow(
+          dummyTrafficStochasticDelay: dummyTrafficStochasticDelay,
+          now: context.dependencies.now()
+        )
       )
     }
   }
 }
 
 // MARK: Send Request
+
 extension Logic.Analytics {
   struct SendRequest: AppSideEffect {
     /// The kind of request to send to the backend
@@ -302,7 +314,7 @@ extension Logic.Analytics {
     let now: Date
 
     func updateState(_ state: inout AppState) {
-      let windowStart = self.now.addingTimeInterval(dummyTrafficStochasticDelay)
+      let windowStart = self.now.addingTimeInterval(self.dummyTrafficStochasticDelay)
       let windowDuration = AnalyticsState.OpportunityWindow.secondsInDay
       state.analytics.dummyTrafficOpportunityWindow = .init(windowStart: windowStart, windowDuration: windowDuration)
     }
@@ -310,10 +322,11 @@ extension Logic.Analytics {
 }
 
 // MARK: Helpers
-fileprivate extension AnalyticsRequest.Body {
+
+private extension AnalyticsRequest.Body {
   /// Creates a dummy request
   static func dummy(deviceTokenLength: Int) -> Self {
-    return Self.init(
+    return Self(
       province: Province.allCases.randomElement() ?? AppLogger.fatalError("No provinces defined"),
       exposureNotificationStatus: ExposureNotificationStatus.randomCase(),
       pushNotificationStatus: UNAuthorizationStatus.randomCase(),
@@ -323,7 +336,7 @@ fileprivate extension AnalyticsRequest.Body {
   }
 }
 
-fileprivate extension ExposureNotificationStatus {
+private extension ExposureNotificationStatus {
   static let allCases: [Self] = [
     .authorized, .authorizedAndActive, .authorizedAndBluetoothOff, .authorizedAndInactive, .notAuthorized, .restricted, .unknown
   ]
@@ -335,7 +348,7 @@ fileprivate extension ExposureNotificationStatus {
   }
 }
 
-fileprivate extension UNAuthorizationStatus {
+private extension UNAuthorizationStatus {
   static let allCases: [Self] = [.authorized, .denied, .notDetermined, .provisional]
 
   /// Random case implementation.
@@ -345,7 +358,7 @@ fileprivate extension UNAuthorizationStatus {
   }
 }
 
-fileprivate extension String {
+private extension String {
   static let allowedAlphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
   static func random(length: Int) -> Self {
@@ -353,8 +366,8 @@ fileprivate extension String {
       return ""
     }
 
-    let characters = (0..<length).map { _ in
-      allowedAlphabet.randomElement() ??  AppLogger.fatalError("No characters in alphabet")
+    let characters = (0 ..< length).map { _ in
+      allowedAlphabet.randomElement() ?? AppLogger.fatalError("No characters in alphabet")
     }
 
     return String(characters)

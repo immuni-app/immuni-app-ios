@@ -122,7 +122,7 @@ public struct Configuration: Codable {
     ],
     operationalInfoWithExposureSamplingRate: Double = 1,
     operationalInfoWithoutExposureSamplingRate: Double = 1,
-    dummyAnalyticsWaitingTime: Double = 2592000
+    dummyAnalyticsWaitingTime: Double = 2_592_000
   ) {
     self.minimumBuildVersion = minimumBuildVersion
     self.serviceNotActiveNotificationPeriod = serviceNotActiveNotificationPeriod

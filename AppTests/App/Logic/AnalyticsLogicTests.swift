@@ -44,7 +44,10 @@ extension AnalyticsLogicTests {
 
     XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 1)
 
-    try XCTAssertType(dispatchInterceptor.dispatchedItems.first, Logic.Analytics.StochasticallySendOperationalInfoWithExposure.self)
+    try XCTAssertType(
+      dispatchInterceptor.dispatchedItems.first,
+      Logic.Analytics.StochasticallySendOperationalInfoWithExposure.self
+    )
   }
 
   func testAnalyticsWithExposure() throws {
@@ -120,8 +123,14 @@ extension AnalyticsLogicTests {
 
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: .fullDetection(now(), .noMatch, [], 0, 0)).sideEffect(context)
 
-    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.StochasticallySendOperationalInfoWithExposure.self)
-    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.StochasticallySendOperationalInfoWithoutExposure.self)
+    try XCTAssertNotContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.Analytics.StochasticallySendOperationalInfoWithExposure.self
+    )
+    try XCTAssertNotContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.Analytics.StochasticallySendOperationalInfoWithoutExposure.self
+    )
   }
 
   func testAnalyticsWithExposureNoRandom() throws {
@@ -194,7 +203,10 @@ extension AnalyticsLogicTests {
 
     XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 1)
 
-    try XCTAssertType(dispatchInterceptor.dispatchedItems.first, Logic.Analytics.StochasticallySendOperationalInfoWithoutExposure.self)
+    try XCTAssertType(
+      dispatchInterceptor.dispatchedItems.first,
+      Logic.Analytics.StochasticallySendOperationalInfoWithoutExposure.self
+    )
   }
 
   func testDoesNotTriggerWithError() throws {
@@ -207,8 +219,14 @@ extension AnalyticsLogicTests {
     let outcome = ExposureDetectionOutcome.error(.notAuthorized)
 
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
-    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.StochasticallySendOperationalInfoWithExposure.self)
-    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.StochasticallySendOperationalInfoWithoutExposure.self)
+    try XCTAssertNotContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.Analytics.StochasticallySendOperationalInfoWithExposure.self
+    )
+    try XCTAssertNotContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.Analytics.StochasticallySendOperationalInfoWithoutExposure.self
+    )
   }
 
   func testDoesNotTriggerWithNotNecessary() throws {
@@ -221,8 +239,14 @@ extension AnalyticsLogicTests {
     let outcome = ExposureDetectionOutcome.noDetectionNecessary
 
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
-    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.StochasticallySendOperationalInfoWithExposure.self)
-    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.StochasticallySendOperationalInfoWithoutExposure.self)
+    try XCTAssertNotContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.Analytics.StochasticallySendOperationalInfoWithExposure.self
+    )
+    try XCTAssertNotContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.Analytics.StochasticallySendOperationalInfoWithoutExposure.self
+    )
   }
 
   func testAnalyticsWithoutExposure() throws {
@@ -305,8 +329,14 @@ extension AnalyticsLogicTests {
     let outcome = ExposureDetectionOutcome.partialDetection(date, .noMatch, 0, 0)
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
 
-    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.StochasticallySendOperationalInfoWithExposure.self)
-    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.StochasticallySendOperationalInfoWithoutExposure.self)
+    try XCTAssertNotContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.Analytics.StochasticallySendOperationalInfoWithExposure.self
+    )
+    try XCTAssertNotContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.Analytics.StochasticallySendOperationalInfoWithoutExposure.self
+    )
   }
 
   func testAnalyticsWithoutExposureNoMonthPassed() throws {
@@ -342,8 +372,14 @@ extension AnalyticsLogicTests {
     let outcome = ExposureDetectionOutcome.partialDetection(date, .noMatch, 0, 0)
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
 
-    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.StochasticallySendOperationalInfoWithExposure.self)
-    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.StochasticallySendOperationalInfoWithoutExposure.self)
+    try XCTAssertNotContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.Analytics.StochasticallySendOperationalInfoWithExposure.self
+    )
+    try XCTAssertNotContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.Analytics.StochasticallySendOperationalInfoWithoutExposure.self
+    )
   }
 
   func testAnalyticsWithoutExposureBeforeWindow() throws {
@@ -382,8 +418,14 @@ extension AnalyticsLogicTests {
     let outcome = ExposureDetectionOutcome.partialDetection(date, .noMatch, 0, 0)
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
 
-    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.StochasticallySendOperationalInfoWithExposure.self)
-    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.StochasticallySendOperationalInfoWithoutExposure.self)
+    try XCTAssertNotContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.Analytics.StochasticallySendOperationalInfoWithExposure.self
+    )
+    try XCTAssertNotContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.Analytics.StochasticallySendOperationalInfoWithoutExposure.self
+    )
   }
 
   func testAnalyticsWithoutExposureAfterWindow() throws {
@@ -423,8 +465,14 @@ extension AnalyticsLogicTests {
     let outcome = ExposureDetectionOutcome.partialDetection(date, .noMatch, 0, 0)
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
 
-    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.StochasticallySendOperationalInfoWithExposure.self)
-    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.StochasticallySendOperationalInfoWithoutExposure.self)
+    try XCTAssertNotContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.Analytics.StochasticallySendOperationalInfoWithExposure.self
+    )
+    try XCTAssertNotContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.Analytics.StochasticallySendOperationalInfoWithoutExposure.self
+    )
   }
 
   func testAnalyticsWithoutExposureFailSampling() throws {
@@ -569,6 +617,7 @@ extension AnalyticsLogicTests {
 }
 
 // MARK: Dummy
+
 extension AnalyticsLogicTests {
   func testSendDummyRequestIfWithinOpportunityWindow() throws {
     let now = Date()
@@ -588,7 +637,10 @@ extension AnalyticsLogicTests {
 
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: .noDetectionNecessary).sideEffect(context)
     XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 1)
-    try XCTAssertType(dispatchInterceptor.dispatchedItems.first, Logic.Analytics.SendDummyAnalyticsAndUpdateOpportunityWindow.self)
+    try XCTAssertType(
+      dispatchInterceptor.dispatchedItems.first,
+      Logic.Analytics.SendDummyAnalyticsAndUpdateOpportunityWindow.self
+    )
   }
 
   func testDoesNotSendDummyRequestIfBeforeOpportunityWindow() throws {
@@ -608,7 +660,10 @@ extension AnalyticsLogicTests {
     let context = AppSideEffectContext(dependencies: dependencies)
 
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: .noDetectionNecessary).sideEffect(context)
-    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.SendDummyAnalyticsAndUpdateOpportunityWindow.self)
+    try XCTAssertNotContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.Analytics.SendDummyAnalyticsAndUpdateOpportunityWindow.self
+    )
   }
 
   func testDoesNotSendDummyRequestIfAfterOpportunityWindow() throws {
@@ -628,7 +683,10 @@ extension AnalyticsLogicTests {
     let context = AppSideEffectContext(dependencies: dependencies)
 
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: .noDetectionNecessary).sideEffect(context)
-    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.SendDummyAnalyticsAndUpdateOpportunityWindow.self)
+    try XCTAssertNotContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.Analytics.SendDummyAnalyticsAndUpdateOpportunityWindow.self
+    )
   }
 
   func testUpdatesDummyOpportunityWindowIfExpired() throws {
@@ -669,7 +727,10 @@ extension AnalyticsLogicTests {
     let context = AppSideEffectContext(dependencies: dependencies)
 
     try Logic.Analytics.UpdateDummyTrafficOpportunityWindow().sideEffect(context)
-    try XCTAssertType(dispatchInterceptor.dispatchedItems.first, Logic.Analytics.SetDummyTrafficOpportunityWindow.self) { dispatchable in
+    try XCTAssertType(
+      dispatchInterceptor.dispatchedItems.first,
+      Logic.Analytics.SetDummyTrafficOpportunityWindow.self
+    ) { dispatchable in
       XCTAssertEqual(dispatchable.now, date)
       XCTAssertEqual(dispatchable.dummyTrafficStochasticDelay, 0.5)
     }
@@ -687,6 +748,7 @@ extension AnalyticsLogicTests {
 }
 
 // MARK: Send Request
+
 extension AnalyticsLogicTests {
   func testSendAnalyticsRequestWithExposure() throws {
     let previousDate = Date(utcDay: 10, month: 9, year: 2020)
