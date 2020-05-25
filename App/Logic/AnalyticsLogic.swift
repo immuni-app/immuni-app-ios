@@ -243,7 +243,11 @@ extension Logic.Analytics {
 
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let state = context.getState()
-      let userProvince = state.user.province ?? AppLogger.fatalError("User has not set a province")
+      guard let userProvince = state.user.province else {
+        // The onboarding is not done yet. Nothing should be sent.
+        return
+      }
+
       let userExposureNotificationStatus = state.environment.exposureNotificationAuthorizationStatus
       let userPushNotificationStatus = state.environment.pushNotificationAuthorizationStatus
       let deviceToken = try await(context.dependencies.tokenGenerator.generateToken())
