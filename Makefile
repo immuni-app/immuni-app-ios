@@ -38,6 +38,8 @@ reset:
 
 # Install dependencies, download build resources and add pre-commit hook
 setup:
+	export GEM_HOME=$(HOME)/.gem
+	export PATH=$(GEM_HOME)/bin:$(PATH)
 	gem install cocoapods -v 1.9.1
 	brew bundle
 	eval "$$add_pre_commit_script"
