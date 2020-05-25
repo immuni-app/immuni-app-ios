@@ -277,6 +277,8 @@ private extension SuggestionsHeaderCell {
 
 private extension CalendarDay {
   var dateString: String {
-    "\(self.day)\\\(self.month)\\\(self.year)"
+    let formatter = DateFormatter()
+    formatter.dateStyle = .short
+    return formatter.string(from: self.dateAtBeginningOfTheDay)
   }
 }
