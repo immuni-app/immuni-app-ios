@@ -177,6 +177,24 @@ extension Logic.Analytics {
   }
 }
 
+// MARK: Dummy traffic
+extension Logic.Analytics {
+  /// Initializes the dummy analytics traffic opportunity window taking the parameters from the Configuration and the RNGs.
+  struct InitializeDummyTrafficOpportunityWindow: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      let state = context.getState()
+
+      let dummyTrafficStochasticDelay = context.dependencies.exponentialDistributionGenerator
+        .exponentialRandom(with: state.configuration.dummyAnalyticsMeanStochasticDelay)
+
+      try context.awaitDispatch(SetDummyTrafficOpportunityWindow(
+        dummyTrafficStochasticDelay: dummyTrafficStochasticDelay,
+        now: context.dependencies.now())
+      )
+    }
+  }
+}
+
 // MARK: State Updaters
 
 extension Logic.Analytics {
@@ -204,6 +222,18 @@ extension Logic.Analytics {
 
     func updateState(_ state: inout AppState) {
       state.analytics.eventWithoutExposureWindow = self.window
+    }
+  }
+
+  /// Sets the opportunity window for the dummy analytics traffic
+  struct SetDummyTrafficOpportunityWindow: AppStateUpdater {
+    let dummyTrafficStochasticDelay: Double
+    let now: Date
+
+    func updateState(_ state: inout AppState) {
+      let windowStart = self.now.addingTimeInterval(dummyTrafficStochasticDelay)
+      let windowDuration = AnalyticsState.OpportunityWindow.secondsInDay
+      state.analytics.dummyTrafficOpportunityWindow = .init(windowStart: windowStart, windowDuration: windowDuration)
     }
   }
 }

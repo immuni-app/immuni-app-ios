@@ -26,6 +26,9 @@ struct AnalyticsState: Codable {
 
   /// The current opportunity window to send a new analytic without exposure
   var eventWithoutExposureWindow: OpportunityWindow = .distantPast
+
+  /// The opportunity window for Analytics-related dummy traffic.
+  var dummyTrafficOpportunityWindow: OpportunityWindow = .distantPast
 }
 
 extension AnalyticsState {

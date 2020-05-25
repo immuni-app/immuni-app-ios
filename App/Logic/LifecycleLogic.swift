@@ -155,6 +155,9 @@ extension Logic.Lifecycle {
       // Fail silently in case of error (for example, the timeout triggering)
       try? await(configurationFetch)
 
+      /// Initialize the stochastic parameters required for the generation of dummy analytics traffic.
+      try context.awaitDispatch(Logic.Analytics.InitializeDummyTrafficParameters())
+
       // flags the first launch as done to prevent further downloads during the startup phase
       try context.awaitDispatch(PassFirstLaunchExecuted())
     }
