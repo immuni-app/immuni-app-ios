@@ -63,16 +63,6 @@ extension Logic.Shared {
     }
   }
 
-  /// Update today environment variable
-  struct UpdateToday: AppStateUpdater {
-    let today: CalendarDay
-
-    func updateState(_ state: inout AppState) {
-      state.environment.today = self.today
-    }
-  }
-
-  /// Opens App's settings page in the native setting app
   struct OpenSettings: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       guard let url = URL(string: UIApplication.openSettingsURLString) else {

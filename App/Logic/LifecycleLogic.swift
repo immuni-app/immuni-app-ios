@@ -42,10 +42,6 @@ extension Logic {
         // refresh statuses
         try context.awaitDispatch(Logic.Lifecycle.RefreshAuthorizationStatuses())
 
-        // update today variable
-        let now = context.dependencies.now()
-        try context.awaitDispatch(Logic.Shared.UpdateToday(today: now.calendarDay))
-
         // clears `PositiveExposureResults` older than 14 days from the `ExposureDetectionState`
         try context.awaitDispatch(Logic.ExposureDetection.ClearOutdatedResults(now: context.dependencies.now()))
 
@@ -71,10 +67,6 @@ extension Logic {
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
         // refresh statuses
         try context.awaitDispatch(RefreshAuthorizationStatuses())
-
-        // update today variable
-        let now = context.dependencies.now()
-        try context.awaitDispatch(Logic.Shared.UpdateToday(today: now.calendarDay))
 
         // clears `PositiveExposureResults` older than 14 days from the `ExposureDetectionState`
         try context.awaitDispatch(Logic.ExposureDetection.ClearOutdatedResults(now: context.dependencies.now()))
@@ -107,30 +99,11 @@ extension Logic {
         // refresh statuses
         try context.awaitDispatch(RefreshAuthorizationStatuses())
 
-        // update today variable
-        let now = context.dependencies.now()
-        try context.awaitDispatch(Logic.Shared.UpdateToday(today: now.calendarDay))
-
         // update analaytics info
         try context.awaitDispatch(Logic.Analytics.UpdateOpportunityWindowIfNeeded())
 
         // Perform exposure detection if necessary
         context.dispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground))
-      }
-    }
-
-    /// Launched when there is a significant change in time, for example, change to a new day.
-    struct SignificantTimeChange: AppSideEffect, NotificationObserverDispatchable {
-      init?(notification: Notification) {
-        guard notification.name == UIApplication.significantTimeChangeNotification else {
-          return nil
-        }
-      }
-
-      func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-        // update today variable
-        let now = context.dependencies.now()
-        try context.awaitDispatch(Logic.Shared.UpdateToday(today: now.calendarDay))
       }
     }
 
@@ -140,10 +113,6 @@ extension Logic {
       var task: BGTask
 
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-        // update today variable
-        let now = context.dependencies.now()
-        try context.awaitDispatch(Logic.Shared.UpdateToday(today: now.calendarDay))
-
         // clears `PositiveExposureResults` older than 14 days from the `ExposureDetectionState`
         try context.awaitDispatch(Logic.ExposureDetection.ClearOutdatedResults(now: context.dependencies.now()))
 
