@@ -17,8 +17,12 @@ import Tempura
 
 class WebVC: ViewControllerWithLocalState<WebView> {
   override func setupInteraction() {
-    self.rootView.didTapClose = { [unowned self] in
-      self.dispatch(Hide(Screen.web, animated: true))
+    self.rootView.didTapClose = { [weak self] in
+      self?.dispatch(Hide(Screen.web, animated: true))
+    }
+
+    self.rootView.userDidRequestOpenExternalLink = { [weak self] url in
+      self?.dispatch(Logic.Shared.OpenExternalLink(url: url))
     }
   }
 }
