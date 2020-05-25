@@ -31,6 +31,7 @@ public struct Configuration: Codable {
     case faqURL = "faq_url"
     case operationalInfoWithExposureSamplingRate = "operational_info_with_exposure_sampling_rate"
     case operationalInfoWithoutExposureSamplingRate = "operational_info_without_exposure_sampling_rate"
+    case dummyAnalyticsMeanStochasticDelay = "dummy_analytics_waiting_time"
   }
 
   /// This is used to enforce a minimum version of the app.
@@ -89,6 +90,9 @@ public struct Configuration: Codable {
   /// Probability with which the app sends analytics data in case of non match. Value in the [0, 1] range.
   public let operationalInfoWithoutExposureSamplingRate: Double
 
+  /// Mean of the exponential distribution that regulates the execution of dummy analytics requests
+  public let dummyAnalyticsMeanStochasticDelay: Double
+
   /// The FAQ url for the given language. it returns english version if the given
   /// language is not available.
   /// Note that the method may still fail in case of missing english version
@@ -117,7 +121,8 @@ public struct Configuration: Codable {
       UserLanguage.german.rawValue: URL(string: "http://www.example.com")!
     ],
     operationalInfoWithExposureSamplingRate: Double = 1,
-    operationalInfoWithoutExposureSamplingRate: Double = 1
+    operationalInfoWithoutExposureSamplingRate: Double = 1,
+    dummyAnalyticsWaitingTime: Double = 2_592_000
   ) {
     self.minimumBuildVersion = minimumBuildVersion
     self.serviceNotActiveNotificationPeriod = serviceNotActiveNotificationPeriod
@@ -133,6 +138,7 @@ public struct Configuration: Codable {
     self.faqURL = faqURL
     self.operationalInfoWithExposureSamplingRate = operationalInfoWithExposureSamplingRate
     self.operationalInfoWithoutExposureSamplingRate = operationalInfoWithoutExposureSamplingRate
+    self.dummyAnalyticsMeanStochasticDelay = dummyAnalyticsWaitingTime
   }
 
   // swiftlint:enable force_unwrapping

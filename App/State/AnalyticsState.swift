@@ -26,6 +26,9 @@ struct AnalyticsState: Codable {
 
   /// The current opportunity window to send a new analytic without exposure
   var eventWithoutExposureWindow: OpportunityWindow = .distantPast
+
+  /// The opportunity window for Analytics-related dummy traffic.
+  var dummyTrafficOpportunityWindow: OpportunityWindow = .distantPast
 }
 
 extension AnalyticsState {
@@ -34,27 +37,41 @@ extension AnalyticsState {
   struct OpportunityWindow: Codable, Equatable {
     static let secondsInDay: TimeInterval = 86400
 
-    /// The month in which the opportunity window occurs
-    let month: CalendarMonth
-
-    /// The shift, in seconds, with repsect to the start of the month
-    let shift: TimeInterval
+    /// The start of this opportunity window
+    let windowStart: Date
 
     /// The duration of the opportunity window
     let windowDuration: TimeInterval
 
+    /// The end of this opportunity window
+    var windowEnd: Date {
+      return self.windowStart.addingTimeInterval(self.windowDuration)
+    }
+
+    /// The month in which the opportunity window occurs
+    var month: CalendarMonth {
+      return self.windowStart.utcCalendarMonth
+    }
+
+    /// Default initializer
+    init(windowStart: Date, windowDuration: TimeInterval) {
+      self.windowStart = windowStart
+      self.windowDuration = windowDuration
+    }
+
+    /// Convenience initializer that takes a `CalendarMonth` and a shift from the beginning of said month.
     init(month: CalendarMonth, shift: TimeInterval, windowDuration: TimeInterval = Self.secondsInDay) {
-      self.month = month
-      self.shift = shift
+      self.windowStart = month.utcDateAtBeginningOfTheMonth.addingTimeInterval(shift)
       self.windowDuration = windowDuration
     }
 
     /// Whether the given date falls in the opportunity window
     func contains(_ date: Date) -> Bool {
-      let dateTimestamp = date.timeIntervalSince1970
-      let startTimestamp = self.month.utcTimeIntervalSince1970 + self.shift
-      let finishTimestamp = startTimestamp + self.windowDuration
-      return (startTimestamp ..< finishTimestamp).contains(dateTimestamp)
+      guard self.windowDuration > 0 else {
+        return false
+      }
+
+      return (self.windowStart ..< self.windowEnd).contains(date)
     }
   }
 }

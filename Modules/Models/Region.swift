@@ -211,7 +211,7 @@ public enum Region: String, CaseIterable {
   }
 }
 
-public enum Province: String, Codable {
+public enum Province: String, Codable, CaseIterable {
   case agrigento = "AG"
   case alessandria = "AL"
   case ancona = "AN"

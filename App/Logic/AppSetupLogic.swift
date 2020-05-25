@@ -24,23 +24,8 @@ extension Logic.AppSetup {
   /// Performs the initial setup before proceeding to the appropriate view
   struct PerformSetup: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      let state = context.getState()
-
-      // Start a best-effort download the configuration / faq from the server
-      // in case this is the first launch
-      if !state.toggles.isFirstLaunchPerformed {
-        let fetchPromise = context
-          .dispatch(Logic.Configuration.DownloadAndUpdateConfiguration())
-          .timeout(timeout: 10)
-
-        // here we are not interested in the result
-        // (e.g., the timeout made the promise fail)
-        try? await(fetchPromise)
-
-        // flags the first launch as done to prevent further downloads
-        // during the startup phase
-        try context.awaitDispatch(PassFirstLaunchExecuted())
-      }
+      // Await that the setup related to the first launch of the application is performed.
+      try context.awaitDispatch(WaitForState { $0.toggles.isFirstLaunchSetupPerformed })
 
       // Navigate to the approprivate view
       context.dispatch(ChangeRoot())
@@ -83,17 +68,6 @@ extension Logic.AppSetup {
   struct ShowWelcome: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       try context.awaitDispatch(Show(Screen.welcome, animated: true))
-    }
-  }
-}
-
-// MARK: State Updater
-
-extension Logic.AppSetup {
-  /// Marks the first launch executed as done
-  struct PassFirstLaunchExecuted: AppStateUpdater {
-    func updateState(_ state: inout AppState) {
-      state.toggles.isFirstLaunchPerformed = true
     }
   }
 }

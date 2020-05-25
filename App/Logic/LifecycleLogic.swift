@@ -36,6 +36,11 @@ extension Logic {
           try context.awaitDispatch(SetAppVersion(appVersion: "\(appVersion) (\(bundleVersion))"))
         }
 
+        let state = context.getState()
+
+        // Perform the setup related to the first launch of the application, if needed
+        try context.awaitDispatch(PerformFirstLaunchSetupIfNeeded())
+
         /// starts the exposure manager if possible
         try await(context.dependencies.exposureNotificationManager.startIfAuthorized())
 
@@ -52,7 +57,7 @@ extension Logic {
         context.dispatch(Logic.CovidStatus.RemoveRiskReminderNotification())
 
         // update analaytics info
-        try context.awaitDispatch(Logic.Analytics.UpdateOpportunityWindowIfNeeded())
+        try context.awaitDispatch(Logic.Analytics.UpdateEventWithoutExposureOpportunityWindowIfNeeded())
 
         // Perform exposure detection if necessary
         context.dispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground))
@@ -82,8 +87,8 @@ extension Logic {
         // check whether to show force update
         try context.awaitDispatch(ForceUpdate.CheckAppVersion())
 
-        // update analaytics info
-        try context.awaitDispatch(Logic.Analytics.UpdateOpportunityWindowIfNeeded())
+        // update analytics info
+        try context.awaitDispatch(Logic.Analytics.UpdateEventWithoutExposureOpportunityWindowIfNeeded())
 
         // Perform exposure detection if necessary
         context.dispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground))
@@ -134,8 +139,8 @@ extension Logic {
         // clears `PositiveExposureResults` older than 14 days from the `ExposureDetectionState`
         try context.awaitDispatch(Logic.ExposureDetection.ClearOutdatedResults(now: context.dependencies.now()))
 
-        // update analaytics info
-        try context.awaitDispatch(Logic.Analytics.UpdateOpportunityWindowIfNeeded())
+        // update analytics info
+        try context.awaitDispatch(Logic.Analytics.UpdateEventWithoutExposureOpportunityWindowIfNeeded())
 
         // Update the configuration, with a timeout. Continue in any case in order not to waste an Exposure Detection cycle.
         try? await(context.dispatch(Logic.Configuration.DownloadAndUpdateConfiguration()).timeout(timeout: 10))
@@ -150,6 +155,31 @@ extension Logic {
 // MARK: Helper Side Effects
 
 extension Logic.Lifecycle {
+  struct PerformFirstLaunchSetupIfNeeded: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      let state = context.getState()
+
+      guard !state.toggles.isFirstLaunchSetupPerformed else {
+        // The first launch setup was already performed
+        return
+      }
+
+      // Download the Configuration with a given timeout
+      let configurationFetch = context
+        .dispatch(Logic.Configuration.DownloadAndUpdateConfiguration())
+        .timeout(timeout: 10)
+
+      // Fail silently in case of error (for example, the timeout triggering)
+      try? await(configurationFetch)
+
+      /// Initialize the stochastic parameters required for the generation of dummy analytics traffic.
+      try context.awaitDispatch(Logic.Analytics.UpdateDummyTrafficOpportunityWindow())
+
+      // flags the first launch as done to prevent further downloads during the startup phase
+      try context.awaitDispatch(PassFirstLaunchExecuted())
+    }
+  }
+
   struct RefreshAuthorizationStatuses: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let pushStatus = try await(context.dependencies.pushNotification.getCurrentAuthorizationStatus())
@@ -186,7 +216,7 @@ private extension Logic.Lifecycle {
 
   /// Updates the authorization statuses
   private struct UpdateAuthorizationStatus: AppStateUpdater {
-    let pushNotificationAuthorizationStatus: UNAuthorizationStatus
+    let pushNotificationAuthorizationStatus: PushNotificationStatus
     let exposureNotificationAuthorizationStatus: ExposureNotificationStatus
 
     func updateState(_ state: inout AppState) {
@@ -201,6 +231,13 @@ private extension Logic.Lifecycle {
 
     func updateState(_ state: inout AppState) {
       state.environment.userLanguage = self.language
+    }
+  }
+
+  /// Marks the first launch executed as done
+  struct PassFirstLaunchExecuted: AppStateUpdater {
+    func updateState(_ state: inout AppState) {
+      state.toggles.isFirstLaunchSetupPerformed = true
     }
   }
 }

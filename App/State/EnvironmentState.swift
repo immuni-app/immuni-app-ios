@@ -15,8 +15,8 @@
 import ImmuniExposureNotification
 import Katana
 import Models
+import PushNotification
 import UIKit
-import UserNotifications
 
 // MARK: - Environment State
 
@@ -34,7 +34,7 @@ struct EnvironmentState {
   var selectedTab: TabbarVM.Tab = .home
 
   /// The current push notification permissions
-  var pushNotificationAuthorizationStatus: UNAuthorizationStatus = .notDetermined
+  var pushNotificationAuthorizationStatus: PushNotificationStatus = .notDetermined
 
   /// The current exposure notification permissions
   var exposureNotificationAuthorizationStatus: ExposureNotificationStatus = .unknown

@@ -15,7 +15,7 @@
 import Foundation
 
 /// The current status of the ExposureNotification manager
-public enum ExposureNotificationStatus {
+public enum ExposureNotificationStatus: CaseIterable {
   /// Authorized
   case authorized
 

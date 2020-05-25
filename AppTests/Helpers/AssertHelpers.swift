@@ -50,6 +50,11 @@ func XCTAssertContainsType<T>(_ array: [Any], _ type: T.Type, checkClosure: Chec
   try checkClosure?(interestingElement)
 }
 
+/// Asserts that an array of value does not contain any element of the given `type`
+func XCTAssertNotContainsType<T>(_ array: [Any], _ type: T.Type) throws {
+  XCTAssert(!array.contains(where: { $0 is T }))
+}
+
 extension XCTestCase {
   /// Allows asynchronous await on a given predicate to become true.
   func expectToEventually(
