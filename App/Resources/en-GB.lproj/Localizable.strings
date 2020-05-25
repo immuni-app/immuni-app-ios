@@ -34,19 +34,19 @@
 "app_setup_view.network_error" = "Check your internet connection.";
 "app_setup_view.generic_error" = "Can't connect. Try later.";
 
-/* Should change. */
 "welcome_view.items.first.title" = "Hi!";
-"welcome_view.items.first.description" = "Con il contributo di tutti, Immuni aiuta a contenere il virus e a tornare il prima possibile alla normalità.";
-"welcome_view.items.second.title" = "Immuni si prende cura di te";
-"welcome_view.items.second.description" = "Se sei entrato in contatto con un utente in seguito risultato positivo al virus, Immuni ti avverte e ti fornisce indicazioni per proteggere la tua salute e quella dei tuoi cari. ";
-"welcome_view.items.third.title" = "Rallentiamo insieme l'epidemia";
-"welcome_view.items.third.description" = "Gli utenti che scoprono di essere stati esposti al virus possono isolarsi, rallentando così la diffusione del virus e  accelerando il ritorno alla vita normale.";
-"welcome_view.items.fourth.title" = "La tua privacy è tutelata";
-"welcome_view.items.fourth.description" = "L’app funziona senza seguire i tuoi spostamenti e senza conoscere la tua identità o quella delle persone con cui entri in contatto.";
-"welcome_view.discover_more" = "Scopri di più";
-"welcome_view.next_page_title" = "Avanti";
-"welcome_view.go_next" = "Iniziamo";
+"welcome_view.items.first.description" = "With your help, Immuni helps contain the virus.";
+"welcome_view.items.second.title" = "Immuni takes care of you";
+"welcome_view.items.second.description" = "If you came into contact with a user who subsequently tested positive for the virus, Immuni warns you and gives you indications to protect your health and the health of your loved ones.";
+"welcome_view.items.third.title" = "Let's slow the epidemy together.";
+"welcome_view.items.third.description" = "Users who discover that they have been exposed to the virus can isolate themselves, thus slowing down the spread of the virus and speeding up the return to normal life.";
+"welcome_view.items.fourth.title" = "Your privacy is protected.";
+"welcome_view.items.fourth.description" = "The app works without following your movements and without knowing your identity or that of the people you come in contact with.";
+"welcome_view.discover_more" = "Discover more";
+"welcome_view.next_page_title" = "Next";
+"welcome_view.go_next" = "Let's start!";
 
+/* Should change. */
 "privacy.title" = "La tua privacy è al sicuro";
 "privacy.item.identity" = "<b>Immuni non raccoglie il tuo nome, cognome, data di nascita, indirizzo, numero di telefono o email.</b>";
 "privacy.item.people" = "<b>Immuni non può risalire alla tua identità</b> o a quella delle persone con cui entri in contatto.";
