@@ -12,6 +12,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+import Extensions
 import Tempura
 import UIKit
 import WebKit
@@ -39,6 +40,7 @@ class WebView: UIView, ViewControllerModellableView {
   // MARK: - Interactions
 
   var didTapClose: Interaction?
+  var userDidRequestOpenExternalLink: CustomInteraction<URL>?
 
   // MARK: - Setup
 
@@ -114,5 +116,23 @@ extension WebView: WKNavigationDelegate {
   // swiftlint:disable:next implicitly_unwrapped_optional
   func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
     self.activityIndicator.stopAnimating()
+  }
+
+  func webView(
+    _ webView: WKWebView,
+    decidePolicyFor navigationAction: WKNavigationAction,
+    decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
+  ) {
+    guard navigationAction.navigationType == .linkActivated else {
+      // not a link activated by the user
+      decisionHandler(.allow)
+      return
+    }
+
+    if let url = navigationAction.request.url {
+      self.userDidRequestOpenExternalLink?(url)
+    }
+
+    decisionHandler(.cancel)
   }
 }
