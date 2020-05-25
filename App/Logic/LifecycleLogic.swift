@@ -96,6 +96,9 @@ extension Logic {
       }
 
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        // dismiss sensitive data overlay
+        context.dispatch(Logic.Shared.HideSensitiveDataCoverIfPresent())
+
         // refresh statuses
         try context.awaitDispatch(RefreshAuthorizationStatuses())
 
@@ -104,6 +107,20 @@ extension Logic {
 
         // Perform exposure detection if necessary
         context.dispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground))
+      }
+    }
+
+    /// Launched when app will resign active.
+    struct WillResignActive: AppSideEffect, NotificationObserverDispatchable {
+      init?(notification: Notification) {
+        guard notification.name == UIApplication.willResignActiveNotification else {
+          return nil
+        }
+      }
+
+      func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        // show sensitive data overlay
+        context.dispatch(Logic.Shared.ShowSensitiveDataCoverIfNeeded())
       }
     }
 
