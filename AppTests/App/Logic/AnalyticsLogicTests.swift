@@ -506,7 +506,7 @@ extension AnalyticsLogicTests {
 
     try XCTAssertType(
       dispatchInterceptor.dispatchedItems.first,
-      Logic.Analytics.SetEventWithoutExposureOppurtunityWindow.self
+      Logic.Analytics.SetEventWithoutExposureOpportunityWindow.self
     ) { value in
 
       XCTAssertEqual(
@@ -559,12 +559,130 @@ extension AnalyticsLogicTests {
     XCTAssertEqual(state.analytics.eventWithoutExposureLastSent, calendarDay)
   }
 
-  func testUpdateEventWithoutExposureOppurtunityWindow() {
+  func testSetEventWithoutExposureOpportunityWindow() {
     var state = AppState()
     let window = AnalyticsState.OpportunityWindow(month: CalendarMonth(year: 2020, month: 10), shift: 10)
 
-    Logic.Analytics.SetEventWithoutExposureOppurtunityWindow(window: window).updateState(&state)
+    Logic.Analytics.SetEventWithoutExposureOpportunityWindow(window: window).updateState(&state)
     XCTAssertEqual(state.analytics.eventWithoutExposureWindow, window)
+  }
+}
+
+// MARK: Dummy
+extension AnalyticsLogicTests {
+  func testSendDummyRequestIfWithinOpportunityWindow() throws {
+    let now = Date()
+    var state = AppState()
+    state.analytics.dummyTrafficOpportunityWindow = .init(windowStart: now.addingTimeInterval(-1), windowDuration: 2)
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+
+    let dependencies = AppDependencies.mocked(
+      getAppState: getState,
+      dispatch: dispatchInterceptor.dispatchFunction,
+      uniformDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: .noDetectionNecessary).sideEffect(context)
+    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 1)
+    try XCTAssertType(dispatchInterceptor.dispatchedItems.first, Logic.Analytics.SendDummyAnalyticsAndUpdateOpportunityWindow.self)
+  }
+
+  func testDoesNotSendDummyRequestIfBeforeOpportunityWindow() throws {
+    let now = Date()
+    var state = AppState()
+    state.analytics.dummyTrafficOpportunityWindow = .init(windowStart: now.addingTimeInterval(1), windowDuration: 2)
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+
+    let dependencies = AppDependencies.mocked(
+      getAppState: getState,
+      dispatch: dispatchInterceptor.dispatchFunction,
+      uniformDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: .noDetectionNecessary).sideEffect(context)
+    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.SendDummyAnalyticsAndUpdateOpportunityWindow.self)
+  }
+
+  func testDoesNotSendDummyRequestIfAfterOpportunityWindow() throws {
+    let now = Date()
+    var state = AppState()
+    state.analytics.dummyTrafficOpportunityWindow = .init(windowStart: now.addingTimeInterval(-2), windowDuration: 1)
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+
+    let dependencies = AppDependencies.mocked(
+      getAppState: getState,
+      dispatch: dispatchInterceptor.dispatchFunction,
+      uniformDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: .noDetectionNecessary).sideEffect(context)
+    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.SendDummyAnalyticsAndUpdateOpportunityWindow.self)
+  }
+
+  func testUpdatesDummyOpportunityWindowIfExpired() throws {
+    var state = AppState()
+    state.analytics.dummyTrafficOpportunityWindow = .distantPast
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+
+    let dependencies = AppDependencies.mocked(
+      getAppState: getState,
+      dispatch: dispatchInterceptor.dispatchFunction,
+      uniformDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: .noDetectionNecessary).sideEffect(context)
+    try XCTAssertType(dispatchInterceptor.dispatchedItems.first, Logic.Analytics.UpdateDummyTrafficOpportunityWindow.self)
+  }
+
+  func testSetsTheCorrectDummyTrafficOpportunityWindow() throws {
+    var state = AppState()
+    state.analytics.dummyTrafficOpportunityWindow = .distantPast
+
+    let date = Date()
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+
+    let dependencies = AppDependencies.mocked(
+      getAppState: getState,
+      dispatch: dispatchInterceptor.dispatchFunction,
+      now: { date },
+      exponentialDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Analytics.UpdateDummyTrafficOpportunityWindow().sideEffect(context)
+    try XCTAssertType(dispatchInterceptor.dispatchedItems.first, Logic.Analytics.SetDummyTrafficOpportunityWindow.self) { dispatchable in
+      XCTAssertEqual(dispatchable.now, date)
+      XCTAssertEqual(dispatchable.dummyTrafficStochasticDelay, 0.5)
+    }
+  }
+
+  func testSetDummyTrafficOpportunityWindow() {
+    var state = AppState()
+    let now = Date()
+    let stochasticDelay = 42.0
+
+    Logic.Analytics.SetDummyTrafficOpportunityWindow(dummyTrafficStochasticDelay: stochasticDelay, now: now).updateState(&state)
+    XCTAssertEqual(state.analytics.dummyTrafficOpportunityWindow.windowStart, now.addingTimeInterval(stochasticDelay))
+    XCTAssertEqual(state.analytics.dummyTrafficOpportunityWindow.windowDuration, 24 * 60 * 60)
   }
 }
 
@@ -676,14 +794,50 @@ extension AnalyticsLogicTests {
       XCTAssertEqual(value, expectedRequest)
     }
   }
+
+  func testSendDummyAnalyticsRequest() throws {
+    var state = AppState()
+    state.user.province = .alessandria
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+
+    let requestExecutor = MockRequestExecutor(mockedResult: .failure(NetworkManager.Error.badRequest))
+
+    let token = "test_with_exposure"
+    let tokenGenerator = MockDeviceTokenGenerator(result: .success(token))
+
+    let dependencies = AppDependencies.mocked(
+      getAppState: getState,
+      dispatch: dispatchInterceptor.dispatchFunction,
+      requestExecutor: requestExecutor,
+      uniformDistributionGenerator: DeterministicGenerator.self,
+      tokenGenerator: tokenGenerator
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Analytics.SendRequest(kind: .dummy).sideEffect(context)
+
+    XCTAssertEqual(requestExecutor.executeMethodCalls.count, 1)
+
+    try XCTAssertType(requestExecutor.executeMethodCalls.first, AnalyticsRequest.self) { request in
+      XCTAssertEqual(request.isDummy, true)
+      XCTAssertNotEqual(request.jsonParameter.deviceToken, token)
+    }
+  }
 }
 
 // MARK: Helpers
 
-private enum DeterministicGenerator: UniformDistributionGenerator {
+private enum DeterministicGenerator: UniformDistributionGenerator, ExponentialDistributionGenerator {
   static var randomValue = 0.5
 
   static func random(in range: Range<Double>) -> Double {
+    return self.randomValue
+  }
+
+  static func exponentialRandom(with mean: Double) -> Double {
     return self.randomValue
   }
 }

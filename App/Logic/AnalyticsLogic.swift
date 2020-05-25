@@ -39,6 +39,10 @@ extension Logic.Analytics {
         try context.awaitDispatch(StochasticallySendOperationalInfoWithExposure())
       } else if Self.shouldSendOperationInfoWithoutExposure(outcome: self.outcome, state: analyticsState, now: now) {
         try context.awaitDispatch(StochasticallySendOperationalInfoWithoutExposure())
+      } else if Self.shouldSendDummyAnalytics(state: analyticsState, now: now) {
+        try context.awaitDispatch(SendDummyAnalyticsAndUpdateOpportunityWindow())
+      } else if Self.isDummyAnalyticsOpportunityWindowExpired(state: analyticsState, now: now) {
+        try context.awaitDispatch(UpdateDummyTrafficOpportunityWindow())
       }
     }
 
@@ -81,6 +85,26 @@ extension Logic.Analytics {
 
       guard state.eventWithoutExposureWindow.contains(now) else {
         // The opportunity window is not open
+        return false
+      }
+
+      return true
+    }
+
+    /// Whether a dummy analytics request should be sent
+    private static func shouldSendDummyAnalytics(state: AnalyticsState, now: Date) -> Bool {
+      guard state.dummyTrafficOpportunityWindow.contains(now) else {
+        // The opportunity window is not open
+        return false
+      }
+
+      return true
+    }
+
+    /// Whether a the opportunity window for the dummy traffic has expired
+    private static func isDummyAnalyticsOpportunityWindowExpired(state: AnalyticsState, now: Date) -> Bool {
+      guard now >= state.dummyTrafficOpportunityWindow.windowEnd else {
+        // The current time does not fall after the end of the opportunity window
         return false
       }
 
@@ -160,15 +184,23 @@ extension Logic.Analytics {
       let maxShift = Double(numDays - 1) * AnalyticsState.OpportunityWindow.secondsInDay
       let shift = context.dependencies.uniformDistributionGenerator.random(in: 0 ..< maxShift)
       let opportunityWindow = AnalyticsState.OpportunityWindow(month: currentMonth, shift: shift)
-      try context.awaitDispatch(SetEventWithoutExposureOppurtunityWindow(window: opportunityWindow))
+      try context.awaitDispatch(SetEventWithoutExposureOpportunityWindow(window: opportunityWindow))
     }
   }
 }
 
 // MARK: Dummy traffic
 extension Logic.Analytics {
-  /// Initializes the dummy analytics traffic opportunity window taking the parameters from the Configuration and the RNGs.
-  struct InitializeDummyTrafficOpportunityWindow: AppSideEffect {
+  /// Sends a dummy analytics request to the backend
+  struct SendDummyAnalyticsAndUpdateOpportunityWindow: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      try context.awaitDispatch(SendRequest(kind: .dummy))
+      try context.awaitDispatch(UpdateDummyTrafficOpportunityWindow())
+    }
+  }
+
+  /// Updates the dummy analytics traffic opportunity window taking the parameters from the Configuration and the RNGs.
+  struct UpdateDummyTrafficOpportunityWindow: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let state = context.getState()
 
@@ -190,6 +222,7 @@ extension Logic.Analytics {
     enum Kind {
       case withExposure
       case withoutExposure
+      case dummy
     }
 
     let kind: Kind
@@ -222,6 +255,9 @@ extension Logic.Analytics {
           deviceToken: deviceToken
         )
         isDummy = false
+      case .dummy:
+        body = .dummy(deviceTokenLength: deviceToken.count)
+        isDummy = true
       }
 
       // Await for the request to be fulfilled but catch errors silently
@@ -252,7 +288,7 @@ extension Logic.Analytics {
   }
 
   /// Updates the opportunity window for the event without exposure
-  struct SetEventWithoutExposureOppurtunityWindow: AppStateUpdater {
+  struct SetEventWithoutExposureOpportunityWindow: AppStateUpdater {
     let window: AnalyticsState.OpportunityWindow
 
     func updateState(_ state: inout AppState) {
@@ -270,5 +306,57 @@ extension Logic.Analytics {
       let windowDuration = AnalyticsState.OpportunityWindow.secondsInDay
       state.analytics.dummyTrafficOpportunityWindow = .init(windowStart: windowStart, windowDuration: windowDuration)
     }
+  }
+}
+
+// MARK: Helpers
+fileprivate extension AnalyticsRequest.Body {
+  /// Creates a dummy request
+  static func dummy(deviceTokenLength: Int) -> Self {
+    return Self.init(
+      province: Province.allCases.randomElement() ?? AppLogger.fatalError("No provinces defined"),
+      exposureNotificationStatus: ExposureNotificationStatus.randomCase(),
+      pushNotificationStatus: UNAuthorizationStatus.randomCase(),
+      riskyExposureDetected: Bool.random(),
+      deviceToken: String.random(length: deviceTokenLength)
+    )
+  }
+}
+
+fileprivate extension ExposureNotificationStatus {
+  static let allCases: [Self] = [
+    .authorized, .authorizedAndActive, .authorizedAndBluetoothOff, .authorizedAndInactive, .notAuthorized, .restricted, .unknown
+  ]
+
+  /// Random case implementation.
+  /// This is to avoid making `ExposureNotificationStatus` conform `CaseIterable` just for this specific use case.
+  static func randomCase() -> Self {
+    Self.allCases.randomElement() ?? AppLogger.fatalError("No statuses defined")
+  }
+}
+
+fileprivate extension UNAuthorizationStatus {
+  static let allCases: [Self] = [.authorized, .denied, .notDetermined, .provisional]
+
+  /// Random case implementation.
+  /// This is to avoid making `UNAuthorizationStatus` conform `CaseIterable` just for this specific use case.
+  static func randomCase() -> Self {
+    Self.allCases.randomElement() ?? AppLogger.fatalError("No statuses defined")
+  }
+}
+
+fileprivate extension String {
+  static let allowedAlphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+
+  static func random(length: Int) -> Self {
+    guard length > 0 else {
+      return ""
+    }
+
+    let characters = (0..<length).map { _ in
+      allowedAlphabet.randomElement() ??  AppLogger.fatalError("No characters in alphabet")
+    }
+
+    return String(characters)
   }
 }
