@@ -13,7 +13,7 @@
       src="https://img.shields.io/github/v/release/immuni-app/immuni-app-ios">
     </a>
     <!-- CoC -->
-		<a href="CODE_OF_CONDUCT.md">
+    <a href="CODE_OF_CONDUCT.md">
       <img src="https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg" />
     </a>
     <a href="https://circleci.com/gh/immuni-app/immuni-app-ios">
@@ -68,7 +68,7 @@ git clone https://github.com/immuni-app/immuni-app-ios.git
 cd immuni-app-ios
 
 # This command will install the environment needed to run the project using Brew.
-# If you prefer to install them manually check the Makefile.
+# If you prefer to install them manually, check the Makefile.
 # Note: this step should be done just once
 make setup
 make immuni
@@ -77,14 +77,14 @@ make immuni
 Please note the following:
 
 - The project may be built and run in the simulator.
-- If you wish to install the application on a real device, you will need to join the [Apple Developer Program](https://developer.apple.com/programs/) and sign the App with your own certificate.
+- If you wish to install the application on a real device, you will need to join the [Apple Developer Program](https://developer.apple.com/programs/) and sign the App with your certificate.
 - Apple requires a [special entitlement](https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_exposure-notification) to make the [Exposure Notification](https://developer.apple.com/documentation/exposurenotification) system work. To obtain this entitlement, you must be either a government entity or a developer approved by a government entity to develop an application on behalf of a government for COVID-19 response efforts. This is stated in the [APIs addendum](https://developer.apple.com/contact/request/download/Exposure_Notification_Addendum.pdf). You should remove _Exposure Notification_ entitlements from the entitlements file before compiling the application. You may build and use the application, but you will not be able to use the underlying Exposure Notification system.
 
 For more information about how the project is generated and structured, please refer to the [CONTRIBUTING](CONTRIBUTING.md) file.
 
 ## Backend services
 
-At the current stage, the application points to backend services which are not publicly accessible and whose source code has not been released. Note that the application is designed to work without a backend, especially in the context of not having the Exposure Notification entitlements (see [Installation](#installation) for more details).
+At the current stage, the application points to backend services that are not publicly accessible and whose source code has not been released. Note that the application is designed to work without a backend, especially in the context of not having the Exposure Notification entitlements (see [Installation](#installation) for more details).
 
 Please see [this issue](https://github.com/immuni-app/immuni-app-ios/issues/1) for more information about this topic.
 
@@ -155,4 +155,4 @@ Please check the [AUTHORS](AUTHORS) file for extended reference.
 
 ## License details
 
-The licence for this repository is a [GNU Affero General Public Licence version 3](https://www.gnu.org/licenses/agpl-3.0.html) (SPDX: AGPL-3.0). Please see the [LICENCE](LICENSE) file for full reference.
+The licence for this repository is a [GNU Affero General Public Licence version 3](https://www.gnu.org/licenses/agpl-3.0.html) (SPDX: AGPL-3.0). Please see the [LICENSE](LICENSE) file for full reference.
