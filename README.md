@@ -61,7 +61,7 @@ The recommended method requires that [Xcode 11.5](https://developer.apple.com/xc
 
 ```sh
 git clone https://github.com/immuni-app/immuni-app-ios.git
-cd ios-app
+cd immuni-app-ios
 
 # This command will install the environment needed to run the project using Brew.
 # If you prefer to install them manually check the Makefile.
