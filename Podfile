@@ -23,7 +23,7 @@ target 'Immuni' do
   pod 'BonMot', '= 5.4.1'
   pod 'lottie-ios', '= 3.1.8'
   pod 'PinLayout', '= 1.8.6'
-  pod 'SSZipArchive', '= 2.2.3'
+  pod 'ZIPFoundation', '= 0.9.11'
 
   shared_pods
 

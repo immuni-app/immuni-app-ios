@@ -7,11 +7,11 @@ PODS:
   - Logging (1.2.0)
   - lottie-ios (3.1.8)
   - PinLayout (1.8.6)
-  - SSZipArchive (2.2.3)
   - Tempura (4.3.1):
     - Katana (< 4, >= 3.0)
   - TempuraTesting (4.3.0):
     - Tempura (< 5.0, >= 4.0)
+  - ZIPFoundation (0.9.11)
 
 DEPENDENCIES:
   - Alamofire (= 5.1.0)
@@ -21,9 +21,9 @@ DEPENDENCIES:
   - Logging (= 1.2.0)
   - lottie-ios (= 3.1.8)
   - PinLayout (= 1.8.6)
-  - SSZipArchive (= 2.2.3)
   - Tempura (= 4.3.1)
   - TempuraTesting (~> 4.3)
+  - ZIPFoundation (= 0.9.11)
 
 SPEC REPOS:
   trunk:
@@ -34,9 +34,9 @@ SPEC REPOS:
     - Logging
     - lottie-ios
     - PinLayout
-    - SSZipArchive
     - Tempura
     - TempuraTesting
+    - ZIPFoundation
 
 SPEC CHECKSUMS:
   Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
@@ -46,10 +46,10 @@ SPEC CHECKSUMS:
   Logging: 7838d379d234d7e5ae1265fa02804a9084caf04c
   lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
   PinLayout: fe2a2432d6982588e208572005c941aeeae417ab
-  SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   Tempura: adc54766491f97980bcdb3dff82a92076ed825e2
   TempuraTesting: 302a6f14ec6bb8d69d30bc7708dad1c062d6730a
+  ZIPFoundation: b1f0de4eed33e74a676f76e12559ab6b75990197
 
-PODFILE CHECKSUM: 9fa23c02507766a27786266a1dc53623342355c7
+PODFILE CHECKSUM: 3d23a3ca786762667f1fb35f8dda15078e3b198a
 
 COCOAPODS: 1.9.1
