@@ -56,6 +56,12 @@ class OnboardingContainerNC: UINavigationController {
 
   var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
     return [
+      .show(Screen.sensitiveDataCover): .presentModally { [unowned self] _ in
+        let vc = SensitiveDataCoverVC(store: self.store)
+        vc.modalPresentationStyle = .overFullScreen
+        return vc
+      },
+
       .show(Screen.onboardingStep): .custom { _, _, animated, context, completion in
         let navContext = context as? OnboardingContainerNC.NavigationContext ?? AppLogger.fatalError("Invalid Context")
         self.pushViewController(using: navContext, animated: animated)
