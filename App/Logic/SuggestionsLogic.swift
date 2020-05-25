@@ -51,15 +51,14 @@ extension Logic.Suggestions {
   }
 
   /// Triggers the alert dismissal, which is used in case the user is in contact with the ASL
-  #warning("check copy")
   struct HideAlert: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       try await(Promise<Void>.alertPromise(
         using: context.dispatch,
-        title: L10n.Suggestions.Alert.AslContactConfirmation.title,
-        message: L10n.Suggestions.Alert.AslContactConfirmation.description,
-        affermativeAnswer: L10n.Suggestions.Alert.AslContactConfirmation.positiveAnswer,
-        negativeAnswer: L10n.Suggestions.Alert.AslContactConfirmation.negativeAnswer
+        title: L10n.Suggestions.Alert.HideAlert.title,
+        message: L10n.Suggestions.Alert.HideAlert.description,
+        affermativeAnswer: L10n.Suggestions.Alert.HideAlert.positiveAnswer,
+        negativeAnswer: L10n.Suggestions.Alert.HideAlert.negativeAnswer
       ))
 
       try context.awaitDispatch(Hide(Screen.suggestions, animated: true))

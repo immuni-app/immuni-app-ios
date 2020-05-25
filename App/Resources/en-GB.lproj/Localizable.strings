@@ -17,7 +17,7 @@
 "notifications.risk.description" = "Apri l’app per avere più informazioni.";
 "notifications.update_positive_state.title" = "Aggiorna il tuo stato";
 "notifications.update_positive_state.description" = "Apri l’app se ci sono novità sulla tua situazione.";
- 
+
 "force_update_view.app.title" = "Aggiorna l’app per proseguire";
 "force_update_view.app.details" = "È disponibile un aggiornamento importante. Aggiorna subito l’app per garantirne il funzionamento.";
 "force_update_view.update" = "Aggiorna";
@@ -91,7 +91,7 @@
 "home_view.service.active.subtitle" = "Immuni resta operativa anche quando l'app è chiusa.";
 "home_view.service.not_active.title" = "Servizio\n<b>non attivo</b>";
 "home_view.service.not_active.subtitle" = "Intervieni subito per permettere a Immuni di funzionare correttamente.";
-"home_view.service.not_active.button" = "Riattiva Immuni"; 
+"home_view.service.not_active.button" = "Riattiva Immuni";
 "home_view.info.protection.title" = "Cosa puoi fare per proteggerti";
 "home_view.info.app.title" = "Come funziona l'app";
 "home_view.info.button.title" = "Scopri di più";
@@ -126,7 +126,7 @@
 "settings.setting.leave_review" = "Lascia una recensione";
 "settings.setting.contact_support" = "Contatta il supporto";
 "settings.setting.debug_utilities" = "Menu di Debug";
-"settings.update_province.update_province" = "Aggiorna"; 
+"settings.update_province.update_province" = "Aggiorna";
 
 
 "permission_tutorial.notifications.title" = "Per attivare le notifiche";
@@ -167,7 +167,7 @@
 "upload_data.missing_authorization.title" = "Riattiva le notifiche di esposizione per continuare";
 "upload_data.missing_authorization.message" = "Le notifiche di esposizione sono necessarie durante questa procedura. Riattivale subito per continuare.";
 "upload_data.missing_authorization.close" = "Chiudi";
-"upload_data.missing_authorization.enable" = "Attiva"; 
+"upload_data.missing_authorization.enable" = "Attiva";
 "upload_data.connection_error.title" = "Errore di connessione";
 "upload_data.connection_error.message" = "Qualcosa è andato storto, controlla la tua connessione internet e riprova.";
 "upload_data.connection_error.action" = "OK";
@@ -235,6 +235,11 @@
 "suggestions.alert.asl_contact_confirmation.description" = "Immuni nasconderà l’avviso di contatto. Dovrai comunque seguire tutte le indicazione che hai ricevuto dalla tua ASL.";
 "suggestions.alert.asl_contact_confirmation.negative_answer" = "No";
 "suggestions.alert.asl_contact_confirmation.positive_answer" = "Sì";
+
+"suggestions.alert.hide_alert.title" = "Vuoi nascondere questo avviso?";
+"suggestions.alert.hide_alert.description" = "A meno che tu abbia una ragione valida, ti sconsigliamo vivamente di farlo. Ne potrebbe andare della tua salute e di quella delle persone che ti circondano.";
+"suggestions.alert.hide_alert.negative_answer" = "No";
+"suggestions.alert.hide_alert.positive_answer" = "Sì";
 
 "suggestions.positive.info.title" = "Immuni sta continuando a funzionare: non disinstallarla!";
 "suggestions.positive.info.subtitle" = "Per il momento, non riceverai eventuali nuove notifiche in caso di esposizione a rischio con un utente COVID-19 positivo.";
