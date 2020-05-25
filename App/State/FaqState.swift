@@ -18,6 +18,7 @@ import Models
 /// Slice of state that manages the app's FAQs
 struct FaqState: Codable {
   /// The latest fetched FAQs
+  // swiftlint:disable:next discouraged_optional_collection
   var fetchedFAQs: [FAQ]? = nil
 
   /// The language of the latest fetched FAQs
