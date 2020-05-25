@@ -67,6 +67,10 @@ extension AnalyticsState {
 
     /// Whether the given date falls in the opportunity window
     func contains(_ date: Date) -> Bool {
+      guard self.windowDuration > 0 else {
+        return false
+      }
+      
       return (self.windowStart ..< self.windowEnd).contains(date)
     }
   }
