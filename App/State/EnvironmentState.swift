@@ -41,9 +41,6 @@ struct EnvironmentState {
 
   /// The user's language
   var userLanguage: UserLanguage = .english
-
-  /// The current day
-  var today: CalendarDay = Date().calendarDay
 }
 
 // MARK: - Keyboard State
