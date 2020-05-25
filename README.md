@@ -13,7 +13,7 @@
       src="https://img.shields.io/github/v/release/immuni-app/immuni-app-ios">
     </a>
     <!-- CoC -->
-        <a href="CODE_OF_CONDUCT.md">
+    <a href="CODE_OF_CONDUCT.md">
       <img src="https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg" />
     </a>
 </div>
