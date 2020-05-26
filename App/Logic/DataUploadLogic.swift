@@ -32,9 +32,9 @@ extension Logic.DataUpload {
     static let recentFailedAttemptsThreshold: TimeInterval = 24 * 60 * 60
 
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      let state = context.getState()
       try context.awaitDispatch(RefreshOTP())
 
+      let state = context.getState()
       let now = context.dependencies.now()
       let failedAttempts = state.ingestion.otpValidationFailedAttempts
 
