@@ -27,6 +27,8 @@ public struct ConfigurationRequest: ModelResponseSerializer {
 
   public let parameters: [String: Any]
 
+  public var headers: [HTTPHeader] = HTTPHeader.defaultImmuniHeaders
+
   init(buildNumber: Int) {
     self.parameters = [
       "platform": "ios",
