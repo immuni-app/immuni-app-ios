@@ -41,7 +41,7 @@ class WelcomeVC: ViewControllerWithLocalState<WelcomeView> {
     }
 
     self.rootView.didTapDiscoverMore = { [weak self] in
-      self?.store.dispatch(Logic.PermissionTutorial.ShowHowImmuniWorks())
+      self?.store.dispatch(Logic.PermissionTutorial.ShowHowImmuniWorks(showFaqButton: false))
     }
   }
 }

@@ -35,12 +35,13 @@ extension Logic.PermissionTutorial {
 
   /// Shows the how immuni works page
   struct ShowHowImmuniWorks: AppSideEffect {
+    let showFaqButton: Bool
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       try context
         .awaitDispatch(Show(
           Screen.permissionTutorial,
           animated: true,
-          context: PermissionTutorialLS(content: .howImmuniWorks)
+          context: PermissionTutorialLS(content: .howImmuniWorks(shouldShowFaqButton: self.showFaqButton))
         ))
     }
   }
