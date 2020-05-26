@@ -18,18 +18,18 @@ import Models
 /// Slice of state related to the communication to the Ingestion Service
 struct IngestionState: Codable {
   enum CodingKeys: String, CodingKey {
-    case otpUploadFailedAttempts
-    case lastOtpUploadFailedAttempt
+    case otpValidationFailedAttempts
+    case lastOtpValidationFailedAttempt
     case dummyTrafficOpportunityWindow
   }
 
   // MARK: - Persisted slices
 
   /// The number of consequent failed requests of OTP validation
-  var otpUploadFailedAttempts: Int = 0
+  var otpValidationFailedAttempts: Int = 0
 
   /// The time of last failed OTP validation
-  var lastOtpUploadFailedAttempt: Date? = nil
+  var lastOtpValidationFailedAttempt: Date? = nil
 
   /// The opportunity window for Ingestion-related dummy traffic.
   var dummyTrafficOpportunityWindow: OpportunityWindow = .distantPast
