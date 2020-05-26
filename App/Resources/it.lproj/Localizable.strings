@@ -177,6 +177,7 @@
 "upload_data.vpn_error.title" = "Qualcosa è andato storto";
 "upload_data.vpn_error.message" = "Si è verificato un errore durante l’operazione. Ti invitiamo a riprovare. Se stai utilizzando una VPN, ti suggeriamo di selezionare un server europeo o di disabilitarla temporaneamente.";
 "upload_data.vpn_error.action" = "OK";
+"upload_data.diagnosis_keys.overlay.hint" = "Seleziona \"<b>Condividi</b>\" nel popup che apparirà qui sotto";
 
 "confirm_data.title" = "Ecco i dati che verranno caricati";
 "confirm_data.footer_message" = "Attendi conferma da parte dell'operatore per caricare i tuoi dati.";
