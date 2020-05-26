@@ -63,6 +63,20 @@ public extension DataUploadRequest {
 }
 
 public extension DataUploadRequest.Body {
+  static func dummy() -> Self {
+    #warning("Make the same size as a legitimate request")
+    let randomProvince = Province.allCases.randomElement()
+      ?? LibLogger.fatalError("No provinces defined")
+
+    return self.init(
+      teks: [],
+      province: randomProvince.rawValue,
+      exposureDetectionSummaries: []
+    )
+  }
+}
+
+public extension DataUploadRequest.Body {
   enum CodingKeys: String, CodingKey {
     case teks
     case province
