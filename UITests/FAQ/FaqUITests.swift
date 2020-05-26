@@ -24,11 +24,12 @@ class FaqUITests: AppViewTestCase, ViewTestCase {
   func testFaq() {
     self.uiTest(
       testCases: [
-        "faq_view": FaqVM(faqs: [], isPresentedModally: false, isHeaderVisible: false),
-        "faq_empty": FaqVM(faqs: FAQ.mockedFaqs, isPresentedModally: false, isHeaderVisible: false),
-        "faq_modal": FaqVM(faqs: FAQ.mockedFaqs, isPresentedModally: true, isHeaderVisible: false),
-        "faq_view_with_header": FaqVM(faqs: [], isPresentedModally: false, isHeaderVisible: true),
-        "faq_modal_with_header": FaqVM(faqs: FAQ.mockedFaqs, isPresentedModally: true, isHeaderVisible: true)
+        "faq_italian": FaqVM(faqs: FAQ.italianDefaultValues, isPresentedModally: false, isHeaderVisible: false),
+        "faq_english": FaqVM(faqs: FAQ.englishDefaultValues, isPresentedModally: false, isHeaderVisible: false),
+        "faq_empty": FaqVM(faqs: [], isPresentedModally: false, isHeaderVisible: false),
+        "faq_modal": FaqVM(faqs: FAQ.englishDefaultValues, isPresentedModally: true, isHeaderVisible: false),
+        "faq_with_header": FaqVM(faqs: FAQ.englishDefaultValues, isPresentedModally: false, isHeaderVisible: true),
+        "faq_modal_with_header": FaqVM(faqs: FAQ.englishDefaultValues, isPresentedModally: true, isHeaderVisible: true)
       ],
       context: UITests.Context<V>()
     )
@@ -39,46 +40,4 @@ class FaqUITests: AppViewTestCase, ViewTestCase {
       "collection": view.collection
     ]
   }
-}
-
-extension FAQ {
-  static let mockedFaqs: [FAQ] = [
-    FAQ(title: "What is Immuni?", content: ""),
-    FAQ(title: "How does Immuni’s proximity tracing work?", content: ""),
-    FAQ(title: "Does the app track my location?", content: ""),
-    FAQ(title: "How’s my privacy protected?", content: ""),
-    FAQ(title: "Is the code open source?", content: ""),
-    FAQ(title: "Why is Immuni important?", content: ""),
-    FAQ(title: "Is it really necessary that everybody uses the app? What happens if not enough people do?", content: ""),
-    FAQ(title: "What should I do to make sure I’m using the app correctly?", content: ""),
-    FAQ(title: "Does this app make medical diagnoses or provide medical advice?", content: ""),
-    FAQ(title: "What devices and operating systems are supported?", content: ""),
-    FAQ(title: "How were Immuni and Bending Spoons selected among the available options?", content: ""),
-    FAQ(title: "Is Bending Spoons getting paid for Immuni?", content: ""),
-    FAQ(title: "Are the instructions and advice that the app provides reliable?", content: ""),
-    FAQ(title: "I don’t have a smartphone compatible with Immuni—what should I do?", content: ""),
-    FAQ(title: "Is the app going to drain my smartphone’s battery?", content: ""),
-    FAQ(title: "Where can I download Immuni?", content: ""),
-    FAQ(title: "Can minors use the app?", content: ""),
-    FAQ(title: "Can I access my profile from multiple devices?", content: ""),
-    FAQ(title: "Is Immuni run by the government?", content: ""),
-    FAQ(title: "Do I need to pay to use Immuni?", content: ""),
-    FAQ(title: "Can I choose not to use the app?", content: ""),
-    FAQ(title: "Immuni tells me I may have COVID-19, but I feel fine. What should I do?", content: ""),
-    FAQ(title: "I was somewhere or with someone that I would like to keep private. Does Immuni compromise this?", content: ""),
-    FAQ(title: "Can I change the language of the app?", content: ""),
-    FAQ(title: "Do I need to sign up with my email address and password?", content: ""),
-    FAQ(title: "Does Immuni need to be in the foreground to work? Can I use other apps?", content: ""),
-    FAQ(title: "Do I need to keep my smartphone’s Bluetooth turned on all the time?", content: ""),
-    FAQ(title: "I often keep my phone on airplane mode. Is this OK?", content: ""),
-    FAQ(title: "How much data traffic does Immuni consume?", content: ""),
-    FAQ(title: "I need help with the app. Who should I contact?", content: ""),
-    FAQ(title: "The app prompted me to update it: what happens if I don’t do so?", content: ""),
-    FAQ(title: "Can I use the app without internet connection?", content: ""),
-    FAQ(title: "What personal information does Immuni gather? Who can access and use my data?", content: ""),
-    FAQ(title: """
-    With which other sites or apps does Immuni share my data? Does it sell my data? Is my data used for advertising purposes?
-    """, content: ""),
-    FAQ(title: "How can I provide feedback to improve the app?", content: "")
-  ]
 }
