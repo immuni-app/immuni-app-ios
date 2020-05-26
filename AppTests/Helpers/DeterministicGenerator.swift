@@ -1,4 +1,4 @@
-// UserState.swift
+// DeterministicGenerator.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -13,16 +13,16 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 import Foundation
-import Models
+@testable import Immuni
 
-/// Slice of state related to the user
-struct UserState: Codable {
-  /// The user's province
-  var province: Province?
+enum DeterministicGenerator: UniformDistributionGenerator, ExponentialDistributionGenerator {
+  static var randomValue = 0.5
 
-  /// The date of the last service not active local notification
-  var lastServiceNotActiveDate = Date.distantPast
+  static func random(in range: Range<Double>) -> Double {
+    return self.randomValue
+  }
 
-  /// The current user's covid status
-  var covidStatus: CovidStatus = .neutral
+  static func exponentialRandom(with mean: Double) -> Double {
+    return self.randomValue
+  }
 }

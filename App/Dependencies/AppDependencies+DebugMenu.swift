@@ -119,6 +119,24 @@
         .init(
           title: "[Analytics] Trigger send with exposure logic",
           dispatchable: Logic.Analytics.StochasticallySendOperationalInfoWithExposure()
+        ),
+
+        .init(
+          title: "[Analytics] Trigger send dummy request",
+          dispatchable: Logic.Analytics.SendRequest(kind: .dummy)
+        )
+      ])
+
+      // data upload
+      items.append(contentsOf: [
+        .init(
+          title: "[Ingestion] Schedule simulated ingestion sequence",
+          dispatchable: Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary()
+        ),
+
+        .init(
+          title: "[Ingestion] Start simulated ingestion sequence",
+          dispatchable: Logic.DataUpload.StartIngestionSequenceIfNotCancelled()
         )
       ])
 

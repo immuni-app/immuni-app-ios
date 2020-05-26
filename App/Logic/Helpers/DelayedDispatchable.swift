@@ -1,4 +1,4 @@
-// UserState.swift
+// DelayedDispatchable.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -13,16 +13,23 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 import Foundation
-import Models
+import Hydra
+import Katana
 
-/// Slice of state related to the user
-struct UserState: Codable {
-  /// The user's province
-  var province: Province?
+/// A wrapper around any `Dispatchable` that dispatches it after a given `delay`
+struct DelayedDispatchable: AppSideEffect {
+  let dispatchable: Dispatchable
+  let delay: TimeInterval
 
-  /// The date of the last service not active local notification
-  var lastServiceNotActiveDate = Date.distantPast
+  func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+    Promise<Void>.deferring(of: self.delay)
+      .then(in: .background) { _ in context.dispatch(self.dispatchable) }
+  }
+}
 
-  /// The current user's covid status
-  var covidStatus: CovidStatus = .neutral
+extension Dispatchable {
+  /// Defer the dispatch of this dispatchable for a given number of seconds
+  func deferred(of seconds: TimeInterval) -> Dispatchable {
+    return DelayedDispatchable(dispatchable: self, delay: seconds)
+  }
 }

@@ -24,6 +24,11 @@ import Tempura
 import XCTest
 
 final class DataUploadLogicTests: XCTestCase {
+  override func tearDown() {
+    super.tearDown()
+    DeterministicGenerator.randomValue = 0.5
+  }
+
   func testVerifyCodeChecksExposureNotificationPermission() throws {
     let state = AppState()
     let getState = { state }
@@ -116,7 +121,7 @@ final class DataUploadLogicTests: XCTestCase {
       // Catch silently to evaluate asserts
     }
 
-    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.DataUpload.TrackOTPValidationFailedAttempt.self)
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.DataUpload.MarkOTPValidationFailedAttempt.self)
   }
 
   func testShowsConfirmDataIfCodeIsValidated() throws {
@@ -313,26 +318,498 @@ final class DataUploadLogicTests: XCTestCase {
 
   func testFailedOTPValidationUpdatesState() throws {
     var state = AppState()
-    state.user.otpUploadFailedAttempts = 7
-    state.user.lastOtpUploadFailedAttempt = Date(timeIntervalSince1970: 0)
+    state.ingestion.otpValidationFailedAttempts = 7
+    state.ingestion.lastOtpValidationFailedAttempt = Date(timeIntervalSince1970: 0)
 
     let now = Date(timeIntervalSince1970: 1_590_073_834)
 
-    Logic.DataUpload.TrackOTPValidationFailedAttempt(date: now).updateState(&state)
+    Logic.DataUpload.MarkOTPValidationFailedAttempt(date: now).updateState(&state)
 
-    XCTAssertEqual(state.user.otpUploadFailedAttempts, 8)
-    XCTAssertEqual(state.user.lastOtpUploadFailedAttempt, now)
+    XCTAssertEqual(state.ingestion.otpValidationFailedAttempts, 8)
+    XCTAssertEqual(state.ingestion.lastOtpValidationFailedAttempt, now)
   }
 
   func testSuccessfulOTPValidationUpdatesState() throws {
     var state = AppState()
-    state.user.otpUploadFailedAttempts = 7
-    state.user.lastOtpUploadFailedAttempt = Date(timeIntervalSince1970: 0)
+    state.ingestion.otpValidationFailedAttempts = 7
+    state.ingestion.lastOtpValidationFailedAttempt = Date(timeIntervalSince1970: 0)
 
-    Logic.DataUpload.TrackOTPValidationSuccessfulAttempt().updateState(&state)
+    Logic.DataUpload.MarkOTPValidationSuccessfulAttempt().updateState(&state)
 
-    XCTAssertEqual(state.user.otpUploadFailedAttempts, 0)
-    XCTAssertEqual(state.user.lastOtpUploadFailedAttempt, nil)
+    XCTAssertEqual(state.ingestion.otpValidationFailedAttempts, 0)
+    XCTAssertEqual(state.ingestion.lastOtpValidationFailedAttempt, nil)
+  }
+}
+
+// MARK: - Dummy Data
+
+extension DataUploadLogicTests {
+  func testUpdatesOpportunityWindow() throws {
+    let state = AppState()
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+
+    let clock = Date(timeIntervalSince1970: 1_590_073_834)
+
+    let dependencies = AppDependencies.mocked(
+      getAppState: getState,
+      dispatch: dispatchInterceptor.dispatchFunction,
+      now: { clock },
+      exponentialDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.UpdateDummyTrafficOpportunityWindow().sideEffect(context)
+
+    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 1)
+    try XCTAssertType(
+      dispatchInterceptor.dispatchedItems.first,
+      Logic.DataUpload.SetDummyTrafficOpportunityWindow.self
+    ) { dispatchable in
+      XCTAssertEqual(dispatchable.now, clock)
+      XCTAssertEqual(dispatchable.dummyTrafficStochasticDelay, DeterministicGenerator.randomValue)
+    }
+  }
+
+  func testDoesNotUpdateOpportunityWindowIfBeforeWindowStart() throws {
+    let clock = Date(timeIntervalSince1970: 1_590_073_834)
+
+    var state = AppState()
+    state.ingestion.dummyTrafficOpportunityWindow = .init(windowStart: clock.addingTimeInterval(1), windowDuration: 1)
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+
+    let dependencies = AppDependencies.mocked(
+      getAppState: getState,
+      dispatch: dispatchInterceptor.dispatchFunction,
+      now: { clock },
+      exponentialDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.UpdateDummyTrafficOpportunityWindowIfExpired().sideEffect(context)
+
+    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 0)
+  }
+
+  func testDoesNotUpdateOpportunityWindowIfDuringWindow() throws {
+    let clock = Date(timeIntervalSince1970: 1_590_073_834)
+
+    var state = AppState()
+    state.ingestion.dummyTrafficOpportunityWindow = .init(windowStart: clock.addingTimeInterval(-1), windowDuration: 2)
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+
+    let dependencies = AppDependencies.mocked(
+      getAppState: getState,
+      dispatch: dispatchInterceptor.dispatchFunction,
+      now: { clock },
+      exponentialDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.UpdateDummyTrafficOpportunityWindowIfExpired().sideEffect(context)
+
+    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 0)
+  }
+
+  func testUpdatesOpportunityWindowIfAfterWindow() throws {
+    let clock = Date(timeIntervalSince1970: 1_590_073_834)
+
+    var state = AppState()
+    state.ingestion.dummyTrafficOpportunityWindow = .init(windowStart: clock.addingTimeInterval(-2), windowDuration: 1)
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+
+    let dependencies = AppDependencies.mocked(
+      getAppState: getState,
+      dispatch: dispatchInterceptor.dispatchFunction,
+      now: { clock },
+      exponentialDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.UpdateDummyTrafficOpportunityWindowIfExpired().sideEffect(context)
+
+    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 1)
+    try XCTAssertType(dispatchInterceptor.dispatchedItems.first, Logic.DataUpload.UpdateDummyTrafficOpportunityWindow.self)
+  }
+}
+
+// MARK: - Dummy traffic lifecycle
+
+extension DataUploadLogicTests {
+  func testFirstLaunchSetupAlwaysUpdatesTheOpportunityWindow() throws {
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.PerformFirstLaunchSetupIfNeeded().sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.DataUpload.UpdateDummyTrafficOpportunityWindow.self)
+  }
+
+  func testHandleBackgroundSessionUpdatesTheOpportunityWindowWhenExpired() throws {
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.HandleExposureDetectionBackgroundTask(task: MockBackgroundTask()).sideEffect(context)
+
+    try XCTAssertContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.DataUpload.UpdateDummyTrafficOpportunityWindowIfExpired.self
+    )
+  }
+
+  func testOnStartUpdatesTheOpportunityWindowWhenExpiredIfNotFirstLaunch() throws {
+    var state = AppState()
+    state.toggles.isFirstLaunchSetupPerformed = true
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: { state }, dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.OnStart().sideEffect(context)
+
+    try XCTAssertContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.DataUpload.UpdateDummyTrafficOpportunityWindowIfExpired.self
+    )
+  }
+
+  func testWillEnterForegroundUpdatesTheOpportunityWindowWhenExpiredIfNotFirstLaunch() throws {
+    var state = AppState()
+    state.toggles.isFirstLaunchSetupPerformed = true
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: { state }, dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.OnStart().sideEffect(context)
+
+    try XCTAssertContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.DataUpload.UpdateDummyTrafficOpportunityWindowIfExpired.self
+    )
+  }
+
+  func testOnStartSchedulesDummyTrafficIfNotFirstLaunch() throws {
+    var state = AppState()
+    state.toggles.isFirstLaunchSetupPerformed = true
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: { state }, dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.OnStart().sideEffect(context)
+
+    try XCTAssertContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary.self
+    )
+  }
+
+  func testWillEnterForegroundSchedulesDummyTrafficIfNotFirstLaunch() throws {
+    var state = AppState()
+    state.toggles.isFirstLaunchSetupPerformed = true
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: { state }, dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.OnStart().sideEffect(context)
+
+    try XCTAssertContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary.self
+    )
+  }
+
+  func testSimulationIsCancelledIfOpeningDataUploadScreen() throws {
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.ShowUploadData().sideEffect(context)
+
+    try XCTAssertContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.DataUpload.SetDummyTrafficSequenceCancelled.self
+    ) { dispatchable in
+      XCTAssertEqual(dispatchable.value, true)
+    }
+  }
+
+  func testForegroundSessionIsMarkedFinishedWhenEnteringForeground() throws {
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.WillResignActive().sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.DataUpload.MarkForegroundSessionFinished.self)
+  }
+}
+
+// MARK: - Dummy traffic scheduling
+
+extension DataUploadLogicTests {
+  func testDummyTrafficScheduledIfWithinOpportunityWindow() throws {
+    let clock = Date()
+
+    var state = AppState()
+    state.ingestion.dummyTrafficOpportunityWindow = .init(windowStart: clock.addingTimeInterval(-1), windowDuration: 2)
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(
+      getAppState: { state },
+      dispatch: dispatchInterceptor.dispatchFunction,
+      exponentialDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary().sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, DelayedDispatchable.self) { dispatchable in
+      XCTAssertEqual(dispatchable.delay, DeterministicGenerator.randomValue)
+      try XCTAssertType(dispatchable.dispatchable, Logic.DataUpload.StartIngestionSequenceIfNotCancelled.self)
+    }
+  }
+
+  func testDummyTrafficNotScheduledIfBeforeOpportunityWindow() throws {
+    let clock = Date()
+
+    var state = AppState()
+    state.ingestion.dummyTrafficOpportunityWindow = .init(windowStart: clock.addingTimeInterval(-2), windowDuration: 1)
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: { state }, dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary().sideEffect(context)
+
+    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, DelayedDispatchable.self)
+  }
+
+  func testDummyTrafficNotScheduledIfAfterOpportunityWindow() throws {
+    let clock = Date()
+
+    var state = AppState()
+    state.ingestion.dummyTrafficOpportunityWindow = .init(windowStart: clock.addingTimeInterval(1), windowDuration: 1)
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: { state }, dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary().sideEffect(context)
+
+    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, DelayedDispatchable.self)
+  }
+
+  func testDummyTrafficSchedulingIsSetInState() throws {
+    let clock = Date()
+
+    var state = AppState()
+    state.ingestion.dummyTrafficOpportunityWindow = .init(windowStart: clock.addingTimeInterval(-1), windowDuration: 2)
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(
+      getAppState: { state },
+      dispatch: dispatchInterceptor.dispatchFunction,
+      exponentialDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary().sideEffect(context)
+
+    try XCTAssertContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.DataUpload.SetDummyIngestionSequenceScheduledForThisSession.self
+    ) { dispatchable in
+      XCTAssertEqual(dispatchable.value, true)
+    }
+  }
+
+  func testDummyTrafficNotScheduledTwice() throws {
+    let clock = Date()
+
+    var state = AppState()
+    state.ingestion.dummyTrafficOpportunityWindow = .init(windowStart: clock.addingTimeInterval(-1), windowDuration: 2)
+    state.ingestion.dummyTrafficSequenceScheduledInSession = true
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(
+      getAppState: { state },
+      dispatch: dispatchInterceptor.dispatchFunction,
+      exponentialDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary().sideEffect(context)
+
+    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, DelayedDispatchable.self)
+  }
+}
+
+// MARK: - Dummy traffic scheduling
+
+extension DataUploadLogicTests {
+  func testSimulationDoesNotStartIfSessionCancelled() throws {
+    var state = AppState()
+    state.ingestion.isDummyTrafficSequenceCancelled = true
+
+    let requestExecutor = MockRequestExecutor(mockedResult: .success(Data()))
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(
+      getAppState: { state },
+      dispatch: dispatchInterceptor.dispatchFunction,
+      requestExecutor: requestExecutor,
+      exponentialDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.StartIngestionSequenceIfNotCancelled().sideEffect(context)
+
+    XCTAssertEqual(requestExecutor.executeMethodCalls.count, 0)
+  }
+
+  func testSimulationUpdatesOpportunityWindowIfCancelled() throws {
+    var state = AppState()
+    state.ingestion.isDummyTrafficSequenceCancelled = true
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(
+      getAppState: { state },
+      dispatch: dispatchInterceptor.dispatchFunction
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.StartIngestionSequenceIfNotCancelled().sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.DataUpload.UpdateDummyTrafficOpportunityWindow.self)
+  }
+
+  func testSimulationSendsOneRequestEvenIfProbabilityIsZero() throws {
+    var state = AppState()
+    state.ingestion.isDummyTrafficSequenceCancelled = false
+
+    let requestExecutor = MockRequestExecutor(mockedResult: .success(Data()))
+
+    DeterministicGenerator.randomValue = 1
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(
+      getAppState: { state },
+      dispatch: dispatchInterceptor.dispatchFunction,
+      requestExecutor: requestExecutor,
+      uniformDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.StartIngestionSequenceIfNotCancelled().sideEffect(context)
+
+    XCTAssertEqual(requestExecutor.executeMethodCalls.count, 1)
+  }
+
+  func testSimulationUpdatesOpportunityWindowIfNotCancelled() throws {
+    var state = AppState()
+    state.ingestion.isDummyTrafficSequenceCancelled = false
+
+    // Fail the first dice roll
+    DeterministicGenerator.randomValue = 1
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(
+      getAppState: { state },
+      dispatch: dispatchInterceptor.dispatchFunction,
+      uniformDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.StartIngestionSequenceIfNotCancelled().sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.DataUpload.UpdateDummyTrafficOpportunityWindow.self)
+  }
+
+  func testReleasesSimulationSession() throws {
+    var state = AppState()
+    state.ingestion.isDummyTrafficSequenceCancelled = true
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(
+      getAppState: { state },
+      dispatch: dispatchInterceptor.dispatchFunction
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.StartIngestionSequenceIfNotCancelled().sideEffect(context)
+
+    try XCTAssertContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.DataUpload.SetDummyIngestionSequenceScheduledForThisSession.self
+    ) { dispatchable in
+      XCTAssertEqual(dispatchable.value, false)
+    }
+  }
+
+  func testSimulationStopsIfSequenceIsCancelled() throws {
+    let stateChangingClosure: (() -> AppState) = {
+      var counter = 0
+      return {
+        var state = AppState()
+        state.ingestion.isDummyTrafficSequenceCancelled = counter >= 2
+        counter += 1
+        return state
+      }
+    }()
+
+    let requestExecutor = MockRequestExecutor(mockedResult: .success(Data()))
+
+    // Always pass the dice rolls and never block on awaits
+    DeterministicGenerator.randomValue = 0
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(
+      getAppState: stateChangingClosure,
+      dispatch: dispatchInterceptor.dispatchFunction,
+      requestExecutor: requestExecutor,
+      uniformDistributionGenerator: DeterministicGenerator.self,
+      exponentialDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.StartIngestionSequenceIfNotCancelled().sideEffect(context)
+
+    XCTAssertEqual(requestExecutor.executeMethodCalls.count, 2)
   }
 }
 

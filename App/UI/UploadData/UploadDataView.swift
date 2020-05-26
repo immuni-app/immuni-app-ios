@@ -59,7 +59,7 @@ extension UploadDataVM {
       return nil
     }
 
-    self.code = state.user.otp
+    self.code = state.ingestion.otp
     self.isLoading = localState.isLoading
     self.errorSecondsLeft = localState.errorSecondsLeft
   }

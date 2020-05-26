@@ -32,6 +32,11 @@ public struct Configuration: Codable {
     case operationalInfoWithExposureSamplingRate = "operational_info_with_exposure_sampling_rate"
     case operationalInfoWithoutExposureSamplingRate = "operational_info_without_exposure_sampling_rate"
     case dummyAnalyticsMeanStochasticDelay = "dummy_analytics_waiting_time"
+    case dummyIngestionAverageRequestWaitingTime = "dummy_teks_average_request_waiting_time"
+    case dummyIngestionRequestProbabilities = "dummy_teks_request_probabilities"
+    case dummyIngestionMeanStochasticDelay = "dummy_teks_average_opportunity_waiting_time"
+    case dummyIngestionWindowDuration = "dummy_teks_window_duration"
+    case dummyIngestionAverageStartUpDelay = "dummy_teks_average_start_waiting_time"
   }
 
   /// This is used to enforce a minimum version of the app.
@@ -93,6 +98,22 @@ public struct Configuration: Codable {
   /// Mean of the exponential distribution that regulates the execution of dummy analytics requests
   public let dummyAnalyticsMeanStochasticDelay: Double
 
+  /// Average wait time (in seconds) from one dummy ingestion request to the next one.
+  public let dummyIngestionAverageRequestWaitingTime: Double
+
+  /// Arrays of probabilities that describes the chance the app has after each dummy ingestion request to send another one.
+  /// The i-th element represents the chance of sending a request after the i-th request.
+  public let dummyIngestionRequestProbabilities: [Double]
+
+  /// Mean of the exponential distribution that regulates the execution of dummy ingestion requests
+  public let dummyIngestionMeanStochasticDelay: Double
+
+  /// Duration of the window of opportunity the app has to send a dummy ingestion request.
+  public let dummyIngestionWindowDuration: Double
+
+  /// Average wait time (in seconds) from the start of a foreground session before starting a simulated dummy ingestion sequence.
+  public let dummyIngestionAverageStartUpDelay: Double
+
   /// The FAQ url for the given language. it returns english version if the given
   /// language is not available.
   /// Note that the method may still fail in case of missing english version
@@ -122,7 +143,12 @@ public struct Configuration: Codable {
     ],
     operationalInfoWithExposureSamplingRate: Double = 1,
     operationalInfoWithoutExposureSamplingRate: Double = 1,
-    dummyAnalyticsWaitingTime: Double = 2_592_000
+    dummyAnalyticsWaitingTime: Double = 2_592_000,
+    dummyIngestionAverageRequestWaitingTime: Double = 10,
+    dummyIngestionRequestProbabilities: [Double] = [0.95, 0.1],
+    dummyIngestionMeanStochasticDelay: Double = 864_000,
+    dummyIngestionWindowDuration: Double = 86400,
+    dummyIngestionAverageStartUpDelay: Double = 10
   ) {
     self.minimumBuildVersion = minimumBuildVersion
     self.serviceNotActiveNotificationPeriod = serviceNotActiveNotificationPeriod
@@ -139,6 +165,11 @@ public struct Configuration: Codable {
     self.operationalInfoWithExposureSamplingRate = operationalInfoWithExposureSamplingRate
     self.operationalInfoWithoutExposureSamplingRate = operationalInfoWithoutExposureSamplingRate
     self.dummyAnalyticsMeanStochasticDelay = dummyAnalyticsWaitingTime
+    self.dummyIngestionAverageRequestWaitingTime = dummyIngestionAverageRequestWaitingTime
+    self.dummyIngestionRequestProbabilities = dummyIngestionRequestProbabilities
+    self.dummyIngestionMeanStochasticDelay = dummyIngestionMeanStochasticDelay
+    self.dummyIngestionWindowDuration = dummyIngestionWindowDuration
+    self.dummyIngestionAverageStartUpDelay = dummyIngestionAverageStartUpDelay
   }
 
   // swiftlint:enable force_unwrapping

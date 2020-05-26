@@ -73,3 +73,44 @@ extension LifecycleLogicTests {
     XCTAssert(containsConfigSideEffect)
   }
 }
+
+// MARK: - First start setup
+
+extension LifecycleLogicTests {
+  func testOnStartCallsPerformFirstLaunchSetupIfNeeded() throws {
+    let state = AppState()
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: { state }, dispatch: dispatchInterceptor.dispatchFunction)
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.OnStart().sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.Lifecycle.PerformFirstLaunchSetupIfNeeded.self)
+  }
+
+  func testPerformsFirstTimeSetupAtFirstLaunch() throws {
+    let state = AppState()
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: { state }, dispatch: dispatchInterceptor.dispatchFunction)
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.PerformFirstLaunchSetupIfNeeded().sideEffect(context)
+
+    XCTAssert(!dispatchInterceptor.dispatchedItems.isEmpty)
+  }
+
+  func testDoesNotPerformsFirstTimeSetupAgain() throws {
+    var state = AppState()
+    state.toggles.isFirstLaunchSetupPerformed = true
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: { state }, dispatch: dispatchInterceptor.dispatchFunction)
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.PerformFirstLaunchSetupIfNeeded().sideEffect(context)
+
+    XCTAssert(dispatchInterceptor.dispatchedItems.isEmpty)
+  }
+}

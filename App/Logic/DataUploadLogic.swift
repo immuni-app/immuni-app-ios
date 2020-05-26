@@ -25,6 +25,40 @@ extension Logic {
 }
 
 extension Logic.DataUpload {
+  /// Shows the Upload Data screen
+  struct ShowUploadData: AppSideEffect {
+    /// A threshold to make past failed attempts expire, so that in case of another failed attempt after a long time the
+    /// exponential backoff starts from the beginning
+    static let recentFailedAttemptsThreshold: TimeInterval = 24 * 60 * 60
+
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      try context.awaitDispatch(RefreshOTP())
+
+      let state = context.getState()
+      let now = context.dependencies.now()
+      let failedAttempts = state.ingestion.otpValidationFailedAttempts
+
+      let errorSecondsLeft: Int
+      let recentFailedAttempts: Int
+
+      if
+        let lastOtpFailedAttempt = state.ingestion.lastOtpValidationFailedAttempt,
+        now.timeIntervalSince(lastOtpFailedAttempt) <= Self.recentFailedAttemptsThreshold {
+        let backOffDuration = UploadDataLS.backOffDuration(failedAttempts: failedAttempts)
+        let backOffEnd = lastOtpFailedAttempt.addingTimeInterval(TimeInterval(backOffDuration))
+        errorSecondsLeft = backOffEnd.timeIntervalSince(now).roundedInt().bounded(min: 0)
+        recentFailedAttempts = failedAttempts
+      } else {
+        errorSecondsLeft = 0
+        recentFailedAttempts = 0
+      }
+
+      try context.awaitDispatch(Logic.DataUpload.SetDummyTrafficSequenceCancelled(value: true))
+      let ls = UploadDataLS(recentFailedAttempts: recentFailedAttempts, errorSecondsLeft: errorSecondsLeft)
+      try context.awaitDispatch(Show(Screen.uploadData, animated: true, context: ls))
+    }
+  }
+
   /// Performs the validation of the provided OTP
   struct VerifyCode: AppSideEffect {
     let code: OTP
@@ -47,11 +81,11 @@ extension Logic.DataUpload {
       do {
         // Send the request
         try await(context.dependencies.networkManager.validateOTP(self.code))
-        try context.awaitDispatch(TrackOTPValidationSuccessfulAttempt())
+        try context.awaitDispatch(MarkOTPValidationSuccessfulAttempt())
       } catch NetworkManager.Error.unauthorizedOTP {
         // User is not authorized. Bubble up the error to the calling ViewController
         try await(context.dispatch(Logic.Loading.Hide()))
-        try context.awaitDispatch(TrackOTPValidationFailedAttempt(date: context.dependencies.now()))
+        try context.awaitDispatch(MarkOTPValidationFailedAttempt(date: context.dependencies.now()))
         throw Error.verificationFailed
       } catch {
         try await(context.dispatch(Logic.Loading.Hide()))
@@ -235,19 +269,28 @@ extension Logic.DataUpload {
 // MARK: - StateUpdaters
 
 extension Logic.DataUpload {
-  struct TrackOTPValidationFailedAttempt: AppStateUpdater {
-    let date: Date
-
+  /// Refreshes the OTP
+  struct RefreshOTP: AppStateUpdater {
     func updateState(_ state: inout AppState) {
-      state.user.lastOtpUploadFailedAttempt = self.date
-      state.user.otpUploadFailedAttempts += 1
+      state.ingestion.otp = OTP()
     }
   }
 
-  struct TrackOTPValidationSuccessfulAttempt: AppStateUpdater {
+  /// Handles a failed OTP validation attempt
+  struct MarkOTPValidationFailedAttempt: AppStateUpdater {
+    let date: Date
+
     func updateState(_ state: inout AppState) {
-      state.user.lastOtpUploadFailedAttempt = nil
-      state.user.otpUploadFailedAttempts = 0
+      state.ingestion.lastOtpValidationFailedAttempt = self.date
+      state.ingestion.otpValidationFailedAttempts += 1
+    }
+  }
+
+  /// Handles a successful OTP validation attempt
+  struct MarkOTPValidationSuccessfulAttempt: AppStateUpdater {
+    func updateState(_ state: inout AppState) {
+      state.ingestion.lastOtpValidationFailedAttempt = nil
+      state.ingestion.otpValidationFailedAttempts = 0
     }
   }
 }

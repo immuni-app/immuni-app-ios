@@ -256,7 +256,7 @@ extension AnalyticsLogicTests {
 
     state.analytics.eventWithoutExposureWindow = .init(
       month: CalendarMonth(year: 2020, month: 10),
-      shift: Double(currentDayOfMonth - 1) * AnalyticsState.OpportunityWindow.secondsInDay
+      shift: Double(currentDayOfMonth - 1) * OpportunityWindow.secondsInDay
     )
 
     state.user.province = .alessandria
@@ -305,7 +305,7 @@ extension AnalyticsLogicTests {
 
     state.analytics.eventWithoutExposureWindow = .init(
       month: CalendarMonth(year: 2020, month: 10),
-      shift: Double(currentDayOfMonth) * AnalyticsState.OpportunityWindow.secondsInDay
+      shift: Double(currentDayOfMonth) * OpportunityWindow.secondsInDay
     )
 
     let getState = { state }
@@ -346,7 +346,7 @@ extension AnalyticsLogicTests {
 
     state.analytics.eventWithoutExposureWindow = .init(
       month: CalendarMonth(year: 2020, month: 10),
-      shift: Double(currentDayOfMonth) * AnalyticsState.OpportunityWindow.secondsInDay
+      shift: Double(currentDayOfMonth) * OpportunityWindow.secondsInDay
     )
 
     state.user.province = .alessandria
@@ -392,7 +392,7 @@ extension AnalyticsLogicTests {
     state.analytics.eventWithoutExposureWindow = .init(
       month: CalendarMonth(year: 2020, month: 10),
       // just a second before the beginning of the time window
-      shift: Double(currentDayOfMonth - 1) * AnalyticsState.OpportunityWindow.secondsInDay
+      shift: Double(currentDayOfMonth - 1) * OpportunityWindow.secondsInDay
     )
 
     state.user.province = .alessandria
@@ -439,7 +439,7 @@ extension AnalyticsLogicTests {
     state.analytics.eventWithoutExposureWindow = .init(
       month: CalendarMonth(year: 2020, month: 10),
       // just a second before the beginning of the time window
-      shift: Double(currentDayOfMonth - 1) * AnalyticsState.OpportunityWindow.secondsInDay
+      shift: Double(currentDayOfMonth - 1) * OpportunityWindow.secondsInDay
     )
 
     state.user.province = .alessandria
@@ -482,7 +482,7 @@ extension AnalyticsLogicTests {
 
     state.analytics.eventWithoutExposureWindow = .init(
       month: CalendarMonth(year: 2020, month: 10),
-      shift: Double(currentDayOfMonth - 1) * AnalyticsState.OpportunityWindow.secondsInDay
+      shift: Double(currentDayOfMonth - 1) * OpportunityWindow.secondsInDay
     )
 
     state.user.province = .alessandria
@@ -555,12 +555,11 @@ extension AnalyticsLogicTests {
 
       XCTAssertEqual(
         value.window,
-        AnalyticsState
-          .OpportunityWindow(
-            month: date.utcCalendarMonth,
-            shift: 500,
-            windowDuration: AnalyticsState.OpportunityWindow.secondsInDay
-          )
+        OpportunityWindow(
+          month: date.utcCalendarMonth,
+          shift: 500,
+          windowDuration: OpportunityWindow.secondsInDay
+        )
       )
     }
   }
@@ -605,7 +604,7 @@ extension AnalyticsLogicTests {
 
   func testSetEventWithoutExposureOpportunityWindow() {
     var state = AppState()
-    let window = AnalyticsState.OpportunityWindow(month: CalendarMonth(year: 2020, month: 10), shift: 10)
+    let window = OpportunityWindow(month: CalendarMonth(year: 2020, month: 10), shift: 10)
 
     Logic.Analytics.SetEventWithoutExposureOpportunityWindow(window: window).updateState(&state)
     XCTAssertEqual(state.analytics.eventWithoutExposureWindow, window)
@@ -818,7 +817,7 @@ extension AnalyticsLogicTests {
 
     state.analytics.eventWithoutExposureWindow = .init(
       month: CalendarMonth(year: 2020, month: 10),
-      shift: Double(currentDayOfMonth - 1) * AnalyticsState.OpportunityWindow.secondsInDay
+      shift: Double(currentDayOfMonth - 1) * OpportunityWindow.secondsInDay
     )
 
     state.user.province = .alessandria
@@ -896,19 +895,7 @@ extension AnalyticsLogicTests {
   }
 }
 
-// MARK: Helpers
-
-private enum DeterministicGenerator: UniformDistributionGenerator, ExponentialDistributionGenerator {
-  static var randomValue = 0.5
-
-  static func random(in range: Range<Double>) -> Double {
-    return self.randomValue
-  }
-
-  static func exponentialRandom(with mean: Double) -> Double {
-    return self.randomValue
-  }
-}
+// MARK: - Helpers
 
 private extension Date {
   init(utcDay: Int, month: Int, year: Int) {

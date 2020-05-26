@@ -24,6 +24,7 @@ struct AppState: State, Codable {
     case user
     case exposureDetection
     case analytics
+    case ingestion
     case faq
   }
 
@@ -43,6 +44,9 @@ struct AppState: State, Codable {
 
   /// Slice of state related to the analytics part of the app
   var analytics = AnalyticsState()
+
+  /// Slice of the state related to the ingestion server
+  var ingestion = IngestionState()
 
   /// Slice of state related to the FAQ
   var faq = FaqState()
