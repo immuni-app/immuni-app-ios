@@ -36,8 +36,6 @@ extension Logic {
           try context.awaitDispatch(SetAppVersion(appVersion: "\(appVersion) (\(bundleVersion))"))
         }
 
-        let state = context.getState()
-
         // Perform the setup related to the first launch of the application, if needed
         try context.awaitDispatch(PerformFirstLaunchSetupIfNeeded())
 
