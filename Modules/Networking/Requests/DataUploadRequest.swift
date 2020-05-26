@@ -22,6 +22,7 @@ public struct DataUploadRequest: JSONRequest {
   public var baseURL = URL(string: "https://upload.immuni.gov.it")!
   public var path = "/v1/ingestion/upload"
   public var method: HTTPMethod = .post
+  public var cachePolicy: NSURLRequest.CachePolicy = .reloadIgnoringLocalAndRemoteCacheData
 
   public var headers: [HTTPHeader] {
     return HTTPHeader.defaultImmuniHeaders + [

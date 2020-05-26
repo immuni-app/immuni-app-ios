@@ -25,6 +25,7 @@ public struct AnalyticsRequest: Equatable, JSONRequest {
 
   public var path = "/v1/operational-info"
   public var method: HTTPMethod = .post
+  public var cachePolicy: NSURLRequest.CachePolicy = .reloadIgnoringLocalAndRemoteCacheData
 
   public let jsonParameter: Body
   public let isDummy: Bool

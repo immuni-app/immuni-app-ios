@@ -20,7 +20,7 @@ public struct DownloadKeyChunkIndexRequest: HTTPRequest {
   public var baseURL = URL(string: "https://get.immuni.gov.it")!
 
   public var method: HTTPMethod = .get
-  public var cachePolicy: NSURLRequest.CachePolicy = .immuniPolicy
+  public var cachePolicy: NSURLRequest.CachePolicy = .reloadIgnoringLocalAndRemoteCacheData
   public var parameters: [String: Any] = [:]
   public var headers: [HTTPHeader] = HTTPHeader.defaultImmuniHeaders
 
