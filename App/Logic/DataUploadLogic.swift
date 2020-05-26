@@ -295,6 +295,7 @@ extension Logic.DataUpload {
       try context.awaitDispatch(
         SetDummyTrafficOpportunityWindow(
           dummyTrafficStochasticDelay: dummyTrafficStochasticDelay,
+          dummyTrafficOpportunityWindowDuration: state.configuration.dummyIngestionWindowDuration,
           now: context.dependencies.now()
         )
       )
@@ -333,11 +334,12 @@ extension Logic.DataUpload {
   /// Sets the opportunity window for the dummy ingestion traffic
   struct SetDummyTrafficOpportunityWindow: AppStateUpdater {
     let dummyTrafficStochasticDelay: Double
+    let dummyTrafficOpportunityWindowDuration: Double
     let now: Date
 
     func updateState(_ state: inout AppState) {
       let windowStart = self.now.addingTimeInterval(self.dummyTrafficStochasticDelay)
-      let windowDuration = OpportunityWindow.secondsInDay
+      let windowDuration = self.dummyTrafficOpportunityWindowDuration
       state.ingestion.dummyTrafficOpportunityWindow = .init(windowStart: windowStart, windowDuration: windowDuration)
     }
   }
