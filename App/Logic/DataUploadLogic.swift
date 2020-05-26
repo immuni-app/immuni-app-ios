@@ -370,6 +370,9 @@ extension Logic.DataUpload {
 
       // Allow the scheduling of another session.
       try context.awaitDispatch(SetDummyIngestionSequenceScheduledForThisSession(value: false))
+
+      // Update the opportunity window
+      try context.awaitDispatch(UpdateDummyTrafficOpportunityWindow())
     }
   }
 }
