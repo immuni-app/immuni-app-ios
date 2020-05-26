@@ -539,6 +539,33 @@ extension DataUploadLogicTests {
       Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary.self
     )
   }
+
+  func testSimulationIsCancelledIfOpeningDataUploadScreen() throws {
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.ShowUploadData().sideEffect(context)
+
+    try XCTAssertContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.DataUpload.SetDummyTrafficSequenceCancelled.self
+    ) { dispatchable in
+      XCTAssertEqual(dispatchable.value, true)
+    }
+  }
+
+  func testForegroundSessionIsMarkedFinishedWhenEnteringForeground() throws {
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.WillResignActive().sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.DataUpload.MarkForegroundSessionFinished.self)
+  }
 }
 
 // MARK: - Dummy traffic scheduling
@@ -616,7 +643,10 @@ extension DataUploadLogicTests {
 
     try Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary().sideEffect(context)
 
-    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.DataUpload.SetDummyIngestionSequenceScheduledForThisSession.self) { dispatchable in
+    try XCTAssertContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.DataUpload.SetDummyIngestionSequenceScheduledForThisSession.self
+    ) { dispatchable in
       XCTAssertEqual(dispatchable.value, true)
     }
   }
@@ -640,6 +670,146 @@ extension DataUploadLogicTests {
     try Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary().sideEffect(context)
 
     try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, DelayedDispatchable.self)
+  }
+}
+
+// MARK: - Dummy traffic scheduling
+
+extension DataUploadLogicTests {
+  func testSimulationDoesNotStartIfSessionCancelled() throws {
+    var state = AppState()
+    state.ingestion.isDummyTrafficSequenceCancelled = true
+
+    let requestExecutor = MockRequestExecutor(mockedResult: .success(Data()))
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(
+      getAppState: { state },
+      dispatch: dispatchInterceptor.dispatchFunction,
+      requestExecutor: requestExecutor,
+      exponentialDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.StartIngestionSequenceIfNotCancelled().sideEffect(context)
+
+    XCTAssertEqual(requestExecutor.executeMethodCalls.count, 0)
+  }
+
+  func testSimulationUpdatesOpportunityWindowIfCancelled() throws {
+    var state = AppState()
+    state.ingestion.isDummyTrafficSequenceCancelled = true
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(
+      getAppState: { state },
+      dispatch: dispatchInterceptor.dispatchFunction
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.StartIngestionSequenceIfNotCancelled().sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.DataUpload.UpdateDummyTrafficOpportunityWindow.self)
+  }
+
+  func testSimulationSendsOneRequestEvenIfProbabilityIsZero() throws {
+    var state = AppState()
+    state.ingestion.isDummyTrafficSequenceCancelled = false
+
+    let requestExecutor = MockRequestExecutor(mockedResult: .success(Data()))
+
+    DeterministicGenerator.randomValue = 1
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(
+      getAppState: { state },
+      dispatch: dispatchInterceptor.dispatchFunction,
+      requestExecutor: requestExecutor,
+      uniformDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.StartIngestionSequenceIfNotCancelled().sideEffect(context)
+
+    XCTAssertEqual(requestExecutor.executeMethodCalls.count, 1)
+  }
+
+  func testSimulationUpdatesOpportunityWindowIfNotCancelled() throws {
+    var state = AppState()
+    state.ingestion.isDummyTrafficSequenceCancelled = false
+
+    /// Fail the first dice roll
+    DeterministicGenerator.randomValue = 1
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(
+      getAppState: { state },
+      dispatch: dispatchInterceptor.dispatchFunction,
+      uniformDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.StartIngestionSequenceIfNotCancelled().sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.DataUpload.UpdateDummyTrafficOpportunityWindow.self)
+  }
+
+  func testReleasesSimulationSession() throws {
+    var state = AppState()
+    state.ingestion.isDummyTrafficSequenceCancelled = true
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(
+      getAppState: { state },
+      dispatch: dispatchInterceptor.dispatchFunction
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.StartIngestionSequenceIfNotCancelled().sideEffect(context)
+
+    try XCTAssertContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.DataUpload.SetDummyIngestionSequenceScheduledForThisSession.self
+    ) { dispatchable in
+      XCTAssertEqual(dispatchable.value, false)
+    }
+  }
+
+  func testSimulationStopsIfSequenceIsCancelled() throws {
+    let stateChangingClosure: (() -> AppState) = {
+      var counter = 0
+      return {
+        var state = AppState()
+        state.ingestion.isDummyTrafficSequenceCancelled = counter >= 2
+        counter += 1
+        return state
+      }
+    }()
+
+    let requestExecutor = MockRequestExecutor(mockedResult: .success(Data()))
+
+    // Always pass the dice rolls and never block on awaits
+    DeterministicGenerator.randomValue = 0
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(
+      getAppState: stateChangingClosure,
+      dispatch: dispatchInterceptor.dispatchFunction,
+      requestExecutor: requestExecutor,
+      uniformDistributionGenerator: DeterministicGenerator.self,
+      exponentialDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.StartIngestionSequenceIfNotCancelled().sideEffect(context)
+
+    XCTAssertEqual(requestExecutor.executeMethodCalls.count, 2)
   }
 }
 
