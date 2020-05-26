@@ -22,7 +22,7 @@ final class OnboardingPermissionVC: ViewControllerWithLocalState<OnboardingPermi
 
   override func setupInteraction() {
     self.rootView.userDidTapDiscoverMore = { [weak self] in
-      self?.store.dispatch(Logic.PermissionTutorial.ShowHowImmuniWorks())
+      self?.store.dispatch(Logic.PermissionTutorial.ShowHowImmuniWorks(showFaqButton: false))
     }
 
     self.rootView.userDidTapClose = { [weak self] in

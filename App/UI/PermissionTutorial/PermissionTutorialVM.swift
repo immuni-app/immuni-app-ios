@@ -227,57 +227,66 @@ extension PermissionTutorialVM.Content {
     )
   }
 
-  static var howImmuniWorks: Self {
-    return PermissionTutorialVM.Content(
-      title: L10n.PermissionTutorial.HowImmuniWorks.title,
-      items: [
-        .spacer(.big),
-        .imageContent(Asset.HowImmuniWorks.visual1.image),
-        .spacer(.medium),
-        .textualContent(L10n.PermissionTutorial.HowImmuniWorks.First.title),
-        .spacer(.tiny),
-        .textualContent(L10n.PermissionTutorial.HowImmuniWorks.First.message),
-        .spacer(.medium),
-        .imageContent(Asset.HowImmuniWorks.break.image),
-        .spacer(.big),
-        .imageContent(Asset.HowImmuniWorks.visual2.image),
-        .spacer(.medium),
-        .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Second.title),
-        .spacer(.tiny),
-        .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Second.message),
-        .spacer(.medium),
-        .imageContent(Asset.HowImmuniWorks.break.image),
-        .spacer(.big),
-        .imageContent(Asset.HowImmuniWorks.visual3.image),
-        .spacer(.medium),
-        .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Third.title),
-        .spacer(.tiny),
-        .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Third.message),
-        .spacer(.medium),
-        .imageContent(Asset.HowImmuniWorks.break.image),
-        .spacer(.big),
-        .imageContent(Asset.HowImmuniWorks.visual4.image),
-        .spacer(.medium),
-        .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Fourth.title),
-        .spacer(.tiny),
-        .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Fourth.message),
-        .spacer(.medium),
-        .imageContent(Asset.HowImmuniWorks.break.image),
-        .spacer(.big),
-        .imageContent(Asset.HowImmuniWorks.visual5.image),
-        .spacer(.medium),
-        .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Fifth.title),
-        .spacer(.tiny),
-        .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Fifth.message),
-        .spacer(.medium),
+  static func howImmuniWorks(shouldShowFaqButton: Bool) -> Self {
+    var items: [Item] = [
+      .spacer(.big),
+      .imageContent(Asset.HowImmuniWorks.visual1.image),
+      .spacer(.medium),
+      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.First.title),
+      .spacer(.tiny),
+      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.First.message),
+      .spacer(.medium),
+      .imageContent(Asset.HowImmuniWorks.break.image),
+      .spacer(.big),
+      .imageContent(Asset.HowImmuniWorks.visual2.image),
+      .spacer(.medium),
+      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Second.title),
+      .spacer(.tiny),
+      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Second.message),
+      .spacer(.medium),
+      .imageContent(Asset.HowImmuniWorks.break.image),
+      .spacer(.big),
+      .imageContent(Asset.HowImmuniWorks.visual3.image),
+      .spacer(.medium),
+      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Third.title),
+      .spacer(.tiny),
+      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Third.message),
+      .spacer(.medium),
+      .imageContent(Asset.HowImmuniWorks.break.image),
+      .spacer(.big),
+      .imageContent(Asset.HowImmuniWorks.visual4.image),
+      .spacer(.medium),
+      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Fourth.title),
+      .spacer(.tiny),
+      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Fourth.message),
+      .spacer(.medium),
+      .imageContent(Asset.HowImmuniWorks.break.image),
+      .spacer(.big),
+      .imageContent(Asset.HowImmuniWorks.visual5.image),
+      .spacer(.medium),
+      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Fifth.title),
+      .spacer(.tiny),
+      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Fifth.message),
+      .spacer(.medium)
+    ]
+    var action: Dispatchable?
+
+    if shouldShowFaqButton {
+      items.append(contentsOf: [
         .scrollableButton(
           description: L10n.PermissionTutorial.HowImmuniWorks.Action.description,
           buttonTitle: L10n.PermissionTutorial.HowImmuniWorks.Action.cta
         ),
         .spacer(.medium)
-      ],
+      ])
+      action = Logic.Settings.ShowFAQs()
+    }
+
+    return PermissionTutorialVM.Content(
+      title: L10n.PermissionTutorial.HowImmuniWorks.title,
+      items: items,
       mainActionTitle: nil,
-      action: Logic.Settings.ShowFAQs()
+      action: action
     )
   }
 }

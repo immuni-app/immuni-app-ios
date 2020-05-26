@@ -46,7 +46,7 @@ class HomeVC: ViewController<HomeView> {
   func handleDidTapInfo(_ info: HomeVM.InfoKind) {
     switch info {
     case .app:
-      self.dispatch(Logic.PermissionTutorial.ShowHowImmuniWorks())
+      self.dispatch(Logic.PermissionTutorial.ShowHowImmuniWorks(showFaqButton: true))
 
     case .protection:
       self.dispatch(Logic.Suggestions.ShowSuggestions())
