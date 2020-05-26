@@ -134,6 +134,8 @@ extension Logic {
 
     /// Launched when app will resign active.
     struct WillResignActive: AppSideEffect, NotificationObserverDispatchable {
+      init() {}
+
       init?(notification: Notification) {
         guard notification.name == UIApplication.willResignActiveNotification else {
           return nil
