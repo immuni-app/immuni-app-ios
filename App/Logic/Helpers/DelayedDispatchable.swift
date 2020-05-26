@@ -1,4 +1,4 @@
-// SideEffectContext+DelayedDispatch.swift
+// DelayedDispatchable.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -16,11 +16,20 @@ import Foundation
 import Hydra
 import Katana
 
-extension SideEffectContext {
-  /// Dispatch a given `Dispatchable` after a certain `delay`.
-  @discardableResult
-  func delayedDispatch(_ dispatchable: Dispatchable, delay: TimeInterval) -> Promise<Void> {
-    return Promise<Void>.deferring(of: delay)
-      .then(in: .background) { _ in self.dispatch(dispatchable) }
+/// A wrapper around any `Dispatchable` that dispatches it after a given `delay`
+struct DelayedDispatchable: AppSideEffect {
+  let dispatchable: Dispatchable
+  let delay: TimeInterval
+
+  func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+    Promise<Void>.deferring(of: self.delay)
+      .then(in: .background) { _ in context.dispatch(self.dispatchable) }
+  }
+}
+
+extension Dispatchable {
+  /// Defer the dispatch of this dispatchable for a given number of seconds
+  func deferred(of seconds: TimeInterval) -> Dispatchable {
+    return DelayedDispatchable(dispatchable: self, delay: seconds)
   }
 }

@@ -329,7 +329,7 @@ extension Logic.DataUpload {
         .exponentialRandom(with: state.configuration.dummyIngestionAverageStartUpDelay)
 
       // Dispatch a delayed action and return
-      context.delayedDispatch(StartIngestionSequenceIfNotCancelled(), delay: startDelay)
+      context.dispatch(StartIngestionSequenceIfNotCancelled().deferred(of: startDelay))
     }
   }
 
