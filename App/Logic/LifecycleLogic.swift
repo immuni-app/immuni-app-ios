@@ -25,6 +25,8 @@ extension Logic {
     /// Launched when app is started
     struct OnStart: AppSideEffect, OnStartObserverDispatchable {
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        let state = context.getState()
+
         // Set the app name used in the application using the bundle's display name
         if let appName = context.dependencies.bundle.appDisplayName {
           try context.awaitDispatch(SetAppName(appName: appName))
@@ -36,10 +38,12 @@ extension Logic {
           try context.awaitDispatch(SetAppVersion(appVersion: "\(appVersion) (\(bundleVersion))"))
         }
 
+        let isFirstLaunch = !state.toggles.isFirstLaunchSetupPerformed
+
         // Perform the setup related to the first launch of the application, if needed
         try context.awaitDispatch(PerformFirstLaunchSetupIfNeeded())
 
-        /// starts the exposure manager if possible
+        // starts the exposure manager if possible
         try await(context.dependencies.exposureNotificationManager.startIfAuthorized())
 
         // refresh statuses
@@ -54,11 +58,19 @@ extension Logic {
         // Removes notifications as the user has opened the app
         context.dispatch(Logic.CovidStatus.RemoveRiskReminderNotification())
 
-        // update analaytics info
-        try context.awaitDispatch(Logic.Analytics.UpdateEventWithoutExposureOpportunityWindowIfNeeded())
+        if !isFirstLaunch {
+          // update analytics info
+          try context.awaitDispatch(Logic.Analytics.UpdateEventWithoutExposureOpportunityWindowIfNeeded())
 
-        // Perform exposure detection if necessary
-        context.dispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground))
+          // Perform exposure detection if necessary
+          context.dispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground))
+
+          // updates the ingestion dummy traffic opportunity window if it expired
+          try context.awaitDispatch(Logic.DataUpload.UpdateDummyTrafficOpportunityWindowIfExpired())
+
+          // schedules a dummy sequence of ingestion requests for some point in the future
+          try context.awaitDispatch(Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary())
+        }
       }
     }
 
@@ -90,6 +102,12 @@ extension Logic {
 
         // Perform exposure detection if necessary
         context.dispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground))
+
+        // updates the ingestion dummy traffic opportunity window if it expired
+        try context.awaitDispatch(Logic.DataUpload.UpdateDummyTrafficOpportunityWindowIfExpired())
+
+        // schedules a dummy sequence of ingestion requests for some point in the future
+        try context.awaitDispatch(Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary())
       }
     }
 
@@ -123,6 +141,9 @@ extension Logic {
       }
 
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        // resets the state related to dummy sessions
+        try context.awaitDispatch(Logic.DataUpload.MarkForegroundSessionFinished())
+
         // show sensitive data overlay. Check `SensitiveDataCoverVC` documentation.
         context.dispatch(Logic.Shared.ShowSensitiveDataCoverIfNeeded())
       }
@@ -139,6 +160,9 @@ extension Logic {
 
         // update analytics info
         try context.awaitDispatch(Logic.Analytics.UpdateEventWithoutExposureOpportunityWindowIfNeeded())
+
+        // updates the ingestion dummy traffic opportunity window if it expired
+        try context.awaitDispatch(Logic.DataUpload.UpdateDummyTrafficOpportunityWindowIfExpired())
 
         // Update the configuration, with a timeout. Continue in any case in order not to waste an Exposure Detection cycle.
         try? await(context.dispatch(Logic.Configuration.DownloadAndUpdateConfiguration()).timeout(timeout: 10))

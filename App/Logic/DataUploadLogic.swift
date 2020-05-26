@@ -53,6 +53,7 @@ extension Logic.DataUpload {
         recentFailedAttempts = 0
       }
 
+      try context.awaitDispatch(Logic.DataUpload.SetDummyTrafficSequenceCancelled(value: true))
       let ls = UploadDataLS(recentFailedAttempts: recentFailedAttempts, errorSecondsLeft: errorSecondsLeft)
       try context.awaitDispatch(Show(Screen.uploadData, animated: true, context: ls))
     }
@@ -301,6 +302,76 @@ extension Logic.DataUpload {
       )
     }
   }
+
+  /// Schedules a sequence of dummy ingestion requests for some random point in the future.
+  /// -seeAlso: https://github.com/immuni-app/immuni-documentation/blob/master/Traffic%20Analysis%20Mitigation.md
+  struct ScheduleDummyIngestionSequenceIfNecessary: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      let state = context.getState()
+
+      guard !state.ingestion.dummyTrafficSequenceScheduledInSession else {
+        // There is already another sequence schedule for this session.
+        return
+      }
+
+      // Reset the flag in case this is a new session
+      try context.awaitDispatch(SetDummyTrafficSequenceCancelled(value: false))
+
+      guard state.ingestion.dummyTrafficOpportunityWindow.contains(context.dependencies.now()) else {
+        // Not within the opportunity window. Nothing to do.
+        return
+      }
+
+      // Prevent other ingestion sequences from being scheduled in this session
+      try context.awaitDispatch(SetDummyIngestionSequenceScheduledForThisSession(value: true))
+
+      let startDelay = context.dependencies.exponentialDistributionGenerator
+        .exponentialRandom(with: state.configuration.dummyIngestionAverageStartUpDelay)
+
+      // Dispatch a delayed action and return
+      context.delayedDispatch(StartIngestionSequenceIfNotCancelled(), delay: startDelay)
+    }
+  }
+
+  /// Attempts a simulated sequence of ingestion requests, unless it was cancelled for outside in the meanwhile.
+  /// -seeAlso: https://github.com/immuni-app/immuni-documentation/blob/master/Traffic%20Analysis%20Mitigation.md
+  struct StartIngestionSequenceIfNotCancelled: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      var executions = 0
+      while true {
+        // Fetch the state at every run because it might have been updated in the meanwhile
+        let state = context.getState()
+
+        guard !state.ingestion.isDummyTrafficSequenceCancelled else {
+          // The user signaled the intent of starting a genuine upload.
+          break
+        }
+
+        #warning("Define proper dummy request")
+        try? await(context.dependencies.networkManager.uploadData(body: .dummy(), otp: .init()))
+
+        let diceRoll = context.dependencies.uniformDistributionGenerator.randomNumberBetweenZeroAndOne()
+        let threshold = state.configuration.dummyIngestionRequestProbabilities[safe: executions]
+          ?? state.configuration.dummyIngestionRequestProbabilities.last
+          ?? AppLogger.fatalError("No probabilities defined")
+
+        guard diceRoll < threshold else {
+          // The generated probability was above the threshold.
+          break
+        }
+
+        let interRequestDelay = context.dependencies.exponentialDistributionGenerator
+          .exponentialRandom(with: state.configuration.dummyIngestionAverageRequestWaitingTime)
+
+        // Await for a random time
+        try await(Promise<Void>.deferring(of: interRequestDelay))
+        executions += 1
+      }
+
+      // Allow the scheduling of another session.
+      try context.awaitDispatch(SetDummyIngestionSequenceScheduledForThisSession(value: false))
+    }
+  }
 }
 
 // MARK: - StateUpdaters
@@ -341,6 +412,32 @@ extension Logic.DataUpload {
       let windowStart = self.now.addingTimeInterval(self.dummyTrafficStochasticDelay)
       let windowDuration = self.dummyTrafficOpportunityWindowDuration
       state.ingestion.dummyTrafficOpportunityWindow = .init(windowStart: windowStart, windowDuration: windowDuration)
+    }
+  }
+
+  /// Marks a dummy traffic sequence as cancelled
+  struct SetDummyTrafficSequenceCancelled: AppStateUpdater {
+    let value: Bool
+
+    func updateState(_ state: inout AppState) {
+      state.ingestion.isDummyTrafficSequenceCancelled = self.value
+    }
+  }
+
+  /// Signals that a dummy traffic sequence is already scheduled for this session
+  struct SetDummyIngestionSequenceScheduledForThisSession: AppStateUpdater {
+    let value: Bool
+
+    func updateState(_ state: inout AppState) {
+      state.ingestion.dummyTrafficSequenceScheduledInSession = self.value
+    }
+  }
+
+  /// Handles the end of a foreground session
+  struct MarkForegroundSessionFinished: AppStateUpdater {
+    func updateState(_ state: inout AppState) {
+      state.ingestion.dummyTrafficSequenceScheduledInSession = false
+      state.ingestion.isDummyTrafficSequenceCancelled = true
     }
   }
 }

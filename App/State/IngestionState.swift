@@ -38,4 +38,10 @@ struct IngestionState: Codable {
 
   /// The user's OTP. Must change at every request
   var otp = OTP()
+
+  /// Whether a dummy ingestion sequence is scheduled for this session
+  var dummyTrafficSequenceScheduledInSession = false
+
+  /// Whether the dummy traffic sequence that might have been scheduled should be cancelled
+  var isDummyTrafficSequenceCancelled = false
 }
