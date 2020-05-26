@@ -541,6 +541,108 @@ extension DataUploadLogicTests {
   }
 }
 
+// MARK: - Dummy traffic scheduling
+
+extension DataUploadLogicTests {
+  func testDummyTrafficScheduledIfWithinOpportunityWindow() throws {
+    let clock = Date()
+
+    var state = AppState()
+    state.ingestion.dummyTrafficOpportunityWindow = .init(windowStart: clock.addingTimeInterval(-1), windowDuration: 2)
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(
+      getAppState: { state },
+      dispatch: dispatchInterceptor.dispatchFunction,
+      exponentialDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary().sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, DelayedDispatchable.self) { dispatchable in
+      XCTAssertEqual(dispatchable.delay, DeterministicGenerator.randomValue)
+      try XCTAssertType(dispatchable.dispatchable, Logic.DataUpload.StartIngestionSequenceIfNotCancelled.self)
+    }
+  }
+
+  func testDummyTrafficNotScheduledIfBeforeOpportunityWindow() throws {
+    let clock = Date()
+
+    var state = AppState()
+    state.ingestion.dummyTrafficOpportunityWindow = .init(windowStart: clock.addingTimeInterval(-2), windowDuration: 1)
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: { state }, dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary().sideEffect(context)
+
+    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, DelayedDispatchable.self)
+  }
+
+  func testDummyTrafficNotScheduledIfAfterOpportunityWindow() throws {
+    let clock = Date()
+
+    var state = AppState()
+    state.ingestion.dummyTrafficOpportunityWindow = .init(windowStart: clock.addingTimeInterval(1), windowDuration: 1)
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: { state }, dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary().sideEffect(context)
+
+    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, DelayedDispatchable.self)
+  }
+
+  func testDummyTrafficSchedulingIsSetInState() throws {
+    let clock = Date()
+
+    var state = AppState()
+    state.ingestion.dummyTrafficOpportunityWindow = .init(windowStart: clock.addingTimeInterval(-1), windowDuration: 2)
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(
+      getAppState: { state },
+      dispatch: dispatchInterceptor.dispatchFunction,
+      exponentialDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary().sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.DataUpload.SetDummyIngestionSequenceScheduledForThisSession.self) { dispatchable in
+      XCTAssertEqual(dispatchable.value, true)
+    }
+  }
+
+  func testDummyTrafficNotScheduledTwice() throws {
+    let clock = Date()
+
+    var state = AppState()
+    state.ingestion.dummyTrafficOpportunityWindow = .init(windowStart: clock.addingTimeInterval(-1), windowDuration: 2)
+    state.ingestion.dummyTrafficSequenceScheduledInSession = true
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(
+      getAppState: { state },
+      dispatch: dispatchInterceptor.dispatchFunction,
+      exponentialDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary().sideEffect(context)
+
+    try XCTAssertNotContainsType(dispatchInterceptor.dispatchedItems, DelayedDispatchable.self)
+  }
+}
+
 // MARK: - Mocks
 
 class TekReturningMockExposureNotificationProvider: MockExposureNotificationProvider {
