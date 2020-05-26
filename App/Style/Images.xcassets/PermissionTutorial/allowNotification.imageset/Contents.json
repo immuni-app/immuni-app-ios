@@ -1,8 +1,22 @@
 {
   "images" : [
     {
-      "filename" : "allowNotification.pdf",
+      "filename" : "allowNotification-2.pdf",
       "idiom" : "universal"
+    },
+    {
+      "idiom" : "universal",
+      "locale" : "de"
+    },
+    {
+      "filename" : "allowNotification-1.pdf",
+      "idiom" : "universal",
+      "locale" : "en-GB"
+    },
+    {
+      "filename" : "allowNotification.pdf",
+      "idiom" : "universal",
+      "locale" : "it"
     }
   ],
   "info" : {
@@ -10,6 +24,7 @@
     "version" : 1
   },
   "properties" : {
+    "localizable" : true,
     "preserves-vector-representation" : true
   }
 }

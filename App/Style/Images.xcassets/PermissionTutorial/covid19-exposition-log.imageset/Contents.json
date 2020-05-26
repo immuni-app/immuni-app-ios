@@ -1,8 +1,22 @@
 {
   "images" : [
     {
-      "filename" : "covid19-exposition-log.pdf",
+      "filename" : "covid19-exposition-log-2.pdf",
       "idiom" : "universal"
+    },
+    {
+      "idiom" : "universal",
+      "locale" : "de"
+    },
+    {
+      "filename" : "covid19-exposition-log-1.pdf",
+      "idiom" : "universal",
+      "locale" : "en-GB"
+    },
+    {
+      "filename" : "covid19-exposition-log.pdf",
+      "idiom" : "universal",
+      "locale" : "it"
     }
   ],
   "info" : {
@@ -10,6 +24,7 @@
     "version" : 1
   },
   "properties" : {
+    "localizable" : true,
     "preserves-vector-representation" : true
   }
 }
