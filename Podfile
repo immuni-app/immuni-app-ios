@@ -82,6 +82,9 @@ post_install do |installer|
     target.build_configurations.each do |config|
         config.build_settings['OTHER_CFLAGS'] ||= ['$(inherited)']
         config.build_settings['OTHER_CFLAGS'] << '-fstack-protector-all'
+
+        config.build_settings['OTHER_CPLUSPLUSFLAGS'] ||= ['$(inherited)']
+        config.build_settings['OTHER_CPLUSPLUSFLAGS'] << '-fstack-protector-all'
     end
   end
 end

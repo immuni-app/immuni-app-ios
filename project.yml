@@ -19,6 +19,7 @@ targetTemplates:
         # from weakening the app in case of an OBJC / C lib
         # or code is added
         OTHER_CFLAGS: "$(inherited) -fstack-protector-all"
+        OTHER_CPLUSPLUSFLAGS: "$(inherited) -fstack-protector-all"
 
 options:
   developmentLanguage: "en-GB"
@@ -53,6 +54,7 @@ targets:
         # from weakening the app in case of an OBJC / C lib
         # or code is added
         OTHER_CFLAGS: "$(inherited) -fstack-protector-all"
+        OTHER_CPLUSPLUSFLAGS: "$(inherited) -fstack-protector-all"
       configs:
         Debug:
           CODE_SIGN_ENTITLEMENTS: App/Resources/Entitlements/Development.entitlements
