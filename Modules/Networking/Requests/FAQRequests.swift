@@ -23,6 +23,7 @@ public struct FAQRequest: ModelResponseSerializer {
   public var method: HTTPMethod = .get
   public var cachePolicy: NSURLRequest.CachePolicy = .immuniPolicy
   public var parameters: [String: Any] = [:]
+  public var headers: [HTTPHeader] = HTTPHeader.defaultImmuniHeaders
 
   public var baseURL: URL
   public var path: String

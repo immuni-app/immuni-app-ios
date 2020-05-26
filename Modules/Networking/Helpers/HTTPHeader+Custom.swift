@@ -25,4 +25,15 @@ extension HTTPHeader {
   public static func clientClock(_ value: Date) -> HTTPHeader {
     HTTPHeader(name: "Exp-Client-Clock", value: String(value.timeIntervalSince1970.roundedInt()))
   }
+
+  /// Default headers for the Immuni application. These headers will be used across
+  /// all the requests and they will contribute in ensuring that the traffic analytis prevention
+  /// logic can be implemented correctly
+  ///
+  /// - seeAlso: https://github.com/immuni-app/immuni-documentation
+  public static var defaultImmuniHeaders: [HTTPHeader] = [
+    .userAgent("Immuni"),
+    .acceptLanguage("en-US;q=1.0"),
+    .acceptEncoding("br;q=1.0")
+  ]
 }

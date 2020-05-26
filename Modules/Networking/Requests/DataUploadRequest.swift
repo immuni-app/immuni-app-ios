@@ -24,7 +24,7 @@ public struct DataUploadRequest: JSONRequest {
   public var method: HTTPMethod = .post
 
   public var headers: [HTTPHeader] {
-    return [
+    return HTTPHeader.defaultImmuniHeaders + [
       .authorization(bearerToken: self.otp.rawValue.sha256),
       .contentType("application/json; charset=UTF-8"),
       .dummyData(false),

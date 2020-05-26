@@ -26,4 +26,5 @@ public struct KeysIndexRequest: ModelResponseSerializer {
   public var method: HTTPMethod = .get
   public var cachePolicy: NSURLRequest.CachePolicy = .immuniPolicy
   public var parameters: [String: Any] = [:]
+  public var headers: [HTTPHeader] = HTTPHeader.defaultImmuniHeaders
 }

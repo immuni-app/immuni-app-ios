@@ -30,7 +30,7 @@ public struct AnalyticsRequest: Equatable, JSONRequest {
   public let isDummy: Bool
 
   public var headers: [HTTPHeader] {
-    return [
+    return HTTPHeader.defaultImmuniHeaders + [
       .contentType("application/json; charset=UTF-8"),
       .dummyData(self.isDummy)
     ]
