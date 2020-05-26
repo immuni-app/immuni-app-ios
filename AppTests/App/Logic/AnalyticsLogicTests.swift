@@ -895,19 +895,7 @@ extension AnalyticsLogicTests {
   }
 }
 
-// MARK: Helpers
-
-private enum DeterministicGenerator: UniformDistributionGenerator, ExponentialDistributionGenerator {
-  static var randomValue = 0.5
-
-  static func random(in range: Range<Double>) -> Double {
-    return self.randomValue
-  }
-
-  static func exponentialRandom(with mean: Double) -> Double {
-    return self.randomValue
-  }
-}
+// MARK: - Helpers
 
 private extension Date {
   init(utcDay: Int, month: Int, year: Int) {

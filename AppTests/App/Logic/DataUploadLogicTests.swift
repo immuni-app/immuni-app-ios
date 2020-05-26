@@ -24,6 +24,11 @@ import Tempura
 import XCTest
 
 final class DataUploadLogicTests: XCTestCase {
+  override func tearDown() {
+    super.tearDown()
+    DeterministicGenerator.randomValue = 0.5
+  }
+
   func testVerifyCodeChecksExposureNotificationPermission() throws {
     let state = AppState()
     let getState = { state }
@@ -333,6 +338,109 @@ final class DataUploadLogicTests: XCTestCase {
 
     XCTAssertEqual(state.ingestion.otpUploadFailedAttempts, 0)
     XCTAssertEqual(state.ingestion.lastOtpUploadFailedAttempt, nil)
+  }
+}
+
+// MARK: - Dummy Data
+
+extension DataUploadLogicTests {
+  func testUpdatesOpportunityWindow() throws {
+    let state = AppState()
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+
+    let clock = Date(timeIntervalSince1970: 1_590_073_834)
+
+    let dependencies = AppDependencies.mocked(
+      getAppState: getState,
+      dispatch: dispatchInterceptor.dispatchFunction,
+      now: { clock },
+      exponentialDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.UpdateDummyTrafficOpportunityWindow().sideEffect(context)
+
+    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 1)
+    try XCTAssertType(
+      dispatchInterceptor.dispatchedItems.first,
+      Logic.DataUpload.SetDummyTrafficOpportunityWindow.self
+    ) { dispatchable in
+      XCTAssertEqual(dispatchable.now, clock)
+      XCTAssertEqual(dispatchable.dummyTrafficStochasticDelay, DeterministicGenerator.randomValue)
+    }
+  }
+
+  func testDoesNotUpdateOpportunityWindowIfBeforeWindowStart() throws {
+    let clock = Date(timeIntervalSince1970: 1_590_073_834)
+
+    var state = AppState()
+    state.ingestion.dummyTrafficOpportunityWindow = .init(windowStart: clock.addingTimeInterval(1), windowDuration: 1)
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+
+    let dependencies = AppDependencies.mocked(
+      getAppState: getState,
+      dispatch: dispatchInterceptor.dispatchFunction,
+      now: { clock },
+      exponentialDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.UpdateDummyTrafficOpportunityWindowIfExpired().sideEffect(context)
+
+    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 0)
+  }
+
+  func testDoesNotUpdateOpportunityWindowIfDuringWindow() throws {
+    let clock = Date(timeIntervalSince1970: 1_590_073_834)
+
+    var state = AppState()
+    state.ingestion.dummyTrafficOpportunityWindow = .init(windowStart: clock.addingTimeInterval(-1), windowDuration: 2)
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+
+    let dependencies = AppDependencies.mocked(
+      getAppState: getState,
+      dispatch: dispatchInterceptor.dispatchFunction,
+      now: { clock },
+      exponentialDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.UpdateDummyTrafficOpportunityWindowIfExpired().sideEffect(context)
+
+    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 0)
+  }
+
+  func testUpdatesOpportunityWindowIfAfterWindow() throws {
+    let clock = Date(timeIntervalSince1970: 1_590_073_834)
+
+    var state = AppState()
+    state.ingestion.dummyTrafficOpportunityWindow = .init(windowStart: clock.addingTimeInterval(-2), windowDuration: 1)
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+
+    let dependencies = AppDependencies.mocked(
+      getAppState: getState,
+      dispatch: dispatchInterceptor.dispatchFunction,
+      now: { clock },
+      exponentialDistributionGenerator: DeterministicGenerator.self
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.DataUpload.UpdateDummyTrafficOpportunityWindowIfExpired().sideEffect(context)
+
+    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 1)
+    try XCTAssertType(dispatchInterceptor.dispatchedItems.first, Logic.DataUpload.UpdateDummyTrafficOpportunityWindow.self)
   }
 }
 

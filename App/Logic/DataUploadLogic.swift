@@ -236,6 +236,22 @@ extension Logic.DataUpload {
 
 extension Logic.DataUpload {
   /// Updates the dummy ingestion traffic opportunity window taking the parameters from the Configuration and the RNGs.
+  struct UpdateDummyTrafficOpportunityWindowIfExpired: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      let state = context.getState()
+
+      let now = context.dependencies.now()
+
+      guard now > state.ingestion.dummyTrafficOpportunityWindow.windowEnd else {
+        // Window not started or finished yet.
+        return
+      }
+
+      try context.awaitDispatch(UpdateDummyTrafficOpportunityWindow())
+    }
+  }
+
+  /// Updates the dummy ingestion traffic opportunity window taking the parameters from the Configuration and the RNGs.
   struct UpdateDummyTrafficOpportunityWindow: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let state = context.getState()
