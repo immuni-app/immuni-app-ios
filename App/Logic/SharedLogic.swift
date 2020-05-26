@@ -73,6 +73,11 @@ extension Logic.Shared {
         .contains(where: { Self.possiblePresenters.contains($0) }) else {
           return
       }
+      // avoid to cover permission overlay screen when presenting native permission alert.
+      guard !context.dependencies.application.currentRoutableIdentifiers.contains(Screen.permissionOverlay.rawValue) else {
+        return
+      }
+
       context.dispatch(Show(Screen.sensitiveDataCover, animated: true))
     }
   }
