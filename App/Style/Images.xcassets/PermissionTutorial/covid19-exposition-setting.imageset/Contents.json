@@ -1,8 +1,23 @@
 {
   "images" : [
     {
-      "filename" : "covid19-exposition-setting.pdf",
+      "filename" : "covid19-exposition-setting-2.pdf",
       "idiom" : "universal"
+    },
+    {
+      "filename" : "covid19-exposition-setting-3.pdf",
+      "idiom" : "universal",
+      "locale" : "de"
+    },
+    {
+      "filename" : "covid19-exposition-setting-1.pdf",
+      "idiom" : "universal",
+      "locale" : "en-GB"
+    },
+    {
+      "filename" : "covid19-exposition-setting.pdf",
+      "idiom" : "universal",
+      "locale" : "it"
     }
   ],
   "info" : {
@@ -10,6 +25,7 @@
     "version" : 1
   },
   "properties" : {
+    "localizable" : true,
     "preserves-vector-representation" : true
   }
 }
