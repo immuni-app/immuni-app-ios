@@ -44,7 +44,7 @@ public extension FAQ {
 
        • Questi utenti possono poi isolarsi per evitare di contagiare altri. Questo minimizza la diffusione del virus e, allo stesso tempo, velocizza il ritorno a una vita normale per la maggior parte della popolazione.
 
-       • Venendo informati tempestivamente, gli utenti possono anche contattare il proprio medico di medicina generale e ridurre così il rischio di complicanze.
+       • Venendo informati tempestivamente, gli utenti possono anche contattare il proprio medico di medicina generale prima e ridurre così il rischio di complicanze.
       """
     ),
     .init(
@@ -92,7 +92,7 @@ public extension FAQ {
 
        • È il Ministero della Salute il soggetto che raccoglie i tuoi dati. I dati verranno usati solo per contenere l'epidemia del COVID-19 o per la ricerca scientifica.
 
-       • I dati sono salvati su server in Italia e gestiti da soggetti pubblici. 
+       • I dati sono salvati su server in Italia e gestiti da soggetti pubblici.
       """
     ),
     .init(
@@ -104,7 +104,7 @@ public extension FAQ {
     .init(
       title: "Perché Immuni è importante?",
       content: """
-      Tutti noi desideriamo ridurre la diffusione dell'epidemia, tornare al più presto a una vita normale e ridurre il rischio alla salute dei nostri cari.
+      Tutti noi desideriamo ridurre la diffusione dell'epidemia, ridurre il rischio alla salute dei nostri cari e tornare al più presto a una vita normale.
 
       Immuni gioca un ruolo importante nella realizzazione di questi obiettivi. Grazie al sistema di notifiche di esposizione, l'app permette di avvertire rapidamente gli utenti che sono stati in prossimità di un utente contagioso, suggerendo l'isolamento e di contattare il proprio medico di medicina generale. Tutto questo è di cruciale importanza per minimizzare il numero di contagi e assicurarsi che gli utenti possano ricevere le giuste attenzioni mediche il prima possibile, minimizzando il rischio di complicanze.
       """
@@ -180,7 +180,7 @@ public extension FAQ {
     .init(
       title: "Dove posso trovare Immuni?",
       content: """
-      Puoi scaricare l'app dall'App Store (per iPhone) o da Google Play (per smartphone con sistema operativo Android). L'app non è disponibile su nessun altro canale di distribuzione.
+      Puoi scaricare Immuni dall'App Store (per iPhone) o da Google Play (per smartphone con sistema operativo Android). L'app non è disponibile su nessun altro canale di distribuzione.
       """
     ),
     .init(
@@ -268,7 +268,7 @@ public extension FAQ {
     .init(
       title: "Posso usare l'app senza connessione a Internet?",
       content: """
-      Immuni non richiede una connessione a Internet continuativa. Tuttavia, l'app ha bisogno di connettersi di tanto in tanto (almeno una volta al giorno) per scaricare le informazioni necessarie a controllare se sei stato esposto a utenti potenzialmente contagiosi. Pertanto, assicurati che il tuo smartphone sia connesso a Internet almeno una volta al giorno.
+      Immuni non richiede una connessione a Internet continuativa. Tuttavia, l'app ha bisogno di connettersi almeno una volta al giorno per scaricare le informazioni necessarie a controllare se sei stato esposto a utenti potenzialmente contagiosi. Pertanto, assicurati che il tuo smartphone sia connesso a Internet almeno una volta al giorno.
       """
     ),
     .init(
