@@ -741,7 +741,7 @@ extension DataUploadLogicTests {
     var state = AppState()
     state.ingestion.isDummyTrafficSequenceCancelled = false
 
-    /// Fail the first dice roll
+    // Fail the first dice roll
     DeterministicGenerator.randomValue = 1
 
     let dispatchInterceptor = DispatchInterceptor()
