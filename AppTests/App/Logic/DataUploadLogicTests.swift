@@ -121,7 +121,7 @@ final class DataUploadLogicTests: XCTestCase {
       // Catch silently to evaluate asserts
     }
 
-    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.DataUpload.TrackOTPValidationFailedAttempt.self)
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.DataUpload.MarkOTPValidationFailedAttempt.self)
   }
 
   func testShowsConfirmDataIfCodeIsValidated() throws {
@@ -318,26 +318,26 @@ final class DataUploadLogicTests: XCTestCase {
 
   func testFailedOTPValidationUpdatesState() throws {
     var state = AppState()
-    state.ingestion.otpUploadFailedAttempts = 7
-    state.ingestion.lastOtpUploadFailedAttempt = Date(timeIntervalSince1970: 0)
+    state.ingestion.otpValidationFailedAttempts = 7
+    state.ingestion.lastOtpValidationFailedAttempt = Date(timeIntervalSince1970: 0)
 
     let now = Date(timeIntervalSince1970: 1_590_073_834)
 
-    Logic.DataUpload.TrackOTPValidationFailedAttempt(date: now).updateState(&state)
+    Logic.DataUpload.MarkOTPValidationFailedAttempt(date: now).updateState(&state)
 
-    XCTAssertEqual(state.ingestion.otpUploadFailedAttempts, 8)
-    XCTAssertEqual(state.ingestion.lastOtpUploadFailedAttempt, now)
+    XCTAssertEqual(state.ingestion.otpValidationFailedAttempts, 8)
+    XCTAssertEqual(state.ingestion.lastOtpValidationFailedAttempt, now)
   }
 
   func testSuccessfulOTPValidationUpdatesState() throws {
     var state = AppState()
-    state.ingestion.otpUploadFailedAttempts = 7
-    state.ingestion.lastOtpUploadFailedAttempt = Date(timeIntervalSince1970: 0)
+    state.ingestion.otpValidationFailedAttempts = 7
+    state.ingestion.lastOtpValidationFailedAttempt = Date(timeIntervalSince1970: 0)
 
-    Logic.DataUpload.TrackOTPValidationSuccessfulAttempt().updateState(&state)
+    Logic.DataUpload.MarkOTPValidationSuccessfulAttempt().updateState(&state)
 
-    XCTAssertEqual(state.ingestion.otpUploadFailedAttempts, 0)
-    XCTAssertEqual(state.ingestion.lastOtpUploadFailedAttempt, nil)
+    XCTAssertEqual(state.ingestion.otpValidationFailedAttempts, 0)
+    XCTAssertEqual(state.ingestion.lastOtpValidationFailedAttempt, nil)
   }
 }
 
