@@ -22,6 +22,14 @@ import Persistence
 /// Concrete implementation of `TemporaryExposureKeyProvider` that uses a `NetworkManager` to retrieve the chunks and a
 /// `FileStorage` to persist them
 class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
+  /// This number represents the maximum amount of chunks that the EN APIs
+  /// can manage in a 24-hour period as per documentation.
+  /// We need to limit the amount ot chunks we download to prevent hitting
+  /// this rate limit.
+  ///
+  /// - seeAlso: https://developer.apple.com/documentation/exposurenotification/setting_up_an_exposure_notification_server
+  static let keyDailyRateLimit = 15
+
   private let networkManager: NetworkManager
   private let fileStorage: FileStorage
 
@@ -49,18 +57,36 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
       .delete(chunks.flatMap { $0.localUrls })
   }
 
-  private func getMissingChunksIndexes(latestKnownChunkIndex: Int?) -> Promise<[Int]> {
+  func getMissingChunksIndexes(latestKnownChunkIndex: Int?) -> Promise<[Int]> {
     self.networkManager.getKeysIndex()
       .then { (keysIndex: KeysIndex) -> [Int] in
-        guard let latestKnownChunkIndex = latestKnownChunkIndex else {
-          return Array(keysIndex.oldest ... keysIndex.newest)
-        }
 
-        guard keysIndex.newest > latestKnownChunkIndex else {
+        let latestKnown = latestKnownChunkIndex ?? -1
+
+        guard keysIndex.newest > latestKnown else {
+          // no chunks to download
           return []
         }
 
-        return Array(keysIndex.oldest.bounded(min: latestKnownChunkIndex) ... keysIndex.newest)
+        let upperBound = keysIndex.newest
+
+        // We know we cannot process more than a certain amount of keys per day.
+        // If the server returns a number of chunks that is greater than the local
+        // limit, we take just the latest X. This choice has been done because:
+        // - we expect this to happen just during the first EN check
+        // - we want to prioritize recent contacts anyway
+        //
+        // Note that the subsequent runs within 24 hours will fail anyway,
+        // but the manager should handle them and retry as soon as possible.
+        // Assuming we don't publish more than 15 chunks per day (which we won't)
+        // the algorithm is stable
+        let minLowerBound = upperBound - Self.keyDailyRateLimit + 1
+
+        // note the +1. It is added to prevent to download the previous "latest"
+        // chunk twice
+        let lowerBound = max(latestKnown + 1, keysIndex.oldest, minLowerBound)
+
+        return Array(lowerBound ... upperBound)
       }
   }
 
