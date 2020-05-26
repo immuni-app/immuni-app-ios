@@ -87,6 +87,9 @@ extension Logic.DataUpload {
   /// -seeAlso: https://github.com/immuni-app/immuni-documentation/blob/master/Traffic%20Analysis%20Mitigation.md
   struct StartIngestionSequenceIfNotCancelled: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      // Update the opportunity window
+      try context.awaitDispatch(UpdateDummyTrafficOpportunityWindow())
+
       var executions = 0
       while true {
         // Fetch the state at every run because it might have been updated in the meanwhile
@@ -120,9 +123,6 @@ extension Logic.DataUpload {
 
       // Allow the scheduling of another session.
       try context.awaitDispatch(SetDummyIngestionSequenceScheduledForThisSession(value: false))
-
-      // Update the opportunity window
-      try context.awaitDispatch(UpdateDummyTrafficOpportunityWindow())
     }
   }
 }
