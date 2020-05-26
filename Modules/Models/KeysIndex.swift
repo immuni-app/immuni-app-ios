@@ -18,4 +18,10 @@ import Foundation
 public struct KeysIndex: Decodable {
   public let oldest: Int
   public let newest: Int
+
+  /// Creates a new KeysIndex value
+  public init(oldest: Int, newest: Int) {
+    self.oldest = oldest
+    self.newest = newest
+  }
 }
