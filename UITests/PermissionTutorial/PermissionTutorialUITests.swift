@@ -35,7 +35,8 @@ class PermissionTutorialUITests: AppViewTestCase, ViewTestCase {
           isHeaderVisible: false
         ),
         "permission_tutorial_update_os": PermissionTutorialVM(content: .updateOperatingSystem, isHeaderVisible: false),
-        "how_immuni_works": PermissionTutorialVM(content: .howImmuniWorks, isHeaderVisible: false)
+        "how_immuni_works": PermissionTutorialVM(content: .howImmuniWorks(shouldShowFaqButton: false), isHeaderVisible: false),
+        "how_immuni_works_faq": PermissionTutorialVM(content: .howImmuniWorks(shouldShowFaqButton: true), isHeaderVisible: false)
       ],
       context: context
     )
@@ -71,7 +72,14 @@ class PermissionTutorialUITests: AppViewTestCase, ViewTestCase {
           isHeaderVisible: true
         ),
         "permission_tutorial_update_os_scrolled": PermissionTutorialVM(content: .updateOperatingSystem, isHeaderVisible: true),
-        "how_immuni_works_scrolled": PermissionTutorialVM(content: .howImmuniWorks, isHeaderVisible: true)
+        "how_immuni_works_scrolled": PermissionTutorialVM(
+          content: .howImmuniWorks(shouldShowFaqButton: false),
+          isHeaderVisible: true
+        ),
+        "how_immuni_works_faq_scrolled": PermissionTutorialVM(
+          content: .howImmuniWorks(shouldShowFaqButton: true),
+          isHeaderVisible: true
+        )
       ],
       context: context
     )
