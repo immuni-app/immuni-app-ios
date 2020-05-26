@@ -73,22 +73,6 @@ extension QuestionView {
 }
 
 extension FAQ {
-  // swiftlint:disable line_length
-  static let mockedQuestion: FAQ =
-    FAQ(
-      title: "How does Immuni’s proximity tracing work?",
-      content:
-      """
-      Immuni proximity tracing system aims to alert users after they have been exposed to a potential risk of infection.
-
-      The system is based on <b>Bluetooth Low Energy</b> technology and doesn’t use any kind of geolocalization whatsoever—not even GPS data. The app doesn’t (and can’t) collect any personal data of the user, such as their name, surname, birth date, address, telephone number, or email address. Therefore, Immuni is able to determine that contact has taken place between two users (referred to as an exposure event), without knowing who those users are and where the contact occurred. It only knows that a contact occurred, how long it lasted, and roughly what distance separated the two users.
-
-      <b>Here below is a simplified explanation of how the system works:
-      Alice and Marco install the Immuni app. Their smartphones start sending a continuous Bluetooth Low Energy signal that contains a proximity identifier. When Alice gets in close proximity to Marco, their smartphones mutually store the other’s proximity identifier, taking note of that exposure event. Their phones also note how long the event lasted and the approximate distance between the two devices.</b>
-      Afterwards, Marco tests positive for COVID-19. Thanks to the help of a healthcare professional, Marco is able to transfer some cryptographic keys to a server, used to derive his proximity identifier.
-      On a regular basis, the app downloads all the new cryptographic keys sent to the server by the users who tested positive for the virus. The app uses these keys to derive their proximity identifiers and checks if any of those identifiers correspond to those stored in Alice’s or Marco’s device memory from previous days. As such, Alice’s app will find Marco’s proximity identifier, it will check the length and the distance of the contact to evaluate the risk of an infection and, if necessary, it will inform Alice and provide recommended actions.
-
-      Proximity identifiers are generated randomly, and they don’t contain any information about the device or the user. Moreover, they change several times per hour to protect your privacy even more.
-      """
-    )
+  // swiftlint:disable force_unwrapping
+  static let mockedQuestion = FAQ.englishDefaultValues.first!
 }
