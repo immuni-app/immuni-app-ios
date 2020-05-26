@@ -9,7 +9,7 @@
 "notifications.update_os.title" = "Il servizio non è ancora attivo";
 "notifications.update_os.description" = "Apri l’app per completare l’attivazione.";
 "notifications.update_app.title" = "⚠️ È necessario aggiornare l'applicazione";
-"notifications.update_app.description" = "È disponibile un aggiornamento importante. Aggiorna subito l’app per garantirne il funzionamento. ";
+"notifications.update_app.description" = "È disponibile un aggiornamento importante. Aggiorna subito l’app per garantirne il funzionamento.";
 "notifications.not_active_service.title" = "⚠️ Il servizio non è attivo";
 "notifications.not_active_service.description" = "Riattiva Immuni al più presto perché ti possa avvertire in caso di rischio.";
 "notifications.apple_exposure_notification.message" = "Una persona con cui hai avuto un contatto ravvicinato è risultata positiva al test.";
@@ -37,7 +37,7 @@
 "welcome_view.items.first.title" = "Ciao!";
 "welcome_view.items.first.description" = "Con il contributo di tutti, Immuni aiuta a contenere il virus e a tornare il prima possibile alla normalità.";
 "welcome_view.items.second.title" = "Immuni si prende cura di te";
-"welcome_view.items.second.description" = "Se sei entrato in contatto con un utente in seguito risultato positivo al virus, Immuni ti avverte e ti fornisce indicazioni per proteggere la tua salute e quella dei tuoi cari. ";
+"welcome_view.items.second.description" = "Se sei entrato in contatto con un utente in seguito risultato positivo al virus, Immuni ti avverte e ti fornisce indicazioni per proteggere la tua salute e quella dei tuoi cari.";
 "welcome_view.items.third.title" = "Rallentiamo insieme l'epidemia";
 "welcome_view.items.third.description" = "Gli utenti che scoprono di essere stati esposti al virus possono isolarsi, rallentando così la diffusione del virus e  accelerando il ritorno alla vita normale.";
 "welcome_view.items.fourth.title" = "La tua privacy è tutelata";
@@ -70,13 +70,13 @@
 
 "onboarding.exposure_permission.title" = "Abilita le notifiche di esposizione al COVID-19";
 "onboarding.exposure_permission.description" = "Immuni registra i contatti con altri utenti usando il Bluetooth Low Energy, così da poterti informare in caso di esposizione al virus.";
-"onboarding.exposure_permission.action" = "Attiva";
-"onboarding.exposure_permission.overlay.hint" = "Seleziona \"<b>Abilita </b>\" nel popup che apparirà qui sotto";
+"onboarding.exposure_permission.action" = "Abilita";
+"onboarding.exposure_permission.overlay.hint" = "Seleziona \"<b>Abilita</b>\" nel popup che apparirà qui sotto";
 "onboarding.bluetooth_off.title" = "Attiva il Bluetooth";
 "onboarding.bluetooth_off.description" = "Immuni utilizza il Bluetooth Low Energy per registrare i tuoi contatti con altri utenti e permettere notifiche di esposizione al COVID-19.";
 "onboarding.bluetooth_off.action" = "Attiva";
 "onboarding.push_permission.title" = "Consentici di comunicare con te";
-"onboarding.push_permission.description" = "Le notiche permettono a Immuni di avvisarti tempestivamente in caso di necessità. ";
+"onboarding.push_permission.description" = "Le notifiche permettono a Immuni di avvisarti tempestivamente in caso di necessità.";
 "onboarding.push_permission.action" = "Consenti";
 "onboarding.push_permission.overlay.hint" = "Seleziona \"<b>Consenti</b>\" nel popup che apparirà qui sotto";
 "onboarding.pin_advice.title" = "Proteggi il tuo dispositivo";
@@ -155,7 +155,7 @@
 "upload_data.warning.message" = "Questa funzione richiede l'assistenza di un operatore sanitario autorizzato";
 "upload_data.code.message" = "Comunica questo codice all'operatore sanitario:";
 "upload_data.wait_operator.message" = "Attendi la conferma dell'operatore";
-"upload_data.verify.message" = "Per proseguire, verifica l'autorizzazione ";
+"upload_data.verify.message" = "Per proseguire, verifica l'autorizzazione";
 "upload_data.verify.button" = "Verifica";
 "upload_data.verify.error" = "Codice non ancora autorizzato";
 "upload_data.verify.loading" = "Verifica\nautorizzazione...";
