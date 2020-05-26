@@ -444,6 +444,103 @@ extension DataUploadLogicTests {
   }
 }
 
+// MARK: - Dummy traffic lifecycle
+
+extension DataUploadLogicTests {
+  func testFirstLaunchSetupAlwaysUpdatesTheOpportunityWindow() throws {
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.PerformFirstLaunchSetupIfNeeded().sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.DataUpload.UpdateDummyTrafficOpportunityWindow.self)
+  }
+
+  func testHandleBackgroundSessionUpdatesTheOpportunityWindowWhenExpired() throws {
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.HandleExposureDetectionBackgroundTask(task: MockBackgroundTask()).sideEffect(context)
+
+    try XCTAssertContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.DataUpload.UpdateDummyTrafficOpportunityWindowIfExpired.self
+    )
+  }
+
+  func testOnStartUpdatesTheOpportunityWindowWhenExpiredIfNotFirstLaunch() throws {
+    var state = AppState()
+    state.toggles.isFirstLaunchSetupPerformed = true
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: { state }, dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.OnStart().sideEffect(context)
+
+    try XCTAssertContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.DataUpload.UpdateDummyTrafficOpportunityWindowIfExpired.self
+    )
+  }
+
+  func testWillEnterForegroundUpdatesTheOpportunityWindowWhenExpiredIfNotFirstLaunch() throws {
+    var state = AppState()
+    state.toggles.isFirstLaunchSetupPerformed = true
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: { state }, dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.OnStart().sideEffect(context)
+
+    try XCTAssertContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.DataUpload.UpdateDummyTrafficOpportunityWindowIfExpired.self
+    )
+  }
+
+  func testOnStartSchedulesDummyTrafficIfNotFirstLaunch() throws {
+    var state = AppState()
+    state.toggles.isFirstLaunchSetupPerformed = true
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: { state }, dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.OnStart().sideEffect(context)
+
+    try XCTAssertContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary.self
+    )
+  }
+
+  func testWillEnterForegroundSchedulesDummyTrafficIfNotFirstLaunch() throws {
+    var state = AppState()
+    state.toggles.isFirstLaunchSetupPerformed = true
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: { state }, dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.OnStart().sideEffect(context)
+
+    try XCTAssertContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary.self
+    )
+  }
+}
+
 // MARK: - Mocks
 
 class TekReturningMockExposureNotificationProvider: MockExposureNotificationProvider {
