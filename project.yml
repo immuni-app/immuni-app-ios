@@ -13,6 +13,12 @@ targetTemplates:
         TARGETED_DEVICE_FAMILY: 1
         SWIFT_VERSION: 5.2
         SUPPORTS_MACCATALYST: NO
+        # Add fstack-protector-all to the project. Note that the
+        # current implementation is Swift-only and this should not be
+        # necessary. However, adding it doesn't harm and prevents
+        # from weakening the app in case of an OBJC / C lib
+        # or code is added
+        OTHER_CFLAGS: "$(inherited) -fstack-protector-all"
 
 options:
   developmentLanguage: "en-GB"
@@ -41,6 +47,12 @@ targets:
         CODE_SIGN_STYLE: Manual
         DEVELOPMENT_TEAM: NFBYJRA8B5
         TARGETED_DEVICE_FAMILY: 1
+        # Add fstack-protector-all to the project. Note that the
+        # current implementation is Swift-only and this should not be
+        # necessary. However, adding it doesn't harm and prevents
+        # from weakening the app in case of an OBJC / C lib
+        # or code is added
+        OTHER_CFLAGS: "$(inherited) -fstack-protector-all"
       configs:
         Debug:
           CODE_SIGN_ENTITLEMENTS: App/Resources/Entitlements/Development.entitlements
