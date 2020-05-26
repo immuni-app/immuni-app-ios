@@ -32,7 +32,7 @@ public extension Promise {
 
   /// Creates a promise that defers the chain of the given amount of seconds
   static func deferring(of seconds: TimeInterval) -> Promise<Void> {
-    return Promise<Void>(resolved: ()).defer(2)
+    return Promise<Void>(resolved: ()).defer(seconds)
   }
 
   /// Forces a promise to run even if no other entity is waiting on it.
