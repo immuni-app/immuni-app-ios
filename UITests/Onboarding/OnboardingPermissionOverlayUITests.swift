@@ -24,7 +24,8 @@ class OnboardingPermissionOverlayUITests: AppViewTestCase, ViewTestCase {
     self.uiTest(
       testCases: [
         "onboarding_permission_overlay_exposure_notification": OnboardingPermissionOverlayVM(type: .exposureNotification),
-        "onboarding_permission_push_notification": OnboardingPermissionOverlayVM(type: .pushNotification)
+        "onboarding_permission_push_notification": OnboardingPermissionOverlayVM(type: .pushNotification),
+        "onboarding_permission_diagnosis_keys": OnboardingPermissionOverlayVM(type: .diagnosisKeys)
       ],
       context: UITests.Context<V>()
     )
