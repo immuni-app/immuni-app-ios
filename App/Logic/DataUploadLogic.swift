@@ -103,7 +103,7 @@ extension Logic.DataUpload {
         .awaitDispatch(Show(
           Screen.permissionOverlay,
           animated: true,
-          context: OnboardingPermissionOverlayLS(type: .exposureNotification)
+          context: OnboardingPermissionOverlayLS(type: .diagnosisKeys)
         ))
 
       let keys: [TemporaryExposureKey]

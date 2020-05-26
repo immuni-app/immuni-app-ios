@@ -27,6 +27,9 @@ struct OnboardingPermissionOverlayVM: Equatable {
 
     case .pushNotification:
       return L10n.Onboarding.PushPermission.Overlay.hint
+
+    case .diagnosisKeys:
+      return L10n.UploadData.DiagnosisKeys.Overlay.hint
     }
   }
 }
@@ -41,5 +44,6 @@ extension OnboardingPermissionOverlayVM {
   enum OverlayType {
     case exposureNotification
     case pushNotification
+    case diagnosisKeys
   }
 }
