@@ -46,7 +46,6 @@ extension Logic.ExposureDetection {
       let state = context.getState()
 
       /// Perform a cycle of exposure detection and retrieve its outcome
-      #warning("change user explaination message copy when we have the mds version")
       let outcome = try await(context.dependencies.exposureDetectionExecutor.execute(
         exposureDetectionPeriod: self.type.detectionPeriod(using: state.configuration),
         lastExposureDetectionDate: state.exposureDetection.lastDetectionDate,
