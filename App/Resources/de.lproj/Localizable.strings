@@ -76,7 +76,7 @@
 "onboarding.bluetooth_off.description" = "Immuni utilizza il Bluetooth Low Energy per registrare i tuoi contatti con altri utenti e permettere notifiche di esposizione al COVID-19.";
 "onboarding.bluetooth_off.action" = "Attiva";
 "onboarding.push_permission.title" = "Consentici di comunicare con te";
-"onboarding.push_permission.description" = "Le notiche permettono a Immuni di avvisarti tempestivamente in caso di necessità. ";
+"onboarding.push_permission.description" = "Le notifiche permettono a Immuni di avvisarti tempestivamente in caso di necessità. ";
 "onboarding.push_permission.action" = "Consenti";
 "onboarding.push_permission.overlay.hint" = "Seleziona \"<b>Consenti</b>\" nel popup che apparirà qui sotto";
 "onboarding.pin_advice.title" = "Proteggi il tuo dispositivo";
