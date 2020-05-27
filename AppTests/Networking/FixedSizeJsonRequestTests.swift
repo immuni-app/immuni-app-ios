@@ -100,7 +100,9 @@ class FixedSizeJsonRequestTests: XCTestCase {
       body: .init(
         teks: teks,
         province: "AA",
-        exposureDetectionSummaries: summaries
+        exposureDetectionSummaries: summaries,
+        maximumExposureInfoCount: 600,
+        maximumExposureDetectionSummaryCount: 100
       ),
       otp: OTP(),
       now: { Date() },

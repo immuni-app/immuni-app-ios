@@ -20,14 +20,26 @@ import XCTest
 class DataUploadRequestTests: XCTestCase {
   func testTeksAreCappedTo14() throws {
     let teks = (0 ..< 100).map { _ in CodableTemporaryExposureKey.mock() }
-    let requestBody = DataUploadRequest.Body(teks: teks, province: "AA", exposureDetectionSummaries: [])
+    let requestBody = DataUploadRequest.Body(
+      teks: teks,
+      province: "AA",
+      exposureDetectionSummaries: [],
+      maximumExposureInfoCount: 0,
+      maximumExposureDetectionSummaryCount: 0
+    )
 
     XCTAssertEqual(requestBody.teks.count, 14)
   }
 
   func testTeksAreSortedByRollingNumberDescending() throws {
     let teks = (0 ..< 100).map { _ in CodableTemporaryExposureKey.mock() }.shuffled()
-    let requestBody = DataUploadRequest.Body(teks: teks, province: "AA", exposureDetectionSummaries: [])
+    let requestBody = DataUploadRequest.Body(
+      teks: teks,
+      province: "AA",
+      exposureDetectionSummaries: [],
+      maximumExposureInfoCount: 0,
+      maximumExposureDetectionSummaryCount: 0
+    )
 
     for (index, tek) in requestBody.teks.enumerated() {
       guard let nextTek = requestBody.teks[safe: index + 1] else {

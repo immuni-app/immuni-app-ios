@@ -24,7 +24,9 @@ extension DataUploadRequest.Body {
     return self.init(
       teks: teks,
       province: "AA",
-      exposureDetectionSummaries: summaries
+      exposureDetectionSummaries: summaries,
+      maximumExposureInfoCount: 600,
+      maximumExposureDetectionSummaryCount: 100
     )
   }
 }
