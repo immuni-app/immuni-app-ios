@@ -118,7 +118,7 @@ private extension SuggestionsButtonCell {
       button.setOpacity(0.85, for: .highlighted)
       button.setBackgroundColor(Palette.grayDark, for: .normal)
       button.tintColor = Palette.white
-      button.addShadow(.cardPurple)
+      button.addShadow(.grayDark)
       button.layer.cornerRadius = 25
     }
   }

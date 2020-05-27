@@ -180,7 +180,7 @@ extension TextStyles {
     let font = UIFont.euclidCircularBBold(size: 28)
     let style = StringStyle(
       .font(font),
-      .lineHeightMultiple(1.1),
+      .lineSpacing(30.80 - font.lineHeight),
       .lineBreakMode(.byTruncatingTail),
       .adapt(.control)
     )

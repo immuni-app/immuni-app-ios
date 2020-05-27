@@ -205,7 +205,7 @@ class SettingsView: UIView, ViewControllerModellableView {
   }
 
   private func updateAfterLayout() {
-    self.collection.contentInset.top = self.headerView.frame.maxY - self.universalSafeAreaInsets.top
+    self.collection.contentInset.top = self.headerTitle.frame.maxY - self.universalSafeAreaInsets.top
     guard let collectionViewLayout = self.collection.collectionViewLayout as? UICollectionViewFlowLayout else {
       return
     }

@@ -63,7 +63,7 @@ class OnboardingAdviceView: UIView, ViewControllerModellableView {
 
     self.detailsLabel.pin
       .horizontally(Self.horizontalSpacing)
-      .bottom(30 + self.safeAreaInsets.bottom)
+      .bottom(15 + self.safeAreaInsets.bottom)
       .marginBottom(Self.verticalSpacing)
       .sizeToFit(.width)
 
