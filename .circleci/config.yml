@@ -154,7 +154,7 @@ commands:
             - 1-pods-
       - run:
           name: "[cocoapods] Install pods"
-          command: INCLUDE_DEV_TOOLING=TRUE pod install
+          command: pod install
       - save_cache:
           name: "[cocoapods] Save the cache"
           key: 1-pods-{{ checksum "podfile_checksum" }}
@@ -205,6 +205,7 @@ commands:
               export DISTRIBUTION_METHOD="development"
               export SIGNING_PROFILE="development"
             else
+              echo "export EXCLUDE_DEV_TOOLING='1'" >> $BASH_ENV
               export BUILD_CONFIGURATION="Release"
               export DISTRIBUTION_METHOD="app-store"
               export SIGNING_PROFILE="appstore"

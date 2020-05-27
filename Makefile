@@ -5,9 +5,8 @@ ifeq ($(BUNDLE_VERSION),)
 	export BUNDLE_VERSION := 999
 endif
 
-export INCLUDE_DEV_TOOLING = TRUE
-
-ifeq ($(INCLUDE_DEV_TOOLING),TRUE)
+# Whether dev tooling are enabled
+ifeq ($(EXCLUDE_DEV_TOOLING),)
 	export PROJECT_YAML_FILE := project_debug.yml
 else
 	export PROJECT_YAML_FILE := project.yml

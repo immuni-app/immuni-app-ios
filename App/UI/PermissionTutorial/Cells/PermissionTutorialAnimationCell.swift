@@ -17,23 +17,34 @@ import Lottie
 import Tempura
 
 struct PermissionTutorialAnimationCellVM: ViewModel {
-  let animationName: String
+  /// The animation asset of the cell
+  let asset: AnimationAsset
+  /// Whether the animation should play. If false, the animation is paused.
+  let shouldPlay: Bool
 
   var content: Animation? {
-    return Animation.named(self.animationName)
+    return self.asset.animation
   }
 
-  func shouldUpdate(oldVM: Self?) -> Bool {
-    guard let oldVM = oldVM else {
+  func shouldUpdateAsset(oldModel: Self?) -> Bool {
+    guard let oldModel = oldModel else {
       return true
     }
 
-    return self.animationName != oldVM.animationName
+    return self.asset != oldModel.asset
+  }
+
+  func shouldUpdateState(oldModel: Self?) -> Bool {
+    guard let oldModel = oldModel else {
+      return true
+    }
+
+    return self.shouldPlay != oldModel.shouldPlay
   }
 }
 
 final class PermissionTutorialAnimationCell: UICollectionViewCell, ModellableView, ReusableView {
-  private let animation = AnimationView()
+  let animation = AnimationView()
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -58,8 +69,16 @@ final class PermissionTutorialAnimationCell: UICollectionViewCell, ModellableVie
       return
     }
 
-    if model.shouldUpdate(oldVM: oldModel) {
+    if model.shouldUpdateAsset(oldModel: oldModel) {
       Self.Style.content(self.animation, content: model.content)
+    }
+
+    if model.shouldUpdateState(oldModel: oldModel) {
+      if model.shouldPlay {
+        self.animation.playIfPossible()
+      } else {
+        self.animation.pause()
+      }
     }
   }
 
@@ -81,7 +100,7 @@ extension PermissionTutorialAnimationCell {
       view.animation = content
       view.loopMode = .loop
       view.backgroundBehavior = .pauseAndRestore
-      view.playIfPossible()
+      view.shouldRasterizeWhenIdle = true
     }
   }
 }

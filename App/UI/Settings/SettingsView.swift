@@ -23,7 +23,6 @@ struct SettingsVM: ViewModelWithLocalState {
     case privacy
     case chageProvince
     case leaveReview
-    case contactSupport
     case debugUtilities
   }
 
@@ -102,7 +101,7 @@ extension SettingsVM {
 
       Section(
         header: .general,
-        settings: [.chageProvince, .leaveReview, .contactSupport]
+        settings: [.chageProvince, .leaveReview]
       )
     ]
     #if canImport(DebugMenu)
@@ -205,7 +204,7 @@ class SettingsView: UIView, ViewControllerModellableView {
   }
 
   private func updateAfterLayout() {
-    self.collection.contentInset.top = self.headerView.frame.maxY - self.universalSafeAreaInsets.top
+    self.collection.contentInset.top = self.headerTitle.frame.maxY - self.universalSafeAreaInsets.top
     guard let collectionViewLayout = self.collection.collectionViewLayout as? UICollectionViewFlowLayout else {
       return
     }

@@ -19,7 +19,7 @@ public extension Data {
   ///
   ///  - parameter length: the amount of bytes to generate
   static func randomData(with length: Int) -> Data {
-    var bytes = [Int8](repeating: 0, count: 10)
+    var bytes = [Int8](repeating: 0, count: length)
     let status = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
     assert(status == errSecSuccess)
 

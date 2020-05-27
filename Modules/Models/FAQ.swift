@@ -34,6 +34,7 @@ public struct FAQ: Equatable, Codable {
 // swiftlint:disable line_length
 
 public extension FAQ {
+  /// Italian FAQs
   static let italianDefaultValues: [FAQ] = [
     .init(
       title: "Cos'è Immuni?",
@@ -289,6 +290,7 @@ public extension FAQ {
 // MARK: English default FAQs
 
 public extension FAQ {
+  /// English FAQs
   static let englishDefaultValues: [FAQ] = [
     .init(
       title: "What is Immuni?",
@@ -545,7 +547,9 @@ public extension FAQ {
 // MARK: German default FAQs
 
 public extension FAQ {
-  static let germanDefaultValues: [FAQ] = [
-    .init(title: "[DE] Domanda", content: "[DE] Questa é una risposta")
-  ]
+  /// German FAQs
+  ///
+  /// - warning: we currently don't have DE FAQs. let's fallback on english version
+  /// in the meanshile
+  static let germanDefaultValues: [FAQ] = Self.englishDefaultValues
 }

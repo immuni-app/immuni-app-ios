@@ -111,6 +111,17 @@ extension Logic.Shared {
       _ = context.dependencies.application.goTo(url: self.url).run()
     }
   }
+
+  /// This action preloads all the Lottie Animation structs. This is done as a workaround for the performance regression on
+  /// Lottie 3 ( https://github.com/airbnb/lottie-ios/issues/895 ).
+  /// Most of the issue is due to the serialization of the Lottie JSON and this action prevents the app to perform this
+  /// serialization multiple times as the used `animation` property in `AnimationAsset` are statically allocated.
+  /// The issue is particularly evident in collection views with multiple animations in multiple cells.
+  struct PreloadAssets: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      _ = AnimationAsset.allCases.map { $0.animation }
+    }
+  }
 }
 
 // MARK: - Private

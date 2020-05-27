@@ -24,19 +24,41 @@ class PermissionTutorialUITests: AppViewTestCase, ViewTestCase {
 
     self.uiTest(
       testCases: [
-        "permission_tutorial_notification": PermissionTutorialVM(content: .notificationInstructions, isHeaderVisible: false),
-        "permission_tutorial_bluetooth": PermissionTutorialVM(content: .bluetoothInstructions, isHeaderVisible: false),
+        "permission_tutorial_notification": PermissionTutorialVM(
+          content: .notificationInstructions,
+          isHeaderVisible: false,
+          shouldAnimateContent: false
+        ),
+        "permission_tutorial_bluetooth": PermissionTutorialVM(
+          content: .bluetoothInstructions,
+          isHeaderVisible: false,
+          shouldAnimateContent: false
+        ),
         "permission_tutorial_exposure_notification_unauthorized": PermissionTutorialVM(
           content: .exposureNotificationUnauthorizedInstructions,
-          isHeaderVisible: false
+          isHeaderVisible: false,
+          shouldAnimateContent: false
         ),
         "permission_tutorial_exposure_notification_restricted": PermissionTutorialVM(
           content: .exposureNotificationRestrictedInstructions,
-          isHeaderVisible: false
+          isHeaderVisible: false,
+          shouldAnimateContent: false
         ),
-        "permission_tutorial_update_os": PermissionTutorialVM(content: .updateOperatingSystem, isHeaderVisible: false),
-        "how_immuni_works": PermissionTutorialVM(content: .howImmuniWorks(shouldShowFaqButton: false), isHeaderVisible: false),
-        "how_immuni_works_faq": PermissionTutorialVM(content: .howImmuniWorks(shouldShowFaqButton: true), isHeaderVisible: false)
+        "permission_tutorial_update_os": PermissionTutorialVM(
+          content: .updateOperatingSystem,
+          isHeaderVisible: false,
+          shouldAnimateContent: false
+        ),
+        "how_immuni_works": PermissionTutorialVM(
+          content: .howImmuniWorks(shouldShowFaqButton: false),
+          isHeaderVisible: false,
+          shouldAnimateContent: false
+        ),
+        "how_immuni_works_faq": PermissionTutorialVM(
+          content: .howImmuniWorks(shouldShowFaqButton: true),
+          isHeaderVisible: false,
+          shouldAnimateContent: false
+        )
       ],
       context: context
     )
@@ -60,25 +82,38 @@ class PermissionTutorialUITests: AppViewTestCase, ViewTestCase {
       testCases: [
         "permission_tutorial_notification_scrolled": PermissionTutorialVM(
           content: .notificationInstructions,
-          isHeaderVisible: true
+          isHeaderVisible: true,
+          shouldAnimateContent: false
         ),
-        "permission_tutorial_bluetooth_scrolled": PermissionTutorialVM(content: .bluetoothInstructions, isHeaderVisible: true),
+        "permission_tutorial_bluetooth_scrolled": PermissionTutorialVM(
+          content: .bluetoothInstructions,
+          isHeaderVisible: true,
+          shouldAnimateContent: false
+        ),
         "permission_tutorial_exposure_notification_unauthorized_scrolled": PermissionTutorialVM(
           content: .exposureNotificationUnauthorizedInstructions,
-          isHeaderVisible: true
+          isHeaderVisible: true,
+          shouldAnimateContent: false
         ),
         "permission_tutorial_exposure_notification_restricted_scrolled": PermissionTutorialVM(
           content: .exposureNotificationRestrictedInstructions,
-          isHeaderVisible: true
+          isHeaderVisible: true,
+          shouldAnimateContent: false
         ),
-        "permission_tutorial_update_os_scrolled": PermissionTutorialVM(content: .updateOperatingSystem, isHeaderVisible: true),
+        "permission_tutorial_update_os_scrolled": PermissionTutorialVM(
+          content: .updateOperatingSystem,
+          isHeaderVisible: true,
+          shouldAnimateContent: false
+        ),
         "how_immuni_works_scrolled": PermissionTutorialVM(
           content: .howImmuniWorks(shouldShowFaqButton: false),
-          isHeaderVisible: true
+          isHeaderVisible: true,
+          shouldAnimateContent: false
         ),
         "how_immuni_works_faq_scrolled": PermissionTutorialVM(
           content: .howImmuniWorks(shouldShowFaqButton: true),
-          isHeaderVisible: true
+          isHeaderVisible: true,
+          shouldAnimateContent: false
         )
       ],
       context: context
