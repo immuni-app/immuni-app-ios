@@ -49,4 +49,179 @@ class DataUploadRequestTests: XCTestCase {
       XCTAssertGreaterThanOrEqual(tek.rollingStartNumber, nextTek.rollingStartNumber)
     }
   }
+
+  func testSummariesAreCapped() throws {
+    let cap = 100
+    let summaries = (0 ..< 1000).map { _ in CodableExposureDetectionSummary.mock() }
+    let requestBody = DataUploadRequest.Body(
+      teks: [],
+      province: "AA",
+      exposureDetectionSummaries: summaries,
+      maximumExposureInfoCount: 0,
+      maximumExposureDetectionSummaryCount: cap
+    )
+
+    XCTAssertEqual(requestBody.exposureDetectionSummaries.count, cap)
+  }
+
+  func testExposureInfoAreCapped() throws {
+    let cap = 100
+    let summaries = (0 ..< 1000).map { _ in CodableExposureDetectionSummary.mock() }
+    let requestBody = DataUploadRequest.Body(
+      teks: [],
+      province: "AA",
+      exposureDetectionSummaries: summaries,
+      maximumExposureInfoCount: cap,
+      maximumExposureDetectionSummaryCount: Int.max
+    )
+
+    XCTAssertEqual(requestBody.exposureDetectionSummaries.flatMap { $0.exposureInfo }.count, cap)
+  }
+
+  func testLeastRecentSummaryIsDiscarded() throws {
+    let cap = 2
+    let date = Date()
+    let oldestDate = date.addingTimeInterval(-300_000)
+    let newestDate = date.addingTimeInterval(300_000)
+
+    let oldSummary = CodableExposureDetectionSummary(
+      date: oldestDate,
+      matchedKeyCount: 1,
+      daysSinceLastExposure: 2,
+      attenuationDurations: [100, 200],
+      maximumRiskScore: 3,
+      exposureInfo: []
+    )
+    let normalSummary = CodableExposureDetectionSummary(
+      date: date,
+      matchedKeyCount: 1,
+      daysSinceLastExposure: 2,
+      attenuationDurations: [100, 200],
+      maximumRiskScore: 3,
+      exposureInfo: []
+    )
+    let recentSummary = CodableExposureDetectionSummary(
+      date: newestDate,
+      matchedKeyCount: 1,
+      daysSinceLastExposure: 2,
+      attenuationDurations: [100, 200],
+      maximumRiskScore: 3,
+      exposureInfo: []
+    )
+
+    let summaries: [CodableExposureDetectionSummary] = [normalSummary, oldSummary, recentSummary]
+
+    let requestBody = DataUploadRequest.Body(
+      teks: [],
+      province: "AA",
+      exposureDetectionSummaries: summaries,
+      maximumExposureInfoCount: 0,
+      maximumExposureDetectionSummaryCount: cap
+    )
+
+    XCTAssertEqual(Set(requestBody.exposureDetectionSummaries), Set([recentSummary, normalSummary]))
+  }
+
+  func testMostRecentInfoIsDiscardedIfSameRisk() throws {
+    let cap = 2
+    let risk = 3
+    let date = Date()
+    let oldestDate = date.addingTimeInterval(-300_000)
+    let newestDate = date.addingTimeInterval(300_000)
+
+    let oldInfo = CodableExposureInfo(
+      date: oldestDate,
+      duration: 1,
+      attenuationValue: 2,
+      attenuationDurations: [100, 200],
+      transmissionRiskLevel: 3,
+      totalRiskScore: risk
+    )
+    
+    let normalInfo = CodableExposureInfo(
+      date: date,
+      duration: 1,
+      attenuationValue: 2,
+      attenuationDurations: [100, 200],
+      transmissionRiskLevel: 3,
+      totalRiskScore: risk
+    )
+
+    let recentInfo = CodableExposureInfo(
+      date: newestDate,
+      duration: 1,
+      attenuationValue: 2,
+      attenuationDurations: [100, 200],
+      transmissionRiskLevel: 3,
+      totalRiskScore: risk
+    )
+
+    let summary = CodableExposureDetectionSummary(
+      date: newestDate,
+      matchedKeyCount: 1,
+      daysSinceLastExposure: 2,
+      attenuationDurations: [100, 200],
+      maximumRiskScore: 3,
+      exposureInfo: [oldInfo, recentInfo, normalInfo]
+    )
+
+    let requestBody = DataUploadRequest.Body(
+      teks: [],
+      province: "AA",
+      exposureDetectionSummaries: [summary],
+      maximumExposureInfoCount: cap,
+      maximumExposureDetectionSummaryCount: Int.max
+    )
+
+    XCTAssertEqual(Set(requestBody.exposureDetectionSummaries.flatMap { $0.exposureInfo }), Set([normalInfo, oldInfo]))
+  }
+
+  func testLowestRiskInfoIsDiscarded() throws {
+    let cap = 2
+    let date = Date()
+
+    let lowRisk = CodableExposureInfo(
+      date: date,
+      duration: 1,
+      attenuationValue: 2,
+      attenuationDurations: [100, 200],
+      transmissionRiskLevel: 3,
+      totalRiskScore: 1
+    )
+    let normalRisk = CodableExposureInfo(
+      date: date,
+      duration: 1,
+      attenuationValue: 2,
+      attenuationDurations: [100, 200],
+      transmissionRiskLevel: 3,
+      totalRiskScore: 2
+    )
+    let highRisk = CodableExposureInfo(
+      date: date,
+      duration: 1,
+      attenuationValue: 2,
+      attenuationDurations: [100, 200],
+      transmissionRiskLevel: 3,
+      totalRiskScore: 3
+    )
+
+    let summary = CodableExposureDetectionSummary(
+      date: date,
+      matchedKeyCount: 1,
+      daysSinceLastExposure: 2,
+      attenuationDurations: [100, 200],
+      maximumRiskScore: 3,
+      exposureInfo: [lowRisk, highRisk, normalRisk]
+    )
+
+    let requestBody = DataUploadRequest.Body(
+      teks: [],
+      province: "AA",
+      exposureDetectionSummaries: [summary],
+      maximumExposureInfoCount: cap,
+      maximumExposureDetectionSummaryCount: Int.max
+    )
+
+    XCTAssertEqual(Set(requestBody.exposureDetectionSummaries.flatMap { $0.exposureInfo }), Set([normalRisk, highRisk]))
+  }
 }
