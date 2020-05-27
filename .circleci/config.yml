@@ -223,7 +223,7 @@ commands:
             echo "export APP_VERSION=$APP_VERSION" >> $BASH_ENV
       - run:
           name: "[xcode_setup] Configure Xcode project"
-          command: CI_MODE=1 make immuni
+          command: CI_MODE=1 EXCLUDE_DEV_TOOLING=1 make immuni
       - run:
           name: "[xcode_setup] Increment the build number"
           command: |
