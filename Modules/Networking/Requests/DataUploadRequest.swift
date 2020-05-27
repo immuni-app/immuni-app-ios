@@ -59,7 +59,13 @@ public extension DataUploadRequest {
       province: String,
       exposureDetectionSummaries: [CodableExposureDetectionSummary]
     ) {
-      self.teks = teks
+      // In development, the key of the current day is also returned, resulting in a request with 15 TEKs. Given that the backend
+      // expects 14, the oldest one is discarded.
+      let cappedKeys = teks
+        .sorted(by: CodableTemporaryExposureKey.byRollingStartNumberDesc)
+        .prefix(14)
+
+      self.teks = Array(cappedKeys)
       self.province = province
       self.exposureDetectionSummaries = exposureDetectionSummaries
     }
@@ -71,5 +77,13 @@ public extension DataUploadRequest.Body {
     case teks
     case province
     case exposureDetectionSummaries = "exposure_detection_summaries"
+  }
+}
+
+// MARK: - Sorting
+extension CodableTemporaryExposureKey {
+  /// Sorting closure that sorts two keys by rollingStartNumber in descending order.
+  static let byRollingStartNumberDesc: (Self, Self) -> Bool = { lhs, rhs in
+    return lhs.rollingStartNumber > rhs.rollingStartNumber
   }
 }
