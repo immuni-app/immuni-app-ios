@@ -33,7 +33,7 @@ class SettingsUITests: AppViewTestCase, ViewTestCase {
         ),
         SettingsVM.Section(
           header: .general,
-          settings: [.chageProvince, .leaveReview, .contactSupport]
+          settings: [.chageProvince, .leaveReview]
         )
       ],
       appName: "Immuni",
@@ -55,7 +55,7 @@ class SettingsUITests: AppViewTestCase, ViewTestCase {
         ),
         SettingsVM.Section(
           header: .general,
-          settings: [.chageProvince, .leaveReview, .contactSupport]
+          settings: [.chageProvince, .leaveReview]
         )
       ],
       appName: "Immuni",
