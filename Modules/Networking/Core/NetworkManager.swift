@@ -81,14 +81,29 @@ extension NetworkManager {
 
 extension NetworkManager {
   /// Validates a given `OTP` with the backend
-  public func validateOTP(_ otp: OTP) -> Promise<Void> {
-    return self.request(OTPValidationRequest(otp: otp, now: self.unwrappedDependencies.now)).safeVoid
+  public func validateOTP(_ otp: OTP, requestSize: Int) -> Promise<Void> {
+    return self
+      .request(OTPValidationRequest(
+        otp: otp,
+        now: self.unwrappedDependencies.now,
+        targetSize: requestSize
+      )).safeVoid
   }
 
   /// Uploads data to the backend as a consequence of a positive COVID diagnosis. The request is authenticated with a previously
   /// validated OTP.
-  public func uploadData(body: DataUploadRequest.Body, otp: OTP) -> Promise<Void> {
-    return self.request(DataUploadRequest(body: body, otp: otp, now: self.unwrappedDependencies.now)).safeVoid
+  public func uploadData(body: DataUploadRequest.Body, otp: OTP, requestSize: Int) -> Promise<Void> {
+    return self.request(DataUploadRequest(
+      body: body,
+      otp: otp,
+      now: self.unwrappedDependencies.now,
+      targetSize: requestSize
+    )).safeVoid
+  }
+
+  /// Sends a dummy request to the backend.
+  public func sendDummyIngestionRequest(requestSize: Int) -> Promise<Void> {
+    return self.request(DummyIngestionRequest(now: self.unwrappedDependencies.now, targetSize: requestSize)).safeVoid
   }
 }
 

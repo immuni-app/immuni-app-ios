@@ -80,7 +80,9 @@ extension Logic.DataUpload {
 
       do {
         // Send the request
-        try await(context.dependencies.networkManager.validateOTP(self.code))
+        #warning("Take request size from configuration")
+        let requestSize = 200_000
+        try await(context.dependencies.networkManager.validateOTP(self.code, requestSize: requestSize))
         try context.awaitDispatch(MarkOTPValidationSuccessfulAttempt())
       } catch NetworkManager.Error.unauthorizedOTP {
         // User is not authorized. Bubble up the error to the calling ViewController
@@ -165,7 +167,9 @@ extension Logic.DataUpload {
 
       // Send the data to the backend
       do {
-        try await(context.dependencies.networkManager.uploadData(body: requestBody, otp: self.code))
+        #warning("Take request size from configuration")
+        let requestSize = 200_000
+        try await(context.dependencies.networkManager.uploadData(body: requestBody, otp: self.code, requestSize: requestSize))
         try await(context.dispatch(Logic.Loading.Hide()))
       } catch {
         try await(context.dispatch(Logic.Loading.Hide()))

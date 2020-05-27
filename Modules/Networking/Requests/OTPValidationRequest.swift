@@ -17,7 +17,9 @@ import Extensions
 import Foundation
 import Models
 
-public struct OTPValidationRequest: JSONRequest {
+public struct OTPValidationRequest: FixedSizeJSONRequest {
+  public typealias BodyModel = EmptyBody
+
   // swiftlint:disable:next force_unwrapping
   public var baseURL = URL(string: "https://upload.immuni.gov.it")!
 
@@ -35,8 +37,14 @@ public struct OTPValidationRequest: JSONRequest {
   }
 
   public let otp: OTP
-  public let jsonParameter = Body()
-  let now: () -> Date
+  public let now: () -> Date
+  public var targetSize: Int
+
+  public init(otp: OTP, now: @escaping () -> Date, targetSize: Int) {
+    self.otp = otp
+    self.now = now
+    self.targetSize = targetSize
+  }
 }
 
 public extension OTPValidationRequest {

@@ -17,7 +17,7 @@ import Extensions
 import Foundation
 import Models
 
-public struct DataUploadRequest: JSONRequest {
+public struct DataUploadRequest: FixedSizeJSONRequest {
   // swiftlint:disable:next force_unwrapping
   public var baseURL = URL(string: "https://upload.immuni.gov.it")!
   public var path = "/v1/ingestion/upload"
@@ -36,11 +36,13 @@ public struct DataUploadRequest: JSONRequest {
   public let jsonParameter: Body
   public let otp: OTP
   public let now: () -> Date
+  public let targetSize: Int
 
-  init(body: Body, otp: OTP, now: @escaping () -> Date) {
+  public init(body: Body, otp: OTP, now: @escaping () -> Date, targetSize: Int) {
     self.jsonParameter = body
     self.otp = otp
     self.now = now
+    self.targetSize = targetSize
   }
 }
 
@@ -64,19 +66,6 @@ public extension DataUploadRequest {
       #warning("use meaningful padding")
       self.padding = ""
     }
-  }
-}
-
-public extension DataUploadRequest.Body {
-  static func dummy() -> Self {
-    let randomProvince = Province.allCases.randomElement()
-      ?? LibLogger.fatalError("No provinces defined")
-
-    return self.init(
-      teks: [],
-      province: randomProvince.rawValue,
-      exposureDetectionSummaries: []
-    )
   }
 }
 

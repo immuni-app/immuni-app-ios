@@ -100,8 +100,9 @@ extension Logic.DataUpload {
           break
         }
 
-        #warning("Define proper dummy request")
-        try? await(context.dependencies.networkManager.uploadData(body: .dummy(), otp: .init()))
+        #warning("Take request size from configuration")
+        let requestSize = 200_000
+        try? await(context.dependencies.networkManager.sendDummyIngestionRequest(requestSize: requestSize))
 
         let diceRoll = context.dependencies.uniformDistributionGenerator.randomNumberBetweenZeroAndOne()
         let threshold = state.configuration.dummyIngestionRequestProbabilities[safe: executions]
