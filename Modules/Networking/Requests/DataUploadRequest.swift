@@ -88,7 +88,7 @@ extension DataUploadRequest.Body {
   static func cap(_ teks: [CodableTemporaryExposureKey]) -> [CodableTemporaryExposureKey] {
     let cappedTeks = teks
       .sorted(by: CodableTemporaryExposureKey.byRollingStartNumberDesc)
-      .prefix(14)
+      .prefix(CodableTemporaryExposureKey.maximumKeysPerRequest)
 
     return Array(cappedTeks)
   }
@@ -124,6 +124,8 @@ extension DataUploadRequest.Body {
 }
 
 extension CodableTemporaryExposureKey {
+  static let maximumKeysPerRequest = 14
+
   /// Sorting closure that sorts two keys by rollingStartNumber in descending order.
   static let byRollingStartNumberDesc: (Self, Self) -> Bool = { lhs, rhs in
     lhs.rollingStartNumber > rhs.rollingStartNumber
