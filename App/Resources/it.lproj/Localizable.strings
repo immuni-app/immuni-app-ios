@@ -12,7 +12,7 @@
 "notifications.update_app.description" = "È disponibile un aggiornamento importante. Aggiorna subito l’app per garantirne il funzionamento.";
 "notifications.not_active_service.title" = "⚠️ Il servizio non è attivo";
 "notifications.not_active_service.description" = "Riattiva Immuni al più presto perché ti possa avvertire in caso di rischio.";
-"notifications.apple_exposure_notification.message" = "Una persona con cui hai avuto un contatto ravvicinato è risultata positiva al test.";
+"notifications.apple_exposure_notification.message" = "Una persona con cui hai avuto un contatto ravvicinato è risultata positiva al test";
 "notifications.risk.title" = "Avviso importante per te";
 "notifications.risk.description" = "Apri l’app per avere più informazioni.";
 "notifications.update_positive_state.title" = "Aggiorna il tuo stato";
