@@ -107,15 +107,6 @@ extension NetworkManager {
   }
 }
 
-// MARK: - Analytics Service requests
-
-extension NetworkManager {
-  /// Sends a request to the Analytics server, following a cycle of Exposure Detection.
-  public func sendAnalytics(body: AnalyticsRequest.Body, isDummy: Bool) -> Promise<Void> {
-    return self.request(AnalyticsRequest(body: body, isDummy: isDummy)).safeVoid
-  }
-}
-
 // MARK: - Supporting types
 
 public extension NetworkManager {
