@@ -137,7 +137,7 @@ class DataUploadRequestTests: XCTestCase {
       transmissionRiskLevel: 3,
       totalRiskScore: risk
     )
-    
+
     let normalInfo = CodableExposureInfo(
       date: date,
       duration: 1,
