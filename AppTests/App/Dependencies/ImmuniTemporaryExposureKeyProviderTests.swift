@@ -12,12 +12,12 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-@testable import Immuni
-import XCTest
-import Persistence
 import Hydra
+@testable import Immuni
 import Models
 import Networking
+import Persistence
+import XCTest
 
 final class ImmuniTemporaryExposureKeyProviderTests: XCTestCase {
   func testReturnCorrectValues() throws {
@@ -100,7 +100,7 @@ final class ImmuniTemporaryExposureKeyProviderTests: XCTestCase {
     expectToEventually(promise.isPending == false)
 
     let chunks = try XCTUnwrap(promise.result)
-    
+
     XCTAssertEqual(chunks.count, 0)
   }
 }

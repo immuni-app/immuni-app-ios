@@ -66,9 +66,9 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
         guard
           keysIndex.newest > latestKnown,
           keysIndex.newest > keysIndex.oldest
-        else {
-          // no chunks to download
-          return []
+          else {
+            // no chunks to download
+            return []
         }
 
         // note the +1. It is added to prevent to download the previous "latest"
@@ -85,7 +85,7 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
         // but the manager should handle them and retry as soon as possible.
         // Assuming we don't publish more than 15 chunks per day (which we won't)
         // the algorithm is stable
-        return (firstKeyToDownload...keysIndex.newest).suffix(Self.keyDailyRateLimit)
+        return (firstKeyToDownload ... keysIndex.newest).suffix(Self.keyDailyRateLimit)
       }
   }
 
