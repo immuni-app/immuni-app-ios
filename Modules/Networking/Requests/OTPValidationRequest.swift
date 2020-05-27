@@ -17,7 +17,7 @@ import Extensions
 import Foundation
 import Models
 
-public struct OTPValidationRequest: HTTPRequest {
+public struct OTPValidationRequest: JSONRequest {
   // swiftlint:disable:next force_unwrapping
   public var baseURL = URL(string: "https://upload.immuni.gov.it")!
 
@@ -35,5 +35,13 @@ public struct OTPValidationRequest: HTTPRequest {
   }
 
   public let otp: OTP
+  public let jsonParameter = Body()
   let now: () -> Date
+}
+
+public extension OTPValidationRequest {
+  struct Body: Encodable {
+    #warning("use meaningful padding")
+    let padding: String = Padding.randomString(length: 1)
+  }
 }

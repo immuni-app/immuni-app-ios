@@ -49,7 +49,10 @@ public extension DataUploadRequest {
     public let teks: [CodableTemporaryExposureKey]
     public let province: String
     public let exposureDetectionSummaries: [CodableExposureDetectionSummary]
+    let padding: String
 
+    /// Create a data upload request body with given teks, province and exposureDetectionSummaries.
+    /// A padding is added automatically so that both valid both dummy requests will have the same size.
     public init(
       teks: [CodableTemporaryExposureKey],
       province: String,
@@ -58,13 +61,14 @@ public extension DataUploadRequest {
       self.teks = teks
       self.province = province
       self.exposureDetectionSummaries = exposureDetectionSummaries
+      #warning("use meaningful padding")
+      self.padding = Padding.randomString(length: 1)
     }
   }
 }
 
 public extension DataUploadRequest.Body {
   static func dummy() -> Self {
-    #warning("Make the same size as a legitimate request")
     let randomProvince = Province.allCases.randomElement()
       ?? LibLogger.fatalError("No provinces defined")
 
@@ -81,5 +85,15 @@ public extension DataUploadRequest.Body {
     case teks
     case province
     case exposureDetectionSummaries = "exposure_detection_summaries"
+  }
+}
+
+enum Padding {
+  static func randomString(length: Int) -> String {
+    guard length > 0 else {
+      return ""
+    }
+    let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    return String((0 ..< length).map { _ in letters.randomElement() ?? "0" })
   }
 }
