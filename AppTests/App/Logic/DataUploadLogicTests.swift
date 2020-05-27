@@ -70,7 +70,7 @@ final class DataUploadLogicTests: XCTestCase {
       let headers = Dictionary(uniqueKeysWithValues: request.headers.map { ($0.name, $0.value) })
       XCTAssertNotNil(headers["Authorization"])
       XCTAssertEqual(headers["Content-Type"], "application/json; charset=UTF-8")
-      XCTAssertEqual(headers["Exp-Dummy-Data"], "false")
+      XCTAssertEqual(headers["Immuni-Dummy-Data"], "0")
     }
   }
 
@@ -261,8 +261,8 @@ final class DataUploadLogicTests: XCTestCase {
       let headers = Dictionary(uniqueKeysWithValues: request.headers.map { ($0.name, $0.value) })
       XCTAssertNotNil(headers["Authorization"])
       XCTAssertEqual(headers["Content-Type"], "application/json; charset=UTF-8")
-      XCTAssertEqual(headers["Exp-Dummy-Data"], "false")
-      XCTAssertEqual(headers["Exp-Client-Clock"], String(clock.timeIntervalSince1970.roundedInt()))
+      XCTAssertEqual(headers["Immuni-Dummy-Data"], "0")
+      XCTAssertEqual(headers["Immuni-Client-Clock"], String(clock.timeIntervalSince1970.roundedInt()))
 
       XCTAssertEqual(request.jsonParameter.teks.count, teks.count)
 
