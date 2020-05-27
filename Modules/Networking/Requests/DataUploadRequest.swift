@@ -83,8 +83,8 @@ public extension DataUploadRequest.Body {
 // MARK: - Sorting
 
 extension DataUploadRequest.Body {
-  // In development, the key of the current day is also returned, resulting in a request with 15 TEKs. Given that the backend
-  // expects 14, the oldest one is discarded.
+  /// In development, the key of the current day is also returned, resulting in a request with 15 TEKs. Given that the backend
+  /// expects 14, the oldest one is discarded.
   static func cap(_ teks: [CodableTemporaryExposureKey]) -> [CodableTemporaryExposureKey] {
     let cappedTeks = teks
       .sorted(by: CodableTemporaryExposureKey.byRollingStartNumberDesc)
@@ -93,6 +93,7 @@ extension DataUploadRequest.Body {
     return Array(cappedTeks)
   }
 
+  /// To ensure that the size of the request is within the targetSize, Summaries and ExposureInfo are capped to a given value.
   static func cap(
     _ summaries: [CodableExposureDetectionSummary],
     maxSummaries: Int,
@@ -104,19 +105,17 @@ extension DataUploadRequest.Body {
         .prefix(maxSummaries)
     )
 
-    let exposureInfoWithSummary = Array(
+    let exposureInfoToKeep = Set(
       cappedSummaries
-        .flatMap { summary in summary.exposureInfo.map { info in (info: info, summary: summary) } }
+        .flatMap { $0.exposureInfo }
         .sorted(by: CodableExposureInfo.byRiskDescendingDateAscending)
         .prefix(maxExposureInfo)
     )
 
-    let exposureInfosBySummary = Dictionary(grouping: exposureInfoWithSummary, by: { $0.summary })
-      .mapValues { $0.map { $0.info } }
-
     var resultingSummaries: [CodableExposureDetectionSummary] = []
-    for (var summary, exposureInfos) in exposureInfosBySummary {
-      summary.exposureInfo = exposureInfos
+    for var summary in cappedSummaries {
+      summary.exposureInfo = summary.exposureInfo
+        .filter { exposureInfoToKeep.contains($0) }
       resultingSummaries.append(summary)
     }
 
@@ -140,12 +139,8 @@ extension CodableExposureDetectionSummary {
 }
 
 extension CodableExposureInfo {
-  typealias ExposureInfoWithSummary = (info: CodableExposureInfo, summary: CodableExposureDetectionSummary)
-
-  static let byRiskDescendingDateAscending: (ExposureInfoWithSummary, ExposureInfoWithSummary) -> Bool = { lhs, rhs in
-    let lhs = lhs.info
-    let rhs = rhs.info
-
+  /// Sorting closure that sorts two summaries by risk descending first, date ascending second.
+  static let byRiskDescendingDateAscending: (CodableExposureInfo, CodableExposureInfo) -> Bool = { lhs, rhs in
     guard lhs.totalRiskScore != rhs.totalRiskScore else {
       // Same risk. Sort by date ascending
       return lhs.date < rhs.date
