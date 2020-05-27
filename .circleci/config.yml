@@ -154,7 +154,7 @@ commands:
             - 1-pods-
       - run:
           name: "[cocoapods] Install pods"
-          command: INCLUDE_DEV_TOOLING=TRUE pod install
+          command: pod install
       - save_cache:
           name: "[cocoapods] Save the cache"
           key: 1-pods-{{ checksum "podfile_checksum" }}
