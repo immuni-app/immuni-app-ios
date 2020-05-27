@@ -23,7 +23,7 @@ E.g.:
 python UITests/run.py ct-app Immuni.xcworkspace Immuni true 3 XL it en
 """
 
-if len(sys.argv) > 0 and sys.argv[1] in ["-h", "--h", "--help", "-help"]:
+if len(sys.argv) > 1 and sys.argv[1] in ["-h", "--h", "--help", "-help"]:
 	print(usage)
 	quit()
 
@@ -97,8 +97,8 @@ for device in devices:
 	if os.path.exists(simulator_fontSize_preferences_file):
 		# shutdown the simulator in case it is running
 		print("Shutdown the {} simulator in case it is running".format(device))
-		subprocess.call(["xcrun", "simctl", "shutdown", simulator_uuid])
-        
+		subprocess.call(["xcrun", "simctl", "shutdown", device], stderr=open(os.devnull))
+
 		# set the simulator's font size
 		print("Set the {} simulator\'s font size to {}".format(device, font_size))
 		simulator_largerText_preferences_file = '{}/Library/Developer/CoreSimulator/Devices/{}/data/Library/Preferences/com.apple.preferences-framework.plist'.format(os.path.expanduser("~"), simulator_uuid)
@@ -106,7 +106,7 @@ for device in devices:
 
 		subprocess.call(['plutil', '-replace', 'UIPreferredContentSizeCategoryName',
 		'-string', font_size, simulator_fontSize_preferences_file]) # set the size
-        
+
 		# boot the simulator
 		print("Boot the {} simulator".format(device))
 		subprocess.call(["xcrun", "simctl", "boot", device])
@@ -140,7 +140,7 @@ for lang in languages:
 		scheme_arg, scheme,
 		language_arg, lang,
 		'-only-testing:Immuni UITests'] + device_args
-	
+
 	print("\n\n Calling xcodebuild for language "+lang)
 	subprocess.call(args)
 
