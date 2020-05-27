@@ -81,9 +81,10 @@ public extension DataUploadRequest.Body {
 }
 
 // MARK: - Sorting
+
 extension CodableTemporaryExposureKey {
   /// Sorting closure that sorts two keys by rollingStartNumber in descending order.
   static let byRollingStartNumberDesc: (Self, Self) -> Bool = { lhs, rhs in
-    return lhs.rollingStartNumber > rhs.rollingStartNumber
+    lhs.rollingStartNumber > rhs.rollingStartNumber
   }
 }
