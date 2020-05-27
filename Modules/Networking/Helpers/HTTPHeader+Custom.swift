@@ -18,12 +18,14 @@ import Foundation
 extension HTTPHeader {
   /// Returns an `Exp-Dummy-Data` header.
   public static func dummyData(_ value: Bool) -> HTTPHeader {
-    HTTPHeader(name: "Exp-Dummy-Data", value: String(value))
+    // Convert bool to int to ensure that the packet sizes are always the same.
+    let intValue = value ? 1 : 0
+    return HTTPHeader(name: "Immuni-Dummy-Data", value: String(intValue))
   }
 
   /// Returns a `Exp-Client-Clock` header.
   public static func clientClock(_ value: Date) -> HTTPHeader {
-    HTTPHeader(name: "Exp-Client-Clock", value: String(value.timeIntervalSince1970.roundedInt()))
+    HTTPHeader(name: "Immuni-Client-Clock", value: String(value.timeIntervalSince1970.roundedInt()))
   }
 
   /// Default headers for the Immuni application. These headers will be used across
