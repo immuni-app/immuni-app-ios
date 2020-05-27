@@ -32,4 +32,11 @@ public extension String {
       .hash(data: Data(self.utf8))
       .hexString
   }
+
+  /// Returns a string of random hexadecimal digits with the given `size`
+  static func random(size: Int) -> Self {
+    let requiredBytesOfRandomness = size / 2 + 1
+    let randomData = Data.randomData(with: requiredBytesOfRandomness)
+    return String(randomData.hexString.prefix(size))
+  }
 }
