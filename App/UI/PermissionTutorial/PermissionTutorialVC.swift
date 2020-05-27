@@ -38,17 +38,28 @@ final class PermissionTutorialVC: ViewControllerWithLocalState<PermissionTutoria
         self?.localState.isHeaderVisible = false
       }
     }
+
+    self.rootView.willStartScrollAnimation = { [weak self] in
+      self?.localState.shouldAnimateContent = false
+    }
+
+    self.rootView.didEndScrollAnimation = { [weak self] in
+      self?.localState.shouldAnimateContent = true
+    }
   }
 }
 
 struct PermissionTutorialLS: LocalState {
   /// Whether the header is visible in the view. The header is shown only when the content is scrolled.
   var isHeaderVisible: Bool
+  /// Whether the animatable content should play. This is used to stop animated content while scrolling to improve performances.
+  var shouldAnimateContent: Bool
   /// A struct containing all the info meant to be shown in the view.
   let content: PermissionTutorialVM.Content
 
   init(content: PermissionTutorialVM.Content) {
     self.isHeaderVisible = false
+    self.shouldAnimateContent = true
     self.content = content
   }
 }

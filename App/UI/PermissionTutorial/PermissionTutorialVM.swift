@@ -21,6 +21,13 @@ struct PermissionTutorialVM {
   let content: Content
   /// Whether the header is visible in the view. The header is shown only when the content is scrolled.
   let isHeaderVisible: Bool
+  /// Whether the animatable content should play. This is used to stop animated content while scrolling to improve performances.
+  let shouldAnimateContent: Bool
+
+  /// Check whether the view has animated content.
+  var hasAnimatedContent: Bool {
+    return self.content.items.contains { guard case .animationContent = $0 else { return false }; return true }
+  }
 
   func shouldReloadCollection(oldVM: Self?) -> Bool {
     guard let oldVM = oldVM else {
@@ -30,6 +37,19 @@ struct PermissionTutorialVM {
     return self.content != oldVM.content
   }
 
+  func shouldUpdateAnimations(oldVM: Self?) -> Bool {
+    // not needed if there is no animation cell
+    guard self.hasAnimatedContent else {
+      return false
+    }
+
+    guard let oldVM = oldVM else {
+      return false
+    }
+
+    return self.shouldAnimateContent != oldVM.shouldAnimateContent
+  }
+
   func shouldUpdateHeader(oldVM: Self?) -> Bool {
     guard let oldVM = oldVM else {
       return true
@@ -37,12 +57,41 @@ struct PermissionTutorialVM {
 
     return self.isHeaderVisible != oldVM.isHeaderVisible
   }
+
+  func cellVM(for item: Content.Item) -> ViewModel {
+    switch item {
+    case .title(let title):
+      return PermissionTutorialTitleCellVM(content: title)
+
+    case .textualContent(let content):
+      return PermissionTutorialTextCellVM(content: content)
+
+    case .animationContent(let animationAsset):
+      return PermissionTutorialAnimationCellVM(
+        asset: animationAsset,
+        shouldPlay: self.shouldAnimateContent
+      )
+
+    case .imageContent(let image):
+      return PermissionTutorialImageCellVM(content: image)
+
+    case .textAndImage(let text, let image):
+      return PermissionTutorialTextAndImageCellVM(textualContent: text, image: image)
+
+    case .spacer(let size):
+      return PermissionTutorialSpacerVM(size: size)
+
+    case .scrollableButton(let description, let buttonTitle):
+      return PermissionTutorialButtonCellVM(description: description, buttonTitle: buttonTitle)
+    }
+  }
 }
 
 extension PermissionTutorialVM: ViewModelWithLocalState {
   init?(state: AppState?, localState: PermissionTutorialLS) {
     self.content = localState.content
     self.isHeaderVisible = localState.isHeaderVisible
+    self.shouldAnimateContent = localState.shouldAnimateContent
   }
 }
 
@@ -96,36 +145,11 @@ extension PermissionTutorialVM.Content {
   enum Item: Equatable {
     case title(String)
     case textualContent(String)
-    case animationContent(String)
+    case animationContent(AnimationAsset)
     case imageContent(UIImage)
     case textAndImage(String, UIImage)
     case spacer(PermissionTutorialSpacerVM.Size)
     case scrollableButton(description: String, buttonTitle: String)
-
-    var cellVM: ViewModel {
-      switch self {
-      case .title(let title):
-        return PermissionTutorialTitleCellVM(content: title)
-
-      case .textualContent(let content):
-        return PermissionTutorialTextCellVM(content: content)
-
-      case .animationContent(let animationName):
-        return PermissionTutorialAnimationCellVM(animationName: animationName)
-
-      case .imageContent(let image):
-        return PermissionTutorialImageCellVM(content: image)
-
-      case .textAndImage(let text, let image):
-        return PermissionTutorialTextAndImageCellVM(textualContent: text, image: image)
-
-      case .spacer(let size):
-        return PermissionTutorialSpacerVM(size: size)
-
-      case .scrollableButton(let description, let buttonTitle):
-        return PermissionTutorialButtonCellVM(description: description, buttonTitle: buttonTitle)
-      }
-    }
   }
 }
 
@@ -230,7 +254,7 @@ extension PermissionTutorialVM.Content {
   static func howImmuniWorks(shouldShowFaqButton: Bool) -> Self {
     var items: [Item] = [
       .spacer(.big),
-      .imageContent(Asset.HowImmuniWorks.visual1.image),
+      .animationContent(.hiw1),
       .spacer(.medium),
       .textualContent(L10n.PermissionTutorial.HowImmuniWorks.First.title),
       .spacer(.tiny),
@@ -238,7 +262,7 @@ extension PermissionTutorialVM.Content {
       .spacer(.medium),
       .imageContent(Asset.HowImmuniWorks.break.image),
       .spacer(.big),
-      .imageContent(Asset.HowImmuniWorks.visual2.image),
+      .animationContent(.hiw2),
       .spacer(.medium),
       .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Second.title),
       .spacer(.tiny),
@@ -246,7 +270,7 @@ extension PermissionTutorialVM.Content {
       .spacer(.medium),
       .imageContent(Asset.HowImmuniWorks.break.image),
       .spacer(.big),
-      .imageContent(Asset.HowImmuniWorks.visual3.image),
+      .animationContent(.hiw3),
       .spacer(.medium),
       .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Third.title),
       .spacer(.tiny),
@@ -254,7 +278,7 @@ extension PermissionTutorialVM.Content {
       .spacer(.medium),
       .imageContent(Asset.HowImmuniWorks.break.image),
       .spacer(.big),
-      .imageContent(Asset.HowImmuniWorks.visual4.image),
+      .animationContent(.hiw4),
       .spacer(.medium),
       .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Fourth.title),
       .spacer(.tiny),
@@ -262,7 +286,7 @@ extension PermissionTutorialVM.Content {
       .spacer(.medium),
       .imageContent(Asset.HowImmuniWorks.break.image),
       .spacer(.big),
-      .imageContent(Asset.HowImmuniWorks.visual5.image),
+      .animationContent(.hiw5),
       .spacer(.medium),
       .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Fifth.title),
       .spacer(.tiny),
