@@ -85,5 +85,6 @@ public extension DataUploadRequest.Body {
     case teks
     case province
     case exposureDetectionSummaries = "exposure_detection_summaries"
+    case padding
   }
 }
