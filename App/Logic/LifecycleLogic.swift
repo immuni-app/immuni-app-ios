@@ -59,9 +59,6 @@ extension Logic {
         context.dispatch(Logic.CovidStatus.RemoveRiskReminderNotification())
 
         if !isFirstLaunch {
-          // update analytics info
-          try context.awaitDispatch(Logic.Analytics.UpdateEventWithoutExposureOpportunityWindowIfNeeded())
-
           // Perform exposure detection if necessary
           context.dispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground))
 
@@ -96,9 +93,6 @@ extension Logic {
 
         // check whether to show force update
         try context.awaitDispatch(ForceUpdate.CheckAppVersion())
-
-        // update analytics info
-        try context.awaitDispatch(Logic.Analytics.UpdateEventWithoutExposureOpportunityWindowIfNeeded())
 
         // Perform exposure detection if necessary
         context.dispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground))
@@ -160,9 +154,6 @@ extension Logic {
         // clears `PositiveExposureResults` older than 14 days from the `ExposureDetectionState`
         try context.awaitDispatch(Logic.ExposureDetection.ClearOutdatedResults(now: context.dependencies.now()))
 
-        // update analytics info
-        try context.awaitDispatch(Logic.Analytics.UpdateEventWithoutExposureOpportunityWindowIfNeeded())
-
         // updates the ingestion dummy traffic opportunity window if it expired
         try context.awaitDispatch(Logic.DataUpload.UpdateDummyTrafficOpportunityWindowIfExpired())
 
@@ -195,9 +186,6 @@ extension Logic.Lifecycle {
 
       // Fail silently in case of error (for example, the timeout triggering)
       try? await(configurationFetch)
-
-      /// Initialize the stochastic parameters required for the generation of dummy analytics traffic.
-      try context.awaitDispatch(Logic.Analytics.UpdateDummyTrafficOpportunityWindow())
 
       /// Initialize the stochastic parameters required for the generation of dummy ingestion traffic.
       try context.awaitDispatch(Logic.DataUpload.UpdateDummyTrafficOpportunityWindow())

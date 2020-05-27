@@ -23,7 +23,6 @@ struct AppState: State, Codable {
     case toggles
     case user
     case exposureDetection
-    case analytics
     case ingestion
     case faq
   }
@@ -41,9 +40,6 @@ struct AppState: State, Codable {
 
   /// Slice related to configuration parameters for the app
   var configuration = Configuration()
-
-  /// Slice of state related to the analytics part of the app
-  var analytics = AnalyticsState()
 
   /// Slice of the state related to the ingestion server
   var ingestion = IngestionState()
