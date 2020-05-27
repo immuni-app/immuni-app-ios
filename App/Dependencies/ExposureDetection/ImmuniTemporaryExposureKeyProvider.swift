@@ -63,7 +63,10 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
 
         let latestKnown = latestKnownChunkIndex ?? -1
 
-        guard keysIndex.newest > latestKnown else {
+        guard
+          keysIndex.newest > latestKnown,
+          keysIndex.newest > keysIndex.oldest
+        else {
           // no chunks to download
           return []
         }
