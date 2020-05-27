@@ -29,19 +29,18 @@ extension AnimationView {
   }
 }
 
+/// Enum containing all the animations name of the app.
 enum AnimationAsset: String, CaseIterable, Equatable {
   case hiw1 = "hiw_1"
   case hiw2 = "hiw_2"
   case hiw3 = "hiw_3"
   case hiw4 = "hiw_4"
   case hiw5 = "hiw_5"
+}
 
-  static let hiw1Animation = Animation.named(AnimationAsset.hiw1.rawValue)
-  static let hiw2Animation = Animation.named(AnimationAsset.hiw2.rawValue)
-  static let hiw3Animation = Animation.named(AnimationAsset.hiw3.rawValue)
-  static let hiw4Animation = Animation.named(AnimationAsset.hiw4.rawValue)
-  static let hiw5Animation = Animation.named(AnimationAsset.hiw5.rawValue)
-
+extension AnimationAsset {
+  /// An helper to get the Animation object related to the `AnimationAsset` statically computed.
+  /// Check  `PreloadAssets` action for better documentation.
   var animation: Animation? {
     switch self {
     case .hiw1:
@@ -56,4 +55,10 @@ enum AnimationAsset: String, CaseIterable, Equatable {
       return AnimationAsset.hiw5Animation
     }
   }
+
+  static let hiw1Animation = Animation.named(AnimationAsset.hiw1.rawValue)
+  static let hiw2Animation = Animation.named(AnimationAsset.hiw2.rawValue)
+  static let hiw3Animation = Animation.named(AnimationAsset.hiw3.rawValue)
+  static let hiw4Animation = Animation.named(AnimationAsset.hiw4.rawValue)
+  static let hiw5Animation = Animation.named(AnimationAsset.hiw5.rawValue)
 }
