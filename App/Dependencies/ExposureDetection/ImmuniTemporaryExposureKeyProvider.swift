@@ -75,11 +75,11 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
         // chunk twice
         let firstKeyToDownload = max(latestKnown + 1, keysIndex.oldest)
 
-        // We know we cannot process more than a certain amount of keys per day.
+        // The EN cannot process more than a certain amount of keys per day.
         // If the server returns a number of chunks that is greater than the local
-        // limit, we take just the latest X. This choice has been done because:
-        // - we expect this to happen just during the first EN check
-        // - we want to prioritize recent contacts anyway
+        // limit, just take the latest X. This choice has been done because:
+        // - This should happen just during the first EN check
+        // - It is better to prioritize recent contacts
         //
         // Note that the subsequent runs within 24 hours will fail anyway,
         // but the manager should handle them and retry as soon as possible.
