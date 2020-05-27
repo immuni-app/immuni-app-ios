@@ -315,9 +315,9 @@
   /// Send all three possible Ingestion requests so that their padding can be tested end to end.
   private struct SendRequests: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      context.dependencies.networkManager.validateOTP(OTP(), requestSize: 100_000)
-      context.dependencies.networkManager.uploadData(body: .mock(), otp: OTP(), requestSize: 100_000)
-      context.dependencies.networkManager.sendDummyIngestionRequest(requestSize: 100_000)
+      context.dependencies.networkManager.validateOTP(OTP(), requestSize: 100_000).run()
+      context.dependencies.networkManager.uploadData(body: .mock(), otp: OTP(), requestSize: 100_000).run()
+      context.dependencies.networkManager.sendDummyIngestionRequest(requestSize: 100_000).run()
     }
   }
 
