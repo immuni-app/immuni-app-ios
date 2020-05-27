@@ -109,7 +109,7 @@ for device in devices:
         
 		# boot the simulator
 		print("Boot the {} simulator".format(device))
-		subprocess.call(["xcrun", "simctl", "boot", simulator_uuid])
+		subprocess.call(["xcrun", "simctl", "boot", device])
 	else:
 		print("Unable to set font size on the {} simulator. This happen if it's the first time you boot it, try it again.".format(device))
 		subprocess.call(["xcrun", "simctl", "boot", device])
