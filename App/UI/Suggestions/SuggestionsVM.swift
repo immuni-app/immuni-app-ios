@@ -121,7 +121,7 @@ extension SuggestionsVM {
   static func neutralCells() -> [CellType] {
     return [
       .header(dayOfContact: nil),
-      .spacer(size: .big),
+      .spacer(size: .medium),
       .alert(text: L10n.Suggestions.Neutral.alert),
       .spacer(size: .small),
       .message(text: L10n.Suggestions.Neutral.message),

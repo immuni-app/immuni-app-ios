@@ -59,7 +59,7 @@ struct HomeHeaderCardCellVM: ViewModel {
   var animation: Animation? {
     switch self.kind {
     case .risk:
-      return Animation.named("contactExtended")
+      return AnimationAsset.contactExtended.animation
     case .positive:
       return nil
     }

@@ -85,7 +85,7 @@ private extension AppSetupView {
     }
 
     static func spinner(_ spinner: AnimationView) {
-      spinner.animation = Animation.named("appsetupLoader")
+      spinner.animation = AnimationAsset.appsetupLoader.animation
       spinner.loopMode = .loop
     }
 

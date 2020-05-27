@@ -54,7 +54,7 @@ class ConfirmationView: UIView, ViewControllerModellableView {
 
   func style() {
     Self.Style.root(self)
-    Self.Style.animation(self.checkmark, animation: Animation.named("confirmationCheck"))
+    Self.Style.animation(self.checkmark, animation: AnimationAsset.confirmationCheck.animation)
   }
 
   // MARK: - Update

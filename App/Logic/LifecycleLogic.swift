@@ -27,6 +27,9 @@ extension Logic {
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
         let state = context.getState()
 
+        // Prelaod animation assets. Check `PreloadAssets` action for better documentation.
+        context.dispatch(Logic.Shared.PreloadAssets())
+
         // Set the app name used in the application using the bundle's display name
         if let appName = context.dependencies.bundle.appDisplayName {
           try context.awaitDispatch(SetAppName(appName: appName))
