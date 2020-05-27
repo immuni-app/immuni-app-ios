@@ -111,6 +111,12 @@ extension Logic.Shared {
       _ = context.dependencies.application.goTo(url: self.url).run()
     }
   }
+
+  struct PreloadAssets: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      _ = AnimationAsset.allCases.map { $0.animation }
+    }
+  }
 }
 
 // MARK: - Private
