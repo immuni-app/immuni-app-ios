@@ -57,17 +57,17 @@ public extension DataUploadRequest {
     public init(
       teks: [CodableTemporaryExposureKey],
       province: String,
-      exposureDetectionSummaries: [CodableExposureDetectionSummary]
+      exposureDetectionSummaries: [CodableExposureDetectionSummary],
+      maximumExposureInfoCount: Int,
+      maximumExposureDetectionSummaryCount: Int
     ) {
-      // In development, the key of the current day is also returned, resulting in a request with 15 TEKs. Given that the backend
-      // expects 14, the oldest one is discarded.
-      let cappedKeys = teks
-        .sorted(by: CodableTemporaryExposureKey.byRollingStartNumberDesc)
-        .prefix(14)
-
-      self.teks = Array(cappedKeys)
+      self.teks = Self.cap(teks)
       self.province = province
-      self.exposureDetectionSummaries = exposureDetectionSummaries
+      self.exposureDetectionSummaries = Self.cap(
+        exposureDetectionSummaries,
+        maxSummaries: maximumExposureDetectionSummaryCount,
+        maxExposureInfo: maximumExposureInfoCount
+      )
     }
   }
 }
@@ -82,9 +82,76 @@ public extension DataUploadRequest.Body {
 
 // MARK: - Sorting
 
+extension DataUploadRequest.Body {
+  // In development, the key of the current day is also returned, resulting in a request with 15 TEKs. Given that the backend
+  // expects 14, the oldest one is discarded.
+  static func cap(_ teks: [CodableTemporaryExposureKey]) -> [CodableTemporaryExposureKey] {
+    let cappedTeks = teks
+      .sorted(by: CodableTemporaryExposureKey.byRollingStartNumberDesc)
+      .prefix(14)
+
+    return Array(cappedTeks)
+  }
+
+  static func cap(
+    _ summaries: [CodableExposureDetectionSummary],
+    maxSummaries: Int,
+    maxExposureInfo: Int
+  ) -> [CodableExposureDetectionSummary] {
+    let cappedSummaries = Array(
+      summaries
+        .sorted(by: CodableExposureDetectionSummary.byDateDescending)
+        .prefix(maxSummaries)
+    )
+
+    let exposureInfoWithSummary = Array(
+      cappedSummaries
+        .flatMap { summary in summary.exposureInfo.map { info in (info: info, summary: summary) } }
+        .sorted(by: CodableExposureInfo.byRiskDescendingDateAscending)
+        .prefix(maxExposureInfo)
+    )
+
+    let exposureInfosBySummary = Dictionary(grouping: exposureInfoWithSummary, by: { $0.summary })
+      .mapValues { $0.map { $0.info } }
+
+    var resultingSummaries: [CodableExposureDetectionSummary] = []
+    for (var summary, exposureInfos) in exposureInfosBySummary {
+      summary.exposureInfo = exposureInfos
+      resultingSummaries.append(summary)
+    }
+
+    return resultingSummaries
+  }
+}
+
 extension CodableTemporaryExposureKey {
   /// Sorting closure that sorts two keys by rollingStartNumber in descending order.
   static let byRollingStartNumberDesc: (Self, Self) -> Bool = { lhs, rhs in
     lhs.rollingStartNumber > rhs.rollingStartNumber
+  }
+}
+
+extension CodableExposureDetectionSummary {
+  /// Sorting closure that sorts two summaries by date in descending order.
+  /// Note: `date` is a String, but it's in the `yyyy-MM-dd` format so lexicographic sorting is correct.
+  static let byDateDescending: (Self, Self) -> Bool = { lhs, rhs in
+    lhs.date > rhs.date
+  }
+}
+
+extension CodableExposureInfo {
+  typealias ExposureInfoWithSummary = (info: CodableExposureInfo, summary: CodableExposureDetectionSummary)
+
+  static let byRiskDescendingDateAscending: (ExposureInfoWithSummary, ExposureInfoWithSummary) -> Bool = { lhs, rhs in
+    let lhs = lhs.info
+    let rhs = rhs.info
+
+    guard lhs.totalRiskScore != rhs.totalRiskScore else {
+      // Same risk. Sort by date ascending
+      return lhs.date < rhs.date
+    }
+
+    // Sort by risk descending
+    return lhs.totalRiskScore > rhs.totalRiskScore
   }
 }

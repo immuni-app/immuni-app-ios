@@ -32,13 +32,13 @@ public struct CodableTemporaryExposureKey: Equatable, Codable {
 }
 
 /// A codable struct holding the same information as an `ExposureDetectionSummary`
-public struct CodableExposureDetectionSummary: Equatable, Codable {
+public struct CodableExposureDetectionSummary: Equatable, Hashable, Codable {
   public let date: String // yyyy-MM-dd, the date in which this summary was generated
   public let matchedKeyCount: Int
   public let daysSinceLastExposure: Int
   public let attenuationDurations: [Int] // In seconds
   public let maximumRiskScore: Int
-  public let exposureInfo: [CodableExposureInfo]
+  public var exposureInfo: [CodableExposureInfo]
 
   public init(
     date: Date,
@@ -58,7 +58,7 @@ public struct CodableExposureDetectionSummary: Equatable, Codable {
 }
 
 /// A codable struct holding the same information as an `ExposureInfo`
-public struct CodableExposureInfo: Equatable, Codable {
+public struct CodableExposureInfo: Equatable, Hashable, Codable {
   public let date: String // yyyy-MM-dd, the date of the exposure
   public let duration: Int // In seconds
   public let attenuationValue: Int
