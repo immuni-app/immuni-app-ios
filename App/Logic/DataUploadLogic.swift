@@ -68,6 +68,7 @@ extension Logic.DataUpload {
     }
 
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      let state = context.getState()
       try context.awaitDispatch(Logic.Loading.Show(message: L10n.UploadData.Verify.loading))
 
       do {
@@ -80,8 +81,7 @@ extension Logic.DataUpload {
 
       do {
         // Send the request
-        #warning("Take request size from configuration")
-        let requestSize = 200_000
+        let requestSize = state.configuration.ingestionRequestTargetSize
         try await(context.dependencies.networkManager.validateOTP(self.code, requestSize: requestSize))
         try context.awaitDispatch(MarkOTPValidationSuccessfulAttempt())
       } catch NetworkManager.Error.unauthorizedOTP {
@@ -167,8 +167,7 @@ extension Logic.DataUpload {
 
       // Send the data to the backend
       do {
-        #warning("Take request size from configuration")
-        let requestSize = 200_000
+        let requestSize = state.configuration.ingestionRequestTargetSize
         try await(context.dependencies.networkManager.uploadData(body: requestBody, otp: self.code, requestSize: requestSize))
         try await(context.dispatch(Logic.Loading.Hide()))
       } catch {

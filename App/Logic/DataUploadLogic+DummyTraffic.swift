@@ -100,8 +100,7 @@ extension Logic.DataUpload {
           break
         }
 
-        #warning("Take request size from configuration")
-        let requestSize = 200_000
+        let requestSize = state.configuration.ingestionRequestTargetSize
         try? await(context.dependencies.networkManager.sendDummyIngestionRequest(requestSize: requestSize))
 
         let diceRoll = context.dependencies.uniformDistributionGenerator.randomNumberBetweenZeroAndOne()
