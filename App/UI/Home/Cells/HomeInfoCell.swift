@@ -23,9 +23,9 @@ struct HomeInfoCellVM: ViewModel {
   var animation: Animation? {
     switch self.kind {
     case .protection:
-      return Animation.named("cardDoctor")
+      return AnimationAsset.cardDoctor.animation
     case .app:
-      return Animation.named("cardPerson")
+      return AnimationAsset.cardPerson.animation
     }
   }
 

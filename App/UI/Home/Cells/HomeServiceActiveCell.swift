@@ -303,21 +303,21 @@ private extension HomeServiceActiveCell {
     }
 
     static func shieldShadow(_ animation: AnimationView) {
-      animation.animation = Animation.named("shieldBackground")
+      animation.animation = AnimationAsset.shieldBackground.animation
       animation.loopMode = .loop
       animation.backgroundBehavior = .pauseAndRestore
       animation.playIfPossible()
     }
 
     static func shieldCheckmark(_ animation: AnimationView) {
-      animation.animation = Animation.named("shieldCheckmark")
+      animation.animation = AnimationAsset.shieldCheckmark.animation
       animation.loopMode = .playOnce
       animation.play()
       animation.playIfPossible()
     }
 
     static func shieldDisabled(_ animation: AnimationView) {
-      animation.animation = Animation.named("shieldDisabled")
+      animation.animation = AnimationAsset.shieldDisabled.animation
       animation.loopMode = .loop
       animation.backgroundBehavior = .pauseAndRestore
       animation.playIfPossible()

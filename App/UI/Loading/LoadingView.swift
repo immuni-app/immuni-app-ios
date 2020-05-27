@@ -147,7 +147,7 @@ private extension LoadingView {
     }
 
     static func spinner(_ spinner: AnimationView) {
-      spinner.animation = Animation.named("loader")
+      spinner.animation = AnimationAsset.loader.animation
       spinner.loopMode = .loop
     }
 

@@ -28,6 +28,8 @@ final class PermissionTutorialView: UIView, ViewControllerModellableView {
   var userDidTapClose: Interaction?
   var userDidTapActionButton: Interaction?
   var userDidScroll: CustomInteraction<CGFloat>?
+  var willStartScrollAnimation: Interaction?
+  var didEndScrollAnimation: Interaction?
 
   // MARK: Subviews
 
@@ -91,6 +93,10 @@ final class PermissionTutorialView: UIView, ViewControllerModellableView {
       self.contentCollection.reloadData()
     }
 
+    if model.shouldUpdateAnimations(oldVM: oldModel) {
+      self.reloadVisibleAnimationCells(model: model)
+    }
+
     SharedStyle.primaryButton(self.actionButton, title: model.content.mainActionTitle ?? "")
     self.actionButton.isHidden = !model.content.isActionButtonVisible
 
@@ -102,8 +108,18 @@ final class PermissionTutorialView: UIView, ViewControllerModellableView {
       }
     }
 
-    // note: here e don't know whether the gradient should be shown, as we don't know the
+    // note: here we don't know whether the gradient should be shown, as we don't know the
     // collection's size
+  }
+
+  private func reloadVisibleAnimationCells(model: PermissionTutorialVM) {
+    for path in self.contentCollection.indexPathsForVisibleItems {
+      if
+        let cell = self.contentCollection.cellForItem(at: path) as? PermissionTutorialAnimationCell,
+        let cellModel = model.cellVM(for: model.content.items[path.item]) as? PermissionTutorialAnimationCellVM {
+        cell.model = cellModel
+      }
+    }
   }
 
   override func layoutSubviews() {
@@ -197,32 +213,46 @@ extension PermissionTutorialView: UICollectionViewDataSource {
     guard
       let model = self.model,
       let item = model.content.items[safe: indexPath.row]
-
       else {
         AppLogger.fatalError("This should never happen")
     }
 
     switch item {
     case .title:
-      return self.dequeue(PermissionTutorialTitleCell.self, for: indexPath, in: collectionView, using: item.cellVM)
+      return self.dequeue(PermissionTutorialTitleCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
 
     case .textualContent:
-      return self.dequeue(PermissionTutorialTextCell.self, for: indexPath, in: collectionView, using: item.cellVM)
+      return self.dequeue(PermissionTutorialTextCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
 
     case .animationContent:
-      return self.dequeue(PermissionTutorialAnimationCell.self, for: indexPath, in: collectionView, using: item.cellVM)
+      return self.dequeue(
+        PermissionTutorialAnimationCell.self,
+        for: indexPath,
+        in: collectionView,
+        using: model.cellVM(for: item)
+      )
 
     case .imageContent:
-      return self.dequeue(PermissionTutorialImageCell.self, for: indexPath, in: collectionView, using: item.cellVM)
+      return self.dequeue(PermissionTutorialImageCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
 
     case .textAndImage:
-      return self.dequeue(PermissionTutorialTextAndImageCell.self, for: indexPath, in: collectionView, using: item.cellVM)
+      return self.dequeue(
+        PermissionTutorialTextAndImageCell.self,
+        for: indexPath,
+        in: collectionView,
+        using: model.cellVM(for: item)
+      )
 
     case .spacer:
-      return self.dequeue(PermissionTutorialSpacer.self, for: indexPath, in: collectionView, using: item.cellVM)
+      return self.dequeue(PermissionTutorialSpacer.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
 
     case .scrollableButton:
-      let cell = self.dequeue(PermissionTutorialButtonCell.self, for: indexPath, in: collectionView, using: item.cellVM)
+      let cell = self.dequeue(
+        PermissionTutorialButtonCell.self,
+        for: indexPath,
+        in: collectionView,
+        using: model.cellVM(for: item)
+      )
       cell.userDidTapButton = { [weak self] in
         self?.userDidTapActionButton?()
       }
@@ -248,6 +278,22 @@ extension PermissionTutorialView: UICollectionViewDataSource {
 extension PermissionTutorialView: UICollectionViewDelegateFlowLayout {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     self.userDidScroll?(scrollView.contentOffset.y)
+  }
+
+  func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    self.willStartScrollAnimation?()
+  }
+
+  func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    guard !decelerate else {
+      return
+    }
+
+    self.didEndScrollAnimation?()
+  }
+
+  func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    self.didEndScrollAnimation?()
   }
 }
 
