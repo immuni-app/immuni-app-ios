@@ -205,6 +205,7 @@ commands:
               export DISTRIBUTION_METHOD="development"
               export SIGNING_PROFILE="development"
             else
+              echo "export EXCLUDE_DEV_TOOLING='1'" >> $BASH_ENV
               export BUILD_CONFIGURATION="Release"
               export DISTRIBUTION_METHOD="app-store"
               export SIGNING_PROFILE="appstore"
@@ -223,7 +224,7 @@ commands:
             echo "export APP_VERSION=$APP_VERSION" >> $BASH_ENV
       - run:
           name: "[xcode_setup] Configure Xcode project"
-          command: CI_MODE=1 EXCLUDE_DEV_TOOLING=1 make immuni
+          command: CI_MODE=1 make immuni
       - run:
           name: "[xcode_setup] Increment the build number"
           command: |
