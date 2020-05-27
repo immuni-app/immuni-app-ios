@@ -109,18 +109,14 @@ public extension NetworkManager {
     case connectionError = 1
     /// Base exception for any API unexpected behaviour.
     case unknownError = 1000
-    /// Raised when a request is badly formed.
+    /// Raised when a request is badly formed or the body is not compliant with the endpoint defined schema.
     case badRequest = 1001
-    /// Exception raised when the request body is not compliant with the endpoint marshmallow schema.
-    case bodyNotCompliant = 1002
-    /// Raised when a request to upload a bunch of keys contains too many keys.
-    case tooManyKeysUploaded = 1101
     /// Raised when a user is attempting to upload data with an unauthorised OTP code.
-    case unauthorizedOTP = 1102
+    case unauthorizedOTP = 1101
     /// Exception raised when the requested batch is not found.
-    case batchNotFound = 1301
+    case batchNotFound = 1300
     /// Exception raised when there are no batches.
-    case noBatchesFound = 1302
+    case noBatchesFound = 1301
     /// Raised when the OTP has already been auhorized.
     case otpAlreadyAuthorized = 1400
   }
