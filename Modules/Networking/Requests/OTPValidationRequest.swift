@@ -46,10 +46,3 @@ public struct OTPValidationRequest: FixedSizeJSONRequest {
     self.targetSize = targetSize
   }
 }
-
-public extension OTPValidationRequest {
-  struct Body: Encodable {
-    #warning("use meaningful padding")
-    let padding: String = ""
-  }
-}

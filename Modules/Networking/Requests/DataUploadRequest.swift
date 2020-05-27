@@ -51,7 +51,6 @@ public extension DataUploadRequest {
     public let teks: [CodableTemporaryExposureKey]
     public let province: String
     public let exposureDetectionSummaries: [CodableExposureDetectionSummary]
-    public let padding: String
 
     /// Create a data upload request body with given teks, province and exposureDetectionSummaries.
     /// A padding is added automatically so that both valid both dummy requests will have the same size.
@@ -63,8 +62,6 @@ public extension DataUploadRequest {
       self.teks = teks
       self.province = province
       self.exposureDetectionSummaries = exposureDetectionSummaries
-      #warning("use meaningful padding")
-      self.padding = ""
     }
   }
 }
@@ -74,6 +71,5 @@ public extension DataUploadRequest.Body {
     case teks
     case province
     case exposureDetectionSummaries = "exposure_detection_summaries"
-    case padding
   }
 }
