@@ -12,7 +12,7 @@
 "notifications.update_app.description" = "È disponibile un aggiornamento importante. Aggiorna subito l’app per garantirne il funzionamento.";
 "notifications.not_active_service.title" = "⚠️ Il servizio non è attivo";
 "notifications.not_active_service.description" = "Riattiva Immuni al più presto perché ti possa avvertire in caso di rischio.";
-"notifications.apple_exposure_notification.message" = "Una persona con cui hai avuto un contatto ravvicinato è risultata positiva al test.";
+"notifications.apple_exposure_notification.message" = "Una persona con cui hai avuto un contatto ravvicinato è risultata positiva al test";
 "notifications.risk.title" = "Avviso importante per te";
 "notifications.risk.description" = "Apri l’app per avere più informazioni.";
 "notifications.update_positive_state.title" = "Aggiorna il tuo stato";
@@ -93,7 +93,7 @@
 "home_view.service.not_active.subtitle" = "Intervieni subito per permettere a Immuni di funzionare correttamente.";
 "home_view.service.not_active.button" = "Riattiva Immuni";
 "home_view.info.protection.title" = "Cosa puoi fare per proteggerti";
-"home_view.info.app.title" = "Come funziona l'app";
+"home_view.info.app.title" = "Come funziona l'app?";
 "home_view.info.button.title" = "Scopri di più";
 "home_view.info_header.title" = "Informazioni";
 "home_view.header_card.risk.title" = "Rilevata esposizione a rischio con una persona COVID-19 positiva";
