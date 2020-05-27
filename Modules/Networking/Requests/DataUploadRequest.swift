@@ -17,7 +17,7 @@ import Extensions
 import Foundation
 import Models
 
-public struct DataUploadRequest: JSONRequest {
+public struct DataUploadRequest: FixedSizeJSONRequest {
   // swiftlint:disable:next force_unwrapping
   public var baseURL = URL(string: "https://upload.immuni.gov.it")!
   public var path = "/v1/ingestion/upload"
@@ -36,11 +36,13 @@ public struct DataUploadRequest: JSONRequest {
   public let jsonParameter: Body
   public let otp: OTP
   public let now: () -> Date
+  public let targetSize: Int
 
-  init(body: Body, otp: OTP, now: @escaping () -> Date) {
+  public init(body: Body, otp: OTP, now: @escaping () -> Date, targetSize: Int) {
     self.jsonParameter = body
     self.otp = otp
     self.now = now
+    self.targetSize = targetSize
   }
 }
 
@@ -49,7 +51,6 @@ public extension DataUploadRequest {
     public let teks: [CodableTemporaryExposureKey]
     public let province: String
     public let exposureDetectionSummaries: [CodableExposureDetectionSummary]
-    public let padding: String
 
     /// Create a data upload request body with given teks, province and exposureDetectionSummaries.
     /// A padding is added automatically so that both valid both dummy requests will have the same size.
@@ -61,22 +62,7 @@ public extension DataUploadRequest {
       self.teks = teks
       self.province = province
       self.exposureDetectionSummaries = exposureDetectionSummaries
-      #warning("use meaningful padding")
-      self.padding = ""
     }
-  }
-}
-
-public extension DataUploadRequest.Body {
-  static func dummy() -> Self {
-    let randomProvince = Province.allCases.randomElement()
-      ?? LibLogger.fatalError("No provinces defined")
-
-    return self.init(
-      teks: [],
-      province: randomProvince.rawValue,
-      exposureDetectionSummaries: []
-    )
   }
 }
 
@@ -85,6 +71,5 @@ public extension DataUploadRequest.Body {
     case teks
     case province
     case exposureDetectionSummaries = "exposure_detection_summaries"
-    case padding
   }
 }

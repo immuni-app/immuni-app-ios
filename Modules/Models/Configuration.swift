@@ -37,6 +37,9 @@ public struct Configuration: Codable {
     case dummyIngestionMeanStochasticDelay = "dummy_teks_average_opportunity_waiting_time"
     case dummyIngestionWindowDuration = "dummy_teks_window_duration"
     case dummyIngestionAverageStartUpDelay = "dummy_teks_average_start_waiting_time"
+    case dataUploadMaxSummaryCount
+    case dataUploadMaxExposureInfoCount
+    case ingestionRequestTargetSize = "teksPacketSize"
   }
 
   /// This is used to enforce a minimum version of the app.
@@ -114,6 +117,15 @@ public struct Configuration: Codable {
   /// Average wait time (in seconds) from the start of a foreground session before starting a simulated dummy ingestion sequence.
   public let dummyIngestionAverageStartUpDelay: Double
 
+  /// The maximum number of Exposure Detection Summary in a DataUpload
+  public let dataUploadMaxSummaryCount: Int
+
+  /// The maximum number of Exposure Info to include in a DataUpload
+  public let dataUploadMaxExposureInfoCount: Int
+
+  /// The target size, in byte, of each ingestion request
+  public let ingestionRequestTargetSize: Int
+
   /// The FAQ url for the given language. it returns english version if the given
   /// language is not available.
   /// Note that the method may still fail in case of missing english version
@@ -148,7 +160,10 @@ public struct Configuration: Codable {
     dummyIngestionRequestProbabilities: [Double] = [0.95, 0.1],
     dummyIngestionMeanStochasticDelay: Double = 864_000,
     dummyIngestionWindowDuration: Double = 86400,
-    dummyIngestionAverageStartUpDelay: Double = 10
+    dummyIngestionAverageStartUpDelay: Double = 10,
+    dataUploadMaxSummaryCount: Int = 84,
+    dataUploadMaxExposureInfoCount: Int = 600,
+    ingestionRequestTargetSize: Int = 110_000
   ) {
     self.minimumBuildVersion = minimumBuildVersion
     self.serviceNotActiveNotificationPeriod = serviceNotActiveNotificationPeriod
@@ -170,6 +185,9 @@ public struct Configuration: Codable {
     self.dummyIngestionMeanStochasticDelay = dummyIngestionMeanStochasticDelay
     self.dummyIngestionWindowDuration = dummyIngestionWindowDuration
     self.dummyIngestionAverageStartUpDelay = dummyIngestionAverageStartUpDelay
+    self.dataUploadMaxSummaryCount = dataUploadMaxSummaryCount
+    self.dataUploadMaxExposureInfoCount = dataUploadMaxExposureInfoCount
+    self.ingestionRequestTargetSize = ingestionRequestTargetSize
   }
 
   // swiftlint:enable force_unwrapping

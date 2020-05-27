@@ -18,9 +18,8 @@ import Hydra
 import Models
 
 /// The NetworkManager is the executor of the requests.
-/// It is important to note that the NetworkManager should not contain any additional
-/// information related to the final request that is performed. An instance of HTTPRequest should contain all
-/// the information about a network call
+/// It is important to note that the NetworkManager should not contain any additional information related to the final request
+/// that is performed. An instance of HTTPRequest should contain all the information about a network call.
 public class NetworkManager {
   private var dependencies: Dependencies?
 
@@ -30,7 +29,7 @@ public class NetworkManager {
     self.dependencies = dependencies
   }
 
-  /// Performs the request
+  /// Performs a request
   ///
   /// - parameter request:           the request to perform
   /// - parameter queue:             the queue in which the completion will be invoked. By default Alamofire uses the main thread
@@ -41,7 +40,11 @@ public class NetworkManager {
   ) -> Promise<R.ResponseSerializer.SerializedObject> {
     return self.unwrappedDependencies.requestExecutor.execute(request, queue)
   }
+}
 
+// MARK: - App Configuration Service requests
+
+extension NetworkManager {
   /// Returns the most updated configuration for an app with the given `buildNumber`
   public func getConfiguration(for buildNumber: Int) -> Promise<Configuration> {
     return self.request(ConfigurationRequest(buildNumber: buildNumber))
@@ -53,7 +56,11 @@ public class NetworkManager {
   public func getFAQ(baseURL: URL, path: String) -> Promise<[FAQ]> {
     return self.request(FAQRequest(baseURL: baseURL, path: path)).then { $0.faqs }
   }
+}
 
+// MARK: - Reporting Service requests
+
+extension NetworkManager {
   /// Returns the current manifest for the chunk of TEKs exposed by the backend
   public func getKeysIndex() -> Promise<KeysIndex> {
     return self.request(KeysIndexRequest())
@@ -68,23 +75,48 @@ public class NetworkManager {
 
     return all(requestPromises)
   }
+}
 
+// MARK: - Ingestion service requests
+
+extension NetworkManager {
   /// Validates a given `OTP` with the backend
-  public func validateOTP(_ otp: OTP) -> Promise<Void> {
-    return self.request(OTPValidationRequest(otp: otp, now: self.unwrappedDependencies.now)).safeVoid
+  public func validateOTP(_ otp: OTP, requestSize: Int) -> Promise<Void> {
+    return self
+      .request(OTPValidationRequest(
+        otp: otp,
+        now: self.unwrappedDependencies.now,
+        targetSize: requestSize
+      )).safeVoid
   }
 
   /// Uploads data to the backend as a consequence of a positive COVID diagnosis. The request is authenticated with a previously
   /// validated OTP.
-  public func uploadData(body: DataUploadRequest.Body, otp: OTP) -> Promise<Void> {
-    return self.request(DataUploadRequest(body: body, otp: otp, now: self.unwrappedDependencies.now)).safeVoid
+  public func uploadData(body: DataUploadRequest.Body, otp: OTP, requestSize: Int) -> Promise<Void> {
+    return self.request(DataUploadRequest(
+      body: body,
+      otp: otp,
+      now: self.unwrappedDependencies.now,
+      targetSize: requestSize
+    )).safeVoid
   }
 
+  /// Sends a dummy request to the backend.
+  public func sendDummyIngestionRequest(requestSize: Int) -> Promise<Void> {
+    return self.request(DummyIngestionRequest(now: self.unwrappedDependencies.now, targetSize: requestSize)).safeVoid
+  }
+}
+
+// MARK: - Analytics Service requests
+
+extension NetworkManager {
   /// Sends a request to the Analytics server, following a cycle of Exposure Detection.
   public func sendAnalytics(body: AnalyticsRequest.Body, isDummy: Bool) -> Promise<Void> {
     return self.request(AnalyticsRequest(body: body, isDummy: isDummy)).safeVoid
   }
 }
+
+// MARK: - Supporting types
 
 public extension NetworkManager {
   private var unwrappedDependencies: Dependencies {

@@ -68,6 +68,7 @@ extension Logic.DataUpload {
     }
 
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      let state = context.getState()
       try context.awaitDispatch(Logic.Loading.Show(message: L10n.UploadData.Verify.loading))
 
       do {
@@ -80,7 +81,8 @@ extension Logic.DataUpload {
 
       do {
         // Send the request
-        try await(context.dependencies.networkManager.validateOTP(self.code))
+        let requestSize = state.configuration.ingestionRequestTargetSize
+        try await(context.dependencies.networkManager.validateOTP(self.code, requestSize: requestSize))
         try context.awaitDispatch(MarkOTPValidationSuccessfulAttempt())
       } catch NetworkManager.Error.unauthorizedOTP {
         // User is not authorized. Bubble up the error to the calling ViewController
@@ -165,7 +167,8 @@ extension Logic.DataUpload {
 
       // Send the data to the backend
       do {
-        try await(context.dependencies.networkManager.uploadData(body: requestBody, otp: self.code))
+        let requestSize = state.configuration.ingestionRequestTargetSize
+        try await(context.dependencies.networkManager.uploadData(body: requestBody, otp: self.code, requestSize: requestSize))
         try await(context.dispatch(Logic.Loading.Hide()))
       } catch {
         try await(context.dispatch(Logic.Loading.Hide()))

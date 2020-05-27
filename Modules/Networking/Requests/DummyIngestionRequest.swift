@@ -1,4 +1,4 @@
-// OTPValidationRequest.swift
+// DummyIngestionRequest.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -17,31 +17,30 @@ import Extensions
 import Foundation
 import Models
 
-public struct OTPValidationRequest: FixedSizeJSONRequest {
+public struct DummyIngestionRequest: FixedSizeJSONRequest {
   public typealias BodyModel = EmptyBody
 
   // swiftlint:disable:next force_unwrapping
   public var baseURL = URL(string: "https://upload.immuni.gov.it")!
 
-  public var path = "/v1/ingestion/check-otp"
+  // It does not matter which endpoint is used.
+  public var path = "/v1/ingestion/upload"
   public var method: HTTPMethod = .post
   public var cachePolicy: NSURLRequest.CachePolicy = .reloadIgnoringLocalAndRemoteCacheData
 
   public var headers: [HTTPHeader] {
     return HTTPHeader.defaultImmuniHeaders + [
-      .authorization(bearerToken: self.otp.rawValue.sha256),
+      .authorization(bearerToken: OTP().rawValue.sha256),
       .contentType("application/json; charset=UTF-8"),
-      .dummyData(false),
-      .clientClock(self.now())
+      .dummyData(true),
+      .clientClock(Date(timeIntervalSince1970: 0))
     ]
   }
 
-  public let otp: OTP
   public let now: () -> Date
   public var targetSize: Int
 
-  public init(otp: OTP, now: @escaping () -> Date, targetSize: Int) {
-    self.otp = otp
+  public init(now: @escaping () -> Date, targetSize: Int) {
     self.now = now
     self.targetSize = targetSize
   }
