@@ -99,12 +99,17 @@ extension DataUploadRequest.Body {
     maxSummaries: Int,
     maxExposureInfo: Int
   ) -> [CodableExposureDetectionSummary] {
+    // Cap the number of summaries, prioritizing the most recent ones.
+    // Note: the cap is expected to be permissive enough so that this will reasonably never happen.
     let cappedSummaries = Array(
       summaries
         .sorted(by: CodableExposureDetectionSummary.byDateDescending)
         .prefix(maxSummaries)
     )
 
+    // Cap the number of ExposureInfo, prioritizing the riskies (and the least recent in case of equality), across all summaries.
+    // Note: the choice for the least recent is due to the fact that a user Uploading their TEKs (therefore being positive to
+    // COVID-19) is more likely to have been infected 14 days ago rather than today).
     let exposureInfoToKeep = Set(
       cappedSummaries
         .flatMap { $0.exposureInfo }
@@ -112,6 +117,7 @@ extension DataUploadRequest.Body {
         .prefix(maxExposureInfo)
     )
 
+    // Filter away all the exposures to discard from the capped sumamries
     var resultingSummaries: [CodableExposureDetectionSummary] = []
     for var summary in cappedSummaries {
       summary.exposureInfo = summary.exposureInfo
