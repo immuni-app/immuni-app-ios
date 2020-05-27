@@ -42,6 +42,6 @@ public struct OTPValidationRequest: JSONRequest {
 public extension OTPValidationRequest {
   struct Body: Encodable {
     #warning("use meaningful padding")
-    let padding: String = Padding.randomString(length: 1)
+    let padding: String = ""
   }
 }
