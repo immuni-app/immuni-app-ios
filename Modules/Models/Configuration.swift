@@ -37,8 +37,8 @@ public struct Configuration: Codable {
     case dummyIngestionMeanStochasticDelay = "dummy_teks_average_opportunity_waiting_time"
     case dummyIngestionWindowDuration = "dummy_teks_window_duration"
     case dummyIngestionAverageStartUpDelay = "dummy_teks_average_start_waiting_time"
-    case dataUploadMaxSummaryCount = "dataUploadMaxSummaryCount"
-    case dataUploadMaxExposureInfoCount = "dataUploadMaxExposureInfoCount"
+    case dataUploadMaxSummaryCount
+    case dataUploadMaxExposureInfoCount
     case ingestionRequestTargetSize = "teksPacketSize"
   }
 
