@@ -238,7 +238,8 @@ final class DataUploadLogicTests: XCTestCase {
 
     state.exposureDetection.recentPositiveExposureResults.append(.init(date: clock, data: summary))
 
-    let teks = (0 ... 14).map { _ in MockTemporaryExposureKey.mock() }
+    let teks = (0 ..< 14).map { _ in MockTemporaryExposureKey.mock() }
+      .sorted(by: { $0.rollingStartNumber < $1.rollingStartNumber })
     let enProvider = TekReturningMockExposureNotificationProvider(teksToReturn: teks, overriddenStatus: .authorized)
     let requestExecutor = MockRequestExecutor(mockedResult: .success(Data()))
 
@@ -266,7 +267,9 @@ final class DataUploadLogicTests: XCTestCase {
 
       XCTAssertEqual(request.jsonParameter.teks.count, teks.count)
 
-      for (index, requestTek) in request.jsonParameter.teks.enumerated() {
+      let sortedRequestTeks = request.jsonParameter.teks
+        .sorted(by: { $0.rollingStartNumber < $1.rollingStartNumber })
+      for (index, requestTek) in sortedRequestTeks.enumerated() {
         XCTAssertEqual(requestTek.base64EncodedKeyData, teks[index].keyData.base64EncodedString())
         XCTAssertEqual(requestTek.rollingPeriod, Int(teks[index].rollingPeriod))
         XCTAssertEqual(requestTek.rollingStartNumber, Int(teks[index].rollingStartNumber))

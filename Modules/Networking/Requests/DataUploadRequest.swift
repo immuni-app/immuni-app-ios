@@ -57,11 +57,17 @@ public extension DataUploadRequest {
     public init(
       teks: [CodableTemporaryExposureKey],
       province: String,
-      exposureDetectionSummaries: [CodableExposureDetectionSummary]
+      exposureDetectionSummaries: [CodableExposureDetectionSummary],
+      maximumExposureInfoCount: Int,
+      maximumExposureDetectionSummaryCount: Int
     ) {
-      self.teks = teks
+      self.teks = Self.cap(teks)
       self.province = province
-      self.exposureDetectionSummaries = exposureDetectionSummaries
+      self.exposureDetectionSummaries = Self.cap(
+        exposureDetectionSummaries,
+        maxSummaries: maximumExposureDetectionSummaryCount,
+        maxExposureInfo: maximumExposureInfoCount
+      )
     }
   }
 }
@@ -71,5 +77,84 @@ public extension DataUploadRequest.Body {
     case teks
     case province
     case exposureDetectionSummaries = "exposure_detection_summaries"
+  }
+}
+
+// MARK: - Sorting
+
+extension DataUploadRequest.Body {
+  /// In development, the key of the current day is also returned, resulting in a request with 15 TEKs. Given that the backend
+  /// expects 14, the oldest one is discarded.
+  static func cap(_ teks: [CodableTemporaryExposureKey]) -> [CodableTemporaryExposureKey] {
+    let cappedTeks = teks
+      .sorted(by: CodableTemporaryExposureKey.byRollingStartNumberDesc)
+      .prefix(CodableTemporaryExposureKey.maximumKeysPerRequest)
+
+    return Array(cappedTeks)
+  }
+
+  /// To ensure that the size of the request is within the targetSize, Summaries and ExposureInfo are capped to a given value.
+  static func cap(
+    _ summaries: [CodableExposureDetectionSummary],
+    maxSummaries: Int,
+    maxExposureInfo: Int
+  ) -> [CodableExposureDetectionSummary] {
+    // Cap the number of summaries, prioritizing the most recent ones.
+    // Note: the cap is expected to be permissive enough so that this will reasonably never happen.
+    let cappedSummaries = Array(
+      summaries
+        .sorted(by: CodableExposureDetectionSummary.byDateDescending)
+        .prefix(maxSummaries)
+    )
+
+    // Cap the number of ExposureInfo, prioritizing the riskies (and the least recent in case of equality), across all summaries.
+    // Note: the choice for the least recent is due to the fact that a user Uploading their TEKs (therefore being positive to
+    // COVID-19) is more likely to have been infected 14 days ago rather than today).
+    let exposureInfoToKeep = Set(
+      cappedSummaries
+        .flatMap { $0.exposureInfo }
+        .sorted(by: CodableExposureInfo.byRiskDescendingDateAscending)
+        .prefix(maxExposureInfo)
+    )
+
+    // Filter away all the exposures to discard from the capped sumamries
+    var resultingSummaries: [CodableExposureDetectionSummary] = []
+    for var summary in cappedSummaries {
+      summary.exposureInfo = summary.exposureInfo
+        .filter { exposureInfoToKeep.contains($0) }
+      resultingSummaries.append(summary)
+    }
+
+    return resultingSummaries
+  }
+}
+
+extension CodableTemporaryExposureKey {
+  static let maximumKeysPerRequest = 14
+
+  /// Sorting closure that sorts two keys by rollingStartNumber in descending order.
+  static let byRollingStartNumberDesc: (Self, Self) -> Bool = { lhs, rhs in
+    lhs.rollingStartNumber > rhs.rollingStartNumber
+  }
+}
+
+extension CodableExposureDetectionSummary {
+  /// Sorting closure that sorts two summaries by date in descending order.
+  /// Note: `date` is a String, but it's in the `yyyy-MM-dd` format so lexicographic sorting is correct.
+  static let byDateDescending: (Self, Self) -> Bool = { lhs, rhs in
+    lhs.date > rhs.date
+  }
+}
+
+extension CodableExposureInfo {
+  /// Sorting closure that sorts two summaries by risk descending first, date ascending second.
+  static let byRiskDescendingDateAscending: (CodableExposureInfo, CodableExposureInfo) -> Bool = { lhs, rhs in
+    guard lhs.totalRiskScore != rhs.totalRiskScore else {
+      // Same risk. Sort by date ascending
+      return lhs.date < rhs.date
+    }
+
+    // Sort by risk descending
+    return lhs.totalRiskScore > rhs.totalRiskScore
   }
 }

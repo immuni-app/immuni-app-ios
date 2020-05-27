@@ -162,7 +162,9 @@ extension Logic.DataUpload {
       let requestBody = DataUploadRequest.Body(
         teks: keys.map { .init(from: $0) },
         province: userProvince.rawValue,
-        exposureDetectionSummaries: state.exposureDetection.recentPositiveExposureResults.map { $0.data }
+        exposureDetectionSummaries: state.exposureDetection.recentPositiveExposureResults.map { $0.data },
+        maximumExposureInfoCount: state.configuration.dataUploadMaxExposureInfoCount,
+        maximumExposureDetectionSummaryCount: state.configuration.dataUploadMaxSummaryCount
       )
 
       // Send the data to the backend
