@@ -28,3 +28,32 @@ extension AnimationView {
     }
   }
 }
+
+enum AnimationAsset: String, CaseIterable, Equatable {
+  case hiw1 = "hiw_1"
+  case hiw2 = "hiw_2"
+  case hiw3 = "hiw_3"
+  case hiw4 = "hiw_4"
+  case hiw5 = "hiw_5"
+
+  static let hiw1Animation = Animation.named(AnimationAsset.hiw1.rawValue)
+  static let hiw2Animation = Animation.named(AnimationAsset.hiw2.rawValue)
+  static let hiw3Animation = Animation.named(AnimationAsset.hiw3.rawValue)
+  static let hiw4Animation = Animation.named(AnimationAsset.hiw4.rawValue)
+  static let hiw5Animation = Animation.named(AnimationAsset.hiw5.rawValue)
+
+  var animation: Animation? {
+    switch self {
+    case .hiw1:
+      return AnimationAsset.hiw1Animation
+    case .hiw2:
+      return AnimationAsset.hiw2Animation
+    case .hiw3:
+      return AnimationAsset.hiw3Animation
+    case .hiw4:
+      return AnimationAsset.hiw4Animation
+    case .hiw5:
+      return AnimationAsset.hiw5Animation
+    }
+  }
+}
