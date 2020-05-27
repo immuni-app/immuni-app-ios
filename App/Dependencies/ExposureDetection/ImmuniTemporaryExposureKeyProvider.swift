@@ -71,7 +71,9 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
           return []
         }
 
-        let upperBound = keysIndex.newest
+        // note the +1. It is added to prevent to download the previous "latest"
+        // chunk twice
+        let firstKeyToDownload = max(latestKnown + 1, keysIndex.oldest)
 
         // We know we cannot process more than a certain amount of keys per day.
         // If the server returns a number of chunks that is greater than the local
@@ -83,13 +85,7 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
         // but the manager should handle them and retry as soon as possible.
         // Assuming we don't publish more than 15 chunks per day (which we won't)
         // the algorithm is stable
-        let minLowerBound = upperBound - Self.keyDailyRateLimit + 1
-
-        // note the +1. It is added to prevent to download the previous "latest"
-        // chunk twice
-        let lowerBound = max(latestKnown + 1, keysIndex.oldest, minLowerBound)
-
-        return Array(lowerBound ... upperBound)
+        return (firstKeyToDownload...keysIndex.newest).suffix(Self.keyDailyRateLimit)
       }
   }
 
