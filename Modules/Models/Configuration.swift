@@ -263,7 +263,7 @@ public extension Configuration {
       durationWeight: Double = 1,
       transmissionRiskBucketScores: [UInt8] = [1, 1, 1, 1, 1, 1, 1, 1],
       transmissionRiskWeight: Double = 1,
-      minimumRiskScore: UInt8 = 20
+      minimumRiskScore: UInt8 = 1
     ) {
       self.attenuationThresholds = attenuationThresholds
       self.attenuationBucketScores = attenuationBucketScores
