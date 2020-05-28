@@ -46,17 +46,19 @@ extension PrivacyVM: ViewModelWithLocalState {
     }
 
     let configuration = state.configuration
+    let touURL = configuration.termsOfUseURL(for: state.environment.userLanguage)
+    let privacyNoticeURL = configuration.privacyNoticeURL(for: state.environment.userLanguage)
 
     switch localState.kind {
     case .onboarding:
       self = Self.onboardingPrivacy(
         isHeaderVisible: localState.isHeaderVisible,
-        tosURL: configuration.tosURL,
-        privacyPolicyURL: configuration.privacyPolicyURL,
+        touURL: touURL,
+        privacyNoticeURL: privacyNoticeURL,
         isAbove14Checked: localState.isAbove14Checked,
         isAbove14Errored: localState.isAbove14Errored,
-        isReadPrivacyPolicyChecked: localState.isReadPrivacyPolicyChecked,
-        isReadPrivacyPolicyErrored: localState.isReadPrivacyPolicyErrored
+        isReadPrivacyNoticeChecked: localState.isReadPrivacyNoticeChecked,
+        isReadPrivacyNoticeErrored: localState.isReadPrivacyNoticeErrored
       )
 
     case .settings:
@@ -69,12 +71,12 @@ extension PrivacyVM {
   /// Creates a VM for the Onboarding privacy screen
   static func onboardingPrivacy(
     isHeaderVisible: Bool,
-    tosURL: URL?,
-    privacyPolicyURL: URL?,
+    touURL: URL?,
+    privacyNoticeURL: URL?,
     isAbove14Checked: Bool,
     isAbove14Errored: Bool,
-    isReadPrivacyPolicyChecked: Bool,
-    isReadPrivacyPolicyErrored: Bool
+    isReadPrivacyNoticeChecked: Bool,
+    isReadPrivacyNoticeErrored: Bool
   ) -> Self {
     let items: [CellType] = [
       .title(L10n.Privacy.title),
@@ -95,12 +97,12 @@ extension PrivacyVM {
       .spacer(.small),
       .checkbox(type: .above14, isSelected: isAbove14Checked, isErrored: isAbove14Errored, linkedURL: nil),
       .checkbox(
-        type: .privacyPolicyRead,
-        isSelected: isReadPrivacyPolicyChecked,
-        isErrored: isReadPrivacyPolicyErrored,
-        linkedURL: privacyPolicyURL
+        type: .privacyNoticeRead,
+        isSelected: isReadPrivacyNoticeChecked,
+        isErrored: isReadPrivacyNoticeErrored,
+        linkedURL: privacyNoticeURL
       ),
-      .tos(tosURL)
+      .tou(touURL)
     ]
 
     return Self(items: items, isHeaderVisible: isHeaderVisible, buttonTitle: L10n.Privacy.next, headerTitle: L10n.Privacy.title)
@@ -141,7 +143,7 @@ extension PrivacyVM {
     case title(String)
     case checkbox(type: PrivacyCheckboxCellVM.CellType, isSelected: Bool, isErrored: Bool, linkedURL: URL?)
     case spacer(PrivacySpacerCellVM.Size)
-    case tos(URL?)
+    case tou(URL?)
 
     var cellVM: ViewModel {
       switch self {
@@ -157,8 +159,8 @@ extension PrivacyVM {
       case .spacer(let size):
         return PrivacySpacerCellVM(size: size)
 
-      case .tos(let url):
-        return PrivacyTOSCellVM(content: L10n.Privacy.tos, tosURL: url)
+      case .tou(let url):
+        return PrivacyTOUCellVM(content: L10n.Privacy.tos, tosURL: url)
       }
     }
   }

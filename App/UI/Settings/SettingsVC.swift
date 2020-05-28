@@ -43,9 +43,9 @@ private extension SettingsVC {
     case .faq:
       self.dispatch(Logic.Settings.ShowFAQs())
     case .tos:
-      self.dispatch(Logic.Settings.ShowTOS())
+      self.dispatch(Logic.Settings.ShowTOU())
     case .privacy:
-      self.store.dispatch(Logic.Settings.ShowPrivacyPolicy())
+      self.store.dispatch(Logic.Settings.ShowPrivacyNotice())
     case .chageProvince:
       self.store.dispatch(Logic.Settings.ShowUpdateProvince())
     case .leaveReview:

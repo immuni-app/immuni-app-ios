@@ -13,6 +13,7 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 import BackgroundTasks
+import Extensions
 import Foundation
 import Hydra
 import ImmuniExposureNotification
@@ -61,16 +62,24 @@ extension Logic {
         // Removes notifications as the user has opened the app
         context.dispatch(Logic.CovidStatus.RemoveRiskReminderNotification())
 
-        if !isFirstLaunch {
-          // Perform exposure detection if necessary
-          context.dispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground))
-
-          // updates the ingestion dummy traffic opportunity window if it expired
-          try context.awaitDispatch(Logic.DataUpload.UpdateDummyTrafficOpportunityWindowIfExpired())
-
-          // schedules a dummy sequence of ingestion requests for some point in the future
-          try context.awaitDispatch(Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary())
+        guard !isFirstLaunch else {
+          // Nothing else to do if it's the first launch
+          return
         }
+
+        guard context.dependencies.application.isForeground else {
+          // Background sessions are handled in `HandleExposureDetectionBackgroundTask`
+          return
+        }
+
+        // Perform exposure detection if necessary
+        context.dispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground))
+
+        // updates the ingestion dummy traffic opportunity window if it expired
+        try context.awaitDispatch(Logic.DataUpload.UpdateDummyTrafficOpportunityWindowIfExpired())
+
+        // schedules a dummy sequence of ingestion requests for some point in the future
+        try context.awaitDispatch(Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary())
       }
     }
 
@@ -140,11 +149,24 @@ extension Logic {
       }
 
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-        // resets the state related to dummy sessions
-        try context.awaitDispatch(Logic.DataUpload.MarkForegroundSessionFinished())
-
         // show sensitive data overlay. Check `SensitiveDataCoverVC` documentation.
         context.dispatch(Logic.Shared.ShowSensitiveDataCoverIfNeeded())
+      }
+    }
+
+    /// Launched when the app entered background
+    struct DidEnterBackground: AppSideEffect, NotificationObserverDispatchable {
+      init() {}
+
+      init?(notification: Notification) {
+        guard notification.name == UIApplication.didEnterBackgroundNotification else {
+          return nil
+        }
+      }
+
+      func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        // resets the state related to dummy sessions
+        try context.awaitDispatch(Logic.DataUpload.MarkForegroundSessionFinished())
       }
     }
 
@@ -256,6 +278,16 @@ private extension Logic.Lifecycle {
   struct PassFirstLaunchExecuted: AppStateUpdater {
     func updateState(_ state: inout AppState) {
       state.toggles.isFirstLaunchSetupPerformed = true
+    }
+  }
+}
+
+// MARK: - Helpers
+
+extension UIApplication {
+  var isForeground: Bool {
+    mainThread {
+      self.applicationState == .active
     }
   }
 }

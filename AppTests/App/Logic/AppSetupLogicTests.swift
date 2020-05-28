@@ -38,22 +38,7 @@ final class AppSetupLogicTests: XCTestCase {
   func testChangeRootWithForceUpdate() throws {
     var state = AppState()
 
-    // swiftlint:disable force_unwrapping
-    state.configuration = .init(
-      minimumBuildVersion: 99999,
-      serviceNotActiveNotificationPeriod: 0,
-      osForceUpdateNotificationPeriod: 0,
-      requiredUpdateNotificationPeriod: 0,
-      riskReminderNotificationPeriod: 0,
-      exposureDetectionPeriod: 0,
-      exposureConfiguration: .init(),
-      exposureInfoMinimumRiskScore: 1,
-      maximumExposureDetectionWaitingTime: 0,
-      privacyPolicyURL: URL(string: "https://unit-test")!,
-      tosURL: URL(string: "https://unit-test")!,
-      faqURL: [:]
-    )
-    // swiftlint:enable force_unwrapping
+    state.configuration = .init(minimumBuildVersion: 99999)
 
     let getState = { state }
     let dispatchInterceptor = DispatchInterceptor()
