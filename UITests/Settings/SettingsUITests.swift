@@ -114,6 +114,6 @@ class SettingsUITests: AppViewTestCase, ViewTestCase {
 
 extension SettingsView {
   var contentCollectionCanScroll: Bool {
-    return self.collection.contentSize.height > self.frame.height
+    return self.collection.contentSize.height > self.collection.frame.height + self.collection.contentInset.vertical
   }
 }

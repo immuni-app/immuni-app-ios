@@ -117,6 +117,6 @@ class SuggestionsUITests: AppViewTestCase, ViewTestCase {
 
 extension SuggestionsView {
   var contentCollectionCanScroll: Bool {
-    return self.collection.contentSize.height > self.collection.frame.height
+    return self.collection.contentSize.height > self.collection.frame.height + self.collection.contentInset.vertical
   }
 }
