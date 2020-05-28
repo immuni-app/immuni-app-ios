@@ -193,8 +193,8 @@
 "suggestions.instruction.ministerial_decree" = "";
 "suggestions.instruction.phone_contact" = "<b> Bei Atembeschwerden wenden Sie sich an 112/118. </b>";
 "suggestions.instruction.social_distance" = "";
-"suggestions.instruction.stay_home" = "<b> Bleiben Sie für 14 Tage nach dem Datum des Kontakts zu Hause. </b>";
 "suggestions.instruction.stay_home.message" = "Verwenden Sie einen privaten Raum und achten Sie auf eine gute Belüftung. Nutzen Sie, falls möglich, ein eigenes Badezimmer.";
+"suggestions.instruction.stay_home.title" = "<b> Bleiben Sie für 14 Tage nach dem Datum des Kontakts zu Hause. </b>";
 "suggestions.instruction.use_napkins" = "";
 "suggestions.instruction.wash_hands" = "";
 "suggestions.instruction.while_waiting_doctor" = "Als Vorsichtsmaßnahme, bis die Angaben Ihres Arztes oder Ihrer ASL vorliegen:";

@@ -63,7 +63,7 @@
 "notifications.not_active_service.title" = "⚠️ Il servizio non è attivo";
 "notifications.risk.description" = "Apri l’app per avere più informazioni.";
 "notifications.risk.title" = "Avviso importante per te";
-"notifications.update_app.description" = "È disponibile un aggiornamento importante. Aggiorna subito l’app per garantirne il funzionamento. ";
+"notifications.update_app.description" = "È disponibile un aggiornamento importante. Aggiorna subito l’app per garantirne il funzionamento.";
 "notifications.update_app.title" = "⚠️ È necessario aggiornare l'applicazione";
 "notifications.update_os.description" = "Apri l’app per completare l’attivazione.";
 "notifications.update_os.title" = "Il servizio non è ancora attivo";
@@ -80,7 +80,7 @@
 "onboarding.complete.title" = "Configurazione completata";
 "onboarding.exposure_permission.action" = "Abilita";
 "onboarding.exposure_permission.description" = "Immuni registra i contatti con altri utenti usando il Bluetooth Low Energy, così da poterti informare in caso di esposizione al virus.";
-"onboarding.exposure_permission.overlay.hint" = "Seleziona \"<b>Abilita </b>\" nel popup che apparirà qui sotto";
+"onboarding.exposure_permission.overlay.hint" = "Seleziona \"<b>Abilita</b>\" nel popup che apparirà qui sotto";
 "onboarding.exposure_permission.title" = "Abilita le notifiche di esposizione al COVID-19";
 "onboarding.pin_advice.action" = "Ho capito";
 "onboarding.pin_advice.description" = "Se non l’hai già fatto, imposta un codice sul tuo dispositivo per proteggerlo e impedire ad altri di accedere ai tuoi dati e alle tue app, inclusa Immuni.";
@@ -88,7 +88,7 @@
 "onboarding.province.description" = "Seleziona la tua provincia di domicilio per aiutare il Servizio Sanitario Nazionale ad assisterti al meglio.";
 "onboarding.province.title" = "In che provincia vivi?";
 "onboarding.push_permission.action" = "Consenti";
-"onboarding.push_permission.description" = "Le notifiche permettono a Immuni di avvisarti tempestivamente in caso di necessità. ";
+"onboarding.push_permission.description" = "Le notifiche permettono a Immuni di avvisarti tempestivamente in caso di necessità.";
 "onboarding.push_permission.overlay.hint" = "Seleziona \"<b>Consenti</b>\" nel popup che apparirà qui sotto";
 "onboarding.push_permission.title" = "Consentici di comunicare con te";
 "onboarding.region.description" = "Seleziona la tua regione di domicilio per aiutare il Servizio Sanitario Nazionale ad assisterti al meglio.";
@@ -188,13 +188,13 @@
 "suggestions.instruction.isolate.title" = "<b>In caso di comparsa dei sintomi, isolati dal resto dei tuoi conviventi</b>";
 "suggestions.instruction.limit_movement" = "<b>Limita al massimo i movimenti in altri spazi comuni della casa.</b>";
 "suggestions.instruction.mask" = "<b>Indossa una mascherina nei luoghi al chiuso accessibili al pubblico</b>, inclusi i mezzi di trasporto e comunque in tutte le occasioni in cui non sia possibile garantire continuativamente il mantenimento della distanza di sicurezza";
-"suggestions.instruction.mask.message" = "Inclusi i mezzi di trasporto e comunque in tutte le occasioni in cui non sia possibile garantire continuativamente il mantenimento della distanza di sicurezza.";
-"suggestions.instruction.mask.title" = "<b>Indossa una mascherina nei luoghi al chiuso accessibili al pubblico.</b>";
+"suggestions.instruction.mask.message" = "Inclusi i mezzi di trasporto e comunque in tutte le occasioni in cui non sia possibile garantire continuativamente il mantenimento della distanza di sicurezza";
+"suggestions.instruction.mask.title" = "<b>Indossa una mascherina nei luoghi al chiuso accessibili al pubblico</b>";
 "suggestions.instruction.ministerial_decree" = "<b>Rispetta la normativa vigente nella tua area</b>";
 "suggestions.instruction.phone_contact" = "<b>In caso di difficoltà respiratoria contatta il 112/118.</b>";
 "suggestions.instruction.social_distance" = "<b>Rispetta le misure di distanziamento fisico </b>se devi uscire di casa";
-"suggestions.instruction.stay_home" = "<b>Rimani a casa per i 14 giorni</b> successivi alla data del contatto";
 "suggestions.instruction.stay_home.message" = "Utilizza una stanza riservata e dotata di buona ventilazione, possibilmente con bagno dedicato.";
+"suggestions.instruction.stay_home.title" = "<b>Rimani a casa per i 14 giorni</b> successivi alla data del contatto";
 "suggestions.instruction.use_napkins" = "<b>Tossisci e starnutisci direttamente su un fazzoletto di carta o nella piega del gomito</b>";
 "suggestions.instruction.wash_hands" = "<b>Lavati frequentemente le mani </b>con acqua e sapone o con soluzioni idroalcoliche";
 "suggestions.instruction.while_waiting_doctor" = "In via precauzionale, in attesa delle indicazioni del tuo medico o della ASL:";
@@ -232,8 +232,7 @@
 "upload_data.verify.loading_button.seconds" = "secondi";
 "upload_data.verify.message" = "Per proseguire, verifica l'autorizzazione ";
 "upload_data.vpn_error.action" = "OK";
-"upload_data.vpn_error.message" = "Si è verificato un errore durante l’operazione. Ti invitiamo a riprovare. Se stai utilizzando una VPN, ti suggeriamo di selezionare un server italiano o di disabilitarla temporaneamente.";
-"upload_data.vpn_error.message_europe" = "Si è verificato un errore durante l’operazione. Ti invitiamo a riprovare. Se stai utilizzando una VPN, ti suggeriamo di selezionare un server europeo o di disabilitarla temporaneamente.";
+"upload_data.vpn_error.message" = "Si è verificato un errore durante l’operazione. Ti invitiamo a riprovare. Se stai utilizzando una VPN, ti suggeriamo di selezionare un server europeo o di disabilitarla temporaneamente.";
 "upload_data.vpn_error.title" = "Qualcosa è andato storto";
 "upload_data.wait_operator.message" = "Attendi la conferma dell'operatore";
 "upload_data.warning.message" = "Questa funzione richiede l'assistenza di un operatore sanitario autorizzato";
@@ -243,7 +242,7 @@
 "welcome_view.items.first.title" = "Ciao!";
 "welcome_view.items.fourth.description" = "L’app funziona senza seguire i tuoi spostamenti e senza conoscere la tua identità o quella delle persone con cui entri in contatto.";
 "welcome_view.items.fourth.title" = "La tua privacy è tutelata";
-"welcome_view.items.second.description" = "Se sei entrato in contatto con un utente in seguito risultato positivo al virus, Immuni ti avverte e ti fornisce indicazioni per proteggere la tua salute e quella dei tuoi cari. ";
+"welcome_view.items.second.description" = "Se sei entrato in contatto con un utente in seguito risultato positivo al virus, Immuni ti avverte e ti fornisce indicazioni per proteggere la tua salute e quella dei tuoi cari.";
 "welcome_view.items.second.title" = "Immuni si prende cura di te";
 "welcome_view.items.third.description" = "Gli utenti che scoprono di essere stati esposti al virus possono isolarsi, rallentando così la diffusione del virus e  accelerando il ritorno alla vita normale.";
 "welcome_view.items.third.title" = "Rallentiamo insieme l'epidemia";

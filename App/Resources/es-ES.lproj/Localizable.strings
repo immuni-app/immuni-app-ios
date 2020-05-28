@@ -193,8 +193,8 @@
 "suggestions.instruction.ministerial_decree" = "<b>Respeta la normativa vigente en tu zona</b>";
 "suggestions.instruction.phone_contact" = "";
 "suggestions.instruction.social_distance" = "<b>Respeta las medidas de distanciamiento social </b>si debes salir de casa";
-"suggestions.instruction.stay_home" = "";
 "suggestions.instruction.stay_home.message" = "";
+"suggestions.instruction.stay_home.title" = "";
 "suggestions.instruction.use_napkins" = "<b>Al toser o estornudar, cubre la nariz y la boca con el pliegue del codo o con un pañuelo de papel</b>";
 "suggestions.instruction.wash_hands" = "<b>Lávate las manos frecuentemente </b>con agua y jabón o soluciones hidroalcohólicas";
 "suggestions.instruction.while_waiting_doctor" = "";

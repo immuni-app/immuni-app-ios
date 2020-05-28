@@ -193,8 +193,8 @@
 "suggestions.instruction.ministerial_decree" = "";
 "suggestions.instruction.phone_contact" = "";
 "suggestions.instruction.social_distance" = "";
-"suggestions.instruction.stay_home" = "";
 "suggestions.instruction.stay_home.message" = "";
+"suggestions.instruction.stay_home.title" = "";
 "suggestions.instruction.use_napkins" = "";
 "suggestions.instruction.wash_hands" = "";
 "suggestions.instruction.while_waiting_doctor" = "";
