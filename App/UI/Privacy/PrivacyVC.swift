@@ -34,12 +34,12 @@ final class PrivacyVC: ViewControllerWithLocalState<PrivacyView> {
       self.localState = self.localState.byTogglingAbove14()
     }
 
-    self.rootView.userDidTapReadPrivacyPolicyCheckbox = { [weak self] in
+    self.rootView.userDidTapReadPrivacyNoticeCheckbox = { [weak self] in
       guard let self = self else {
         return
       }
 
-      self.localState = self.localState.byTogglingReadPrivacyPolicy()
+      self.localState = self.localState.byTogglingReadPrivacyNotice()
     }
 
     self.rootView.userDidTapActionButton = { [weak self] in
@@ -66,11 +66,11 @@ final class PrivacyVC: ViewControllerWithLocalState<PrivacyView> {
   }
 
   private func handleSettingsActionButtonTap() {
-    self.store.dispatch(Logic.Settings.ShowFullPrivacyPolicy())
+    self.store.dispatch(Logic.Settings.ShowFullPrivacyNotice())
   }
 
   private func handleOnboardingActionButtonTap() {
-    guard !self.localState.isReadPrivacyPolicyChecked || !self.localState.isAbove14Checked else {
+    guard !self.localState.isReadPrivacyNoticeChecked || !self.localState.isAbove14Checked else {
       self.store.dispatch(Logic.Privacy.UserHasCompletedPrivacyScreen())
       return
     }
@@ -101,26 +101,26 @@ struct PrivacyLS: LocalState {
   /// Whether the above 14 checkbox is checked.
   var isAbove14Checked: Bool
   /// Whether the privacy policy checkbox is checked.
-  var isReadPrivacyPolicyChecked: Bool
+  var isReadPrivacyNoticeChecked: Bool
 
   /// Whether the above 14 checkbox is errored.
   var isAbove14Errored: Bool
   /// Whether the privacy policy checkbox is errored.
-  var isReadPrivacyPolicyErrored: Bool
+  var isReadPrivacyNoticeErrored: Bool
 
   init(kind: Kind) {
     self.kind = kind
     self.isHeaderVisible = false
     self.isAbove14Checked = false
-    self.isReadPrivacyPolicyChecked = false
+    self.isReadPrivacyNoticeChecked = false
     self.isAbove14Errored = false
-    self.isReadPrivacyPolicyErrored = false
+    self.isReadPrivacyNoticeErrored = false
   }
 
   func erroredVersion() -> Self {
     var copy = self
     copy.isAbove14Errored = !copy.isAbove14Checked
-    copy.isReadPrivacyPolicyErrored = !copy.isReadPrivacyPolicyChecked
+    copy.isReadPrivacyNoticeErrored = !copy.isReadPrivacyNoticeChecked
     return copy
   }
 
@@ -131,10 +131,10 @@ struct PrivacyLS: LocalState {
     return copy
   }
 
-  func byTogglingReadPrivacyPolicy() -> Self {
+  func byTogglingReadPrivacyNotice() -> Self {
     var copy = self
-    copy.isReadPrivacyPolicyErrored = false
-    copy.isReadPrivacyPolicyChecked.toggle()
+    copy.isReadPrivacyNoticeErrored = false
+    copy.isReadPrivacyNoticeChecked.toggle()
     return copy
   }
 }

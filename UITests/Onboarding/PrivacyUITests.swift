@@ -25,32 +25,32 @@ class PrivacyUITests: AppViewTestCase, ViewTestCase {
       testCases: [
         "privacy_initial": PrivacyVM.onboardingPrivacy(
           isHeaderVisible: true,
-          tosURL: nil,
-          privacyPolicyURL: nil,
+          touURL: nil,
+          privacyNoticeURL: nil,
           isAbove14Checked: false,
           isAbove14Errored: false,
-          isReadPrivacyPolicyChecked: false,
-          isReadPrivacyPolicyErrored: false
+          isReadPrivacyNoticeChecked: false,
+          isReadPrivacyNoticeErrored: false
         ),
 
         "privacy_checked": PrivacyVM.onboardingPrivacy(
           isHeaderVisible: true,
-          tosURL: nil,
-          privacyPolicyURL: nil,
+          touURL: nil,
+          privacyNoticeURL: nil,
           isAbove14Checked: true,
           isAbove14Errored: false,
-          isReadPrivacyPolicyChecked: true,
-          isReadPrivacyPolicyErrored: false
+          isReadPrivacyNoticeChecked: true,
+          isReadPrivacyNoticeErrored: false
         ),
 
         "privacy_errored": PrivacyVM.onboardingPrivacy(
           isHeaderVisible: true,
-          tosURL: nil,
-          privacyPolicyURL: nil,
+          touURL: nil,
+          privacyNoticeURL: nil,
           isAbove14Checked: false,
           isAbove14Errored: true,
-          isReadPrivacyPolicyChecked: false,
-          isReadPrivacyPolicyErrored: true
+          isReadPrivacyNoticeChecked: false,
+          isReadPrivacyNoticeErrored: true
         ),
 
         "settings_privacy": PrivacyVM.settingsPrivacy(isHeaderVisible: false),

@@ -549,6 +549,26 @@ public extension FAQ {
   /// German FAQs
   ///
   /// - warning: we currently don't have DE FAQs. let's fallback on english version
-  /// in the meanshile
+  /// in the meanwhile
   static let germanDefaultValues: [FAQ] = Self.englishDefaultValues
+}
+
+// MARK: French default FAQs
+
+public extension FAQ {
+  /// French FAQs
+  ///
+  /// - warning: we currently don't have DE FAQs. let's fallback on english version
+  /// in the meanwhile
+  static let frenchDefaultValues: [FAQ] = Self.englishDefaultValues
+}
+
+// MARK: Spanish default FAQs
+
+public extension FAQ {
+  /// Spanish FAQs
+  ///
+  /// - warning: we currently don't have DE FAQs. let's fallback on english version
+  /// in the meanwhile
+  static let spanishDefaultValues: [FAQ] = Self.englishDefaultValues
 }

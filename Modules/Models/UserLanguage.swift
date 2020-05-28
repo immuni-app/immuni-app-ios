@@ -15,10 +15,12 @@
 import Foundation
 
 /// The language of the user
-public enum UserLanguage: String, Codable {
+public enum UserLanguage: String, Codable, CaseIterable {
   case italian = "it"
   case english = "en"
   case german = "de"
+  case french = "fr"
+  case spanish = "es"
 
   public init(from locale: Locale) {
     guard let langCode = locale.languageCode else {

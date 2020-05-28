@@ -51,26 +51,38 @@ extension Logic.Settings {
     }
   }
 
-  /// Shows a the privacy policy
-  struct ShowPrivacyPolicy: AppSideEffect {
+  /// Shows a the privacy notice
+  struct ShowPrivacyNotice: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       try context.awaitDispatch(Show(Screen.privacy, animated: true))
     }
   }
 
   /// Shows a the full privacy policy
-  struct ShowFullPrivacyPolicy: AppSideEffect {
+  struct ShowFullPrivacyNotice: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      let url = context.getState().configuration.privacyPolicyURL
-      try context.awaitDispatch(Show(Screen.web, animated: true, context: WebLS(url: url)))
+      let state = context.getState()
+
+      guard let privacyNoticeURL = state.configuration.privacyNoticeURL(for: state.environment.userLanguage) else {
+        // server misconfiguration
+        return
+      }
+
+      try context.awaitDispatch(Show(Screen.web, animated: true, context: WebLS(url: privacyNoticeURL)))
     }
   }
 
-  /// Shows the TOS page
-  struct ShowTOS: AppSideEffect {
+  /// Shows the TOU page
+  struct ShowTOU: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      let url = context.getState().configuration.tosURL
-      try context.awaitDispatch(Show(Screen.web, animated: true, context: WebLS(url: url)))
+      let state = context.getState()
+
+      guard let termsOfUseURL = state.configuration.termsOfUseURL(for: state.environment.userLanguage) else {
+        // server misconfiguration
+        return
+      }
+
+      try context.awaitDispatch(Show(Screen.web, animated: true, context: WebLS(url: termsOfUseURL)))
     }
   }
 

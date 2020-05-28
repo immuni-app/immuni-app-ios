@@ -44,6 +44,12 @@ struct FaqState: Codable {
 
     case .german:
       return FAQ.germanDefaultValues
+
+    case .french:
+      return FAQ.frenchDefaultValues
+
+    case .spanish:
+      return FAQ.spanishDefaultValues
     }
   }
 }

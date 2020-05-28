@@ -26,8 +26,8 @@ public struct Configuration: Codable {
     case exposureConfiguration = "exposure_configuration"
     case exposureInfoMinimumRiskScore = "exposure_info_minimum_risk_score"
     case maximumExposureDetectionWaitingTime = "maximum_exposure_detection_waiting_time"
-    case privacyPolicyURL = "pp_url"
-    case tosURL = "tos_url"
+    case privacyNoticeURL = "pn_url"
+    case termsOfUseURL = "tou_url"
     case faqURL = "faq_url"
     case operationalInfoWithExposureSamplingRate = "operational_info_with_exposure_sampling_rate"
     case operationalInfoWithoutExposureSamplingRate = "operational_info_without_exposure_sampling_rate"
@@ -80,11 +80,17 @@ public struct Configuration: Codable {
   /// pass before a foreground session should force a new one.
   public let maximumExposureDetectionWaitingTime: TimeInterval
 
-  /// The url of the privacy policy
-  public let privacyPolicyURL: URL
+  /// The url of the privacy notice
+  /// - note: this dictionary uses string as a key because only strings and ints
+  /// are really considered as dictionaries by Codable
+  /// https://bugs.swift.org/browse/SR-7788
+  public let privacyNoticeURL: [String: URL]
 
-  /// The url of the terms of service
-  public let tosURL: URL
+  /// The url of the terms of use
+  /// - note: this dictionary uses string as a key because only strings and ints
+  /// are really considered as dictionaries by Codable
+  /// https://bugs.swift.org/browse/SR-7788
+  public let termsOfUseURL: [String: URL]
 
   /// The urls of the FAQs for the various languages
   /// - note: this dictionary uses string as a key because only strings and ints
@@ -133,9 +139,22 @@ public struct Configuration: Codable {
     return self.faqURL[language.rawValue] ?? self.faqURL[UserLanguage.english.rawValue]
   }
 
+  /// The Terms Of Use url for the given language. it returns english version if the given
+  /// language is not available.
+  /// Note that the method may still fail in case of missing english version
+  public func termsOfUseURL(for language: UserLanguage) -> URL? {
+    return self.termsOfUseURL[language.rawValue] ?? self.termsOfUseURL[UserLanguage.english.rawValue]
+  }
+
+  /// The Privacy Notice url for the given language. it returns english version if the given
+  /// language is not available.
+  /// Note that the method may still fail in case of missing english version
+  public func privacyNoticeURL(for language: UserLanguage) -> URL? {
+    return self.privacyNoticeURL[language.rawValue] ?? self.privacyNoticeURL[UserLanguage.english.rawValue]
+  }
+
   /// Public initializer to allow testing
   #warning("Tune default parameters")
-  // swiftlint:disable force_unwrapping
   public init(
     minimumBuildVersion: Int = 1,
     serviceNotActiveNotificationPeriod: TimeInterval = 86400,
@@ -146,13 +165,9 @@ public struct Configuration: Codable {
     exposureConfiguration: ExposureDetectionConfiguration = .init(),
     exposureInfoMinimumRiskScore: Int = 1,
     maximumExposureDetectionWaitingTime: TimeInterval = 86400,
-    privacyPolicyURL: URL = URL(string: "https://get.immuni.gov.it/docs/app-pn.html")!,
-    tosURL: URL = URL(string: "https://get.immuni.gov.it/docs/app-tou.html")!,
-    faqURL: [String: URL] = [
-      UserLanguage.english.rawValue: URL(string: "http://www.example.com")!,
-      UserLanguage.italian.rawValue: URL(string: "http://www.example.com")!,
-      UserLanguage.german.rawValue: URL(string: "http://www.example.com")!
-    ],
+    privacyNoticeURL: [String: URL] = .defaultPrivacyNoticeURL,
+    termsOfUseURL: [String: URL] = .defaultTermsOfUseURL,
+    faqURL: [String: URL] = .defaultFAQURL,
     operationalInfoWithExposureSamplingRate: Double = 1,
     operationalInfoWithoutExposureSamplingRate: Double = 0.1,
     dummyAnalyticsWaitingTime: Double = 2_592_000,
@@ -174,8 +189,8 @@ public struct Configuration: Codable {
     self.exposureConfiguration = exposureConfiguration
     self.exposureInfoMinimumRiskScore = exposureInfoMinimumRiskScore
     self.maximumExposureDetectionWaitingTime = maximumExposureDetectionWaitingTime
-    self.privacyPolicyURL = privacyPolicyURL
-    self.tosURL = tosURL
+    self.privacyNoticeURL = privacyNoticeURL
+    self.termsOfUseURL = termsOfUseURL
     self.faqURL = faqURL
     self.operationalInfoWithExposureSamplingRate = operationalInfoWithExposureSamplingRate
     self.operationalInfoWithoutExposureSamplingRate = operationalInfoWithoutExposureSamplingRate
@@ -263,5 +278,37 @@ public extension Configuration {
       self.transmissionRiskWeight = transmissionRiskWeight
       self.minimumRiskScore = minimumRiskScore
     }
+  }
+}
+
+public extension Dictionary where Key == String, Value == URL {
+  /// default values for FAQs
+  static var defaultFAQURL: [String: URL] {
+    let values = UserLanguage.allCases.map { lang in
+      // swiftlint:disable:next force_unwrapping
+      (lang.rawValue, URL(string: "https://get.immuni.gov.it/docs/faq-\(lang.rawValue).json")!)
+    }
+
+    return Dictionary(uniqueKeysWithValues: values)
+  }
+
+  /// default values for privacy notifice
+  static var defaultPrivacyNoticeURL: [String: URL] {
+    let values = UserLanguage.allCases.map { lang in
+      // swiftlint:disable:next force_unwrapping
+      (lang.rawValue, URL(string: "https://get.immuni.gov.it/docs/app-pn-\(lang.rawValue).html")!)
+    }
+
+    return Dictionary(uniqueKeysWithValues: values)
+  }
+
+  /// default values for privacy notifice
+  static var defaultTermsOfUseURL: [String: URL] {
+    let values = UserLanguage.allCases.map { lang in
+      // swiftlint:disable:next force_unwrapping
+      (lang.rawValue, URL(string: "https://get.immuni.gov.it/docs/app-tou-\(lang.rawValue).html")!)
+    }
+
+    return Dictionary(uniqueKeysWithValues: values)
   }
 }
