@@ -231,11 +231,6 @@ extension Logic.DataUpload {
     let error: Error
     let retryDispatchable: Dispatchable?
 
-    init(error: Error, retryDispatchable: Dispatchable? = nil) {
-      self.error = error
-      self.retryDispatchable = retryDispatchable
-    }
-
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let title: String
       let message: String
@@ -244,11 +239,16 @@ extension Logic.DataUpload {
       let typedError = self.error as? NetworkManager.Error
 
       switch typedError {
-      case .none, .connectionError:
+      case .none:
         // Treat none as a generic connection error
         title = L10n.UploadData.ConnectionError.title
         message = L10n.UploadData.ConnectionError.message
         cancelAction = L10n.UploadData.ConnectionError.action
+
+      case .connectionError:
+        title = L10n.UploadData.VpnError.title
+        message = L10n.UploadData.VpnError.message
+        cancelAction = L10n.UploadData.VpnError.action
 
       case .unknownError, .badRequest, .unauthorizedOTP, .batchNotFound, .noBatchesFound, .otpAlreadyAuthorized:
         title = L10n.UploadData.ApiError.title
