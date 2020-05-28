@@ -12,6 +12,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+import BonMot
 import Extensions
 import Foundation
 import Tempura
@@ -45,7 +46,7 @@ struct SuggestionsInstructionCellVM: ViewModel {
     case .socialDistance:
       return L10n.Suggestions.Instruction.socialDistance
     case .wearMask:
-      return L10n.Suggestions.Instruction.mask
+      return L10n.Suggestions.Instruction.Mask.title
     case .contactDoctor:
       return L10n.Suggestions.Instruction.ContactDoctor.title
     case .stayHome:
@@ -95,7 +96,7 @@ struct SuggestionsInstructionCellVM: ViewModel {
   var subtitle: String? {
     switch self.instruction {
     case .ministerialDecree, .washHands, .useNapkins, .socialDistance, .contactAuthorities, .followInstructions,
-         .limitMovements, .wearMask:
+         .limitMovements:
       return nil
     case .checkSymptoms:
       return L10n.Suggestions.Instruction.CheckSymptoms.message
@@ -105,6 +106,8 @@ struct SuggestionsInstructionCellVM: ViewModel {
       return L10n.Suggestions.Instruction.ContactDoctor.message
     case .stayHome:
       return L10n.Suggestions.Instruction.StayHome.message
+    case .wearMask:
+      return L10n.Suggestions.Instruction.Mask.message
     }
   }
 
