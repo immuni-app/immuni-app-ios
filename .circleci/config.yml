@@ -440,6 +440,10 @@ workflows:
     jobs:
       - build:
           context: ios
+          filters:
+            branches:
+              ignore:
+                - /pull\/.+/
   pr_check:
     jobs:
       - pr_check:
