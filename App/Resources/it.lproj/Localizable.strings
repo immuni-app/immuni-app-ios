@@ -28,8 +28,8 @@
 "force_update_not_available_title" = "Google Play Services non è ancora pronto";
 "force_update_play_services_message" = "Una versione più recente di Google Play Services è necessaria per attivare le notifiche di esposizione.";
 "force_update_play_services_title" = "Aggiorna Google Play Services per proseguire";
-"force_update_view.app.details" = "È disponibile un aggiornamento importante. Aggiorna subito l’app per garantirne il funzionamento.";
-"force_update_view.app.title" = "Aggiorna l’app per proseguire";
+"force_update_view.app.details" = "È disponibile un aggiornamento importante. Aggiorna subito l'app per garantirne il funzionamento.";
+"force_update_view.app.title" = "Aggiorna l'app per proseguire";
 "force_update_view.os.details" = "Una versione più recente di iOS (13.5 o superiore) è necessaria per attivare le notifiche di esposizione.";
 "force_update_view.os.title" = "Aggiorna il sistema operativo per proseguire";
 "force_update_view.update" = "Aggiorna";
@@ -61,13 +61,13 @@
 "notifications.apple_exposure_notification.message" = "Una persona con cui hai avuto un contatto ravvicinato è risultata positiva al test.";
 "notifications.not_active_service.description" = "Riattiva Immuni al più presto perché ti possa avvertire in caso di rischio.";
 "notifications.not_active_service.title" = "⚠️ Il servizio non è attivo";
-"notifications.risk.description" = "Apri l’app per avere più informazioni.";
+"notifications.risk.description" = "Apri l'app per avere più informazioni.";
 "notifications.risk.title" = "Avviso importante per te";
-"notifications.update_app.description" = "È disponibile un aggiornamento importante. Aggiorna subito l’app per garantirne il funzionamento.";
+"notifications.update_app.description" = "È disponibile un aggiornamento importante. Aggiorna subito l'app per garantirne il funzionamento.";
 "notifications.update_app.title" = "⚠️ È necessario aggiornare l'applicazione";
-"notifications.update_os.description" = "Apri l’app per completare l’attivazione.";
+"notifications.update_os.description" = "Apri l'app per completare l'attivazione.";
 "notifications.update_os.title" = "Il servizio non è ancora attivo";
-"notifications.update_positive_state.description" = "Apri l’app se ci sono novità sulla tua situazione.";
+"notifications.update_positive_state.description" = "Apri l'app se ci sono novità sulla tua situazione.";
 "notifications.update_positive_state.title" = "Aggiorna il tuo stato";
 "onboarding.bluetooth_off.action" = "Attiva";
 "onboarding.bluetooth_off.description" = "Immuni utilizza il Bluetooth Low Energy per registrare i tuoi contatti con altri utenti e permettere notifiche di esposizione al COVID-19.";
@@ -75,7 +75,7 @@
 "onboarding.common.discover_more" = "Scopri di più";
 "onboarding.common.next" = "Avanti";
 "onboarding.communication_advice.action" = "Ho capito";
-"onboarding.communication_advice.description" = "Immuni comunicherà con te sempre e solamente attraverso l’app e relative notifiche. <b>Diffida di qualunque SMS, telefonata, email o altro tipo di avviso</b> che sembri arrivare da Immuni, soprattutto se ti vengono richieste informazioni personali.";
+"onboarding.communication_advice.description" = "Immuni comunicherà con te sempre e solamente attraverso l'app e relative notifiche. <b>Diffida di qualunque SMS, telefonata, email o altro tipo di avviso</b> che sembri arrivare da Immuni, soprattutto se ti vengono richieste informazioni personali.";
 "onboarding.communication_advice.title" = "Fai attenzione alle false comunicazioni";
 "onboarding.complete.title" = "Configurazione completata";
 "onboarding.exposure_permission.action" = "Abilita";
@@ -83,7 +83,7 @@
 "onboarding.exposure_permission.overlay.hint" = "Seleziona \"<b>Abilita</b>\" nel popup che apparirà qui sotto";
 "onboarding.exposure_permission.title" = "Abilita le notifiche di esposizione al COVID-19";
 "onboarding.pin_advice.action" = "Ho capito";
-"onboarding.pin_advice.description" = "Se non l’hai già fatto, imposta un codice sul tuo dispositivo per proteggerlo e impedire ad altri di accedere ai tuoi dati e alle tue app, inclusa Immuni.";
+"onboarding.pin_advice.description" = "Se non l'hai già fatto, imposta un codice sul tuo dispositivo per proteggerlo e impedire ad altri di accedere ai tuoi dati e alle tue app, inclusa Immuni.";
 "onboarding.pin_advice.title" = "Proteggi il tuo dispositivo";
 "onboarding.province.description" = "Seleziona la tua provincia di domicilio per aiutare il Servizio Sanitario Nazionale ad assisterti al meglio.";
 "onboarding.province.title" = "In che provincia vivi?";
@@ -122,7 +122,7 @@
 "permission_tutorial.how_immuni_works.second.title" = "<h>I telefoni che si incontrano si scambiano i rispettivi codici casuali</h>";
 "permission_tutorial.how_immuni_works.third.message" = "Gli utenti che sono risultati positivi al virus possono caricare su un server i codici casuali che i loro dispositivi hanno trasmesso nei giorni precedenti, in modo da renderli disponibili agli altri utenti.";
 "permission_tutorial.how_immuni_works.third.title" = "<h>Chi risulta positivo sceglie se condividere i propri codici casuali</h>";
-"permission_tutorial.how_immuni_works.title" = "Come funziona l’app?";
+"permission_tutorial.how_immuni_works.title" = "Come funziona l'app?";
 "permission_tutorial.notifications.action" = "Apri Impostazioni";
 "permission_tutorial.notifications.first" = "<b>1. Apri le impostazioni</b> dal bottone in basso";
 "permission_tutorial.notifications.second" = "<b>2. Entra in \"Notifiche\"</b>";
@@ -139,7 +139,7 @@
 "privacy.item.identity" = "<b>Immuni non raccoglie il tuo nome, cognome, data di nascita, indirizzo, numero di telefono o email.</b>";
 "privacy.item.italy" = "I tuoi dati sono salvati su server in Italia, <b>sono gestiti da soggetti pubblici e controllati dal Ministero della Salute.</b>";
 "privacy.item.location" = "<b>Immuni non raccoglie alcun dato di geolocalizzazione</b>, inclusi i dati del GPS. I tuoi spostamenti non sono tracciati in alcun modo.";
-"privacy.item.ministry" = "<b>Per aiutare il Servizio Sanitario Nazionale</b> a prendersi cura di te, Immuni invia al server del Ministero della Salute:\n• La tua provincia di domicilio\n• Se l’app funziona correttamente\n• Se sei stato avvertito di un contatto a rischio";
+"privacy.item.ministry" = "<b>Per aiutare il Servizio Sanitario Nazionale</b> a prendersi cura di te, Immuni invia al server del Ministero della Salute:\n• La tua provincia di domicilio\n• Se l'app funziona correttamente\n• Se sei stato avvertito di un contatto a rischio";
 "privacy.item.people" = "<b>Immuni non può risalire alla tua identità</b> o a quella delle persone con cui entri in contatto.";
 "privacy.item.secure" = "<b>I dati salvati sul tuo smartphone e le connessioni al server sono cifrati.</b>";
 "privacy.next" = "Avanti";
@@ -161,7 +161,7 @@
 "settings.setting.tos" = "Termini di utilizzo";
 "settings.update_province.update_province" = "Aggiorna";
 "settings_app_version" = "Immuni v%s (%d)";
-"suggestions.alert.asl_contact_confirmation.description" = "Immuni nasconderà l’avviso di contatto. Dovrai comunque seguire tutte le indicazione che hai ricevuto dal tuo medico o dalla tua ASL.";
+"suggestions.alert.asl_contact_confirmation.description" = "Immuni nasconderà l'avviso di contatto. Dovrai comunque seguire tutte le indicazione che hai ricevuto dal tuo medico o dalla tua ASL.";
 "suggestions.alert.asl_contact_confirmation.negative_answer" = "No";
 "suggestions.alert.asl_contact_confirmation.positive_answer" = "Sì";
 "suggestions.alert.asl_contact_confirmation.title" = "Confermi di essere in contatto con il tuo medico o con la tua ASL?";
@@ -211,7 +211,7 @@
 "tabbar.title.home" = "Home";
 "tabbar.title.settings" = "Impostazioni";
 "upload_data.api_error.action" = "OK";
-"upload_data.api_error.message" = "Si è verificato un errore durante l’operazione. Ti invitiamo a riprovare. Nel caso il problema persista, ti suggeriamo di utilizzare una rete mobile.";
+"upload_data.api_error.message" = "Si è verificato un errore durante l'operazione. Ti invitiamo a riprovare. Nel caso il problema persista, ti suggeriamo di utilizzare una rete mobile.";
 "upload_data.api_error.title" = "Qualcosa è andato storto";
 "upload_data.code.message" = "Comunica questo codice all'operatore sanitario:";
 "upload_data.connection_error.action" = "OK";
@@ -232,7 +232,7 @@
 "upload_data.verify.loading_button.seconds" = "secondi";
 "upload_data.verify.message" = "Per proseguire, verifica l'autorizzazione ";
 "upload_data.vpn_error.action" = "OK";
-"upload_data.vpn_error.message" = "Si è verificato un errore durante l’operazione. Ti invitiamo a riprovare. Se stai utilizzando una VPN, ti suggeriamo di selezionare un server europeo o di disabilitarla temporaneamente.";
+"upload_data.vpn_error.message" = "Si è verificato un errore durante l'operazione. Ti invitiamo a riprovare. Se stai utilizzando una VPN, ti suggeriamo di selezionare un server europeo o di disabilitarla temporaneamente.";
 "upload_data.vpn_error.title" = "Qualcosa è andato storto";
 "upload_data.wait_operator.message" = "Attendi la conferma dell'operatore";
 "upload_data.warning.message" = "Questa funzione richiede l'assistenza di un operatore sanitario autorizzato";
@@ -240,7 +240,7 @@
 "welcome_view.go_next" = "Iniziamo";
 "welcome_view.items.first.description" = "Con il contributo di tutti, Immuni aiuta a contenere il virus e a tornare il prima possibile alla normalità.";
 "welcome_view.items.first.title" = "Ciao!";
-"welcome_view.items.fourth.description" = "L’app funziona senza seguire i tuoi spostamenti e senza conoscere la tua identità o quella delle persone con cui entri in contatto.";
+"welcome_view.items.fourth.description" = "L'app funziona senza seguire i tuoi spostamenti e senza conoscere la tua identità o quella delle persone con cui entri in contatto.";
 "welcome_view.items.fourth.title" = "La tua privacy è tutelata";
 "welcome_view.items.second.description" = "Se sei entrato in contatto con un utente in seguito risultato positivo al virus, Immuni ti avverte e ti fornisce indicazioni per proteggere la tua salute e quella dei tuoi cari.";
 "welcome_view.items.second.title" = "Immuni si prende cura di te";
