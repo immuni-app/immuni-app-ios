@@ -12,7 +12,7 @@
 "notifications.update_app.description" = "È disponibile un aggiornamento importante. Aggiorna subito l’app per garantirne il funzionamento.";
 "notifications.not_active_service.title" = "⚠️ Il servizio non è attivo";
 "notifications.not_active_service.description" = "Riattiva Immuni al più presto perché ti possa avvertire in caso di rischio.";
-"notifications.apple_exposure_notification.message" = "Una persona con cui hai avuto un contatto ravvicinato è risultata positiva al test";
+"notifications.apple_exposure_notification.message" = " hai avuto un contatto ravvicinato è risultata positiva al test";
 "notifications.risk.title" = "Avviso importante per te";
 "notifications.risk.description" = "Apri l’app per avere più informazioni.";
 "notifications.update_positive_state.title" = "Aggiorna il tuo stato";
@@ -197,41 +197,36 @@
 "suggestions.header.short_title.neutral" = "Indicazioni per te";
 "suggestions.neutral.alert" = "Se sei in contatto con il tuo medico o con il Dipartimento di Prevenzione della tua ASL, segui tutte le indicazioni che hai ricevuto.";
 "suggestions.neutral.message" = "In ogni caso, <b>cerca sempre di rispettare queste indicazioni generali:</b>";
+"suggestions.instruction.ministerial_decree" = "<b>Rispetta la normativa vigente nella tua area.</b>";
+"suggestions.instruction.wash_hands" = "<b>Lavati frequentemente le mani</b> con acqua e sapone o con soluzioni idroalcoliche.";
+"suggestions.instruction.use_napkins" = "<b>Tossisci e starnutisci direttamente su un fazzoletto di carta o nella piega del gomito.</b>";
+"suggestions.instruction.social_distance" = "<b>Rispetta le misure di distanziamento fisico</b> se devi uscire di casa.";
+"suggestions.instruction.mask.title" = "<b>Indossa una mascherina nei luoghi al chiuso accessibili al pubblico.</b>";
+"suggestions.instruction.mask.message" = "Inclusi i mezzi di trasporto e comunque in tutte le occasioni in cui non sia possibile garantire continuativamente il mantenimento della distanza di sicurezza.";
 
 "suggestions.risk.title" = "Esposizione a rischio";
 "suggestions.risk.subtitle" = "Immuni ha rilevato che il giorno %@ sei stato vicino a un utente COVID-19 positivo.";
 
-"suggestions.positive.title" = "Segui le indicazioni";
-"suggestions.positive.subtitle" = "<b>Segui tutte le indicazioni che hai ricevuto dal tuo medico o dal Dipartimento di Prevenzione della tua ASL.</b>";
-
-"suggestions.instruction.ministerial_decree" = "<b>Rispetta la normativa vigente nella tua area</b>";
-"suggestions.instruction.wash_hands" = "<b>Lavati frequentemente le mani </b>con acqua e sapone o con soluzioni idroalcoliche";
-"suggestions.instruction.use_napkins" = "<b>Tossisci e starnutisci direttamente su un fazzoletto di carta o nella piega del gomito</b>";
-"suggestions.instruction.social_distance" = "<b>Rispetta le misure di distanziamento fisico </b>se devi uscire di casa";
-"suggestions.instruction.mask" = "<b>Indossa una mascherina nei luoghi al chiuso accessibili al pubblico</b>, inclusi i mezzi di trasporto e comunque in tutte le occasioni in cui non sia possibile garantire continuativamente il mantenimento della distanza di sicurezza";
-
 "suggestions.instruction.follow_instructions" = "Per proteggere la tua salute e quella dei tuoi cari, <b>rispetta le seguenti indicazioni:</b>";
-
-"suggestions.instruction.contact_doctor.title" = "<b>Contatta il tuo Medico di Medicina Generale (o il Pediatra di Libera Scelta)</b>";
-"suggestions.instruction.contact_doctor.message" = "Spiega al medico di aver ricevuto una notifica di contatto stretto di COVID-19 da Immuni. Segui le indicazioni del tuo medico.";
-
+"suggestions.instruction.contact_doctor.title" = "<b>Contatta il tuo Medico di Medicina Generale (o il Pediatra di Libera Scelta).</b>";
+"suggestions.instruction.contact_doctor.message" = "Spiega al medico di aver ricevuto una notifica di contatto stretto di COVID-19 da Immuni. Segui le indicazioni del tuo medico. Il tuo medico contatterà il Dipartimento di Prevenzione della tua ASL. Rimani, pertanto, raggiungibile per le attività di sorveglianza sanitaria da parte della tua ASL.";
 "suggestions.instruction.hide_if_contact_doctor.message" = "Se sei in contatto con il tuo medico o la tua ASL, puoi nascondere questo avviso.";
 "suggestions.instruction.hide_if_contact_doctor.action" = "Ho contattato il medico";
+"suggestions.instruction.while_waiting_doctor" = "In via precauzionale, <b>in attesa delle indicazioni del tuo medico o della ASL:</b>";
+"suggestions.instruction.stay_home.title" = "<b>Rimani a casa per i 14 giorni</b> successivi alla data del contatto";
+"suggestions.instruction.stay_home.message" = "Utilizza una stanza riservata e dotata di buona ventilazione, possibilmente con bagno dedicato.";
 
-"suggestions.instruction.while_waiting_doctor" = "In via precauzionale, <b>in attesa delle indicazioni del tuo medico:</b>";
-"suggestions.instruction.stay_home" = "<b>Rimani a casa per i 14 giorni</b> successivi alla data del contatto";
+"suggestions.instruction.limit_movement" = "<b>Limita al massimo i movimenti in altri spazi comuni della casa.</b>";
+"suggestions.instruction.distance" = "<b>In presenza di altre persone, mantieni una distanza di almeno un metro.</b>";
+"suggestions.instruction.check_symptoms.title" = "<b>Misura la temperatura corporea almeno due volte al giorno e valuta la comparsa di sintomi,</b> anche lievi.";
+"suggestions.instruction.check_symptoms.message" = "In particolare febbre o almeno uno dei seguenti: mal di gola, tosse, raffreddore o naso chiuso, difficoltà respiratoria, dolori muscolari, perdita o alterazioni di olfatto o gusto, diarrea.";
+"suggestions.instruction.isolate.title" = "<b>In caso di comparsa dei sintomi, isolati dal resto dei tuoi conviventi.</b>";
+"suggestions.instruction.isolate.message" = "Indossa una mascherina chirurgica e contatta immediatamente il tuo Medico di Medicina Generale (o il Pediatra di Libera Scelta) e il Dipartimento di Prevenzione della ASL.";
 
-"suggestions.instruction.check_symptoms.title" = "<b>Misura la temperatura corporea almeno due volte al giorno e valuta la comparsa di sintomi, anche lievi.</b>";
-"suggestions.instruction.check_symptoms.message" = "In particolare febbre o almeno uno dei seguenti: mal di gola, tosse, raffreddore o naso chiuso, difficoltà respiratoria, dolori muscolari, perdita o alterazioni di olfatto o gusto, diarrea";
-
-"suggestions.instruction.isolate.title" = "<b>In caso di comparsa dei sintomi, isolati dal resto dei tuoi conviventi</b>";
-"suggestions.instruction.isolate.message" = "Indossa una mascherina chirurgica e contatta immediatamente il tuo Medico di Medicina Generale (o il Pediatra di Libera Scelta) e il Dipartimento di Prevenzione della ASL";
-
-"suggestions.instruction.phone_contact" = "<b>In caso di sintomi gravi, contatta il 112 o il 118</b>";
-
+"suggestions.instruction.phone_contact" = "<b>In caso di sintomi gravi, contatta il 112 o il 118.</b>";
 "suggestions.instruction.hide_alert.message" = "Se necessario puoi nascondere questo avviso. A meno che tu abbia una ragione valida, ti sconsigliamo vivamente di farlo.";
 "suggestions.instruction.hide_alert.action" = "Nascondi avviso";
-
+  
 "suggestions.alert.asl_contact_confirmation.title" = "Confermi di essere in contatto con la tua ASL?";
 "suggestions.alert.asl_contact_confirmation.description" = "Immuni nasconderà l’avviso di contatto. Dovrai comunque seguire tutte le indicazione che hai ricevuto dalla tua ASL.";
 "suggestions.alert.asl_contact_confirmation.negative_answer" = "No";
@@ -241,6 +236,9 @@
 "suggestions.alert.hide_alert.description" = "A meno che tu abbia una ragione valida, ti sconsigliamo vivamente di farlo. Ne potrebbe andare della tua salute e di quella delle persone che ti circondano.";
 "suggestions.alert.hide_alert.negative_answer" = "No";
 "suggestions.alert.hide_alert.positive_answer" = "Sì";
+
+"suggestions.positive.title" = "Segui le indicazioni";
+"suggestions.positive.subtitle" = "<b>Segui tutte le indicazioni che hai ricevuto dal tuo medico o dal Dipartimento di Prevenzione della tua ASL.</b>";
 
 "suggestions.positive.info.title" = "Immuni sta continuando a funzionare: non disinstallarla!";
 "suggestions.positive.info.subtitle" = "Per il momento, non riceverai eventuali nuove notifiche in caso di esposizione a rischio con un utente COVID-19 positivo.";
