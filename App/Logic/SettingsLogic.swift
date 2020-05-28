@@ -52,14 +52,14 @@ extension Logic.Settings {
   }
 
   /// Shows a the privacy policy
-  struct ShowPrivacyPolicy: AppSideEffect {
+  struct ShowPrivacyNotice: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       try context.awaitDispatch(Show(Screen.privacy, animated: true))
     }
   }
 
   /// Shows a the full privacy policy
-  struct ShowFullPrivacyPolicy: AppSideEffect {
+  struct ShowFullPrivacyNotice: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let state = context.getState()
 
@@ -72,8 +72,8 @@ extension Logic.Settings {
     }
   }
 
-  /// Shows the TOS page
-  struct ShowTOS: AppSideEffect {
+  /// Shows the TOU page
+  struct ShowTOU: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let state = context.getState()
 

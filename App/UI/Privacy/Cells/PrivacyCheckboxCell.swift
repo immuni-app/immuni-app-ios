@@ -51,13 +51,13 @@ struct PrivacyCheckboxCellVM: ViewModel, Equatable {
 extension PrivacyCheckboxCellVM {
   enum CellType: Equatable {
     case above14
-    case privacyPolicyRead
+    case privacyNoticeRead
 
     var description: String {
       switch self {
       case .above14:
         return L10n.Privacy.Checkbox.above14
-      case .privacyPolicyRead:
+      case .privacyNoticeRead:
         return L10n.Privacy.Checkbox.privacyPolicyRead
       }
     }

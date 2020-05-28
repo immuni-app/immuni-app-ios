@@ -19,7 +19,7 @@ import Katana
 import PinLayout
 import Tempura
 
-struct PrivacyTOSCellVM: ViewModel, Equatable {
+struct PrivacyTOUCellVM: ViewModel, Equatable {
   let content: String
   let tosURL: URL?
 
@@ -28,7 +28,7 @@ struct PrivacyTOSCellVM: ViewModel, Equatable {
   }
 }
 
-final class PrivacyTOSCell: UICollectionViewCell, ModellableView, ReusableView {
+final class PrivacyTOUCell: UICollectionViewCell, ModellableView, ReusableView {
   private static let horizontalPadding: CGFloat = 30.0
 
   var userDidTapURL: CustomInteraction<URL>?
@@ -55,7 +55,7 @@ final class PrivacyTOSCell: UICollectionViewCell, ModellableView, ReusableView {
 
   func style() {}
 
-  func update(oldModel: PrivacyTOSCellVM?) {
+  func update(oldModel: PrivacyTOUCellVM?) {
     guard let model = self.model else {
       return
     }
@@ -85,7 +85,7 @@ final class PrivacyTOSCell: UICollectionViewCell, ModellableView, ReusableView {
   }
 }
 
-extension PrivacyTOSCell: UITextViewDelegate {
+extension PrivacyTOUCell: UITextViewDelegate {
   func textView(
     _ textView: UITextView,
     shouldInteractWith URL: URL,
@@ -100,7 +100,7 @@ extension PrivacyTOSCell: UITextViewDelegate {
   }
 }
 
-private extension PrivacyTOSCell {
+private extension PrivacyTOUCell {
   enum Style {
     static func content(_ textView: UITextView, content: String, url: URL?) {
       textView.isSelectable = true

@@ -39,20 +39,7 @@ final class AppSetupLogicTests: XCTestCase {
     var state = AppState()
 
     // swiftlint:disable force_unwrapping
-    state.configuration = .init(
-      minimumBuildVersion: 99999,
-      serviceNotActiveNotificationPeriod: 0,
-      osForceUpdateNotificationPeriod: 0,
-      requiredUpdateNotificationPeriod: 0,
-      riskReminderNotificationPeriod: 0,
-      exposureDetectionPeriod: 0,
-      exposureConfiguration: .init(),
-      exposureInfoMinimumRiskScore: 1,
-      maximumExposureDetectionWaitingTime: 0,
-      privacyPolicyURL: URL(string: "https://unit-test")!,
-      tosURL: URL(string: "https://unit-test")!,
-      faqURL: [:]
-    )
+    state.configuration = .init(minimumBuildVersion: 99999)
     // swiftlint:enable force_unwrapping
 
     let getState = { state }
