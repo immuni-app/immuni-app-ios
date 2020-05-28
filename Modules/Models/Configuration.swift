@@ -137,12 +137,12 @@ public struct Configuration: Codable {
   #warning("Tune default parameters")
   // swiftlint:disable force_unwrapping
   public init(
-    minimumBuildVersion: Int = 0,
+    minimumBuildVersion: Int = 1,
     serviceNotActiveNotificationPeriod: TimeInterval = 86400,
     osForceUpdateNotificationPeriod: TimeInterval = 86400,
     requiredUpdateNotificationPeriod: TimeInterval = 86400,
     riskReminderNotificationPeriod: TimeInterval = 86400,
-    exposureDetectionPeriod: TimeInterval = 7200,
+    exposureDetectionPeriod: TimeInterval = 14400,
     exposureConfiguration: ExposureDetectionConfiguration = .init(),
     exposureInfoMinimumRiskScore: Int = 1,
     maximumExposureDetectionWaitingTime: TimeInterval = 86400,
@@ -154,7 +154,7 @@ public struct Configuration: Codable {
       UserLanguage.german.rawValue: URL(string: "http://www.example.com")!
     ],
     operationalInfoWithExposureSamplingRate: Double = 1,
-    operationalInfoWithoutExposureSamplingRate: Double = 1,
+    operationalInfoWithoutExposureSamplingRate: Double = 0.1,
     dummyAnalyticsWaitingTime: Double = 2_592_000,
     dummyIngestionAverageRequestWaitingTime: Double = 10,
     dummyIngestionRequestProbabilities: [Double] = [0.95, 0.1],
