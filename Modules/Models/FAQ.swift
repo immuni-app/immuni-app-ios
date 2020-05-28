@@ -341,15 +341,15 @@ public extension FAQ {
 
        • The Bluetooth Low Energy code broadcast by the app is generated completely randomly and doesn't contain any information about you or your device. This code changes several times each hour, protecting your privacy even more.
 
-       • All Immuni data stored on your smartphone are encrypted.
+       • All Immuni data stored on your smartphone is encrypted.
 
        • All connections between the app and the server are encrypted.
 
-       • All data, whether stored on the device or on the server, are deleted when no longer relevant, and certainly no later than December 31, 2020.
+       • All data, whether stored on the device or on the server, is deleted when no longer relevant, and certainly no later than December 31, 2020.
 
-       • The Ministry of Health is the entity that collects your data. The data are used solely with the aim of containing the COVID-19 epidemic or for scientific research.
+       • The Ministry of Health is the entity that collects your data. The data is used solely with the aim of containing the COVID-19 epidemic or for scientific research.
 
-       • The data are stored on servers located in Italy and managed by public entities.
+       • The data is stored on servers located in Italy and managed by public entities.
       """
     ),
     .init(
@@ -364,7 +364,6 @@ public extension FAQ {
       Everybody wants to reduce the spread of the epidemic, minimise the risk to our loved ones, and return to a normal life.
 
       Immuni plays an important role in achieving these goals. Thanks to its exposure notification system, the app makes it possible to quickly alert those who may have been exposed to a potentially infectious user, suggesting actions like self-isolation and calling a general practitioner. Such measures are critical in minimising the number of infections and ensuring that those affected can receive prompt, suitable medical attention—which, in turn, reduces the risk of complications.
-
       """
     ),
     .init(
@@ -532,7 +531,7 @@ public extension FAQ {
     .init(
       title: "Does Immuni share or sell my data?",
       content: """
-      All data are controlled by the Ministry of Health. In no case will your data be sold or used for commercial reasons, including profiling for advertising purposes. This is a non-profit project that stems only from the desire to help defeat the epidemic. Data may be shared to facilitate scientific research, but only after their complete anonymisation and aggregation.
+      All data is controlled by the Ministry of Health. In no case will your data be sold or used for commercial reasons, including profiling for advertising purposes. This is a non-profit project that stems only from the desire to help defeat the epidemic. Data may be shared to facilitate scientific research, but only after their complete anonymisation and aggregation.
       """
     ),
     .init(
