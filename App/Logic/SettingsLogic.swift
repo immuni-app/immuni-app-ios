@@ -61,16 +61,28 @@ extension Logic.Settings {
   /// Shows a the full privacy policy
   struct ShowFullPrivacyPolicy: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      let url = context.getState().configuration.privacyPolicyURL
-      try context.awaitDispatch(Show(Screen.web, animated: true, context: WebLS(url: url)))
+      let state = context.getState()
+
+      guard let privacyNoticeURL = state.configuration.privacyNoticeURL(for: state.environment.userLanguage) else {
+        // server missconfiguration
+        return
+      }
+
+      try context.awaitDispatch(Show(Screen.web, animated: true, context: WebLS(url: privacyNoticeURL)))
     }
   }
 
   /// Shows the TOS page
   struct ShowTOS: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      let url = context.getState().configuration.tosURL
-      try context.awaitDispatch(Show(Screen.web, animated: true, context: WebLS(url: url)))
+      let state = context.getState()
+
+      guard let termsOfUseURL = state.configuration.termsOfUseURL(for: state.environment.userLanguage) else {
+        // server missconfiguration
+        return
+      }
+
+      try context.awaitDispatch(Show(Screen.web, animated: true, context: WebLS(url: termsOfUseURL)))
     }
   }
 

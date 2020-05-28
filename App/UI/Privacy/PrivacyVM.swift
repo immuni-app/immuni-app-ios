@@ -46,13 +46,15 @@ extension PrivacyVM: ViewModelWithLocalState {
     }
 
     let configuration = state.configuration
+    let touURL = configuration.termsOfUseURL(for: state.environment.userLanguage)
+    let privacyNoticeURL = configuration.privacyNoticeURL(for: state.environment.userLanguage)
 
     switch localState.kind {
     case .onboarding:
       self = Self.onboardingPrivacy(
         isHeaderVisible: localState.isHeaderVisible,
-        tosURL: configuration.tosURL,
-        privacyPolicyURL: configuration.privacyPolicyURL,
+        tosURL: touURL,
+        privacyPolicyURL: privacyNoticeURL,
         isAbove14Checked: localState.isAbove14Checked,
         isAbove14Errored: localState.isAbove14Errored,
         isReadPrivacyPolicyChecked: localState.isReadPrivacyPolicyChecked,
