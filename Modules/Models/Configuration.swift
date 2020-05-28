@@ -37,9 +37,9 @@ public struct Configuration: Codable {
     case dummyIngestionMeanStochasticDelay = "dummy_teks_average_opportunity_waiting_time"
     case dummyIngestionWindowDuration = "dummy_teks_window_duration"
     case dummyIngestionAverageStartUpDelay = "dummy_teks_average_start_waiting_time"
-    case dataUploadMaxSummaryCount
-    case dataUploadMaxExposureInfoCount
-    case ingestionRequestTargetSize = "teksPacketSize"
+    case dataUploadMaxSummaryCount = "teks_max_summary_count"
+    case dataUploadMaxExposureInfoCount = "teks_max_info_count"
+    case ingestionRequestTargetSize = "teks_packet_size"
   }
 
   /// This is used to enforce a minimum version of the app.
@@ -133,17 +133,16 @@ public struct Configuration: Codable {
     return self.faqURL[language.rawValue] ?? self.faqURL[UserLanguage.english.rawValue]
   }
 
-
   /// Public initializer to allow testing
   #warning("Tune default parameters")
   // swiftlint:disable force_unwrapping
   public init(
-    minimumBuildVersion: Int = 0,
+    minimumBuildVersion: Int = 1,
     serviceNotActiveNotificationPeriod: TimeInterval = 86400,
     osForceUpdateNotificationPeriod: TimeInterval = 86400,
     requiredUpdateNotificationPeriod: TimeInterval = 86400,
     riskReminderNotificationPeriod: TimeInterval = 86400,
-    exposureDetectionPeriod: TimeInterval = 7200,
+    exposureDetectionPeriod: TimeInterval = 14400,
     exposureConfiguration: ExposureDetectionConfiguration = .init(),
     exposureInfoMinimumRiskScore: Int = 1,
     maximumExposureDetectionWaitingTime: TimeInterval = 86400,
@@ -155,7 +154,7 @@ public struct Configuration: Codable {
       UserLanguage.german.rawValue: URL(string: "http://www.example.com")!
     ],
     operationalInfoWithExposureSamplingRate: Double = 1,
-    operationalInfoWithoutExposureSamplingRate: Double = 1,
+    operationalInfoWithoutExposureSamplingRate: Double = 0.1,
     dummyAnalyticsWaitingTime: Double = 2_592_000,
     dummyIngestionAverageRequestWaitingTime: Double = 10,
     dummyIngestionRequestProbabilities: [Double] = [0.95, 0.1],
@@ -197,6 +196,7 @@ public struct Configuration: Codable {
 public extension Configuration {
   struct ExposureDetectionConfiguration: Codable {
     enum CodingKeys: String, CodingKey {
+      case attenuationThresholds = "attenuation_thresholds"
       case attenuationBucketScores = "attenuation_bucket_scores"
       case attenuationWeight = "attenuation_weight"
       case daysSinceLastExposureBucketScores = "days_since_last_exposure_bucket_scores"
@@ -207,6 +207,9 @@ public extension Configuration {
       case transmissionRiskWeight = "transmission_risk_weight"
       case minimumRiskScore = "minimum_risk_score"
     }
+
+    /// The thresholds of dBm that dictates how attenuations are divided into buckets in `ExposureInfo.attenuationDurations`
+    public let attenuationThresholds: [Int]
 
     /// Scores that indicate Bluetooth signal strength.
     public let attenuationBucketScores: [UInt8]
@@ -238,16 +241,18 @@ public extension Configuration {
     /// Public initializer to allow testing
     #warning("Tune default parameters")
     public init(
-      attenuationBucketScores: [UInt8] = [1, 1, 2, 3, 4, 5, 6, 7],
+      attenuationThresholds: [Int] = [50, 70],
+      attenuationBucketScores: [UInt8] = [1, 2, 3, 4, 5, 6, 7, 8],
       attenuationWeight: Double = 1,
-      daysSinceLastExposureBucketScores: [UInt8] = [1, 1, 2, 3, 4, 5, 6, 7],
+      daysSinceLastExposureBucketScores: [UInt8] = [1, 2, 3, 4, 5, 6, 7, 8],
       daysSinceLastExposureWeight: Double = 1,
-      durationBucketScores: [UInt8] = [1, 1, 2, 3, 4, 5, 6, 7],
+      durationBucketScores: [UInt8] = [1, 2, 3, 4, 5, 6, 7, 8],
       durationWeight: Double = 1,
-      transmissionRiskBucketScores: [UInt8] = [1, 1, 2, 3, 4, 5, 6, 7],
+      transmissionRiskBucketScores: [UInt8] = [1, 2, 3, 4, 5, 6, 7, 8],
       transmissionRiskWeight: Double = 1,
       minimumRiskScore: UInt8 = 1
     ) {
+      self.attenuationThresholds = attenuationThresholds
       self.attenuationBucketScores = attenuationBucketScores
       self.attenuationWeight = attenuationWeight
       self.daysSinceLastExposureBucketScores = daysSinceLastExposureBucketScores

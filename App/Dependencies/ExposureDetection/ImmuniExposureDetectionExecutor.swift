@@ -175,6 +175,7 @@ private extension Configuration.ExposureDetectionConfiguration {
     configuration.transmissionRiskBucketScores = self.transmissionRiskBucketScores
     configuration.transmissionRiskWeight = self.transmissionRiskWeight
     configuration.minimumRiskScore = self.minimumRiskScore
+    configuration.attenuationThresholds = self.attenuationThresholds
     return configuration
   }
 }
