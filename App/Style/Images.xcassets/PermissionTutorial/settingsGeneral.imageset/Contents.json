@@ -15,6 +15,16 @@
       "locale" : "en-GB"
     },
     {
+      "filename" : "settingsGeneral-4.pdf",
+      "idiom" : "universal",
+      "locale" : "es-ES"
+    },
+    {
+      "filename" : "settingsGeneral-5.pdf",
+      "idiom" : "universal",
+      "locale" : "fr"
+    },
+    {
       "filename" : "settingsGeneral.pdf",
       "idiom" : "universal",
       "locale" : "it"

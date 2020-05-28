@@ -15,6 +15,16 @@
       "locale" : "en-GB"
     },
     {
+      "filename" : "covid19-exposition-4.pdf",
+      "idiom" : "universal",
+      "locale" : "es-ES"
+    },
+    {
+      "filename" : "covid19-exposition-5.pdf",
+      "idiom" : "universal",
+      "locale" : "fr"
+    },
+    {
       "filename" : "covid19-exposition.pdf",
       "idiom" : "universal",
       "locale" : "it"

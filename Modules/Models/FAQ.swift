@@ -75,7 +75,7 @@ public extension FAQ {
     .init(
       title: "Come viene tutelata la mia privacy?",
       content: """
-      Durante l'intero processo di design e sviluppo di immuni, abbiamo posto grande attenzione sulla tutela della tua privacy.
+      Durante l'intero processo di design e sviluppo di Immuni, abbiamo posto grande attenzione sulla tutela della tua privacy.
 
       Eccoti una lista di alcune delle misure con cui Immuni protegge i tuoi dati:
 
@@ -245,7 +245,7 @@ public extension FAQ {
     .init(
       title: "Il Bluetooth del mio smartphone deve essere sempre attivo?",
       content: """
-      Il sistema di notifiche di esposizione si basa su Bluetooth Low Energy. È necessario, quindi, che il Bluetooth sia sempre attivo affinché il sistema possa rilevare i tuoi contatti con gli altri utenti. Resti ovviamente libero di attivare o disattivare il bluetooth quando preferisci.
+      Il sistema di notifiche di esposizione si basa su Bluetooth Low Energy. È necessario, quindi, che il Bluetooth sia sempre attivo affinché il sistema possa rilevare i tuoi contatti con gli altri utenti. Resti ovviamente libero di attivare o disattivare il Bluetooth quando preferisci.
       """
     ),
     .init(

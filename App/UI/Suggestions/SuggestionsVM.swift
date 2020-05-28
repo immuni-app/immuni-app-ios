@@ -176,6 +176,10 @@ extension SuggestionsVM {
       .message(text: L10n.Suggestions.Instruction.HideAlert.message),
       .spacer(size: .medium),
       .button(interaction: .dismissCovidNotifications),
+      .spacer(size: .medium),
+      .separator,
+      .spacer(size: .medium),
+      .message(text: L10n.Suggestions.Risk.footer),
       .spacer(size: .big)
     ]
   }
