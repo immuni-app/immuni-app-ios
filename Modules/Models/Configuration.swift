@@ -154,27 +154,26 @@ public struct Configuration: Codable {
   }
 
   /// Public initializer to allow testing
-  #warning("Tune default parameters")
   public init(
     minimumBuildVersion: Int = 1,
-    serviceNotActiveNotificationPeriod: TimeInterval = 86400,
+    serviceNotActiveNotificationPeriod: TimeInterval = 43200,
     osForceUpdateNotificationPeriod: TimeInterval = 86400,
     requiredUpdateNotificationPeriod: TimeInterval = 86400,
     riskReminderNotificationPeriod: TimeInterval = 86400,
     exposureDetectionPeriod: TimeInterval = 14400,
     exposureConfiguration: ExposureDetectionConfiguration = .init(),
-    exposureInfoMinimumRiskScore: Int = 1,
+    exposureInfoMinimumRiskScore: Int = 20,
     maximumExposureDetectionWaitingTime: TimeInterval = 86400,
     privacyNoticeURL: [String: URL] = .defaultPrivacyNoticeURL,
     termsOfUseURL: [String: URL] = .defaultTermsOfUseURL,
     faqURL: [String: URL] = .defaultFAQURL,
     operationalInfoWithExposureSamplingRate: Double = 1,
-    operationalInfoWithoutExposureSamplingRate: Double = 0.1,
+    operationalInfoWithoutExposureSamplingRate: Double = 0.6,
     dummyAnalyticsWaitingTime: Double = 2_592_000,
     dummyIngestionAverageRequestWaitingTime: Double = 10,
     dummyIngestionRequestProbabilities: [Double] = [0.95, 0.1],
-    dummyIngestionMeanStochasticDelay: Double = 864_000,
-    dummyIngestionWindowDuration: Double = 86400,
+    dummyIngestionMeanStochasticDelay: Double = 2_592_000,
+    dummyIngestionWindowDuration: Double = 259_200,
     dummyIngestionAverageStartUpDelay: Double = 10,
     dataUploadMaxSummaryCount: Int = 84,
     dataUploadMaxExposureInfoCount: Int = 600,
@@ -254,18 +253,17 @@ public extension Configuration {
     public let minimumRiskScore: UInt8
 
     /// Public initializer to allow testing
-    #warning("Tune default parameters")
     public init(
       attenuationThresholds: [Int] = [50, 70],
-      attenuationBucketScores: [UInt8] = [1, 2, 3, 4, 5, 6, 7, 8],
+      attenuationBucketScores: [UInt8] = [0, 3, 3, 5, 7, 7, 7, 7],
       attenuationWeight: Double = 1,
-      daysSinceLastExposureBucketScores: [UInt8] = [1, 2, 3, 4, 5, 6, 7, 8],
+      daysSinceLastExposureBucketScores: [UInt8] = [1, 1, 1, 1, 1, 1, 1, 1],
       daysSinceLastExposureWeight: Double = 1,
-      durationBucketScores: [UInt8] = [1, 2, 3, 4, 5, 6, 7, 8],
+      durationBucketScores: [UInt8] = [0, 0, 0, 3, 5, 5, 5, 7],
       durationWeight: Double = 1,
-      transmissionRiskBucketScores: [UInt8] = [1, 2, 3, 4, 5, 6, 7, 8],
+      transmissionRiskBucketScores: [UInt8] = [1, 1, 1, 1, 1, 1, 1, 1],
       transmissionRiskWeight: Double = 1,
-      minimumRiskScore: UInt8 = 1
+      minimumRiskScore: UInt8 = 20
     ) {
       self.attenuationThresholds = attenuationThresholds
       self.attenuationBucketScores = attenuationBucketScores
