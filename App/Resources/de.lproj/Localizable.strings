@@ -206,6 +206,7 @@
 "suggestions.positive.info.title" = "Immuni arbeitet weiter: Deinstallieren Sie es nicht!";
 "suggestions.positive.subtitle" = "";
 "suggestions.positive.title" = "";
+"suggestions.risk.footer" = "";
 "suggestions.risk.subtitle" = "";
 "suggestions.risk.title" = "";
 "tabbar.title.home" = "Home";

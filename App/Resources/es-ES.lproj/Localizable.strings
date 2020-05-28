@@ -206,6 +206,7 @@
 "suggestions.positive.info.title" = "";
 "suggestions.positive.subtitle" = "<b>Sigue todas las indicaciones que hayas recibido de tu médico o del Departamento de Prevención de tu Agencia Sanitaria Local.</b>";
 "suggestions.positive.title" = "Sigue las indicaciones";
+"suggestions.risk.footer" = "";
 "suggestions.risk.subtitle" = "";
 "suggestions.risk.title" = "Exposición al riesgo";
 "tabbar.title.home" = "Inicio";

@@ -206,6 +206,7 @@
 "suggestions.positive.info.title" = "Immuni is still working: don't uninstall it!";
 "suggestions.positive.subtitle" = "<b>Follow all the instructions that you have received from your general practitioner or from your local health authority's health care service.</b>";
 "suggestions.positive.title" = "Follow the instructions";
+"suggestions.risk.footer" = "Per aiutare il Servizio Sanitario Nazionale a prendersi cura di te in caso di necessità, l'app ha informato il Ministero della Salute della notifica che hai ricevuto. <b>Il Ministero della Salute non può in ogni caso risalire alla tua identità sulla base di questa informazione.</b>";
 "suggestions.risk.subtitle" = "Immuni has detected that you came into close contact with a COVID-19-positive user on %@.";
 "suggestions.risk.title" = "Risk exposure";
 "tabbar.title.home" = "Home";
