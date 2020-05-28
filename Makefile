@@ -13,7 +13,6 @@ else
 endif
 
 # Prepare Application workspace for production application
-immuni: export SUPPORT_EMAIL = tbd@immuni.org
 immuni: export APPSTORE_ID = 1513940977
 immuni:
 	swiftgen

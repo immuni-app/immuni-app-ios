@@ -77,7 +77,6 @@ targets:
         CFBundleIcons: {}
         CFBundleVersion: "${BUNDLE_VERSION}"
         IMAppstoreID: "${APPSTORE_ID}"
-        IMSupportEmail: "${SUPPORT_EMAIL}"
         ITSAppUsesNonExemptEncryption: false
         LSApplicationQueriesSchemes: ["googlegmail"]
         LSRequiresIPhoneOS: true
