@@ -531,7 +531,7 @@ public extension FAQ {
     .init(
       title: "Does Immuni share or sell my data?",
       content: """
-      All data is controlled by the Ministry of Health. In no case will your data be sold or used for commercial reasons, including profiling for advertising purposes. This is a non-profit project that stems only from the desire to help defeat the epidemic. Data may be shared to facilitate scientific research, but only after their complete anonymisation and aggregation.
+      All data is controlled by the Ministry of Health. In no case will your data be sold or used for commercial reasons, including profiling for advertising purposes. This is a non-profit project that stems only from the desire to help defeat the epidemic. Data may be shared to facilitate scientific research, but only after its complete anonymisation and aggregation.
       """
     ),
     .init(
