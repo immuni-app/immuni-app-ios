@@ -267,7 +267,10 @@ private extension SuggestionsInstructionCell {
           .adapt(.control)
         )
 
-        let composable: [Composable] = paragraphs.flatMap { ([$0.styled(with: textStyle), "\n\n".styled(with: paragraphLineStyle)]) as [Composable] }
+        let composable: [Composable] = paragraphs.flatMap { ([
+          $0.styled(with: textStyle),
+          "\n\n".styled(with: paragraphLineStyle)
+        ]) as [Composable] }
         label.numberOfLines = 0
         label.attributedText = NSAttributedString.composed(of: composable.dropLast()).adapted()
       }
