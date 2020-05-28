@@ -14,7 +14,7 @@
 
 import { danger, warn, message } from "danger";
 import { checkFormat } from "./CI/danger/swiftformat";
-import { checkLinting} from "./CI/danger/swiftlint";
+import { checkLinting } from "./CI/danger/swiftlint";
 import { isAppFile, isTestFile } from "./CI/danger/utils";
 import commitLint from "./CI/danger/commitlint";
 
@@ -27,14 +27,25 @@ export default async () => {
   const hasChangedTests =
     danger.git.modified_files.filter(isTestFile).length > 0;
 
+  const isDestinationMaster = danger.github.pr.base.ref === "master";
+  const isReleaseBranch = danger.github.pr.head.ref.indexOf("release/") !== -1;
+
+  if (isDestinationMaster && !isReleaseBranch) {
+    warn(
+      "This PR has been opened against master, but the current branch is not a release one. Most likely you need to change destination branch."
+    );
+  } else if (isDestinationMaster && isReleaseBranch) {
+    warn(
+      "This PR represents an App Store release and it should be merged only when this version has been released on the store."
+    );
+  }
+
   message(
     "Thank you for submitting a pull request! The team will review your submission as soon as possible."
   );
 
   if (hasChangedApp && !hasChangedTests) {
-    warn(
-      "Consider adding tests or updating existing tests for your changes."
-    );
+    warn("Consider adding tests or updating existing tests for your changes.");
   }
 
   await commitLint({ enabled: true, allowedScopes: [] });
