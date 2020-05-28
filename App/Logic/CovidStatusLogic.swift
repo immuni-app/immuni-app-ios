@@ -53,7 +53,6 @@ extension Logic.CovidStatus {
 
   /// The ids of the covid status update notifications
   static let covidNotificationIDs = [
-    Logic.CovidStatus.RiskNotificationID.contactHappened.rawValue,
     Logic.CovidStatus.RiskNotificationID.contactReminder.rawValue,
     Logic.CovidStatus.PositiveNotificationID.updateStatus.rawValue
   ]
@@ -74,7 +73,6 @@ extension Logic.CovidStatus {
 extension Logic.CovidStatus {
   /// IDs to identify the notifications
   private enum RiskNotificationID: String {
-    case contactHappened = "risk_contact_notification_id"
     case contactReminder = "risk_reminder_notification_id"
   }
 
