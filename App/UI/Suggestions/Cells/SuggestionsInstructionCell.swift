@@ -43,11 +43,11 @@ struct SuggestionsInstructionCellVM: ViewModel {
     case .socialDistance:
       return L10n.Suggestions.Instruction.socialDistance
     case .wearMask:
-      return L10n.Suggestions.Instruction.mask
+      return L10n.Suggestions.Instruction.Mask.title
     case .contactDoctor:
       return L10n.Suggestions.Instruction.ContactDoctor.title
     case .stayHome:
-      return L10n.Suggestions.Instruction.stayHome
+      return L10n.Suggestions.Instruction.StayHome.title
     case .checkSymptoms:
       return L10n.Suggestions.Instruction.CheckSymptoms.title
     case .isolate:
@@ -84,7 +84,7 @@ struct SuggestionsInstructionCellVM: ViewModel {
 
   var subtitle: String? {
     switch self.instruction {
-    case .ministerialDecree, .washHands, .useNapkins, .socialDistance, .wearMask, .stayHome, .contactAuthorities:
+    case .ministerialDecree, .washHands, .useNapkins, .socialDistance, .contactAuthorities:
       return nil
     case .checkSymptoms:
       return L10n.Suggestions.Instruction.CheckSymptoms.message
@@ -92,6 +92,10 @@ struct SuggestionsInstructionCellVM: ViewModel {
       return L10n.Suggestions.Instruction.Isolate.message
     case .contactDoctor:
       return L10n.Suggestions.Instruction.ContactDoctor.message
+    case .wearMask:
+      return L10n.Suggestions.Instruction.Mask.message
+    case .stayHome:
+      return L10n.Suggestions.Instruction.StayHome.message
     }
   }
 
