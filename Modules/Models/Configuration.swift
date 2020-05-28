@@ -242,14 +242,14 @@ public extension Configuration {
     /// Public initializer to allow testing
     #warning("Tune default parameters")
     public init(
-      attenuationBucketScores: [UInt8] = [1, 1, 2, 3, 4, 5, 6, 7],
       attenuationThresholds: [Int] = [50, 70],
+      attenuationBucketScores: [UInt8] = [1, 2, 3, 4, 5, 6, 7, 8],
       attenuationWeight: Double = 1,
-      daysSinceLastExposureBucketScores: [UInt8] = [1, 1, 2, 3, 4, 5, 6, 7],
+      daysSinceLastExposureBucketScores: [UInt8] = [1, 2, 3, 4, 5, 6, 7, 8],
       daysSinceLastExposureWeight: Double = 1,
-      durationBucketScores: [UInt8] = [1, 1, 2, 3, 4, 5, 6, 7],
+      durationBucketScores: [UInt8] = [1, 2, 3, 4, 5, 6, 7, 8],
       durationWeight: Double = 1,
-      transmissionRiskBucketScores: [UInt8] = [1, 1, 2, 3, 4, 5, 6, 7],
+      transmissionRiskBucketScores: [UInt8] = [1, 2, 3, 4, 5, 6, 7, 8],
       transmissionRiskWeight: Double = 1,
       minimumRiskScore: UInt8 = 1
     ) {
