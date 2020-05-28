@@ -37,9 +37,9 @@ public struct Configuration: Codable {
     case dummyIngestionMeanStochasticDelay = "dummy_teks_average_opportunity_waiting_time"
     case dummyIngestionWindowDuration = "dummy_teks_window_duration"
     case dummyIngestionAverageStartUpDelay = "dummy_teks_average_start_waiting_time"
-    case dataUploadMaxSummaryCount
-    case dataUploadMaxExposureInfoCount
-    case ingestionRequestTargetSize = "teksPacketSize"
+    case dataUploadMaxSummaryCount = "teks_max_summary_count"
+    case dataUploadMaxExposureInfoCount = "teks_max_info_count"
+    case ingestionRequestTargetSize = "teks_packet_size"
   }
 
   /// This is used to enforce a minimum version of the app.
