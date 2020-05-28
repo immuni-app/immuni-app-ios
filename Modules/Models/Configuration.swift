@@ -133,7 +133,6 @@ public struct Configuration: Codable {
     return self.faqURL[language.rawValue] ?? self.faqURL[UserLanguage.english.rawValue]
   }
 
-
   /// Public initializer to allow testing
   #warning("Tune default parameters")
   // swiftlint:disable force_unwrapping
