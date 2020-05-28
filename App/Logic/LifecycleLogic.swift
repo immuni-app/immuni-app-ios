@@ -13,6 +13,7 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 import BackgroundTasks
+import Extensions
 import Foundation
 import Hydra
 import ImmuniExposureNotification
@@ -66,7 +67,7 @@ extension Logic {
           return
         }
 
-        guard context.dependencies.application.applicationState == .active else {
+        guard context.dependencies.application.isForeground else {
           // Background sessions are handled in `HandleExposureDetectionBackgroundTask`
           return
         }
@@ -277,6 +278,16 @@ private extension Logic.Lifecycle {
   struct PassFirstLaunchExecuted: AppStateUpdater {
     func updateState(_ state: inout AppState) {
       state.toggles.isFirstLaunchSetupPerformed = true
+    }
+  }
+}
+
+// MARK: - Helpers
+
+extension UIApplication {
+  var isForeground: Bool {
+    mainThread {
+      self.applicationState == .active
     }
   }
 }
