@@ -255,7 +255,7 @@ public extension Configuration {
     /// Public initializer to allow testing
     public init(
       attenuationThresholds: [Int] = [50, 70],
-      attenuationBucketScores: [UInt8] = [0, 3, 3, 5, 7, 7, 7, 7],
+      attenuationBucketScores: [UInt8] = [0, 0, 3, 5, 7, 7, 7, 7],
       attenuationWeight: Double = 1,
       daysSinceLastExposureBucketScores: [UInt8] = [1, 1, 1, 1, 1, 1, 1, 1],
       daysSinceLastExposureWeight: Double = 1,
