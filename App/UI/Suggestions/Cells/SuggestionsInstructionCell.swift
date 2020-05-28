@@ -28,6 +28,8 @@ struct SuggestionsInstructionCellVM: ViewModel {
     case checkSymptoms
     case isolate
     case contactAuthorities
+    case followInstructions
+    case limitMovements
   }
 
   let instruction: Instruction
@@ -54,6 +56,10 @@ struct SuggestionsInstructionCellVM: ViewModel {
       return L10n.Suggestions.Instruction.Isolate.title
     case .contactAuthorities:
       return L10n.Suggestions.Instruction.phoneContact
+    case .followInstructions:
+      return L10n.Suggestions.Instruction.followInstructions
+    case .limitMovements:
+      return L10n.Suggestions.Instruction.limitMovement
     }
   }
 
@@ -79,12 +85,17 @@ struct SuggestionsInstructionCellVM: ViewModel {
       return Asset.Suggestions.isolate.image
     case .contactAuthorities:
       return Asset.Suggestions.emergency.image
+    case .followInstructions:
+      return Asset.Suggestions.washHands.image
+    case .limitMovements:
+      return Asset.Suggestions.washHands.image
     }
   }
 
   var subtitle: String? {
     switch self.instruction {
-    case .ministerialDecree, .washHands, .useNapkins, .socialDistance, .contactAuthorities:
+    case .ministerialDecree, .washHands, .useNapkins, .socialDistance, .contactAuthorities, .followInstructions,
+         .limitMovements:
       return nil
     case .checkSymptoms:
       return L10n.Suggestions.Instruction.CheckSymptoms.message
