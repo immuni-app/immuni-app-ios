@@ -75,7 +75,8 @@ class WebView: UIView, ViewControllerModellableView {
       return
     }
 
-    self.webView.load(URLRequest(url: model.url))
+    // prevent the webview from caching data
+    self.webView.load(URLRequest(url: model.url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData))
   }
 
   // MARK: - Layout
