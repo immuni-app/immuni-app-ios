@@ -132,6 +132,20 @@ extension ExposureNotificationStatus {
 
 @available(iOS 13.5, *)
 extension ENExposureConfiguration: ExposureDetectionConfiguration {
+  /// The key inside the metadata for the threshold for attenuation buckets
+  static var metadataAttenuationDurationThresholdsKey: String { "attenuationDurationThresholds" }
+
+  public var attenuationThresholds: [Int] {
+    get {
+      self.metadata?[Self.metadataAttenuationDurationThresholdsKey] as? [Int] ?? []
+    }
+    set {
+      var metadata = self.metadata ?? [:]
+      metadata[Self.metadataAttenuationDurationThresholdsKey] = newValue
+      self.metadata = metadata
+    }
+  }
+
   public var attenuationBucketScores: [RiskScore] {
     get {
       return self.attenuationLevelValues.map { $0.uint8Value }

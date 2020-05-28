@@ -156,6 +156,9 @@ public protocol ExposureDetectionConfiguration {
 
   /// The user’s minimum risk score.
   var minimumRiskScore: RiskScore { get set }
+
+  /// The thresholds of dBm that dictates how attenuations are divided into buckets in `ExposureInfo.attenuationDurations`
+  var attenuationThresholds: [Int] { get set }
 }
 
 /// The metadata associated to a single Exposure event.
