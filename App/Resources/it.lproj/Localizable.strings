@@ -188,8 +188,8 @@
 "suggestions.instruction.isolate.title" = "<b>In caso di comparsa dei sintomi, isolati dal resto dei tuoi conviventi</b>";
 "suggestions.instruction.limit_movement" = "<b>Limita al massimo i movimenti in altri spazi comuni della casa.</b>";
 "suggestions.instruction.mask" = "<b>Indossa una mascherina nei luoghi al chiuso accessibili al pubblico</b>, inclusi i mezzi di trasporto e comunque in tutte le occasioni in cui non sia possibile garantire continuativamente il mantenimento della distanza di sicurezza";
-"suggestions.instruction.mask.message" = "Inclusi i mezzi di trasporto e comunque in tutte le occasioni in cui non sia possibile garantire continuativamente il mantenimento della distanza di sicurezza";
-"suggestions.instruction.mask.title" = "<b>Indossa una mascherina nei luoghi al chiuso accessibili al pubblico</b>";
+"suggestions.instruction.mask.message" = "Inclusi i mezzi di trasporto e comunque in tutte le occasioni in cui non sia possibile garantire continuativamente il mantenimento della distanza di sicurezza.";
+"suggestions.instruction.mask.title" = "<b>Indossa una mascherina nei luoghi al chiuso accessibili al pubblico.</b>";
 "suggestions.instruction.ministerial_decree" = "<b>Rispetta la normativa vigente nella tua area</b>";
 "suggestions.instruction.phone_contact" = "<b>In caso di difficoltà respiratoria contatta il 112/118.</b>";
 "suggestions.instruction.social_distance" = "<b>Rispetta le misure di distanziamento fisico </b>se devi uscire di casa";
@@ -233,7 +233,8 @@
 "upload_data.verify.loading_button.seconds" = "secondi";
 "upload_data.verify.message" = "Per proseguire, verifica l'autorizzazione ";
 "upload_data.vpn_error.action" = "OK";
-"upload_data.vpn_error.message" = "Si è verificato un errore durante l'operazione. Ti invitiamo a riprovare. Se stai utilizzando una VPN, ti suggeriamo di selezionare un server europeo o di disabilitarla temporaneamente.";
+"upload_data.vpn_error.message" = "Si è verificato un errore durante l'operazione. Ti invitiamo a riprovare. Se stai utilizzando una VPN, ti suggeriamo di selezionare un server italiano o di disabilitarla temporaneamente.";
+"upload_data.vpn_error.message_europe" = "Si è verificato un errore durante l'operazione. Ti invitiamo a riprovare. Se stai utilizzando una VPN, ti suggeriamo di selezionare un server europeo o di disabilitarla temporaneamente.";
 "upload_data.vpn_error.title" = "Qualcosa è andato storto";
 "upload_data.wait_operator.message" = "Attendi la conferma dell'operatore";
 "upload_data.warning.message" = "Questa funzione richiede l'assistenza di un operatore sanitario autorizzato";

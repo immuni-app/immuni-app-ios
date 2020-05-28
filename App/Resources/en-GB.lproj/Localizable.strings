@@ -17,7 +17,7 @@
 "confirm_data.close_verify_alert.title" = "Are you sure you want to exit?";
 "confirm_data.confirmation.subtitle" = "Thank you for your help";
 "confirm_data.confirmation.title" = "Data uploaded successfully";
-"confirm_data.exposure_permission.overlay.hint" = "Select \"<b>OK</b>\" in the pop-up that appears below";
+"confirm_data.exposure_permission.overlay.hint" = "Select '<b>OK</b>' in the pop-up that appears below";
 "confirm_data.footer_message" = "Wait for confirmation from the healthcare operator before uploading your data.";
 "confirm_data.title" = "The following data will be uploaded";
 "exit" = "Exit";
@@ -33,8 +33,8 @@
 "force_update_view.os.details" = "A newer version of iOS (13.5 or higher) is required to enable exposure notifications.";
 "force_update_view.os.title" = "Update your operating system to continue";
 "force_update_view.update" = "Update";
-"home_protection_active" = "Service\n\n{active}";
-"home_protection_not_active" = "Service\n\n{inactive}";
+"home_protection_active" = "Service\n{active}";
+"home_protection_not_active" = "Service\n{inactive}";
 "home_view.header_card.positive.button" = "Recovered? Update your status ›";
 "home_view.header_card.positive.title" = "Follow the instructions provided by your general practitioner or local health authority";
 "home_view.header_card.risk.button" = "Find out what to do now ›";
@@ -56,7 +56,7 @@
 "next" = "Next";
 "notification_settings_allow" = "Allow notifications";
 "notification_steps_instruction_1" = "1. Open Settings using the button below";
-"notification_steps_instruction_2" = "2. Enable the \"Allow notifications\" option";
+"notification_steps_instruction_2" = "2. Enable the 'Allow notifications' option";
 "notification_steps_title" = "To enable notifications";
 "notifications.apple_exposure_notification.message" = "Someone you've had close contact with has tested positive.";
 "notifications.not_active_service.description" = "Reactivate Immuni as soon as possible so that it can warn you in the case of risk.";
@@ -80,7 +80,7 @@
 "onboarding.complete.title" = "Setup complete";
 "onboarding.exposure_permission.action" = "Enable";
 "onboarding.exposure_permission.description" = "Immuni uses Bluetooth Low Energy to log contact with other users so that it can inform you if you have been exposed to the virus.";
-"onboarding.exposure_permission.overlay.hint" = "Select \"<b>Enable</b>\" in the pop-up that appears below";
+"onboarding.exposure_permission.overlay.hint" = "Select '<b>Enable</b>' in the pop-up that appears below";
 "onboarding.exposure_permission.title" = "Enable COVID-19 exposure notifications";
 "onboarding.pin_advice.action" = "Got it";
 "onboarding.pin_advice.description" = "If you haven't done so already, set up a PIN on your device to protect it and prevent others from accessing your data and apps, including Immuni.";
@@ -89,7 +89,7 @@
 "onboarding.province.title" = "Which province do you live in?";
 "onboarding.push_permission.action" = "Allow";
 "onboarding.push_permission.description" = "Notifications allow Immuni to alert you quickly should the need arise.";
-"onboarding.push_permission.overlay.hint" = "Select \"<b>Allow</b>\" in the pop-up that appears below";
+"onboarding.push_permission.overlay.hint" = "Select '<b>Allow</b>' in the pop-up that appears below";
 "onboarding.push_permission.title" = "Let us communicate with you";
 "onboarding.region.description" = "Select the region where you live to help the National Health Service provide the best possible assistance.";
 "onboarding.region.title" = "Which region do you live in?";
@@ -103,8 +103,8 @@
 "permission_tutorial.exposure_notification.restricted.fifth" = "<b>5. Enable Exposure Logging</b>";
 "permission_tutorial.exposure_notification.restricted.first" = "<b>1. Open the system settings</b>";
 "permission_tutorial.exposure_notification.restricted.fourth" = "<b>4. Go to Exposure Logging</b>";
-"permission_tutorial.exposure_notification.restricted.second" = "<b>2. Go to \"Privacy\"</b>";
-"permission_tutorial.exposure_notification.restricted.third" = "<b>3. Go to \"Health\"</b>";
+"permission_tutorial.exposure_notification.restricted.second" = "<b>2. Go to 'Privacy'</b>";
+"permission_tutorial.exposure_notification.restricted.third" = "<b>3. Go to 'Health'</b>";
 "permission_tutorial.exposure_notification.restricted.title" = "To enable exposure notifications";
 "permission_tutorial.exposure_notification.unauthorized.action" = "Open Settings";
 "permission_tutorial.exposure_notification.unauthorized.first" = "<b>1. Open Settings</b> using the button below";
@@ -125,13 +125,13 @@
 "permission_tutorial.how_immuni_works.title" = "How does the app work?";
 "permission_tutorial.notifications.action" = "Open Settings";
 "permission_tutorial.notifications.first" = "<b>1. Open Settings</b> using the button below";
-"permission_tutorial.notifications.second" = "<b>2. Go to \"Notifications\"</b>";
-"permission_tutorial.notifications.third" = "<b>3. Enable the \"Allow notifications\" option</b>";
+"permission_tutorial.notifications.second" = "<b>2. Go to 'Notifications'</b>";
+"permission_tutorial.notifications.third" = "<b>3. Enable the 'Allow notifications' option</b>";
 "permission_tutorial.notifications.title" = "To enable notifications";
 "permission_tutorial.update_os.first" = "<b>1. Open the system settings</b>";
-"permission_tutorial.update_os.fourth" = "<b>4. Select \"Download and install\" and follow the instructions</b>";
-"permission_tutorial.update_os.second" = "<b>2. Go to \"General\"</b>";
-"permission_tutorial.update_os.third" = "<b>3. Go to \"Software Update\"</b>";
+"permission_tutorial.update_os.fourth" = "<b>4. Select 'Download and install' and follow the instructions</b>";
+"permission_tutorial.update_os.second" = "<b>2. Go to 'General'</b>";
+"permission_tutorial.update_os.third" = "<b>3. Go to 'Software Update'</b>";
 "permission_tutorial.update_os.title" = "To update your operating system";
 "privacy.checkbox.above14" = "I declare that I am at least 14 years old";
 "privacy.checkbox.privacyPolicyRead" = "I have read the <l>privacy policy</l>";
@@ -139,9 +139,9 @@
 "privacy.item.identity" = "<b>Immuni does not collect your first name, surname, date of birth, address, telephone number, or email address.</b>";
 "privacy.item.italy" = "Your data is saved on servers in Italy, <b>managed by public bodies, and controlled by the Ministry of Health.</b>";
 "privacy.item.location" = "<b>Immuni does not collect any geolocation data</b>, including GPS data. Your movements are not tracked in any way.";
-"privacy.item.ministry" = "<b>To help the National Health Service</b> take care of you, Immuni tells the Ministry of Health server the following:\n\n- The province where you live\n\n- If the app is working properly\n\n- If you have been warned of a high-risk contact";
-"privacy.item.people" = "<b>Immuni cannot trace your identity</b> or the identity of the people you come into contact with.";
-"privacy.item.secure" = "<b>The data saved on your smartphone and the connections to the server is encrypted.</b>";
+"privacy.item.ministry" = "<b>To help the National Health Service</b> take care of you, Immuni tells the Ministry of Health server the following:\n- The province where you live\n- If the app is working properly\n- If you have been warned of a high-risk contact";
+"privacy.item.people" = "<b>Immuni cannot determine your identity</b> or the identity of the people you come into contact with.";
+"privacy.item.secure" = "<b>The data saved on your smartphone and the connections to the server are encrypted.</b>";
 "privacy.next" = "Next";
 "privacy.settings.show_full" = "I have read the privacy policy";
 "privacy.settings.title" = "Your privacy is safe";
@@ -206,7 +206,7 @@
 "suggestions.positive.info.title" = "Immuni is still working: don't uninstall it!";
 "suggestions.positive.subtitle" = "<b>Follow all the instructions that you have received from your general practitioner or from your local health authority's health care service.</b>";
 "suggestions.positive.title" = "Follow the instructions";
-"suggestions.risk.footer" = "Per aiutare il Servizio Sanitario Nazionale a prendersi cura di te in caso di necessità, l'app ha informato il Ministero della Salute della notifica che hai ricevuto. <b>Il Ministero della Salute non può in ogni caso risalire alla tua identità sulla base di questa informazione.</b>";
+"suggestions.risk.footer" = "To help the National Health Service take care of you should the need arise, the app has informed the Ministry of Health of the notification you have received. <b>Please note, the Ministry of Health cannot determine your identity based on this information.</b>";
 "suggestions.risk.subtitle" = "Immuni has detected that you came into close contact with a COVID-19-positive user on %@.";
 "suggestions.risk.title" = "Risk exposure";
 "tabbar.title.home" = "Home";
@@ -218,7 +218,7 @@
 "upload_data.connection_error.action" = "OK";
 "upload_data.connection_error.message" = "Something went wrong. Please check your internet connection and try again.";
 "upload_data.connection_error.title" = "Connection error";
-"upload_data.diagnosis_keys.overlay.hint" = "Select \"<b>Share</b>\" in the pop-up that appears below";
+"upload_data.diagnosis_keys.overlay.hint" = "Select '<b>Share</b>' in the pop-up that appears below";
 "upload_data.missing_authorization.close" = "Close";
 "upload_data.missing_authorization.enable" = "Enable";
 "upload_data.missing_authorization.message" = "Exposure notifications are required for this process. Please re-enable them now to continue.";
