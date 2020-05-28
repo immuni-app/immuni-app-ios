@@ -38,9 +38,7 @@ final class AppSetupLogicTests: XCTestCase {
   func testChangeRootWithForceUpdate() throws {
     var state = AppState()
 
-    // swiftlint:disable force_unwrapping
     state.configuration = .init(minimumBuildVersion: 99999)
-    // swiftlint:enable force_unwrapping
 
     let getState = { state }
     let dispatchInterceptor = DispatchInterceptor()

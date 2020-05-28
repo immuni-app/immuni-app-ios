@@ -153,10 +153,8 @@ public struct Configuration: Codable {
     return self.privacyNoticeURL[language.rawValue] ?? self.privacyNoticeURL[UserLanguage.english.rawValue]
   }
 
-
   /// Public initializer to allow testing
   #warning("Tune default parameters")
-  // swiftlint:disable force_unwrapping
   public init(
     minimumBuildVersion: Int = 0,
     serviceNotActiveNotificationPeriod: TimeInterval = 86400,
