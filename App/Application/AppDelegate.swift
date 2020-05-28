@@ -154,6 +154,9 @@ extension AppDelegate {
       .onNotification(UIApplication.willEnterForegroundNotification, [
         Logic.Lifecycle.WillEnterForeground.self
       ]),
+      .onNotification(UIApplication.didEnterBackgroundNotification, [
+        Logic.Lifecycle.DidEnterBackground.self
+      ]),
       .onNotification(UIApplication.didBecomeActiveNotification, [
         Logic.Lifecycle.DidBecomeActive.self
       ]),

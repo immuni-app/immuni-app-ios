@@ -140,11 +140,24 @@ extension Logic {
       }
 
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-        // resets the state related to dummy sessions
-        try context.awaitDispatch(Logic.DataUpload.MarkForegroundSessionFinished())
-
         // show sensitive data overlay. Check `SensitiveDataCoverVC` documentation.
         context.dispatch(Logic.Shared.ShowSensitiveDataCoverIfNeeded())
+      }
+    }
+
+    /// Launched when the app entered background
+    struct DidEnterBackground: AppSideEffect, NotificationObserverDispatchable {
+      init() {}
+
+      init?(notification: Notification) {
+        guard notification.name == UIApplication.didEnterBackgroundNotification else {
+          return nil
+        }
+      }
+
+      func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        // resets the state related to dummy sessions
+        try context.awaitDispatch(Logic.DataUpload.MarkForegroundSessionFinished())
       }
     }
 
