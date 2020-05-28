@@ -61,16 +61,24 @@ extension Logic {
         // Removes notifications as the user has opened the app
         context.dispatch(Logic.CovidStatus.RemoveRiskReminderNotification())
 
-        if !isFirstLaunch {
-          // Perform exposure detection if necessary
-          context.dispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground))
-
-          // updates the ingestion dummy traffic opportunity window if it expired
-          try context.awaitDispatch(Logic.DataUpload.UpdateDummyTrafficOpportunityWindowIfExpired())
-
-          // schedules a dummy sequence of ingestion requests for some point in the future
-          try context.awaitDispatch(Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary())
+        guard !isFirstLaunch else {
+          // Nothing else to do if it's the first launch
+          return
         }
+
+        guard context.dependencies.application.applicationState == .active else {
+          // Background sessions are handled in `HandleExposureDetectionBackgroundTask`
+          return
+        }
+
+        // Perform exposure detection if necessary
+        context.dispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground))
+
+        // updates the ingestion dummy traffic opportunity window if it expired
+        try context.awaitDispatch(Logic.DataUpload.UpdateDummyTrafficOpportunityWindowIfExpired())
+
+        // schedules a dummy sequence of ingestion requests for some point in the future
+        try context.awaitDispatch(Logic.DataUpload.ScheduleDummyIngestionSequenceIfNecessary())
       }
     }
 
