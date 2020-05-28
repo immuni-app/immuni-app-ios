@@ -70,6 +70,11 @@ class WebView: UIView, ViewControllerModellableView {
   func update(oldModel: WebVM?) {
     guard let model = self.model, model != oldModel else { return }
 
+    guard let host = model.url.host, ImmuniSessionProvider.productionHosts.contains(host) else {
+      // refuse to load not authorized hosts
+      return
+    }
+
     self.webView.load(URLRequest(url: model.url))
   }
 
