@@ -133,6 +133,7 @@ public struct Configuration: Codable {
     return self.faqURL[language.rawValue] ?? self.faqURL[UserLanguage.english.rawValue]
   }
 
+
   /// Public initializer to allow testing
   #warning("Tune default parameters")
   // swiftlint:disable force_unwrapping
@@ -146,8 +147,8 @@ public struct Configuration: Codable {
     exposureConfiguration: ExposureDetectionConfiguration = .init(),
     exposureInfoMinimumRiskScore: Int = 1,
     maximumExposureDetectionWaitingTime: TimeInterval = 86400,
-    privacyPolicyURL: URL = URL(string: "http://www.example.com")!,
-    tosURL: URL = URL(string: "http://www.example.com")!,
+    privacyPolicyURL: URL = URL(string: "https://get.immuni.gov.it/app-pn.html")!,
+    tosURL: URL = URL(string: "https://get.immuni.gov.it/app-tou.html")!,
     faqURL: [String: URL] = [
       UserLanguage.english.rawValue: URL(string: "http://www.example.com")!,
       UserLanguage.italian.rawValue: URL(string: "http://www.example.com")!,
