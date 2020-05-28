@@ -99,20 +99,10 @@ extension Logic.CovidStatus {
         return
       }
 
-      // If a contact with a positive user is detected, the user is notified
-      manager.scheduleLocalNotification(
-        .init(
-          title: L10n.Notifications.Risk.title,
-          body: L10n.Notifications.Risk.description,
-          userInfo: [:],
-          identifier: RiskNotificationID.contactHappened.rawValue
-        ),
-        with: .timeInterval(10)
-      )
-
-      // Add a periodic reminder in case the notification is
-      // not seen. This reminder is removed either on state change or
-      // when the app is opened
+      // If a contact with a positive user is detected, it must be the result of a full cycle of exposure detection (i.e.
+      // detection with ExposureInfo), which already causes the operative system to immediately notify the user.
+      // On top of this, a periodic reminder is added in case the user has not opened the app since having entered the Risk
+      // state. This reminder is removed either on state change or when the app is opened.
       manager.scheduleLocalNotification(
         .init(
           title: L10n.Notifications.Risk.title,
