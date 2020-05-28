@@ -147,8 +147,8 @@ public struct Configuration: Codable {
     exposureConfiguration: ExposureDetectionConfiguration = .init(),
     exposureInfoMinimumRiskScore: Int = 1,
     maximumExposureDetectionWaitingTime: TimeInterval = 86400,
-    privacyPolicyURL: URL = URL(string: "https://get.immuni.gov.it/app-pn.html")!,
-    tosURL: URL = URL(string: "https://get.immuni.gov.it/app-tou.html")!,
+    privacyPolicyURL: URL = URL(string: "https://get.immuni.gov.it/docs/app-pn.html")!,
+    tosURL: URL = URL(string: "https://get.immuni.gov.it/docs/app-tou.html")!,
     faqURL: [String: URL] = [
       UserLanguage.english.rawValue: URL(string: "http://www.example.com")!,
       UserLanguage.italian.rawValue: URL(string: "http://www.example.com")!,
