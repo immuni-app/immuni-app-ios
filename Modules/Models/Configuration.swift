@@ -197,6 +197,7 @@ public struct Configuration: Codable {
 public extension Configuration {
   struct ExposureDetectionConfiguration: Codable {
     enum CodingKeys: String, CodingKey {
+      case attenuationThresholds = "attenuation_thresholds"
       case attenuationBucketScores = "attenuation_bucket_scores"
       case attenuationWeight = "attenuation_weight"
       case daysSinceLastExposureBucketScores = "days_since_last_exposure_bucket_scores"
@@ -207,6 +208,9 @@ public extension Configuration {
       case transmissionRiskWeight = "transmission_risk_weight"
       case minimumRiskScore = "minimum_risk_score"
     }
+
+    /// The thresholds of dBm that dictates how attenuations are divided into buckets in `ExposureInfo.attenuationDurations`
+    public let attenuationThresholds: [Int]
 
     /// Scores that indicate Bluetooth signal strength.
     public let attenuationBucketScores: [UInt8]
@@ -239,6 +243,7 @@ public extension Configuration {
     #warning("Tune default parameters")
     public init(
       attenuationBucketScores: [UInt8] = [1, 1, 2, 3, 4, 5, 6, 7],
+      attenuationThresholds: [Int] = [50, 70],
       attenuationWeight: Double = 1,
       daysSinceLastExposureBucketScores: [UInt8] = [1, 1, 2, 3, 4, 5, 6, 7],
       daysSinceLastExposureWeight: Double = 1,
@@ -248,6 +253,7 @@ public extension Configuration {
       transmissionRiskWeight: Double = 1,
       minimumRiskScore: UInt8 = 1
     ) {
+      self.attenuationThresholds = attenuationThresholds
       self.attenuationBucketScores = attenuationBucketScores
       self.attenuationWeight = attenuationWeight
       self.daysSinceLastExposureBucketScores = daysSinceLastExposureBucketScores
