@@ -12,7 +12,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-import { danger, warn, message, fail } from "danger";
+import { danger, warn, message } from "danger";
 import { checkFormat } from "./CI/danger/swiftformat";
 import { checkLinting } from "./CI/danger/swiftlint";
 import { isAppFile, isTestFile } from "./CI/danger/utils";
@@ -31,12 +31,12 @@ export default async () => {
   const isReleaseBranch = danger.github.pr.head.ref.indexOf("release/") !== -1;
 
   if (isDestinationMaster && !isReleaseBranch) {
-    fail(
-      "This PR has been opened against master, but the current branch is not a release one. Most likely you need to change destination branch"
+    warn(
+      "This PR has been opened against master, but the current branch is not a release one. Most likely you need to change destination branch."
     );
   } else if (isDestinationMaster && isReleaseBranch) {
     warn(
-      "This PR represents an App Store release and it should be merged only when this version has been released on the store"
+      "This PR represents an App Store release and it should be merged only when this version has been released on the store."
     );
   }
 
