@@ -246,16 +246,31 @@ private extension SuggestionsInstructionCell {
     }
 
     static func subtitle(_ label: UILabel, content: String) {
+      let paragraphs = content.components(separatedBy: "\n\n")
+
       let textStyle = TextStyles.p.byAdding(
         .color(Palette.grayNormal),
         .alignment(.left)
       )
 
-      TempuraStyles.styleStandardLabel(
-        label,
-        content: content,
-        style: textStyle
-      )
+      if paragraphs.count == 1 {
+        TempuraStyles.styleStandardLabel(
+          label,
+          content: content,
+          style: textStyle
+        )
+      } else {
+        // by design we want the line that split the paragraphs of this cell to be smaller
+        let font = UIFont.euclidCircularBMedium(size: 8)
+        let paragraphLineStyle = StringStyle(
+          .font(font),
+          .adapt(.control)
+        )
+
+        let composable: [Composable] = paragraphs.flatMap { ([$0.styled(with: textStyle), "\n\n".styled(with: paragraphLineStyle)]) as [Composable] }
+        label.numberOfLines = 0
+        label.attributedText = NSAttributedString.composed(of: composable.dropLast()).adapted()
+      }
     }
   }
 }
