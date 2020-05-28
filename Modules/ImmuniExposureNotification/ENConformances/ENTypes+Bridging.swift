@@ -137,11 +137,12 @@ extension ENExposureConfiguration: ExposureDetectionConfiguration {
 
   public var attenuationThresholds: [Int] {
     get {
-      self.metadata?[Self.metadataAttenuationDurationThresholdsKey] as? [Int] ?? []
+      let value = self.metadata?[Self.metadataAttenuationDurationThresholdsKey] as? [NSNumber] ?? []
+      return value.map { $0.intValue }
     }
     set {
       var metadata = self.metadata ?? [:]
-      metadata[Self.metadataAttenuationDurationThresholdsKey] = newValue
+      metadata[Self.metadataAttenuationDurationThresholdsKey] = newValue.map { NSNumber(value: $0) }
       self.metadata = metadata
     }
   }
