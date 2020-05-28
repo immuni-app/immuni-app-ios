@@ -51,7 +51,7 @@ extension Logic.Settings {
     }
   }
 
-  /// Shows a the privacy policy
+  /// Shows a the privacy notice
   struct ShowPrivacyNotice: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       try context.awaitDispatch(Show(Screen.privacy, animated: true))
@@ -64,7 +64,7 @@ extension Logic.Settings {
       let state = context.getState()
 
       guard let privacyNoticeURL = state.configuration.privacyNoticeURL(for: state.environment.userLanguage) else {
-        // server missconfiguration
+        // server misconfiguration
         return
       }
 
@@ -78,7 +78,7 @@ extension Logic.Settings {
       let state = context.getState()
 
       guard let termsOfUseURL = state.configuration.termsOfUseURL(for: state.environment.userLanguage) else {
-        // server missconfiguration
+        // server misconfiguration
         return
       }
 
