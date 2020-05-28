@@ -36,7 +36,7 @@ export default async () => {
     );
   } else if (isDestinationMaster && isReleaseBranch) {
     warn(
-      "This PR repreents an App Store release and it should be merged only when this version has been release on the store"
+      "This PR represents an App Store release and it should be merged only when this version has been released on the store"
     );
   }
 
