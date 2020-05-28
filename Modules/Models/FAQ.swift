@@ -501,7 +501,7 @@ public extension FAQ {
     .init(
       title: "Do I need to keep my smartphone's Bluetooth turned on all the time?",
       content: """
-      The exposure notifications system is based on Bluetooth Low Energy, so Bluetooth must always be active for the system to detect your contact with other users. However, it is your choice and you are free to turn it on or off as you like.
+      The exposure notification system is based on Bluetooth Low Energy, so Bluetooth must always be active for the system to detect your contact with other users. However, it is your choice and you are free to turn it on or off as you like.
       """
     ),
     .init(
