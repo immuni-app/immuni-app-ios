@@ -281,7 +281,7 @@ public extension Dictionary where Key == String, Value == URL {
   /// default values for FAQs
   static var defaultFAQURL: [String: URL] {
     let values = UserLanguage.allCases.map { lang in
-      // swiftlint:disable:next implicitly_unwrapped_optional
+      // swiftlint:disable:next force_unwrapping
       (lang.rawValue, URL(string: "https://get.immuni.gov.it/docs/faq-\(lang.rawValue).json")!)
     }
 
@@ -291,7 +291,7 @@ public extension Dictionary where Key == String, Value == URL {
   /// default values for privacy notifice
   static var defaultPrivacyNoticeURL: [String: URL] {
     let values = UserLanguage.allCases.map { lang in
-      // swiftlint:disable:next implicitly_unwrapped_optional
+      // swiftlint:disable:next force_unwrapping
       (lang.rawValue, URL(string: "https://get.immuni.gov.it/docs/app-pn-\(lang.rawValue).html")!)
     }
 
@@ -301,7 +301,7 @@ public extension Dictionary where Key == String, Value == URL {
   /// default values for privacy notifice
   static var defaultTermsOfUseURL: [String: URL] {
     let values = UserLanguage.allCases.map { lang in
-      // swiftlint:disable:next implicitly_unwrapped_optional
+      // swiftlint:disable:next force_unwrapping
       (lang.rawValue, URL(string: "https://get.immuni.gov.it/docs/app-tou-\(lang.rawValue).html")!)
     }
 
