@@ -179,7 +179,7 @@
 "suggestions.instruction.contact_doctor.message" = "Erklären Sie Ihrem Arzt, dass Sie von Immuni eine Mitteilung über einen engen Kontakt mit einer positiv auf COVID-19 getesteten Person erhalten haben. Folgen Sie den Anweisungen Ihres Arztes. \n\nIhr Arzt wird sich an die Präventionsabteilung Ihrer örtlichen Gesundheitsbehörde wenden. Bleiben Sie daher für Aktivitäten zur Gesundheitsüberwachung durch Ihre örtliche Gesundheitsbehörde erreichbar.";
 "suggestions.instruction.contact_doctor.title" = "<b> Wenden Sie sich an Ihren Hausarzt (oder an einen Kinderarzt Ihrer Wahl) </b>";
 "suggestions.instruction.distance" = "<b> Halten Sie bei Anwesenheit anderer Personen einen Abstand von mindestens einem Meter ein. </b>";
-"suggestions.instruction.follow_instructions" = "Beachten Sie zum Schutz Ihrer Gesundheit und der Ihrer Angehörigen <b> die folgenden Richtlinien: </b>";
+"suggestions.instruction.follow_instructions" = "Beachten Sie zum Schutz Ihrer Gesundheit und der Ihrer Angehörigen <b>die folgenden Richtlinien: </b>";
 "suggestions.instruction.hide_alert.action" = "Warnung ausblenden";
 "suggestions.instruction.hide_alert.message" = "Bei Bedarf können Sie diese Warnung ausblenden. Sofern Sie keinen triftigen Grund haben, raten wir Ihnen dringend davon ab.";
 "suggestions.instruction.hide_if_contact_doctor.action" = "Ich habe den Arzt kontaktiert";
