@@ -265,14 +265,18 @@ extension Logic.Onboarding {
   /// indeed performs all the needed checks.
   struct CompleteOnboarding: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      // avoid handling the action multiple times
+      guard !context.getState().toggles.isOnboardingCompleted else {
+        return
+      }
+      try context.awaitDispatch(Logic.ForceUpdate.RemoveScheduledOSReminderIfNeeded())
+      try context.awaitDispatch(MarkOnboardingAsCompleted())
+
       try context.awaitDispatch(Show(
         Screen.onboardingStep,
         animated: true,
         context: OnboardingContainerNC.NavigationContext(child: .onboardingCompleted)
       ))
-
-      try context.awaitDispatch(Logic.ForceUpdate.RemoveScheduledOSReminderIfNeeded())
-      try context.awaitDispatch(MarkOnboardingAsCompleted())
       try await(Promise<Void>.deferring(of: 3))
       context.dispatch(Show(Screen.tabBar, animated: false))
     }

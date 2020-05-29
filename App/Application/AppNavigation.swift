@@ -197,6 +197,7 @@ extension TabbarVC: RoutableWithConfiguration {
         vc.modalTransitionStyle = .crossDissolve
         return vc
       },
+      .hide(Screen.sensitiveDataCover): .dismissModally(behaviour: .hard),
 
       // Loading
       .show(Screen.loading): .presentModally { [unowned self] context in
@@ -249,15 +250,9 @@ extension TabbarVC: RoutableWithConfiguration {
 
 // MARK: SensitiveDataCover
 
-extension SensitiveDataCoverVC: RoutableWithConfiguration {
+extension SensitiveDataCoverVC: Routable {
   var routeIdentifier: RouteElementIdentifier {
     return Screen.sensitiveDataCover.rawValue
-  }
-
-  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
-    return [
-      .hide(Screen.sensitiveDataCover): .dismissModally(behaviour: .soft)
-    ]
   }
 }
 

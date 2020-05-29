@@ -242,15 +242,15 @@ final class OnboardingLogicTests: XCTestCase {
 
     XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 4)
 
-    try XCTAssertType(dispatchInterceptor.dispatchedItems.first, Tempura.Show.self) { value in
+    try XCTAssertType(dispatchInterceptor.dispatchedItems[0], Logic.ForceUpdate.RemoveScheduledOSReminderIfNeeded.self)
+    try XCTAssertType(dispatchInterceptor.dispatchedItems[1], Logic.Onboarding.MarkOnboardingAsCompleted.self)
+
+    try XCTAssertType(dispatchInterceptor.dispatchedItems[2], Tempura.Show.self) { value in
       XCTAssertEqual(value.identifiersToShow, [Screen.onboardingStep.rawValue])
 
       let context = value.context as? OnboardingContainerNC.NavigationContext
       XCTAssertEqual(context?.child, .onboardingCompleted)
     }
-
-    try XCTAssertType(dispatchInterceptor.dispatchedItems[1], Logic.ForceUpdate.RemoveScheduledOSReminderIfNeeded.self)
-    try XCTAssertType(dispatchInterceptor.dispatchedItems[2], Logic.Onboarding.MarkOnboardingAsCompleted.self)
 
     try XCTAssertType(dispatchInterceptor.dispatchedItems[3], Tempura.Show.self) { value in
       XCTAssertEqual(value.identifiersToShow, [Screen.tabBar.rawValue])

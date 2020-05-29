@@ -44,7 +44,8 @@ class OnboardingAdviceUITests: AppViewTestCase, ViewTestCase {
         shouldShowBackButton: false,
         shouldShowNextButton: true,
         shouldNextButtonBeEnabled: true,
-        nextButtonTitle: title
+        nextButtonTitle: title,
+        shouldShowGradient: false
       )
 
       navController.accessoryView?.setNeedsLayout()

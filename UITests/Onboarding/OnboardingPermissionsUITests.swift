@@ -48,7 +48,8 @@ class OnboardingPermissionsUITests: AppViewTestCase, ViewTestCase {
         shouldShowBackButton: false,
         shouldShowNextButton: true,
         shouldNextButtonBeEnabled: true,
-        nextButtonTitle: title
+        nextButtonTitle: title,
+        shouldShowGradient: false
       )
 
       navigationController.accessoryView?.setNeedsLayout()
