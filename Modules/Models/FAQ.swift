@@ -537,7 +537,7 @@ public extension FAQ {
     .init(
       title: "Can I change the language of the app?",
       content: """
-      The languages currently supported are Italian, English, German, French and Spanish. The app uses the same language that's set on your smartphone, where available. Otherwise, it uses English. Therefore, to change the language of the app, you'll need to change the language of your device.
+      The languages currently supported are Italian, English, German, French, and Spanish. The app uses the same language that's set on your smartphone, where available. Otherwise, it uses English. Therefore, to change the language of the app, you'll need to change the language of your device.
       """
     )
   ]

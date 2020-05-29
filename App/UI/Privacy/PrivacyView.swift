@@ -195,6 +195,23 @@ final class PrivacyView: UIView, ViewControllerModellableView {
       right: 0
     )
   }
+
+  // Helper
+  /// Get the first errored cell in the view. Used for accessibility.
+  func getFirstErroredCell() -> UIView? {
+    guard let model = self.model else {
+      return nil
+    }
+
+    for (index, item) in model.items.enumerated() {
+      guard case .checkbox(_, _, let isErrored, _) = item, isErrored else {
+        continue
+      }
+
+      return self.contentCollection.cellForItem(at: IndexPath(item: index, section: 0))
+    }
+    return nil
+  }
 }
 
 // MARK: UICollectionViewDataSource

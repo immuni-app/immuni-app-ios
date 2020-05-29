@@ -88,6 +88,10 @@ final class PrivacyVC: ViewControllerWithLocalState<PrivacyView> {
     }
 
     self.localState = self.localState.erroredVersion()
+    self.dispatch(Logic.Accessibility.PostNotification(
+      notification: .layoutChanged,
+      argument: self.rootView.getFirstErroredCell()
+    ))
   }
 }
 
