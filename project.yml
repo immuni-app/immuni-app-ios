@@ -12,6 +12,11 @@ targetTemplates:
         PRODUCT_BUNDLE_IDENTIFIER: com.immuni.$(SWIFT_MODULE_NAME)
         TARGETED_DEVICE_FAMILY: 1
         SWIFT_VERSION: 5.2
+        # Bitcode must be disabled to allow reproducible builds.
+        # If we delegate Apple's server to perform some additional
+        # steps to build the final IPA, then doing a reproducible build
+        # becomes way harder (or even impossible?)
+        ENABLE_BITCODE: NO
         SUPPORTS_MACCATALYST: NO
         # Add fstack-protector-all to the project. Note that the
         # current implementation is Swift-only and this should not be
@@ -47,6 +52,11 @@ targets:
         SWIFT_VERSION: 5.2
         CODE_SIGN_STYLE: Manual
         DEVELOPMENT_TEAM: NFBYJRA8B5
+        # Bitcode must be disabled to allow reproducible builds.
+        # If we delegate Apple's server to perform some additional
+        # steps to build the final IPA, then doing a reproducible build
+        # becomes way harder (or even impossible?)
+        ENABLE_BITCODE: NO
         TARGETED_DEVICE_FAMILY: 1
         # Add fstack-protector-all to the project. Note that the
         # current implementation is Swift-only and this should not be
