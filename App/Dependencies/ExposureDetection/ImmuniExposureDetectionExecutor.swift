@@ -35,6 +35,7 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
     enManager: ExposureNotificationManager,
     tekProvider: TemporaryExposureKeyProvider,
     now: @escaping () -> Date,
+    isUserCovidPositive: Bool,
     forceRun: Bool
   ) -> Promise<ExposureDetectionOutcome> {
     return Promise(in: .custom(queue: Self.queue)) { resolve, _, _ in
@@ -110,6 +111,7 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
       let shouldRetrieveInfo = Self.shouldRetrieveExposureInfo(
         summary: summary,
         riskScoreThreshold: exposureInfoRiskScoreThreshold,
+        isUserCovidPositive: isUserCovidPositive,
         isForceRun: forceRun
       )
 
@@ -139,10 +141,18 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
   private static func shouldRetrieveExposureInfo(
     summary: ExposureDetectionSummary,
     riskScoreThreshold: Int,
+    isUserCovidPositive: Bool,
     isForceRun: Bool
   ) -> Bool {
-    if isForceRun {
+    guard !isForceRun else {
       return true
+    }
+
+    guard !isUserCovidPositive else {
+      // a user that is covid positive should never receive notifications.
+      // To do this, we have to prevent the logic from accessing
+      // exposure info
+      return false
     }
 
     switch summary {
