@@ -79,7 +79,7 @@ public extension FAQ {
 
       Eccoti una lista di alcune delle misure con cui Immuni protegge i tuoi dati:
 
-       • L'app non raccoglie alcun dato personale che consentirebbe di risalire alla tua identità. Per esempio, non ti chiede e non è in grado di ottenere il tuo nome, cognome, data di nascita, indirizzo, numero di telefono o indirizzo email.
+       • L'app non raccoglie alcun dato che consentirebbe di risalire alla tua identità. Per esempio, non ti chiede e non è in grado di ottenere il tuo nome, cognome, data di nascita, indirizzo, numero di telefono o indirizzo email.
 
        • L'app non raccoglie alcun dato di geolocalizzazione, inclusi i dati del GPS. I tuoi spostamenti non sono tracciati in alcun modo.
 
@@ -233,7 +233,7 @@ public extension FAQ {
     .init(
       title: "Devo fare una registrazione con indirizzo email e password?",
       content: """
-      No. L'app non raccoglie alcun dato personale che consentirebbe di risalire alla tua identità. Per esempio, non ti chiede e non è in grado di ottenere il tuo nome, cognome, data di nascita, indirizzo, numero di telefono o indirizzo email.
+      No. L'app non raccoglie alcun dato che consentirebbe di risalire alla tua identità. Per esempio, non ti chiede e non è in grado di ottenere il tuo nome, cognome, data di nascita, indirizzo, numero di telefono o indirizzo email.
       """
     ),
     .init(
@@ -281,7 +281,7 @@ public extension FAQ {
     .init(
       title: "Posso cambiare la lingua dell'app?",
       content: """
-      Le lingue attualmente supportate dall'app sono l'italiano, l'inglese, il tedesco, il francese, lo spagnolo e il portoghese. L'app usa la stessa lingua che hai impostato sul tuo smartphone, se disponibile, altrimenti l'inglese. Perciò per cambiare la lingua dell'app dovrai cambiare la lingua del tuo dispositivo.
+      Le lingue attualmente supportate dall'app sono l'italiano, l'inglese, il tedesco, il francese e lo spagnolo. L'app usa la stessa lingua che hai impostato sul tuo smartphone, se disponibile, altrimenti l'inglese. Perciò per cambiare la lingua dell'app dovrai cambiare la lingua del tuo dispositivo.
       """
     )
   ]
@@ -537,7 +537,7 @@ public extension FAQ {
     .init(
       title: "Can I change the language of the app?",
       content: """
-      The languages currently supported are Italian, English, German, French, Spanish, and Portuguese. The app uses the same language that's set on your smartphone, where available. Otherwise, it uses English. Therefore, to change the language of the app, you'll need to change the language of your device.
+      The languages currently supported are Italian, English, German, French and Spanish. The app uses the same language that's set on your smartphone, where available. Otherwise, it uses English. Therefore, to change the language of the app, you'll need to change the language of your device.
       """
     )
   ]
