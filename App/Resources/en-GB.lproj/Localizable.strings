@@ -134,7 +134,7 @@
 "permission_tutorial.update_os.third" = "<b>3. Go to 'Software Update'</b>";
 "permission_tutorial.update_os.title" = "To update your operating system";
 "privacy.checkbox.above14" = "I declare that I am at least 14 years old";
-"privacy.checkbox.privacyPolicyRead" = "I have read the <l>privacy policy</l>";
+"privacy.checkbox.privacyPolicyRead" = "I have read the <l>privacy notice</l>";
 "privacy.item.data_deletion" = "<b>All data is deleted when it is no longer needed</b>, and in any case no later than 31 December 2020.";
 "privacy.item.identity" = "<b>Immuni does not collect your first name, surname, date of birth, address, telephone number, or email address.</b>";
 "privacy.item.italy" = "Your data is saved on servers in Italy, <b>managed by public bodies, and controlled by the Ministry of Health.</b>";
@@ -143,7 +143,7 @@
 "privacy.item.people" = "<b>Immuni cannot determine your identity</b> or the identity of the people you come into contact with.";
 "privacy.item.secure" = "<b>The data saved on your smartphone and the connections to the server are encrypted.</b>";
 "privacy.next" = "Next";
-"privacy.settings.show_full" = "I have read the privacy policy";
+"privacy.settings.show_full" = "I have read the privacy notice";
 "privacy.settings.title" = "Your privacy is safe";
 "privacy.title" = "Your privacy is safe";
 "privacy.tos" = "By continuing, I declare that I have read and accepted the <l>terms of use</l>";
@@ -154,7 +154,7 @@
 "settings.setting.faq" = "FAQ";
 "settings.setting.leave_review" = "Leave a review";
 "settings.setting.load_data" = "Upload data";
-"settings.setting.privacy" = "Privacy policy";
+"settings.setting.privacy" = "Privacy notice";
 "settings.setting.section.data" = "Data management";
 "settings.setting.section.general" = "General";
 "settings.setting.section.info" = "Information";
