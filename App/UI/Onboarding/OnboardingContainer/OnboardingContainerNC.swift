@@ -273,7 +273,8 @@ extension OnboardingContainerNC: OnboardingContainer {
       shouldShowBackButton: currentVC.shouldShowBackButton,
       shouldShowNextButton: currentVC.shouldShowNextButton,
       shouldNextButtonBeEnabled: currentVC.shouldNextButtonBeEnabled,
-      nextButtonTitle: currentVC.nextButtonTitle
+      nextButtonTitle: currentVC.nextButtonTitle,
+      shouldShowGradient: currentVC.shouldShowGradient
     )
   }
 }
@@ -340,6 +341,9 @@ protocol OnboardingViewController: UIViewController {
 
   /// Whether the back button should be visible
   var shouldShowBackButton: Bool { get }
+
+  /// Whether the view is scrollable and should show bottom gradient.
+  var shouldShowGradient: Bool { get }
 
   /// The next button title
   var nextButtonTitle: String { get }

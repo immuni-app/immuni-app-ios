@@ -27,6 +27,7 @@ extension ConfirmationVC: OnboardingViewController {
   var shouldShowBackButton: Bool { false }
   var nextButtonTitle: String { "" }
   var shouldShowNextButton: Bool { false }
+  var shouldShowGradient: Bool { false }
 }
 
 // MARK: - Local State

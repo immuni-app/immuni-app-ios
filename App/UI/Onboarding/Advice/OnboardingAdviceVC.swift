@@ -53,6 +53,10 @@ extension OnboardingAdviceVC: OnboardingViewController {
   var shouldShowNextButton: Bool {
     true
   }
+
+  var shouldShowGradient: Bool {
+    false
+  }
 }
 
 struct OnboardingAdviceLS: LocalState {
