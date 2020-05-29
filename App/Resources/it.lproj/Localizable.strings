@@ -83,7 +83,7 @@
 "onboarding.exposure_permission.overlay.hint" = "Seleziona \"<b>Abilita</b>\" nel popup che apparirà qui sotto";
 "onboarding.exposure_permission.title" = "Abilita le notifiche di esposizione al COVID-19";
 "onboarding.pin_advice.action" = "Ho capito";
-"onboarding.pin_advice.description" = "L'uso di Immuni è strettamente personale. Se non l'hai già fatto, imposta un codice di sblocco sul tuo smartphone per impedire ad altri di accedere alle funzionalità dell'app e ai messaggi che potrebbe inviarti.";
+"onboarding.pin_advice.description" = "L’uso di Immuni è strettamente personale. Se non l’hai già fatto, imposta un codice sul tuo dispositivo per proteggerlo e impedire ad altri di accedere ai tuoi dati e alle tue app, inclusa Immuni.";
 "onboarding.pin_advice.title" = "Proteggi il tuo dispositivo";
 "onboarding.province.description" = "Seleziona la tua provincia di domicilio per aiutare il Servizio Sanitario Nazionale ad assisterti al meglio.";
 "onboarding.province.title" = "In che provincia vivi?";

@@ -83,7 +83,7 @@
 "onboarding.exposure_permission.overlay.hint" = "Tippen Sie auf \"<b>Aktivieren</b>\" in dem Popup-Fenster, das unten angezeigt wird";
 "onboarding.exposure_permission.title" = "So aktivieren Sie COVID-19-Mitteilungen";
 "onboarding.pin_advice.action" = "Alles klar";
-"onboarding.pin_advice.description" = "Sollten Sie es noch nicht getan haben, schützen Sie Ihr Gerät mit einem Code, damit andere nicht auf Ihre Daten und Apps – einschließlich Immuni – zugreifen können.";
+"onboarding.pin_advice.description" = "Die Verwendung von Immuni ist streng persönlich. Sollten Sie es noch nicht getan haben, schützen Sie Ihr Gerät mit einem Code, damit andere nicht auf Ihre Daten und Apps – einschließlich Immuni – zugreifen können.";
 "onboarding.pin_advice.title" = "Schützen Sie Ihr Gerät";
 "onboarding.province.description" = "Wählen Sie die Provinz aus, in der Sie leben, damit der staatliche Gesundheitsdienst Sie bestmöglich unterstützen kann.";
 "onboarding.province.title" = "In welcher Provinz leben Sie?";

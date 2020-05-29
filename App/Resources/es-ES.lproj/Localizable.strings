@@ -83,7 +83,7 @@
 "onboarding.exposure_permission.overlay.hint" = "Selecciona «<b>Habilitar</b>» en la ventana emergente que aparecerá a continuación";
 "onboarding.exposure_permission.title" = "Habilita las notificaciones de exposición a la COVID-19";
 "onboarding.pin_advice.action" = "Entendido";
-"onboarding.pin_advice.description" = "Si aún no lo has hecho, configura un código en tu dispositivo para protegerlo e impedir que otras personas accedan a tus datos y aplicaciones, incluida Immuni.";
+"onboarding.pin_advice.description" = "El uso de Immuni es estrictamente personal. Si aún no lo has hecho, configura un código en tu dispositivo para protegerlo e impedir que otras personas accedan a tus datos y aplicaciones, incluida Immuni.";
 "onboarding.pin_advice.title" = "Protege tu dispositivo";
 "onboarding.province.description" = "Selecciona la provincia en la que resides para que el Servicio Nacional de Salud (SSN) pueda asistirte de la mejor forma posible.";
 "onboarding.province.title" = "¿En qué provincia vives?";

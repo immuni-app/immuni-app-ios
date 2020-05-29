@@ -83,7 +83,7 @@
 "onboarding.exposure_permission.overlay.hint" = "Sélectionnez <b>Activer</b> dans la fenêtre contextuelle qui s'affichera ci-dessous";
 "onboarding.exposure_permission.title" = "Activez les notifications de risque d'exposition au COVID-19";
 "onboarding.pin_advice.action" = "J'ai compris";
-"onboarding.pin_advice.description" = "Si ce n'est pas déjà fait, configurez un code sur votre appareil afin de le protéger et d'empêcher quiconque d'accéder à vos informations et applications, Immuni incluse.";
+"onboarding.pin_advice.description" = "L’utilisation d’Immuni est strictement personnelle. Si ce n'est pas déjà fait, configurez un code sur votre appareil afin de le protéger et d'empêcher quiconque d'accéder à vos informations et applications, Immuni incluse.";
 "onboarding.pin_advice.title" = "Protégez votre appareil";
 "onboarding.province.description" = "Sélectionnez la province de votre domicile pour aider les services de santé nationaux à vous fournir une meilleure assistance.";
 "onboarding.province.title" = "Dans quelle province habitez-vous ?";

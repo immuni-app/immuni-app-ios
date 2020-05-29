@@ -83,7 +83,7 @@
 "onboarding.exposure_permission.overlay.hint" = "Select '<b>Enable</b>' in the pop-up that appears below";
 "onboarding.exposure_permission.title" = "Enable COVID-19 exposure notifications";
 "onboarding.pin_advice.action" = "Got it";
-"onboarding.pin_advice.description" = "If you haven't done so already, set up a PIN on your device to protect it and prevent others from accessing your data and apps, including Immuni.";
+"onboarding.pin_advice.description" = "The use of Immuni is strictly personal. If you haven't done so already, set up a PIN on your device to protect it and prevent others from accessing your data and apps, including Immuni.";
 "onboarding.pin_advice.title" = "Protect your device";
 "onboarding.province.description" = "Select the province where you live to help the National Health Service provide the best possible assistance.";
 "onboarding.province.title" = "Which province do you live in?";
