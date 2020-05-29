@@ -309,7 +309,7 @@ public extension FAQ {
       content: """
       Immuni's exposure notification system aims to alert users when they have been exposed to a potentially infectious user.
 
-      The system is based on Bluetooth Low Energy technology and doesn't use any kind of geolocalisation whatsoever, including GPS data. The app doesn't (and can't) collect any data that would identify the user, such as their name, date of birth, address, telephone number, or email address. Therefore, Immuni is able to determine that contact has taken place between two users without knowing who those users are and where the contact occurred.
+      The system is based on Bluetooth Low Energy technology and doesn't use any kind of geolocation whatsoever, including GPS data. The app doesn't (and can't) collect any data that would identify the user, such as their name, date of birth, address, telephone number, or email address. Therefore, Immuni is able to determine that contact has taken place between two users without knowing who those users are and where the contact occurred.
 
       Here is a simplified explanation of how the system works. Let's consider the example of two hypothetical users, Alice and Marco:
 
@@ -325,7 +325,7 @@ public extension FAQ {
     .init(
       title: "Does the app track my location?",
       content: """
-      No. Immuni's exposure notification system is based on Bluetooth Low Energy and doesn't collect any geolocalisation data, including GPS data. Immuni doesn't (and can't) know where you go or who you meet.
+      No. Immuni's exposure notification system is based on Bluetooth Low Energy and doesn't collect any geolocation data, including GPS data. Immuni doesn't (and can't) know where you go or who you meet.
       """
     ),
     .init(
@@ -337,7 +337,7 @@ public extension FAQ {
 
        • The app doesn't collect any data that could lead to it knowing your identity. For example, it doesn't ask for (and can't obtain) your name, date of birth, address, telephone number, or email address.
 
-       • The app doesn't collect any geolocalisation data, including GPS data. Your movements aren't tracked in any shape or form.
+       • The app doesn't collect any geolocation data, including GPS data. Your movements aren't tracked in any shape or form.
 
        • The Bluetooth Low Energy code broadcast by the app is generated completely randomly and doesn't contain any information about you or your device. This code changes several times each hour, protecting your privacy even more.
 
@@ -347,9 +347,9 @@ public extension FAQ {
 
        • All data, whether stored on the device or on the server, is deleted when no longer relevant, and certainly no later than December 31, 2020.
 
-       • The Ministry of Health is the entity that collects your data. The data is used solely with the aim of containing the COVID-19 epidemic or for scientific research.
+       • The Ministry of Health is the body that collects your data. The data is used solely with the aim of containing the COVID-19 epidemic or for scientific research.
 
-       • The data is stored on servers located in Italy and managed by public entities.
+       • The data is stored on servers located in Italy and managed by public bodies.
       """
     ),
     .init(
@@ -379,7 +379,7 @@ public extension FAQ {
       content: """
       Failing to use the app correctly makes Immuni much less effective and increases the risk to you, your loved ones, and the community.
 
-      To make sure you are using the app as intended, simply open it and check that ‘Service active' is written in the Home section. If it's not, tap on ‘Reactivate Immuni' and follow the instructions to make the app work correctly.
+      To make sure you are using the app as intended, simply open it and check that 'Service active' is written in the Home section. If it's not, tap on 'Reactivate Immuni' and follow the instructions to make the app work correctly.
 
       Some other important suggestions to ensure that Immuni is effective:
 
