@@ -35,9 +35,9 @@
 "force_update_view.update" = "Aggiorna";
 "home_protection_active" = "Servizio\n{attivo}";
 "home_protection_not_active" = "Servizio\n{non attivo}";
-"home_view.header_card.positive.button" = "Sei guarito? Aggiorna il tuo stato\u{00a0}›";
+"home_view.header_card.positive.button" = "Sei guarito? Aggiorna il tuo stato ›";
 "home_view.header_card.positive.title" = "Segui le indicazioni che ti hanno fornito il tuo medico o la tua ASL";
-"home_view.header_card.risk.button" = "Scopri subito cosa fare\u{00a0}›";
+"home_view.header_card.risk.button" = "Scopri subito cosa fare ›";
 "home_view.header_card.risk.title" = "Rilevata esposizione a rischio con una persona COVID-19 positiva";
 "home_view.info.app.title" = "Come funziona l'app?";
 "home_view.info.button.title" = "Scopri di più";
