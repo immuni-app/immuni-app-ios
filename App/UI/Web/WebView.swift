@@ -62,7 +62,7 @@ class WebView: UIView, ViewControllerModellableView {
   func style() {
     Self.Style.root(self)
     Self.Style.activityIndicator(self.activityIndicator)
-    SharedStyle.closeButton(self.closeButton)
+    Self.Style.closeButton(self.closeButton)
   }
 
   // MARK: - Update
@@ -92,8 +92,8 @@ class WebView: UIView, ViewControllerModellableView {
 
     self.closeButton.pin
       .top(self.universalSafeAreaInsets.top + 25)
-      .left(30)
-      .sizeToFit()
+      .right(30)
+      .size(32)
   }
 }
 
@@ -107,6 +107,12 @@ extension WebView {
 
     static func activityIndicator(_ view: UIActivityIndicatorView) {
       view.style = UIActivityIndicatorView.Style.medium
+    }
+
+    static func closeButton(_ button: ImageButton) {
+      SharedStyle.closeButton(button)
+      button.backgroundColor = Palette.white
+      button.layer.cornerRadius = 16
     }
   }
 }
