@@ -309,7 +309,7 @@ public extension FAQ {
       content: """
       Immuni's exposure notification system aims to alert users when they have been exposed to a potentially infectious user.
 
-      The system is based on Bluetooth Low Energy technology and doesn't use any kind of geolocation whatsoever, including GPS data. The app doesn't (and can't) collect any data that would identify the user, such as their name, date of birth, address, telephone number, or email address. Therefore, Immuni is able to determine that contact has taken place between two users without knowing who those users are and where the contact occurred.
+      The system is based on Bluetooth Low Energy technology and doesn't use any kind of geolocalisation whatsoever, including GPS data. The app doesn't (and can't) collect any data that would identify the user, such as their name, date of birth, address, telephone number, or email address. Therefore, Immuni is able to determine that contact has taken place between two users without knowing who those users are and where the contact occurred.
 
       Here is a simplified explanation of how the system works. Let's consider the example of two hypothetical users, Alice and Marco:
 
