@@ -62,6 +62,7 @@ class OnboardingContainerNC: UINavigationController {
         vc.modalTransitionStyle = .crossDissolve
         return vc
       },
+      .hide(Screen.sensitiveDataCover): .dismissModally(behaviour: .hard),
 
       .show(Screen.onboardingStep): .custom { _, _, animated, context, completion in
         let navContext = context as? OnboardingContainerNC.NavigationContext ?? AppLogger.fatalError("Invalid Context")
