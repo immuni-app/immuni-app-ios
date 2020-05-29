@@ -156,7 +156,7 @@ public struct Configuration: Codable {
   /// Public initializer to allow testing
   public init(
     minimumBuildVersion: Int = 1,
-    serviceNotActiveNotificationPeriod: TimeInterval = 43200,
+    serviceNotActiveNotificationPeriod: TimeInterval = 86400,
     osForceUpdateNotificationPeriod: TimeInterval = 86400,
     requiredUpdateNotificationPeriod: TimeInterval = 86400,
     riskReminderNotificationPeriod: TimeInterval = 86400,
@@ -172,9 +172,9 @@ public struct Configuration: Codable {
     dummyAnalyticsWaitingTime: Double = 2_592_000,
     dummyIngestionAverageRequestWaitingTime: Double = 10,
     dummyIngestionRequestProbabilities: [Double] = [0.95, 0.1],
-    dummyIngestionMeanStochasticDelay: Double = 2_592_000,
-    dummyIngestionWindowDuration: Double = 259_200,
-    dummyIngestionAverageStartUpDelay: Double = 10,
+    dummyIngestionMeanStochasticDelay: Double = 5_184_000,
+    dummyIngestionWindowDuration: Double = 1_209_600,
+    dummyIngestionAverageStartUpDelay: Double = 15,
     dataUploadMaxSummaryCount: Int = 84,
     dataUploadMaxExposureInfoCount: Int = 600,
     ingestionRequestTargetSize: Int = 110_000
