@@ -89,7 +89,7 @@ post_install do |installer|
         # If we delegate Apple's server to perform some additional
         # steps to build the final IPA, then doing a reproducible build
         # becomes way harder (or even impossible?)
-        config.build_settings['ENABLE_BITCODE'] = 'No'
+        config.build_settings['ENABLE_BITCODE'] = 'NO'
     end
   end
 end

@@ -16,7 +16,7 @@ targetTemplates:
         # If we delegate Apple's server to perform some additional
         # steps to build the final IPA, then doing a reproducible build
         # becomes way harder (or even impossible?)
-        ENABLE_BITCODE: No
+        ENABLE_BITCODE: NO
         SUPPORTS_MACCATALYST: NO
         # Add fstack-protector-all to the project. Note that the
         # current implementation is Swift-only and this should not be
@@ -56,7 +56,7 @@ targets:
         # If we delegate Apple's server to perform some additional
         # steps to build the final IPA, then doing a reproducible build
         # becomes way harder (or even impossible?)
-        ENABLE_BITCODE: No
+        ENABLE_BITCODE: NO
         TARGETED_DEVICE_FAMILY: 1
         # Add fstack-protector-all to the project. Note that the
         # current implementation is Swift-only and this should not be
