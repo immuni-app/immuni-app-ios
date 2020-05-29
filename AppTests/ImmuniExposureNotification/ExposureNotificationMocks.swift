@@ -243,6 +243,7 @@ class MockExposureDetectionExecutor: ExposureDetectionExecutor {
     enManager: ExposureNotificationManager,
     tekProvider: TemporaryExposureKeyProvider,
     now: @escaping () -> Date,
+    isUserCovidPositive: Bool,
     forceRun: Bool
   ) -> Promise<ExposureDetectionOutcome> {
     self.executeMethodCalls += 1
