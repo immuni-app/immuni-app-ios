@@ -48,6 +48,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       enManager: enManager,
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
+      isUserCovidPositive: false,
       forceRun: true
     )
     promise.run()
@@ -87,6 +88,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       enManager: enManager,
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
+      isUserCovidPositive: false,
       forceRun: true
     )
 
@@ -112,6 +114,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       enManager: .init(provider: MockExposureNotificationProvider(overriddenStatus: .authorizedAndActive)),
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
+      isUserCovidPositive: false,
       forceRun: false
     )
     promise.run()
@@ -135,6 +138,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       enManager: .init(provider: MockExposureNotificationProvider(overriddenStatus: .authorized)),
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 0),
       now: { Date() },
+      isUserCovidPositive: false,
       forceRun: true
     )
     promise.run()
@@ -159,6 +163,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       enManager: .init(provider: NoMatchMockExposureNotificationProvider(overriddenStatus: .authorized)),
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
+      isUserCovidPositive: false,
       forceRun: true
     )
 
@@ -184,6 +189,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       enManager: .init(provider: NoMatchMockExposureNotificationProvider(overriddenStatus: .authorized)),
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
+      isUserCovidPositive: false,
       forceRun: false
     )
 
@@ -209,6 +215,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       enManager: .init(provider: MatchingMockExposureNotificationProvider(overriddenStatus: .authorized)),
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
+      isUserCovidPositive: false,
       forceRun: true
     )
 
@@ -234,6 +241,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       enManager: .init(provider: MatchingMockExposureNotificationProvider(overriddenStatus: .authorized)),
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
+      isUserCovidPositive: false,
       forceRun: false
     )
 
@@ -259,6 +267,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       enManager: .init(provider: MatchingMockExposureNotificationProvider(overriddenStatus: .authorized)),
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
+      isUserCovidPositive: false,
       forceRun: false
     )
 
@@ -287,6 +296,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       enManager: .init(provider: MatchingMockExposureNotificationProvider(overriddenStatus: .authorized)),
       tekProvider: tekProvider,
       now: { Date() },
+      isUserCovidPositive: false,
       forceRun: false
     )
 
@@ -314,6 +324,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       enManager: .init(provider: MatchingMockExposureNotificationProvider(overriddenStatus: .authorized)),
       tekProvider: tekProvider,
       now: { Date() },
+      isUserCovidPositive: false,
       forceRun: true
     )
 
@@ -338,6 +349,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       enManager: .init(provider: MatchingMockExposureNotificationProvider(overriddenStatus: .notAuthorized)),
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
+      isUserCovidPositive: false,
       forceRun: false
     )
 
@@ -365,6 +377,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       enManager: .init(provider: MatchingMockExposureNotificationProvider(overriddenStatus: .authorized)),
       tekProvider: ThrowingMockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
+      isUserCovidPositive: false,
       forceRun: false
     )
 
@@ -392,6 +405,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       enManager: .init(provider: ThrowingOnDetectExposuresMockExposureNotificationProvider()),
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
+      isUserCovidPositive: false,
       forceRun: false
     )
 
@@ -419,6 +433,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       enManager: .init(provider: ThrowingOnGetExposureInfoMockExposureNotificationProvider()),
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
+      isUserCovidPositive: false,
       forceRun: false
     )
 
@@ -449,6 +464,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       enManager: .init(provider: NoMatchMockExposureNotificationProvider(overriddenStatus: .authorized)),
       tekProvider: MockTemporaryExposureKeyProvider(minIndexToReturn: minIndex, maxIndexToReturn: maxIndex),
       now: { Date() },
+      isUserCovidPositive: false,
       forceRun: false
     )
 
@@ -481,6 +497,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       enManager: .init(provider: MatchingMockExposureNotificationProvider(overriddenStatus: .authorized)),
       tekProvider: MockTemporaryExposureKeyProvider(minIndexToReturn: minIndex, maxIndexToReturn: maxIndex),
       now: { Date() },
+      isUserCovidPositive: false,
       forceRun: true
     )
 
@@ -491,6 +508,39 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
     let outcome = try XCTUnwrap(promise.result)
 
     XCTAssertEqual(outcome.rawCase, .fullDetection)
+
+    let (outcomeMinIndex, outcomeMaxIndex) = try XCTUnwrap(outcome.processedChunkBoundaries)
+    XCTAssertEqual(outcomeMinIndex, minIndex)
+    XCTAssertEqual(outcomeMaxIndex, maxIndex)
+  }
+
+  func testPreventFullDetectionWhenPositive() throws {
+    let executor = ImmuniExposureDetectionExecutor()
+
+    let minIndex = 4
+    let maxIndex = 6
+
+    let promise = executor.execute(
+      exposureDetectionPeriod: 0,
+      lastExposureDetectionDate: nil,
+      latestProcessedKeyChunkIndex: nil,
+      exposureDetectionConfiguration: .init(),
+      exposureInfoRiskScoreThreshold: 0,
+      userExplanationMessage: "this is a test",
+      enManager: .init(provider: MatchingMockExposureNotificationProvider(overriddenStatus: .authorized)),
+      tekProvider: MockTemporaryExposureKeyProvider(minIndexToReturn: minIndex, maxIndexToReturn: maxIndex),
+      now: { Date() },
+      isUserCovidPositive: true,
+      forceRun: false
+    )
+
+    promise.run()
+
+    expectToEventually(!promise.isPending)
+    XCTAssertNil(promise.error)
+    let outcome = try XCTUnwrap(promise.result)
+
+    XCTAssertEqual(outcome.rawCase, .partialDetection)
 
     let (outcomeMinIndex, outcomeMaxIndex) = try XCTUnwrap(outcome.processedChunkBoundaries)
     XCTAssertEqual(outcomeMinIndex, minIndex)

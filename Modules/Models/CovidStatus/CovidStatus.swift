@@ -26,6 +26,18 @@ public enum CovidStatus {
   /// The user is positive to COVID-19. This state is inferred from the `data upload`
   /// functionality (that is, TEKs upload)
   case positive(lastUpload: CalendarDay)
+
+  /// Whether the state represents a positive
+  /// state to covid
+  public var isCovidPositive: Bool {
+    switch self {
+    case .risk, .neutral:
+      return false
+
+    case .positive:
+      return true
+    }
+  }
 }
 
 // MARK: Extensions
