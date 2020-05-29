@@ -31,6 +31,9 @@ extension Logic {
         // Prelaod animation assets. Check `PreloadAssets` action for better documentation.
         context.dispatch(Logic.Shared.PreloadAssets())
 
+        // refresh statuses
+        try context.awaitDispatch(Logic.Lifecycle.RefreshAuthorizationStatuses())
+
         // Set the app name used in the application using the bundle's display name
         if let appName = context.dependencies.bundle.appDisplayName {
           try context.awaitDispatch(SetAppName(appName: appName))
@@ -49,9 +52,6 @@ extension Logic {
 
         // starts the exposure manager if possible
         try await(context.dependencies.exposureNotificationManager.startIfAuthorized())
-
-        // refresh statuses
-        try context.awaitDispatch(Logic.Lifecycle.RefreshAuthorizationStatuses())
 
         // Update user language
         try context.awaitDispatch(SetUserLanguage(language: UserLanguage(from: context.dependencies.locale)))
