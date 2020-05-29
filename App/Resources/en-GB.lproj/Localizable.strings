@@ -143,7 +143,7 @@
 "privacy.item.people" = "<b>Immuni cannot determine your identity</b> or the identity of the people you come into contact with.";
 "privacy.item.secure" = "<b>The data saved on your smartphone and the connections to the server are encrypted.</b>";
 "privacy.next" = "Next";
-"privacy.settings.show_full" = "I have read the privacy notice";
+"privacy.settings.show_full" = "Show full notice";
 "privacy.settings.title" = "Your privacy is safe";
 "privacy.title" = "Your privacy is safe";
 "privacy.tos" = "By continuing, I declare that I have read and accepted the <l>terms of use</l>";
