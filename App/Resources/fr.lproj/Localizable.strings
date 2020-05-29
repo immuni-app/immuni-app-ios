@@ -35,9 +35,9 @@
 "force_update_view.update" = "Mettre à jour";
 "home_protection_active" = "Service\n{activé}";
 "home_protection_not_active" = "Service\n{désactivé}";
-"home_view.header_card.positive.button" = "Vous êtes guéri ? Mettez votre statut à jour ›";
+"home_view.header_card.positive.button" = "Vous êtes guéri ? Mettez votre statut à jour ›";
 "home_view.header_card.positive.title" = "Suivez les instructions fournies par votre médecin ou votre ASL (agence de santé locale)";
-"home_view.header_card.risk.button" = "Découvrez dès maintenant la procédure à suivre ›";
+"home_view.header_card.risk.button" = "Découvrez dès maintenant la procédure à suivre ›";
 "home_view.header_card.risk.title" = "Une exposition à risque avec une personne testée positive au COVID-19 a été détectée";
 "home_view.info.app.title" = "Comment fonctionne l'application?";
 "home_view.info.button.title" = "En savoir plus";
@@ -112,9 +112,9 @@
 "permission_tutorial.exposure_notification.unauthorized.title" = "Pour activer les notifications de risque d'exposition";
 "permission_tutorial.how_immuni_works.action.cta" = "Consultez les questions fréquentes";
 "permission_tutorial.how_immuni_works.action.description" = "Vous voulez en savoir plus ?";
-"permission_tutorial.how_immuni_works.fifth.message" = "Si vous avez été en contact avec un utilisateur positif, Immuni vous avertira et vous indiquera la procédure à suivre. L'application y parvient sans jamais savoir où vous allez ni qui vous rencontrez. Votre vie privée est protégée.";
+"permission_tutorial.how_immuni_works.fifth.message" = "Si vous avez été en contact avec un utilisateur positif, Immuni vous avertira et vous indiquera la procédure à suivre. L'application y parvient sans jamais savoir où vous allez ni qui vous rencontrez. Vos données restent confidentielles.";
 "permission_tutorial.how_immuni_works.fifth.title" = "<h>Vous serez prévenu en cas de contact avec une personne positive</h>";
-"permission_tutorial.how_immuni_works.first.message" = "Le code est généré de manière aléatoire et ne contient pas d'informations sur votre appareil, et encore moins sur vous. De plus, il change plusieurs fois par heure, pour mieux protéger votre vie privée.";
+"permission_tutorial.how_immuni_works.first.message" = "Le code est généré de manière aléatoire et ne contient aucune information à propos de vous ou de votre appareil. De plus, il change plusieurs fois par heure pour mieux protéger vos données confidentielles.";
 "permission_tutorial.how_immuni_works.first.title" = "<h>Immuni associe chaque téléphone à un code aléatoire</h>";
 "permission_tutorial.how_immuni_works.fourth.message" = "Immuni vérifie périodiquement les codes présents sur le serveur et les compare avec ceux qui sont enregistrés sur votre dispositif. L'application peut ainsi déterminer si vous avez été exposé à une potentielle infection.";
 "permission_tutorial.how_immuni_works.fourth.title" = "<h>Le téléphone vérifie s'il a déjà rencontré un ou plusieurs des codes partagés</h>";
@@ -144,8 +144,8 @@
 "privacy.item.secure" = "<b>Les données enregistrées sur votre smartphone et les connexions au serveur sont cryptées.</b>";
 "privacy.next" = "Suivant";
 "privacy.settings.show_full" = "Politique de confidentialité intégrale";
-"privacy.settings.title" = "Votre vie privée est protégée";
-"privacy.title" = "Votre vie privée est protégée";
+"privacy.settings.title" = "Vos données restent confidentielles";
+"privacy.title" = "Vos données restent confidentielles";
 "privacy.tos" = "En continuant, je déclare avoir lu et accepté les <l>Conditions d'utilisation</l>";
 "retry" = "Réessayer";
 "settings.setting.chage_province" = "Modifier la province";
@@ -243,7 +243,7 @@
 "welcome_view.items.first.description" = "Grâce à la contribution de tous, Immuni aide à contenir le virus et à reprendre plus rapidement une vie normale.";
 "welcome_view.items.first.title" = "Bonjour !";
 "welcome_view.items.fourth.description" = "L'application fonctionne sans aucun suivi de vos mouvements et sans connaître votre identité ni celle des personnes avec lesquelles vous entrez en contact.";
-"welcome_view.items.fourth.title" = "Votre vie privée est protégée";
+"welcome_view.items.fourth.title" = "Vos données restent confidentielles";
 "welcome_view.items.second.description" = "Si vous êtes entré en contact avec un utilisateur porteur du virus, Immuni vous préviendra et vous fournira des indications afin de protéger votre santé et celle de vos proches.";
 "welcome_view.items.second.title" = "Immuni prend soin de vous";
 "welcome_view.items.third.description" = "Les utilisateurs qui découvrent avoir été exposés au virus peuvent s'isoler afin de ralentir la propagation du virus et d'accélérer le retour à une vie normale.";

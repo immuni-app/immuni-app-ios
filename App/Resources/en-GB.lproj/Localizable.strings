@@ -35,9 +35,9 @@
 "force_update_view.update" = "Update";
 "home_protection_active" = "Service\n{active}";
 "home_protection_not_active" = "Service\n{inactive}";
-"home_view.header_card.positive.button" = "Recovered? Update your status ›";
+"home_view.header_card.positive.button" = "Recovered? Update your status ›";
 "home_view.header_card.positive.title" = "Follow the instructions provided by your general practitioner or local health authority";
-"home_view.header_card.risk.button" = "Find out what to do now ›";
+"home_view.header_card.risk.button" = "Find out what to do now ›";
 "home_view.header_card.risk.title" = "Risk exposure detected: contact with a COVID-19-positive person";
 "home_view.info.app.title" = "How does the app work?";
 "home_view.info.button.title" = "Find out more";

@@ -131,7 +131,7 @@ final class PrivacyCheckboxCell: UICollectionViewCell, ModellableView, ReusableV
     // the visual space of the chexkbox is that one. However, the image with
     // the shadow is bigger
     self.details.pin
-      .right(Self.horizontalPadding / 2.0)
+      .right((Self.horizontalPadding / 2.0).rounded())
       .top(Self.verticalInternalPadding)
       .left(Self.horizontalPadding + Self.imageDedicatedSize + Self.imageToTextPadding)
       .sizeToFit(.width)
