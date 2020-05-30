@@ -166,11 +166,9 @@ final class PrivacyCheckboxCell: UICollectionViewCell, ModellableView, ReusableV
   }
 
   @objc private func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
-    let tapLocation = gestureRecognizer.location(in: self.containerView)
-
     guard
-      self.details.frame.contains(tapLocation),
-      let textPosition = self.details.closestPosition(to: tapLocation),
+      self.details.frame.contains(gestureRecognizer.location(in: self.containerView)),
+      let textPosition = self.details.closestPosition(to: gestureRecognizer.location(in: self.details)),
       let url = self.details.textStyling(at: textPosition, in: .forward)?[NSAttributedString.Key.link] as? URL,
       let modelURL = self.model?.linkedURL,
       url == modelURL
