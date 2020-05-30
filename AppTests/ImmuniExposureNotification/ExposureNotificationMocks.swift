@@ -109,6 +109,7 @@ struct MockExposureDetectionConfiguration: ExposureDetectionConfiguration, Equat
   var transmissionRiskBucketScores: [RiskScore]
   var transmissionRiskWeight: Double
   var minimumRiskScore: RiskScore
+  var attenuationThresholds: [Int]
 
   static func mock() -> Self {
     return MockExposureDetectionConfiguration(
@@ -120,7 +121,8 @@ struct MockExposureDetectionConfiguration: ExposureDetectionConfiguration, Equat
       durationWeight: 1,
       transmissionRiskBucketScores: [1, 2, 3, 4, 5, 6, 7, 8],
       transmissionRiskWeight: 1,
-      minimumRiskScore: 0
+      minimumRiskScore: 0,
+      attenuationThresholds: [50, 70]
     )
   }
 }
@@ -241,6 +243,7 @@ class MockExposureDetectionExecutor: ExposureDetectionExecutor {
     enManager: ExposureNotificationManager,
     tekProvider: TemporaryExposureKeyProvider,
     now: @escaping () -> Date,
+    isUserCovidPositive: Bool,
     forceRun: Bool
   ) -> Promise<ExposureDetectionOutcome> {
     self.executeMethodCalls += 1

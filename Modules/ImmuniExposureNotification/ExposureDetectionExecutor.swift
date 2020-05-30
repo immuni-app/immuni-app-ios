@@ -29,6 +29,7 @@ public protocol ExposureDetectionExecutor {
     enManager: ExposureNotificationManager,
     tekProvider: TemporaryExposureKeyProvider,
     now: @escaping () -> Date,
+    isUserCovidPositive: Bool,
     forceRun: Bool
   ) -> Promise<ExposureDetectionOutcome>
 }

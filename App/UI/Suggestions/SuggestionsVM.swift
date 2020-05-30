@@ -157,6 +157,10 @@ extension SuggestionsVM {
       .spacer(size: .medium),
       .instruction(instruction: .stayHome),
       .spacer(size: .tiny),
+      .instruction(instruction: .limitMovements),
+      .spacer(size: .tiny),
+      .instruction(instruction: .distance),
+      .spacer(size: .tiny),
       .instruction(instruction: .washHands),
       .spacer(size: .tiny),
       .instruction(instruction: .useNapkins),
@@ -172,6 +176,10 @@ extension SuggestionsVM {
       .message(text: L10n.Suggestions.Instruction.HideAlert.message),
       .spacer(size: .medium),
       .button(interaction: .dismissCovidNotifications),
+      .spacer(size: .medium),
+      .separator,
+      .spacer(size: .medium),
+      .message(text: L10n.Suggestions.Risk.footer),
       .spacer(size: .big)
     ]
   }

@@ -198,7 +198,8 @@ final class PermissionTutorialView: UIView, ViewControllerModellableView {
 
 extension PermissionTutorialView {
   var contentCollectionCanScroll: Bool {
-    return self.contentCollection.contentSize.height > self.frame.height
+    return self.contentCollection.contentSize.height > self.contentCollection.frame.height
+      + self.contentCollection.contentInset.vertical
   }
 }
 

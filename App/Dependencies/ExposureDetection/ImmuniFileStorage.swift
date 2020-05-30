@@ -46,10 +46,15 @@ public class ImmuniFileStorage: FileStorage {
         try self.fileManager.unzipItem(at: zipFileURL, to: unzipDirectoryURL)
       } catch {
         reject(Error.unzipError)
+        return
       }
 
       let unzippedFiles = try self.fileManager.contentsOfDirectory(at: unzipDirectoryURL, includingPropertiesForKeys: nil)
-      assert(unzippedFiles.count == 2)
+
+      guard unzippedFiles.count == 2 else {
+        reject(Error.brokenChunk)
+        return
+      }
 
       let finalFileURLs = try unzippedFiles
         .map { file -> URL in
@@ -85,5 +90,6 @@ extension ImmuniFileStorage {
 extension ImmuniFileStorage {
   enum Error: Swift.Error {
     case unzipError
+    case brokenChunk
   }
 }

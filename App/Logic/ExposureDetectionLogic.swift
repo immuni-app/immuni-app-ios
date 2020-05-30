@@ -56,6 +56,7 @@ extension Logic.ExposureDetection {
         enManager: context.dependencies.exposureNotificationManager,
         tekProvider: context.dependencies.temporaryExposureKeyProvider,
         now: context.dependencies.now,
+        isUserCovidPositive: state.user.covidStatus.isCovidPositive,
         forceRun: self.forceRun
       ))
 

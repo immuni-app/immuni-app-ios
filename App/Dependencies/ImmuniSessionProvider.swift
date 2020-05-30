@@ -21,7 +21,7 @@ import Networking
 struct ImmuniSessionProvider: SessionProvider {
   /// Hosts that the application has to contact in a production
   /// environment
-  private static var productionHosts: [String] = [
+  static var productionHosts: [String] = [
     "get.immuni.gov.it",
     "upload.immuni.gov.it",
     "analytics.immuni.gov.it"

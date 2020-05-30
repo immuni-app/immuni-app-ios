@@ -62,7 +62,7 @@ class WebView: UIView, ViewControllerModellableView {
   func style() {
     Self.Style.root(self)
     Self.Style.activityIndicator(self.activityIndicator)
-    SharedStyle.closeButton(self.closeButton)
+    Self.Style.closeButton(self.closeButton)
   }
 
   // MARK: - Update
@@ -70,7 +70,13 @@ class WebView: UIView, ViewControllerModellableView {
   func update(oldModel: WebVM?) {
     guard let model = self.model, model != oldModel else { return }
 
-    self.webView.load(URLRequest(url: model.url))
+    guard let host = model.url.host, ImmuniSessionProvider.productionHosts.contains(host) else {
+      // refuse to load not authorized hosts
+      return
+    }
+
+    // prevent the webview from caching data
+    self.webView.load(URLRequest(url: model.url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData))
   }
 
   // MARK: - Layout
@@ -86,8 +92,8 @@ class WebView: UIView, ViewControllerModellableView {
 
     self.closeButton.pin
       .top(self.universalSafeAreaInsets.top + 25)
-      .left(30)
-      .sizeToFit()
+      .right(30)
+      .size(40)
   }
 }
 
@@ -101,6 +107,13 @@ extension WebView {
 
     static func activityIndicator(_ view: UIActivityIndicatorView) {
       view.style = UIActivityIndicatorView.Style.medium
+    }
+
+    static func closeButton(_ button: ImageButton) {
+      SharedStyle.closeButton(button)
+      button.backgroundColor = Palette.white
+      button.layer.cornerRadius = 20
+      button.addShadow(.grayDark)
     }
   }
 }

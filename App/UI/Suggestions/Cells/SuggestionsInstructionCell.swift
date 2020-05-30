@@ -12,6 +12,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+import BonMot
 import Extensions
 import Foundation
 import Tempura
@@ -25,6 +26,8 @@ struct SuggestionsInstructionCellVM: ViewModel {
     case wearMask
     case contactDoctor
     case stayHome
+    case limitMovements
+    case distance
     case checkSymptoms
     case isolate
     case contactAuthorities
@@ -43,17 +46,21 @@ struct SuggestionsInstructionCellVM: ViewModel {
     case .socialDistance:
       return L10n.Suggestions.Instruction.socialDistance
     case .wearMask:
-      return L10n.Suggestions.Instruction.mask
+      return L10n.Suggestions.Instruction.Mask.title
     case .contactDoctor:
       return L10n.Suggestions.Instruction.ContactDoctor.title
     case .stayHome:
-      return L10n.Suggestions.Instruction.stayHome
+      return L10n.Suggestions.Instruction.StayHome.title
     case .checkSymptoms:
       return L10n.Suggestions.Instruction.CheckSymptoms.title
     case .isolate:
       return L10n.Suggestions.Instruction.Isolate.title
     case .contactAuthorities:
       return L10n.Suggestions.Instruction.phoneContact
+    case .distance:
+      return L10n.Suggestions.Instruction.distance
+    case .limitMovements:
+      return L10n.Suggestions.Instruction.limitMovement
     }
   }
 
@@ -79,12 +86,17 @@ struct SuggestionsInstructionCellVM: ViewModel {
       return Asset.Suggestions.isolate.image
     case .contactAuthorities:
       return Asset.Suggestions.emergency.image
+    case .distance:
+      return Asset.Suggestions.socialDistance.image
+    case .limitMovements:
+      return Asset.Suggestions.limitMovements.image
     }
   }
 
   var subtitle: String? {
     switch self.instruction {
-    case .ministerialDecree, .washHands, .useNapkins, .socialDistance, .wearMask, .stayHome, .contactAuthorities:
+    case .ministerialDecree, .washHands, .useNapkins, .socialDistance, .contactAuthorities, .distance,
+         .limitMovements:
       return nil
     case .checkSymptoms:
       return L10n.Suggestions.Instruction.CheckSymptoms.message
@@ -92,6 +104,10 @@ struct SuggestionsInstructionCellVM: ViewModel {
       return L10n.Suggestions.Instruction.Isolate.message
     case .contactDoctor:
       return L10n.Suggestions.Instruction.ContactDoctor.message
+    case .stayHome:
+      return L10n.Suggestions.Instruction.StayHome.message
+    case .wearMask:
+      return L10n.Suggestions.Instruction.Mask.message
     }
   }
 
@@ -230,16 +246,36 @@ private extension SuggestionsInstructionCell {
     }
 
     static func subtitle(_ label: UILabel, content: String) {
+      let paragraphs = content.components(separatedBy: "\n\n")
+
       let textStyle = TextStyles.p.byAdding(
         .color(Palette.grayNormal),
         .alignment(.left)
       )
 
-      TempuraStyles.styleStandardLabel(
-        label,
-        content: content,
-        style: textStyle
-      )
+      if paragraphs.count == 1 {
+        TempuraStyles.styleStandardLabel(
+          label,
+          content: content,
+          style: textStyle
+        )
+      } else {
+        // by design we want the line that split the paragraphs of this cell to be smaller
+        let font = UIFont.euclidCircularBMedium(size: 8)
+        let paragraphLineStyle = StringStyle(
+          .font(font),
+          .adapt(.control)
+        )
+
+        let composable: [Composable] = paragraphs.flatMap {
+          ([
+            $0.styled(with: textStyle),
+            "\n\n".styled(with: paragraphLineStyle)
+          ]) as [Composable]
+        }
+        label.numberOfLines = 0
+        label.attributedText = NSAttributedString.composed(of: composable.dropLast()).adapted()
+      }
     }
   }
 }

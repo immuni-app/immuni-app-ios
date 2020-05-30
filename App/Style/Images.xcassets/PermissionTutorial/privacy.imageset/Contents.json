@@ -15,6 +15,16 @@
       "locale" : "en-GB"
     },
     {
+      "filename" : "privacy-4.pdf",
+      "idiom" : "universal",
+      "locale" : "es-ES"
+    },
+    {
+      "filename" : "privacy-5.pdf",
+      "idiom" : "universal",
+      "locale" : "fr"
+    },
+    {
       "filename" : "privacy.pdf",
       "idiom" : "universal",
       "locale" : "it"

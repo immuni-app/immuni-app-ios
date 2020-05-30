@@ -98,7 +98,7 @@ class SuggestionsButtonCell: UICollectionViewCell, ModellableView, ReusableView 
 
   override func sizeThatFits(_ size: CGSize) -> CGSize {
     let buttonWidth = size.width - 2 * SuggestionsView.cellMessageInset
-    let labelWidth = buttonWidth - self.button.insets.horizontal
+    let labelWidth = buttonWidth - self.button.insets.horizontal - self.button.contentEdgeInsets.horizontal
     let titleSize = self.button.titleLabel?.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity)) ?? .zero
 
     let minimumButtonHeight: CGFloat = 52
@@ -111,7 +111,8 @@ class SuggestionsButtonCell: UICollectionViewCell, ModellableView, ReusableView 
 private extension SuggestionsButtonCell {
   enum Style {
     static func buttonBase(_ button: ButtonWithInsets) {
-      button.insets = UIEdgeInsets(deltaX: 30, deltaY: 15)
+      button.insets = UIEdgeInsets(deltaX: 15, deltaY: 15)
+      button.contentEdgeInsets = UIEdgeInsets(deltaX: 15, deltaY: 0)
       button.titleLabel?.numberOfLines = 0
       button.adjustsImageWhenHighlighted = false
       button.setOverlayOpacity(0, for: .highlighted)
