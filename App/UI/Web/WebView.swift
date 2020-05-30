@@ -93,7 +93,7 @@ class WebView: UIView, ViewControllerModellableView {
     self.closeButton.pin
       .top(self.universalSafeAreaInsets.top + 25)
       .right(30)
-      .size(32)
+      .size(40)
   }
 }
 
@@ -112,7 +112,8 @@ extension WebView {
     static func closeButton(_ button: ImageButton) {
       SharedStyle.closeButton(button)
       button.backgroundColor = Palette.white
-      button.layer.cornerRadius = 16
+      button.layer.cornerRadius = 20
+      button.addShadow(.grayDark)
     }
   }
 }
