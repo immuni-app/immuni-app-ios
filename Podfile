@@ -5,7 +5,7 @@ source 'https://cdn.cocoapods.org/'
 
 inhibit_all_warnings!
 use_frameworks!
-platform :ios, '11.0'
+platform :ios, '13.0'
 
 # Dependencies are locked till the patch version as an extra
 # precaution against unwanted updates of the 3rd party libraries
@@ -90,6 +90,9 @@ post_install do |installer|
         # steps to build the final IPA, then doing a reproducible build
         # becomes way harder (or even impossible?)
         config.build_settings['ENABLE_BITCODE'] = 'NO'
+
+        config.build_settings['TARGETED_DEVICE_FAMILY'] = 1
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = 13.0
     end
   end
 end
