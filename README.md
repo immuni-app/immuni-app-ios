@@ -85,12 +85,6 @@ Please note the following:
 
 For more information about how the project is generated and structured, please refer to the [CONTRIBUTING](CONTRIBUTING.md) file.
 
-## Backend services
-
-At the current stage, the application points to backend services that are not publicly accessible and whose source code has not been released. Note that the application is designed to work without a backend, especially in the context of not having the Exposure Notification entitlements (see [Installation](#installation) for more details).
-
-Please see [this issue](https://github.com/immuni-app/immuni-app-ios/issues/1) for more information about this topic.
-
 # UI testing
 
 The repository contains a system that can generate snapshots of the application's UI in different contexts (e.g., in various languages). This is a good way of checking the UI's issues and having an overview of the various UI states. To generate them, set up the project and run `make run_uitests`. The generated screenshots are located in the `UITests/Screenshots` folder.
