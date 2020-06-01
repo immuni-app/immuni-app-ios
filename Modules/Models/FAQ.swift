@@ -154,7 +154,7 @@ public extension FAQ {
 
       Google Play
       Puoi scaricare Immuni da Google Play e usarla correttamente se il tuo smartphone Android verifica tutti e tre i seguenti requisiti:
-      • Ha il Bluetooth Low Energy
+      • Bluetooth Low Energy
       • Android versione 6 (Marshmallow, API 23) o superiore
       • Google Play Services versione 20.18.13 o superiore
       Aggiorna Android e Google Play Services all’ultima versione disponibile prima di effettuare il download di Immuni.
