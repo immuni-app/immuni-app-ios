@@ -61,6 +61,7 @@ class TabbarVC: ViewController<TabbarView>, CustomRouteInspectables {
     }
 
     if oldTab != newTab {
+      self.dispatch(Logic.Shared.UpdateSelectedTab(tab: newTab))
       self.changeTab(to: newTab)
     } else {
       if let navigationController = self.vc[newTab] as? UINavigationController {
