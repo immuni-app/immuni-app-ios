@@ -147,12 +147,12 @@ public extension FAQ {
       content: """
       Da dove puoi scaricare Immuni dipende dallo smartphone che usi. Non tutti i dispositivi sono supportati. Scegli la versione compatibile col tuo smartphone.
 
-      <b>App Store</b>
+      App Store
       Puoi scaricare Immuni dall’App Store e usarla correttamente se il tuo iPhone ha iOS versione 13.5 o superiore. Aggiorna iOS all’ultima versione disponibile prima di effettuare il download di Immuni.
 
       I modelli di iPhone che supportano iOS 13.5 sono i seguenti: 11, 11 Pro, 11 Pro Max, Xr, Xs, Xs Max, X, SE (2nd generation), 8, 8 Plus, 7, 7 Plus, 6s, 6s Plus, SE (1st generation). Purtroppo, non potrai usare Immuni se il tuo modello di iPhone non permette l’aggiornamento di iOS a una versione pari o superiore alla 13.5.
 
-      <b>Google Play</b>
+      Google Play
       Puoi scaricare Immuni da Google Play e usarla correttamente se il tuo smartphone Android verifica tutti e tre i seguenti requisiti:
       • Ha il Bluetooth Low Energy
       • Android versione 6 (Marshmallow, API 23) o superiore
@@ -161,7 +161,7 @@ public extension FAQ {
 
       Purtroppo, non potrai usare Immuni se il tuo modello di smartphone Android non ha il Bluetooth Low Energy o non permette l’aggiornamento di Android e di Google Play Services alle versioni minime indicate.
 
-      <b>AppGallery</b>
+      AppGallery
       Stiamo lavorando per permettere di scaricare Immuni anche da AppGallery al più presto. Questo consentirà ai possessori di alcuni modelli di smartphone Huawei di usare Immuni.
       """
     ),
@@ -410,12 +410,12 @@ public extension FAQ {
       content: """
       Where you can download Immuni from depends on the smartphone you use. Please note that not all devices are supported. Choose the version compatible with your smartphone.
 
-      <b>App Store</b>
+      App Store
       You can download Immuni from the App Store and use it correctly if your iPhone supports running iOS version 13.5 or above. Please update iOS to the latest available version before downloading Immuni.
 
       The following iPhone models support iOS 13.5: 11, 11 Pro, 11 Pro Max, Xr, Xs, Xs Max, X, SE (2nd generation), 8, 8 Plus, 7, 7 Plus, 6s, 6s Plus, SE (1st generation). Unfortunately, you won’t be able to use Immuni if your iPhone model doesn’t support running iOS version 13.5 or above.
 
-      <b>Google Play</b>
+      Google Play
       You can download Immuni from Google Play and use it correctly if your Android smartphone fulfils all three of the following requirements:
       •   Bluetooth Low Energy
       •   Android version 6 (Marshmallow, API 23) or above
@@ -424,7 +424,7 @@ public extension FAQ {
 
       Unfortunately, you won’t be able to use Immuni if your model of Android smartphone doesn’t feature Bluetooth Low Energy or doesn’t support the minimum Android and Google Play Services versions indicated above.
 
-      <b>AppGallery</b>
+      AppGallery
       We’re working to make Immuni available for download from AppGallery as soon as possible. This will enable the users of certain Huawei smartphone models to use Immuni.
       """
     ),
