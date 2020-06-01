@@ -58,7 +58,7 @@
 "notification_steps_instruction_1" = "1. Open Settings using the button below";
 "notification_steps_instruction_2" = "2. Enable the 'Allow notifications' option";
 "notification_steps_title" = "To enable notifications";
-"notifications.apple_exposure_notification.message" = "Someone you've had close contact with has tested positive.";
+"notifications.apple_exposure_notification.message" = "Someone you've had close contact with has tested positive";
 "notifications.not_active_service.description" = "Reactivate Immuni as soon as possible so that it can warn you in the case of risk.";
 "notifications.not_active_service.title" = "⚠️ The service is inactive";
 "notifications.risk.description" = "Open the app for more information.";
@@ -198,7 +198,7 @@
 "suggestions.instruction.use_napkins" = "<b>Cough and sneeze directly into a tissue or into the crook of your elbow.</b>";
 "suggestions.instruction.wash_hands" = "<b>Wash your hands frequently</b> with soap and water or with alcohol hand sanitiser.";
 "suggestions.instruction.while_waiting_doctor" = "As a precaution, while you wait for instructions from your general practitioner or local health authority:";
-"suggestions.neutral.alert" = "If you are in contact with your general practitioner or your local health authority's health care service, follow all the instructions provided to you.";
+"suggestions.neutral.alert" = "If you are in contact with your general practitioner (GP) or your local health authority's health care service, follow all the instructions provided to you.";
 "suggestions.neutral.message" = "In any case, <b>try to follow these general guidelines at all times:</b>";
 "suggestions.positive.covid_negative.action" = "I'm COVID-19 negative";
 "suggestions.positive.covid_negative.message" = "<b>Let us know if your local health authority has confirmed that you are COVID-19 negative to reactivate risk exposure notifications.</b>";
