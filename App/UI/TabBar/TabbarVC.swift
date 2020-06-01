@@ -41,7 +41,7 @@ class TabbarVC: ViewController<TabbarView>, CustomRouteInspectables {
 
   override func setupInteraction() {
     self.rootView.didSelectCell = { [unowned self] newTab in
-      self.changeTab(to: newTab)
+      self.handleTap(on: newTab)
     }
   }
 
@@ -51,7 +51,22 @@ class TabbarVC: ViewController<TabbarView>, CustomRouteInspectables {
     guard let model = new else {
       return
     }
+
     self.changeTab(to: model.selectedTab)
+  }
+
+  func handleTap(on newTab: TabbarVM.Tab) {
+    guard let oldTab = self.viewModel?.selectedTab else {
+      return
+    }
+
+    if oldTab != newTab {
+      self.changeTab(to: newTab)
+    } else {
+      if let navigationController = self.vc[newTab] as? UINavigationController {
+        navigationController.popViewController(animated: true)
+      }
+    }
   }
 
   func changeTab(to newTab: TabbarVM.Tab) {
