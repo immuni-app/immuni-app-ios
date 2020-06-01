@@ -78,10 +78,16 @@ class TabbarVC: ViewController<TabbarView>, CustomRouteInspectables {
     if let newVC = self.vc[newTab] {
       // remove the current child
       self.vc[oldTab]?.remove()
-      self.dispatch(Logic.Shared.UpdateSelectedTab(tab: newTab))
 
+      let traitCollectionDidChange = self.traitCollection != newVC.traitCollection
       self.add(newVC, frame: self.rootView.frame)
       self.dispatch(Logic.Accessibility.PostNotification(notification: .screenChanged, argument: nil))
+
+      if traitCollectionDidChange {
+        // Post a `UIContentSizeCategory.didChangeNotification` to trigger the update for subviews that adopt the
+        // `AdaptableTextContainer` protocol if trait collection did change.
+        NotificationCenter.default.post(name: UIContentSizeCategory.didChangeNotification, object: nil)
+      }
     }
   }
 
