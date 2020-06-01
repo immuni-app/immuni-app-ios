@@ -26,6 +26,8 @@ struct OnboardingContainerAccessoryVM: ViewModel {
   let shouldNextButtonBeEnabled: Bool
   /// The title of the next button, if visible.
   let nextButtonTitle: String
+  /// Whether the view is scrollable and should show bottom gradient.
+  let shouldShowGradient: Bool
 }
 
 final class OnboardingContainerAccessoryView: UIView, ModellableView {
@@ -76,6 +78,7 @@ final class OnboardingContainerAccessoryView: UIView, ModellableView {
     }
 
     self.backButton.alpha = model.shouldShowBackButton.cgFloat
+    self.scrollingGradient.alpha = model.shouldShowGradient.cgFloat
 
     self.nextButton.isEnabled = model.shouldNextButtonBeEnabled
     self.nextButton.alpha = model.shouldShowNextButton.cgFloat

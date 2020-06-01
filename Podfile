@@ -5,7 +5,7 @@ source 'https://cdn.cocoapods.org/'
 
 inhibit_all_warnings!
 use_frameworks!
-platform :ios, '11.0'
+platform :ios, '13.0'
 
 # Dependencies are locked till the patch version as an extra
 # precaution against unwanted updates of the 3rd party libraries
@@ -71,19 +71,28 @@ if INCLUDE_DEV_TOOLING
   end
 end
 
-# Add fstack-protector-all to the project. Note that the
-# current implementation is Swift-only and this should not be
-# necessary. However, adding it doesn't harm and prevents
-# from weakening the app in case of an OBJC / C lib
-# or code is added
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
+        # Add fstack-protector-all to the project. Note that the
+        # current implementation is Swift-only and this should not be
+        # necessary. However, adding it doesn't harm and prevents
+        # from weakening the app in case of an OBJC / C lib
+        # or code is added
         config.build_settings['OTHER_CFLAGS'] ||= ['$(inherited)']
         config.build_settings['OTHER_CFLAGS'] << '-fstack-protector-all'
 
         config.build_settings['OTHER_CPLUSPLUSFLAGS'] ||= ['$(inherited)']
         config.build_settings['OTHER_CPLUSPLUSFLAGS'] << '-fstack-protector-all'
+
+        # Bitcode must be disabled to allow reproducible builds.
+        # If we delegate Apple's server to perform some additional
+        # steps to build the final IPA, then doing a reproducible build
+        # becomes way harder (or even impossible?)
+        config.build_settings['ENABLE_BITCODE'] = 'NO'
+
+        config.build_settings['TARGETED_DEVICE_FAMILY'] = 1
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = 13.0
     end
   end
 end

@@ -13,7 +13,6 @@ else
 endif
 
 # Prepare Application workspace for production application
-immuni: export SUPPORT_EMAIL = tbd@immuni.org
 immuni: export APPSTORE_ID = 1513940977
 immuni:
 	swiftgen
@@ -27,7 +26,7 @@ immuni:
 # Perform UI Tests for the application
 # The output will be in: UITests/Screenshots
 run_uitests: 
-	python UITests/run.py ct-app Immuni.xcworkspace Immuni true 3 en de it
+	python UITests/run.py ct-app Immuni.xcworkspace Immuni true 3 en de it fr es
 
 # Reset the project for a clean build
 reset:

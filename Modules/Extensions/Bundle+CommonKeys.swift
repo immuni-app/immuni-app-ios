@@ -37,11 +37,6 @@ public extension Bundle {
     return self.infoDictionary?["IMAppstoreID"] as? String
   }
 
-  /// Specifies the support email for the application
-  var supportEmail: String? {
-    return self.infoDictionary?["IMSupportEmail"] as? String
-  }
-
   /// Helper to get the app name as is displayed in the springboard.
   var appDisplayName: String? {
     return self.infoDictionary?["CFBundleDisplayName"] as? String

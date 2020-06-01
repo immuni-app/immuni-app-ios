@@ -22,6 +22,22 @@ class OnboardingRegionUITests: AppViewTestCase, ViewTestCase {
   typealias V = OnboardingRegionView
 
   func testUI() {
+    let context = UITests.Context<V>(container: UITests.Container.custom { vc in
+      let navigationController = OnboardingContainerNC(rootViewController: vc)
+
+      navigationController.accessoryView?.model = OnboardingContainerAccessoryVM(
+        shouldShowBackButton: true,
+        shouldShowNextButton: true,
+        shouldNextButtonBeEnabled: true,
+        nextButtonTitle: L10n.Onboarding.Common.next,
+        shouldShowGradient: true
+      )
+
+      navigationController.accessoryView?.setNeedsLayout()
+      navigationController.accessoryView?.layoutIfNeeded()
+      return navigationController
+    })
+
     self.uiTest(
       testCases: [
         "onboarding_region": OnboardingRegionVM(isHeaderVisible: true, isUpdatingRegion: false, currentRegion: nil),
@@ -31,7 +47,7 @@ class OnboardingRegionUITests: AppViewTestCase, ViewTestCase {
           currentRegion: Region.lombardia
         )
       ],
-      context: UITests.Context<V>()
+      context: context
     )
   }
 

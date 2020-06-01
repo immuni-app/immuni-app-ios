@@ -68,7 +68,7 @@ class QuestionUITests: AppViewTestCase, ViewTestCase {
 
 extension QuestionView {
   var contentCollectionCanScroll: Bool {
-    return self.scrollView.contentSize.height > self.frame.height
+    return self.scrollView.contentSize.height > self.scrollView.frame.height + self.scrollView.contentInset.vertical
   }
 }
 

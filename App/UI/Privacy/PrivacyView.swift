@@ -28,7 +28,7 @@ final class PrivacyView: UIView, ViewControllerModellableView {
   var userDidTapClose: Interaction?
   var userDidTapActionButton: Interaction?
   var userDidTapAbove14Checkbox: Interaction?
-  var userDidTapReadPrivacyPolicyCheckbox: Interaction?
+  var userDidTapReadPrivacyNoticeCheckbox: Interaction?
   var userDidScroll: CustomInteraction<CGFloat>?
   var userDidTapURL: CustomInteraction<URL>?
 
@@ -43,7 +43,7 @@ final class PrivacyView: UIView, ViewControllerModellableView {
     collection.register(PrivacyTitleCell.self)
     collection.register(PrivacyCheckboxCell.self)
     collection.register(PrivacySpacerCell.self)
-    collection.register(PrivacyTOSCell.self)
+    collection.register(PrivacyTOUCell.self)
 
     return collection
   }()
@@ -195,6 +195,23 @@ final class PrivacyView: UIView, ViewControllerModellableView {
       right: 0
     )
   }
+
+  // Helper
+  /// Get the first errored cell in the view. Used for accessibility.
+  func getFirstErroredCell() -> UIView? {
+    guard let model = self.model else {
+      return nil
+    }
+
+    for (index, item) in model.items.enumerated() {
+      guard case .checkbox(_, _, let isErrored, _) = item, isErrored else {
+        continue
+      }
+
+      return self.contentCollection.cellForItem(at: IndexPath(item: index, section: 0))
+    }
+    return nil
+  }
 }
 
 // MARK: UICollectionViewDataSource
@@ -229,8 +246,8 @@ extension PrivacyView: UICollectionViewDataSource {
     case .spacer:
       return self.dequeue(PrivacySpacerCell.self, for: indexPath, in: collectionView, using: item.cellVM)
 
-    case .tos:
-      let cell = self.dequeue(PrivacyTOSCell.self, for: indexPath, in: collectionView, using: item.cellVM)
+    case .tou:
+      let cell = self.dequeue(PrivacyTOUCell.self, for: indexPath, in: collectionView, using: item.cellVM)
       cell.userDidTapURL = { [weak self] url in self?.userDidTapURL?(url) }
       return cell
     }
@@ -252,8 +269,8 @@ extension PrivacyView: UICollectionViewDataSource {
     case .above14:
       self.userDidTapAbove14Checkbox?()
 
-    case .privacyPolicyRead:
-      self.userDidTapReadPrivacyPolicyCheckbox?()
+    case .privacyNoticeRead:
+      self.userDidTapReadPrivacyNoticeCheckbox?()
     }
   }
 }

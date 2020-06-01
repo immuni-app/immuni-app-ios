@@ -22,6 +22,37 @@ class OnboardingProvinceUITests: AppViewTestCase, ViewTestCase {
   typealias V = OnboardingProvinceView
 
   func testUI() {
+    let context = UITests.Context<V>(container: UITests.Container.custom { vc in
+      guard
+        let view = vc.view as? OnboardingProvinceView,
+        let model = view.model
+
+        else {
+          return vc
+      }
+
+      let navigationController = OnboardingContainerNC(rootViewController: vc)
+      let title: String
+
+      if model.isUpdatingProvince {
+        title = L10n.Settings.UpdateProvince.updateProvince
+      } else {
+        title = L10n.Onboarding.Common.next
+      }
+
+      navigationController.accessoryView?.model = OnboardingContainerAccessoryVM(
+        shouldShowBackButton: true,
+        shouldShowNextButton: true,
+        shouldNextButtonBeEnabled: true,
+        nextButtonTitle: title,
+        shouldShowGradient: true
+      )
+
+      navigationController.accessoryView?.setNeedsLayout()
+      navigationController.accessoryView?.layoutIfNeeded()
+      return navigationController
+    })
+
     self.uiTest(
       testCases: [
         "onboarding_province": OnboardingProvinceVM(
@@ -37,7 +68,7 @@ class OnboardingProvinceUITests: AppViewTestCase, ViewTestCase {
           currentProvince: .milano
         )
       ],
-      context: UITests.Context<V>()
+      context: context
     )
   }
 

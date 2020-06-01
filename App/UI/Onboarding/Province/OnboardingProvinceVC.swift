@@ -71,6 +71,10 @@ extension OnboardingProvinceVC: OnboardingViewController {
   var shouldShowNextButton: Bool {
     true
   }
+
+  var shouldShowGradient: Bool {
+    true
+  }
 }
 
 struct OnboardingProvinceLS: LocalState {

@@ -75,11 +75,11 @@ public extension FAQ {
     .init(
       title: "Come viene tutelata la mia privacy?",
       content: """
-      Durante l'intero processo di design e sviluppo di immuni, abbiamo posto grande attenzione sulla tutela della tua privacy.
+      Durante l'intero processo di design e sviluppo di Immuni, abbiamo posto grande attenzione sulla tutela della tua privacy.
 
       Eccoti una lista di alcune delle misure con cui Immuni protegge i tuoi dati:
 
-       • L'app non raccoglie alcun dato personale che consentirebbe di risalire alla tua identità. Per esempio, non ti chiede e non è in grado di ottenere il tuo nome, cognome, data di nascita, indirizzo, numero di telefono o indirizzo email.
+       • L'app non raccoglie alcun dato che consentirebbe di risalire alla tua identità. Per esempio, non ti chiede e non è in grado di ottenere il tuo nome, cognome, data di nascita, indirizzo, numero di telefono o indirizzo email.
 
        • L'app non raccoglie alcun dato di geolocalizzazione, inclusi i dati del GPS. I tuoi spostamenti non sono tracciati in alcun modo.
 
@@ -233,7 +233,7 @@ public extension FAQ {
     .init(
       title: "Devo fare una registrazione con indirizzo email e password?",
       content: """
-      No. L'app non raccoglie alcun dato personale che consentirebbe di risalire alla tua identità. Per esempio, non ti chiede e non è in grado di ottenere il tuo nome, cognome, data di nascita, indirizzo, numero di telefono o indirizzo email.
+      No. L'app non raccoglie alcun dato che consentirebbe di risalire alla tua identità. Per esempio, non ti chiede e non è in grado di ottenere il tuo nome, cognome, data di nascita, indirizzo, numero di telefono o indirizzo email.
       """
     ),
     .init(
@@ -245,7 +245,7 @@ public extension FAQ {
     .init(
       title: "Il Bluetooth del mio smartphone deve essere sempre attivo?",
       content: """
-      Il sistema di notifiche di esposizione si basa su Bluetooth Low Energy. È necessario, quindi, che il Bluetooth sia sempre attivo affinché il sistema possa rilevare i tuoi contatti con gli altri utenti. Resti ovviamente libero di attivare o disattivare il bluetooth quando preferisci.
+      Il sistema di notifiche di esposizione si basa su Bluetooth Low Energy. È necessario, quindi, che il Bluetooth sia sempre attivo affinché il sistema possa rilevare i tuoi contatti con gli altri utenti. Resti ovviamente libero di attivare o disattivare il Bluetooth quando preferisci.
       """
     ),
     .init(
@@ -281,7 +281,7 @@ public extension FAQ {
     .init(
       title: "Posso cambiare la lingua dell'app?",
       content: """
-      Le lingue attualmente supportate dall'app sono l'italiano, l'inglese, il tedesco, il francese, lo spagnolo e il portoghese. L'app usa la stessa lingua che hai impostato sul tuo smartphone, se disponibile, altrimenti l'inglese. Perciò per cambiare la lingua dell'app dovrai cambiare la lingua del tuo dispositivo.
+      Le lingue attualmente supportate dall'app sono l'italiano, l'inglese, il tedesco, il francese e lo spagnolo. L'app usa la stessa lingua che hai impostato sul tuo smartphone, se disponibile, altrimenti l'inglese. Perciò per cambiare la lingua dell'app dovrai cambiare la lingua del tuo dispositivo.
       """
     )
   ]
@@ -325,7 +325,7 @@ public extension FAQ {
     .init(
       title: "Does the app track my location?",
       content: """
-      No. Immuni's exposure notification system is based on Bluetooth Low Energy and doesn't collect any geolocalisation data, including GPS data. Immuni doesn't (and can't) know where you go or who you meet.
+      No. Immuni's exposure notification system is based on Bluetooth Low Energy and doesn't collect any geolocation data, including GPS data. Immuni doesn't (and can't) know where you go or who you meet.
       """
     ),
     .init(
@@ -337,19 +337,19 @@ public extension FAQ {
 
        • The app doesn't collect any data that could lead to it knowing your identity. For example, it doesn't ask for (and can't obtain) your name, date of birth, address, telephone number, or email address.
 
-       • The app doesn't collect any geolocalisation data, including GPS data. Your movements aren't tracked in any shape or form.
+       • The app doesn't collect any geolocation data, including GPS data. Your movements aren't tracked in any shape or form.
 
        • The Bluetooth Low Energy code broadcast by the app is generated completely randomly and doesn't contain any information about you or your device. This code changes several times each hour, protecting your privacy even more.
 
-       • All Immuni data stored on your smartphone are encrypted.
+       • All Immuni data stored on your smartphone is encrypted.
 
        • All connections between the app and the server are encrypted.
 
-       • All data, whether stored on the device or on the server, are deleted when no longer relevant, and certainly no later than December 31, 2020.
+       • All data, whether stored on the device or on the server, is deleted when no longer relevant, and certainly no later than December 31, 2020.
 
-       • The Ministry of Health is the entity that collects your data. The data are used solely with the aim of containing the COVID-19 epidemic or for scientific research.
+       • The Ministry of Health is the body that collects your data. The data is used solely with the aim of containing the COVID-19 epidemic or for scientific research.
 
-       • The data are stored on servers located in Italy and managed by public entities.
+       • The data is stored on servers located in Italy and managed by public bodies.
       """
     ),
     .init(
@@ -364,7 +364,6 @@ public extension FAQ {
       Everybody wants to reduce the spread of the epidemic, minimise the risk to our loved ones, and return to a normal life.
 
       Immuni plays an important role in achieving these goals. Thanks to its exposure notification system, the app makes it possible to quickly alert those who may have been exposed to a potentially infectious user, suggesting actions like self-isolation and calling a general practitioner. Such measures are critical in minimising the number of infections and ensuring that those affected can receive prompt, suitable medical attention—which, in turn, reduces the risk of complications.
-
       """
     ),
     .init(
@@ -380,7 +379,7 @@ public extension FAQ {
       content: """
       Failing to use the app correctly makes Immuni much less effective and increases the risk to you, your loved ones, and the community.
 
-      To make sure you are using the app as intended, simply open it and check that ‘Service active' is written in the Home section. If it's not, tap on ‘Reactivate Immuni' and follow the instructions to make the app work correctly.
+      To make sure you are using the app as intended, simply open it and check that 'Service active' is written in the Home section. If it's not, tap on 'Reactivate Immuni' and follow the instructions to make the app work correctly.
 
       Some other important suggestions to ensure that Immuni is effective:
 
@@ -502,7 +501,7 @@ public extension FAQ {
     .init(
       title: "Do I need to keep my smartphone's Bluetooth turned on all the time?",
       content: """
-      The exposure notifications system is based on Bluetooth Low Energy, so Bluetooth must always be active for the system to detect your contact with other users. However, it is your choice and you are free to turn it on or off as you like.
+      The exposure notification system is based on Bluetooth Low Energy, so Bluetooth must always be active for the system to detect your contact with other users. However, it is your choice and you are free to turn it on or off as you like.
       """
     ),
     .init(
@@ -532,13 +531,13 @@ public extension FAQ {
     .init(
       title: "Does Immuni share or sell my data?",
       content: """
-      All data are controlled by the Ministry of Health. In no case will your data be sold or used for commercial reasons, including profiling for advertising purposes. This is a non-profit project that stems only from the desire to help defeat the epidemic. Data may be shared to facilitate scientific research, but only after their complete anonymisation and aggregation.
+      All data is controlled by the Ministry of Health. In no case will your data be sold or used for commercial reasons, including profiling for advertising purposes. This is a non-profit project that stems only from the desire to help defeat the epidemic. Data may be shared to facilitate scientific research, but only after its complete anonymisation and aggregation.
       """
     ),
     .init(
       title: "Can I change the language of the app?",
       content: """
-      The languages currently supported are Italian, English, German, French, Spanish, and Portuguese. The app uses the same language that's set on your smartphone, where available. Otherwise, it uses English. Therefore, to change the language of the app, you'll need to change the language of your device.
+      The languages currently supported are Italian, English, German, French, and Spanish. The app uses the same language that's set on your smartphone, where available. Otherwise, it uses English. Therefore, to change the language of the app, you'll need to change the language of your device.
       """
     )
   ]
@@ -550,6 +549,26 @@ public extension FAQ {
   /// German FAQs
   ///
   /// - warning: we currently don't have DE FAQs. let's fallback on english version
-  /// in the meanshile
+  /// in the meanwhile
   static let germanDefaultValues: [FAQ] = Self.englishDefaultValues
+}
+
+// MARK: French default FAQs
+
+public extension FAQ {
+  /// French FAQs
+  ///
+  /// - warning: we currently don't have DE FAQs. let's fallback on english version
+  /// in the meanwhile
+  static let frenchDefaultValues: [FAQ] = Self.englishDefaultValues
+}
+
+// MARK: Spanish default FAQs
+
+public extension FAQ {
+  /// Spanish FAQs
+  ///
+  /// - warning: we currently don't have DE FAQs. let's fallback on english version
+  /// in the meanwhile
+  static let spanishDefaultValues: [FAQ] = Self.englishDefaultValues
 }

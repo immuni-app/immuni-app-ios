@@ -187,7 +187,6 @@ final class ExposureDetectionLogicTests: XCTestCase {
     }
   }
 
-
   func testUpdateUserStatusIfNecessaryIsBeingCalled() throws {
     let outcome: ExposureDetectionOutcome = .fullDetection(Date(), .noMatch, [], 0, 5)
     let state = AppState()

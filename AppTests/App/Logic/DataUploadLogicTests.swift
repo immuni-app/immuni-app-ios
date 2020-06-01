@@ -559,13 +559,13 @@ extension DataUploadLogicTests {
     }
   }
 
-  func testForegroundSessionIsMarkedFinishedWhenEnteringForeground() throws {
+  func testForegroundSessionIsMarkedFinishedWhenEnteringBackground() throws {
     let dispatchInterceptor = DispatchInterceptor()
     let dependencies = AppDependencies.mocked(dispatch: dispatchInterceptor.dispatchFunction)
 
     let context = AppSideEffectContext(dependencies: dependencies)
 
-    try Logic.Lifecycle.WillResignActive().sideEffect(context)
+    try Logic.Lifecycle.DidEnterBackground().sideEffect(context)
 
     try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.DataUpload.MarkForegroundSessionFinished.self)
   }

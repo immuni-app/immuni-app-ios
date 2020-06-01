@@ -63,6 +63,7 @@ public struct ExposureDetectionConfigurationStub: ExposureDetectionConfiguration
   public var transmissionRiskBucketScores: [RiskScore]
   public var transmissionRiskWeight: Double
   public var minimumRiskScore: RiskScore
+  public var attenuationThresholds: [Int]
 
   public init(
     attenuationBucketScores: [RiskScore] = [1, 2, 3, 4, 5, 6, 7, 8],
@@ -73,7 +74,8 @@ public struct ExposureDetectionConfigurationStub: ExposureDetectionConfiguration
     durationWeight: Double = 1,
     transmissionRiskBucketScores: [RiskScore] = [1, 2, 3, 4, 5, 6, 7, 8],
     transmissionRiskWeight: Double = 1,
-    minimumRiskScore: RiskScore = 1
+    minimumRiskScore: RiskScore = 1,
+    attenuationThresholds: [Int] = [50, 70]
   ) {
     self.attenuationBucketScores = attenuationBucketScores
     self.attenuationWeight = attenuationWeight
@@ -84,5 +86,6 @@ public struct ExposureDetectionConfigurationStub: ExposureDetectionConfiguration
     self.transmissionRiskBucketScores = transmissionRiskBucketScores
     self.transmissionRiskWeight = transmissionRiskWeight
     self.minimumRiskScore = minimumRiskScore
+    self.attenuationThresholds = attenuationThresholds
   }
 }

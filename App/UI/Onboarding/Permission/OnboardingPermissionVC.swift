@@ -69,6 +69,10 @@ extension OnboardingPermissionVC: OnboardingViewController {
   var shouldShowNextButton: Bool {
     true
   }
+
+  var shouldShowGradient: Bool {
+    false
+  }
 }
 
 struct OnboardingPermissionLS: LocalState {

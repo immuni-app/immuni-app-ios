@@ -15,6 +15,16 @@
       "locale" : "en-GB"
     },
     {
+      "filename" : "softwareUpdate-4.pdf",
+      "idiom" : "universal",
+      "locale" : "es-ES"
+    },
+    {
+      "filename" : "softwareUpdate-5.pdf",
+      "idiom" : "universal",
+      "locale" : "fr"
+    },
+    {
       "filename" : "softwareUpdate.pdf",
       "idiom" : "universal",
       "locale" : "it"

@@ -15,6 +15,16 @@
       "locale" : "en-GB"
     },
     {
+      "filename" : "allowNotification-4.pdf",
+      "idiom" : "universal",
+      "locale" : "es-ES"
+    },
+    {
+      "filename" : "allowNotification-5.pdf",
+      "idiom" : "universal",
+      "locale" : "fr"
+    },
+    {
       "filename" : "allowNotification.pdf",
       "idiom" : "universal",
       "locale" : "it"

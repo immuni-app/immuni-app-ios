@@ -51,13 +51,13 @@ struct PrivacyCheckboxCellVM: ViewModel, Equatable {
 extension PrivacyCheckboxCellVM {
   enum CellType: Equatable {
     case above14
-    case privacyPolicyRead
+    case privacyNoticeRead
 
     var description: String {
       switch self {
       case .above14:
         return L10n.Privacy.Checkbox.above14
-      case .privacyPolicyRead:
+      case .privacyNoticeRead:
         return L10n.Privacy.Checkbox.privacyPolicyRead
       }
     }
@@ -131,7 +131,7 @@ final class PrivacyCheckboxCell: UICollectionViewCell, ModellableView, ReusableV
     // the visual space of the chexkbox is that one. However, the image with
     // the shadow is bigger
     self.details.pin
-      .right(Self.horizontalPadding / 2.0)
+      .right((Self.horizontalPadding / 2.0).rounded(.up))
       .top(Self.verticalInternalPadding)
       .left(Self.horizontalPadding + Self.imageDedicatedSize + Self.imageToTextPadding)
       .sizeToFit(.width)
@@ -152,7 +152,7 @@ final class PrivacyCheckboxCell: UICollectionViewCell, ModellableView, ReusableV
       - Self.imageToTextPadding
 
     let labelSpace = CGSize(
-      width: availableSpace,
+      width: availableSpace.rounded(.down),
       height: .infinity
     )
 
@@ -166,11 +166,9 @@ final class PrivacyCheckboxCell: UICollectionViewCell, ModellableView, ReusableV
   }
 
   @objc private func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
-    let tapLocation = gestureRecognizer.location(in: self.containerView)
-
     guard
-      self.details.frame.contains(tapLocation),
-      let textPosition = self.details.closestPosition(to: tapLocation),
+      self.details.frame.contains(gestureRecognizer.location(in: self.containerView)),
+      let textPosition = self.details.closestPosition(to: gestureRecognizer.location(in: self.details)),
       let url = self.details.textStyling(at: textPosition, in: .forward)?[NSAttributedString.Key.link] as? URL,
       let modelURL = self.model?.linkedURL,
       url == modelURL
