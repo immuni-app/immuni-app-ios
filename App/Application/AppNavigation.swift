@@ -256,7 +256,7 @@ extension SensitiveDataCoverVC: RoutableWithConfiguration {
 
   var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
     return [
-      .hide(Screen.sensitiveDataCover): .dismissModally(behaviour: .soft),
+      .hide(Screen.sensitiveDataCover): .dismissModally(behaviour: .soft)
     ]
   }
 }
