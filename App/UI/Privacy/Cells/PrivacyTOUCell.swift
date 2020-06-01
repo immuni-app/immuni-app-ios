@@ -50,7 +50,8 @@ final class PrivacyTOUCell: UICollectionViewCell, ModellableView, ReusableView {
   func setup() {
     self.contentView.addSubview(self.content)
 
-    self.content.delegate = self
+    let gesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+    self.content.addGestureRecognizer(gesture)
   }
 
   func style() {}
@@ -85,25 +86,25 @@ final class PrivacyTOUCell: UICollectionViewCell, ModellableView, ReusableView {
   }
 }
 
-extension PrivacyTOUCell: UITextViewDelegate {
-  func textView(
-    _ textView: UITextView,
-    shouldInteractWith URL: URL,
-    in characterRange: NSRange,
-    interaction: UITextItemInteraction
-  ) -> Bool {
-    DispatchQueue.main.async {
-      self.userDidTapURL?(URL)
+extension PrivacyTOUCell {
+  @objc private func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
+    guard
+      let textPosition = self.content.closestPosition(to: gestureRecognizer.location(in: self.content)),
+      let url = self.content.textStyling(at: textPosition, in: .forward)?[NSAttributedString.Key.link] as? URL,
+      let modelURL = self.model?.tosURL,
+      url == modelURL
+      else {
+        return
     }
 
-    return false
+    self.userDidTapURL?(url)
   }
 }
 
 private extension PrivacyTOUCell {
   enum Style {
     static func content(_ textView: UITextView, content: String, url: URL?) {
-      textView.isSelectable = true
+      textView.isSelectable = false
       textView.isEditable = false
       textView.isScrollEnabled = false
       textView.backgroundColor = .clear

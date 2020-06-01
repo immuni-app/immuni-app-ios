@@ -188,6 +188,8 @@ private extension TabbarView {
 
     static func collection(_ collectionView: UICollectionView) {
       collectionView.backgroundColor = .clear
+      collectionView.isScrollEnabled = false
+      collectionView.bounces = false
       guard let collectionViewLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
         return
       }

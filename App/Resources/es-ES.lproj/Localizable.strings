@@ -58,7 +58,7 @@
 "notification_steps_instruction_1" = "1. Accede a los ajustes pulsando el botón de abajo";
 "notification_steps_instruction_2" = "2. Habilita la función «Permitir notificaciones»";
 "notification_steps_title" = "Cómo activar las notificaciones";
-"notifications.apple_exposure_notification.message" = "Una persona con la que has entrado en contacto ha dado positivo en la prueba.";
+"notifications.apple_exposure_notification.message" = "Una persona con la que has entrado en contacto ha dado positivo en la prueba";
 "notifications.not_active_service.description" = "Vuelve a activar Immuni lo antes posible para recibir avisos en caso de riesgo.";
 "notifications.not_active_service.title" = "⚠️ El servicio no está activo";
 "notifications.risk.description" = "Abre la aplicación para obtener más información.";

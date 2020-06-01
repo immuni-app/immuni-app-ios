@@ -17,6 +17,16 @@ import Katana
 import Tempura
 
 final class PermissionTutorialVC: ViewControllerWithLocalState<PermissionTutorialView> {
+  override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
+    super.present(viewControllerToPresent, animated: flag, completion: completion)
+    self.localState.shouldAnimateContent = false
+  }
+
+  override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+    super.dismiss(animated: flag, completion: completion)
+    self.localState.shouldAnimateContent = true
+  }
+
   override func setupInteraction() {
     self.rootView.userDidTapClose = { [weak self] in
       // At the moment we don't have the need of informing the caller
