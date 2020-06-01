@@ -38,7 +38,7 @@
 "home_view.header_card.positive.button" = "Recovered? Update your status ›";
 "home_view.header_card.positive.title" = "Follow the instructions provided by your general practitioner or local health authority";
 "home_view.header_card.risk.button" = "Find out what to do now ›";
-"home_view.header_card.risk.title" = "Risk exposure detected: contact with a COVID-19-positive person";
+"home_view.header_card.risk.title" = "Risky exposure detected: contact with a COVID-19-positive person";
 "home_view.info.app.title" = "How does the app work?";
 "home_view.info.button.title" = "Find out more";
 "home_view.info.protection.title" = "What you can do to protect yourself";
@@ -201,14 +201,14 @@
 "suggestions.neutral.alert" = "If you are in contact with your general practitioner or your local health authority's health care service, follow all the instructions provided to you.";
 "suggestions.neutral.message" = "In any case, <b>try to follow these general guidelines at all times:</b>";
 "suggestions.positive.covid_negative.action" = "I'm COVID-19 negative";
-"suggestions.positive.covid_negative.message" = "<b>Let us know if your local health authority has confirmed that you are COVID-19 negative to reactivate risk exposure notifications.</b>";
-"suggestions.positive.info.subtitle" = "For the time being, you will not receive any new notifications in the event of risk exposure to a COVID-19-positive user.";
+"suggestions.positive.covid_negative.message" = "<b>Let us know if your local health authority has confirmed that you are COVID-19 negative to reactivate risky exposure notifications.</b>";
+"suggestions.positive.info.subtitle" = "For the time being, you will not receive any new notifications in the event of risky exposure to a COVID-19-positive user.";
 "suggestions.positive.info.title" = "Immuni is still working: don't uninstall it!";
 "suggestions.positive.subtitle" = "<b>Follow all the instructions that you have received from your general practitioner or from your local health authority's health care service.</b>";
 "suggestions.positive.title" = "Follow the instructions";
 "suggestions.risk.footer" = "To help the National Health Service take care of you should the need arise, the app has informed the Ministry of Health of the notification you have received. <b>Please note, the Ministry of Health cannot determine your identity based on this information.</b>";
 "suggestions.risk.subtitle" = "Immuni has detected that you came into close contact with a COVID-19-positive user on %@.";
-"suggestions.risk.title" = "Risk exposure";
+"suggestions.risk.title" = "Risky exposure";
 "tabbar.title.home" = "Home";
 "tabbar.title.settings" = "Settings";
 "upload_data.api_error.action" = "OK";
