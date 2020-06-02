@@ -58,7 +58,7 @@
 "notification_steps_instruction_1" = "1. Öffnen Sie die Einstellungen über die Schaltfläche unten";
 "notification_steps_instruction_2" = "2. Aktivieren Sie den Regler \"Mitteilungen zulassen\"";
 "notification_steps_title" = "So aktivieren Sie Mitteilungen";
-"notifications.apple_exposure_notification.message" = "Jemand, mit dem Sie engen Kontakt hatten, wurde positiv getestet.";
+"notifications.apple_exposure_notification.message" = "Jemand, mit dem Sie engen Kontakt hatten, wurde positiv getestet";
 "notifications.not_active_service.description" = "Aktivieren Sie Immuni so schnell wie möglich erneut, damit Sie bei Gefahr gewarnt werden können.";
 "notifications.not_active_service.title" = "⚠️ Der Service ist nicht aktiv";
 "notifications.risk.description" = "Öffnen Sie die App, um weitere Informationen zu erhalten.";

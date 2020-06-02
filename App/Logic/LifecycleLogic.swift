@@ -34,6 +34,9 @@ extension Logic {
         // refresh statuses
         try context.awaitDispatch(Logic.Lifecycle.RefreshAuthorizationStatuses())
 
+        // Update user language
+        try context.awaitDispatch(SetUserLanguage(language: UserLanguage(from: context.dependencies.locale)))
+
         // Set the app name used in the application using the bundle's display name
         if let appName = context.dependencies.bundle.appDisplayName {
           try context.awaitDispatch(SetAppName(appName: appName))
@@ -52,9 +55,6 @@ extension Logic {
 
         // starts the exposure manager if possible
         try await(context.dependencies.exposureNotificationManager.startIfAuthorized())
-
-        // Update user language
-        try context.awaitDispatch(SetUserLanguage(language: UserLanguage(from: context.dependencies.locale)))
 
         // clears `PositiveExposureResults` older than 14 days from the `ExposureDetectionState`
         try context.awaitDispatch(Logic.ExposureDetection.ClearOutdatedResults(now: context.dependencies.now()))

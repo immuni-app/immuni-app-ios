@@ -65,7 +65,15 @@ extension Logic.Shared {
 
   /// Show sensitive data cover.
   struct ShowSensitiveDataCoverIfNeeded: AppSideEffect {
+    /// The list of screens that can present the cover.
     static let possiblePresenters: [String] = [Screen.tabBar.rawValue, Screen.onboardingStep.rawValue]
+    /// The list of screens that, if present, will block the presentation of a cover.
+    static let possibleBlockers: [String] = [
+      // avoid double presentation
+      Screen.sensitiveDataCover.rawValue,
+      // avoid when a native alert presentation is needed
+      Screen.permissionOverlay.rawValue
+    ]
 
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       guard
@@ -73,9 +81,10 @@ extension Logic.Shared {
         .contains(where: { Self.possiblePresenters.contains($0) }) else {
           return
       }
-      // avoid to cover permission overlay screen when presenting native permission alert.
-      guard !context.dependencies.application.currentRoutableIdentifiers.contains(Screen.permissionOverlay.rawValue) else {
-        return
+      guard
+        !context.dependencies.application.currentRoutableIdentifiers
+        .contains(where: { Self.possibleBlockers.contains($0) }) else {
+          return
       }
 
       context.dispatch(Show(Screen.sensitiveDataCover, animated: true))
