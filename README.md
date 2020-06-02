@@ -53,18 +53,18 @@
 
 # Context
 
-This repository contains the source code of Immuni's iOS client. More detailed information about Immuni can be found in the following documents:
+This repository contains the source code of Immuni for iOS. More detailed information can be found within following documents:
 
 - [High-Level Description](https://github.com/immuni-app/immuni-documentation)
 - [Product Description](https://github.com/immuni-app/immuni-documentation/blob/master/Product%20Description.md)
 - [Technology Description](https://github.com/immuni-app/immuni-documentation/blob/master/Technology%20Description.md)
 - [Traffic Analysis Mitigation](https://github.com/immuni-app/immuni-documentation/blob/master/Traffic%20Analysis%20Mitigation.md)
 
-**Please take the time to read and consider these documents in full before digging into the source code or opening an Issue. They contain a lot of details that are fundamental to understanding the source code and this repository's documentation.**
+**Please read carefully these documents and consider them as the guideline to fully understand the source code before analazying it and reporting any Issue.
 
 # Installation
 
-The recommended method requires that [Xcode 11.5](https://developer.apple.com/xcode/) and [Brew](https://brew.sh/) are installed on your Mac. If you would prefer to follow a custom method, you have the option not to install Brew. Please refer to the [Makefile](Makefile) to check which dependencies are needed; you may install those manually instead.
+The recommended method requires that [Xcode 11.5](https://developer.apple.com/xcode/) and [Brew](https://brew.sh/) are installed on your Mac. If you prefer to follow a custom method, you have the option not to install Brew. Please refer to the [Makefile](Makefile) to check which dependencies are needed; you may install those manually instead.
 
 ```sh
 git clone https://github.com/immuni-app/immuni-app-ios.git
@@ -80,7 +80,7 @@ make immuni
 Please note the following:
 
 - The project may be built and run in the simulator.
-- If you wish to install the application on a real device, you will need to join the [Apple Developer Program](https://developer.apple.com/programs/) and sign the App with your certificate.
+- To try the aplication on your own test device, you will need to join the [Apple Developer Program](https://developer.apple.com/programs/) and sign the App with your certificate.
 - Apple requires a [special entitlement](https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_exposure-notification) to make the [Exposure Notification](https://developer.apple.com/documentation/exposurenotification) system work. To obtain this entitlement, you must be either a government entity or a developer approved by a government entity to develop an application on behalf of a government for COVID-19 response efforts. This is stated in the [APIs addendum](https://developer.apple.com/contact/request/download/Exposure_Notification_Addendum.pdf). You should remove _Exposure Notification_ entitlements from the entitlements file before compiling the application. You may build and use the application, but you will not be able to use the underlying Exposure Notification system.
 
 For more information about how the project is generated and structured, please refer to the [CONTRIBUTING](CONTRIBUTING.md) file.
@@ -93,15 +93,17 @@ Please be aware that this process may take some time, depending on your computer
 
 # Checking the build
 
-In addition to making the code open-source, we wish to help people verify that builds published on the App Store are coming from a specific commit of this repository. Please refer to the [Immuni Technology Description](https://github.com/immuni-app/immuni-documentation/blob/master/Technology%20Description.md#ios-app-technologies) for a complete overview of the goals and status of this effort.
 
-Currently, we have a working open continuous integration for building the client. [Here](.circleci/config.yml) is the full specification. When it comes to reproducible builds, we will instead open an issue explaining what we have done so far and any missing steps.
+
+In addition, to make the code open-source, we suport at last people to verify that every build published on the App Store comes from a new commit stored in this repository. Please refer to the [Immuni Technology Description](https://github.com/immuni-app/immuni-documentation/blob/master/Technology%20Description.md#ios-app-technologies) for a complete overview of goals and status of this project.
+
+Currently we provide an open and continuous integration for building and improving the client. [Here](.circleci/config.yml) is the full specification. Every new release will include, reported as a new Issue,  what we have done and what we suppose to improve and implement.
 
 # Contributing
 
-Contributions are most welcome. Before proceeding, please read the [Code of Conduct](CODE_OF_CONDUCT.md) for guidance on how to approach the community and create a positive environment. Additionally, please read our [CONTRIBUTING](CONTRIBUTING.md) file, which contains guidance on ensuring a smooth contribution process.
+Contributions are really appreciated and more than welcome. Before proceeding, please read carefully the [Code of Conduct](CODE_OF_CONDUCT.md) and consider it as an "How-To" guide to contribute the community and create a positive and collaborative environment. Additionally, please read also our [CONTRIBUTING](CONTRIBUTING.md) file that provides all info to make the contribution process easy.
 
-The Immuni project is composed of different repositories—one for each component or service. Please use this repository for contributions strictly relevant to the Immuni iOS client. To propose a feature request, please open an issue in the [Documentation repository](https://github.com/immuni-app/immuni-documentation). This lets everyone involved see it, consider it, and participate in the discussion. Opening an issue or pull request in this repository may slow down the overall process.
+The Immuni project consists of several different repositories (one per component or service). Please consider use this repository only related to Immuni for iOS. To propose or request a new feature, please open an issue here [Documentation repository](https://github.com/immuni-app/immuni-documentation). This will make everyone feel involved to see it, consider it, and participate to the discussion. Opening an issue or pull a request in this repository may slow down the overall process.
 
 ## Contributors
 
