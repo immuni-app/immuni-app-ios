@@ -95,15 +95,15 @@ Please be aware that this process may take some time, depending on your computer
 
 
 
-In addition, to make the code open-source, we suport at last people to verify that every build published on the App Store comes from a new commit stored in this repository. Please refer to the [Immuni Technology Description](https://github.com/immuni-app/immuni-documentation/blob/master/Technology%20Description.md#ios-app-technologies) for a complete overview of goals and status of this project.
+In addition, to make the code open-source, we support people to verify that every build published on the App Store comes from a new commit stored in this repository. Please refer to the [Immuni Technology Description](https://github.com/immuni-app/immuni-documentation/blob/master/Technology%20Description.md#ios-app-technologies) for a complete overview of goals and status of this project.
 
-Currently we provide an open and continuous integration for building and improving the client. [Here](.circleci/config.yml) is the full specification. Every new release will include, reported as a new Issue,  what we have done and what we suppose to improve and implement.
+Currently we provide an open and continuous integration for building and improving the client. [Here](.circleci/config.yml) is the full specification. Every new release will include, reported as a new Issue, what we have done and what we suppose to improve and implement.
 
 # Contributing
 
 Contributions are really appreciated and more than welcome. Before proceeding, please read carefully the [Code of Conduct](CODE_OF_CONDUCT.md) and consider it as an "How-To" guide to contribute the community and create a positive and collaborative environment. Additionally, please read also our [CONTRIBUTING](CONTRIBUTING.md) file that provides all info to make the contribution process easy.
 
-The Immuni project consists of several different repositories (one per component or service). Please consider use this repository only related to Immuni for iOS. To propose or request a new feature, please open an issue here [Documentation repository](https://github.com/immuni-app/immuni-documentation). This will make everyone feel involved to see it, consider it, and participate to the discussion. Opening an issue or pull a request in this repository may slow down the overall process.
+The Immuni project consists of several different repositories (one per component or service). Please consider this repository only related to Immuni for iOS. To propose or request a new feature, please open an issue here [Documentation repository](https://github.com/immuni-app/immuni-documentation). This will make everyone feel involved to see it, consider it, and participate to the discussion. Opening an issue or pull a request in this repository may slow down the overall process.
 
 ## Contributors
 
