@@ -223,10 +223,10 @@
 "upload_data.missing_authorization.enable" = "Activer";
 "upload_data.missing_authorization.message" = "Les notifications de risque d'exposition sont nécessaires durant cette procédure. Réactivez-les dès maintenant pour continuer.";
 "upload_data.missing_authorization.title" = "Réactivez les notifications d'exposition pour continuer";
-"upload_data.send_data.loading" = "Chargement\ndes données en cours...";
+"upload_data.send_data.loading" = "Chargement\ndes données en cours…";
 "upload_data.verify.button" = "Vérifier";
 "upload_data.verify.error" = "Ce code n'a pas encore été autorisé";
-"upload_data.verify.loading" = "Vérification\nde l'autorisation en cours...";
+"upload_data.verify.loading" = "Vérification\nde l'autorisation en cours…";
 "upload_data.verify.loading_button" = "Veuillez patienter %d %@";
 "upload_data.verify.loading_button.minutes" = "minutes";
 "upload_data.verify.loading_button.second" = "seconde";

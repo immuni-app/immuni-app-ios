@@ -223,10 +223,10 @@
 "upload_data.missing_authorization.enable" = "Attiva";
 "upload_data.missing_authorization.message" = "Le notifiche di esposizione sono necessarie durante questa procedura. Riattivale subito per continuare.";
 "upload_data.missing_authorization.title" = "Riattiva le notifiche di esposizione per continuare";
-"upload_data.send_data.loading" = "Caricamento\ndei dati...";
+"upload_data.send_data.loading" = "Caricamento\ndei dati…";
 "upload_data.verify.button" = "Verifica";
 "upload_data.verify.error" = "Codice non ancora autorizzato";
-"upload_data.verify.loading" = "Verifica\nautorizzazione...";
+"upload_data.verify.loading" = "Verifica\nautorizzazione…";
 "upload_data.verify.loading_button" = "Attendi %d %@";
 "upload_data.verify.loading_button.minutes" = "minuti";
 "upload_data.verify.loading_button.second" = "secondo";

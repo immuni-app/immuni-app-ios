@@ -223,10 +223,10 @@
 "upload_data.missing_authorization.enable" = "Activar";
 "upload_data.missing_authorization.message" = "Las notificaciones de exposición son necesarias durante este procedimiento. Reactívalas ahora para continuar.";
 "upload_data.missing_authorization.title" = "Reactiva las notificaciones de exposición para continuar";
-"upload_data.send_data.loading" = "Subiendo \nlos datos...";
+"upload_data.send_data.loading" = "Subiendo \nlos datos…";
 "upload_data.verify.button" = "Verificar";
 "upload_data.verify.error" = "Código pendiente de autorización";
-"upload_data.verify.loading" = "Verificando la\nautorización...";
+"upload_data.verify.loading" = "Verificando la\nautorización…";
 "upload_data.verify.loading_button" = "Espera %d %@";
 "upload_data.verify.loading_button.minutes" = "minutos";
 "upload_data.verify.loading_button.second" = "segundo";
