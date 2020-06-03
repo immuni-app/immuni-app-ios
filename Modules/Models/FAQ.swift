@@ -290,6 +290,16 @@ public extension FAQ {
       content: """
       Le lingue attualmente supportate dall'app sono l'italiano, l'inglese, il tedesco, il francese e lo spagnolo. L'app usa la stessa lingua che hai impostato sul tuo smartphone, se disponibile, altrimenti l'inglese. Perciò per cambiare la lingua dell'app dovrai cambiare la lingua del tuo dispositivo.
       """
+    ),
+    .init(
+      title: "Immuni funziona in tutti i Paesi?",
+      content: """
+      Immuni può essere scaricata in tutto il mondo. Tuttavia, l’app si può connettere al server (per esempio, per scaricare le chiavi degli utenti risultati positivi al virus) soltanto se sei all'interno dell'Unione Europea. Al momento, le connessioni al server provenienti da altri territori non sono supportate per motivi di sicurezza.
+
+      Nel caso tu dovessi risultare positivo al virus, per poter caricare le tue chiavi sul server dovrai trovarti in Italia.
+
+      Attualmente, l’app rileva solo i contatti con altri utenti di Immuni. Non rileva contatti con gli utenti delle app per le notifiche di esposizione di altri Paesi.
+      """
     )
   ]
 }
@@ -552,6 +562,16 @@ public extension FAQ {
       title: "Can I change the language of the app?",
       content: """
       The languages currently supported are Italian, English, German, French, and Spanish. The app uses the same language that's set on your smartphone, where available. Otherwise, it uses English. Therefore, to change the language of the app, you'll need to change the language of your device.
+      """
+    ),
+    .init(
+      title: "Does Immuni work in all countries?",
+      content: """
+      Immuni can be downloaded from anywhere in the world. However, the app can only connect to the server (for example, to download the keys of users who tested positive for the virus) if you’re within the European Union. Currently, connections to the server from other territories are not supported for security reasons.
+
+      Should you test positive for the virus, you’ll have to be in Italy to be able to upload your keys to the server.
+
+      As of today, the app detects only contact with other Immuni users. It doesn’t detect contact with users of exposure notification apps of other countries.
       """
     )
   ]
