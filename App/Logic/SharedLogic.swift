@@ -50,6 +50,14 @@ extension Logic.Shared {
     }
   }
 
+  /// Open an URL in Safari or default browser.
+  struct OpenURL: AppSideEffect {
+    let url: URL
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      try await(context.dependencies.application.goTo(url: url))
+    }
+  }
+
   /// Update selected tab of the tabbar during this session.
   struct UpdateSelectedTab: AppStateUpdater {
     let tab: TabbarVM.Tab
