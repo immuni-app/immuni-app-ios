@@ -78,9 +78,9 @@
 "onboarding.communication_advice.description" = "Immuni únicamente contactará contigo a través de la aplicación y de las notificaciones correspondientes. <b>No confíes en ningún aviso que recibas por SMS, llamada telefónica, correo electrónico u otro medio</b> y que parezca ser de Immuni, especialmente si te solicitan datos personales.";
 "onboarding.communication_advice.title" = "Ten cuidado con los mensajes engañosos";
 "onboarding.complete.title" = "Configuración completada";
-"onboarding.exposure_permission.action" = "Habilitar";
+"onboarding.exposure_permission.action" = "Activar";
 "onboarding.exposure_permission.description" = "Immuni registra los contactos con otros usuarios a través de Bluetooth Low Energy para poder informarte en caso de exposición al virus.";
-"onboarding.exposure_permission.overlay.hint" = "Selecciona «<b>Habilitar</b>» en la ventana emergente que aparecerá a continuación";
+"onboarding.exposure_permission.overlay.hint" = "Selecciona «<b>Activar</b>» en la ventana emergente que aparecerá a continuación";
 "onboarding.exposure_permission.title" = "Habilita las notificaciones de exposición a la COVID-19";
 "onboarding.pin_advice.action" = "Entendido";
 "onboarding.pin_advice.description" = "El uso de Immuni es estrictamente personal. Si aún no lo has hecho, configura un código en tu dispositivo para protegerlo e impedir que otras personas accedan a tus datos y aplicaciones, incluida Immuni.";
