@@ -57,7 +57,7 @@ final class PrivacyVC: ViewControllerWithLocalState<PrivacyView> {
     }
 
     self.rootView.userDidTapURL = { [weak self] url in
-      self?.store.dispatch(Logic.Web.ShowURL(url: url))
+      self?.store.dispatch(Logic.Shared.OpenURL(url: url))
     }
 
     self.rootView.userDidTapClose = { [weak self] in
