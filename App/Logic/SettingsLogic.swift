@@ -68,7 +68,7 @@ extension Logic.Settings {
         return
       }
 
-      try context.awaitDispatch(Show(Screen.web, animated: true, context: WebLS(url: privacyNoticeURL)))
+      try context.awaitDispatch(Logic.Shared.OpenURL(url: privacyNoticeURL))
     }
   }
 
@@ -82,7 +82,7 @@ extension Logic.Settings {
         return
       }
 
-      try context.awaitDispatch(Show(Screen.web, animated: true, context: WebLS(url: termsOfUseURL)))
+      try context.awaitDispatch(Logic.Shared.OpenURL(url: termsOfUseURL))
     }
   }
 
