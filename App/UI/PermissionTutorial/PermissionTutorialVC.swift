@@ -18,13 +18,13 @@ import Tempura
 
 final class PermissionTutorialVC: ViewControllerWithLocalState<PermissionTutorialView> {
   override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
-    super.present(viewControllerToPresent, animated: flag, completion: completion)
     self.localState.shouldAnimateContent = false
+    super.present(viewControllerToPresent, animated: flag, completion: completion)
   }
 
   override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-    super.dismiss(animated: flag, completion: completion)
     self.localState.shouldAnimateContent = true
+    super.dismiss(animated: flag, completion: completion)
   }
 
   override func setupInteraction() {
