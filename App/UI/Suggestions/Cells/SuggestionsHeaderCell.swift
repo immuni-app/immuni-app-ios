@@ -208,9 +208,10 @@ class SuggestionsHeaderCell: UICollectionViewCell, ModellableView, ReusableView,
     if shouldShowImage {
       let labelWidth = size.width - SuggestionsView.cellMessageInset - Self.labelIconMargin
       let titleSize = self.title.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
+      let titleHeight = max(titleSize.height, 60)
       return CGSize(
         width: size.width,
-        height: titleSize.height + 2 * SuggestionsHeaderCell.topOffset
+        height: titleHeight + 2 * SuggestionsHeaderCell.topOffset
       )
     } else {
       let labelWidth = size.width - 2 * SuggestionsView.cellMessageInset
