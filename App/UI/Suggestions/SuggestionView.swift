@@ -27,7 +27,7 @@ class SuggestionsView: UIView, ViewControllerModellableView {
   private let background = GradientView()
   let collection = UICollectionView(frame: .zero, collectionViewLayout: CollectionWithStickyCellsLayout())
   private let headerContainer = UIView()
-  private let headerView = GradientView()
+  let headerView = GradientView()
   private let headerTitleView = UILabel()
   private var closeButton = ImageButton()
 
