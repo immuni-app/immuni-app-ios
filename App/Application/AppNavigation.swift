@@ -35,7 +35,6 @@ enum Screen: String, CaseIterable {
   case loading
   case permissionTutorial
   case permissionOverlay
-  case web
   case confirmation
   case alert
   case privacy
@@ -124,12 +123,6 @@ extension WelcomeVC: RoutableWithConfiguration {
         return PermissionTutorialVC(store: self.store, localState: localState)
       },
 
-      .show(Screen.web): .presentModally { [unowned self] context in
-        let localState = context as? WebLS ?? AppLogger.fatalError("invalid context")
-        let vc = WebVC(store: self.store, localState: localState)
-        return vc
-      },
-
       .hide(Screen.permissionTutorial): .dismissModally(behaviour: .hard),
       .hide(Screen.privacy): .dismissModally(behaviour: .hard)
     ]
@@ -207,13 +200,6 @@ extension TabbarVC: RoutableWithConfiguration {
         return vc
       },
       .hide(Screen.loading): .dismissModally(behaviour: .soft),
-
-      // Web
-      .show(Screen.web): .presentModally { [unowned self] context in
-        let localState = context as? WebLS ?? AppLogger.fatalError("invalid context")
-        let vc = WebVC(store: self.store, localState: localState)
-        return vc
-      },
 
       // Confirm Upload
       .show(Screen.confirmUpload): .presentModally { [unowned self] context in
@@ -331,20 +317,6 @@ extension OnboardingPermissionOverlayVC: RoutableWithConfiguration {
 
   var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
     return [:]
-  }
-}
-
-// MARK: Web
-
-extension WebVC: RoutableWithConfiguration {
-  var routeIdentifier: RouteElementIdentifier {
-    return Screen.web.rawValue
-  }
-
-  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
-    return [
-      .hide(Screen.web): .dismissModally(behaviour: .soft)
-    ]
   }
 }
 
