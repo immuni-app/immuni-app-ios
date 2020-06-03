@@ -81,7 +81,7 @@ class SuggestionsAlertCell: UICollectionViewCell, ModellableView, ReusableView {
 private extension SuggestionsAlertCell {
   enum Style {
     static func container(_ view: UIView) {
-      view.backgroundColor = Palette.primary
+      view.backgroundColor = Palette.purple
       view.layer.cornerRadius = SharedStyle.cardCornerRadius
       view.layer.masksToBounds = true
     }
