@@ -100,7 +100,7 @@ class HomeView: UIView, ViewControllerModellableView {
 
   private func afterLayout() {
     self.collection.contentInset.top = -self.universalSafeAreaInsets.top
-    self.collection.contentInset.bottom = self.universalSafeAreaInsets.bottom + 50
+    self.collection.contentInset.bottom = 20
     guard let collectionViewLayout = self.collection.collectionViewLayout as? UICollectionViewFlowLayout else {
       return
     }
@@ -121,6 +121,7 @@ private extension HomeView {
     static func collection(_ collectionView: UICollectionView) {
       collectionView.backgroundColor = Palette.grayWhite
       collectionView.showsVerticalScrollIndicator = false
+      collectionView.alwaysBounceVertical = true
     }
   }
 }

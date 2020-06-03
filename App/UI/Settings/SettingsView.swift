@@ -205,6 +205,7 @@ class SettingsView: UIView, ViewControllerModellableView {
 
   private func updateAfterLayout() {
     self.collection.contentInset.top = self.headerTitle.frame.maxY - self.universalSafeAreaInsets.top
+    self.collection.contentInset.bottom = 20
     guard let collectionViewLayout = self.collection.collectionViewLayout as? UICollectionViewFlowLayout else {
       return
     }
@@ -229,7 +230,6 @@ private extension SettingsView {
 
     static func collection(_ collectionView: UICollectionView) {
       collectionView.backgroundColor = .clear
-      collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
       collectionView.showsVerticalScrollIndicator = false
     }
 
