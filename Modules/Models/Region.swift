@@ -33,7 +33,7 @@ public enum Region: String, CaseIterable {
   case sardegna = "Sardegna"
   case sicilia = "Sicilia"
   case toscana = "Toscana"
-  case trentinoAltoAdige = "Trentino-Alto Adige"
+  case trentinoAltoAdige = "Trentino-Alto Adige/Südtirol"
   case umbria = "Umbria"
   case valleAosta = "Valle d'Aosta"
   case veneto = "Veneto"
@@ -360,7 +360,7 @@ public extension Province {
     case .bologna:
       return "Bologna"
     case .bolzano:
-      return "Bolzano"
+      return "Bolzano-Bozen"
     case .brescia:
       return "Brescia"
     case .brindisi:
