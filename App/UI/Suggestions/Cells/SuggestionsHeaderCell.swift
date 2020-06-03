@@ -25,9 +25,11 @@ struct SuggestionsHeaderCellVM: ViewModel {
     return self.dayOfContact?.dateString ?? ""
   }
 
-  var gradient: Gradient {
+  var gradient: Gradient? {
     switch self.covidStatus {
-    case .neutral, .positive:
+    case .neutral:
+      return nil
+    case .positive:
       return Palette.gradientPrimary
     case .risk:
       return Palette.gradientRed
@@ -76,6 +78,10 @@ struct SuggestionsHeaderCellVM: ViewModel {
 
   var shouldShowImage: Bool {
     return self.image != nil
+  }
+
+  var shouldShowGradient: Bool {
+    return self.gradient != nil
   }
 }
 
@@ -202,9 +208,10 @@ class SuggestionsHeaderCell: UICollectionViewCell, ModellableView, ReusableView,
     if shouldShowImage {
       let labelWidth = size.width - SuggestionsView.cellMessageInset - Self.labelIconMargin
       let titleSize = self.title.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
+      let titleHeight = max(titleSize.height, 60)
       return CGSize(
         width: size.width,
-        height: titleSize.height + 2 * SuggestionsHeaderCell.topOffset
+        height: titleHeight + 2 * SuggestionsHeaderCell.topOffset
       )
     } else {
       let labelWidth = size.width - 2 * SuggestionsView.cellMessageInset
@@ -227,6 +234,7 @@ private extension SuggestionsHeaderCell {
     }
 
     static func container(_ view: UIView) {
+      view.backgroundColor = Palette.purple
       view.layer.cornerRadius = SharedStyle.cardCornerRadius
       view.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
       view.clipsToBounds = true
@@ -237,7 +245,10 @@ private extension SuggestionsHeaderCell {
       view.clipsToBounds = false
     }
 
-    static func gradient(_ view: GradientView, gradient: Gradient) {
+    static func gradient(_ view: GradientView, gradient: Gradient?) {
+      guard let gradient = gradient else {
+        return
+      }
       view.gradient = gradient
     }
 

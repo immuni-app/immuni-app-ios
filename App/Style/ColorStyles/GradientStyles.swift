@@ -64,7 +64,7 @@ extension Palette {
     return Gradient(
       colors: [
         UIColor(displayP3Red: 0.34, green: 0.32, blue: 1.00, alpha: 1.00),
-        UIColor(displayP3Red: 0.41, green: 0.40, blue: 1.00, alpha: 1.00)
+        UIColor(displayP3Red: 0.45, green: 0.44, blue: 1.00, alpha: 1.00)
       ],
       startPoint: CGPoint(x: 0.50, y: 0.50),
       endPoint: CGPoint(x: 1.00, y: 0.00),

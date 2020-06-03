@@ -44,9 +44,11 @@ struct SuggestionsVM: ViewModelWithLocalState {
     }
   }
 
-  var headerGradient: Gradient {
+  var headerGradient: Gradient? {
     switch self.covidStatus {
-    case .neutral, .positive:
+    case .neutral:
+      return nil
+    case .positive:
       return Palette.gradientPrimary
     case .risk:
       return Palette.gradientRed
