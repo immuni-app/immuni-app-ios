@@ -134,7 +134,11 @@ class SuggestionsHeaderCell: UICollectionViewCell, ModellableView, ReusableView,
   }
 
   var minimumHeight: CGFloat {
-    return 77
+    guard let suggestionsView = self.superview?.superview as? SuggestionsView else {
+      return 77
+    }
+    // return the height of the header view to support all font sizes.
+    return suggestionsView.headerView.bounds.height
   }
 
   override func layoutSubviews() {
