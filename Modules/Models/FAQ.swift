@@ -41,11 +41,11 @@ public extension FAQ {
       content: """
       Immuni è un'app creata per aiutarci a combattere le epidemie, a partire da quella del COVID-19:
 
-       • L'app si propone di avvertire gli utenti potenzialmente contagiati il prima possibile, anche quando sono asintomatici.
+      •   L'app si propone di avvertire gli utenti potenzialmente contagiati il prima possibile, anche quando sono asintomatici.
 
-       • Questi utenti possono poi isolarsi per evitare di contagiare altri. Questo minimizza la diffusione del virus e, allo stesso tempo, velocizza il ritorno a una vita normale per la maggior parte della popolazione.
+      •   Questi utenti possono poi isolarsi per evitare di contagiare altri. Questo minimizza la diffusione del virus e, allo stesso tempo, velocizza il ritorno a una vita normale per la maggior parte della popolazione.
 
-       • Venendo informati tempestivamente, gli utenti possono anche contattare il proprio medico di medicina generale prima e ridurre così il rischio di complicanze.
+      •   Venendo informati tempestivamente, gli utenti possono anche contattare il proprio medico di medicina generale prima e ridurre così il rischio di complicanze.
       """
     ),
     .init(
@@ -79,21 +79,21 @@ public extension FAQ {
 
       Eccoti una lista di alcune delle misure con cui Immuni protegge i tuoi dati:
 
-       • L'app non raccoglie alcun dato che consentirebbe di risalire alla tua identità. Per esempio, non ti chiede e non è in grado di ottenere il tuo nome, cognome, data di nascita, indirizzo, numero di telefono o indirizzo email.
+      •   L'app non raccoglie alcun dato che consentirebbe di risalire alla tua identità. Per esempio, non ti chiede e non è in grado di ottenere il tuo nome, cognome, data di nascita, indirizzo, numero di telefono o indirizzo email.
 
-       • L'app non raccoglie alcun dato di geolocalizzazione, inclusi i dati del GPS. I tuoi spostamenti non sono tracciati in alcun modo.
+      •   L'app non raccoglie alcun dato di geolocalizzazione, inclusi i dati del GPS. I tuoi spostamenti non sono tracciati in alcun modo.
 
-       • Il codice Bluetooth Low Energy trasmesso dall'app è generato in maniera casuale e non contiene alcuna informazione riguardo al tuo smartphone, né su di te. Inoltre, questo codice cambia svariate volte ogni ora, per tutelare ancora meglio la tua privacy.
+      •   Il codice Bluetooth Low Energy trasmesso dall'app è generato in maniera casuale e non contiene alcuna informazione riguardo al tuo smartphone, né su di te. Inoltre, questo codice cambia svariate volte ogni ora, per tutelare ancora meglio la tua privacy.
 
-       • I dati salvati sul tuo smartphone sono cifrati.
+      •   I dati salvati sul tuo smartphone sono cifrati.
 
-       • Le connessioni tra l'app e il server sono cifrate.
+      •   Le connessioni tra l'app e il server sono cifrate.
 
-       • Tutti i dati, siano essi salvati sul dispositivo o sul server, saranno cancellati non appena non saranno più necessari e in ogni caso non oltre il 31 dicembre 2020.
+      •   Tutti i dati, siano essi salvati sul dispositivo o sul server, saranno cancellati non appena non saranno più necessari e in ogni caso non oltre il 31 dicembre 2020.
 
-       • È il Ministero della Salute il soggetto che raccoglie i tuoi dati. I dati verranno usati solo per contenere l'epidemia del COVID-19 o per la ricerca scientifica.
+      •   È il Ministero della Salute il soggetto che raccoglie i tuoi dati. I dati verranno usati solo per contenere l'epidemia del COVID-19 o per la ricerca scientifica.
 
-       • I dati sono salvati su server in Italia e gestiti da soggetti pubblici.
+      •   I dati sono salvati su server in Italia e gestiti da soggetti pubblici.
       """
     ),
     .init(
@@ -127,13 +127,13 @@ public extension FAQ {
 
       Qualche altro consiglio importante per assicurarti che Immuni possa essere efficace:
 
-       • Quando esci di casa, porta sempre con te lo smartphone sul quale hai installato l'app.
+      •   Quando esci di casa, porta sempre con te lo smartphone sul quale hai installato l'app.
 
-       • Non disabilitare il Bluetooth (salvo quando stai dormendo, se lo desideri).
+      •   Non disabilitare il Bluetooth (salvo quando stai dormendo, se lo desideri).
 
-       • Non disinstallare l'app.
+      •   Non disinstallare l'app.
 
-       • È di vitale importanza che, quando l'app ti manda una notifica, tu la legga, apra l'app e segua le indicazioni fornite. Per esempio, se l'app ti chiede di aggiornarla, per favore fallo. Se ti suggerisce di isolarti e di chiamare il tuo medico di medicina generale, è fondamentale che tu lo faccia immediatamente.
+      •   È di vitale importanza che, quando l'app ti manda una notifica, tu la legga, apra l'app e segua le indicazioni fornite. Per esempio, se l'app ti chiede di aggiornarla, per favore fallo. Se ti suggerisce di isolarti e di chiamare il tuo medico di medicina generale, è fondamentale che tu lo faccia immediatamente.
       """
     ),
     .init(
@@ -148,18 +148,24 @@ public extension FAQ {
       Da dove puoi scaricare Immuni dipende dallo smartphone che usi. Non tutti i dispositivi sono supportati. Scegli la versione compatibile col tuo smartphone.
 
       App Store
-      Puoi scaricare Immuni dall’App Store e usarla correttamente se il tuo iPhone ha iOS versione 13.5 o superiore. Aggiorna iOS all’ultima versione disponibile prima di effettuare il download di Immuni.
+      Puoi scaricare Immuni dall'App Store e usarla correttamente se il tuo iPhone ha iOS versione 13.5 o superiore. Aggiorna iOS all'ultima versione disponibile prima di effettuare il download di Immuni.
 
-      I modelli di iPhone che supportano iOS 13.5 sono i seguenti: 11, 11 Pro, 11 Pro Max, Xr, Xs, Xs Max, X, SE (2nd generation), 8, 8 Plus, 7, 7 Plus, 6s, 6s Plus, SE (1st generation). Purtroppo, non potrai usare Immuni se il tuo modello di iPhone non permette l’aggiornamento di iOS a una versione pari o superiore alla 13.5.
+      I modelli di iPhone che supportano iOS 13.5 sono i seguenti: 11, 11 Pro, 11 Pro Max, Xr, Xs, Xs Max, X, SE (2nd generation), 8, 8 Plus, 7, 7 Plus, 6s, 6s Plus, SE (1st generation). Purtroppo, non potrai usare Immuni se il tuo modello di iPhone non permette l'aggiornamento di iOS a una versione pari o superiore alla 13.5.
 
       Google Play
       Puoi scaricare Immuni da Google Play e usarla correttamente se il tuo smartphone Android verifica tutti e tre i seguenti requisiti:
-      • Bluetooth Low Energy
-      • Android versione 6 (Marshmallow, API 23) o superiore
-      • Google Play Services versione 20.18.13 o superiore
-      Aggiorna Android e Google Play Services all’ultima versione disponibile prima di effettuare il download di Immuni.
 
-      Purtroppo, non potrai usare Immuni se il tuo modello di smartphone Android non ha il Bluetooth Low Energy o non permette l’aggiornamento di Android e di Google Play Services alle versioni minime indicate.
+      •   Bluetooth Low Energy
+
+      •   Android versione 6 (Marshmallow, API 23) o superiore
+
+      •   Google Play Services versione 20.18.13 o superiore
+
+      Aggiorna Android e Google Play Services all'ultima versione disponibile prima di effettuare il download di Immuni.
+
+      Stiamo riscontrando problemi di funzionamento su smartphone Huawei e Honor. In alcuni casi non è possibile attivare le notifiche di esposizione. In altri è possibile, ma il servizio smette di funzionare quando l'app viene chiusa. Google sta lavorando per risolvere questi problemi. Nel frattempo, abbiamo disabilitato lo scaricamento di Immuni su smartphone Huawei e Honor.
+
+      Purtroppo, non potrai usare Immuni se il tuo modello di smartphone Android non ha il Bluetooth Low Energy o non permette l'aggiornamento di Android e di Google Play Services alle versioni minime indicate.
 
       AppGallery
       Stiamo lavorando per permettere di scaricare Immuni anche da AppGallery al più presto. Questo consentirà ai possessori di alcuni modelli di smartphone Huawei di usare Immuni.
@@ -173,6 +179,18 @@ public extension FAQ {
       Si tratta di un numero limitato di informazioni, peraltro mai perfette, in quanto il segnale Bluetooth Low Energy è influenzato da vari fattori di disturbo. Quindi, la valutazione non sarà sempre impeccabile. Per esempio, se l'app ti raccomanda di isolarti, non significa che sicuramente hai il SARS-CoV-2. Significa piuttosto che, sulla base delle informazioni a disposizione dell'app, l'isolamento è la cosa più sicura da fare per te e per chi ti sta accanto.
 
       È quindi importante che tu segua le indicazioni fornite dall'app, per il bene tuo, dei tuoi cari e della comunità. Non esitare a consultare il tuo medico di medicina generale in caso l'app ti avverta di un possibile contagio.
+      """
+    ),
+    .init(
+      title: "Perché il mio smartphone non è compatibile con Immuni? Cosa posso fare al riguardo?",
+      content: """
+      Grazie di cuore per voler usare Immuni. Tuttavia, senza uno smartphone compatibile, purtroppo non puoi scaricare e usare l'app.
+
+      Immuni usa la tecnologia per le notifiche di esposizione messa a disposizione da Apple e Google. Questa tecnologia determina i requisiti di sistema per scaricare e usare Immuni, e non è compatibile con versioni precedenti di iOS, Android e Google Play Services.
+
+      Sappiamo che ci sono tante persone che desiderano scaricare e usare l'app, ma il cui dispositivo non è supportato. Sfortunatamente, al momento non possiamo superare queste limitazioni.
+
+      Siamo consci dell'importanza di consentire al maggior numero di persone possibile di usare Immuni. Comunicheremo prontamente eventuali novità in questo senso.
       """
     ),
     .init(
@@ -294,11 +312,15 @@ public extension FAQ {
     .init(
       title: "Immuni funziona in tutti i Paesi?",
       content: """
-      Immuni può essere scaricata in tutto il mondo. Tuttavia, l’app si può connettere al server (per esempio, per scaricare le chiavi degli utenti risultati positivi al virus) soltanto se sei all'interno dell'Unione Europea. Al momento, le connessioni al server provenienti da altri territori non sono supportate per motivi di sicurezza.
+      Puoi scaricare Immuni da tutto il mondo. Tuttavia, puoi utilizzarla solo dall'Italia:
 
-      Nel caso tu dovessi risultare positivo al virus, per poter caricare le tue chiavi sul server dovrai trovarti in Italia.
+      •   Su dispositivi iOS, le notifiche di esposizione vengono disattivate se sei all'estero.
 
-      Attualmente, l’app rileva solo i contatti con altri utenti di Immuni. Non rileva contatti con gli utenti delle app per le notifiche di esposizione di altri Paesi.
+      •   L'app si può connettere al server (per esempio, per scaricare le chiavi degli utenti risultati positivi al virus) soltanto se sei all'interno dell'Unione Europea. Al momento, le connessioni al server provenienti da altri territori non sono supportate per motivi di sicurezza.
+
+      •   Nel caso tu dovessi risultare positivo al virus, dovrai trovarti in Italia per poter caricare le tue chiavi sul server.
+
+      Attualmente, l'app rileva solo i contatti con altri utenti di Immuni. Non rileva contatti con gli utenti delle app per le notifiche di esposizione di altri Paesi.
       """
     )
   ]
@@ -314,11 +336,11 @@ public extension FAQ {
       content: """
       Immuni is an app that helps us fight epidemics—starting with COVID-19:
 
-       • The app aims to notify users at risk of carrying the virus as early as possible—even when they are asymptomatic.
+      •   The app aims to notify users at risk of carrying the virus as early as possible—even when they are asymptomatic.
 
-       • These users can then self-isolate to avoid infecting others. This minimises the spread of the virus, while speeding up a return to normal life for most people.
+      •   These users can then self-isolate to avoid infecting others. This minimises the spread of the virus, while speeding up a return to normal life for most people.
 
-       • By being alerted early, these users can also contact their general practitioner promptly and lower the risk of serious consequences.
+      •   By being alerted early, these users can also contact their general practitioner promptly and lower the risk of serious consequences.
       """
     ),
     .init(
@@ -352,21 +374,21 @@ public extension FAQ {
 
       Here's a list of some of the measures Immuni uses to protect your data:
 
-       • The app doesn't collect any data that could lead to it knowing your identity. For example, it doesn't ask for (and can't obtain) your name, date of birth, address, telephone number, or email address.
+      •   The app doesn't collect any data that could lead to it knowing your identity. For example, it doesn't ask for (and can't obtain) your name, date of birth, address, telephone number, or email address.
 
-       • The app doesn't collect any geolocation data, including GPS data. Your movements aren't tracked in any shape or form.
+      •   The app doesn't collect any geolocation data, including GPS data. Your movements aren't tracked in any shape or form.
 
-       • The Bluetooth Low Energy code broadcast by the app is generated completely randomly and doesn't contain any information about you or your device. This code changes several times each hour, protecting your privacy even more.
+      •   The Bluetooth Low Energy code broadcast by the app is generated completely randomly and doesn't contain any information about you or your device. This code changes several times each hour, protecting your privacy even more.
 
-       • All Immuni data stored on your smartphone is encrypted.
+      •   All Immuni data stored on your smartphone is encrypted.
 
-       • All connections between the app and the server are encrypted.
+      •   All connections between the app and the server are encrypted.
 
-       • All data, whether stored on the device or on the server, is deleted when no longer relevant, and certainly no later than December 31, 2020.
+      •   All data, whether stored on the device or on the server, is deleted when no longer relevant, and certainly no later than December 31, 2020.
 
-       • The Ministry of Health is the body that collects your data. The data is used solely with the aim of containing the COVID-19 epidemic or for scientific research.
+      •   The Ministry of Health is the body that collects your data. The data is used solely with the aim of containing the COVID-19 epidemic or for scientific research.
 
-       • The data is stored on servers located in Italy and managed by public bodies.
+      •   The data is stored on servers located in Italy and managed by public bodies.
       """
     ),
     .init(
@@ -400,13 +422,13 @@ public extension FAQ {
 
       Some other important suggestions to ensure that Immuni is effective:
 
-       • When you leave your house, always bring your smartphone with Immuni installed.
+      •   When you leave your house, always bring your smartphone with Immuni installed.
 
-       • Don't disable Bluetooth (except when you're sleeping, if you prefer).
+      •   Don't disable Bluetooth (except when you're sleeping, if you prefer).
 
-       • Don't uninstall the app.
+      •   Don't uninstall the app.
 
-       • When the app sends you a notification, it's vital that you read it, open the app, and follow all the instructions provided. For example, if the app asks you to upgrade it, please do so. If the app recommends that you self-isolate and call your general practitioner, it's crucial that you do so right away.
+      •   When the app sends you a notification, it's vital that you read it, open the app, and follow all the instructions provided. For example, if the app asks you to upgrade it, please do so. If the app recommends that you self-isolate and call your general practitioner, it's crucial that you do so right away.
       """
     ),
     .init(
@@ -423,19 +445,25 @@ public extension FAQ {
       App Store
       You can download Immuni from the App Store and use it correctly if your iPhone supports running iOS version 13.5 or above. Please update iOS to the latest available version before downloading Immuni.
 
-      The following iPhone models support iOS 13.5: 11, 11 Pro, 11 Pro Max, Xr, Xs, Xs Max, X, SE (2nd generation), 8, 8 Plus, 7, 7 Plus, 6s, 6s Plus, SE (1st generation). Unfortunately, you won’t be able to use Immuni if your iPhone model doesn’t support running iOS version 13.5 or above.
+      The following iPhone models support iOS 13.5: 11, 11 Pro, 11 Pro Max, Xr, Xs, Xs Max, X, SE (2nd generation), 8, 8 Plus, 7, 7 Plus, 6s, 6s Plus, SE (1st generation). Unfortunately, you won't be able to use Immuni if your iPhone model doesn't support running iOS version 13.5 or above.
 
       Google Play
       You can download Immuni from Google Play and use it correctly if your Android smartphone fulfils all three of the following requirements:
+
       •   Bluetooth Low Energy
+
       •   Android version 6 (Marshmallow, API 23) or above
+
       •   Google Play Services version 20.18.13 or above
+
       Please update Android and Google Play Services to the latest available version before downloading Immuni.
 
-      Unfortunately, you won’t be able to use Immuni if your model of Android smartphone doesn’t feature Bluetooth Low Energy or doesn’t support the minimum Android and Google Play Services versions indicated above.
+      We're encountering problems on Huawei and Honor smartphones. In some cases, it's not possible to enable exposure notifications. In others, it's possible to enable them, but the service stops working when the app is closed. Google is working to solve these issues. In the meantime, we've disabled the download of Immuni on Huawei and Honor smartphones.
+
+      Unfortunately, you won't be able to use Immuni if your model of Android smartphone doesn't feature Bluetooth Low Energy or doesn't support the minimum Android and Google Play Services versions indicated above.
 
       AppGallery
-      We’re working to make Immuni available for download from AppGallery as soon as possible. This will enable the users of certain Huawei smartphone models to use Immuni.
+      We're working to make Immuni available for download from AppGallery as soon as possible. This will enable the users of certain Huawei smartphone models to use Immuni.
       """
     ),
     .init(
@@ -446,6 +474,18 @@ public extension FAQ {
       This information is limited and can never be perfect, as Bluetooth Low Energy signals are impacted by various disruptive factors. As such, the app's assessments won't always be flawless. If the app recommends that you self-isolate, it doesn't mean you definitely have SARS-CoV-2. It just means that, based on the information the app has available, isolating yourself is the safest thing to do for yourself and those around you.
 
       Therefore, it's crucial that you follow all the instructions provided by the app—for your own good, as well as that of your loved ones and everyone else. Please don't hesitate to get in touch with your general practitioner if the app notifies you of a possible infection.
+      """
+    ),
+    .init(
+      title: "Why isn't my smartphone compatible with Immuni? What can I do about it?",
+      content: """
+      A heartfelt ‘thank you' for wanting to use Immuni. However, without a compatible smartphone, unfortunately it's not possible to download and use the app.
+
+      Immuni uses the exposure notification technology made available by Apple and Google. This technology determines the system requirements for downloading and using Immuni, and it is not compatible with earlier versions of iOS, Android, and Google Play Services.
+
+      We know that there are many people out there who are eager to download and use the app, but whose device is not supported. Unfortunately, at the moment we can't overcome these limitations.
+
+      We're aware of how important it is that the highest possible number of people can use Immuni. If there's any news on this topic, rest assured that we'll share it promptly.
       """
     ),
     .init(
@@ -567,11 +607,15 @@ public extension FAQ {
     .init(
       title: "Does Immuni work in all countries?",
       content: """
-      Immuni can be downloaded from anywhere in the world. However, the app can only connect to the server (for example, to download the keys of users who tested positive for the virus) if you’re within the European Union. Currently, connections to the server from other territories are not supported for security reasons.
+      You can download Immuni from anywhere in the world. However, you can use it only in Italy:
 
-      Should you test positive for the virus, you’ll have to be in Italy to be able to upload your keys to the server.
+      •   On iOS devices, exposure notifications are disabled if you're abroad.
 
-      As of today, the app detects only contact with other Immuni users. It doesn’t detect contact with users of exposure notification apps of other countries.
+      •   The app only connects to the server (for example, to download the keys of users who tested positive for the virus) if you're within the European Union. Currently, connections to the server from other territories are not supported for security reasons.
+
+      •   Should you test positive for the virus, you'll have to be in Italy to be able to upload your keys to the server.
+
+      As of today, the app detects only contact with other Immuni users. It doesn't detect contact with users of exposure notification apps of other countries.
       """
     )
   ]
