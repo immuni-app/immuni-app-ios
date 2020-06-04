@@ -460,7 +460,7 @@ public extension FAQ {
     .init(
       title: "Why isn't my smartphone compatible with Immuni? What can I do about it?",
       content: """
-      A heartfelt ‘thank you' for wanting to use Immuni. However, without a compatible smartphone, unfortunately it's not possible to download and use the app.
+      A heartfelt 'thank you' for wanting to use Immuni. However, without a compatible smartphone, unfortunately it's not possible to download and use the app.
 
       Immuni uses the exposure notification technology made available by Apple and Google. This technology determines the system requirements for downloading and using Immuni, and it is not compatible with earlier versions of iOS, Android, and Google Play Services.
 
