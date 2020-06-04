@@ -159,6 +159,8 @@ public extension FAQ {
       • Google Play Services versione 20.18.13 o superiore
       Aggiorna Android e Google Play Services all’ultima versione disponibile prima di effettuare il download di Immuni.
 
+      Stiamo riscontrando problemi di funzionamento su smartphone Huawei e Honor. In alcuni casi non è possibile attivare le notifiche di esposizione. In altri è possibile, ma il servizio smette di funzionare quando l’app viene chiusa. Google sta lavorando per risolvere questi problemi. Nel frattempo, abbiamo disabilitato lo scaricamento di Immuni su smartphone Huawei e Honor.
+
       Purtroppo, non potrai usare Immuni se il tuo modello di smartphone Android non ha il Bluetooth Low Energy o non permette l’aggiornamento di Android e di Google Play Services alle versioni minime indicate.
 
       AppGallery
@@ -166,13 +168,15 @@ public extension FAQ {
       """
     ),
     .init(
-      title: "Le istruzioni fornite dall'app sono attendibili?",
+      title: "Perché il mio smartphone non è compatibile con Immuni? Cosa posso fare al riguardo?",
       content: """
-      Le raccomandazioni fornite dall'app dipendono dalla durata della tua esposizione a utenti potenzialmente contagiosi e dalla distanza fra il tuo smartphone e quello di questi utenti durante l'esposizione.
+      Grazie di cuore per voler usare Immuni. Tuttavia, senza uno smartphone compatibile, purtroppo non puoi scaricare e usare l’app.
 
-      Si tratta di un numero limitato di informazioni, peraltro mai perfette, in quanto il segnale Bluetooth Low Energy è influenzato da vari fattori di disturbo. Quindi, la valutazione non sarà sempre impeccabile. Per esempio, se l'app ti raccomanda di isolarti, non significa che sicuramente hai il SARS-CoV-2. Significa piuttosto che, sulla base delle informazioni a disposizione dell'app, l'isolamento è la cosa più sicura da fare per te e per chi ti sta accanto.
+      Immuni usa la tecnologia per le notifiche di esposizione messa a disposizione da Apple e Google. Questa tecnologia determina i requisiti di sistema per scaricare e usare Immuni, e non è compatibile con versioni precedenti di iOS, Android e Google Play Services.
 
-      È quindi importante che tu segua le indicazioni fornite dall'app, per il bene tuo, dei tuoi cari e della comunità. Non esitare a consultare il tuo medico di medicina generale in caso l'app ti avverta di un possibile contagio.
+      Sappiamo che ci sono tante persone che desiderano scaricare e usare l’app, ma il cui dispositivo non è supportato. Sfortunatamente, al momento non possiamo superare queste limitazioni.
+
+      Siamo consci dell’importanza di consentire al maggior numero di persone possibile di usare Immuni. Comunicheremo prontamente eventuali novità in questo senso.
       """
     ),
     .init(
@@ -252,7 +256,7 @@ public extension FAQ {
     .init(
       title: "Il Bluetooth del mio smartphone deve essere sempre attivo?",
       content: """
-      Il sistema di notifiche di esposizione si basa su Bluetooth Low Energy. È necessario, quindi, che il Bluetooth sia sempre attivo affinché il sistema possa rilevare i tuoi contatti con gli altri utenti. Resti ovviamente libero di attivare o disattivare il Bluetooth quando preferisci.
+      Il sistema di notifiche di esposizione si basa su Bluetooth Low Energy. È necessario, quindi, che il Bluetooth sia sempre attivo affinché il sistema possa rilevare i tuoi contatti con gli altri utenti.
       """
     ),
     .init(
@@ -294,9 +298,10 @@ public extension FAQ {
     .init(
       title: "Immuni funziona in tutti i Paesi?",
       content: """
-      Immuni può essere scaricata in tutto il mondo. Tuttavia, l’app si può connettere al server (per esempio, per scaricare le chiavi degli utenti risultati positivi al virus) soltanto se sei all'interno dell'Unione Europea. Al momento, le connessioni al server provenienti da altri territori non sono supportate per motivi di sicurezza.
-
-      Nel caso tu dovessi risultare positivo al virus, per poter caricare le tue chiavi sul server dovrai trovarti in Italia.
+      Puoi scaricare Immuni da tutto il mondo. Tuttavia, puoi utilizzarla solo dall’Italia:
+      • Su dispositivi iOS, le notifiche di esposizione vengono disattivate se sei all’estero.
+      • L’app si può connettere al server (per esempio, per scaricare le chiavi degli utenti risultati positivi al virus) soltanto se sei all'interno dell'Unione Europea. Al momento, le connessioni al server provenienti da altri territori non sono supportate per motivi di sicurezza.
+      • Nel caso tu dovessi risultare positivo al virus, dovrai trovarti in Italia per poter caricare le tue chiavi sul server.
 
       Attualmente, l’app rileva solo i contatti con altri utenti di Immuni. Non rileva contatti con gli utenti delle app per le notifiche di esposizione di altri Paesi.
       """
@@ -432,6 +437,8 @@ public extension FAQ {
       •   Google Play Services version 20.18.13 or above
       Please update Android and Google Play Services to the latest available version before downloading Immuni.
 
+      We're encountering problems on Huawei and Honor smartphones. In some cases, it's not possible to enable exposure notifications. In others, it's possible to enable them, but the service stops working when the app is closed. Google is working to solve these issues. In the meantime, we've disabled the download of Immuni on Huawei and Honor smartphones.
+
       Unfortunately, you won’t be able to use Immuni if your model of Android smartphone doesn’t feature Bluetooth Low Energy or doesn’t support the minimum Android and Google Play Services versions indicated above.
 
       AppGallery
@@ -449,11 +456,15 @@ public extension FAQ {
       """
     ),
     .init(
-      title: "I don't have a smartphone compatible with Immuni—what should I do?",
+      title: "Why isn’t my smartphone compatible with Immuni? What can I do about it?",
       content: """
-      Without a compatible smartphone, it's not possible to use Immuni at the moment.
+      A heartfelt ‘thank you’ for wanting to use Immuni. However, without a compatible smartphone, unfortunately it’s not possible to download and use the app.
 
-      We're aware how important it is that the highest possible number of people can use Immuni. If there is any news on this topic, rest assured that we'll share it promptly.
+      Immuni uses the exposure notification technology made available by Apple and Google. This technology determines the system requirements for downloading and using Immuni, and it is not compatible with earlier versions of iOS, Android, and Google Play Services.
+
+      We know that there are many people out there who are eager to download and use the app, but whose device is not supported. Unfortunately, at the moment we can’t overcome these limitations.
+
+      We’re aware of how important it is that the highest possible number of people can use Immuni. If there’s any news on this topic, rest assured that we’ll share it promptly.
       """
     ),
     .init(
@@ -525,7 +536,7 @@ public extension FAQ {
     .init(
       title: "Do I need to keep my smartphone's Bluetooth turned on all the time?",
       content: """
-      The exposure notification system is based on Bluetooth Low Energy, so Bluetooth must always be active for the system to detect your contact with other users. However, it is your choice and you are free to turn it on or off as you like.
+      The exposure notification system is based on Bluetooth Low Energy, so Bluetooth must always be active for the system to detect your contact with other users.
       """
     ),
     .init(
@@ -567,9 +578,10 @@ public extension FAQ {
     .init(
       title: "Does Immuni work in all countries?",
       content: """
-      Immuni can be downloaded from anywhere in the world. However, the app can only connect to the server (for example, to download the keys of users who tested positive for the virus) if you’re within the European Union. Currently, connections to the server from other territories are not supported for security reasons.
-
-      Should you test positive for the virus, you’ll have to be in Italy to be able to upload your keys to the server.
+      You can download Immuni from anywhere in the world. However, you can use it only in Italy:
+      • On iOS devices, exposure notifications are disabled if you’re abroad.
+      • The app only connects to the server (for example, to download the keys of users who tested positive for the virus) if you’re within the European Union. Currently, connections to the server from other territories are not supported for security reasons.
+      • Should you test positive for the virus, you’ll have to be in Italy to be able to upload your keys to the server.
 
       As of today, the app detects only contact with other Immuni users. It doesn’t detect contact with users of exposure notification apps of other countries.
       """
