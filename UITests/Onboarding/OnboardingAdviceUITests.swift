@@ -56,7 +56,8 @@ class OnboardingAdviceUITests: AppViewTestCase, ViewTestCase {
     self.uiTest(
       testCases: [
         "onboarding_pin_advice": OnboardingAdviceVM(adviceType: .pin),
-        "onboarding_communication_advice": OnboardingAdviceVM(adviceType: .communication)
+        "onboarding_communication_advice": OnboardingAdviceVM(adviceType: .communication),
+        "onboarding_project_pilot": OnboardingAdviceVM(adviceType: .pilot)
       ],
       context: context
     )
