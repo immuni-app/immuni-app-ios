@@ -168,6 +168,16 @@ public extension FAQ {
       """
     ),
     .init(
+      title: "Le istruzioni fornite dall'app sono attendibili?",
+      content: """
+      Le raccomandazioni fornite dall'app dipendono dalla durata della tua esposizione a utenti potenzialmente contagiosi e dalla distanza fra il tuo smartphone e quello di questi utenti durante l'esposizione.
+
+      Si tratta di un numero limitato di informazioni, peraltro mai perfette, in quanto il segnale Bluetooth Low Energy è influenzato da vari fattori di disturbo. Quindi, la valutazione non sarà sempre impeccabile. Per esempio, se l'app ti raccomanda di isolarti, non significa che sicuramente hai il SARS-CoV-2. Significa piuttosto che, sulla base delle informazioni a disposizione dell'app, l'isolamento è la cosa più sicura da fare per te e per chi ti sta accanto.
+
+      È quindi importante che tu segua le indicazioni fornite dall'app, per il bene tuo, dei tuoi cari e della comunità. Non esitare a consultare il tuo medico di medicina generale in caso l'app ti avverta di un possibile contagio.
+      """
+    ),
+    .init(
       title: "Perché il mio smartphone non è compatibile con Immuni? Cosa posso fare al riguardo?",
       content: """
       Grazie di cuore per voler usare Immuni. Tuttavia, senza uno smartphone compatibile, purtroppo non puoi scaricare e usare l'app.
