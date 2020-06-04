@@ -38,6 +38,8 @@ class OnboardingAdviceUITests: AppViewTestCase, ViewTestCase {
         title = L10n.Onboarding.PinAdvice.action
       case .communication:
         title = L10n.Onboarding.CommunicationAdvice.action
+      case .pilot:
+        title = L10n.Onboarding.Pilot.action
       }
 
       navController.accessoryView?.model = OnboardingContainerAccessoryVM(
