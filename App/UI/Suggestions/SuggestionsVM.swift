@@ -179,7 +179,13 @@ extension SuggestionsVM {
       .spacer(size: .medium),
       .separator,
       .spacer(size: .medium),
-      .message(text: L10n.Suggestions.Risk.footer),
+      .message(text: L10n.Suggestions.Risk.First.message),
+      .spacer(size: .small),
+      .message(text: L10n.Suggestions.Risk.Second.message),
+      .spacer(size: .small),
+      .message(text: L10n.Suggestions.Risk.Third.message),
+      .spacer(size: .small),
+      .message(text: L10n.Suggestions.Risk.Fourth.message),
       .spacer(size: .big)
     ]
   }
