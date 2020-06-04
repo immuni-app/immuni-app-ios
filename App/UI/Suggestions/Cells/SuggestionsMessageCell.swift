@@ -23,7 +23,7 @@ struct SuggestionsMessageCellVM: ViewModel {
 class SuggestionsMessageCell: UICollectionViewCell, ModellableView, ReusableView {
   typealias VM = SuggestionsMessageCellVM
 
-  let message = UILabel()
+  let message = UITextView()
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -48,7 +48,7 @@ class SuggestionsMessageCell: UICollectionViewCell, ModellableView, ReusableView
       return
     }
 
-    Self.Style.title(self.message, content: model.message)
+    Self.Style.title(self.message, content: model.message, url: nil)
 
     self.setNeedsLayout()
   }
@@ -72,22 +72,38 @@ class SuggestionsMessageCell: UICollectionViewCell, ModellableView, ReusableView
 
 private extension SuggestionsMessageCell {
   enum Style {
-    static func title(_ label: UILabel, content: String) {
+    static func title(_ textView: UITextView, content: String, url: URL?) {
+      textView.isSelectable = false
+      textView.isEditable = false
+      textView.isScrollEnabled = false
+      textView.isUserInteractionEnabled = false
+      textView.backgroundColor = .clear
+      textView.linkTextAttributes = [.foregroundColor: Palette.primary]
+
       let boldStyle = TextStyles.pSemibold.byAdding(
-        .color(Palette.grayDark),
-        .alignment(.left)
-      )
-      let textStyle = TextStyles.p.byAdding(
-        .color(Palette.grayDark),
-        .alignment(.left),
-        .xmlRules([.style("b", boldStyle)])
+        // note: it looks like that by removing this parameter
+        // (which shouldn't be necessary) the calculation of
+        // the height breaks
+        .lineBreakMode(.byWordWrapping),
+        .color(Palette.grayDark)
       )
 
-      TempuraStyles.styleStandardLabel(
-        label,
-        content: content,
-        style: textStyle
+      let linkStyle = TextStyles.pSemibold.byAdding(
+        .color(Palette.primary),
+        .underline(.single, Palette.primary)
       )
+
+      let textStyle = TextStyles.p.byAdding(
+        .lineBreakMode(.byWordWrapping),
+        .color(Palette.grayDark),
+        .alignment(.left),
+        .xmlRules([
+          .style("b", boldStyle),
+          .style("l", linkStyle)
+        ])
+      )
+
+      textView.attributedText = content.styled(with: textStyle).adapted()
     }
   }
 }

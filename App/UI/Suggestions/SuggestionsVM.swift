@@ -178,13 +178,13 @@ extension SuggestionsVM {
       .button(interaction: .dismissCovidNotifications),
       .spacer(size: .medium),
       .separator,
-      .spacer(size: .medium),
+      .spacer(size: .small),
       .message(text: L10n.Suggestions.Risk.First.message),
-      .spacer(size: .small),
+      .spacer(size: .tiny),
       .message(text: L10n.Suggestions.Risk.Second.message),
-      .spacer(size: .small),
+      .spacer(size: .tiny),
       .message(text: L10n.Suggestions.Risk.Third.message),
-      .spacer(size: .small),
+      .spacer(size: .tiny),
       .message(text: L10n.Suggestions.Risk.Fourth.message),
       .spacer(size: .big)
     ]
