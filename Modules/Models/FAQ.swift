@@ -180,14 +180,6 @@ public extension FAQ {
       """
     ),
     .init(
-      title: "Non ho uno smartphone compatibile con Immuni. Cosa posso fare?",
-      content: """
-      Senza uno smartphone compatibile, per il momento purtroppo non puoi usare Immuni.
-
-      Siamo consci dell'importanza di consentire al maggior numero di persone possibile di usare Immuni. Comunicheremo prontamente eventuali novità in questo senso.
-      """
-    ),
-    .init(
       title: "L'app scaricherà la batteria del mio smartphone?",
       content: """
       Non dovresti notare una differenza sostanziale nella durata della tua batteria. Immuni infatti usa il Bluetooth Low Energy, una tecnologia creata per essere particolarmente efficiente in termini di risparmio energetico.
