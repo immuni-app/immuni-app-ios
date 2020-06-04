@@ -122,7 +122,7 @@
 "permission_tutorial.how_immuni_works.second.title" = "<h>Wenn Handys aufeinander treffen, tauschen sie ihre Zufallscodes aus</h>";
 "permission_tutorial.how_immuni_works.third.message" = "Nutzer mit positivem Virustest können die Zufallscodes, die ihre Geräte in den letzten Tagen übertragen haben, auf einen Server hochladen, um sie anderen Nutzern zur Verfügung zu stellen.";
 "permission_tutorial.how_immuni_works.third.title" = "<h>Positiv getestete Nutzer entscheiden, ob sie ihre Zufallscodes freigeben möchten</h>";
-"permission_tutorial.how_immuni_works.title" = "Wie funktioniert die App?";
+"permission_tutorial.how_immuni_works.title" = "Wie funktioniert die App";
 "permission_tutorial.notifications.action" = "Einstellungen öffnen";
 "permission_tutorial.notifications.first" = "<b>1. Öffnen Sie die Einstellungen</b> über die Schaltfläche unten";
 "permission_tutorial.notifications.second" = "<b>2. Gehen Sie zu \"Mitteilungen\"</b>";

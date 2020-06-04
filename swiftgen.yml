@@ -5,7 +5,7 @@ xcassets:
         output: App/Style/Assets.swift
 
 strings:
-  inputs: App/Resources/en-GB.lproj/Localizable.strings
+  inputs: App/Resources/it.lproj/Localizable.strings
   outputs:
     templateName: structured-swift4
     output: App/Resources/Localizable.swift
