@@ -307,6 +307,12 @@ public extension FAQ {
 
       Attualmente, l'app rileva solo i contatti con altri utenti di Immuni. Non rileva contatti con gli utenti delle app per le notifiche di esposizione di altri Paesi.
       """
+    ),
+    .init(
+      title: "Ho uno smartphone Huawei o Honor e non vedo Immuni su Google Play. Cosa devo fare per scaricare l'app?",
+      content: """
+      Molte delle persone che hanno scaricato Immuni su uno smartphone Huawei o Honor hanno riscontrato difetti di funzionamento. I difetti non sono dovuti all'app ma all'interazione tra il sistema di notifiche di esposizione messo a disposizione da Google e il dispositivo. Google è al corrente della problematica e sta lavorando per trovare al più presto una soluzione. In attesa che il problema sia stato risolto abbiamo disabilitato lo scaricamento di Immuni da Google Play per smartphone Huawei e Honor.
+      """
     )
   ]
 }
@@ -586,6 +592,12 @@ public extension FAQ {
       • Should you test positive for the virus, you'll have to be in Italy to be able to upload your keys to the server.
 
       As of today, the app detects only contact with other Immuni users. It doesn't detect contact with users of exposure notification apps of other countries.
+      """
+    ),
+    .init(
+      title: "I have a Huawei or Honor smartphone and I can't find Immuni on Google Play. What should I do to download the app?",
+      content: """
+      Many of the people who have downloaded Immuni on a Huawei or Honor smartphone have encountered issues. The issues aren't caused by the app, but by the interaction between the exposure notification system made available by Google and the device. Google is aware of the issue and is working to find a solution as soon as possible. While we wait for the issue to be resolved, we've disabled the download of Immuni from Google Play for Huawei and Honor smartphones.
       """
     )
   ]
