@@ -48,6 +48,7 @@
 "home_view.service.not_active.button" = "Riattiva Immuni";
 "home_view.service.not_active.subtitle" = "Intervieni subito per permettere a Immuni di funzionare correttamente.";
 "home_view.service.not_active.title" = "Servizio\n<b>non attivo</b>";
+"home_view.service.deactivate" = "Disattiva il servizio";
 "how_it_works_tile_1" = "Immuni associa a ogni telefono un codice casuale";
 "how_it_works_tile_2" = "I telefoni che si incontrano si scambiano i rispettivi codici casuali";
 "how_it_works_tile_3" = "Chi risulta positivo sceglie se condividere i propri codici casuali";
@@ -79,7 +80,7 @@
 "onboarding.communication_advice.title" = "Fai attenzione alle false comunicazioni";
 "onboarding.complete.title" = "Configurazione completata";
 "onboarding.exposure_permission.action" = "Abilita";
-"onboarding.exposure_permission.description" = "Immuni registra i contatti con altri utenti usando il Bluetooth Low Energy, così da poterti informare in caso di esposizione al virus.";
+"onboarding.exposure_permission.description" = "Immuni registra i contatti con altri utenti usando il Bluetooth Low Energy, così da poterti informare in caso di esposizione al virus. Potrai disabilitarle temporaneamente dalla schermata principale.";
 "onboarding.exposure_permission.overlay.hint" = "Seleziona \"<b>Abilita</b>\" nel popup che apparirà qui sotto";
 "onboarding.exposure_permission.title" = "Abilita le notifiche di esposizione al COVID-19";
 "onboarding.pin_advice.action" = "Ho capito";
@@ -95,6 +96,9 @@
 "onboarding.region.title" = "In che regione vivi?";
 "onboarding_exposure_api_not_activated" = "Notifiche di esposizione non attivate";
 "onboarding_exposure_message_extended" = "Le notifiche di esposizione richiedono che il servizio di localizzazione sia attivo a livello di sistema. <b>Immuni non ha accesso alla localizzazione e non può quindi conoscere la tua posizione o i tuoi spostamenti</b>.";
+"onboarding.pilot.title"= "Progetto pilota in corso";
+"onboarding.pilot.description"= "Per la durata della fase di sperimentazione <b>verrai avvisato di un’esposizione a rischio solo se entri in contatto con un utente risultato positivo al virus assistito da una delle seguenti regioni: Abruzzo, Liguria, Marche e Puglia.</b>";
+"onboarding.pilot.action"= "Ho capito";
 "open_settings" = "Apri Impostazioni";
 "permission_tutorial.bluetooth.action" = "Apri Impostazioni";
 "permission_tutorial.bluetooth.first" = "<b>1. Accedi al Centro di Controllo.</b> Scorri verso il basso dall'angolo in alto a destra–o verso l'alto dalla parte inferiore dello schermo, a seconda del dispositivo.";
@@ -133,6 +137,17 @@
 "permission_tutorial.update_os.second" = "<b>2. Entra in \"Generali\"</b>";
 "permission_tutorial.update_os.third" = "<b>3. Entra in \"Aggiornamento Software\"</b>";
 "permission_tutorial.update_os.title" = "Per aggiornare il tuo sistema operativo";
+
+"permission_tutorial.deactivate_service.title" = "Come disattivare il servizio";
+"permission_tutorial.deactivate_service.first.message" = "<red>Per proteggere la tua salute e quella dei tuoi cari, disattiva il servizio solo se necessario e riattivalo appena puoi.</red>";
+"permission_tutorial.deactivate_service.second.message" = "In certi casi può aver senso disattivare temporaneamente le notifiche di esposizione, ad esempio <b>se sei un operatore sanitario a contatto con pazienti COVID-19 e desideri disattivare l’app mentre sei al lavoro.</b>";
+"permission_tutorial.deactivate_service.third.message" = "Disabilitando le notifiche di esposizione i successivi contatti con altri utenti non verranno registrati.";
+"permission_tutorial.deactivate_service.fourth.message" = "Per disabilitare le notifiche di esposizione";
+"permission_tutorial.deactivate_service.fifth.message" = "1. Apri le impostazioni dal bottone in basso";
+"permission_tutorial.deactivate_service.sixth.message" = "2. Disabilita le notifiche di esposizione";
+"permission_tutorial.deactivate_service.action.cta" = "Apri impostazioni";
+
+
 "privacy.checkbox.above14" = "Dichiaro di avere almeno 14 anni";
 "privacy.checkbox.privacyPolicyRead" = "Ho letto l'<l>informativa privacy</l>";
 "privacy.item.data_deletion" = "<b>Tutti i dati sono eliminati quando non più necessari</b> e in ogni caso non più tardi del 31 dicembre 2020.";
@@ -182,6 +197,12 @@
 "suggestions.instruction.follow_instructions" = "Per proteggere la tua salute e quella dei tuoi cari, <b>rispetta le seguenti indicazioni:</b>";
 "suggestions.instruction.hide_alert.action" = "Nascondi avviso";
 "suggestions.instruction.hide_alert.message" = "Se necessario puoi nascondere questo avviso. A meno che tu abbia una ragione valida, ti sconsigliamo vivamente di farlo.";
+
+"suggestions.risk.first.message" = "L'app ti mostra questo avviso sulla base delle informazioni a disposizione (durata del contatto e stima approssimativa della distanza) ma non può sapere se durante il contatto indossavi una mascherina o se davi le spalle. Il rischio di contagio potrebbe quindi essere sovrastimato.";
+"suggestions.risk.second.message" = "Per aiutare il Servizio Sanitario Nazionale a prendersi cura di te in caso di necessità l’app ha informato il Ministero della Salute della notifica che hai ricevuto.";
+"suggestions.risk.third.message" = "Per ulteriori informazioni sui dati trasmessi al Ministero della salute puoi leggere l’<l>informativa privacy</l> al punto 4.";
+"suggestions.risk.fourth.message" = "<b>Il Ministero della Salute non può in ogni caso risalire alla tua identità sulla base di queste informazioni</b>.";
+
 "suggestions.instruction.hide_if_contact_doctor.action" = "Ho contattato il medico";
 "suggestions.instruction.hide_if_contact_doctor.message" = "Se sei in contatto con il tuo medico o la tua ASL, puoi nascondere questo avviso.";
 "suggestions.instruction.isolate.message" = "Indossa una mascherina chirurgica e contatta immediatamente il tuo Medico di Medicina Generale (o il Pediatra di Libera Scelta) e il Dipartimento di Prevenzione della ASL";
@@ -206,7 +227,6 @@
 "suggestions.positive.info.title" = "Immuni sta continuando a funzionare: non disinstallarla!";
 "suggestions.positive.subtitle" = "<b>Segui tutte le indicazioni che hai ricevuto dal tuo medico o dal Dipartimento di Prevenzione della tua ASL.</b>";
 "suggestions.positive.title" = "Segui le indicazioni";
-"suggestions.risk.footer" = "Per aiutare il Servizio Sanitario Nazionale a prendersi cura di te in caso di necessità, l'app ha informato il Ministero della Salute della notifica che hai ricevuto. <b>Il Ministero della Salute non può in ogni caso risalire alla tua identità sulla base di questa informazione.</b>";
 "suggestions.risk.subtitle" = "Immuni ha rilevato che il giorno %@ sei stato vicino a un utente COVID-19 positivo.";
 "suggestions.risk.title" = "Esposizione a rischio";
 "tabbar.title.home" = "Home";
