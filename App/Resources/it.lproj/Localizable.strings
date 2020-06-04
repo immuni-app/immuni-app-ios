@@ -198,10 +198,10 @@
 "suggestions.instruction.hide_alert.action" = "Nascondi avviso";
 "suggestions.instruction.hide_alert.message" = "Se necessario puoi nascondere questo avviso. A meno che tu abbia una ragione valida, ti sconsigliamo vivamente di farlo.";
 
-"suggestions.instructions.pn_footer.first.message" = "L'app ti mostra questo avviso sulla base delle informazioni a disposizione (durata del contatto e stima approssimativa della distanza) ma non può sapere se durante il contatto indossavi una mascherina o se davi le spalle. Il rischio di contagio potrebbe quindi essere sovrastimato.";
-"suggestions.instructions.pn_footer.second.message" = "Per aiutare il Servizio Sanitario Nazionale a prendersi cura di te in caso di necessità l’app ha informato il Ministero della Salute della notifica che hai ricevuto.";
-"suggestions.instructions.pn_footer.third.message" = "Per ulteriori informazioni sui dati trasmessi al Ministero della salute puoi leggere l’<l>informativa privacy</l> al punto 4.";
-"suggestions.instructions.pn_footer.fourth.message" = "<b>Il Ministero della Salute non può in ogni caso risalire alla tua identità sulla base di queste informazioni</b>.";
+"suggestions.risk.first.message" = "L'app ti mostra questo avviso sulla base delle informazioni a disposizione (durata del contatto e stima approssimativa della distanza) ma non può sapere se durante il contatto indossavi una mascherina o se davi le spalle. Il rischio di contagio potrebbe quindi essere sovrastimato.";
+"suggestions.risk.second.message" = "Per aiutare il Servizio Sanitario Nazionale a prendersi cura di te in caso di necessità l’app ha informato il Ministero della Salute della notifica che hai ricevuto.";
+"suggestions.risk.third.message" = "Per ulteriori informazioni sui dati trasmessi al Ministero della salute puoi leggere l’<l>informativa privacy</l> al punto 4.";
+"suggestions.risk.fourth.message" = "<b>Il Ministero della Salute non può in ogni caso risalire alla tua identità sulla base di queste informazioni</b>.";
 
 "suggestions.instruction.hide_if_contact_doctor.action" = "Ho contattato il medico";
 "suggestions.instruction.hide_if_contact_doctor.message" = "Se sei in contatto con il tuo medico o la tua ASL, puoi nascondere questo avviso.";
@@ -227,7 +227,6 @@
 "suggestions.positive.info.title" = "Immuni sta continuando a funzionare: non disinstallarla!";
 "suggestions.positive.subtitle" = "<b>Segui tutte le indicazioni che hai ricevuto dal tuo medico o dal Dipartimento di Prevenzione della tua ASL.</b>";
 "suggestions.positive.title" = "Segui le indicazioni";
-"suggestions.risk.footer" = "Per aiutare il Servizio Sanitario Nazionale a prendersi cura di te in caso di necessità, l'app ha informato il Ministero della Salute della notifica che hai ricevuto. <b>Il Ministero della Salute non può in ogni caso risalire alla tua identità sulla base di questa informazione.</b>";
 "suggestions.risk.subtitle" = "Immuni ha rilevato che il giorno %@ sei stato vicino a un utente COVID-19 positivo.";
 "suggestions.risk.title" = "Esposizione a rischio";
 "tabbar.title.home" = "Home";

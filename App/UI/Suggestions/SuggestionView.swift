@@ -34,6 +34,7 @@ class SuggestionsView: UIView, ViewControllerModellableView {
   var didTapClose: Interaction?
   var userDidScroll: CustomInteraction<CGFloat>?
   var didTapCollectionButton: CustomInteraction<SuggestionsButtonCellVM.ButtonInteraction>?
+  var userDidTapURL: CustomInteraction<URL>?
 
   // MARK: - Setup
 
@@ -195,7 +196,10 @@ extension SuggestionsView: UICollectionViewDataSource, UICollectionViewDelegateF
     case .info:
       return self.dequeue(SuggestionsInfoCell.self, for: indexPath, in: collectionView, using: cellModel)
     case .message:
-      return self.dequeue(SuggestionsMessageCell.self, for: indexPath, in: collectionView, using: cellModel)
+      let cell = self.dequeue(SuggestionsMessageCell.self, for: indexPath, in: collectionView, using: cellModel)
+      cell.userDidTapURL = { [weak self] url in self?.userDidTapURL?(url) }
+      return cell
+
     case .instruction:
       return self.dequeue(SuggestionsInstructionCell.self, for: indexPath, in: collectionView, using: cellModel)
     case .button:
