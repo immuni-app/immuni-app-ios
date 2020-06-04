@@ -148,20 +148,20 @@ public extension FAQ {
       Da dove puoi scaricare Immuni dipende dallo smartphone che usi. Non tutti i dispositivi sono supportati. Scegli la versione compatibile col tuo smartphone.
 
       App Store
-      Puoi scaricare Immuni dall’App Store e usarla correttamente se il tuo iPhone ha iOS versione 13.5 o superiore. Aggiorna iOS all’ultima versione disponibile prima di effettuare il download di Immuni.
+      Puoi scaricare Immuni dall'App Store e usarla correttamente se il tuo iPhone ha iOS versione 13.5 o superiore. Aggiorna iOS all'ultima versione disponibile prima di effettuare il download di Immuni.
 
-      I modelli di iPhone che supportano iOS 13.5 sono i seguenti: 11, 11 Pro, 11 Pro Max, Xr, Xs, Xs Max, X, SE (2nd generation), 8, 8 Plus, 7, 7 Plus, 6s, 6s Plus, SE (1st generation). Purtroppo, non potrai usare Immuni se il tuo modello di iPhone non permette l’aggiornamento di iOS a una versione pari o superiore alla 13.5.
+      I modelli di iPhone che supportano iOS 13.5 sono i seguenti: 11, 11 Pro, 11 Pro Max, Xr, Xs, Xs Max, X, SE (2nd generation), 8, 8 Plus, 7, 7 Plus, 6s, 6s Plus, SE (1st generation). Purtroppo, non potrai usare Immuni se il tuo modello di iPhone non permette l'aggiornamento di iOS a una versione pari o superiore alla 13.5.
 
       Google Play
       Puoi scaricare Immuni da Google Play e usarla correttamente se il tuo smartphone Android verifica tutti e tre i seguenti requisiti:
       • Bluetooth Low Energy
       • Android versione 6 (Marshmallow, API 23) o superiore
       • Google Play Services versione 20.18.13 o superiore
-      Aggiorna Android e Google Play Services all’ultima versione disponibile prima di effettuare il download di Immuni.
+      Aggiorna Android e Google Play Services all'ultima versione disponibile prima di effettuare il download di Immuni.
 
-      Stiamo riscontrando problemi di funzionamento su smartphone Huawei e Honor. In alcuni casi non è possibile attivare le notifiche di esposizione. In altri è possibile, ma il servizio smette di funzionare quando l’app viene chiusa. Google sta lavorando per risolvere questi problemi. Nel frattempo, abbiamo disabilitato lo scaricamento di Immuni su smartphone Huawei e Honor.
+      Stiamo riscontrando problemi di funzionamento su smartphone Huawei e Honor. In alcuni casi non è possibile attivare le notifiche di esposizione. In altri è possibile, ma il servizio smette di funzionare quando l'app viene chiusa. Google sta lavorando per risolvere questi problemi. Nel frattempo, abbiamo disabilitato lo scaricamento di Immuni su smartphone Huawei e Honor.
 
-      Purtroppo, non potrai usare Immuni se il tuo modello di smartphone Android non ha il Bluetooth Low Energy o non permette l’aggiornamento di Android e di Google Play Services alle versioni minime indicate.
+      Purtroppo, non potrai usare Immuni se il tuo modello di smartphone Android non ha il Bluetooth Low Energy o non permette l'aggiornamento di Android e di Google Play Services alle versioni minime indicate.
 
       AppGallery
       Stiamo lavorando per permettere di scaricare Immuni anche da AppGallery al più presto. Questo consentirà ai possessori di alcuni modelli di smartphone Huawei di usare Immuni.
@@ -170,13 +170,13 @@ public extension FAQ {
     .init(
       title: "Perché il mio smartphone non è compatibile con Immuni? Cosa posso fare al riguardo?",
       content: """
-      Grazie di cuore per voler usare Immuni. Tuttavia, senza uno smartphone compatibile, purtroppo non puoi scaricare e usare l’app.
+      Grazie di cuore per voler usare Immuni. Tuttavia, senza uno smartphone compatibile, purtroppo non puoi scaricare e usare l'app.
 
       Immuni usa la tecnologia per le notifiche di esposizione messa a disposizione da Apple e Google. Questa tecnologia determina i requisiti di sistema per scaricare e usare Immuni, e non è compatibile con versioni precedenti di iOS, Android e Google Play Services.
 
-      Sappiamo che ci sono tante persone che desiderano scaricare e usare l’app, ma il cui dispositivo non è supportato. Sfortunatamente, al momento non possiamo superare queste limitazioni.
+      Sappiamo che ci sono tante persone che desiderano scaricare e usare l'app, ma il cui dispositivo non è supportato. Sfortunatamente, al momento non possiamo superare queste limitazioni.
 
-      Siamo consci dell’importanza di consentire al maggior numero di persone possibile di usare Immuni. Comunicheremo prontamente eventuali novità in questo senso.
+      Siamo consci dell'importanza di consentire al maggior numero di persone possibile di usare Immuni. Comunicheremo prontamente eventuali novità in questo senso.
       """
     ),
     .init(
@@ -290,12 +290,12 @@ public extension FAQ {
     .init(
       title: "Immuni funziona in tutti i Paesi?",
       content: """
-      Puoi scaricare Immuni da tutto il mondo. Tuttavia, puoi utilizzarla solo dall’Italia:
-      • Su dispositivi iOS, le notifiche di esposizione vengono disattivate se sei all’estero.
-      • L’app si può connettere al server (per esempio, per scaricare le chiavi degli utenti risultati positivi al virus) soltanto se sei all'interno dell'Unione Europea. Al momento, le connessioni al server provenienti da altri territori non sono supportate per motivi di sicurezza.
+      Puoi scaricare Immuni da tutto il mondo. Tuttavia, puoi utilizzarla solo dall'Italia:
+      • Su dispositivi iOS, le notifiche di esposizione vengono disattivate se sei all'estero.
+      • L'app si può connettere al server (per esempio, per scaricare le chiavi degli utenti risultati positivi al virus) soltanto se sei all'interno dell'Unione Europea. Al momento, le connessioni al server provenienti da altri territori non sono supportate per motivi di sicurezza.
       • Nel caso tu dovessi risultare positivo al virus, dovrai trovarti in Italia per poter caricare le tue chiavi sul server.
 
-      Attualmente, l’app rileva solo i contatti con altri utenti di Immuni. Non rileva contatti con gli utenti delle app per le notifiche di esposizione di altri Paesi.
+      Attualmente, l'app rileva solo i contatti con altri utenti di Immuni. Non rileva contatti con gli utenti delle app per le notifiche di esposizione di altri Paesi.
       """
     )
   ]
@@ -420,7 +420,7 @@ public extension FAQ {
       App Store
       You can download Immuni from the App Store and use it correctly if your iPhone supports running iOS version 13.5 or above. Please update iOS to the latest available version before downloading Immuni.
 
-      The following iPhone models support iOS 13.5: 11, 11 Pro, 11 Pro Max, Xr, Xs, Xs Max, X, SE (2nd generation), 8, 8 Plus, 7, 7 Plus, 6s, 6s Plus, SE (1st generation). Unfortunately, you won’t be able to use Immuni if your iPhone model doesn’t support running iOS version 13.5 or above.
+      The following iPhone models support iOS 13.5: 11, 11 Pro, 11 Pro Max, Xr, Xs, Xs Max, X, SE (2nd generation), 8, 8 Plus, 7, 7 Plus, 6s, 6s Plus, SE (1st generation). Unfortunately, you won't be able to use Immuni if your iPhone model doesn't support running iOS version 13.5 or above.
 
       Google Play
       You can download Immuni from Google Play and use it correctly if your Android smartphone fulfils all three of the following requirements:
@@ -431,10 +431,10 @@ public extension FAQ {
 
       We're encountering problems on Huawei and Honor smartphones. In some cases, it's not possible to enable exposure notifications. In others, it's possible to enable them, but the service stops working when the app is closed. Google is working to solve these issues. In the meantime, we've disabled the download of Immuni on Huawei and Honor smartphones.
 
-      Unfortunately, you won’t be able to use Immuni if your model of Android smartphone doesn’t feature Bluetooth Low Energy or doesn’t support the minimum Android and Google Play Services versions indicated above.
+      Unfortunately, you won't be able to use Immuni if your model of Android smartphone doesn't feature Bluetooth Low Energy or doesn't support the minimum Android and Google Play Services versions indicated above.
 
       AppGallery
-      We’re working to make Immuni available for download from AppGallery as soon as possible. This will enable the users of certain Huawei smartphone models to use Immuni.
+      We're working to make Immuni available for download from AppGallery as soon as possible. This will enable the users of certain Huawei smartphone models to use Immuni.
       """
     ),
     .init(
@@ -448,15 +448,15 @@ public extension FAQ {
       """
     ),
     .init(
-      title: "Why isn’t my smartphone compatible with Immuni? What can I do about it?",
+      title: "Why isn't my smartphone compatible with Immuni? What can I do about it?",
       content: """
-      A heartfelt ‘thank you’ for wanting to use Immuni. However, without a compatible smartphone, unfortunately it’s not possible to download and use the app.
+      A heartfelt ‘thank you' for wanting to use Immuni. However, without a compatible smartphone, unfortunately it's not possible to download and use the app.
 
       Immuni uses the exposure notification technology made available by Apple and Google. This technology determines the system requirements for downloading and using Immuni, and it is not compatible with earlier versions of iOS, Android, and Google Play Services.
 
-      We know that there are many people out there who are eager to download and use the app, but whose device is not supported. Unfortunately, at the moment we can’t overcome these limitations.
+      We know that there are many people out there who are eager to download and use the app, but whose device is not supported. Unfortunately, at the moment we can't overcome these limitations.
 
-      We’re aware of how important it is that the highest possible number of people can use Immuni. If there’s any news on this topic, rest assured that we’ll share it promptly.
+      We're aware of how important it is that the highest possible number of people can use Immuni. If there's any news on this topic, rest assured that we'll share it promptly.
       """
     ),
     .init(
@@ -571,11 +571,11 @@ public extension FAQ {
       title: "Does Immuni work in all countries?",
       content: """
       You can download Immuni from anywhere in the world. However, you can use it only in Italy:
-      • On iOS devices, exposure notifications are disabled if you’re abroad.
-      • The app only connects to the server (for example, to download the keys of users who tested positive for the virus) if you’re within the European Union. Currently, connections to the server from other territories are not supported for security reasons.
-      • Should you test positive for the virus, you’ll have to be in Italy to be able to upload your keys to the server.
+      • On iOS devices, exposure notifications are disabled if you're abroad.
+      • The app only connects to the server (for example, to download the keys of users who tested positive for the virus) if you're within the European Union. Currently, connections to the server from other territories are not supported for security reasons.
+      • Should you test positive for the virus, you'll have to be in Italy to be able to upload your keys to the server.
 
-      As of today, the app detects only contact with other Immuni users. It doesn’t detect contact with users of exposure notification apps of other countries.
+      As of today, the app detects only contact with other Immuni users. It doesn't detect contact with users of exposure notification apps of other countries.
       """
     )
   ]
