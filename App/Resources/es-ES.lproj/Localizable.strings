@@ -122,7 +122,7 @@
 "permission_tutorial.how_immuni_works.second.title" = "<h>Los teléfonos que se detectan entre sí intercambian sus códigos aleatorios</h>";
 "permission_tutorial.how_immuni_works.third.message" = "Los usuarios que han dado positivo en la prueba del virus pueden subir a un servidor los códigos aleatorios que sus dispositivos han transmitido durante los últimos días para ponerlos a disposición de los demás usuarios.";
 "permission_tutorial.how_immuni_works.third.title" = "<h>Las personas que dan positivo deciden si quieren compartir sus códigos aleatorios</h>";
-"permission_tutorial.how_immuni_works.title" = "¿Cómo funciona la aplicación?";
+"permission_tutorial.how_immuni_works.title" = "¿Cómo funciona la aplicación";
 "permission_tutorial.notifications.action" = "Abrir los ajustes";
 "permission_tutorial.notifications.first" = "<b>1. Accede a los ajustes</b> pulsando el botón de abajo";
 "permission_tutorial.notifications.second" = "<b>2. Accede a «Notificaciones»</b>";
