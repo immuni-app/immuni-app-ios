@@ -30,6 +30,8 @@ extension OnboardingAdviceVC: OnboardingViewController {
       self.store.dispatch(Logic.Onboarding.UserDidTapPinAdvice())
     case .communication:
       self.store.dispatch(Logic.Onboarding.UserDidTapCommunicationAdvice())
+    case .pilot:
+      self.store.dispatch(Logic.Onboarding.UserDidTapPilotMessage())
     }
   }
 
@@ -39,6 +41,9 @@ extension OnboardingAdviceVC: OnboardingViewController {
       return L10n.Onboarding.PinAdvice.action
     case .communication:
       return L10n.Onboarding.CommunicationAdvice.action
+
+    case .pilot:
+      return L10n.Onboarding.Pilot.action
     }
   }
 

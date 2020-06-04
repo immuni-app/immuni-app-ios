@@ -54,7 +54,7 @@ extension Logic.Shared {
   struct OpenURL: AppSideEffect {
     let url: URL
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      try await(context.dependencies.application.goTo(url: url))
+      try await(context.dependencies.application.goTo(url: self.url))
     }
   }
 
