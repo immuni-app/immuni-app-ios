@@ -18,12 +18,15 @@ import Tempura
 
 struct SuggestionsMessageCellVM: ViewModel {
   let message: String
+  let url: URL?
 }
 
 class SuggestionsMessageCell: UICollectionViewCell, ModellableView, ReusableView {
   typealias VM = SuggestionsMessageCellVM
 
-  let message = UITextView()
+  var userDidTapURL: CustomInteraction<URL>?
+
+  let content = UITextView()
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -38,7 +41,10 @@ class SuggestionsMessageCell: UICollectionViewCell, ModellableView, ReusableView
   }
 
   func setup() {
-    self.contentView.addSubview(self.message)
+    self.contentView.addSubview(self.content)
+
+    let gesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+    self.content.addGestureRecognizer(gesture)
   }
 
   func style() {}
@@ -48,7 +54,7 @@ class SuggestionsMessageCell: UICollectionViewCell, ModellableView, ReusableView
       return
     }
 
-    Self.Style.title(self.message, content: model.message, url: nil)
+    Self.Style.content(self.content, content: model.message, url: model.url)
 
     self.setNeedsLayout()
   }
@@ -56,7 +62,7 @@ class SuggestionsMessageCell: UICollectionViewCell, ModellableView, ReusableView
   override func layoutSubviews() {
     super.layoutSubviews()
 
-    self.message.pin
+    self.content.pin
       .horizontally(SuggestionsView.cellMessageInset)
       .sizeToFit(.width)
       .vCenter()
@@ -64,19 +70,33 @@ class SuggestionsMessageCell: UICollectionViewCell, ModellableView, ReusableView
 
   override func sizeThatFits(_ size: CGSize) -> CGSize {
     let labelWidth = size.width - 2 * SuggestionsView.cellMessageInset
-    let titleSize = self.message.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
+    let titleSize = self.content.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
 
     return CGSize(width: size.width, height: titleSize.height)
   }
 }
 
+extension SuggestionsMessageCell {
+  @objc private func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
+    guard
+      let textPosition = self.content.closestPosition(to: gestureRecognizer.location(in: self.content)),
+      let url = self.content.textStyling(at: textPosition, in: .forward)?[NSAttributedString.Key.link] as? URL,
+      let modelURL = self.model?.url,
+      url == modelURL
+      else {
+        return
+    }
+
+    self.userDidTapURL?(url)
+  }
+}
+
 private extension SuggestionsMessageCell {
   enum Style {
-    static func title(_ textView: UITextView, content: String, url: URL?) {
+    static func content(_ textView: UITextView, content: String, url: URL?) {
       textView.isSelectable = false
       textView.isEditable = false
       textView.isScrollEnabled = false
-      textView.isUserInteractionEnabled = false
       textView.backgroundColor = .clear
       textView.linkTextAttributes = [.foregroundColor: Palette.primary]
 
@@ -88,10 +108,12 @@ private extension SuggestionsMessageCell {
         .color(Palette.grayDark)
       )
 
-      let linkStyle = TextStyles.pSemibold.byAdding(
+      var linkStyle = TextStyles.pSemibold.byAdding(
         .color(Palette.primary),
         .underline(.single, Palette.primary)
       )
+
+      linkStyle.link = url
 
       let textStyle = TextStyles.p.byAdding(
         .lineBreakMode(.byWordWrapping),

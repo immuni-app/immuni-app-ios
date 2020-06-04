@@ -36,6 +36,10 @@ class SuggestionsVC: ViewControllerWithLocalState<SuggestionsView> {
     self.rootView.didTapCollectionButton = { [weak self] interaction in
       self?.handleInteraction(interaction)
     }
+
+    self.rootView.userDidTapURL = { [weak self] url in
+      self?.store.dispatch(Logic.Shared.OpenURL(url: url))
+    }
   }
 
   private func handleInteraction(_ interaction: SuggestionsButtonCellVM.ButtonInteraction) {

@@ -22,7 +22,7 @@ struct SuggestionsVM: ViewModelWithLocalState {
     case spacer(size: SuggestionsSpacerVM.Size)
     case alert(text: String)
     case info(text: String, subtitle: String)
-    case message(text: String)
+    case message(text: String, url: URL? = nil)
     case instruction(instruction: SuggestionsInstructionCellVM.Instruction)
     case button(interaction: SuggestionsButtonCellVM.ButtonInteraction)
     case separator
@@ -30,15 +30,19 @@ struct SuggestionsVM: ViewModelWithLocalState {
 
   /// The current covid status of the user.
   let covidStatus: CovidStatus
+
   /// Whether the header is visible in the view. The header is shown only when the content is scrolled.
   let isHeaderVisible: Bool
+
+  /// The URL of the privacy notice
+  let privacyNoticeURL: URL?
 
   var cellTypes: [CellType] {
     switch self.covidStatus {
     case .neutral:
       return Self.neutralCells()
     case .risk(let lastContact):
-      return Self.riskCells(lastContact: lastContact)
+      return Self.riskCells(lastContact: lastContact, privacyNoticeURL: self.privacyNoticeURL)
     case .positive:
       return Self.positiveCells()
     }
@@ -86,6 +90,7 @@ struct SuggestionsVM: ViewModelWithLocalState {
     guard let cellType = self.cellType(for: indexPath) else {
       return nil
     }
+
     switch cellType {
     case .header(let dayOfContact):
       return SuggestionsHeaderCellVM(covidStatus: self.covidStatus, dayOfContact: dayOfContact)
@@ -95,8 +100,8 @@ struct SuggestionsVM: ViewModelWithLocalState {
       return SuggestionsAlertCellVM(message: text)
     case .info(let text, let subtitle):
       return SuggestionsInfoCellVM(title: text, subtitle: subtitle)
-    case .message(let text):
-      return SuggestionsMessageCellVM(message: text)
+    case .message(let text, let url):
+      return SuggestionsMessageCellVM(message: text, url: url)
     case .instruction(let instruction):
       return SuggestionsInstructionCellVM(instruction: instruction)
     case .button(let interaction):
@@ -112,7 +117,9 @@ extension SuggestionsVM {
     guard let state = state else {
       return nil
     }
+
     self.covidStatus = state.user.covidStatus
+    self.privacyNoticeURL = state.configuration.privacyNoticeURL(for: state.environment.userLanguage)
     self.isHeaderVisible = localState.isHeaderVisible
   }
 }
@@ -139,7 +146,7 @@ extension SuggestionsVM {
     ]
   }
 
-  static func riskCells(lastContact: CalendarDay) -> [CellType] {
+  static func riskCells(lastContact: CalendarDay, privacyNoticeURL: URL?) -> [CellType] {
     return [
       .header(dayOfContact: lastContact),
       .spacer(size: .big),
@@ -183,7 +190,7 @@ extension SuggestionsVM {
       .spacer(size: .tiny),
       .message(text: L10n.Suggestions.Risk.Second.message),
       .spacer(size: .tiny),
-      .message(text: L10n.Suggestions.Risk.Third.message),
+      .message(text: L10n.Suggestions.Risk.Third.message, url: privacyNoticeURL),
       .spacer(size: .tiny),
       .message(text: L10n.Suggestions.Risk.Fourth.message),
       .spacer(size: .big)
