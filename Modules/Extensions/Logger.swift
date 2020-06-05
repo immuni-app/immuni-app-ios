@@ -294,7 +294,7 @@ private struct SwitchLogHandler: LogHandler {
 }
 
 /// Leverages `Log` to log events for the lib
-public enum LibLogger: LoggerProvider {
+enum LibLogger: LoggerProvider {
   public static var logger: Logger { Log.logger(for: "lib.extensions", logLevel: .debug) }
 }
 
