@@ -58,9 +58,10 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
   }
 
   func getMissingChunksIndexes(latestKnownChunkIndex: Int?) -> Promise<[Int]> {
-    self.networkManager.getKeysIndex()
+    AppLogger.debug("[TEKProvider] Start getMissingChunksIndexes (latest known: \(String(describing: latestKnownChunkIndex)))")
+    return self.networkManager.getKeysIndex()
       .then { (keysIndex: KeysIndex) -> [Int] in
-
+        AppLogger.debug("[TEKProvider] Got from server oldest: \(keysIndex.oldest), newest: \(keysIndex.newest)")
         let latestKnown = latestKnownChunkIndex ?? -1
 
         guard
@@ -68,6 +69,7 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
           keysIndex.newest >= keysIndex.oldest
           else {
             // no chunks to download
+            AppLogger.debug("[TEKProvider] No chunks to download")
             return []
         }
 
@@ -84,13 +86,17 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
         // Note that the subsequent runs within 24 hours will fail anyway, but the manager should handle
         // them and retry as soon as possible. Assuming we don't publish more than 15 chunks per day
         // (which we won't) the algorithm is stable
-        return (firstKeyToDownload ... keysIndex.newest).suffix(Self.keyDailyRateLimit)
+        let chunksToDownload = Array((firstKeyToDownload ... keysIndex.newest).suffix(Self.keyDailyRateLimit))
+        AppLogger.debug("[TEKProvider] Chunks to download \(chunksToDownload)")
+        return chunksToDownload
       }
   }
 
   private func downloadChunks(with indexes: [Int]) -> Promise<[TemporaryExposureKeyChunk]> {
-    self.networkManager.downloadChunks(with: indexes)
+    AppLogger.debug("[TEKProvider] Start downloading chunks \(indexes)")
+    return self.networkManager.downloadChunks(with: indexes)
       .then { chunksData in
+        AppLogger.debug("[TEKProvider] Chunks downloaded (count \(chunksData.count))")
         assert(chunksData.count == indexes.count)
 
         let chunksWithIndexes = zip(chunksData, indexes)

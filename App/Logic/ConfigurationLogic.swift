@@ -30,10 +30,13 @@ extension Logic.Configuration {
         return
       }
 
+      AppLogger.debug("Start configuration download")
       let configuration = try await(context.dependencies.networkManager.getConfiguration(for: buildNumber))
+      AppLogger.debug("End configuration download")
       try context.awaitDispatch(UpdateConfiguration(configuration: configuration))
 
       // refresh FAQs as well
+      AppLogger.debug("Start FAQ download")
       try context.awaitDispatch(PerformFAQFetch())
     }
   }
@@ -58,6 +61,7 @@ extension Logic.Configuration {
       let baseURL = try components.asURL()
 
       let faqs: [FAQ] = try await(context.dependencies.networkManager.getFAQ(baseURL: baseURL, path: path))
+      AppLogger.debug("Finish FAQ download")
       try context.awaitDispatch(UpdateFAQs(faqs: faqs, language: state.environment.userLanguage))
     }
   }

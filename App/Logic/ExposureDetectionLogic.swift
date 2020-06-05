@@ -35,8 +35,11 @@ extension Logic.ExposureDetection {
     var forceRun: Bool = false
 
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      AppLogger.debug("Start exposure detection from \((self.type.backgroundTask == nil) ? "foreground" : "background")")
+
       // Set the task expiration handler
       self.type.backgroundTask?.expirationHandler = {
+        AppLogger.debug("Background task timed out")
         let timeout: ExposureDetectionOutcome = .error(.timeout)
         try? context.awaitDispatch(TrackExposureDetectionPerformed(outcome: timeout, type: self.type))
         try? context.awaitDispatch(SignalBackgroundTask(outcome: timeout, type: self.type))
@@ -59,6 +62,8 @@ extension Logic.ExposureDetection {
         isUserCovidPositive: state.user.covidStatus.isCovidPositive,
         forceRun: self.forceRun
       ))
+
+      AppLogger.debug("End exposure detection with outcome: \(outcome)")
 
       if let error = outcome.error {
         // Custom handling of specific errors

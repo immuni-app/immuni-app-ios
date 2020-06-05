@@ -41,31 +41,52 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
     return Promise(in: .custom(queue: Self.queue)) { resolve, _, _ in
       guard #available(iOS 13.5, *) else {
         // No exposure detection to perform, ever.
+        AppLogger.debug("[EDExecutor] iOS version too low")
         resolve(.noDetectionNecessary)
         return
       }
 
+      AppLogger.debug(
+        """
+        [EDExecutor] Start exposure detection execution:
+          lastDetectionDate: \(String(describing: lastExposureDetectionDate)),
+          latestProcessedChunk: \(String(describing: latestProcessedKeyChunkIndex)),
+          fullDetectionThreshold: \(exposureInfoRiskScoreThreshold),
+          configuration: \(exposureDetectionConfiguration.toNative())
+          isForceRun: \(forceRun)
+        """
+      )
+
       let timeSinceLastDetection = now().timeIntervalSince(lastExposureDetectionDate ?? .distantPast)
       guard forceRun || timeSinceLastDetection >= exposureDetectionPeriod else {
         // Exposure detection was performed recently
-        resolve(.noDetectionNecessary)
-        return
+        AppLogger
+          .debug("[EDExecutor] Not enough time since last detection (\(timeSinceLastDetection) < \(exposureDetectionPeriod))")
+          resolve(.noDetectionNecessary)
+          return
       }
+
+      AppLogger.debug("[EDExecutor] Check EN status")
 
       // Check for authorization
       let status: ExposureNotificationStatus
       do {
         status = try await(enManager.getStatus())
+        AppLogger.debug("[EDExecutor] Got EN status \(status)")
       } catch {
+        AppLogger.debug("[EDExecutor] Error getting EN status \(error)")
         resolve(.error(.unableToRetrieveStatus(error)))
         return
       }
 
       guard status.canPerformDetection else {
         // No authorization
+        AppLogger.debug("[EDExecutor] Can't perform detection with status \(status)")
         resolve(.error(.notAuthorized))
         return
       }
+
+      AppLogger.debug("[EDExecutor] Start downloading key chunks (latest: \(String(describing: latestProcessedKeyChunkIndex)))")
 
       // Download the keys
       let keyChunks: [TemporaryExposureKeyChunk]
@@ -74,18 +95,22 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
           tekProvider
             .getLatestKeyChunks(latestKnownChunkIndex: latestProcessedKeyChunkIndex)
         )
+        AppLogger.debug("[EDExecutor] Got \(keyChunks.count) chunks")
       } catch {
+        AppLogger.debug("[EDExecutor] Error getting chunks \(error)")
         resolve(.error(.unableToRetrieveKeys(error)))
         return
       }
 
       defer {
+        AppLogger.debug("[EDExecutor] Cleanup")
         // Cleanup the local files of the downloaded chunks
         try? await(tekProvider.clearLocalResources(for: keyChunks))
       }
 
       guard !keyChunks.isEmpty else {
         // No new keys. There is not detection to perform.
+        AppLogger.debug("[EDExecutor] No chunks downloaded")
         resolve(.noDetectionNecessary)
         return
       }
@@ -96,6 +121,7 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
       let lastProcessedChunk = keyChunks.map { $0.index }.max()
         ?? AppLogger.fatalError("keyChunks cannot be empty at this stage")
 
+      AppLogger.debug("[EDExecutor] Start getting summary")
       // Retrieve the summary
       let summary: ExposureDetectionSummary
       do {
@@ -103,7 +129,9 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
           configuration: exposureDetectionConfiguration.toNative(),
           diagnosisKeyURLs: keyChunks.flatMap { $0.localUrls }
         ))
+        AppLogger.debug("[EDExecutor] Got summary \(summary)")
       } catch {
+        AppLogger.debug("[EDExecutor] Error getting summary \(error)")
         resolve(.error(.unableToRetrieveSummary(error)))
         return
       }
@@ -116,10 +144,13 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
       )
 
       guard shouldRetrieveInfo else {
+        AppLogger.debug("[EDExecutor] Avoiding full detection")
         // Stop at the summary
         resolve(.partialDetection(now(), summary, firstProcessedChunk, lastProcessedChunk))
         return
       }
+
+      AppLogger.debug("[EDExecutor] Continuing with full detection")
 
       // Retrieve exposure info
       let exposureInfo: [ExposureInfo]
@@ -128,11 +159,14 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
           from: summary,
           userExplanation: userExplanationMessage
         ))
+        AppLogger.debug("[EDExecutor] Got exposure info: \(exposureInfo)")
       } catch {
+        AppLogger.debug("[EDExecutor] Error getting exposure info \(error)")
         resolve(.error(.unableToRetrieveExposureInfo(error)))
         return
       }
 
+      AppLogger.debug("[EDExecutor] Detection completed")
       resolve(.fullDetection(now(), summary, exposureInfo, firstProcessedChunk, lastProcessedChunk))
     }
   }
@@ -144,7 +178,9 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
     isUserCovidPositive: Bool,
     isForceRun: Bool
   ) -> Bool {
+    AppLogger.debug("[EDExecutor] Start check if full detection")
     guard !isForceRun else {
+      AppLogger.debug("[EDExecutor] Continue because force run")
       return true
     }
 
@@ -152,13 +188,16 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
       // a user that is covid positive should never receive notifications.
       // To do this, we have to prevent the logic from accessing
       // exposure info
+      AppLogger.debug("[EDExecutor] Stop because user positive")
       return false
     }
 
     switch summary {
     case .noMatch:
+      AppLogger.debug("[EDExecutor] Stop because no matches")
       return false
     case .matches(let data):
+      AppLogger.debug("[EDExecutor] Summary risk score: \(data.maximumRiskScore), threshold: \(riskScoreThreshold)")
       return data.maximumRiskScore >= riskScoreThreshold
     }
   }

@@ -32,19 +32,24 @@ public class ImmuniFileStorage: FileStorage {
 
   public func write(_ data: Data, with fileNameWithoutExtension: String) -> Promise<[URL]> {
     return Promise { resolve, reject, _ in
+      AppLogger.debug("[FileStorage] [\(fileNameWithoutExtension)] Start writing zip")
       let zipFileURL = self.keysFolder().appendingPathComponent("\(fileNameWithoutExtension).zip")
       try data.write(to: zipFileURL, options: .atomic)
       let unzipDirectoryURL = self.keysFolder().appendingPathComponent(fileNameWithoutExtension)
       try self.fileManager.createDirectory(at: unzipDirectoryURL, withIntermediateDirectories: true, attributes: nil)
 
       defer {
+        AppLogger.debug("[FileStorage] [\(fileNameWithoutExtension)] Deleting temporary files")
         try? self.fileManager.removeItem(at: unzipDirectoryURL)
         try? self.fileManager.removeItem(at: zipFileURL)
       }
 
       do {
+        AppLogger.debug("[FileStorage] [\(fileNameWithoutExtension)] Start unzipping file to \(unzipDirectoryURL)")
         try self.fileManager.unzipItem(at: zipFileURL, to: unzipDirectoryURL)
+        AppLogger.debug("[FileStorage] [\(fileNameWithoutExtension)] End unzipping file")
       } catch {
+        AppLogger.debug("[FileStorage] [\(fileNameWithoutExtension)] Error unzipping file \(error)")
         reject(Error.unzipError)
         return
       }
@@ -52,10 +57,12 @@ public class ImmuniFileStorage: FileStorage {
       let unzippedFiles = try self.fileManager.contentsOfDirectory(at: unzipDirectoryURL, includingPropertiesForKeys: nil)
 
       guard unzippedFiles.count == 2 else {
+        AppLogger.debug("[FileStorage] [\(fileNameWithoutExtension)] Broken chunk: count \(unzippedFiles.count)")
         reject(Error.brokenChunk)
         return
       }
 
+      AppLogger.debug("[FileStorage] [\(fileNameWithoutExtension)] Start moving files")
       let finalFileURLs = try unzippedFiles
         .map { file -> URL in
           let fileExtension = file.pathExtension
@@ -65,6 +72,7 @@ public class ImmuniFileStorage: FileStorage {
           return destinationFileUrl
         }
 
+      AppLogger.debug("[FileStorage] [\(fileNameWithoutExtension)] End moving files")
       resolve(finalFileURLs)
     }
   }

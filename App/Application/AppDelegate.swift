@@ -93,6 +93,7 @@ extension AppDelegate {
 
     BGTaskScheduler.shared
       .register(forTaskWithIdentifier: AppDelegate.exposureDetectionBackgroundTaskIdentifier, using: nil) { task in
+        AppLogger.debug("Start background task")
 
         // Signals that the background task has started. This has an effect only in debug mode, and it's extracted here
         // To ensure that there is nothing preventing this notification from being scheduled.
