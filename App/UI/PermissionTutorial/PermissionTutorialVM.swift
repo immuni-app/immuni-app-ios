@@ -229,29 +229,29 @@ extension PermissionTutorialVM.Content {
     )
   }
 
-  // swiftlint:disable:next identifier_name
-  static var exposureNotificationDeactivateInstructions: Self {
+  static var deactivateServiceInstructions: Self {
     return PermissionTutorialVM.Content(
-      title: L10n.PermissionTutorial.ExposureNotification.Restricted.title,
+      title: L10n.PermissionTutorial.DeactivateService.title,
       items: [
         .spacer(.big),
-        .textualContent(L10n.PermissionTutorial.ExposureNotification.Restricted.first),
-        .imageContent(Asset.PermissionTutorial.settings.image),
+        .textAndImage(L10n.PermissionTutorial.DeactivateService.First.message, Asset.Settings.UploadData.alert.image),
         .spacer(.small),
-        .textualContent(L10n.PermissionTutorial.ExposureNotification.Restricted.second),
-        .imageContent(Asset.PermissionTutorial.privacy.image),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Second.message),
         .spacer(.small),
-        .textualContent(L10n.PermissionTutorial.ExposureNotification.Restricted.third),
-        .imageContent(Asset.PermissionTutorial.health.image),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Third.message),
+        .spacer(.big),
+        .imageContent(Asset.HowImmuniWorks.break.image),
+        .spacer(.big),
+        .title(L10n.PermissionTutorial.DeactivateService.Fourth.message),
+        .spacer(.big),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Fifth.message),
+        .spacer(.medium),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Sixth.message),
         .spacer(.small),
-        .textualContent(L10n.PermissionTutorial.ExposureNotification.Restricted.fourth),
-        .imageContent(Asset.PermissionTutorial.covid19Exposition.image),
-        .spacer(.small),
-        .textualContent(L10n.PermissionTutorial.ExposureNotification.Restricted.fifth),
         .imageContent(Asset.PermissionTutorial.covid19ExpositionLog.image)
       ],
-      mainActionTitle: nil,
-      action: nil
+      mainActionTitle: L10n.PermissionTutorial.DeactivateService.Action.cta,
+      action: Logic.Shared.OpenSettings()
     )
   }
 

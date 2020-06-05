@@ -44,7 +44,7 @@ extension Logic.Home {
       context.dispatch(Show(
         Screen.permissionTutorial,
         animated: true,
-        context: PermissionTutorialLS(content: .exposureNotificationDeactivateInstructions)
+        context: PermissionTutorialLS(content: .deactivateServiceInstructions)
       ))
     }
   }
