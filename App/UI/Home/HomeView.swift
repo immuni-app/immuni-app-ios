@@ -37,6 +37,7 @@ class HomeView: UIView, ViewControllerModellableView {
     self.collection.register(HomeServiceActiveCell.self)
     self.collection.register(HomeInfoHeaderCell.self)
     self.collection.register(HomeInfoCell.self)
+    self.collection.register(HomeButtonCell.self)
 
     self.collection.delegate = self
     self.collection.dataSource = self
@@ -174,6 +175,14 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
         self?.didTapInfo?(infoKind)
       }
       return cell
+
+    case .disableButton:
+      let cell = collectionView.dequeueReusableCell(HomeButtonCell.self, for: indexPath)
+      cell.model = cellModel as? HomeButtonCellVM
+      cell.didTapButton = { [weak self] in
+        #warning("handle")
+      }
+      return cell
     }
   }
 
@@ -195,6 +204,9 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
         return
       }
       self.didTapInfo?(cellModel.kind)
+    case .disableButton:
+      #warning("handle")
+      return
     }
   }
 }
