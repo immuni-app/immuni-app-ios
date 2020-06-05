@@ -11,6 +11,7 @@ import Lottie
 import Tempura
 
 struct HomeButtonCellVM: ViewModel {
+  let isEnabled: Bool
 }
 
 class HomeButtonCell: UICollectionViewCell, ModellableView, ReusableView {
@@ -52,7 +53,13 @@ class HomeButtonCell: UICollectionViewCell, ModellableView, ReusableView {
     Self.Style.actionButton(self.button)
   }
 
-  func update(oldModel: VM?) {}
+  func update(oldModel: VM?) {
+    guard let model = self.model else {
+      return
+    }
+
+    self.button.isEnabled = model.isEnabled
+  }
 
   override func layoutSubviews() {
     super.layoutSubviews()

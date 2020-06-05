@@ -32,7 +32,7 @@ struct HomeVM: ViewModelWithState {
     case serviceActiveCard(isServiceActive: Bool)
     case infoHeader
     case info(kind: InfoKind)
-    case disableButton
+    case disableButton(isEnabled: Bool)
   }
 
   /// The array of cells in the collection.
@@ -67,8 +67,8 @@ struct HomeVM: ViewModelWithState {
       return HomeInfoHeaderCellVM()
     case .info(let kind):
       return HomeInfoCellVM(kind: kind)
-    case .disableButton:
-      return HomeButtonCellVM()
+    case .disableButton(let isEnabled):
+      return HomeButtonCellVM(isEnabled: isEnabled)
     }
   }
 }
@@ -91,7 +91,7 @@ extension HomeVM {
     }
 
     cells.append(.info(kind: .app))
-    cells.append(.disableButton)
+    cells.append(.disableButton(isEnabled: !state.isServiceActive))
 
     self.cellTypes = cells
   }
