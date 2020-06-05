@@ -1,21 +1,28 @@
-//
-//  HomeButtonCell.swift
-//  DebugMenu
-//
-//  Created by Paride on 05/06/2020.
-//
+// HomeDeactivateServiceCell.swift
+// Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
+// Please refer to the AUTHORS file for more information.
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as
+// published by the Free Software Foundation, either version 3 of the
+// License, or (at your option) any later version.
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU Affero General Public License for more details.
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 import Extensions
 import Foundation
 import Lottie
 import Tempura
 
-struct HomeButtonCellVM: ViewModel {
+struct HomeDeactivateServiceCellVM: ViewModel {
   let isEnabled: Bool
 }
 
-class HomeButtonCell: UICollectionViewCell, ModellableView, ReusableView {
-  typealias VM = HomeButtonCellVM
+class HomeDeactivateServiceCell: UICollectionViewCell, ModellableView, ReusableView {
+  typealias VM = HomeDeactivateServiceCellVM
 
   static let iconSize: CGFloat = 27
 
@@ -74,9 +81,9 @@ class HomeButtonCell: UICollectionViewCell, ModellableView, ReusableView {
   }
 
   func buttonSize(for width: CGFloat) -> CGSize {
-    let labelWidth = width - 2 * HomeView.cellHorizontalInset - HomeButtonCell.iconSize
+    let labelWidth = width - 2 * HomeView.cellHorizontalInset - HomeDeactivateServiceCell.iconSize
     var buttonSize = self.button.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
-    buttonSize.width += HomeButtonCell.iconSize
+    buttonSize.width += HomeDeactivateServiceCell.iconSize
     return buttonSize
   }
 
@@ -87,7 +94,7 @@ class HomeButtonCell: UICollectionViewCell, ModellableView, ReusableView {
   }
 }
 
-private extension HomeButtonCell {
+private extension HomeDeactivateServiceCell {
   enum Style {
     static func actionButton(_ button: ButtonWithInsets) {
       SharedStyle.primaryButton(

@@ -38,7 +38,7 @@ class HomeView: UIView, ViewControllerModellableView {
     self.collection.register(HomeServiceActiveCell.self)
     self.collection.register(HomeInfoHeaderCell.self)
     self.collection.register(HomeInfoCell.self)
-    self.collection.register(HomeButtonCell.self)
+    self.collection.register(HomeDeactivateServiceCell.self)
 
     self.collection.delegate = self
     self.collection.dataSource = self
@@ -178,8 +178,8 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
       return cell
 
     case .deactivateButton:
-      let cell = collectionView.dequeueReusableCell(HomeButtonCell.self, for: indexPath)
-      cell.model = cellModel as? HomeButtonCellVM
+      let cell = collectionView.dequeueReusableCell(HomeDeactivateServiceCell.self, for: indexPath)
+      cell.model = cellModel as? HomeDeactivateServiceCellVM
       cell.didTapButton = { [weak self] in
         self?.didTapDeactivateService?()
       }
@@ -207,10 +207,10 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
       self.didTapInfo?(cellModel.kind)
     case .deactivateButton:
       guard
-        let cellModel = self.model?.cellModel(for: indexPath) as? HomeButtonCellVM,
+        let cellModel = self.model?.cellModel(for: indexPath) as? HomeDeactivateServiceCellVM,
         cellModel.isEnabled
-      else {
-        return
+        else {
+          return
       }
       self.didTapDeactivateService?()
     }

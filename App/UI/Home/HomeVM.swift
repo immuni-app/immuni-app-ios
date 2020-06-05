@@ -68,7 +68,7 @@ struct HomeVM: ViewModelWithState {
     case .info(let kind):
       return HomeInfoCellVM(kind: kind)
     case .deactivateButton(let isEnabled):
-      return HomeButtonCellVM(isEnabled: isEnabled)
+      return HomeDeactivateServiceCellVM(isEnabled: isEnabled)
     }
   }
 }
