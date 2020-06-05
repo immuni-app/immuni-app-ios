@@ -181,9 +181,6 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
       let cell = collectionView.dequeueReusableCell(HomeButtonCell.self, for: indexPath)
       cell.model = cellModel as? HomeButtonCellVM
       cell.didTapButton = { [weak self] in
-        guard cell.model?.isEnabled == true else {
-          return
-        }
         self?.didTapDeactivateService?()
       }
       return cell
@@ -209,6 +206,12 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
       }
       self.didTapInfo?(cellModel.kind)
     case .deactivateButton:
+      guard
+        let cellModel = self.model?.cellModel(for: indexPath) as? HomeButtonCellVM,
+        cellModel.isEnabled
+      else {
+        return
+      }
       self.didTapDeactivateService?()
     }
   }

@@ -91,7 +91,7 @@ extension HomeVM {
     }
 
     cells.append(.info(kind: .app))
-    cells.append(.deactivateButton(isEnabled: !state.isServiceActive))
+    cells.append(.deactivateButton(isEnabled: state.isServiceActive))
 
     self.cellTypes = cells
   }

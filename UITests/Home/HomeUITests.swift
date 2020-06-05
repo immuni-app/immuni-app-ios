@@ -26,7 +26,7 @@ class HomeUITests: AppViewTestCase, ViewTestCase {
       .infoHeader,
       .info(kind: .protection),
       .info(kind: .app),
-      .deactivateButton(isEnabled: false)
+      .deactivateButton(isEnabled: true)
     ])
   }
 
@@ -36,7 +36,7 @@ class HomeUITests: AppViewTestCase, ViewTestCase {
       .infoHeader,
       .info(kind: .protection),
       .info(kind: .app),
-      .deactivateButton(isEnabled: true)
+      .deactivateButton(isEnabled: false)
     ])
   }
 
@@ -47,7 +47,7 @@ class HomeUITests: AppViewTestCase, ViewTestCase {
       .infoHeader,
       .info(kind: .protection),
       .info(kind: .app),
-      .deactivateButton(isEnabled: false)
+      .deactivateButton(isEnabled: true)
     ])
   }
 
@@ -58,7 +58,7 @@ class HomeUITests: AppViewTestCase, ViewTestCase {
       .infoHeader,
       .info(kind: .protection),
       .info(kind: .app),
-      .deactivateButton(isEnabled: true)
+      .deactivateButton(isEnabled: false)
     ])
   }
 
