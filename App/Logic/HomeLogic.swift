@@ -38,6 +38,17 @@ extension Logic.Home {
     }
   }
 
+  /// Shows the tutorial to deactivate the service.
+  struct ShowDeactivateService: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      context.dispatch(Show(
+        Screen.permissionTutorial,
+        animated: true,
+        context: PermissionTutorialLS(content: .deactivateServiceInstructions)
+      ))
+    }
+  }
+
   /// Shows the push notification step and waits for the fullfilment of the
   fileprivate struct ShowPushNotification: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {

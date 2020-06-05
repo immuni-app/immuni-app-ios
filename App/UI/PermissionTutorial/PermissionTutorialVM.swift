@@ -75,8 +75,8 @@ struct PermissionTutorialVM {
     case .imageContent(let image):
       return PermissionTutorialImageCellVM(content: image)
 
-    case .textAndImage(let text, let image):
-      return PermissionTutorialTextAndImageCellVM(textualContent: text, image: image)
+    case .textAndImage(let text, let image, let alignment):
+      return PermissionTutorialTextAndImageCellVM(textualContent: text, image: image, alignment: alignment)
 
     case .spacer(let size):
       return PermissionTutorialSpacerVM(size: size)
@@ -147,7 +147,7 @@ extension PermissionTutorialVM.Content {
     case textualContent(String)
     case animationContent(AnimationAsset)
     case imageContent(UIImage)
-    case textAndImage(String, UIImage)
+    case textAndImage(String, UIImage, PermissionTutorialTextAndImageCellVM.Alignment)
     case spacer(PermissionTutorialSpacerVM.Size)
     case scrollableButton(description: String, buttonTitle: String)
   }
@@ -226,6 +226,38 @@ extension PermissionTutorialVM.Content {
       ],
       mainActionTitle: nil,
       action: nil
+    )
+  }
+
+  static var deactivateServiceInstructions: Self {
+    return PermissionTutorialVM.Content(
+      title: L10n.PermissionTutorial.DeactivateService.title,
+      items: [
+        .spacer(.big),
+        .textAndImage(
+          L10n.PermissionTutorial.DeactivateService.First.message,
+          Asset.Settings.UploadData.alert.image,
+          .imageBeforeText
+        ),
+        .spacer(.big),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Second.message),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Third.message),
+        .spacer(.big),
+        .imageContent(Asset.Common.separator.image),
+        .spacer(.big),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Fourth.message),
+        .spacer(.big),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Fifth.message),
+        .spacer(.medium),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Sixth.message),
+        .spacer(.small),
+        .imageContent(Asset.PermissionTutorial.covid19ExpositionDisabled.image),
+        .scrollableButton(description: "", buttonTitle: L10n.PermissionTutorial.DeactivateService.Action.cta),
+        .spacer(.small)
+      ],
+      mainActionTitle: nil,
+      action: Logic.Shared.OpenSettings()
     )
   }
 
