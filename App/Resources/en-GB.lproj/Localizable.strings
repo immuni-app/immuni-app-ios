@@ -39,7 +39,7 @@
 "home_view.header_card.positive.title" = "Follow the instructions provided by your general practitioner or local health authority";
 "home_view.header_card.risk.button" = "Find out what to do now ›";
 "home_view.header_card.risk.title" = "Risky exposure detected: contact with a COVID-19-positive person";
-"home_view.info.app.title" = "How does the app work?";
+"home_view.info.app.title" = "How does the app work";
 "home_view.info.button.title" = "Find out more";
 "home_view.info.protection.title" = "What you can do to protect yourself";
 "home_view.info_header.title" = "Information";

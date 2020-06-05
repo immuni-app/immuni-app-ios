@@ -39,7 +39,7 @@
 "home_view.header_card.positive.title" = "Suivez les instructions fournies par votre médecin ou votre ASL (agence de santé locale)";
 "home_view.header_card.risk.button" = "Découvrez dès maintenant la procédure à suivre ›";
 "home_view.header_card.risk.title" = "Une exposition à risque avec une personne testée positive au COVID-19 a été détectée";
-"home_view.info.app.title" = "Comment fonctionne l'application?";
+"home_view.info.app.title" = "Comment fonctionne l'application";
 "home_view.info.button.title" = "En savoir plus";
 "home_view.info.protection.title" = "Que pouvez-vous faire pour vous protéger ?";
 "home_view.info_header.title" = "Informations";
