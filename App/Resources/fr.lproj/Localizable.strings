@@ -39,7 +39,7 @@
 "home_view.header_card.positive.title" = "Suivez les instructions fournies par votre médecin ou votre ASL (agence de santé locale)";
 "home_view.header_card.risk.button" = "Découvrez dès maintenant la procédure à suivre ›";
 "home_view.header_card.risk.title" = "Une exposition à risque avec une personne testée positive au COVID-19 a été détectée";
-"home_view.info.app.title" = "Comment fonctionne l'application?";
+"home_view.info.app.title" = "Comment fonctionne l'application";
 "home_view.info.button.title" = "En savoir plus";
 "home_view.info.protection.title" = "Que pouvez-vous faire pour vous protéger ?";
 "home_view.info_header.title" = "Informations";
@@ -83,7 +83,7 @@
 "onboarding.exposure_permission.overlay.hint" = "Sélectionnez <b>Activer</b> dans la fenêtre contextuelle qui s'affichera ci-dessous";
 "onboarding.exposure_permission.title" = "Activez les notifications de risque d'exposition au COVID-19";
 "onboarding.pin_advice.action" = "J'ai compris";
-"onboarding.pin_advice.description" = "L’utilisation d’Immuni est strictement personnelle. Si ce n'est pas déjà fait, configurez un code sur votre appareil afin de le protéger et d'empêcher quiconque d'accéder à vos informations et applications, Immuni incluse.";
+"onboarding.pin_advice.description" = "L'utilisation d'Immuni est strictement personnelle. Si vous ne l'avez pas déjà fait, configurez un code de déverrouillage sur votre smartphone afin d'empêcher toute autre personne d'accéder aux fonctionnalités de l'application et aux messages qu'elle pourrait vous envoyer.";
 "onboarding.pin_advice.title" = "Protégez votre appareil";
 "onboarding.province.description" = "Sélectionnez la province de votre domicile pour aider les services de santé nationaux à vous fournir une meilleure assistance.";
 "onboarding.province.title" = "Dans quelle province habitez-vous ?";
@@ -249,3 +249,19 @@
 "welcome_view.items.third.description" = "Les utilisateurs qui découvrent avoir été exposés au virus peuvent s'isoler afin de ralentir la propagation du virus et d'accélérer le retour à une vie normale.";
 "welcome_view.items.third.title" = "Ensemble, ralentissons l'épidémie";
 "welcome_view.next_page_title" = "Suivant";
+"home_view.service.deactivate" = "Désactiver le service";
+"onboarding.pilot.title" = "Expérimentation en cours";
+"onboarding.pilot.description" = "Au cours de la phase d'expérimentation, vous ne serez averti(e) d'un contact à risque avec une personne positive au virus que si celle-ci est assistée par une ASL (unité sanitaire locale) des régions suivantes : Abruzzes, Ligurie, Marches et Pouilles.";
+"onboarding.pilot.action" = "J'ai compris";
+"permission_tutorial.deactivate_service.title" = "Comment désactiver le service";
+"permission_tutorial.deactivate_service.first.message" = "<red>Pour protéger votre santé et celle de vos proches, ne désactivez le service que si nécessaire et réactivez-le dès que possible.</red>";
+"permission_tutorial.deactivate_service.second.message" = "Dans certains cas, il peut être judicieux de désactiver temporairement les notifications d'exposition, par exemple <b>si vous êtes un professionnel de la santé en contact avec des patients atteints du COVID-19 et que vous souhaitez désactiver l'application lorsque vous êtes au travail.</b>";
+"permission_tutorial.deactivate_service.third.message" = "La désactivation des notifications d'exposition implique que les contacts ultérieurs avec d'autres utilisateurs ne seront pas enregistrés.";
+"permission_tutorial.deactivate_service.fourth.message" = "<h3>Pour désactiver les notifications d'exposition</h3>";
+"permission_tutorial.deactivate_service.fifth.message" = "<b>1. Ouvrir la section Réglages en utilisant le bouton situé en bas de la page</b>";
+"permission_tutorial.deactivate_service.sixth.message" = "<b>2. Désactivez les notifications d'exposition</b>";
+"permission_tutorial.deactivate_service.action.cta" = "Ouvrir la section Réglages";
+"suggestions.risk.first.message" = "L'application vous montre cet avertissement sur la base des informations disponibles (durée du contact et estimation approximative de la distance) mais ne peut pas savoir si lors du contact vous avez porté un masque ou si vous étiez de dos. Le risque de contagion pourrait donc être surestimé.";
+"suggestions.risk.second.message" = "Pour aider les Services nationaux de santé à prendre soin de vous le cas échéant, l'application a informé le Ministère de la Santé de la notification qui vous a été envoyée.";
+"suggestions.risk.third.message" = "Pour plus d'informations sur les données envoyées au Ministère de la Santé, merci de bien vouloir lire la <l>politique sur le respect de la vie privée</l> disponible au point 4.";
+"suggestions.risk.fourth.message" = "<b>Le Ministère de la Santé ne peut en aucun cas retracer votre identité sur la base de ces informations</b>.";

@@ -39,7 +39,7 @@
 "home_view.header_card.positive.title" = "Sigue las indicaciones de tu médico o Agencia Sanitaria Local";
 "home_view.header_card.risk.button" = "Descubre qué debes hacer ›";
 "home_view.header_card.risk.title" = "Se ha detectado riesgo de exposición a una persona con la COVID-19";
-"home_view.info.app.title" = "¿Cómo funciona la aplicación?";
+"home_view.info.app.title" = "¿Cómo funciona la aplicación";
 "home_view.info.button.title" = "Más información";
 "home_view.info.protection.title" = "¿Qué medidas puedes adoptar para protegerte?";
 "home_view.info_header.title" = "Información";
@@ -83,7 +83,7 @@
 "onboarding.exposure_permission.overlay.hint" = "Selecciona «<b>Activar</b>» en la ventana emergente que aparecerá a continuación";
 "onboarding.exposure_permission.title" = "Habilita las notificaciones de exposición a la COVID-19";
 "onboarding.pin_advice.action" = "Entendido";
-"onboarding.pin_advice.description" = "El uso de Immuni es estrictamente personal. Si aún no lo has hecho, configura un código en tu dispositivo para protegerlo e impedir que otras personas accedan a tus datos y aplicaciones, incluida Immuni.";
+"onboarding.pin_advice.description" = "El uso de Immuni es estrictamente personal. Si aún no lo has hecho, configura un código de desbloqueo en tu teléfono inteligente para impedir que otras personas accedan a las funciones de la aplicación y a los mensajes que pueda enviarte.";
 "onboarding.pin_advice.title" = "Protege tu dispositivo";
 "onboarding.province.description" = "Selecciona la provincia en la que resides para que el Servicio Nacional de Salud (SSN) pueda asistirte de la mejor forma posible.";
 "onboarding.province.title" = "¿En qué provincia vives?";
@@ -249,3 +249,19 @@
 "welcome_view.items.third.description" = "Los usuarios que descubren que han estado expuestos al virus se pueden aislar para ralentizar su propagación y acelerar el regreso a la normalidad.";
 "welcome_view.items.third.title" = "Frenemos la epidemia juntos";
 "welcome_view.next_page_title" = "Siguiente";
+"home_view.service.deactivate" = "Desactivar el servicio";
+"onboarding.pilot.title" = "Experimentación en curso";
+"onboarding.pilot.description" = "Durante la fase de experimentación, se te notificará si has tenido un contacto de riesgo con una persona que ha dado positivo en el virus solo si la ha atendido una Agencia Sanitaria Local de las siguientes regiones: Abruzos, Liguria, Las Marcas y Apulia.";
+"onboarding.pilot.action" = "Entendido";
+"permission_tutorial.deactivate_service.title" = "Cómo desactivar el servicio";
+"permission_tutorial.deactivate_service.first.message" = "<red>Para proteger tu salud y la de tus seres queridos, desactiva el servicio solo si es necesario y reactívalo lo antes posible.</red>";
+"permission_tutorial.deactivate_service.second.message" = "En algunos casos, puede tener sentido desactivar temporalmente las notificaciones de exposición, por ejemplo, <b>si eres un profesional sanitario que está en contacto con pacientes de COVID-19 y quieres desactivar la aplicación mientras estás en el trabajo.</b>";
+"permission_tutorial.deactivate_service.third.message" = "Al deshabilitar las notificaciones de exposición, no se registrarán los contactos posteriores con otros usuarios.";
+"permission_tutorial.deactivate_service.fourth.message" = "<h3>Para deshabilitar las notificaciones de exposición:</h3>";
+"permission_tutorial.deactivate_service.fifth.message" = "<b>1. Accede a los ajustes pulsando el botón de abajo</b>";
+"permission_tutorial.deactivate_service.sixth.message" = "<b>2. Deshabilita las notificaciones de exposición</b>";
+"permission_tutorial.deactivate_service.action.cta" = "Abrir los ajustes";
+"suggestions.risk.first.message" = "La aplicación te muestra esta advertencia en función de la información disponible (duración del contacto y estimación de la distancia aproximada), pero no puede saber si durante el contacto llevabas mascarilla o si estabas de espaldas. Por lo tanto, el riesgo de contagio podría haberse sobreestimado.";
+"suggestions.risk.second.message" = "Para ayudar al Servicio Nacional de Salud (SSN) a cuidarte si fuera necesario, la aplicación ha avisado al Ministerio de Salud de la notificación que has recibido.";
+"suggestions.risk.third.message" = "Para obtener más información sobre los datos enviados al Ministerio de Salud, puedes leer la <l>política de privacidad</l> en el punto 4.";
+"suggestions.risk.fourth.message" = "<b>El Ministerio de Salud no puede en ningún caso rastrear tu identidad a través de esta información</b>.";
