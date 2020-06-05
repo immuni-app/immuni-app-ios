@@ -25,6 +25,7 @@ class HomeDeactivateServiceCell: UICollectionViewCell, ModellableView, ReusableV
   typealias VM = HomeDeactivateServiceCellVM
 
   static let iconSize: CGFloat = 27
+  static let iconToTitle: CGFloat = 8
 
   let button = ButtonWithInsets()
 
@@ -82,8 +83,11 @@ class HomeDeactivateServiceCell: UICollectionViewCell, ModellableView, ReusableV
 
   func buttonSize(for width: CGFloat) -> CGSize {
     let labelWidth = width - 2 * HomeView.cellHorizontalInset - HomeDeactivateServiceCell.iconSize
-    var buttonSize = self.button.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
-    buttonSize.width += HomeDeactivateServiceCell.iconSize
+      - self.button.insets.horizontal - self.button.titleEdgeInsets.horizontal
+    var buttonSize = self.button.titleLabel?.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity)) ?? .zero
+    buttonSize.width += HomeDeactivateServiceCell.iconSize + HomeDeactivateServiceCell.iconToTitle + self.button.insets.horizontal
+    buttonSize.height = max(buttonSize.height, HomeDeactivateServiceCell.iconSize) + self.button.insets.vertical
+
     return buttonSize
   }
 
@@ -101,7 +105,7 @@ private extension HomeDeactivateServiceCell {
         button,
         title: L10n.HomeView.Service.deactivate,
         icon: Asset.Home.disableService.image,
-        spacing: 8,
+        spacing: HomeDeactivateServiceCell.iconToTitle,
         tintColor: Palette.white,
         backgroundColor: Palette.grayDark,
         insets: UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 20),
