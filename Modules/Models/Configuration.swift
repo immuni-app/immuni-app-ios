@@ -40,6 +40,7 @@ public struct Configuration: Codable {
     case dataUploadMaxSummaryCount = "teks_max_summary_count"
     case dataUploadMaxExposureInfoCount = "teks_max_info_count"
     case ingestionRequestTargetSize = "teks_packet_size"
+    case isExperimentalPhase = "experimental_phase"
   }
 
   /// This is used to enforce a minimum version of the app.
@@ -132,6 +133,9 @@ public struct Configuration: Codable {
   /// The target size, in byte, of each ingestion request
   public let ingestionRequestTargetSize: Int
 
+  /// Whether the application is an experimental phase
+  public let isExperimentalPhase: Bool
+
   /// The FAQ url for the given language. it returns english version if the given
   /// language is not available.
   /// Note that the method may still fail in case of missing english version
@@ -177,7 +181,8 @@ public struct Configuration: Codable {
     dummyIngestionAverageStartUpDelay: Double = 15,
     dataUploadMaxSummaryCount: Int = 84,
     dataUploadMaxExposureInfoCount: Int = 600,
-    ingestionRequestTargetSize: Int = 110_000
+    ingestionRequestTargetSize: Int = 110_000,
+    isExperimentalPhase: Bool = false
   ) {
     self.minimumBuildVersion = minimumBuildVersion
     self.serviceNotActiveNotificationPeriod = serviceNotActiveNotificationPeriod
@@ -202,6 +207,7 @@ public struct Configuration: Codable {
     self.dataUploadMaxSummaryCount = dataUploadMaxSummaryCount
     self.dataUploadMaxExposureInfoCount = dataUploadMaxExposureInfoCount
     self.ingestionRequestTargetSize = ingestionRequestTargetSize
+    self.isExperimentalPhase = isExperimentalPhase
   }
 
   // swiftlint:enable force_unwrapping

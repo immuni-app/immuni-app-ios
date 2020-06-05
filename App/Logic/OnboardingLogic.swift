@@ -328,6 +328,8 @@ extension Logic.Onboarding {
 private extension AppState {
   /// Calculates the next step of the onboarding based on the state.
   var nextOnboardingStep: AnySideEffect {
+    let isExperimentalPhase = self.configuration.isExperimentalPhase
+
     if self.user.province == nil {
       return Show(
         Screen.onboardingStep,
@@ -368,7 +370,7 @@ private extension AppState {
       )
     }
 
-    if !self.toggles.didShowPilotMessage {
+    if isExperimentalPhase && !self.toggles.didShowPilotMessage {
       return Show(
         Screen.onboardingStep,
         animated: true,
