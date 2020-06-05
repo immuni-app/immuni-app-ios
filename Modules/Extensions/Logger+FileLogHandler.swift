@@ -47,19 +47,6 @@ public struct FileLogHandler: LogHandler {
     Self.prepareLogFile()
   }
 
-  private static func prepareLogFile() {
-    guard !FileManager.default.fileExists(atPath: self.logFileUrl.path) else {
-      // File exists already
-      return
-    }
-
-    let isSuccessful = FileManager.default.createFile(atPath: self.logFileUrl.path, contents: nil, attributes: nil)
-
-    guard isSuccessful else {
-      fatalError("Can't create file")
-    }
-  }
-
   public func log(
     level: Logger.Level,
     message: Logger.Message,
@@ -75,5 +62,45 @@ public struct FileLogHandler: LogHandler {
     }
 
     Self.fileHandle.write(data)
+  }
+
+  public static func clear() {
+    do {
+      try "".write(to: Self.logFileUrl, atomically: true, encoding: .utf8)
+    } catch {
+      fatalError("Can't reset log")
+    }
+  }
+
+  private static func prepareLogFile() {
+    guard !FileManager.default.fileExists(atPath: self.logFileUrl.path) else {
+      // File exists already
+      return
+    }
+
+    let isSuccessful = FileManager.default.createFile(atPath: self.logFileUrl.path, contents: nil, attributes: nil)
+
+    guard isSuccessful else {
+      fatalError("Can't create file")
+    }
+  }
+}
+
+// MARK: - LogHandler conformance
+
+extension FileLogHandler {
+  public var metadata: Logger.Metadata {
+    get { .init() }
+    set {}
+  }
+
+  public var logLevel: Logger.Level {
+    get { .debug }
+    set {}
+  }
+
+  public subscript(metadataKey _: String) -> Logger.Metadata.Value? {
+    get { return nil }
+    set(newValue) {}
   }
 }
