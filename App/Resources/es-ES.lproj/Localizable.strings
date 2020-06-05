@@ -265,4 +265,3 @@
 "suggestions.risk.second.message" = "Para ayudar al Servicio Nacional de Salud (SSN) a cuidarte si fuera necesario, la aplicación ha avisado al Ministerio de Salud de la notificación que has recibido.";
 "suggestions.risk.third.message" = "Para obtener más información sobre los datos enviados al Ministerio de Salud, puedes leer la <l>política de privacidad</l> en el punto 4.";
 "suggestions.risk.fourth.message" = "<b>El Ministerio de Salud no puede en ningún caso rastrear tu identidad a través de esta información</b>.";
-"suggestions_risk_third_message_android" = "Para obtener más información sobre los datos enviados al Ministerio de Salud, puedes leer la <l>política de privacidad</l> en el punto 4.";

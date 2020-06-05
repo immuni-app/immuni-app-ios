@@ -263,6 +263,5 @@
 "permission_tutorial.deactivate_service.action.cta" = "Open Settings";
 "suggestions.risk.first.message" = "The app shows you this warning based on the information available (duration of the contact and approximate estimate of the distance) but it cannot know if you wore a mask or if you turned your back during the contact. The risk of contagion could therefore be overestimated.";
 "suggestions.risk.second.message" = "To help the National Health Service take care of you should the need arise, the app has informed the Ministry of Health of the notification you have received.";
-"suggestions.risk.third.message" = "For more information on the data sent to the Ministry of Health, you can read the {privacy notice}, point 4.";
+"suggestions.risk.third.message" = "For more information on the data sent to the Ministry of Health, you can read the <l>privacy notice</l>, point 4.";
 "suggestions.risk.fourth.message" = "The Ministry of Health cannot determine your identity from this information.";
-"suggestions_risk_third_message_android" = "For more information on the data sent to the Ministry of Health, you can read the <l>privacy notice</l>, point 4.";
