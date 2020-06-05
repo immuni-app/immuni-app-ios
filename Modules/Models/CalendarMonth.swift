@@ -48,6 +48,12 @@ public struct CalendarMonth: Codable, Equatable, Hashable, Comparable {
     return range.count
   }
 
+  /// Returns the next CalendarMonth
+  public var next: Self {
+    let dayInNextMonth = self.underlyingCalendarDay.byAdding(days: self.numberOfDays)
+    return Self(year: dayInNextMonth.year, month: dayInNextMonth.month)
+  }
+
   /// The date of the beginning of the month (UTC timezone)
   public var utcDateAtBeginningOfTheMonth: Date {
     return self.underlyingCalendarDay.utcDateAtBeginningOfTheDay

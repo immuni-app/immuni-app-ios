@@ -66,7 +66,7 @@ struct PaddedJSONEncoding: ParameterEncoding {
     }
 
     if paddingSize > 0 {
-      paddedParameters[Self.paddingParameterName] = String.random(size: paddingSize)
+      paddedParameters[Self.paddingParameterName] = String.random(length: paddingSize)
     }
     return paddedParameters
   }

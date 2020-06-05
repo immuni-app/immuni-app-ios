@@ -110,6 +110,24 @@
         )
       ])
 
+      // analytics
+      items.append(contentsOf: [
+        .init(
+          title: "[Analytics] Trigger send without exposure logic",
+          dispatchable: Logic.Analytics.StochasticallySendOperationalInfoWithoutExposure()
+        ),
+
+        .init(
+          title: "[Analytics] Trigger send with exposure logic",
+          dispatchable: Logic.Analytics.StochasticallySendOperationalInfoWithExposure()
+        ),
+
+        .init(
+          title: "[Analytics] Trigger send dummy request",
+          dispatchable: Logic.Analytics.SendRequest(kind: .dummy)
+        )
+      ])
+
       // data upload
       items.append(contentsOf: [
         .init(
