@@ -229,6 +229,32 @@ extension PermissionTutorialVM.Content {
     )
   }
 
+  // swiftlint:disable:next identifier_name
+  static var exposureNotificationDeactivateInstructions: Self {
+    return PermissionTutorialVM.Content(
+      title: L10n.PermissionTutorial.ExposureNotification.Restricted.title,
+      items: [
+        .spacer(.big),
+        .textualContent(L10n.PermissionTutorial.ExposureNotification.Restricted.first),
+        .imageContent(Asset.PermissionTutorial.settings.image),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.ExposureNotification.Restricted.second),
+        .imageContent(Asset.PermissionTutorial.privacy.image),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.ExposureNotification.Restricted.third),
+        .imageContent(Asset.PermissionTutorial.health.image),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.ExposureNotification.Restricted.fourth),
+        .imageContent(Asset.PermissionTutorial.covid19Exposition.image),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.ExposureNotification.Restricted.fifth),
+        .imageContent(Asset.PermissionTutorial.covid19ExpositionLog.image)
+      ],
+      mainActionTitle: nil,
+      action: nil
+    )
+  }
+
   static var updateOperatingSystem: Self {
     return PermissionTutorialVM.Content(
       title: L10n.PermissionTutorial.UpdateOs.title,
