@@ -80,7 +80,7 @@ The source code should be linted using [SwiftLint](https://github.com/realm/Swif
 
 We have decided not to include the linter or the formatter as build phases to prevent increasing the application build time. However, there are some helpers in place.
 
-If you have set up the project using Make setup, the script has installed a _pre-commit hook_ on your git folder. You can check it in the [Makefile](Makefile). This script automatically formats the source code and solves most of the linting issues. If the linter finds issues that it cannot fix automatically, the commit fails. If you prefer not to have this mechanism in place, either do not set up the project using make setup or delete the .`git/hooks/pre-commit` file. However, we recommend running these commands before each commit.
+If you have set up the project using Make setup, the script has installed a _pre-commit hook_ and a _commit_msg hook_on your git folder, to validate you can check it in the [Makefile](Makefile). This script automatically formats the source code and solves most of the linting issues. If the linter finds issues that it cannot fix automatically, the commit fails. Same happens for commit messages : if the format `<type>: <commit message>` is not respected. If you prefer not to have this mechanism in place, either do not set up the project using make setup or delete the .`git/hooks/pre-commit` file. However, we recommend running these commands before each commit.
 
 ```sh
 swiftformat .
