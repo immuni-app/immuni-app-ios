@@ -122,7 +122,7 @@
 "permission_tutorial.how_immuni_works.second.title" = "<h>Phones that come into contact exchange their random codes</h>";
 "permission_tutorial.how_immuni_works.third.message" = "Users who have tested positive for the virus can upload to a server the random codes that their devices have sent out over the previous days, making them available to other users.";
 "permission_tutorial.how_immuni_works.third.title" = "<h>Users who test positive can choose if they want to share their random codes</h>";
-"permission_tutorial.how_immuni_works.title" = "How does the app work?";
+"permission_tutorial.how_immuni_works.title" = "How does the app work";
 "permission_tutorial.notifications.action" = "Open Settings";
 "permission_tutorial.notifications.first" = "<b>1. Open Settings</b> using the button below";
 "permission_tutorial.notifications.second" = "<b>2. Go to 'Notifications'</b>";

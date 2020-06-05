@@ -241,6 +241,16 @@ extension Logic.Onboarding {
     }
   }
 
+  /// Handles the interaction in the pilot message view.
+  struct UserDidTapPilotMessage: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      try context.awaitDispatch(PassPilotMessageStep())
+      // move to next step
+      let step = context.getState().nextOnboardingStep
+      context.dispatch(step)
+    }
+  }
+
   /// Mark pin advice toggle as true.
   private struct PassPinAdviceStep: AppStateUpdater {
     func updateState(_ state: inout AppState) {
@@ -252,6 +262,13 @@ extension Logic.Onboarding {
   private struct PassCommunicationAdviceStep: AppStateUpdater {
     func updateState(_ state: inout AppState) {
       state.toggles.didShowCommunicationAdvice = true
+    }
+  }
+
+  /// Mark pilot message toggle as true.
+  private struct PassPilotMessageStep: AppStateUpdater {
+    func updateState(_ state: inout AppState) {
+      state.toggles.didShowPilotMessage = true
     }
   }
 }
@@ -348,6 +365,14 @@ private extension AppState {
         Screen.onboardingStep,
         animated: true,
         context: OnboardingContainerNC.NavigationContext(child: .communicationAdvice)
+      )
+    }
+
+    if !self.toggles.didShowPilotMessage {
+      return Show(
+        Screen.onboardingStep,
+        animated: true,
+        context: OnboardingContainerNC.NavigationContext(child: .pilotMessage)
       )
     }
 

@@ -182,6 +182,31 @@ final class OnboardingLogicTests: XCTestCase {
     }
   }
 
+  func testShowPilotProjectMessage() throws {
+    var state = AppState()
+    state.user.province = .aosta
+    state.environment.exposureNotificationAuthorizationStatus = .authorized
+    state.environment.pushNotificationAuthorizationStatus = .authorized
+    state.toggles.didShowPinAdvice = true
+    state.toggles.didShowCommunicationAdvice = true
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: getState, dispatch: dispatchInterceptor.dispatchFunction)
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Onboarding.ShowNecessarySteps().sideEffect(context)
+
+    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 1)
+
+    try XCTAssertType(dispatchInterceptor.dispatchedItems.first, Tempura.Show.self) { value in
+      XCTAssertEqual(value.identifiersToShow, [Screen.onboardingStep.rawValue])
+
+      let context = value.context as? OnboardingContainerNC.NavigationContext
+      XCTAssertEqual(context?.child, .pilotMessage)
+    }
+  }
+
   func testShowTabbarWhenOnboardingIsCompleted() throws {
     var state = AppState()
     state.toggles.isOnboardingCompleted = true
@@ -207,6 +232,7 @@ final class OnboardingLogicTests: XCTestCase {
     state.environment.exposureNotificationAuthorizationStatus = .authorized
     state.toggles.didShowPinAdvice = true
     state.toggles.didShowCommunicationAdvice = true
+    state.toggles.didShowPilotMessage = true
 
     let getState = { state }
     let dispatchInterceptor = DispatchInterceptor()
