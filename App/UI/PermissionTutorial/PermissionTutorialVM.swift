@@ -246,7 +246,7 @@ extension PermissionTutorialVM.Content {
         .spacer(.big),
         .imageContent(Asset.Common.separator.image),
         .spacer(.big),
-        .title(L10n.PermissionTutorial.DeactivateService.Fourth.message),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Fourth.message),
         .spacer(.big),
         .textualContent(L10n.PermissionTutorial.DeactivateService.Fifth.message),
         .spacer(.medium),
