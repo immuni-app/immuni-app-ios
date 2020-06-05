@@ -4,7 +4,7 @@ targetTemplates:
   Module:
     platform: iOS
     type: framework
-    deploymentTarget: "13.0"
+    deploymentTarget: "13.5"
     sources:
       - Modules/${target_name}
     settings:
@@ -33,7 +33,7 @@ targets:
   Immuni:
     platform: iOS
     type: application
-    deploymentTarget: "13.0"
+    deploymentTarget: "13.5"
     sources:
       - path: App
 
@@ -119,7 +119,7 @@ targets:
   Immuni Tests:
     platform: iOS
     type: bundle.unit-test
-    deploymentTarget: "13.0"
+    deploymentTarget: "13.5"
     sources:
       - AppTests
     dependencies:
@@ -131,7 +131,7 @@ targets:
   Immuni UITests:
     platform: iOS
     type: bundle.unit-test
-    deploymentTarget: "13.0"
+    deploymentTarget: "13.5"
     sources:
       - path: UITests
         excludes:

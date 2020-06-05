@@ -5,7 +5,7 @@ source 'https://cdn.cocoapods.org/'
 
 inhibit_all_warnings!
 use_frameworks!
-platform :ios, '13.0'
+platform :ios, '13.5'
 
 # Dependencies are locked till the patch version as an extra
 # precaution against unwanted updates of the 3rd party libraries
@@ -92,7 +92,7 @@ post_install do |installer|
         config.build_settings['ENABLE_BITCODE'] = 'NO'
 
         config.build_settings['TARGETED_DEVICE_FAMILY'] = 1
-        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = 13.0
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = 13.5
     end
   end
 end
