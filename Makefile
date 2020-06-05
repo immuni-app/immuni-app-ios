@@ -41,6 +41,7 @@ setup:
 	brew bundle
 	eval "$$add_pre_commit_script"
 	npm install -g @commitlint/cli @commitlint/config-conventional
+	sed -e "/^[//].*/d" -e "s/export default/module.exports = { rules: /g" -e "s/};/}};/g" -e "/^$$/d" CI/danger/commitlint/rules.ts > commitlint.config.js
 	eval "$$add_commit_msg_script"
 
 ###
