@@ -79,7 +79,7 @@
 "onboarding.communication_advice.title" = "Vorsicht vor gefälschten Mitteilungen";
 "onboarding.complete.title" = "Konfiguration abgeschlossen";
 "onboarding.exposure_permission.action" = "Aktivieren";
-"onboarding.exposure_permission.description" = "Immuni zeichnet Zusammentreffen mit anderen Nutzern über Bluetooth Low Energy auf, sodass Sie bei Ansteckungsgefahr informiert werden können.";
+"onboarding.exposure_permission.description" = "Immuni zeichnet Zusammentreffen mit anderen Nutzern über Bluetooth Low Energy auf, sodass Sie bei Ansteckungsgefahr informiert werden können. Sie können die App über das Hauptmenü vorübergehend deaktivieren.";
 "onboarding.exposure_permission.overlay.hint" = "Tippen Sie auf \"<b>Aktivieren</b>\" in dem Popup-Fenster, das unten angezeigt wird";
 "onboarding.exposure_permission.title" = "So aktivieren Sie COVID-19-Mitteilungen";
 "onboarding.pin_advice.action" = "Alles klar";

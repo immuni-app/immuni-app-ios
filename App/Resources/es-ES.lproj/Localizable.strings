@@ -79,7 +79,7 @@
 "onboarding.communication_advice.title" = "Ten cuidado con los mensajes engañosos";
 "onboarding.complete.title" = "Configuración completada";
 "onboarding.exposure_permission.action" = "Activar";
-"onboarding.exposure_permission.description" = "Immuni registra los contactos con otros usuarios a través de Bluetooth Low Energy para poder informarte en caso de exposición al virus.";
+"onboarding.exposure_permission.description" = "Immuni registra los contactos con otros usuarios a través de Bluetooth Low Energy para poder informarte en caso de exposición al virus. Podrás deshabilitar las notificaciones temporalmente desde la pantalla principal.";
 "onboarding.exposure_permission.overlay.hint" = "Selecciona «<b>Activar</b>» en la ventana emergente que aparecerá a continuación";
 "onboarding.exposure_permission.title" = "Habilita las notificaciones de exposición a la COVID-19";
 "onboarding.pin_advice.action" = "Entendido";

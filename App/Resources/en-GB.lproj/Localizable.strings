@@ -79,7 +79,7 @@
 "onboarding.communication_advice.title" = "Watch out for scam messages";
 "onboarding.complete.title" = "Setup complete";
 "onboarding.exposure_permission.action" = "Enable";
-"onboarding.exposure_permission.description" = "Immuni uses Bluetooth Low Energy to log contact with other users so that it can inform you if you have been exposed to the virus.";
+"onboarding.exposure_permission.description" = "Immuni uses Bluetooth Low Energy to log contact with other users so that it can inform you if you have been exposed to the virus. You can temporarily disable it from the home screen.";
 "onboarding.exposure_permission.overlay.hint" = "Select '<b>Enable</b>' in the pop-up that appears below";
 "onboarding.exposure_permission.title" = "Enable COVID-19 exposure notifications";
 "onboarding.pin_advice.action" = "Got it";
