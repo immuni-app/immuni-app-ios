@@ -16,6 +16,8 @@ struct HomeButtonCellVM: ViewModel {
 class HomeButtonCell: UICollectionViewCell, ModellableView, ReusableView {
   typealias VM = HomeButtonCellVM
 
+  static let iconSize: CGFloat = 27
+
   let button = ButtonWithInsets()
 
   var didTapButton: Interaction?
@@ -55,18 +57,21 @@ class HomeButtonCell: UICollectionViewCell, ModellableView, ReusableView {
   override func layoutSubviews() {
     super.layoutSubviews()
 
-    let labelWidth = self.bounds.width - 2 * HomeView.cellHorizontalInset
-    let buttonSize = self.button.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
-
     self.button.pin
-      .size(buttonSize)
+      .size(self.buttonSize(for: self.bounds.width))
       .hCenter()
       .vCenter()
   }
 
+  func buttonSize(for width: CGFloat) -> CGSize {
+    let labelWidth = width - 2 * HomeView.cellHorizontalInset - HomeButtonCell.iconSize
+    var buttonSize = self.button.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
+    buttonSize.width += HomeButtonCell.iconSize
+    return buttonSize
+  }
+
   override func sizeThatFits(_ size: CGSize) -> CGSize {
-    let labelWidth = size.width - 2 * HomeView.cellHorizontalInset
-    let buttonSize = self.button.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
+    let buttonSize = self.buttonSize(for: size.width)
 
     return CGSize(width: size.width, height: buttonSize.height + 100)
   }
@@ -82,7 +87,7 @@ private extension HomeButtonCell {
         spacing: 8,
         tintColor: Palette.white,
         backgroundColor: Palette.grayDark,
-        insets: UIEdgeInsets(deltaX: 10, deltaY: 8),
+        insets: UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 20),
         cornerRadius: 21,
         shadow: .grayDark
       )
