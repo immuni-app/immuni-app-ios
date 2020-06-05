@@ -45,6 +45,9 @@ class HomeButtonCell: UICollectionViewCell, ModellableView, ReusableView {
     self.contentView.addSubview(self.button)
 
     self.button.on(.touchUpInside) { [weak self] _ in
+      guard self?.model?.isEnabled == true else {
+        return
+      }
       self?.didTapButton?()
     }
   }
