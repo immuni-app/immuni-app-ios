@@ -24,6 +24,10 @@ struct TabbarCellVM: ViewModel, Hashable {
   func hash(into hasher: inout Hasher) {
     hasher.combine(self.tab)
   }
+
+  var accessibilityTraits: UIAccessibilityTraits {
+    return self.isSelected ? .selected : []
+  }
 }
 
 // MARK: - View
@@ -69,6 +73,7 @@ class TabbarCell: UICollectionViewCell, ModellableView {
 
     self.isAccessibilityElement = true
     self.accessibilityLabel = model.tab.title
+    self.accessibilityTraits = model.accessibilityTraits
 
     self.icon.image = model.isSelected ? model.tab.selectedImage : model.tab.deselectedImage
     Self.Style.iconShadow(self.icon, isSelected: model.isSelected)

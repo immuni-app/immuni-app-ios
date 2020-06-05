@@ -189,6 +189,7 @@ final class OnboardingLogicTests: XCTestCase {
     state.environment.pushNotificationAuthorizationStatus = .authorized
     state.toggles.didShowPinAdvice = true
     state.toggles.didShowCommunicationAdvice = true
+    state.configuration = Configuration(isExperimentalPhase: true)
 
     let getState = { state }
     let dispatchInterceptor = DispatchInterceptor()

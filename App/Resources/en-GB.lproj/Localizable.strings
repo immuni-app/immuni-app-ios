@@ -249,3 +249,20 @@
 "welcome_view.items.third.description" = "Users who discover that they have been exposed to the virus can self-isolate, slowing down the spread of the virus and helping us return to normal life faster.";
 "welcome_view.items.third.title" = "Slowing down the epidemic together";
 "welcome_view.next_page_title" = "Next";
+
+"home_view.service.deactivate" = "";
+"onboarding.pilot.action"= "";
+"onboarding.pilot.description"= "";
+"onboarding.pilot.title"= "Progetto ";
+"permission_tutorial.deactivate_service.action.cta" = "";
+"permission_tutorial.deactivate_service.fifth.message" = "";
+"permission_tutorial.deactivate_service.first.message" = "";
+"permission_tutorial.deactivate_service.fourth.message" = "";
+"permission_tutorial.deactivate_service.second.message" = "";
+"permission_tutorial.deactivate_service.sixth.message" = "";
+"permission_tutorial.deactivate_service.third.message" = "";
+"permission_tutorial.deactivate_service.title" = "";
+"suggestions.risk.first.message" = "";
+"suggestions.risk.fourth.message" = "";
+"suggestions.risk.second.message" = "";
+"suggestions.risk.third.message" = "";

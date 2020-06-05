@@ -27,6 +27,7 @@ class HomeView: UIView, ViewControllerModellableView {
   var didTapActivateService: Interaction?
   var didTapInfo: CustomInteraction<HomeVM.InfoKind>?
   var didTapHeaderCardInfo: Interaction?
+  var didTapDeactivateService: Interaction?
 
   // MARK: - Setup
 
@@ -37,6 +38,7 @@ class HomeView: UIView, ViewControllerModellableView {
     self.collection.register(HomeServiceActiveCell.self)
     self.collection.register(HomeInfoHeaderCell.self)
     self.collection.register(HomeInfoCell.self)
+    self.collection.register(HomeDeactivateServiceCell.self)
 
     self.collection.delegate = self
     self.collection.dataSource = self
@@ -174,6 +176,14 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
         self?.didTapInfo?(infoKind)
       }
       return cell
+
+    case .deactivateButton:
+      let cell = collectionView.dequeueReusableCell(HomeDeactivateServiceCell.self, for: indexPath)
+      cell.model = cellModel as? HomeDeactivateServiceCellVM
+      cell.didTapButton = { [weak self] in
+        self?.didTapDeactivateService?()
+      }
+      return cell
     }
   }
 
@@ -195,6 +205,14 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
         return
       }
       self.didTapInfo?(cellModel.kind)
+    case .deactivateButton:
+      guard
+        let cellModel = self.model?.cellModel(for: indexPath) as? HomeDeactivateServiceCellVM,
+        cellModel.isEnabled
+        else {
+          return
+      }
+      self.didTapDeactivateService?()
     }
   }
 }
