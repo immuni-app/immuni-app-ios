@@ -75,8 +75,8 @@ struct PermissionTutorialVM {
     case .imageContent(let image):
       return PermissionTutorialImageCellVM(content: image)
 
-    case .textAndImage(let text, let image):
-      return PermissionTutorialTextAndImageCellVM(textualContent: text, image: image)
+    case .textAndImage(let text, let image, let alignment):
+      return PermissionTutorialTextAndImageCellVM(textualContent: text, image: image, alignment: alignment)
 
     case .spacer(let size):
       return PermissionTutorialSpacerVM(size: size)
@@ -147,7 +147,7 @@ extension PermissionTutorialVM.Content {
     case textualContent(String)
     case animationContent(AnimationAsset)
     case imageContent(UIImage)
-    case textAndImage(String, UIImage)
+    case textAndImage(String, UIImage, PermissionTutorialTextAndImageCellVM.Alignment)
     case spacer(PermissionTutorialSpacerVM.Size)
     case scrollableButton(description: String, buttonTitle: String)
   }
@@ -234,13 +234,17 @@ extension PermissionTutorialVM.Content {
       title: L10n.PermissionTutorial.DeactivateService.title,
       items: [
         .spacer(.big),
-        .textAndImage(L10n.PermissionTutorial.DeactivateService.First.message, Asset.Settings.UploadData.alert.image),
-        .spacer(.small),
+        .textAndImage(
+          L10n.PermissionTutorial.DeactivateService.First.message,
+          Asset.Settings.UploadData.alert.image,
+          .imageBeforeText
+        ),
+        .spacer(.big),
         .textualContent(L10n.PermissionTutorial.DeactivateService.Second.message),
         .spacer(.small),
         .textualContent(L10n.PermissionTutorial.DeactivateService.Third.message),
         .spacer(.big),
-        .imageContent(Asset.HowImmuniWorks.break.image),
+        .imageContent(Asset.Common.separator.image),
         .spacer(.big),
         .title(L10n.PermissionTutorial.DeactivateService.Fourth.message),
         .spacer(.big),
