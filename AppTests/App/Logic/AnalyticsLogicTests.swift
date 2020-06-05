@@ -705,7 +705,10 @@ extension AnalyticsLogicTests {
       let context = AppSideEffectContext(dependencies: dependencies)
 
       try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
-      try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.UpdateDummyTrafficOpportunityWindowIfExpired.self)
+      try XCTAssertContainsType(
+        dispatchInterceptor.dispatchedItems,
+        Logic.Analytics.UpdateDummyTrafficOpportunityWindowIfExpired.self
+      )
     }
   }
 
@@ -824,7 +827,6 @@ extension AnalyticsLogicTests {
 
     let now = { date }
     let requestExecutor = MockRequestExecutor(mockedResult: .failure(NetworkManager.Error.badRequest))
-
 
     let dependencies = AppDependencies.mocked(
       getAppState: getState,
@@ -967,6 +969,7 @@ extension AnalyticsLogicTests {
 }
 
 // MARK: - Analytics Token handling
+
 extension AnalyticsLogicTests {
   func testTokenIsRefreshedIfNil() throws {
     let state = AppState()
@@ -1065,7 +1068,7 @@ extension AnalyticsLogicTests {
   func testTokenRefreshWorksCorrectly() throws {
     let state = AppState()
     let expectedToken = "new_token"
-    let expectedExpiration = Date(timeIntervalSince1970: 1591369121)
+    let expectedExpiration = Date(timeIntervalSince1970: 1_591_369_121)
 
     let getState = { state }
     let dispatchInterceptor = DispatchInterceptor()
@@ -1083,7 +1086,7 @@ extension AnalyticsLogicTests {
     try Logic.Analytics.RefreshAnalyticsToken().sideEffect(context)
 
     try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.SetAnalyticsToken.self) { dispatchable in
-      guard case let .generated(token, expiration) = dispatchable.token else {
+      guard case .generated(let token, let expiration) = dispatchable.token else {
         XCTFail("Wrong token \(dispatchable.token)")
         return
       }
@@ -1102,7 +1105,7 @@ extension AnalyticsLogicTests {
     let state = AppState()
     let deviceToken = "device_token"
     let expectedToken = "new_token"
-    let expectedExpiration = Date(timeIntervalSince1970: 1591369121)
+    let expectedExpiration = Date(timeIntervalSince1970: 1_591_369_121)
 
     let getState = { state }
     let dispatchInterceptor = DispatchInterceptor()
@@ -1121,7 +1124,7 @@ extension AnalyticsLogicTests {
     try Logic.Analytics.ValidateAnalyticsToken(token: expectedToken, expiration: expectedExpiration).sideEffect(context)
 
     try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.SetAnalyticsToken.self) { dispatchable in
-      guard case let .validated(token, expiration) = dispatchable.token else {
+      guard case .validated(let token, let expiration) = dispatchable.token else {
         XCTFail("Wrong token \(dispatchable.token)")
         return
       }
@@ -1138,6 +1141,7 @@ extension AnalyticsLogicTests {
 }
 
 // MARK: - Lifecycle
+
 extension AnalyticsLogicTests {
   func testAnalyticsTokenIsRefreshedOnFirstStart() throws {
     let state = AppState()

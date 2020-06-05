@@ -1,4 +1,4 @@
-// ValidateAnalyticsToken.swift
+// ValidateAnalyticsTokenRequest.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
