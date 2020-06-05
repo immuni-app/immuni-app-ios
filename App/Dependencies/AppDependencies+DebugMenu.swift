@@ -65,6 +65,10 @@
         .init(
           title: "📂 Export log",
           dispatchable: ExportLog()
+        ),
+        .init(
+          title: "🔥 Clear log",
+          dispatchable: ClearLog()
         )
       ]
 
@@ -136,7 +140,7 @@
     }
   }
 
-  /// Exports the LogFile through the Share sheet
+  /// Exports the log file through the Share sheet
   private struct ExportLog: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let logFileUrl = FileLogHandler.logFileUrl
@@ -145,6 +149,20 @@
         let vc = UIActivityViewController(activityItems: [logFileUrl], applicationActivities: [])
         context.dependencies.window.topViewController?.present(vc, animated: true)
       }
+    }
+  }
+
+  /// Clears the log file
+  private struct ClearLog: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      try context
+        .awaitDispatch(
+          Logic.Alert
+            .Show(alertModel: .init(title: "Are you sure?", message: "This will clear the log. Are you sure?", actions: [
+              .init(title: "Cancel", style: .cancel),
+              .init(title: "Yes", style: .destructive, onTap: { FileLogHandler.clear() })
+            ]))
+        )
     }
   }
 
