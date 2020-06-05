@@ -16,23 +16,23 @@ import Alamofire
 import Foundation
 
 #warning("Align with API")
-struct ValidateAnalyticsTokenRequest: JSONRequest {
-  var method: HTTPMethod = .post
+public struct ValidateAnalyticsTokenRequest: JSONRequest {
+  public var method: HTTPMethod = .post
 
   // swiftlint:disable:next force_unwrapping
-  var baseURL = URL(string: "https://example.com")!
-  var path = "/v1/validate-token"
+  public var baseURL = URL(string: "https://example.com")!
+  public var path = "/v1/validate-token"
 
-  var jsonParameter: Body
+  public var jsonParameter: Body
 
-  init(token: String, dcToken: Data) {
+  public init(token: String, dcToken: Data) {
     self.jsonParameter = Body(token: token, dcToken: dcToken.base64EncodedString())
   }
 }
 
-extension ValidateAnalyticsTokenRequest {
+public extension ValidateAnalyticsTokenRequest {
   struct Body: Encodable {
-    let token: String
-    let dcToken: String
+    public let token: String
+    public let dcToken: String
   }
 }

@@ -112,7 +112,7 @@ extension NetworkManager {
 extension NetworkManager {
   /// Sends a request to validate an analytics token with the backend
   public func validateAnalyticsToken(token: String, dcToken: Data) -> Promise<Void> {
-    return self.request(ValidateAnalyticsToken(token: token, dcToken: dcToken)).safeVoid
+    return self.request(ValidateAnalyticsTokenRequest(token: token, dcToken: dcToken)).safeVoid
   }
 
   /// Sends a request to the Analytics server, following a cycle of Exposure Detection.
