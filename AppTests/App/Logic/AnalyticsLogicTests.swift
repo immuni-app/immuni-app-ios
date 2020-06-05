@@ -737,7 +737,7 @@ extension AnalyticsLogicTests {
     }
   }
 
-  func testSetDummyTrafficOpportunityWindow() {
+  func testSetDummyTrafficOpportunityWindow() throws {
     var state = AppState()
     let now = Date()
     let stochasticDelay = 42.0
@@ -745,6 +745,63 @@ extension AnalyticsLogicTests {
     Logic.Analytics.SetDummyTrafficOpportunityWindow(dummyTrafficStochasticDelay: stochasticDelay, now: now).updateState(&state)
     XCTAssertEqual(state.analytics.dummyTrafficOpportunityWindow.windowStart, now.addingTimeInterval(stochasticDelay))
     XCTAssertEqual(state.analytics.dummyTrafficOpportunityWindow.windowDuration, 24 * 60 * 60)
+  }
+
+  func testDummyOpportunityWindowUpdatedIfWithExposureTriggered() throws {
+    let state = AppState()
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: getState, dispatch: dispatchInterceptor.dispatchFunction)
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    let outcome = ExposureDetectionOutcome.fullDetection(Date(), ExposureDetectionSummary.noMatch, [], 0, 0)
+
+    try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
+
+    try XCTAssertContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.Analytics.UpdateDummyTrafficOpportunityWindowIfCurrent.self
+    )
+  }
+
+  func testDummyOpportunityWindowUpdatedIfWithoutExposureTriggered() throws {
+    let now = Date()
+    var state = AppState()
+    state.analytics.eventWithoutExposureWindow = .init(windowStart: now.addingTimeInterval(-1), windowDuration: 2)
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: getState, dispatch: dispatchInterceptor.dispatchFunction, now: { now })
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    let outcome = ExposureDetectionOutcome.partialDetection(now, .noMatch, 0, 0)
+
+    try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
+
+    try XCTAssertContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.Analytics.UpdateDummyTrafficOpportunityWindowIfCurrent.self
+    )
+  }
+
+  func testDummyOpportunityWindowUpdatedIfDummyRequestSent() throws {
+    let now = Date()
+    var state = AppState()
+    state.analytics.dummyTrafficOpportunityWindow = .init(windowStart: now.addingTimeInterval(-1), windowDuration: 2)
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: getState, dispatch: dispatchInterceptor.dispatchFunction, now: { now })
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    let outcome = ExposureDetectionOutcome.noDetectionNecessary
+
+    try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
+
+    try XCTAssertContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.Analytics.UpdateDummyTrafficOpportunityWindow.self
+    )
   }
 }
 
@@ -773,8 +830,7 @@ extension AnalyticsLogicTests {
       getAppState: getState,
       dispatch: dispatchInterceptor.dispatchFunction,
       requestExecutor: requestExecutor,
-      now: now,
-      uniformDistributionGenerator: DeterministicGenerator.self
+      now: now
     )
 
     let context = AppSideEffectContext(dependencies: dependencies)
@@ -828,8 +884,7 @@ extension AnalyticsLogicTests {
       getAppState: getState,
       dispatch: dispatchInterceptor.dispatchFunction,
       requestExecutor: requestExecutor,
-      now: now,
-      uniformDistributionGenerator: DeterministicGenerator.self
+      now: now
     )
 
     let context = AppSideEffectContext(dependencies: dependencies)
@@ -869,8 +924,7 @@ extension AnalyticsLogicTests {
     let dependencies = AppDependencies.mocked(
       getAppState: getState,
       dispatch: dispatchInterceptor.dispatchFunction,
-      requestExecutor: requestExecutor,
-      uniformDistributionGenerator: DeterministicGenerator.self
+      requestExecutor: requestExecutor
     )
 
     let context = AppSideEffectContext(dependencies: dependencies)
@@ -882,6 +936,262 @@ extension AnalyticsLogicTests {
     try XCTAssertType(requestExecutor.executeMethodCalls.first, AnalyticsRequest.self) { request in
       XCTAssertEqual(request.isDummy, true)
     }
+  }
+
+  func testNoRequestSentIfNoToken() throws {
+    var state = AppState()
+    state.user.province = .alessandria
+    state.analytics.token = nil
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+
+    let requestExecutor = MockRequestExecutor(mockedResult: .failure(NetworkManager.Error.badRequest))
+
+    let dependencies = AppDependencies.mocked(
+      getAppState: getState,
+      dispatch: dispatchInterceptor.dispatchFunction,
+      requestExecutor: requestExecutor
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    let requestKinds: [Logic.Analytics.SendRequest.Kind] = [.dummy, .withExposure, .withoutExposure]
+
+    for requestKind in requestKinds {
+      try Logic.Analytics.SendRequest(kind: requestKind).sideEffect(context)
+    }
+
+    XCTAssertEqual(requestExecutor.executeMethodCalls.count, 0)
+  }
+}
+
+// MARK: - Analytics Token handling
+extension AnalyticsLogicTests {
+  func testTokenIsRefreshedIfNil() throws {
+    let state = AppState()
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+
+    let dependencies = AppDependencies.mocked(
+      getAppState: getState,
+      dispatch: dispatchInterceptor.dispatchFunction
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Analytics.RefreshAnalyticsTokenIfExpired().sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.RefreshAnalyticsToken.self)
+  }
+
+  func testTokenIsRefreshedIfExpiredAndNotValidated() throws {
+    var state = AppState()
+    state.analytics.token = .generated(token: "token", expiration: .distantPast)
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+
+    let dependencies = AppDependencies.mocked(
+      getAppState: getState,
+      dispatch: dispatchInterceptor.dispatchFunction
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Analytics.RefreshAnalyticsTokenIfExpired().sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.RefreshAnalyticsToken.self)
+  }
+
+  func testTokenIsRefreshedIfExpiredAndValidated() throws {
+    var state = AppState()
+    state.analytics.token = .validated(token: "token", expiration: .distantPast)
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+
+    let dependencies = AppDependencies.mocked(
+      getAppState: getState,
+      dispatch: dispatchInterceptor.dispatchFunction
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Analytics.RefreshAnalyticsTokenIfExpired().sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.RefreshAnalyticsToken.self)
+  }
+
+  func testTokenIsValidatedIfNotExpired() throws {
+    var state = AppState()
+    state.analytics.token = .generated(token: "token", expiration: .distantFuture)
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+
+    let dependencies = AppDependencies.mocked(
+      getAppState: getState,
+      dispatch: dispatchInterceptor.dispatchFunction
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Analytics.RefreshAnalyticsTokenIfExpired().sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.ValidateAnalyticsToken.self)
+  }
+
+  func testTokenKeptIfStillValid() throws {
+    var state = AppState()
+    state.analytics.token = .validated(token: "token", expiration: .distantFuture)
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+
+    let dependencies = AppDependencies.mocked(
+      getAppState: getState,
+      dispatch: dispatchInterceptor.dispatchFunction
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Analytics.RefreshAnalyticsTokenIfExpired().sideEffect(context)
+
+    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 0)
+  }
+
+  func testTokenRefreshWorksCorrectly() throws {
+    let state = AppState()
+    let expectedToken = "new_token"
+    let expectedExpiration = Date(timeIntervalSince1970: 1591369121)
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+
+    let analyticsTokenGenerator = MockAnalyticsTokenGenerator(token: expectedToken, expirationDate: expectedExpiration)
+
+    let dependencies = AppDependencies.mocked(
+      getAppState: getState,
+      dispatch: dispatchInterceptor.dispatchFunction,
+      analyticsTokenGenerator: analyticsTokenGenerator
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Analytics.RefreshAnalyticsToken().sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.SetAnalyticsToken.self) { dispatchable in
+      guard case let .generated(token, expiration) = dispatchable.token else {
+        XCTFail("Wrong token \(dispatchable.token)")
+        return
+      }
+
+      XCTAssertEqual(token, expectedToken)
+      XCTAssertEqual(expiration, expectedExpiration)
+    }
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.ValidateAnalyticsToken.self) { dispatchable in
+      XCTAssertEqual(dispatchable.token, expectedToken)
+      XCTAssertEqual(dispatchable.expiration, expectedExpiration)
+    }
+  }
+
+  func testTokenValidationWorksCorrectly() throws {
+    let state = AppState()
+    let deviceToken = "device_token"
+    let expectedToken = "new_token"
+    let expectedExpiration = Date(timeIntervalSince1970: 1591369121)
+
+    let getState = { state }
+    let dispatchInterceptor = DispatchInterceptor()
+
+    let requestExecutor = MockRequestExecutor(mockedResult: .success(Data()))
+
+    let dependencies = AppDependencies.mocked(
+      getAppState: getState,
+      dispatch: dispatchInterceptor.dispatchFunction,
+      requestExecutor: requestExecutor,
+      deviceTokenGenerator: MockDeviceTokenGenerator(result: .success(deviceToken))
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Analytics.ValidateAnalyticsToken(token: expectedToken, expiration: expectedExpiration).sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.SetAnalyticsToken.self) { dispatchable in
+      guard case let .validated(token, expiration) = dispatchable.token else {
+        XCTFail("Wrong token \(dispatchable.token)")
+        return
+      }
+
+      XCTAssertEqual(token, expectedToken)
+      XCTAssertEqual(expiration, expectedExpiration)
+    }
+
+    let request = try XCTUnwrap(requestExecutor.executeMethodCalls.first as? ValidateAnalyticsTokenRequest)
+
+    XCTAssertEqual(request.jsonParameter.token, expectedToken)
+    XCTAssertEqual(request.jsonParameter.dcToken, deviceToken.data(using: .utf8)!.base64EncodedString())
+  }
+}
+
+// MARK: - Lifecycle
+extension AnalyticsLogicTests {
+  func testAnalyticsTokenIsRefreshedOnFirstStart() throws {
+    let state = AppState()
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: { state }, dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.OnStart().sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.RefreshAnalyticsTokenIfExpired.self)
+  }
+
+  func testAnalyticsTokenIsRefreshedOnFollowingStarts() throws {
+    var state = AppState()
+    state.toggles.isFirstLaunchSetupPerformed = true
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: { state }, dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.OnStart().sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.RefreshAnalyticsTokenIfExpired.self)
+  }
+
+  func testAnalyticsTokenIsRefreshedOnForeground() throws {
+    var state = AppState()
+    state.toggles.isFirstLaunchSetupPerformed = true
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: { state }, dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.WillEnterForeground().sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.RefreshAnalyticsTokenIfExpired.self)
+  }
+
+  func testAnalyticsTokenIsRefreshedOnBackground() throws {
+    var state = AppState()
+    state.toggles.isFirstLaunchSetupPerformed = true
+
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(getAppState: { state }, dispatch: dispatchInterceptor.dispatchFunction)
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.HandleExposureDetectionBackgroundTask(task: MockBackgroundTask()).sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.RefreshAnalyticsTokenIfExpired.self)
   }
 }
 
