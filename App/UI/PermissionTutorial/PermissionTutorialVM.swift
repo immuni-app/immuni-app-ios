@@ -252,7 +252,7 @@ extension PermissionTutorialVM.Content {
         .spacer(.medium),
         .textualContent(L10n.PermissionTutorial.DeactivateService.Sixth.message),
         .spacer(.small),
-        .imageContent(Asset.PermissionTutorial.covid19ExpositionLog.image)
+        .imageContent(Asset.PermissionTutorial.covid19ExpositionDisabled.image)
       ],
       mainActionTitle: L10n.PermissionTutorial.DeactivateService.Action.cta,
       action: Logic.Shared.OpenSettings()
