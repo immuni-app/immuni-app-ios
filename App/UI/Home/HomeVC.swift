@@ -43,7 +43,7 @@ class HomeVC: ViewController<HomeView> {
     }
 
     self.rootView.didTapDeactivateService = { [weak self] in
-      #warning("handle interaction")
+      self?.dispatch(Logic.Home.ShowDeactivateService())
     }
   }
 
