@@ -39,7 +39,7 @@
 "home_view.header_card.positive.title" = "Segui le indicazioni che ti hanno fornito il tuo medico o la tua ASL";
 "home_view.header_card.risk.button" = "Scopri subito cosa fare ›";
 "home_view.header_card.risk.title" = "Rilevata esposizione a rischio con una persona COVID-19 positiva";
-"home_view.info.app.title" = "Come funziona l'app";
+"home_view.info.app.title" = "Come funziona l’app";
 "home_view.info.button.title" = "Scopri di più";
 "home_view.info.protection.title" = "Cosa puoi fare per proteggerti";
 "home_view.info_header.title" = "Informazioni";
@@ -126,7 +126,7 @@
 "permission_tutorial.how_immuni_works.second.title" = "<h>I telefoni che si incontrano si scambiano i rispettivi codici casuali</h>";
 "permission_tutorial.how_immuni_works.third.message" = "Gli utenti che sono risultati positivi al virus possono caricare su un server i codici casuali che i loro dispositivi hanno trasmesso nei giorni precedenti, in modo da renderli disponibili agli altri utenti.";
 "permission_tutorial.how_immuni_works.third.title" = "<h>Chi risulta positivo sceglie se condividere i propri codici casuali</h>";
-"permission_tutorial.how_immuni_works.title" = "Come funziona l'app";
+"permission_tutorial.how_immuni_works.title" = "Come funziona l’app";
 "permission_tutorial.notifications.action" = "Apri Impostazioni";
 "permission_tutorial.notifications.first" = "<b>1. Apri le impostazioni</b> dal bottone in basso";
 "permission_tutorial.notifications.second" = "<b>2. Entra in \"Notifiche\"</b>";
