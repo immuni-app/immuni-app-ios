@@ -187,6 +187,30 @@ final class ExposureDetectionLogicTests: XCTestCase {
     }
   }
 
+  func testSendToAnalyticsServerIfNecessaryIsBeingCalled() throws {
+    let outcome: ExposureDetectionOutcome = .fullDetection(Date(), .noMatch, [], 0, 5)
+    let state = AppState()
+    let getState = { state }
+    let exposureDetectionExecutor = MockExposureDetectionExecutor(outcome: outcome)
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(
+      getAppState: getState,
+      dispatch: dispatchInterceptor.dispatchFunction,
+      exposureDetectionExecutor: exposureDetectionExecutor
+    )
+
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground).sideEffect(context)
+
+    try XCTAssertContainsType(
+      dispatchInterceptor.dispatchedItems,
+      Logic.Analytics.SendOperationalInfoIfNeeded.self
+    ) { dispatchable in
+      XCTAssertEqual(dispatchable.outcome.rawCase, outcome.rawCase)
+    }
+  }
+
   func testUpdateUserStatusIfNecessaryIsBeingCalled() throws {
     let outcome: ExposureDetectionOutcome = .fullDetection(Date(), .noMatch, [], 0, 5)
     let state = AppState()
