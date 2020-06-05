@@ -239,7 +239,7 @@ private struct SwitchLogHandler: LogHandler {
 
   fileprivate init(label: String) {
     self.label = label
-    self.productionLogHandler = StreamLogHandler.standardOutput(label: self.label)
+    self.productionLogHandler = MultiplexLogHandler([FileLogHandler(), StreamLogHandler.standardOutput(label: self.label)])
   }
 
   func log(
@@ -296,4 +296,16 @@ private struct SwitchLogHandler: LogHandler {
 /// Leverages `Log` to log events for the lib
 public enum LibLogger: LoggerProvider {
   public static var logger: Logger { Log.logger(for: "lib.extensions", logLevel: .debug) }
+}
+
+// MARK: - Default Conformance
+
+extension LogHandler {
+  public var metadata: Logger.Metadata { .init() }
+  public var logLevel: Logger.Level { .debug }
+
+  public subscript(metadataKey _: String) -> Logger.Metadata.Value? {
+    get { return nil }
+    set(newValue) {}
+  }
 }

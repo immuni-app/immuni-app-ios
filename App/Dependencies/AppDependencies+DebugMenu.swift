@@ -61,6 +61,10 @@
         .init(
           title: "🔔 \(isDebugNotificationToggled ? "Disable" : "Enable") Debug Notifications",
           dispatchable: ToggleDebugNotification()
+        ),
+        .init(
+          title: "📂 Export log",
+          dispatchable: ExportLog()
         )
       ]
 
@@ -129,6 +133,18 @@
       ])
 
       return items
+    }
+  }
+
+  /// Exports the LogFile through the Share sheet
+  private struct ExportLog: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      let logFileUrl = FileLogHandler.logFileUrl
+
+      mainThread {
+        let vc = UIActivityViewController(activityItems: [logFileUrl], applicationActivities: [])
+        context.dependencies.window.topViewController?.present(vc, animated: true)
+      }
     }
   }
 
