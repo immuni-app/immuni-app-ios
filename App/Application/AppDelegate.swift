@@ -51,12 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, RootInstaller {
     // swiftlint:disable:next discouraged_optional_collection
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
-    // set log level
-    #if DEBUG
-      Log.isProduction = false
-    #else
-      Log.isProduction = true
-    #endif
+    Log.isProduction = true
 
     let window = UIWindow(frame: UIScreen.main.bounds)
     self.window = window
