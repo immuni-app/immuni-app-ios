@@ -199,27 +199,6 @@ extension Logic.Analytics {
       try context.awaitDispatch(SetEventWithoutExposureOpportunityWindow(window: opportunityWindow))
     }
   }
-
-  /// Updates the analytics token if missing or expired
-  struct UpdateAnalyticsTokenIfNeeded: AppSideEffect {
-    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      let state = context.getState()
-
-      switch state.analytics.token {
-      case .none:
-        // Token must be regenerated
-        try context.awaitDispatch(RegenerateAnalyticsToken())
-      case .generated(_, let expiration) where expiration < context.dependencies.now(),
-           .validated(_, let expiration) where expiration < context.dependencies.now():
-        try context.awaitDispatch(RegenerateAnalyticsToken())
-      case .generated(let token, let expiration):
-        try context.awaitDispatch(ValidateAnalyticsToken(token: token, expiration: expiration))
-      case .validated:
-        // Token is valid and not expired
-        return
-      }
-    }
-  }
 }
 
 // MARK: Dummy traffic
@@ -277,19 +256,29 @@ extension Logic.Analytics {
 // MARK: - Token management
 
 extension Logic.Analytics {
-  struct RegenerateAnalyticsTokenIfExpired: AppSideEffect {
+  struct RefreshAnalyticsTokenIfExpired: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let state = context.getState()
-      if let token = state.analytics.token, !token.isExpired(now: context.dependencies.now()) {
-        // Token is defined and not expired. Nothing to do.
-        return
-      }
+      let now = context.dependencies.now()
 
-      try context.awaitDispatch(RegenerateAnalyticsToken())
+      switch state.analytics.token {
+      case .none:
+        // No token
+        try context.awaitDispatch(RefreshAnalyticsToken())
+      case .validated(_, let expiration) where expiration > now:
+        // Token not expired and validated
+        return
+      case .generated(let tokenString, let expiration) where expiration > now:
+        // Token not expired but not validated
+        try context.awaitDispatch(ValidateAnalyticsToken(token: tokenString, expiration: expiration))
+      case .generated, .validated:
+        // Token expired
+        try context.awaitDispatch(RefreshAnalyticsToken())
+      }
     }
   }
 
-  struct RegenerateAnalyticsToken: AppSideEffect {
+  struct RefreshAnalyticsToken: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       #warning("Ensure length is appropriate")
       let token = context.dependencies.analyticsTokenGenerator.generateToken(length: 168)
