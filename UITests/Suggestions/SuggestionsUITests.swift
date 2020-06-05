@@ -26,42 +26,48 @@ class SuggestionsUITests: AppViewTestCase, ViewTestCase {
   var neutralVM: SuggestionsVM {
     return SuggestionsVM(
       covidStatus: .neutral,
-      isHeaderVisible: false
+      isHeaderVisible: false,
+      privacyNoticeURL: nil
     )
   }
 
   var neutralWithHeaderVM: SuggestionsVM {
     return SuggestionsVM(
       covidStatus: .neutral,
-      isHeaderVisible: true
+      isHeaderVisible: true,
+      privacyNoticeURL: nil
     )
   }
 
   var riskVM: SuggestionsVM {
     return SuggestionsVM(
       covidStatus: .risk(lastContact: self.mockedLastContact),
-      isHeaderVisible: false
+      isHeaderVisible: false,
+      privacyNoticeURL: nil
     )
   }
 
   var riskWithHeaderVM: SuggestionsVM {
     return SuggestionsVM(
       covidStatus: .risk(lastContact: self.mockedLastContact),
-      isHeaderVisible: true
+      isHeaderVisible: true,
+      privacyNoticeURL: nil
     )
   }
 
   var positiveVM: SuggestionsVM {
     return SuggestionsVM(
       covidStatus: .positive(lastUpload: self.mockedLastContact),
-      isHeaderVisible: false
+      isHeaderVisible: false,
+      privacyNoticeURL: nil
     )
   }
 
   var positiveWithHeaderVM: SuggestionsVM {
     return SuggestionsVM(
       covidStatus: .positive(lastUpload: self.mockedLastContact),
-      isHeaderVisible: true
+      isHeaderVisible: true,
+      privacyNoticeURL: nil
     )
   }
 

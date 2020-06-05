@@ -25,7 +25,8 @@ class HomeUITests: AppViewTestCase, ViewTestCase {
       .serviceActiveCard(isServiceActive: true),
       .infoHeader,
       .info(kind: .protection),
-      .info(kind: .app)
+      .info(kind: .app),
+      .deactivateButton(isEnabled: true)
     ])
   }
 
@@ -34,7 +35,8 @@ class HomeUITests: AppViewTestCase, ViewTestCase {
       .serviceActiveCard(isServiceActive: false),
       .infoHeader,
       .info(kind: .protection),
-      .info(kind: .app)
+      .info(kind: .app),
+      .deactivateButton(isEnabled: false)
     ])
   }
 
@@ -44,7 +46,8 @@ class HomeUITests: AppViewTestCase, ViewTestCase {
       .serviceActiveCard(isServiceActive: true),
       .infoHeader,
       .info(kind: .protection),
-      .info(kind: .app)
+      .info(kind: .app),
+      .deactivateButton(isEnabled: true)
     ])
   }
 
@@ -54,7 +57,8 @@ class HomeUITests: AppViewTestCase, ViewTestCase {
       .serviceActiveCard(isServiceActive: false),
       .infoHeader,
       .info(kind: .protection),
-      .info(kind: .app)
+      .info(kind: .app),
+      .deactivateButton(isEnabled: false)
     ])
   }
 
