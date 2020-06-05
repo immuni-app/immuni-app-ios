@@ -84,7 +84,7 @@ class SuggestionsView: UIView, ViewControllerModellableView {
 
     if model.shouldUpdateHeader(oldModel: oldModel) {
       UIView.update(shouldAnimate: oldModel != nil) {
-        self.headerView.alpha = model.isHeaderVisible.cgFloat
+        self.headerContainer.alpha = model.isHeaderVisible.cgFloat
       }
     }
 
@@ -148,12 +148,16 @@ private extension SuggestionsView {
     }
 
     static func headerContainer(_ view: UIView) {
+      view.backgroundColor = Palette.purple
       view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
       view.layer.cornerRadius = SharedStyle.cardCornerRadius
       view.clipsToBounds = true
     }
 
-    static func header(_ view: GradientView, gradient: Gradient) {
+    static func header(_ view: GradientView, gradient: Gradient?) {
+      guard let gradient = gradient else {
+        return
+      }
       view.gradient = gradient
     }
 
