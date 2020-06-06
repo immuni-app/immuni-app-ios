@@ -61,7 +61,7 @@ extension ENManager: ExposureNotificationProvider {
 
   public func getDiagnosisKeys() -> Promise<[TemporaryExposureKey]> {
     return Promise {
-      #if canImport(DebugMenu)
+      #if DEBUG
         // this method requires special entitlements that cannot be shipped on the App Store.
         // However, it is useful for debugging purposes.
         self.getTestDiagnosisKeys(completionHandler: $0)
