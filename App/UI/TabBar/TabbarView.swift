@@ -126,6 +126,7 @@ class TabbarView: UIView, ViewControllerModellableView {
     self.addSubview(self.collection)
 
     self.shadow.isUserInteractionEnabled = false
+    self.collection.accessibilityTraits = .tabBar
   }
 
   // MARK: - Style

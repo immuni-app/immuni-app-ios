@@ -153,6 +153,17 @@ extension TextStyles {
     return style
   }
 
+  static var pBold: StringStyle {
+    let font = UIFont.euclidCircularBBold(size: 16)
+    let style = StringStyle(
+      .font(font),
+      .lineBreakMode(.byTruncatingTail),
+      .adapt(.control)
+    )
+
+    return style
+  }
+
   static var pLink: StringStyle {
     let font = UIFont.euclidCircularBBold(size: 16)
     let style = StringStyle(

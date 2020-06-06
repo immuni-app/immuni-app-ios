@@ -20,8 +20,14 @@ import PinLayout
 import Tempura
 
 struct PermissionTutorialTextAndImageCellVM: ViewModel {
+  enum Alignment {
+    case textOverImage
+    case imageBeforeText
+  }
+
   let textualContent: String
   let image: UIImage
+  let alignment: Alignment
 
   func shouldInvalidateLayout(oldVM: Self?) -> Bool {
     guard let oldVM = oldVM else {
@@ -44,6 +50,7 @@ final class PermissionTutorialTextAndImageCell: UICollectionViewCell, Modellable
   private static let textHorizontalPadding: CGFloat = 30.0
   private static let imageLeftPadding: CGFloat = 47.0
   private static let textImageSpacing: CGFloat = 30.0
+  private static let imageToTextPadding: CGFloat = 15.0
 
   private var textContent = UILabel()
   private var imageContent = UIImageView()
@@ -83,25 +90,58 @@ final class PermissionTutorialTextAndImageCell: UICollectionViewCell, Modellable
   override func layoutSubviews() {
     super.layoutSubviews()
 
-    self.textContent.pin
-      .right(Self.textHorizontalPadding)
-      .left(Self.textHorizontalPadding)
-      .sizeToFit(.width)
+    let alignment = self.model?.alignment ?? .textOverImage
 
-    self.imageContent.pin
-      .below(of: self.textContent)
-      .left(Self.imageLeftPadding)
-      .marginTop(Self.textImageSpacing)
-      .sizeToFit()
+    switch alignment {
+    case .textOverImage:
+      self.textContent.pin
+        .right(Self.textHorizontalPadding)
+        .left(Self.textHorizontalPadding)
+        .sizeToFit(.width)
+
+      self.imageContent.pin
+        .below(of: self.textContent)
+        .left(Self.imageLeftPadding)
+        .marginTop(Self.textImageSpacing)
+        .sizeToFit()
+
+    case .imageBeforeText:
+      self.imageContent.pin
+        .left(Self.textHorizontalPadding)
+        .vCenter()
+        .sizeToFit()
+
+      self.textContent.pin
+        .right(Self.textHorizontalPadding)
+        .after(of: self.imageContent)
+        .marginLeft(Self.imageToTextPadding)
+        .sizeToFit(.width)
+        .vCenter()
+    }
   }
 
   override func sizeThatFits(_ size: CGSize) -> CGSize {
     let imageSize = self.imageContent.image?.size ?? .zero
 
-    let labelSpace = CGSize(width: size.width - Self.textHorizontalPadding * 2, height: .infinity)
-    let labelSize = self.textContent.sizeThatFits(labelSpace)
+    let alignment = self.model?.alignment ?? .textOverImage
 
-    return CGSize(width: size.width, height: labelSize.height + Self.textImageSpacing + imageSize.height)
+    switch alignment {
+    case .textOverImage:
+
+      let labelSpace = CGSize(width: size.width - Self.textHorizontalPadding * 2, height: .infinity)
+      let labelSize = self.textContent.sizeThatFits(labelSpace)
+
+      return CGSize(width: size.width, height: labelSize.height + Self.textImageSpacing + imageSize.height)
+
+    case .imageBeforeText:
+      let labelSpace = CGSize(
+        width: size.width - 2 * Self.textHorizontalPadding - imageSize.width - Self.imageToTextPadding,
+        height: .infinity
+      )
+      let labelSize = self.textContent.sizeThatFits(labelSpace)
+
+      return CGSize(width: size.width, height: max(labelSize.height, imageSize.height))
+    }
   }
 }
 

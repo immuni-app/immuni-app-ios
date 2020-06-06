@@ -84,11 +84,17 @@ final class PermissionTutorialTextCell: UICollectionViewCell, ModellableView, Re
 extension PermissionTutorialTextCell {
   enum Style {
     static func content(_ label: UILabel, content: String) {
+      let redStyle = TextStyles.pBold.byAdding([
+        .color(Palette.red)
+      ])
+
       let textStyle = TextStyles.p.byAdding(
         .color(Palette.grayDark),
         .xmlRules([
           .style("b", TextStyles.pSemibold),
-          .style("h", TextStyles.h4Bold)
+          .style("h", TextStyles.h4Bold),
+          .style("h3", TextStyles.h3),
+          .style("red", redStyle)
         ])
       )
 

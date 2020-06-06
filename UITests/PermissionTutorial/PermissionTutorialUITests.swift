@@ -44,6 +44,11 @@ class PermissionTutorialUITests: AppViewTestCase, ViewTestCase {
           isHeaderVisible: false,
           shouldAnimateContent: false
         ),
+        "permission_tutorial_deactivate_service": PermissionTutorialVM(
+          content: .deactivateServiceInstructions,
+          isHeaderVisible: false,
+          shouldAnimateContent: false
+        ),
         "permission_tutorial_update_os": PermissionTutorialVM(
           content: .updateOperatingSystem,
           isHeaderVisible: false,
@@ -97,6 +102,11 @@ class PermissionTutorialUITests: AppViewTestCase, ViewTestCase {
         ),
         "permission_tutorial_exposure_notification_restricted_scrolled": PermissionTutorialVM(
           content: .exposureNotificationRestrictedInstructions,
+          isHeaderVisible: true,
+          shouldAnimateContent: false
+        ),
+        "permission_tutorial_deactivate_service_scrolled": PermissionTutorialVM(
+          content: .deactivateServiceInstructions,
           isHeaderVisible: true,
           shouldAnimateContent: false
         ),

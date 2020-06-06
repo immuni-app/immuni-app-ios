@@ -1,0 +1,41 @@
+{
+  "images" : [
+    {
+      "filename" : "covid19-exposition-disabled.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "filename" : "covid19-exposition-disabled-3.pdf",
+      "idiom" : "universal",
+      "locale" : "de"
+    },
+    {
+      "filename" : "covid19-exposition-disabled-2.pdf",
+      "idiom" : "universal",
+      "locale" : "en-GB"
+    },
+    {
+      "filename" : "covid19-exposition-disabled-4.pdf",
+      "idiom" : "universal",
+      "locale" : "es-ES"
+    },
+    {
+      "filename" : "covid19-exposition-disabled-5.pdf",
+      "idiom" : "universal",
+      "locale" : "fr"
+    },
+    {
+      "filename" : "covid19-exposition-disabled-1.pdf",
+      "idiom" : "universal",
+      "locale" : "it"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "localizable" : true,
+    "preserves-vector-representation" : true
+  }
+}

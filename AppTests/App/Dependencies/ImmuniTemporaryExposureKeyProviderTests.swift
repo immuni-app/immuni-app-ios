@@ -103,6 +103,23 @@ final class ImmuniTemporaryExposureKeyProviderTests: XCTestCase {
 
     XCTAssertEqual(chunks.count, 0)
   }
+
+  func testReturnsCorrectValuesIfOnlyOneChunk() throws {
+    let chunk = 8
+    let mockedExecutor = MockRequestExecutor(mockedResult: .success(KeysIndex(oldest: chunk, newest: chunk)))
+    let networkManager = NetworkManager()
+    networkManager.start(with: .init(requestExecutor: mockedExecutor, now: { Date() }))
+
+    let keyProvider = ImmuniTemporaryExposureKeyProvider(networkManager: networkManager, fileStorage: MockFileStorage())
+
+    let promise = keyProvider.getMissingChunksIndexes(latestKnownChunkIndex: nil)
+
+    expectToEventually(promise.isPending == false)
+
+    let chunks = try XCTUnwrap(promise.result)
+
+    XCTAssertEqual(chunks, [chunk])
+  }
 }
 
 private struct MockFileStorage: FileStorage {
