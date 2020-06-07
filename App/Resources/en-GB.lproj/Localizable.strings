@@ -223,10 +223,10 @@
 "upload_data.missing_authorization.enable" = "Enable";
 "upload_data.missing_authorization.message" = "Exposure notifications are required for this process. Please re-enable them now to continue.";
 "upload_data.missing_authorization.title" = "Re-enable exposure notifications to continue";
-"upload_data.send_data.loading" = "Uploading\ndata...";
+"upload_data.send_data.loading" = "Uploading\ndata…";
 "upload_data.verify.button" = "Check";
 "upload_data.verify.error" = "Code not authorised yet";
-"upload_data.verify.loading" = "Checking\nauthorisation...";
+"upload_data.verify.loading" = "Checking\nauthorisation…";
 "upload_data.verify.loading_button" = "Wait %d %@";
 "upload_data.verify.loading_button.minutes" = "minutes";
 "upload_data.verify.loading_button.second" = "second";

@@ -223,10 +223,10 @@
 "upload_data.missing_authorization.enable" = "Aktivieren";
 "upload_data.missing_authorization.message" = "Für diesen Vorgang sind Kontaktmitteilungen notwendig. Aktivieren Sie sie jetzt erneut, um fortzufahren.";
 "upload_data.missing_authorization.title" = "Aktivieren Sie die Kontaktmitteilungen";
-"upload_data.send_data.loading" = "Daten werden\ngeladen ...";
+"upload_data.send_data.loading" = "Daten werden\ngeladen …";
 "upload_data.verify.button" = "Überprüfen";
 "upload_data.verify.error" = "Der Code wurde noch nicht autorisiert";
-"upload_data.verify.loading" = "Autorisierung wird\nüberprüft ...";
+"upload_data.verify.loading" = "Autorisierung wird\nüberprüft …";
 "upload_data.verify.loading_button" = "%d %@ warten";
 "upload_data.verify.loading_button.minutes" = "Minuten";
 "upload_data.verify.loading_button.second" = "Sekunde";
