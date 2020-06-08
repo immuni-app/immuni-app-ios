@@ -23,7 +23,7 @@ struct CustomerSupportVM: ViewModelWithLocalState {
     case button(String, String)
     case separator
     case spacer(ContentCollectionSpacerVM.Size)
-    case contact
+    case contact(CustomerSupportContactCellVM.Kind)
   }
 
   /// The array of cells in the collection.
@@ -59,8 +59,8 @@ struct CustomerSupportVM: ViewModelWithLocalState {
       return ContentCollectionImageCellVM(content: Asset.Common.separator.image)
     case .spacer(let size):
       return ContentCollectionSpacerVM(size: size)
-    case .contact:
-      return nil
+    case .contact(let kind):
+      return CustomerSupportContactCellVM(kind: kind)
     }
   }
 }
@@ -76,9 +76,9 @@ extension CustomerSupportVM {
     .spacer(.big),
     .textualContent(L10n.Support.contactSupport),
     .spacer(.small),
-    .contact,
+    .contact(.phone),
     .spacer(.tiny),
-    .contact
+    .contact(.email)
   ]
 
   init?(state: AppState?, localState: CustomerSupportLS) {
@@ -111,6 +111,7 @@ class CustomerSupportView: UIView, ViewControllerModellableView {
     collection.register(ContentCollectionImageCell.self)
     collection.register(ContentCollectionSpacer.self)
     collection.register(ContentCollectionButtonCell.self)
+    collection.register(CustomerSupportContactCell.self)
 
     return collection
   }()
@@ -242,8 +243,7 @@ extension CustomerSupportView: UICollectionViewDataSource {
     case .spacer:
       return self.dequeue(ContentCollectionSpacer.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
     case .contact:
-      #warning("handle")
-      return self.dequeue(ContentCollectionTextCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
+      return self.dequeue(CustomerSupportContactCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
     }
   }
 
