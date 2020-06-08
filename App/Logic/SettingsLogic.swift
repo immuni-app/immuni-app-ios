@@ -40,28 +40,22 @@ extension Logic.Settings {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let state = context.getState()
 
-      let userLanguage = state.environment.userLanguage
-      let hasLocalFAQs = state.faq.faqs(for: userLanguage) != nil
+      let hasLocalFAQs = state.faq.faqs(for: state.environment.userLanguage) != nil
+      guard !hasLocalFAQs else {
+        // There are cached FAQs for the user's language.
+        try context.awaitDispatch(Show(Screen.faq, animated: true))
+        return
+      }
 
-      #warning("Check copy")
-       try context.awaitDispatch(Logic.Loading.Show(message: L10n.Settings.Setting.loadData))
-
+      try context.awaitDispatch(Logic.Loading.Show())
       do {
-        if hasLocalFAQs {
-          // Perform a best-effort fetch of the updated FAQs (that is, wait 5 seconds and proceed with old data)
-          #warning("Check timeout duration")
-          try? await(context.dispatch(Logic.Configuration.PerformFAQFetch()).timeout(timeout: 5))
-        } else {
-          try context.awaitDispatch(Logic.Configuration.PerformFAQFetch())
-        }
-
+        try await(context.dispatch(Logic.Configuration.PerformFAQFetch()).timeout(timeout: 5))
         try context.awaitDispatch(Logic.Loading.Hide())
         try context.awaitDispatch(Show(Screen.faq, animated: true))
       } catch {
         try context.awaitDispatch(Logic.Loading.Hide())
 
-        #warning("Check copy")
-        // handle errors by showing an error
+        // Show an error alert
         let model = Alert.Model(
           title: L10n.UploadData.ConnectionError.title,
           message: L10n.UploadData.ConnectionError.message,
