@@ -78,7 +78,10 @@ extension CustomerSupportVM {
     .spacer(.small),
     .contact(.phone),
     .spacer(.tiny),
-    .contact(.email)
+    .contact(.email),
+    .spacer(.small),
+    .separator,
+    .spacer(.big)
   ]
 
   init?(state: AppState?, localState: CustomerSupportLS) {

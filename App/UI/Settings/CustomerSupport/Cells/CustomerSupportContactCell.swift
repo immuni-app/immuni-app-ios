@@ -31,6 +31,15 @@ struct CustomerSupportContactCellVM: ViewModel {
     return self.kind != oldVM.kind
   }
 
+  var icon: UIImage {
+    switch self.kind {
+    case .email:
+      return Asset.Settings.ContactSupport.email.image
+    case .phone:
+      return Asset.Settings.ContactSupport.call.image
+    }
+  }
+
   var title: String {
     switch self.kind {
     case .email:
@@ -45,6 +54,7 @@ struct CustomerSupportContactCellVM: ViewModel {
     case .email:
       return L10n.Support.Email.description
     case .phone:
+      #warning("handle")
       return L10n.Support.Phone.description("7", "22")
     }
   }
@@ -107,6 +117,7 @@ final class CustomerSupportContactCell: UICollectionViewCell, ModellableView, Re
       return
     }
 
+    self.icon.image = model.icon
     Self.Style.title(self.title, content: model.title)
     Self.Style.subtitle(self.subtitle, content: model.subtitle)
     Self.Style.contactButton(self.contactButton, content: model.contact)
