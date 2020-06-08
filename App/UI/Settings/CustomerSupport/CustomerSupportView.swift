@@ -18,10 +18,11 @@ import Tempura
 
 struct CustomerSupportVM: ViewModelWithLocalState {
   enum CellType: Equatable {
+    case title(String)
     case textualContent(String)
-    case button
+    case button(String, String)
     case separator
-    case spacer
+    case spacer(ContentCollectionSpacerVM.Size)
     case contact
   }
 
@@ -48,14 +49,16 @@ struct CustomerSupportVM: ViewModelWithLocalState {
 
   func cellVM(for item: CellType) -> ViewModel? {
     switch item {
+    case .title(let title):
+      return ContentCollectionTitleCellVM(content: title)
     case .textualContent(let content):
       return ContentCollectionTextCellVM(content: content)
-    case .button:
-      return nil
+    case .button(let description, let title):
+      return ContentCollectionButtonCellVM(description: description, buttonTitle: title)
     case .separator:
-      return nil
-    case .spacer:
-      return nil
+      return ContentCollectionImageCellVM(content: Asset.Common.separator.image)
+    case .spacer(let size):
+      return ContentCollectionSpacerVM(size: size)
     case .contact:
       return nil
     }
@@ -83,6 +86,7 @@ class CustomerSupportView: UIView, ViewControllerModellableView {
   // MARK: Interactions
 
   var userDidTapClose: Interaction?
+  var userDidTapActionButton: Interaction?
   var userDidScroll: CustomInteraction<CGFloat>?
 
   lazy var contentCollection: UICollectionView = {
@@ -90,7 +94,11 @@ class CustomerSupportView: UIView, ViewControllerModellableView {
     collection.delegate = self
     collection.dataSource = self
 
+    collection.register(ContentCollectionTitleCell.self)
     collection.register(ContentCollectionTextCell.self)
+    collection.register(ContentCollectionImageCell.self)
+    collection.register(ContentCollectionSpacer.self)
+    collection.register(ContentCollectionButtonCell.self)
 
     return collection
   }()
@@ -201,15 +209,28 @@ extension CustomerSupportView: UICollectionViewDataSource {
     }
 
     switch item {
+    case .title:
+      return self.dequeue(ContentCollectionTitleCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
     case .textualContent:
       return self.dequeue(ContentCollectionTextCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
     case .button:
-      return self.dequeue(ContentCollectionButtonCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
+      let cell = self.dequeue(
+        ContentCollectionButtonCell.self,
+        for: indexPath,
+        in: collectionView,
+        using: model.cellVM(for: item)
+      )
+      cell.userDidTapButton = { [weak self] in
+        self?.userDidTapActionButton?()
+      }
+
+      return cell
     case .separator:
       return self.dequeue(ContentCollectionImageCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
     case .spacer:
       return self.dequeue(ContentCollectionSpacer.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
     case .contact:
+      #warning("handle")
       return self.dequeue(ContentCollectionTextCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
     }
   }
