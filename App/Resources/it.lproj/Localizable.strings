@@ -101,7 +101,7 @@
 "onboarding.pilot.action"= "Ho capito";
 "open_settings" = "Apri Impostazioni";
 "permission_tutorial.bluetooth.action" = "Apri Impostazioni";
-"permission_tutorial.bluetooth.first" = "<b>1. Accedi al Centro di Controllo.</b> Scorri verso il basso dall'angolo in alto a destra–o verso l'alto dalla parte inferiore dello schermo, a seconda del dispositivo.";
+"permission_tutorial.bluetooth.first" = "<b>1. Accedi al Centro di Controllo.</b> Scorri verso il basso dall'angolo in alto a destra oppure verso l'alto dalla parte inferiore dello schermo, a seconda del dispositivo.";
 "permission_tutorial.bluetooth.second" = "<b>2. Attiva il Bluetooth</b>";
 "permission_tutorial.bluetooth.title" = "Per attivare il Bluetooth";
 "permission_tutorial.exposure_notification.restricted.fifth" = "<b>5. Abilita la raccolta log di esposizione</b>";
