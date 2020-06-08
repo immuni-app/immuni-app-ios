@@ -53,7 +53,7 @@ extension FaqVM {
       let state = state,
       let faqs = state.faq.faqs(for: state.environment.userLanguage)
       else {
-      return nil
+        return nil
     }
 
     self.faqs = faqs
