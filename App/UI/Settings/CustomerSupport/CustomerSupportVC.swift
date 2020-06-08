@@ -16,9 +16,25 @@ import Foundation
 import Tempura
 
 class CustomerSupportVC: ViewControllerWithLocalState<CustomerSupportView> {
-  override func setupInteraction() {}
+  override func setupInteraction() {
+    self.rootView.userDidTapClose = { [weak self] in
+      // At the moment we don't have the need of informing the caller
+      self?.dispatch(Hide(animated: true))
+    }
+
+    self.rootView.userDidScroll = { [weak self] scrollOffset in
+      if scrollOffset > 0 {
+        self?.localState.isHeaderVisible = true
+      } else if scrollOffset < -20 {
+        self?.localState.isHeaderVisible = false
+      }
+    }
+  }
 }
 
 // MARK: - LocalState
 
-struct CustomerSupportLS: LocalState {}
+struct CustomerSupportLS: LocalState {
+  /// Whether the header is visible in the view. The header is shown only when the content is scrolled.
+  var isHeaderVisible: Bool = false
+}
