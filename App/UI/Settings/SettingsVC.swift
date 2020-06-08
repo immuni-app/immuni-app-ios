@@ -50,6 +50,8 @@ private extension SettingsVC {
       self.store.dispatch(Logic.Settings.ShowUpdateProvince())
     case .leaveReview:
       self.store.dispatch(Logic.Settings.LeaveReview())
+    case .customerSupport:
+      self.store.dispatch(Logic.Settings.ShowCustomerSupport())
     case .debugUtilities:
       self.dispatch(Logic.Settings.ShowDebugMenu())
     }
