@@ -66,11 +66,23 @@ struct CustomerSupportVM: ViewModelWithLocalState {
 }
 
 extension CustomerSupportVM {
+  static let cells: [CellType] = [
+    .title(L10n.Support.title),
+    .spacer(.medium),
+    .textualContent(L10n.Support.Faq.description),
+    .button("", L10n.Support.Faq.action),
+    .spacer(.big),
+    .separator,
+    .spacer(.big),
+    .textualContent(L10n.Support.contactSupport),
+    .spacer(.small),
+    .contact,
+    .spacer(.tiny),
+    .contact
+  ]
+
   init?(state: AppState?, localState: CustomerSupportLS) {
-    self.cells = [
-      .textualContent(L10n.PermissionTutorial.Notifications.first),
-      .textualContent(L10n.PermissionTutorial.Notifications.second)
-    ]
+    self.cells = CustomerSupportVM.cells
     self.isHeaderVisible = localState.isHeaderVisible
   }
 }

@@ -269,3 +269,19 @@
 "welcome_view.items.third.description" = "Gli utenti che scoprono di essere stati esposti al virus possono isolarsi, rallentando così la diffusione del virus e  accelerando il ritorno alla vita normale.";
 "welcome_view.items.third.title" = "Rallentiamo insieme l'epidemia";
 "welcome_view.next_page_title" = "Avanti";
+
+"support.title" = "Hai bisogno di aiuto?";
+"support.faq.description" = "Se hai dubbi o hai avuto problemi nell'utilizzo dell'app, vai alla sezione “Domande frequenti”.";
+"support.faq.action" = "Esplora le domande frequenti";
+"support.contact_support" = "Se non hai trovato la risposta che cercavi, <b>puoi contattare il supporto di Immuni.</b>";
+"support.phone.title" = "Chiama il numero verde";
+"support.phone.description" = "Numero attivo dalle %@ alle %@.";
+"support.email.title" = "Invia un'email";
+"support.email.description" = "Se scegli di contattare il supporto tramite email, il tuo indirizzo email sarà visibile al servizio clienti.";
+"support.info.title" = "Informazioni utili";
+"support.info.item.os" = "Sistema operativo";
+"support.info.item.device" = "Modello";
+"support.info.item.exposureNotificationEnabled" = "Notifiche di esposizione";
+"support.info.item.bluetoothEnabled" = "Bluetooth";
+"support.info.item.appVersion" = "Versione app";
+"support.info.item.connectionType" = "Connessione";
