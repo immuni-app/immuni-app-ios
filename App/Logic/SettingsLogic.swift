@@ -38,7 +38,41 @@ extension Logic.Settings {
   /// Shows the FAQs screen
   struct ShowFAQs: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      context.dispatch(Show(Screen.faq, animated: true))
+      let state = context.getState()
+
+      let userLanguage = state.environment.userLanguage
+      let hasLocalFAQs = state.faq.faqs(for: userLanguage) != nil
+
+      #warning("Check copy")
+       try context.awaitDispatch(Logic.Loading.Show(message: L10n.Settings.Setting.loadData))
+
+      do {
+        if hasLocalFAQs {
+          // Perform a best-effort fetch of the updated FAQs (that is, wait 5 seconds and proceed with old data)
+          #warning("Check timeout duration")
+          try? await(context.dispatch(Logic.Configuration.PerformFAQFetch()).timeout(timeout: 5))
+        } else {
+          try context.awaitDispatch(Logic.Configuration.PerformFAQFetch())
+        }
+
+        try context.awaitDispatch(Logic.Loading.Hide())
+        try context.awaitDispatch(Show(Screen.faq, animated: true))
+      } catch {
+        try context.awaitDispatch(Logic.Loading.Hide())
+
+        #warning("Check copy")
+        // handle errors by showing an error
+        let model = Alert.Model(
+          title: L10n.UploadData.ConnectionError.title,
+          message: L10n.UploadData.ConnectionError.message,
+          preferredStyle: .alert,
+          actions: [
+            .init(title: L10n.UploadData.ConnectionError.action, style: .default)
+          ]
+        )
+
+        context.dispatch(Logic.Alert.Show(alertModel: model))
+      }
     }
   }
 
