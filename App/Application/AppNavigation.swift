@@ -48,6 +48,7 @@ enum Screen: String, CaseIterable {
   case settings
   case uploadData
   case confirmUpload
+  case customerSupport
   case updateProvince
   case faq
   case question
@@ -209,6 +210,13 @@ extension TabbarVC: RoutableWithConfiguration {
         return vc
       },
       .hide(Screen.confirmUpload): .dismissModally(behaviour: .hard),
+
+      // Customer Support
+      .show(Screen.customerSupport): .presentModally { [unowned self] context in
+        let localState = context as? CustomerSupportLS ?? AppLogger.fatalError("invalid context")
+        return CustomerSupportVC(store: self.store, localState: localState)
+      },
+      .hide(Screen.customerSupport): .dismissModally(behaviour: .hard),
 
       // Alert
       .show(Screen.alert): .custom { [weak self] _, _, animated, context, completion in
@@ -466,6 +474,18 @@ extension ConfirmUploadVC: RoutableWithConfiguration {
       .hide(Screen.permissionTutorial): .dismissModally(behaviour: .hard),
       .hide(Screen.permissionOverlay): .dismissModally(behaviour: .hard)
     ]
+  }
+}
+
+// MARK: Customer Support
+
+extension CustomerSupportVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.customerSupport.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [:]
   }
 }
 

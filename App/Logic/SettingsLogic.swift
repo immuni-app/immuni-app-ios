@@ -100,6 +100,15 @@ extension Logic.Settings {
       try await(context.dependencies.application.goTo(url: url).run())
     }
   }
+
+  /// Shows the customer support screen
+  struct ShowCustomerSupport: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      #warning("remove ls if not needed")
+      let ls = CustomerSupportLS()
+      try context.awaitDispatch(Show(Screen.customerSupport, animated: true, context: ls))
+    }
+  }
 }
 
 // MARK: Update Province
