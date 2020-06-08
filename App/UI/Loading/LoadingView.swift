@@ -18,7 +18,11 @@ import Tempura
 
 struct LoadingVM: ViewModelWithLocalState {
   /// The message to be shown in the loader while the loading occurs.
-  let message: String
+  let message: String?
+
+  var shouldShowMessage: Bool {
+    return self.message != nil
+  }
 }
 
 extension LoadingVM {
@@ -78,21 +82,29 @@ class LoadingView: UIView, ViewControllerModellableView {
   override func layoutSubviews() {
     super.layoutSubviews()
 
+    let shouldShowMessage = self.model?.shouldShowMessage ?? false
+
     self.background.pin.all()
 
     self.spinner.pin
       .size(Self.spinnerSize).top(Self.verticalInset)
 
     let maxMessageSize = self.bounds.width * 0.8
-    let messageSize = self.message.sizeThatFits(CGSize(width: maxMessageSize, height: maxMessageSize))
+    let messageSize = shouldShowMessage
+      ? self.message.sizeThatFits(CGSize(width: maxMessageSize, height: maxMessageSize))
+      : .zero
+
+    let messageToSpinnerMargin = shouldShowMessage
+      ? Self.messageToSpinnerMargin
+      : .zero
 
     self.message.pin
       .size(messageSize)
       .below(of: self.spinner)
-      .marginTop(Self.messageToSpinnerMargin)
+      .marginTop(messageToSpinnerMargin)
 
     let maxSize = max(
-      Self.spinnerSize + messageSize.height + Self.messageToSpinnerMargin + 2 * Self.verticalInset,
+      Self.spinnerSize + messageSize.height + messageToSpinnerMargin + 2 * Self.verticalInset,
       messageSize.width + 2 * Self.horizontalInset
     )
     self.spinnerBackground.pin
@@ -151,7 +163,7 @@ private extension LoadingView {
       spinner.loopMode = .loop
     }
 
-    static func message(_ label: UILabel, content: String) {
+    static func message(_ label: UILabel, content: String?) {
       let textStyle = TextStyles.pSemibold.byAdding(
         .color(Palette.primary),
         .alignment(.center)
@@ -159,7 +171,7 @@ private extension LoadingView {
 
       TempuraStyles.styleStandardLabel(
         label,
-        content: content,
+        content: content ?? "",
         style: textStyle
       )
     }

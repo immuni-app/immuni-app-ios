@@ -22,7 +22,11 @@ extension Logic {
 extension Logic.Loading {
   /// Navigation action to show a full screen loading vc
   struct Show: AppSideEffect {
-    let message: String
+    let message: String?
+
+    init(message: String? = nil) {
+      self.message = message
+    }
 
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       try context.awaitDispatch(Tempura.Show(Screen.loading, animated: false, context: LoadingLS(message: self.message)))

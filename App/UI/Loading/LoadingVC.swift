@@ -25,5 +25,5 @@ class LoadingVC: ViewControllerWithLocalState<LoadingView> {
 
 struct LoadingLS: LocalState {
   /// The message to be shown in the loader while the loading occurs.
-  let message: String
+  let message: String?
 }

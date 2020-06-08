@@ -49,11 +49,14 @@ struct FaqVM: ViewModelWithLocalState {
 
 extension FaqVM {
   init?(state: AppState?, localState: FAQLS) {
-    guard let state = state else {
-      return nil
+    guard
+      let state = state,
+      let faqs = state.faq.faqs(for: state.environment.userLanguage)
+      else {
+        return nil
     }
 
-    self.faqs = state.faq.faqs(for: state.environment.userLanguage)
+    self.faqs = faqs
     self.isPresentedModally = localState.isPresentedModally
     self.isHeaderVisible = localState.isHeaderVisible
   }

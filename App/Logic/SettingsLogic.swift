@@ -38,7 +38,35 @@ extension Logic.Settings {
   /// Shows the FAQs screen
   struct ShowFAQs: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      context.dispatch(Show(Screen.faq, animated: true))
+      let state = context.getState()
+
+      let hasLocalFAQs = state.faq.faqs(for: state.environment.userLanguage) != nil
+      guard !hasLocalFAQs else {
+        // There are cached FAQs for the user's language.
+        try context.awaitDispatch(Show(Screen.faq, animated: true))
+        return
+      }
+
+      try context.awaitDispatch(Logic.Loading.Show())
+      do {
+        try await(context.dispatch(Logic.Configuration.PerformFAQFetch()).timeout(timeout: 5))
+        try context.awaitDispatch(Logic.Loading.Hide())
+        try context.awaitDispatch(Show(Screen.faq, animated: true))
+      } catch {
+        try context.awaitDispatch(Logic.Loading.Hide())
+
+        // Show an error alert
+        let model = Alert.Model(
+          title: L10n.UploadData.ConnectionError.title,
+          message: L10n.UploadData.ConnectionError.message,
+          preferredStyle: .alert,
+          actions: [
+            .init(title: L10n.UploadData.ConnectionError.action, style: .default)
+          ]
+        )
+
+        context.dispatch(Logic.Alert.Show(alertModel: model))
+      }
     }
   }
 
