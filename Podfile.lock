@@ -1,28 +1,28 @@
 PODS:
-  - Alamofire (5.1.0)
-  - BonMot (5.4.1)
+  - Alamofire (5.2.1)
+  - BonMot (5.5.1)
   - HydraAsync (1.2.1)
   - Katana (3.2.0):
     - HydraAsync (~> 1.2)
   - Logging (1.2.0)
   - lottie-ios (3.1.8)
-  - PinLayout (1.8.6)
-  - Tempura (4.3.1):
+  - PinLayout (1.8.13)
+  - Tempura (4.4.0):
     - Katana (< 4, >= 3.0)
-  - TempuraTesting (4.3.0):
+  - TempuraTesting (5.0.1):
     - Tempura (< 5.0, >= 4.0)
   - ZIPFoundation (0.9.11)
 
 DEPENDENCIES:
-  - Alamofire (= 5.1.0)
-  - BonMot (= 5.4.1)
+  - Alamofire (= 5.2.1)
+  - BonMot (= 5.5.1)
   - HydraAsync (= 1.2.1)
   - Katana (= 3.2.0)
   - Logging (= 1.2.0)
   - lottie-ios (= 3.1.8)
-  - PinLayout (= 1.8.6)
-  - Tempura (= 4.3.1)
-  - TempuraTesting (~> 4.3)
+  - PinLayout (= 1.8.13)
+  - Tempura (= 4.4.0)
+  - TempuraTesting (= 5.0.1)
   - ZIPFoundation (= 0.9.11)
 
 SPEC REPOS:
@@ -39,17 +39,17 @@ SPEC REPOS:
     - ZIPFoundation
 
 SPEC CHECKSUMS:
-  Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
-  BonMot: aa82119ff2ffa184223d8a31c72aed84fbb009e0
+  Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
+  BonMot: 0d179476725af81f622a6d9f660f43048070016a
   HydraAsync: 8f2ab62d57e140b4ca587ae0f66e1eb04e8e6965
   Katana: 1859c1fca08547e8644e58cbe292619c8c9512da
   Logging: 7838d379d234d7e5ae1265fa02804a9084caf04c
   lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
-  PinLayout: fe2a2432d6982588e208572005c941aeeae417ab
-  Tempura: adc54766491f97980bcdb3dff82a92076ed825e2
-  TempuraTesting: 302a6f14ec6bb8d69d30bc7708dad1c062d6730a
+  PinLayout: e41a50260a76508b7a7fcee8955c76639adc69bc
+  Tempura: 9c448606f6fd20c60ab2e56a7614eeb1db6bc2a0
+  TempuraTesting: 3d7aaac89c7c6cbbdc4805780961ea88807b1492
   ZIPFoundation: b1f0de4eed33e74a676f76e12559ab6b75990197
 
-PODFILE CHECKSUM: 2fc12037b650bd4ee7590191dbe1cb514cebdfbb
+PODFILE CHECKSUM: 9fed32fda6e48c8188bdf3d7ace45cbcb14fb102
 
 COCOAPODS: 1.9.1

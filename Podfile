@@ -12,16 +12,16 @@ platform :ios, '13.0'
 
 def shared_pods
   pod 'Katana', '= 3.2.0'
-  pod 'Tempura', '= 4.3.1'
+  pod 'Tempura', '= 4.4.0'
   pod 'Logging', '= 1.2.0'
   pod 'HydraAsync', '= 1.2.1'
-  pod 'Alamofire', '= 5.1.0'
+  pod 'Alamofire', '= 5.2.1'
 end
 
 target 'Immuni' do
-  pod 'BonMot', '= 5.4.1'
+  pod 'BonMot', '= 5.5.1'
   pod 'lottie-ios', '= 3.1.8'
-  pod 'PinLayout', '= 1.8.6'
+  pod 'PinLayout', '= 1.8.13'
   pod 'ZIPFoundation', '= 0.9.11'
 
   shared_pods
@@ -33,7 +33,7 @@ target 'Immuni' do
   target 'Immuni UITests' do
     inherit! :search_paths
 
-    pod 'TempuraTesting', '~> 4.3'
+    pod 'TempuraTesting', '= 5.0.1'
   end
 end
 
