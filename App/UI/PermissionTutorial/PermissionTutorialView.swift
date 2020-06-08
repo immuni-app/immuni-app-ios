@@ -38,13 +38,13 @@ final class PermissionTutorialView: UIView, ViewControllerModellableView {
     collection.delegate = self
     collection.dataSource = self
 
-    collection.register(PermissionTutorialTitleCell.self)
-    collection.register(PermissionTutorialTextCell.self)
-    collection.register(PermissionTutorialAnimationCell.self)
-    collection.register(PermissionTutorialImageCell.self)
-    collection.register(PermissionTutorialTextAndImageCell.self)
-    collection.register(PermissionTutorialSpacer.self)
-    collection.register(PermissionTutorialButtonCell.self)
+    collection.register(ContentCollectionTitleCell.self)
+    collection.register(ContentCollectionTextCell.self)
+    collection.register(ContentCollectionAnimationCell.self)
+    collection.register(ContentCollectionImageCell.self)
+    collection.register(ContentCollectionTextAndImageCell.self)
+    collection.register(ContentCollectionSpacer.self)
+    collection.register(ContentCollectionButtonCell.self)
 
     return collection
   }()
@@ -115,8 +115,8 @@ final class PermissionTutorialView: UIView, ViewControllerModellableView {
   private func reloadVisibleAnimationCells(model: PermissionTutorialVM) {
     for path in self.contentCollection.indexPathsForVisibleItems {
       if
-        let cell = self.contentCollection.cellForItem(at: path) as? PermissionTutorialAnimationCell,
-        let cellModel = model.cellVM(for: model.content.items[path.item]) as? PermissionTutorialAnimationCellVM {
+        let cell = self.contentCollection.cellForItem(at: path) as? ContentCollectionAnimationCell,
+        let cellModel = model.cellVM(for: model.content.items[path.item]) as? ContentCollectionAnimationCellVM {
         cell.model = cellModel
       }
     }
@@ -219,36 +219,36 @@ extension PermissionTutorialView: UICollectionViewDataSource {
 
     switch item {
     case .title:
-      return self.dequeue(PermissionTutorialTitleCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
+      return self.dequeue(ContentCollectionTitleCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
 
     case .textualContent:
-      return self.dequeue(PermissionTutorialTextCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
+      return self.dequeue(ContentCollectionTextCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
 
     case .animationContent:
       return self.dequeue(
-        PermissionTutorialAnimationCell.self,
+        ContentCollectionAnimationCell.self,
         for: indexPath,
         in: collectionView,
         using: model.cellVM(for: item)
       )
 
     case .imageContent:
-      return self.dequeue(PermissionTutorialImageCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
+      return self.dequeue(ContentCollectionImageCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
 
     case .textAndImage:
       return self.dequeue(
-        PermissionTutorialTextAndImageCell.self,
+        ContentCollectionTextAndImageCell.self,
         for: indexPath,
         in: collectionView,
         using: model.cellVM(for: item)
       )
 
     case .spacer:
-      return self.dequeue(PermissionTutorialSpacer.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
+      return self.dequeue(ContentCollectionSpacer.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
 
     case .scrollableButton:
       let cell = self.dequeue(
-        PermissionTutorialButtonCell.self,
+        ContentCollectionButtonCell.self,
         for: indexPath,
         in: collectionView,
         using: model.cellVM(for: item)

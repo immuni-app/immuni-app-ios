@@ -17,9 +17,15 @@ import Foundation
 import Tempura
 
 struct CustomerSupportVM: ViewModelWithLocalState {
-  typealias CellType = PermissionTutorialVM.Content.Item
+  enum CellType: Equatable {
+    case textualContent(String)
+    case button
+    case separator
+    case spacer
+    case contact
+  }
 
-  /// ...
+  /// The array of cells in the collection.
   let cells: [CellType]
   /// Whether the header is visible in the view. The header is shown only when the content is scrolled.
   let isHeaderVisible: Bool
@@ -40,46 +46,27 @@ struct CustomerSupportVM: ViewModelWithLocalState {
     return self.isHeaderVisible != oldVM.isHeaderVisible
   }
 
-  func cellVM(for item: CellType) -> ViewModel {
+  func cellVM(for item: CellType) -> ViewModel? {
     switch item {
-    case .title(let title):
-      return PermissionTutorialTitleCellVM(content: title)
-
     case .textualContent(let content):
-      return PermissionTutorialTextCellVM(content: content)
-
-    case .animationContent(let animationAsset):
-      return PermissionTutorialAnimationCellVM(
-        asset: animationAsset,
-        shouldPlay: false
-      )
-
-    case .imageContent(let image):
-      return PermissionTutorialImageCellVM(content: image)
-
-    case .textAndImage(let text, let image, let alignment):
-      return PermissionTutorialTextAndImageCellVM(textualContent: text, image: image, alignment: alignment)
-
-    case .spacer(let size):
-      return PermissionTutorialSpacerVM(size: size)
-
-    case .scrollableButton(let description, let buttonTitle):
-      return PermissionTutorialButtonCellVM(description: description, buttonTitle: buttonTitle)
+      return ContentCollectionTextCellVM(content: content)
+    case .button:
+      return nil
+    case .separator:
+      return nil
+    case .spacer:
+      return nil
+    case .contact:
+      return nil
     }
   }
 }
 
 extension CustomerSupportVM {
   init?(state: AppState?, localState: CustomerSupportLS) {
-    guard let state = state else {
-      return nil
-    }
-
     self.cells = [
       .textualContent(L10n.PermissionTutorial.Notifications.first),
-      .spacer(.medium),
-      .textualContent(L10n.PermissionTutorial.Notifications.second),
-      .imageContent(Asset.PermissionTutorial.notification.image)
+      .textualContent(L10n.PermissionTutorial.Notifications.second)
     ]
     self.isHeaderVisible = localState.isHeaderVisible
   }
@@ -103,13 +90,7 @@ class CustomerSupportView: UIView, ViewControllerModellableView {
     collection.delegate = self
     collection.dataSource = self
 
-    collection.register(PermissionTutorialTitleCell.self)
-    collection.register(PermissionTutorialTextCell.self)
-    collection.register(PermissionTutorialAnimationCell.self)
-    collection.register(PermissionTutorialImageCell.self)
-    collection.register(PermissionTutorialTextAndImageCell.self)
-    collection.register(PermissionTutorialSpacer.self)
-    collection.register(PermissionTutorialButtonCell.self)
+    collection.register(ContentCollectionTextCell.self)
 
     return collection
   }()
@@ -220,42 +201,16 @@ extension CustomerSupportView: UICollectionViewDataSource {
     }
 
     switch item {
-    case .title:
-      return self.dequeue(PermissionTutorialTitleCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
-
     case .textualContent:
-      return self.dequeue(PermissionTutorialTextCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
-
-    case .animationContent:
-      return self.dequeue(
-        PermissionTutorialAnimationCell.self,
-        for: indexPath,
-        in: collectionView,
-        using: model.cellVM(for: item)
-      )
-
-    case .imageContent:
-      return self.dequeue(PermissionTutorialImageCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
-
-    case .textAndImage:
-      return self.dequeue(
-        PermissionTutorialTextAndImageCell.self,
-        for: indexPath,
-        in: collectionView,
-        using: model.cellVM(for: item)
-      )
-
+      return self.dequeue(ContentCollectionTextCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
+    case .button:
+      return self.dequeue(ContentCollectionButtonCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
+    case .separator:
+      return self.dequeue(ContentCollectionImageCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
     case .spacer:
-      return self.dequeue(PermissionTutorialSpacer.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
-
-    case .scrollableButton:
-      let cell = self.dequeue(
-        PermissionTutorialButtonCell.self,
-        for: indexPath,
-        in: collectionView,
-        using: model.cellVM(for: item)
-      )
-      return cell
+      return self.dequeue(ContentCollectionSpacer.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
+    case .contact:
+      return self.dequeue(ContentCollectionTextCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
     }
   }
 
@@ -263,7 +218,7 @@ extension CustomerSupportView: UICollectionViewDataSource {
     _ type: Cell.Type,
     for indexPath: IndexPath,
     in collectionView: UICollectionView,
-    using viewModel: ViewModel
+    using viewModel: ViewModel?
   ) -> Cell {
     let cell = collectionView.dequeueReusableCell(Cell.self, for: indexPath)
     cell.model = viewModel as? Cell.VM

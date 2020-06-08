@@ -1,4 +1,4 @@
-// PermissionTutorialButtonCell.swift
+// ContentCollectionButtonCell.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@ import Katana
 import PinLayout
 import Tempura
 
-struct PermissionTutorialButtonCellVM: ViewModel {
+struct ContentCollectionButtonCellVM: ViewModel {
   let description: String
   let buttonTitle: String
 
@@ -40,7 +40,7 @@ struct PermissionTutorialButtonCellVM: ViewModel {
   }
 }
 
-final class PermissionTutorialButtonCell: UICollectionViewCell, ModellableView, ReusableView {
+final class ContentCollectionButtonCell: UICollectionViewCell, ModellableView, ReusableView {
   var userDidTapButton: Interaction?
 
   private static let buttonMinHeight: CGFloat = 55.0
@@ -73,7 +73,7 @@ final class PermissionTutorialButtonCell: UICollectionViewCell, ModellableView, 
 
   func style() {}
 
-  func update(oldModel: PermissionTutorialButtonCellVM?) {
+  func update(oldModel: ContentCollectionButtonCellVM?) {
     guard let model = self.model else {
       return
     }
@@ -107,12 +107,12 @@ final class PermissionTutorialButtonCell: UICollectionViewCell, ModellableView, 
     let space = CGSize(width: size.width - 2 * Self.horizontalPadding, height: .infinity)
     let labelSize = self.actionDescription.sizeThatFits(space)
     let buttonSize = self.actionButton.sizeThatFits(space)
-    let buttonHeight = max(buttonSize.height, PermissionTutorialButtonCell.buttonMinHeight)
+    let buttonHeight = max(buttonSize.height, ContentCollectionButtonCell.buttonMinHeight)
     return CGSize(width: size.width, height: labelSize.height + Self.descriptionToButtonSpacer + buttonHeight)
   }
 }
 
-extension PermissionTutorialButtonCell {
+extension ContentCollectionButtonCell {
   enum Style {
     static func description(_ label: UILabel, content: String) {
       TempuraStyles.styleStandardLabel(

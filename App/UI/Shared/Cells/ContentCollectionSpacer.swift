@@ -1,4 +1,4 @@
-// PermissionTutorialSpacer.swift
+// ContentCollectionSpacer.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@ import Katana
 import PinLayout
 import Tempura
 
-struct PermissionTutorialSpacerVM: ViewModel {
+struct ContentCollectionSpacerVM: ViewModel {
   enum Size {
     case tiny
     case small
@@ -43,7 +43,7 @@ struct PermissionTutorialSpacerVM: ViewModel {
   let size: Size
 }
 
-final class PermissionTutorialSpacer: UICollectionViewCell, ModellableView, ReusableView {
+final class ContentCollectionSpacer: UICollectionViewCell, ModellableView, ReusableView {
   override init(frame: CGRect) {
     super.init(frame: frame)
   }
@@ -56,7 +56,7 @@ final class PermissionTutorialSpacer: UICollectionViewCell, ModellableView, Reus
 
   func style() {}
 
-  func update(oldModel: PermissionTutorialSpacerVM?) {}
+  func update(oldModel: ContentCollectionSpacerVM?) {}
 
   override func layoutSubviews() {
     super.layoutSubviews()

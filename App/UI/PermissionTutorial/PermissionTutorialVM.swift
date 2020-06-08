@@ -61,28 +61,28 @@ struct PermissionTutorialVM {
   func cellVM(for item: Content.Item) -> ViewModel {
     switch item {
     case .title(let title):
-      return PermissionTutorialTitleCellVM(content: title)
+      return ContentCollectionTitleCellVM(content: title)
 
     case .textualContent(let content):
-      return PermissionTutorialTextCellVM(content: content)
+      return ContentCollectionTextCellVM(content: content)
 
     case .animationContent(let animationAsset):
-      return PermissionTutorialAnimationCellVM(
+      return ContentCollectionAnimationCellVM(
         asset: animationAsset,
         shouldPlay: self.shouldAnimateContent
       )
 
     case .imageContent(let image):
-      return PermissionTutorialImageCellVM(content: image)
+      return ContentCollectionImageCellVM(content: image)
 
     case .textAndImage(let text, let image, let alignment):
-      return PermissionTutorialTextAndImageCellVM(textualContent: text, image: image, alignment: alignment)
+      return ContentCollectionTextAndImageCellVM(textualContent: text, image: image, alignment: alignment)
 
     case .spacer(let size):
-      return PermissionTutorialSpacerVM(size: size)
+      return ContentCollectionSpacerVM(size: size)
 
     case .scrollableButton(let description, let buttonTitle):
-      return PermissionTutorialButtonCellVM(description: description, buttonTitle: buttonTitle)
+      return ContentCollectionButtonCellVM(description: description, buttonTitle: buttonTitle)
     }
   }
 }
@@ -147,8 +147,8 @@ extension PermissionTutorialVM.Content {
     case textualContent(String)
     case animationContent(AnimationAsset)
     case imageContent(UIImage)
-    case textAndImage(String, UIImage, PermissionTutorialTextAndImageCellVM.Alignment)
-    case spacer(PermissionTutorialSpacerVM.Size)
+    case textAndImage(String, UIImage, ContentCollectionTextAndImageCellVM.Alignment)
+    case spacer(ContentCollectionSpacerVM.Size)
     case scrollableButton(description: String, buttonTitle: String)
   }
 }

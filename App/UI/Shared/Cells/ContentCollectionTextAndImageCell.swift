@@ -1,4 +1,4 @@
-// PermissionTutorialTextAndImageCell.swift
+// ContentCollectionTextAndImageCell.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@ import Katana
 import PinLayout
 import Tempura
 
-struct PermissionTutorialTextAndImageCellVM: ViewModel {
+struct ContentCollectionTextAndImageCellVM: ViewModel {
   enum Alignment {
     case textOverImage
     case imageBeforeText
@@ -46,7 +46,7 @@ struct PermissionTutorialTextAndImageCellVM: ViewModel {
   }
 }
 
-final class PermissionTutorialTextAndImageCell: UICollectionViewCell, ModellableView, ReusableView {
+final class ContentCollectionTextAndImageCell: UICollectionViewCell, ModellableView, ReusableView {
   private static let textHorizontalPadding: CGFloat = 30.0
   private static let imageLeftPadding: CGFloat = 47.0
   private static let textImageSpacing: CGFloat = 30.0
@@ -74,7 +74,7 @@ final class PermissionTutorialTextAndImageCell: UICollectionViewCell, Modellable
 
   func style() {}
 
-  func update(oldModel: PermissionTutorialTextAndImageCellVM?) {
+  func update(oldModel: ContentCollectionTextAndImageCellVM?) {
     guard let model = self.model else {
       return
     }
@@ -145,10 +145,10 @@ final class PermissionTutorialTextAndImageCell: UICollectionViewCell, Modellable
   }
 }
 
-private extension PermissionTutorialTextAndImageCell {
+private extension ContentCollectionTextAndImageCell {
   enum Style {
     static func textualContent(_ label: UILabel, content: String) {
-      PermissionTutorialTextCell.Style.content(label, content: content)
+      ContentCollectionTextCell.Style.content(label, content: content)
     }
 
     static func imageContent(_ imageView: UIImageView, image: UIImage) {

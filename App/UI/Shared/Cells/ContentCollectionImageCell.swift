@@ -1,4 +1,4 @@
-// PermissionTutorialTitleCell.swift
+// ContentCollectionImageCell.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -19,8 +19,8 @@ import Katana
 import PinLayout
 import Tempura
 
-struct PermissionTutorialTitleCellVM: ViewModel {
-  let content: String
+struct ContentCollectionImageCellVM: ViewModel {
+  let content: UIImage
 
   func shouldInvalidateLayout(oldVM: Self?) -> Bool {
     guard let oldVM = oldVM else {
@@ -31,11 +31,8 @@ struct PermissionTutorialTitleCellVM: ViewModel {
   }
 }
 
-final class PermissionTutorialTitleCell: UICollectionViewCell, ModellableView, ReusableView {
-  private static let rigthPadding: CGFloat = 50.0
-  private static let leftPadding: CGFloat = 30.0
-
-  private var title = UILabel()
+final class ContentCollectionImageCell: UICollectionViewCell, ModellableView, ReusableView {
+  private let image = UIImageView()
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -50,17 +47,17 @@ final class PermissionTutorialTitleCell: UICollectionViewCell, ModellableView, R
   }
 
   func setup() {
-    self.contentView.addSubview(self.title)
+    self.contentView.addSubview(self.image)
   }
 
   func style() {}
 
-  func update(oldModel: PermissionTutorialTitleCellVM?) {
+  func update(oldModel: ContentCollectionImageCellVM?) {
     guard let model = self.model else {
       return
     }
 
-    Self.Style.title(self.title, content: model.content)
+    Self.Style.content(self.image, content: model.content)
 
     if model.shouldInvalidateLayout(oldVM: oldModel) {
       self.setNeedsLayout()
@@ -69,32 +66,26 @@ final class PermissionTutorialTitleCell: UICollectionViewCell, ModellableView, R
 
   override func layoutSubviews() {
     super.layoutSubviews()
-
-    self.title.pin
-      .top()
-      .right(Self.rigthPadding)
-      .bottom()
-      .left(Self.leftPadding)
+    self.image.pin.all()
   }
 
   override func sizeThatFits(_ size: CGSize) -> CGSize {
-    let space = CGSize(width: size.width - Self.leftPadding - Self.rigthPadding, height: .infinity)
-    let labelSize = self.title.sizeThatFits(space)
+    let imageSize = self.image.image?.size ?? .zero
 
-    return CGSize(width: size.width, height: labelSize.height)
+    if imageSize.width > size.width {
+      let factor = size.width / imageSize.width
+      return CGSize(width: size.width, height: imageSize.height * factor)
+    }
+
+    return CGSize(width: size.width, height: imageSize.height)
   }
 }
 
-private extension PermissionTutorialTitleCell {
+extension ContentCollectionImageCell {
   enum Style {
-    static func title(_ label: UILabel, content: String) {
-      TempuraStyles.styleStandardLabel(
-        label,
-        content: content,
-        style: TextStyles.h1.byAdding(
-          .color(Palette.grayDark)
-        )
-      )
+    static func content(_ imageView: UIImageView, content: UIImage) {
+      imageView.image = content
+      imageView.contentMode = .scaleAspectFit
     }
   }
 }
