@@ -29,6 +29,19 @@ class CustomerSupportVC: ViewControllerWithLocalState<CustomerSupportView> {
         self?.localState.isHeaderVisible = false
       }
     }
+
+    self.rootView.userDidTapActionButton = { [weak self] in
+      self?.dispatch(Logic.Settings.ShowFAQs())
+    }
+
+    self.rootView.userDidTapContact = { [weak self] contact in
+      switch contact {
+      case .email:
+        self?.dispatch(Logic.Settings.SendCustomerSupportEmail())
+      case .phone(let number, _, _):
+        self?.dispatch(Logic.Shared.DialPhoneNumber(number: number))
+      }
+    }
   }
 }
 

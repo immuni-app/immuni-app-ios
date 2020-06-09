@@ -27,6 +27,7 @@ class CustomerSupportView: UIView, ViewControllerModellableView {
 
   var userDidTapClose: Interaction?
   var userDidTapActionButton: Interaction?
+  var userDidTapContact: CustomInteraction<CustomerSupportContactCellVM.Kind>?
   var userDidScroll: CustomInteraction<CGFloat>?
 
   lazy var contentCollection: UICollectionView = {
@@ -200,12 +201,17 @@ extension CustomerSupportView: UICollectionViewDataSource {
         using: model.cellVM(for: item, isLastCell: isLastCell)
       )
     case .contact:
-      return self.dequeue(
+      let cell = self.dequeue(
         CustomerSupportContactCell.self,
         for: indexPath,
         in: collectionView,
         using: model.cellVM(for: item, isLastCell: isLastCell)
       )
+      cell.didTapContact = { [weak self] contact in
+        self?.userDidTapContact?(contact)
+      }
+
+      return cell
     case .infoHeader:
       return self.dequeue(
         CustomerSupportInfoHeaderCell.self,
