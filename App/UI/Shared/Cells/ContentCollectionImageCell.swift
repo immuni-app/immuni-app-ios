@@ -1,4 +1,4 @@
-// PermissionTutorialImageCell.swift
+// ContentCollectionImageCell.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@ import Katana
 import PinLayout
 import Tempura
 
-struct PermissionTutorialImageCellVM: ViewModel {
+struct ContentCollectionImageCellVM: ViewModel {
   let content: UIImage
 
   func shouldInvalidateLayout(oldVM: Self?) -> Bool {
@@ -31,7 +31,7 @@ struct PermissionTutorialImageCellVM: ViewModel {
   }
 }
 
-final class PermissionTutorialImageCell: UICollectionViewCell, ModellableView, ReusableView {
+final class ContentCollectionImageCell: UICollectionViewCell, ModellableView, ReusableView {
   private let image = UIImageView()
 
   override init(frame: CGRect) {
@@ -52,7 +52,7 @@ final class PermissionTutorialImageCell: UICollectionViewCell, ModellableView, R
 
   func style() {}
 
-  func update(oldModel: PermissionTutorialImageCellVM?) {
+  func update(oldModel: ContentCollectionImageCellVM?) {
     guard let model = self.model else {
       return
     }
@@ -81,7 +81,7 @@ final class PermissionTutorialImageCell: UICollectionViewCell, ModellableView, R
   }
 }
 
-extension PermissionTutorialImageCell {
+extension ContentCollectionImageCell {
   enum Style {
     static func content(_ imageView: UIImageView, content: UIImage) {
       imageView.image = content

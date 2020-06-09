@@ -23,6 +23,7 @@ struct SettingsVM: ViewModelWithLocalState {
     case privacy
     case chageProvince
     case leaveReview
+    case customerSupport
     case debugUtilities
   }
 
@@ -101,7 +102,7 @@ extension SettingsVM {
 
       Section(
         header: .general,
-        settings: [.chageProvince, .leaveReview]
+        settings: [.chageProvince, .leaveReview, .customerSupport]
       )
     ]
     #if canImport(DebugMenu)

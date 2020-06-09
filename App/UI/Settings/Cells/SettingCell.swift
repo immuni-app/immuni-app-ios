@@ -34,6 +34,8 @@ struct SettingCellVM: ViewModel {
       return L10n.Settings.Setting.chageProvince
     case .leaveReview:
       return L10n.Settings.Setting.leaveReview
+    case .customerSupport:
+      return L10n.Settings.Setting.contactSupport
     case .debugUtilities:
       return L10n.Settings.Setting.debugUtilities
     }
@@ -43,13 +45,13 @@ struct SettingCellVM: ViewModel {
     switch self.setting {
     case .loadData, .faq:
       return true
-    case .tos, .privacy, .chageProvince, .leaveReview, .debugUtilities:
+    case .tos, .privacy, .chageProvince, .leaveReview, .customerSupport, .debugUtilities:
       return false
     }
   }
 }
 
-class SettingCell: UICollectionViewCell, ModellableView, ReusableView {
+class SettingCell: UICollectionViewCell, ModellableView, ReusableView, CellWithShadow {
   typealias VM = SettingCellVM
 
   static let cellInset: CGFloat = 25

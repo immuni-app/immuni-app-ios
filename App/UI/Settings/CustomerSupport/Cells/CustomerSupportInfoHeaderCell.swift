@@ -1,4 +1,4 @@
-// PermissionTutorialTitleCell.swift
+// CustomerSupportInfoHeaderCell.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -12,30 +12,20 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-import BonMot
 import Extensions
 import Foundation
-import Katana
-import PinLayout
 import Tempura
 
-struct PermissionTutorialTitleCellVM: ViewModel {
-  let content: String
-
-  func shouldInvalidateLayout(oldVM: Self?) -> Bool {
-    guard let oldVM = oldVM else {
-      return true
-    }
-
-    return self.content != oldVM.content
-  }
+struct CustomerSupportInfoHeaderCellVM: ViewModel {
+  let title: String
 }
 
-final class PermissionTutorialTitleCell: UICollectionViewCell, ModellableView, ReusableView {
-  private static let rigthPadding: CGFloat = 50.0
-  private static let leftPadding: CGFloat = 30.0
+class CustomerSupportInfoHeaderCell: UICollectionViewCell, ModellableView, ReusableView {
+  typealias VM = CustomerSupportInfoHeaderCellVM
 
-  private var title = UILabel()
+  static let horizontalInset: CGFloat = 30
+
+  let title = UILabel()
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -43,8 +33,8 @@ final class PermissionTutorialTitleCell: UICollectionViewCell, ModellableView, R
     self.style()
   }
 
-  required init?(coder: NSCoder) {
-    super.init(coder: coder)
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
     self.setup()
     self.style()
   }
@@ -53,47 +43,52 @@ final class PermissionTutorialTitleCell: UICollectionViewCell, ModellableView, R
     self.contentView.addSubview(self.title)
   }
 
-  func style() {}
+  func style() {
+    Self.Style.container(self.contentView)
+  }
 
-  func update(oldModel: PermissionTutorialTitleCellVM?) {
+  func update(oldModel: VM?) {
     guard let model = self.model else {
       return
     }
 
-    Self.Style.title(self.title, content: model.content)
+    Self.Style.title(self.title, content: model.title)
 
-    if model.shouldInvalidateLayout(oldVM: oldModel) {
-      self.setNeedsLayout()
-    }
+    self.setNeedsLayout()
   }
 
   override func layoutSubviews() {
     super.layoutSubviews()
 
     self.title.pin
-      .top()
-      .right(Self.rigthPadding)
-      .bottom()
-      .left(Self.leftPadding)
+      .horizontally(Self.horizontalInset)
+      .sizeToFit(.width)
+      .top(12)
   }
 
   override func sizeThatFits(_ size: CGSize) -> CGSize {
-    let space = CGSize(width: size.width - Self.leftPadding - Self.rigthPadding, height: .infinity)
-    let labelSize = self.title.sizeThatFits(space)
-
-    return CGSize(width: size.width, height: labelSize.height)
+    let labelWidth = size.width - 2 * Self.horizontalInset
+    let titleSize = self.title.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
+    return CGSize(width: size.width, height: titleSize.height + 40)
   }
 }
 
-private extension PermissionTutorialTitleCell {
+private extension CustomerSupportInfoHeaderCell {
   enum Style {
+    static func container(_ view: UIView) {
+      view.backgroundColor = .clear
+    }
+
     static func title(_ label: UILabel, content: String) {
+      let textStyle = TextStyles.pSemibold.byAdding(
+        .color(Palette.grayNormal),
+        .alignment(.left)
+      )
+
       TempuraStyles.styleStandardLabel(
         label,
         content: content,
-        style: TextStyles.h1.byAdding(
-          .color(Palette.grayDark)
-        )
+        style: textStyle
       )
     }
   }

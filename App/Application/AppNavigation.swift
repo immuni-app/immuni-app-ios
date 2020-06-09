@@ -38,6 +38,7 @@ enum Screen: String, CaseIterable {
   case confirmation
   case alert
   case privacy
+  case mailComposer
 
   // home
   case home
@@ -48,6 +49,7 @@ enum Screen: String, CaseIterable {
   case settings
   case uploadData
   case confirmUpload
+  case customerSupport
   case updateProvince
   case faq
   case question
@@ -210,6 +212,12 @@ extension TabbarVC: RoutableWithConfiguration {
       },
       .hide(Screen.confirmUpload): .dismissModally(behaviour: .hard),
 
+      // Customer Support
+      .show(Screen.customerSupport): .presentModally { [unowned self] context in
+        CustomerSupportVC(store: self.store, localState: CustomerSupportLS())
+      },
+      .hide(Screen.customerSupport): .dismissModally(behaviour: .hard),
+
       // Alert
       .show(Screen.alert): .custom { [weak self] _, _, animated, context, completion in
         let content = context as? Alert.Model ?? AppLogger.fatalError("Invalid context")
@@ -228,7 +236,14 @@ extension TabbarVC: RoutableWithConfiguration {
       .show(Screen.suggestions): .presentModally { [unowned self] context in
         SuggestionsVC(store: self.store, localState: SuggestionsLS())
       },
-      .hide(Screen.suggestions): .dismissModally(behaviour: .hard)
+      .hide(Screen.suggestions): .dismissModally(behaviour: .hard),
+
+      // Mail composer
+      .show(Screen.mailComposer): .presentModally { context in
+        let context = context as? MessageComposerContext ?? AppLogger
+          .fatalError("MessageComposer should be invoked with a context of type MessageComposerContext")
+        return MessageComposer(context: context)
+      }
     ]
   }
 }
@@ -465,6 +480,23 @@ extension ConfirmUploadVC: RoutableWithConfiguration {
 
       .hide(Screen.permissionTutorial): .dismissModally(behaviour: .hard),
       .hide(Screen.permissionOverlay): .dismissModally(behaviour: .hard)
+    ]
+  }
+}
+
+// MARK: Customer Support
+
+extension CustomerSupportVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.customerSupport.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [
+      .show(Screen.faq): .presentModally { _ in
+        FaqVC(store: self.store, localState: FAQLS(isPresentedModally: true))
+      },
+      .hide(Screen.faq): .dismissModally(behaviour: .hard)
     ]
   }
 }

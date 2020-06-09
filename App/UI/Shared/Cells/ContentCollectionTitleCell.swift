@@ -1,4 +1,4 @@
-// PermissionTutorialTextCell.swift
+// ContentCollectionTitleCell.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@ import Katana
 import PinLayout
 import Tempura
 
-struct PermissionTutorialTextCellVM: ViewModel {
+struct ContentCollectionTitleCellVM: ViewModel {
   let content: String
 
   func shouldInvalidateLayout(oldVM: Self?) -> Bool {
@@ -31,10 +31,11 @@ struct PermissionTutorialTextCellVM: ViewModel {
   }
 }
 
-final class PermissionTutorialTextCell: UICollectionViewCell, ModellableView, ReusableView {
-  private static let horizontalPadding: CGFloat = 30.0
+final class ContentCollectionTitleCell: UICollectionViewCell, ModellableView, ReusableView {
+  private static let rigthPadding: CGFloat = 50.0
+  private static let leftPadding: CGFloat = 30.0
 
-  private var content = UILabel()
+  private var title = UILabel()
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -49,17 +50,17 @@ final class PermissionTutorialTextCell: UICollectionViewCell, ModellableView, Re
   }
 
   func setup() {
-    self.contentView.addSubview(self.content)
+    self.contentView.addSubview(self.title)
   }
 
   func style() {}
 
-  func update(oldModel: PermissionTutorialTextCellVM?) {
+  func update(oldModel: ContentCollectionTitleCellVM?) {
     guard let model = self.model else {
       return
     }
 
-    Self.Style.content(self.content, content: model.content)
+    Self.Style.title(self.title, content: model.content)
 
     if model.shouldInvalidateLayout(oldVM: oldModel) {
       self.setNeedsLayout()
@@ -68,40 +69,31 @@ final class PermissionTutorialTextCell: UICollectionViewCell, ModellableView, Re
 
   override func layoutSubviews() {
     super.layoutSubviews()
-    self.content.pin
+
+    self.title.pin
       .top()
-      .horizontally(Self.horizontalPadding)
+      .right(Self.rigthPadding)
       .bottom()
+      .left(Self.leftPadding)
   }
 
   override func sizeThatFits(_ size: CGSize) -> CGSize {
-    let space = CGSize(width: size.width - 2 * Self.horizontalPadding, height: .infinity)
-    let labelSize = self.content.sizeThatFits(space)
+    let space = CGSize(width: size.width - Self.leftPadding - Self.rigthPadding, height: .infinity)
+    let labelSize = self.title.sizeThatFits(space)
+
     return CGSize(width: size.width, height: labelSize.height)
   }
 }
 
-extension PermissionTutorialTextCell {
+private extension ContentCollectionTitleCell {
   enum Style {
-    static func content(_ label: UILabel, content: String) {
-      let redStyle = TextStyles.pBold.byAdding([
-        .color(Palette.red)
-      ])
-
-      let textStyle = TextStyles.p.byAdding(
-        .color(Palette.grayDark),
-        .xmlRules([
-          .style("b", TextStyles.pSemibold),
-          .style("h", TextStyles.h4Bold),
-          .style("h3", TextStyles.h3),
-          .style("red", redStyle)
-        ])
-      )
-
+    static func title(_ label: UILabel, content: String) {
       TempuraStyles.styleStandardLabel(
         label,
         content: content,
-        style: textStyle
+        style: TextStyles.h1.byAdding(
+          .color(Palette.grayDark)
+        )
       )
     }
   }

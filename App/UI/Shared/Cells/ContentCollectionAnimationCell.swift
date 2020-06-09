@@ -1,4 +1,4 @@
-// PermissionTutorialAnimationCell.swift
+// ContentCollectionAnimationCell.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@ import Extensions
 import Lottie
 import Tempura
 
-struct PermissionTutorialAnimationCellVM: ViewModel {
+struct ContentCollectionAnimationCellVM: ViewModel {
   /// The animation asset of the cell
   let asset: AnimationAsset
   /// Whether the animation should play. If false, the animation is paused.
@@ -43,7 +43,7 @@ struct PermissionTutorialAnimationCellVM: ViewModel {
   }
 }
 
-final class PermissionTutorialAnimationCell: UICollectionViewCell, ModellableView, ReusableView {
+final class ContentCollectionAnimationCell: UICollectionViewCell, ModellableView, ReusableView {
   let animation = AnimationView()
 
   override init(frame: CGRect) {
@@ -64,7 +64,7 @@ final class PermissionTutorialAnimationCell: UICollectionViewCell, ModellableVie
 
   func style() {}
 
-  func update(oldModel: PermissionTutorialAnimationCellVM?) {
+  func update(oldModel: ContentCollectionAnimationCellVM?) {
     guard let model = self.model else {
       return
     }
@@ -94,7 +94,7 @@ final class PermissionTutorialAnimationCell: UICollectionViewCell, ModellableVie
   }
 }
 
-extension PermissionTutorialAnimationCell {
+extension ContentCollectionAnimationCell {
   enum Style {
     static func content(_ view: AnimationView, content: Animation?) {
       view.animation = content
