@@ -14,6 +14,7 @@
 
 // swiftlint:disable superfluous_disable_command force_try implicitly_unwrapped_optional force_unwrapping force_cast
 
+import Alamofire
 import Foundation
 import Hydra
 @testable import Immuni
@@ -51,6 +52,7 @@ extension AppDependencies {
       kvStorage: kvStorage,
       secretsStorage: secretsStorage,
       networkManager: networkManager,
+      reachabilityManager: NetworkReachabilityManager(),
       temporaryExposureKeyProvider: temporaryExposureKeyProvider,
       exposureNotificationManager: ExposureNotificationManager(
         provider: exposureNotificationProvider

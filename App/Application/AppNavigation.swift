@@ -214,8 +214,7 @@ extension TabbarVC: RoutableWithConfiguration {
 
       // Customer Support
       .show(Screen.customerSupport): .presentModally { [unowned self] context in
-        let localState = context as? CustomerSupportLS ?? AppLogger.fatalError("invalid context")
-        return CustomerSupportVC(store: self.store, localState: localState)
+        CustomerSupportVC(store: self.store, localState: CustomerSupportLS())
       },
       .hide(Screen.customerSupport): .dismissModally(behaviour: .hard),
 

@@ -114,7 +114,7 @@ final class AppDependencies: NSObject, SideEffectDependencyContainer, Navigation
     kvStorage: KVStorage,
     secretsStorage: SecretsStorage,
     networkManager: NetworkManager,
-    reachabilityManager: NetworkReachabilityManager,
+    reachabilityManager: NetworkReachabilityManager?,
     temporaryExposureKeyProvider: TemporaryExposureKeyProvider,
     exposureNotificationManager: ExposureNotificationManager,
     pushNotification: PushNotificationManager,

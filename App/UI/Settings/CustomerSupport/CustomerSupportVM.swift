@@ -84,18 +84,26 @@ extension CustomerSupportVM {
     .spacer(.small)
   ]
 
-  init?(state: AppState?, localState: CustomerSupportLS) {
-    guard let state = state else {
-      return nil
-    }
+  static func cells(
+    supportPhone: String?,
+    supportPhoneOpeningTime: String?,
+    supportPhoneClosingTime: String?,
+    supportEmail: String?,
+    osVersion: String,
+    deviceModel: String,
+    exposureNotificationEnabled: Bool,
+    bluetoothEnabled: Bool,
+    appVersion: String,
+    networkReachabilityStatus: NetworkReachabilityManager.NetworkReachabilityStatus
+  ) -> [CellType] {
     // heading cells
     var cells = CustomerSupportVM.headingCells
 
     // phone contact
     if
-      let phone = state.configuration.supportPhone,
-      let openingTime = state.configuration.supportPhoneOpeningTime,
-      let closingTime = state.configuration.supportPhoneClosingTime {
+      let phone = supportPhone,
+      let openingTime = supportPhoneOpeningTime,
+      let closingTime = supportPhoneClosingTime {
       cells.append(contentsOf: [
         .contact(.phone(number: phone, openingTime: openingTime, closingTime: closingTime)),
         .spacer(.tiny)
@@ -103,7 +111,7 @@ extension CustomerSupportVM {
     }
 
     // email contact
-    if let email = state.configuration.supportEmail {
+    if let email = supportEmail {
       cells.append(contentsOf: [
         .contact(.email(email: email)),
         .spacer(.tiny)
@@ -120,22 +128,40 @@ extension CustomerSupportVM {
 
     // info
     cells.append(contentsOf: [
-      .info(L10n.Support.Info.Item.os, state.environment.osVersion),
-      .info(L10n.Support.Info.Item.device, state.environment.deviceModel),
+      .info(L10n.Support.Info.Item.os, osVersion),
+      .info(L10n.Support.Info.Item.device, deviceModel),
       .info(
         L10n.Support.Info.Item.exposureNotificationEnabled,
-        state.environment.exposureNotificationAuthorizationStatus.isAuthorized ?
+        exposureNotificationEnabled ?
           L10n.Support.Info.ExposureNotifications.active : L10n.Support.Info.ExposureNotifications.inactive
       ),
       .info(
         L10n.Support.Info.Item.bluetoothEnabled,
-        state.environment.exposureNotificationAuthorizationStatus.canPerformDetection ?
-          L10n.Support.Info.Bluetooth.active : L10n.Support.Info.Bluetooth.inactive
+        bluetoothEnabled ? L10n.Support.Info.Bluetooth.active : L10n.Support.Info.Bluetooth.inactive
       ),
-      .info(L10n.Support.Info.Item.appVersion, state.environment.appVersion),
-      .info(L10n.Support.Info.Item.connectionType, state.environment.networkReachabilityStatus.description)
+      .info(L10n.Support.Info.Item.appVersion, appVersion),
+      .info(L10n.Support.Info.Item.connectionType, networkReachabilityStatus.description)
     ])
-    self.cells = cells
+
+    return cells
+  }
+
+  init?(state: AppState?, localState: CustomerSupportLS) {
+    guard let state = state else {
+      return nil
+    }
+    self.cells = CustomerSupportVM.cells(
+      supportPhone: state.configuration.supportPhone,
+      supportPhoneOpeningTime: state.configuration.supportPhoneOpeningTime,
+      supportPhoneClosingTime: state.configuration.supportPhoneClosingTime,
+      supportEmail: state.configuration.supportEmail,
+      osVersion: state.environment.osVersion,
+      deviceModel: state.environment.deviceModel,
+      exposureNotificationEnabled: state.environment.exposureNotificationAuthorizationStatus.isAuthorized,
+      bluetoothEnabled: state.environment.exposureNotificationAuthorizationStatus.canPerformDetection,
+      appVersion: state.environment.appVersion,
+      networkReachabilityStatus: state.environment.networkReachabilityStatus
+    )
     self.isHeaderVisible = localState.isHeaderVisible
   }
 }
