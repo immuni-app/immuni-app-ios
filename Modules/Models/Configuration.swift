@@ -41,6 +41,10 @@ public struct Configuration: Codable {
     case dataUploadMaxExposureInfoCount = "teks_max_info_count"
     case ingestionRequestTargetSize = "teks_packet_size"
     case isExperimentalPhase = "experimental_phase"
+    case supportEmail = "support_email"
+    case supportPhone = "support_phone"
+    case supportPhoneOpeningTime = "support_phone_opening_time"
+    case supportPhoneClosingTime = "support_phone_closing_time"
   }
 
   /// This is used to enforce a minimum version of the app.
@@ -136,6 +140,18 @@ public struct Configuration: Codable {
   /// Whether the application is an experimental phase
   public let isExperimentalPhase: Bool
 
+  /// The email to contact support.
+  public let supportEmail: String?
+
+  /// The phone number to contact support.
+  public let supportPhone: String?
+
+  /// The phone opening time to contact support.
+  public let supportPhoneOpeningTime: String?
+
+  /// The phone closing time to contact support.
+  public let supportPhoneClosingTime: String?
+
   /// The FAQ url for the given language. it returns english version if the given
   /// language is not available.
   /// Note that the method may still fail in case of missing english version
@@ -182,7 +198,11 @@ public struct Configuration: Codable {
     dataUploadMaxSummaryCount: Int = 84,
     dataUploadMaxExposureInfoCount: Int = 600,
     ingestionRequestTargetSize: Int = 110_000,
-    isExperimentalPhase: Bool = false
+    isExperimentalPhase: Bool = false,
+    supportEmail: String? = nil,
+    supportPhone: String? = nil,
+    supportPhoneOpeningTime: String? = nil,
+    supportPhoneClosingTime: String? = nil
   ) {
     self.minimumBuildVersion = minimumBuildVersion
     self.serviceNotActiveNotificationPeriod = serviceNotActiveNotificationPeriod
@@ -208,6 +228,10 @@ public struct Configuration: Codable {
     self.dataUploadMaxExposureInfoCount = dataUploadMaxExposureInfoCount
     self.ingestionRequestTargetSize = ingestionRequestTargetSize
     self.isExperimentalPhase = isExperimentalPhase
+    self.supportEmail = supportEmail
+    self.supportPhone = supportPhone
+    self.supportPhoneOpeningTime = supportPhoneOpeningTime
+    self.supportPhoneClosingTime = supportPhoneClosingTime
   }
 
   // swiftlint:enable force_unwrapping

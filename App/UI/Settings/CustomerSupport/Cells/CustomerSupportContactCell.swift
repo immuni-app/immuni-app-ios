@@ -17,8 +17,8 @@ import Tempura
 
 struct CustomerSupportContactCellVM: ViewModel {
   enum Kind: Equatable {
-    case email
-    case phone
+    case email(email: String)
+    case phone(number: String, openingTime: String, closingTime: String)
   }
 
   let kind: Kind
@@ -53,19 +53,17 @@ struct CustomerSupportContactCellVM: ViewModel {
     switch self.kind {
     case .email:
       return L10n.Support.Email.description
-    case .phone:
-      #warning("handle")
-      return L10n.Support.Phone.description("7", "22")
+    case .phone(_, let opening, let closing):
+      return L10n.Support.Phone.description(opening, closing)
     }
   }
 
   var contact: String {
-    #warning("handle")
     switch self.kind {
-    case .email:
-      return "email@email.it"
-    case .phone:
-      return "800 91 24 91"
+    case .email(let email):
+      return email
+    case .phone(let number, _, _):
+      return number
     }
   }
 }
