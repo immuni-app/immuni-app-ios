@@ -15,6 +15,7 @@
 import Extensions
 import Hydra
 import Katana
+import MessageUI
 import Models
 import Tempura
 
@@ -66,6 +67,55 @@ extension Logic.Shared {
         return
       }
       try await(context.dependencies.application.goTo(url: url))
+    }
+  }
+
+  /// Side effect to send an email with given recipient, subject and body.
+  struct SendEmail: AppSideEffect {
+    let recipient: String
+    let subject: String
+    let body: String
+
+    public func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      guard !self.openInMail(context, recipient: self.recipient) else {
+        return
+      }
+
+      guard !self.openInGmail(context, recipient: self.recipient) else {
+        return
+      }
+    }
+
+    private func openInMail(_ context: SideEffectContext<AppState, AppDependencies>, recipient: String) -> Bool {
+      guard MFMailComposeViewController.canSendMail() else {
+        return false
+      }
+
+      context
+        .dispatch(Show(
+          Screen.mailComposer,
+          animated: true,
+          context: MessageComposerContext(subject: self.subject, body: self.body, recipient: self.recipient)
+        ))
+
+      return true
+    }
+
+    private func openInGmail(_ context: SideEffectContext<AppState, AppDependencies>, recipient: String) -> Bool {
+      return mainThread {
+        guard
+          let subject = self.subject.escaped(),
+          let body = self.body.escaped(),
+          let url = URL(string: "googlegmail:///co?to=\(recipient)&subject=\(subject)&body=\(body)"),
+          context.dependencies.application.canOpenURL(url)
+
+          else {
+            return false
+        }
+
+        context.dependencies.application.open(url, options: [:], completionHandler: nil)
+        return true
+      }
     }
   }
 
@@ -144,6 +194,12 @@ extension Logic.Shared {
 }
 
 // MARK: - Private
+
+private extension String {
+  func escaped() -> String? {
+    return self.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+  }
+}
 
 private extension Logic.Shared {
   /// Handle contact notification opened. This action will present the Suggestion view from the home tab.

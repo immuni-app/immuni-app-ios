@@ -38,6 +38,7 @@ enum Screen: String, CaseIterable {
   case confirmation
   case alert
   case privacy
+  case mailComposer
 
   // home
   case home
@@ -236,7 +237,14 @@ extension TabbarVC: RoutableWithConfiguration {
       .show(Screen.suggestions): .presentModally { [unowned self] context in
         SuggestionsVC(store: self.store, localState: SuggestionsLS())
       },
-      .hide(Screen.suggestions): .dismissModally(behaviour: .hard)
+      .hide(Screen.suggestions): .dismissModally(behaviour: .hard),
+
+      // Mail composer
+      .show(Screen.mailComposer): .presentModally { context in
+        let context = context as? MessageComposerContext ?? AppLogger
+          .fatalError("MessageComposer should be invoked with a context of type MessageComposerContext")
+        return MessageComposer(context: context)
+      }
     ]
   }
 }

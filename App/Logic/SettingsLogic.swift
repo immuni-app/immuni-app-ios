@@ -173,6 +173,21 @@ extension Logic.Settings {
   }
 }
 
+// MARK: Customer Support
+
+extension Logic.Settings {
+  struct SendCustomerSupportEmail: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      let state = context.getState()
+      guard let recipient = state.configuration.supportEmail else {
+        return
+      }
+
+      context.dispatch(Logic.Shared.SendEmail(recipient: recipient, subject: "", body: "AAAAA"))
+    }
+  }
+}
+
 // MARK: Debug Menu
 
 extension Logic.Settings {
