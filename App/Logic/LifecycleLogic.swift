@@ -12,6 +12,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+import Alamofire
 import BackgroundTasks
 import Extensions
 import Foundation
@@ -33,6 +34,7 @@ extension Logic {
 
         // refresh statuses
         try context.awaitDispatch(Logic.Lifecycle.RefreshAuthorizationStatuses())
+        try context.awaitDispatch(Logic.Lifecycle.RefreshNetworkReachabilityStatus())
 
         // Update user language
         try context.awaitDispatch(SetUserLanguage(language: UserLanguage(from: context.dependencies.locale)))
@@ -223,6 +225,15 @@ extension Logic.Lifecycle {
       ))
     }
   }
+
+  struct RefreshNetworkReachabilityStatus: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      guard let status = context.dependencies.reachabilityManager?.status else {
+        return
+      }
+      context.dispatch(UpdateNetworkReachabilityStatus(value: status))
+    }
+  }
 }
 
 // MARK: Private State Updaters
@@ -243,6 +254,14 @@ private extension Logic.Lifecycle {
       let device = UIDevice.current
       state.environment.osVersion = "\(device.systemName) (\(device.systemVersion))"
       state.environment.deviceModel = device.modelName
+    }
+  }
+
+  /// Update the network reachability status
+  private struct UpdateNetworkReachabilityStatus: AppStateUpdater {
+    let value: NetworkReachabilityManager.NetworkReachabilityStatus
+    func updateState(_ state: inout AppState) {
+      state.environment.networkReachabilityStatus = self.value
     }
   }
 

@@ -12,6 +12,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+import Alamofire
 import ImmuniExposureNotification
 import Katana
 import Models
@@ -35,6 +36,9 @@ struct EnvironmentState {
 
   /// A string describing the device model.
   var deviceModel: String = "iPhone 11"
+
+  /// The current network reachability status.
+  var networkReachabilityStatus: NetworkReachabilityManager.NetworkReachabilityStatus = .unknown
 
   /// Last explored tab during this session
   var selectedTab: TabbarVM.Tab = .home
