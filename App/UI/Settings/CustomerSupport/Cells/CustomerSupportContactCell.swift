@@ -17,8 +17,8 @@ import Tempura
 
 struct CustomerSupportContactCellVM: ViewModel {
   enum Kind: Equatable {
-    case email(String)
-    case phone(String, String, String)
+    case email(email: String)
+    case phone(number: String, openingTime: String, closingTime: String)
   }
 
   let kind: Kind

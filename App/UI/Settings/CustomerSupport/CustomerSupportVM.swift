@@ -97,7 +97,7 @@ extension CustomerSupportVM {
       let openingTime = state.configuration.supportPhoneOpeningTime,
       let closingTime = state.configuration.supportPhoneClosingTime {
       cells.append(contentsOf: [
-        .contact(.phone(phone, openingTime, closingTime)),
+        .contact(.phone(number: phone, openingTime: openingTime, closingTime: closingTime)),
         .spacer(.tiny)
       ])
     }
@@ -105,7 +105,7 @@ extension CustomerSupportVM {
     // email contact
     if let email = state.configuration.supportEmail {
       cells.append(contentsOf: [
-        .contact(.email(email)),
+        .contact(.email(email: email)),
         .spacer(.tiny)
       ])
     }

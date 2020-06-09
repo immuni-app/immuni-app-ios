@@ -199,10 +199,10 @@ public struct Configuration: Codable {
     dataUploadMaxExposureInfoCount: Int = 600,
     ingestionRequestTargetSize: Int = 110_000,
     isExperimentalPhase: Bool = false,
-    supportEmail: String? = "email@email.it",
-    supportPhone: String? = "800 91 24 91",
-    supportPhoneOpeningTime: String? = "7",
-    supportPhoneClosingTime: String? = "22"
+    supportEmail: String? = nil,
+    supportPhone: String? = nil,
+    supportPhoneOpeningTime: String? = nil,
+    supportPhoneClosingTime: String? = nil
   ) {
     self.minimumBuildVersion = minimumBuildVersion
     self.serviceNotActiveNotificationPeriod = serviceNotActiveNotificationPeriod
