@@ -32,6 +32,7 @@
 "force_update_view.app.title" = "Aggiorna l'app per proseguire";
 "force_update_view.os.details" = "Una versione più recente di iOS (13.5 o superiore) è necessaria per attivare le notifiche di esposizione.";
 "force_update_view.os.title" = "Aggiorna il sistema operativo per proseguire";
+"force_update_view.os.seconday_button" = "Non riesci ad aggiornare?";
 "force_update_view.update" = "Aggiorna";
 "home_protection_active" = "Servizio\n{attivo}";
 "home_protection_not_active" = "Servizio\n{non attivo}";
