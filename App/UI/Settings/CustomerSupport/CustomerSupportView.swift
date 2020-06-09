@@ -247,6 +247,20 @@ extension CustomerSupportView: UICollectionViewDelegateFlowLayout {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     self.userDidScroll?(scrollView.contentOffset.y)
   }
+
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    collectionView.deselectItem(at: indexPath, animated: false)
+    guard let cellType = self.model?.cells[safe: indexPath.item] else {
+      return
+    }
+
+    switch cellType {
+    case .title, .textualContent, .button, .separator, .spacer, .infoHeader, .info:
+      return
+    case .contact(let kind):
+      self.userDidTapContact?(kind)
+    }
+  }
 }
 
 // MARK: Style

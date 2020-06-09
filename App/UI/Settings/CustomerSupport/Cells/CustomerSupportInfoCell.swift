@@ -64,6 +64,10 @@ class CustomerSupportInfoCell: UICollectionViewCell, ModellableView, ReusableVie
     Self.Style.title(self.title, content: model.info)
     Self.Style.value(self.value, content: model.value)
 
+    self.isAccessibilityElement = true
+    self.accessibilityLabel = model.info
+    self.accessibilityValue = model.value
+
     self.separator.isHidden = !model.shouldShowSeparator
 
     self.setNeedsLayout()
