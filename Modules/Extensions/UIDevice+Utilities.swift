@@ -57,6 +57,7 @@ public extension UIDevice {
   /// Parse the device name using the standard names
   var modelName: String {
     #if targetEnvironment(simulator)
+      // swiftlint:disable:next force_unwrapping
       let identifier = ProcessInfo().environment["SIMULATOR_MODEL_IDENTIFIER"]!
     #else
       var systemInfo = utsname()
