@@ -183,7 +183,21 @@ extension Logic.Settings {
         return
       }
 
-      context.dispatch(Logic.Shared.SendEmail(recipient: recipient, subject: "", body: "AAAAA"))
+      // swiftlint:disable line_length
+      let infos = [
+        "\(L10n.Support.Info.Item.os): \(state.environment.osVersion)",
+        "\(L10n.Support.Info.Item.device): \(state.environment.deviceModel)",
+        "\(L10n.Support.Info.Item.exposureNotificationEnabled): \(state.environment.exposureNotificationAuthorizationStatus.isAuthorized ? L10n.Support.Info.ExposureNotifications.active : L10n.Support.Info.ExposureNotifications.inactive)",
+        "\(L10n.Support.Info.Item.bluetoothEnabled): \(state.environment.exposureNotificationAuthorizationStatus.canPerformDetection ? L10n.Support.Info.Bluetooth.active : L10n.Support.Info.Bluetooth.inactive)",
+        "\(L10n.Support.Info.Item.appVersion): \(state.environment.appVersion)",
+        "\(L10n.Support.Info.Item.connectionType): \(state.environment.networkReachabilityStatus.description)"
+      ]
+      // swiftlint:enable line_length
+      let infoString = infos.joined(separator: "; ")
+
+      let body = "\r\n——————————\r\n\(L10n.SupportEmail.Body.message)\r\n\r\n\(infoString)"
+
+      context.dispatch(Logic.Shared.SendEmail(recipient: recipient, subject: "", body: body))
     }
   }
 }
