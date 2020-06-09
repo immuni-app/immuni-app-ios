@@ -104,9 +104,8 @@ extension Logic.Settings {
   /// Shows the customer support screen
   struct ShowCustomerSupport: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      let ls = CustomerSupportLS()
       try context.awaitDispatch(Logic.Lifecycle.RefreshNetworkReachabilityStatus())
-      try context.awaitDispatch(Show(Screen.customerSupport, animated: true, context: ls))
+      try context.awaitDispatch(Show(Screen.customerSupport, animated: true))
     }
   }
 }
