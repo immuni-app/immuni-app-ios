@@ -492,7 +492,12 @@ extension CustomerSupportVC: RoutableWithConfiguration {
   }
 
   var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
-    return [:]
+    return [
+      .show(Screen.faq): .presentModally { _ in
+        FaqVC(store: self.store, localState: FAQLS(isPresentedModally: true))
+      },
+      .hide(Screen.faq): .dismissModally(behaviour: .hard)
+    ]
   }
 }
 
