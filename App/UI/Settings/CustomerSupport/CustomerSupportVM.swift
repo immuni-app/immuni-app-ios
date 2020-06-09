@@ -77,11 +77,7 @@ extension CustomerSupportVM {
     .spacer(.medium),
     .textualContent(L10n.Support.Faq.description),
     .button("", L10n.Support.Faq.action),
-    .spacer(.big),
-    .separator,
-    .spacer(.big),
-    .textualContent(L10n.Support.contactSupport),
-    .spacer(.small)
+    .spacer(.big)
   ]
 
   static func cells(
@@ -99,28 +95,42 @@ extension CustomerSupportVM {
     // heading cells
     var cells = CustomerSupportVM.headingCells
 
+    let hasPhoneContact = supportPhone != nil && supportPhoneOpeningTime != nil && supportPhoneClosingTime != nil
+    let hasEmailContact = supportEmail != nil
+
+    if hasPhoneContact || hasEmailContact {
+      cells.append(contentsOf: [
+        .separator,
+        .spacer(.big),
+        .textualContent(L10n.Support.contactSupport),
+        .spacer(.small)
+      ])
+    }
+
     // phone contact
     if
       let phone = supportPhone,
       let openingTime = supportPhoneOpeningTime,
       let closingTime = supportPhoneClosingTime {
-      cells.append(contentsOf: [
-        .contact(.phone(number: phone, openingTime: openingTime, closingTime: closingTime)),
-        .spacer(.tiny)
-      ])
+      cells.append(.contact(.phone(number: phone, openingTime: openingTime, closingTime: closingTime)))
+
+      if hasEmailContact {
+        cells.append(.spacer(.tiny))
+      } else {
+        cells.append(.spacer(.small))
+      }
     }
 
     // email contact
     if let email = supportEmail {
       cells.append(contentsOf: [
         .contact(.email(email: email)),
-        .spacer(.tiny)
+        .spacer(.small)
       ])
     }
 
     // info header
     cells.append(contentsOf: [
-      .spacer(.tiny),
       .separator,
       .spacer(.small),
       .infoHeader(L10n.Support.Info.title)
