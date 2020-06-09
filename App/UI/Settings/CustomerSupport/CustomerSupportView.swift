@@ -24,6 +24,7 @@ struct CustomerSupportVM: ViewModelWithLocalState {
     case separator
     case spacer(ContentCollectionSpacerVM.Size)
     case contact(CustomerSupportContactCellVM.Kind)
+    case info(String, String)
   }
 
   /// The array of cells in the collection.
@@ -47,7 +48,7 @@ struct CustomerSupportVM: ViewModelWithLocalState {
     return self.isHeaderVisible != oldVM.isHeaderVisible
   }
 
-  func cellVM(for item: CellType) -> ViewModel? {
+  func cellVM(for item: CellType, isLastCell: Bool) -> ViewModel? {
     switch item {
     case .title(let title):
       return ContentCollectionTitleCellVM(content: title)
@@ -61,6 +62,8 @@ struct CustomerSupportVM: ViewModelWithLocalState {
       return ContentCollectionSpacerVM(size: size)
     case .contact(let kind):
       return CustomerSupportContactCellVM(kind: kind)
+    case .info(let info, let value):
+      return CustomerSupportInfoCellVM(info: info, value: value, shouldShowSeparator: !isLastCell)
     }
   }
 }
@@ -85,7 +88,16 @@ extension CustomerSupportVM {
   ]
 
   init?(state: AppState?, localState: CustomerSupportLS) {
-    self.cells = CustomerSupportVM.cells
+    var cells = CustomerSupportVM.cells
+    cells.append(contentsOf: [
+      .info(L10n.Support.Info.Item.os, "iOS 13.1.5"),
+      .info(L10n.Support.Info.Item.device, "iPhone XS"),
+      .info(L10n.Support.Info.Item.exposureNotificationEnabled, "Attive"),
+      .info(L10n.Support.Info.Item.bluetoothEnabled, "Attivo"),
+      .info(L10n.Support.Info.Item.appVersion, "1.0.0 (23)"),
+      .info(L10n.Support.Info.Item.connectionType, "WiFi")
+    ])
+    self.cells = cells
     self.isHeaderVisible = localState.isHeaderVisible
   }
 }
@@ -105,7 +117,7 @@ class CustomerSupportView: UIView, ViewControllerModellableView {
   var userDidScroll: CustomInteraction<CGFloat>?
 
   lazy var contentCollection: UICollectionView = {
-    let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collection = UICollectionView(frame: .zero, collectionViewLayout: CollectionWithShadowLayout())
     collection.delegate = self
     collection.dataSource = self
 
@@ -115,6 +127,7 @@ class CustomerSupportView: UIView, ViewControllerModellableView {
     collection.register(ContentCollectionSpacer.self)
     collection.register(ContentCollectionButtonCell.self)
     collection.register(CustomerSupportContactCell.self)
+    collection.register(CustomerSupportInfoCell.self)
 
     return collection
   }()
@@ -224,17 +237,29 @@ extension CustomerSupportView: UICollectionViewDataSource {
         AppLogger.fatalError("This should never happen")
     }
 
+    let isLastCell = indexPath.item == collectionView.numberOfItems(inSection: indexPath.section) - 1
+
     switch item {
     case .title:
-      return self.dequeue(ContentCollectionTitleCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
+      return self.dequeue(
+        ContentCollectionTitleCell.self,
+        for: indexPath,
+        in: collectionView,
+        using: model.cellVM(for: item, isLastCell: isLastCell)
+      )
     case .textualContent:
-      return self.dequeue(ContentCollectionTextCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
+      return self.dequeue(
+        ContentCollectionTextCell.self,
+        for: indexPath,
+        in: collectionView,
+        using: model.cellVM(for: item, isLastCell: isLastCell)
+      )
     case .button:
       let cell = self.dequeue(
         ContentCollectionButtonCell.self,
         for: indexPath,
         in: collectionView,
-        using: model.cellVM(for: item)
+        using: model.cellVM(for: item, isLastCell: isLastCell)
       )
       cell.userDidTapButton = { [weak self] in
         self?.userDidTapActionButton?()
@@ -242,11 +267,33 @@ extension CustomerSupportView: UICollectionViewDataSource {
 
       return cell
     case .separator:
-      return self.dequeue(ContentCollectionImageCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
+      return self.dequeue(
+        ContentCollectionImageCell.self,
+        for: indexPath,
+        in: collectionView,
+        using: model.cellVM(for: item, isLastCell: isLastCell)
+      )
     case .spacer:
-      return self.dequeue(ContentCollectionSpacer.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
+      return self.dequeue(
+        ContentCollectionSpacer.self,
+        for: indexPath,
+        in: collectionView,
+        using: model.cellVM(for: item, isLastCell: isLastCell)
+      )
     case .contact:
-      return self.dequeue(CustomerSupportContactCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
+      return self.dequeue(
+        CustomerSupportContactCell.self,
+        for: indexPath,
+        in: collectionView,
+        using: model.cellVM(for: item, isLastCell: isLastCell)
+      )
+    case .info:
+      return self.dequeue(
+        CustomerSupportInfoCell.self,
+        for: indexPath,
+        in: collectionView,
+        using: model.cellVM(for: item, isLastCell: isLastCell)
+      )
     }
   }
 
