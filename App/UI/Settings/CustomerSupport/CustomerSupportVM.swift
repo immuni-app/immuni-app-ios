@@ -140,7 +140,7 @@ extension CustomerSupportVM {
   }
 }
 
-private extension NetworkReachabilityManager.NetworkReachabilityStatus {
+extension NetworkReachabilityManager.NetworkReachabilityStatus {
   var description: String {
     switch self {
     case .unknown:
