@@ -94,6 +94,12 @@ final class CustomerSupportContactCell: UICollectionViewCell, ModellableView, Re
     self.style()
   }
 
+  override var isHighlighted: Bool {
+    didSet {
+      self.contactButton.isHighlighted = self.isHighlighted
+    }
+  }
+
   func setup() {
     self.contentView.addSubview(self.icon)
     self.contentView.addSubview(self.title)
