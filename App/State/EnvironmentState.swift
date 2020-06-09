@@ -30,6 +30,12 @@ struct EnvironmentState {
   /// The app version. Taken from the Bundle
   var appVersion: String = "1.0.0 (1)"
 
+  /// The version of the Operative System.
+  var osVersion: String = "iOS 13.0.0"
+
+  /// A string describing the device model.
+  var deviceModel: String = "iPhone 11"
+
   /// Last explored tab during this session
   var selectedTab: TabbarVM.Tab = .home
 

@@ -37,16 +37,8 @@ extension Logic {
         // Update user language
         try context.awaitDispatch(SetUserLanguage(language: UserLanguage(from: context.dependencies.locale)))
 
-        // Set the app name used in the application using the bundle's display name
-        if let appName = context.dependencies.bundle.appDisplayName {
-          try context.awaitDispatch(SetAppName(appName: appName))
-        }
-
-        // Set the app version used in the application using the bundle
-        if let appVersion = context.dependencies.bundle.appVersion,
-          let bundleVersion = context.dependencies.bundle.bundleVersion {
-          try context.awaitDispatch(SetAppVersion(appVersion: "\(appVersion) (\(bundleVersion))"))
-        }
+        // Update the app info using the bundle info
+        try context.awaitDispatch(UpdateAppInfo(bundle: context.dependencies.bundle))
 
         let isFirstLaunch = !state.toggles.isFirstLaunchSetupPerformed
 
@@ -236,21 +228,21 @@ extension Logic.Lifecycle {
 // MARK: Private State Updaters
 
 private extension Logic.Lifecycle {
-  /// Update and store the app name used in the application using the bundle's display name
-  private struct SetAppName: AppStateUpdater {
-    let appName: String
+  /// Update app info using the bundle info.
+  private struct UpdateAppInfo: AppStateUpdater {
+    let bundle: Bundle
 
     func updateState(_ state: inout AppState) {
-      state.environment.appName = self.appName
-    }
-  }
-
-  /// Update and store the app version
-  private struct SetAppVersion: AppStateUpdater {
-    let appVersion: String
-
-    func updateState(_ state: inout AppState) {
-      state.environment.appVersion = self.appVersion
+      if let appName = self.bundle.appDisplayName {
+        state.environment.appName = appName
+      }
+      if let appVersion = self.bundle.appVersion,
+        let bundleVersion = self.bundle.bundleVersion {
+        state.environment.appVersion = "\(appVersion) (\(bundleVersion))"
+      }
+      let device = UIDevice.current
+      state.environment.osVersion = "\(device.systemName) (\(device.systemVersion))"
+      state.environment.deviceModel = device.modelName
     }
   }
 
