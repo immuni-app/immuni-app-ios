@@ -51,7 +51,7 @@ struct SettingCellVM: ViewModel {
   }
 }
 
-class SettingCell: UICollectionViewCell, ModellableView, ReusableView {
+class SettingCell: UICollectionViewCell, ModellableView, ReusableView, CellWithShadow {
   typealias VM = SettingCellVM
 
   static let cellInset: CGFloat = 25

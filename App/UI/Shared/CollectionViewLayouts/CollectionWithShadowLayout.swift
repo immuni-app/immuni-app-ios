@@ -15,7 +15,8 @@
 import Tempura
 import UIKit
 
-/// This is a special UICollectionViewFlowLayout that adds a background container with shadow for each section.
+/// This is a special UICollectionViewFlowLayout that adds a background container with shadow shared for contiguous cells for
+/// group cells that implement the CellWithShadow protocol.
 /// All the shadows are at the same level without overlapping each other.
 class CollectionWithShadowLayout: UICollectionViewFlowLayout {
   // Decoration view used as background of the collection
@@ -37,6 +38,10 @@ class CollectionWithShadowLayout: UICollectionViewFlowLayout {
     self.register(ShadowedDecorationView.self, forDecorationViewOfKind: self.decorationViewKind)
   }
 
+  var startPath: IndexPath?
+  var endPath: IndexPath?
+  var decorationIndex: Int = 0
+
   // swiftlint:disable discouraged_optional_collection
   override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
     // swiftlint:enable discouraged_optional_collection
@@ -46,28 +51,76 @@ class CollectionWithShadowLayout: UICollectionViewFlowLayout {
     }
 
     var backgroundItemShadowAttributes: [UICollectionViewLayoutAttributes] = []
+
     if let collection = self.collectionView {
+      // reset shadow index when layouting
+      self.decorationIndex = 0
       for section in 0 ..< collection.numberOfSections {
-        let numberOfItems = collection.numberOfItems(inSection: section)
-        if let attribute = self.layoutAttributesForDecorationViewItem(at: section, cellsCount: numberOfItems) {
+        for item in 0 ..< collection.numberOfItems(inSection: section) {
+          let path = IndexPath(item: item, section: section)
+
+          if collection.cellForItem(at: path) is CellWithShadow {
+            // start or extend decoration
+            self.startOrExtendDecoration(with: path)
+          } else {
+            // close decoration
+            if let attribute = self.decorationAttributes() {
+              backgroundItemShadowAttributes.append(attribute)
+            }
+            self.closeDecoration()
+          }
+        }
+
+        // section ended, close decoration if needed
+        if let attribute = self.decorationAttributes() {
           backgroundItemShadowAttributes.append(attribute)
         }
+        self.closeDecoration()
       }
     }
 
     return attributes + backgroundItemShadowAttributes
   }
 
+  func startOrExtendDecoration(with path: IndexPath) {
+    if self.startPath == nil {
+      self.startPath = path
+    }
+    self.endPath = path
+  }
+
+  func closeDecoration() {
+    self.startPath = nil
+    self.endPath = nil
+  }
+
+  func decorationAttributes() -> UICollectionViewLayoutAttributes? {
+    guard
+      let start = self.startPath,
+      let end = self.endPath,
+      let attribute = self.layoutAttributesForDecorationViewItem(from: start, to: end, index: self.decorationIndex)
+      else {
+        return nil
+    }
+
+    self.decorationIndex += 1
+    return attribute
+  }
+
   /// Layout attributes for the item-specific decoration view
-  func layoutAttributesForDecorationViewItem(at section: Int, cellsCount: Int) -> UICollectionViewLayoutAttributes? {
+  func layoutAttributesForDecorationViewItem(
+    from startingCell: IndexPath,
+    to endingCell: IndexPath,
+    index: Int
+  ) -> UICollectionViewLayoutAttributes? {
     let decorationViewAttributes = UICollectionViewLayoutAttributes(
       forDecorationViewOfKind: self.decorationViewKind,
-      with: IndexPath(item: 0, section: section)
+      with: IndexPath(item: index, section: 0)
     )
 
     guard
-      let topItemAttributes = self.layoutAttributesForItem(at: IndexPath(item: 0, section: section)),
-      let bottomItemAttributes = self.layoutAttributesForItem(at: IndexPath(item: cellsCount - 1, section: section))
+      let topItemAttributes = self.layoutAttributesForItem(at: startingCell),
+      let bottomItemAttributes = self.layoutAttributesForItem(at: endingCell)
       else {
         return nil
     }
@@ -110,3 +163,6 @@ private class ShadowedDecorationView: UICollectionReusableView, View {
 
   func update() {}
 }
+
+/// A cell that will have a section shadow in the collection.
+protocol CellWithShadow: UICollectionViewCell {}

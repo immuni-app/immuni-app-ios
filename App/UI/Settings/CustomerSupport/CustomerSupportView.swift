@@ -13,82 +13,7 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 import Extensions
-import Foundation
 import Tempura
-
-struct CustomerSupportVM: ViewModelWithLocalState {
-  enum CellType: Equatable {
-    case title(String)
-    case textualContent(String)
-    case button(String, String)
-    case separator
-    case spacer(ContentCollectionSpacerVM.Size)
-    case contact(CustomerSupportContactCellVM.Kind)
-  }
-
-  /// The array of cells in the collection.
-  let cells: [CellType]
-  /// Whether the header is visible in the view. The header is shown only when the content is scrolled.
-  let isHeaderVisible: Bool
-
-  func shouldReloadCollection(oldVM: Self?) -> Bool {
-    guard let oldVM = oldVM else {
-      return true
-    }
-
-    return self.cells != oldVM.cells
-  }
-
-  func shouldUpdateHeader(oldVM: Self?) -> Bool {
-    guard let oldVM = oldVM else {
-      return true
-    }
-
-    return self.isHeaderVisible != oldVM.isHeaderVisible
-  }
-
-  func cellVM(for item: CellType) -> ViewModel? {
-    switch item {
-    case .title(let title):
-      return ContentCollectionTitleCellVM(content: title)
-    case .textualContent(let content):
-      return ContentCollectionTextCellVM(content: content)
-    case .button(let description, let title):
-      return ContentCollectionButtonCellVM(description: description, buttonTitle: title)
-    case .separator:
-      return ContentCollectionImageCellVM(content: Asset.Common.separator.image)
-    case .spacer(let size):
-      return ContentCollectionSpacerVM(size: size)
-    case .contact(let kind):
-      return CustomerSupportContactCellVM(kind: kind)
-    }
-  }
-}
-
-extension CustomerSupportVM {
-  static let cells: [CellType] = [
-    .title(L10n.Support.title),
-    .spacer(.medium),
-    .textualContent(L10n.Support.Faq.description),
-    .button("", L10n.Support.Faq.action),
-    .spacer(.big),
-    .separator,
-    .spacer(.big),
-    .textualContent(L10n.Support.contactSupport),
-    .spacer(.small),
-    .contact(.phone),
-    .spacer(.tiny),
-    .contact(.email),
-    .spacer(.small),
-    .separator,
-    .spacer(.big)
-  ]
-
-  init?(state: AppState?, localState: CustomerSupportLS) {
-    self.cells = CustomerSupportVM.cells
-    self.isHeaderVisible = localState.isHeaderVisible
-  }
-}
 
 // MARK: - View
 
@@ -105,7 +30,7 @@ class CustomerSupportView: UIView, ViewControllerModellableView {
   var userDidScroll: CustomInteraction<CGFloat>?
 
   lazy var contentCollection: UICollectionView = {
-    let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collection = UICollectionView(frame: .zero, collectionViewLayout: CollectionWithShadowLayout())
     collection.delegate = self
     collection.dataSource = self
 
@@ -115,6 +40,8 @@ class CustomerSupportView: UIView, ViewControllerModellableView {
     collection.register(ContentCollectionSpacer.self)
     collection.register(ContentCollectionButtonCell.self)
     collection.register(CustomerSupportContactCell.self)
+    collection.register(CustomerSupportInfoHeaderCell.self)
+    collection.register(CustomerSupportInfoCell.self)
 
     return collection
   }()
@@ -205,7 +132,12 @@ class CustomerSupportView: UIView, ViewControllerModellableView {
       height: 150
     )
 
-    self.contentCollection.contentInset = UIEdgeInsets(top: 80, left: 0, bottom: 0, right: 0)
+    self.contentCollection.contentInset = UIEdgeInsets(
+      top: 80,
+      left: 0,
+      bottom: self.universalSafeAreaInsets.bottom + 40,
+      right: 0
+    )
   }
 }
 
@@ -224,17 +156,29 @@ extension CustomerSupportView: UICollectionViewDataSource {
         AppLogger.fatalError("This should never happen")
     }
 
+    let isLastCell = indexPath.item == collectionView.numberOfItems(inSection: indexPath.section) - 1
+
     switch item {
     case .title:
-      return self.dequeue(ContentCollectionTitleCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
+      return self.dequeue(
+        ContentCollectionTitleCell.self,
+        for: indexPath,
+        in: collectionView,
+        using: model.cellVM(for: item, isLastCell: isLastCell)
+      )
     case .textualContent:
-      return self.dequeue(ContentCollectionTextCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
+      return self.dequeue(
+        ContentCollectionTextCell.self,
+        for: indexPath,
+        in: collectionView,
+        using: model.cellVM(for: item, isLastCell: isLastCell)
+      )
     case .button:
       let cell = self.dequeue(
         ContentCollectionButtonCell.self,
         for: indexPath,
         in: collectionView,
-        using: model.cellVM(for: item)
+        using: model.cellVM(for: item, isLastCell: isLastCell)
       )
       cell.userDidTapButton = { [weak self] in
         self?.userDidTapActionButton?()
@@ -242,11 +186,40 @@ extension CustomerSupportView: UICollectionViewDataSource {
 
       return cell
     case .separator:
-      return self.dequeue(ContentCollectionImageCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
+      return self.dequeue(
+        ContentCollectionImageCell.self,
+        for: indexPath,
+        in: collectionView,
+        using: model.cellVM(for: item, isLastCell: isLastCell)
+      )
     case .spacer:
-      return self.dequeue(ContentCollectionSpacer.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
+      return self.dequeue(
+        ContentCollectionSpacer.self,
+        for: indexPath,
+        in: collectionView,
+        using: model.cellVM(for: item, isLastCell: isLastCell)
+      )
     case .contact:
-      return self.dequeue(CustomerSupportContactCell.self, for: indexPath, in: collectionView, using: model.cellVM(for: item))
+      return self.dequeue(
+        CustomerSupportContactCell.self,
+        for: indexPath,
+        in: collectionView,
+        using: model.cellVM(for: item, isLastCell: isLastCell)
+      )
+    case .infoHeader:
+      return self.dequeue(
+        CustomerSupportInfoHeaderCell.self,
+        for: indexPath,
+        in: collectionView,
+        using: model.cellVM(for: item, isLastCell: isLastCell)
+      )
+    case .info:
+      return self.dequeue(
+        CustomerSupportInfoCell.self,
+        for: indexPath,
+        in: collectionView,
+        using: model.cellVM(for: item, isLastCell: isLastCell)
+      )
     }
   }
 
