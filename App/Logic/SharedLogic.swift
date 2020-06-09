@@ -58,6 +58,17 @@ extension Logic.Shared {
     }
   }
 
+  /// Dial phone number and start a call.
+  struct DialPhoneNumber: AppSideEffect {
+    let number: String
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      guard let url = URL(string: "tel://\(self.number.replacingOccurrences(of: " ", with: ""))") else {
+        return
+      }
+      try await(context.dependencies.application.goTo(url: url))
+    }
+  }
+
   /// Update selected tab of the tabbar during this session.
   struct UpdateSelectedTab: AppStateUpdater {
     let tab: TabbarVM.Tab
@@ -117,15 +128,6 @@ extension Logic.Shared {
       }
 
       try await(context.dependencies.application.goTo(url: url).run())
-    }
-  }
-
-  /// Opens an external link using `UIApplication`
-  struct OpenExternalLink: AppSideEffect {
-    let url: URL
-
-    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      _ = context.dependencies.application.goTo(url: self.url).run()
     }
   }
 
