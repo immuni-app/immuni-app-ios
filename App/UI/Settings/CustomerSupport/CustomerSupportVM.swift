@@ -72,7 +72,7 @@ struct CustomerSupportVM: ViewModelWithLocalState {
 }
 
 extension CustomerSupportVM {
-  static let cells: [CellType] = [
+  static let headingCells: [CellType] = [
     .title(L10n.Support.title),
     .spacer(.medium),
     .textualContent(L10n.Support.Faq.description),
@@ -81,21 +81,44 @@ extension CustomerSupportVM {
     .separator,
     .spacer(.big),
     .textualContent(L10n.Support.contactSupport),
-    .spacer(.small),
-    .contact(.phone),
-    .spacer(.tiny),
-    .contact(.email),
-    .spacer(.small),
-    .separator,
-    .spacer(.small),
-    .infoHeader(L10n.Support.Info.title)
+    .spacer(.small)
   ]
 
   init?(state: AppState?, localState: CustomerSupportLS) {
     guard let state = state else {
       return nil
     }
-    var cells = CustomerSupportVM.cells
+    // heading cells
+    var cells = CustomerSupportVM.headingCells
+
+    // phone contact
+    if
+      let phone = state.configuration.supportPhone,
+      let openingTime = state.configuration.supportPhoneOpeningTime,
+      let closingTime = state.configuration.supportPhoneClosingTime {
+      cells.append(contentsOf: [
+        .contact(.phone(phone, openingTime, closingTime)),
+        .spacer(.tiny)
+      ])
+    }
+
+    // email contact
+    if let email = state.configuration.supportEmail {
+      cells.append(contentsOf: [
+        .contact(.email(email)),
+        .spacer(.tiny)
+      ])
+    }
+
+    // info header
+    cells.append(contentsOf: [
+      .spacer(.tiny),
+      .separator,
+      .spacer(.small),
+      .infoHeader(L10n.Support.Info.title)
+    ])
+
+    // info
     cells.append(contentsOf: [
       .info(L10n.Support.Info.Item.os, state.environment.osVersion),
       .info(L10n.Support.Info.Item.device, state.environment.deviceModel),
