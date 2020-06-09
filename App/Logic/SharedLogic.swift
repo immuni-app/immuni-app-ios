@@ -95,7 +95,7 @@ extension Logic.Shared {
           return
       }
 
-      context.dispatch(Show(Screen.sensitiveDataCover, animated: true))
+      context.dispatch(Show(Screen.sensitiveDataCover, animated: false))
     }
   }
 
@@ -105,7 +105,7 @@ extension Logic.Shared {
       guard context.dependencies.application.currentRoutableIdentifiers.contains(Screen.sensitiveDataCover.rawValue) else {
         return
       }
-      context.dispatch(Hide(Screen.sensitiveDataCover, animated: true))
+      context.dispatch(Hide(Screen.sensitiveDataCover, animated: false))
     }
   }
 
