@@ -34,10 +34,10 @@ class CustomerSupportUITests: AppViewTestCase, ViewTestCase {
   )
 
   let disabledServicesCells: [CustomerSupportVM.CellType] = CustomerSupportVM.cells(
-    supportPhone: "800912491",
-    supportPhoneOpeningTime: "7",
-    supportPhoneClosingTime: "22",
-    supportEmail: "email@email.it",
+    supportPhone: nil,
+    supportPhoneOpeningTime: nil,
+    supportPhoneClosingTime: nil,
+    supportEmail: nil,
     osVersion: "iOS 13.1.5",
     deviceModel: "iPhone XS",
     exposureNotificationEnabled: false,
@@ -50,7 +50,7 @@ class CustomerSupportUITests: AppViewTestCase, ViewTestCase {
     supportPhone: "800912491",
     supportPhoneOpeningTime: "7",
     supportPhoneClosingTime: "22",
-    supportEmail: "email@email.it",
+    supportEmail: nil,
     osVersion: "iOS 13.1.5",
     deviceModel: "iPhone XS",
     exposureNotificationEnabled: true,
@@ -63,8 +63,8 @@ class CustomerSupportUITests: AppViewTestCase, ViewTestCase {
     self.uiTest(
       testCases: [
         "customer_support_default": CustomerSupportVM(cells: self.defaultCells, isHeaderVisible: false),
-        "customer_support_all_disabled": CustomerSupportVM(cells: self.defaultCells, isHeaderVisible: false),
-        "customer_support_mobile_data": CustomerSupportVM(cells: self.defaultCells, isHeaderVisible: false),
+        "customer_support_all_disabled": CustomerSupportVM(cells: self.disabledServicesCells, isHeaderVisible: false),
+        "customer_support_mobile_data": CustomerSupportVM(cells: self.mobileDataCells, isHeaderVisible: false),
         "customer_support_scrolled": CustomerSupportVM(cells: self.defaultCells, isHeaderVisible: true)
       ],
       context: UITests.Context<V>()
