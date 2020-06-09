@@ -54,6 +54,11 @@ class PermissionTutorialUITests: AppViewTestCase, ViewTestCase {
           isHeaderVisible: false,
           shouldAnimateContent: false
         ),
+        "permission_tutorial_cant_update_os": PermissionTutorialVM(
+          content: .cantUpdateOperatingSystem,
+          isHeaderVisible: false,
+          shouldAnimateContent: false
+        ),
         "how_immuni_works": PermissionTutorialVM(
           content: .howImmuniWorks(shouldShowFaqButton: false),
           isHeaderVisible: false,
