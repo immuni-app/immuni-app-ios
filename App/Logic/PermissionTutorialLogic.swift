@@ -33,6 +33,18 @@ extension Logic.PermissionTutorial {
     }
   }
 
+  /// Shows further explainations about updating the OS
+  struct ShowCantUpdateOperatingSystem: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      try context
+        .awaitDispatch(Show(
+          Screen.permissionTutorial,
+          animated: true,
+          context: PermissionTutorialLS(content: .cantUpdateOperatingSystem)
+        ))
+    }
+  }
+
   /// Shows the how immuni works page
   struct ShowHowImmuniWorks: AppSideEffect {
     let showFaqButton: Bool

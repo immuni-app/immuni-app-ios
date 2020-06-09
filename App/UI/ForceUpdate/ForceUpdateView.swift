@@ -44,6 +44,26 @@ struct ForceUpdateVM: Equatable {
       return L10n.ForceUpdateView.Os.details
     }
   }
+
+  var shouldShowSecondaryButton: Bool {
+    switch self.type {
+    case .app:
+      return false
+
+    case .operatingSystem:
+      return true
+    }
+  }
+
+  var secondaryButtonTitle: String {
+    switch self.type {
+    case .app:
+      return ""
+
+    case .operatingSystem:
+      return L10n.ForceUpdateView.Os.secondayButton
+    }
+  }
 }
 
 extension ForceUpdateVM: ViewModelWithLocalState {
@@ -60,14 +80,17 @@ class ForceUpdateView: UIView, ViewControllerModellableView {
   let titleLabel = UILabel()
   let detailsLabel = UILabel()
   let updateButton = ButtonWithInsets()
+  var secondaryButton = TextButton()
 
   var didTapUpdate: Interaction?
+  var didTapSecondaryButton: Interaction?
 
   // MARK: - Setup
 
   func setup() {
     self.addSubview(self.contentContainerView)
     self.addSubview(self.updateButton)
+    self.addSubview(self.secondaryButton)
 
     self.contentContainerView.addSubview(self.downloadImageView)
     self.contentContainerView.addSubview(self.titleLabel)
@@ -75,6 +98,10 @@ class ForceUpdateView: UIView, ViewControllerModellableView {
 
     self.updateButton.on(.touchUpInside) { [unowned self] _ in
       self.didTapUpdate?()
+    }
+
+    self.secondaryButton.on(.touchUpInside) { [unowned self] _ in
+      self.didTapSecondaryButton?()
     }
   }
 
@@ -94,6 +121,9 @@ class ForceUpdateView: UIView, ViewControllerModellableView {
     Self.Style.title(self.titleLabel, title: model.title)
     Self.Style.details(self.detailsLabel, details: model.subtitle)
 
+    self.secondaryButton.isHidden = !model.shouldShowSecondaryButton
+    Self.Style.secondaryButton(self.secondaryButton, content: model.secondaryButtonTitle)
+
     self.setNeedsLayout()
   }
 
@@ -101,6 +131,8 @@ class ForceUpdateView: UIView, ViewControllerModellableView {
 
   override func layoutSubviews() {
     super.layoutSubviews()
+
+    let shouldShowSecondaryButton = self.model?.shouldShowSecondaryButton ?? false
 
     self.contentContainerView.pin.all(self.safeAreaInsets)
 
@@ -120,10 +152,23 @@ class ForceUpdateView: UIView, ViewControllerModellableView {
       .below(of: self.titleLabel)
       .marginTop(20)
 
-    self.updateButton.pin
-      .horizontally(30)
-      .height(55)
-      .bottom(self.universalSafeAreaInsets.bottom + 25)
+    if shouldShowSecondaryButton {
+      self.secondaryButton.pin
+        .horizontally(30)
+        .height(44)
+        .bottom(self.universalSafeAreaInsets.bottom + 15)
+
+      self.updateButton.pin
+        .horizontally(30)
+        .height(55)
+        .above(of: self.secondaryButton)
+        .marginBottom(30)
+    } else {
+      self.updateButton.pin
+        .horizontally(30)
+        .height(55)
+        .bottom(self.universalSafeAreaInsets.bottom + 25)
+    }
 
     self.contentContainerView.pin
       .wrapContent()
@@ -188,6 +233,14 @@ extension ForceUpdateView {
       button.layer.cornerRadius = cornerRadius
       button.layer.masksToBounds = true
       button.setAttributedTitle(title.styled(with: textStyle), for: .normal)
+    }
+
+    static func secondaryButton(_ button: TextButton, content: String) {
+      let style = TextStyles.pLink.byAdding(
+        .color(Palette.white)
+      )
+
+      button.attributedTitle = content.styled(with: style)
     }
   }
 }

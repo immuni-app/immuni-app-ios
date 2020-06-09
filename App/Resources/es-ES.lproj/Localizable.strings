@@ -128,10 +128,10 @@
 "permission_tutorial.notifications.second" = "<b>2. Accede a «Notificaciones»</b>";
 "permission_tutorial.notifications.third" = "<b>3. Habilita la función «Permitir notificaciones»</b>";
 "permission_tutorial.notifications.title" = "Cómo activar las notificaciones";
-"permission_tutorial.update_os.first" = "<b>1. Abre los ajustes del sistema</b>";
-"permission_tutorial.update_os.fourth" = "<b>4. Selecciona «Descargar e instalar» y sigue las instrucciones</b>";
-"permission_tutorial.update_os.second" = "<b>2. Accede a «General»</b>";
-"permission_tutorial.update_os.third" = "<b>3. Accede a «Actualización de software»</b>";
+"permission_tutorial.update_os.second" = "<b>2. Abre los ajustes del sistema</b>";
+"permission_tutorial.update_os.third" = "<b>3. Accede a «General»</b>";
+"permission_tutorial.update_os.fourth" = "<b>4. Accede a «Actualización de software»</b>";
+"permission_tutorial.update_os.fifth" = "<b>5. Selecciona «Descargar e instalar» y sigue las instrucciones</b>";
 "permission_tutorial.update_os.title" = "Cómo actualizar tu sistema operativo";
 "privacy.checkbox.above14" = "Declaro que tengo al menos 14 años";
 "privacy.checkbox.privacyPolicyRead" = "He leído la <l>política de privacidad</l>";
