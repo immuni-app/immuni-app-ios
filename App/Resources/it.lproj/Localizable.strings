@@ -285,3 +285,10 @@
 "support.info.item.bluetoothEnabled" = "Bluetooth";
 "support.info.item.appVersion" = "Versione app";
 "support.info.item.connectionType" = "Connessione";
+"support.info.bluetooth.active" = "Attivo";
+"support.info.bluetooth.inactive" = "Non attivo";
+"support.info.exposure_notifications.active" = "Attive";
+"support.info.exposure_notifications.inactive" = "Non attive";
+"support.info.item.connectionType.wifi" = "Wi-Fi";
+"support.info.item.connectionType.mobile" = "Mobile";
+"support.info.item.connectionType.none" = "Nessuna";

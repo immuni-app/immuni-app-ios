@@ -12,6 +12,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+import Alamofire
 import Foundation
 import Tempura
 
@@ -91,16 +92,45 @@ extension CustomerSupportVM {
   ]
 
   init?(state: AppState?, localState: CustomerSupportLS) {
+    guard let state = state else {
+      return nil
+    }
     var cells = CustomerSupportVM.cells
     cells.append(contentsOf: [
-      .info(L10n.Support.Info.Item.os, "iOS 13.1.5"),
-      .info(L10n.Support.Info.Item.device, "iPhone XS"),
-      .info(L10n.Support.Info.Item.exposureNotificationEnabled, "Attive"),
-      .info(L10n.Support.Info.Item.bluetoothEnabled, "Attivo"),
-      .info(L10n.Support.Info.Item.appVersion, "1.0.0 (23)"),
-      .info(L10n.Support.Info.Item.connectionType, "WiFi")
+      .info(L10n.Support.Info.Item.os, state.environment.osVersion),
+      .info(L10n.Support.Info.Item.device, state.environment.deviceModel),
+      .info(
+        L10n.Support.Info.Item.exposureNotificationEnabled,
+        state.environment.exposureNotificationAuthorizationStatus.isAuthorized ?
+          L10n.Support.Info.ExposureNotifications.active : L10n.Support.Info.ExposureNotifications.inactive
+      ),
+      .info(
+        L10n.Support.Info.Item.bluetoothEnabled,
+        state.environment.exposureNotificationAuthorizationStatus.canPerformDetection ?
+          L10n.Support.Info.Bluetooth.active : L10n.Support.Info.Bluetooth.inactive
+      ),
+      .info(L10n.Support.Info.Item.appVersion, state.environment.appVersion),
+      .info(L10n.Support.Info.Item.connectionType, state.environment.networkReachabilityStatus.description)
     ])
     self.cells = cells
     self.isHeaderVisible = localState.isHeaderVisible
+  }
+}
+
+private extension NetworkReachabilityManager.NetworkReachabilityStatus {
+  var description: String {
+    switch self {
+    case .unknown:
+      return "-"
+    case .notReachable:
+      return L10n.Support.Info.Item.ConnectionType.none
+    case .reachable(let kind):
+      switch kind {
+      case .ethernetOrWiFi:
+        return L10n.Support.Info.Item.ConnectionType.wifi
+      case .cellular:
+        return L10n.Support.Info.Item.ConnectionType.mobile
+      }
+    }
   }
 }

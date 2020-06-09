@@ -281,3 +281,10 @@
 "support.info.item.bluetoothEnabled" = "";
 "support.info.item.appVersion" = "";
 "support.info.item.connectionType" = "";
+"support.info.bluetooth.active" = "";
+"support.info.bluetooth.inactive" = "";
+"support.info.exposure_notifications.active" = "";
+"support.info.exposure_notifications.inactive" = "";
+"support.info.item.connectionType.wifi" = "";
+"support.info.item.connectionType.mobile" = "";
+"support.info.item.connectionType.none" = "";

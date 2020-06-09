@@ -45,6 +45,7 @@ final class AppDependencies: NSObject, SideEffectDependencyContainer, Navigation
   let secretsStorage: SecretsStorage
   var exposureNotificationManager: ExposureNotificationManager
   let networkManager: NetworkManager
+  let reachabilityManager: NetworkReachabilityManager?
   let temporaryExposureKeyProvider: TemporaryExposureKeyProvider
   let pushNotification: PushNotificationManager
   let exposureDetectionExecutor: ExposureDetectionExecutor
@@ -75,6 +76,7 @@ final class AppDependencies: NSObject, SideEffectDependencyContainer, Navigation
 
     let networkManager = NetworkManager()
     self.networkManager = networkManager
+    self.reachabilityManager = NetworkReachabilityManager.default
 
     self.temporaryExposureKeyProvider = ImmuniTemporaryExposureKeyProvider(
       networkManager: networkManager,
@@ -112,6 +114,7 @@ final class AppDependencies: NSObject, SideEffectDependencyContainer, Navigation
     kvStorage: KVStorage,
     secretsStorage: SecretsStorage,
     networkManager: NetworkManager,
+    reachabilityManager: NetworkReachabilityManager,
     temporaryExposureKeyProvider: TemporaryExposureKeyProvider,
     exposureNotificationManager: ExposureNotificationManager,
     pushNotification: PushNotificationManager,
@@ -127,6 +130,7 @@ final class AppDependencies: NSObject, SideEffectDependencyContainer, Navigation
     self.kvStorage = kvStorage
     self.secretsStorage = secretsStorage
     self.networkManager = networkManager
+    self.reachabilityManager = reachabilityManager
     self.temporaryExposureKeyProvider = temporaryExposureKeyProvider
     self.exposureNotificationManager = exposureNotificationManager
     self.pushNotification = pushNotification
