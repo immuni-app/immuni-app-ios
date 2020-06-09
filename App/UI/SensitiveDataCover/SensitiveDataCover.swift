@@ -19,36 +19,4 @@ import Tempura
 /// while it's presenting sensitive data.
 /// This is done to avoid a possible low-level malware to access the screenshots that are stored by the OS to implement the
 /// multi-tasking functionality.
-class SensitiveDataCoverVC: ViewController<SensitiveDataCoverView> {}
-
-struct SensitiveDataCoverVM: ViewModelWithState {}
-
-extension SensitiveDataCoverVM {
-  init(state: AppState) {}
-}
-
-// MARK: - View
-
-class SensitiveDataCoverView: UIVisualEffectView, ViewControllerModellableView {
-  typealias VM = SensitiveDataCoverVM
-
-  // MARK: - Setup
-
-  func setup() {}
-
-  // MARK: - Style
-
-  func style() {
-    self.effect = UIBlurEffect(style: .light)
-  }
-
-  // MARK: - Update
-
-  func update(oldModel: VM?) {}
-
-  // MARK: - Layout
-
-  override func layoutSubviews() {
-    super.layoutSubviews()
-  }
-}
+class SensitiveDataCoverVC: ViewController<AppSetupView> {}
