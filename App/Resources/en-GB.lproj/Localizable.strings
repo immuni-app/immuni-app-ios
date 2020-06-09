@@ -128,10 +128,10 @@
 "permission_tutorial.notifications.second" = "<b>2. Go to 'Notifications'</b>";
 "permission_tutorial.notifications.third" = "<b>3. Enable the 'Allow notifications' option</b>";
 "permission_tutorial.notifications.title" = "To enable notifications";
-"permission_tutorial.update_os.first" = "<b>1. Open the system settings</b>";
-"permission_tutorial.update_os.fourth" = "<b>4. Select 'Download and install' and follow the instructions</b>";
-"permission_tutorial.update_os.second" = "<b>2. Go to 'General'</b>";
-"permission_tutorial.update_os.third" = "<b>3. Go to 'Software Update'</b>";
+"permission_tutorial.update_os.second" = "<b>2. Open the system settings</b>";
+"permission_tutorial.update_os.third" = "<b>3. Go to 'General'</b>";
+"permission_tutorial.update_os.fourth" = "<b>4. Go to 'Software Update'</b>";
+"permission_tutorial.update_os.fifth" = "<b>5. Select 'Download and install' and follow the instructions</b>";
 "permission_tutorial.update_os.title" = "To update your operating system";
 "privacy.checkbox.above14" = "I declare that I am at least 14 years old";
 "privacy.checkbox.privacyPolicyRead" = "I have read the <l>privacy notice</l>";

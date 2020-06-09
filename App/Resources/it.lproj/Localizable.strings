@@ -132,11 +132,19 @@
 "permission_tutorial.notifications.second" = "<b>2. Entra in \"Notifiche\"</b>";
 "permission_tutorial.notifications.third" = "<b>3. Abilita la voce \"Consenti notifiche\"</b>";
 "permission_tutorial.notifications.title" = "Per attivare le notifiche";
-"permission_tutorial.update_os.first" = "<b>1. Apri le impostazioni di sistema</b>";
-"permission_tutorial.update_os.fourth" = "<b>4. Seleziona \"Scarica e installa\" e segui le istruzioni</b>";
-"permission_tutorial.update_os.second" = "<b>2. Entra in \"Generali\"</b>";
-"permission_tutorial.update_os.third" = "<b>3. Entra in \"Aggiornamento Software\"</b>";
+
+"permission_tutorial.update_os.first" = "<b>1. Assicurati di essere connesso tramite Wi-Fi.</b> Non è possibile scaricare l’aggiornamento da rete mobile.";
+"permission_tutorial.update_os.second" = "<b>2. Apri le impostazioni di sistema</b>";
+"permission_tutorial.update_os.third" = "<b>3. Entra in \"Generali\"</b>";
+"permission_tutorial.update_os.fourth" = "<b>4. Entra in \"Aggiornamento Software\"</b>";
+"permission_tutorial.update_os.fifth" = "<b>5. Seleziona \"Scarica e installa\" e segui le istruzioni</b>";
 "permission_tutorial.update_os.title" = "Per aggiornare il tuo sistema operativo";
+
+"permission_tutorial.cant_update.title" = "Non riesci ad aggiornare?";
+"permission_tutorial.cant_update.first" = "<b>1. Assicurati di essere connesso tramite Wi-Fi.</b> Non è possibile scaricare l’aggiornamento da rete mobile.";
+"permission_tutorial.cant_update.second" = "<b>2. Una volta connesso al Wi-Fi, torna in Impostazioni > Generali > Aggiornamento Software</b>";
+"permission_tutorial.cant_update.third" = "<b>3. Seleziona \"Scarica e installa\"</b>";
+"permission_tutorial.cant_update.fourth" = "<b>4.</b> Dopo averlo scaricato, <b>assicurati di averlo installato selezionando \"Installa ora\"</b>";
 
 "permission_tutorial.deactivate_service.title" = "Come disattivare il servizio";
 "permission_tutorial.deactivate_service.first.message" = "<red>Per proteggere la tua salute e quella dei tuoi cari, disattiva il servizio solo se necessario e riattivalo appena puoi.</red>";

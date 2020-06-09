@@ -128,10 +128,10 @@
 "permission_tutorial.notifications.second" = "<b>2. Gehen Sie zu \"Mitteilungen\"</b>";
 "permission_tutorial.notifications.third" = "<b>3. Aktivieren Sie den Regler \"Mitteilungen erlauben\"</b>";
 "permission_tutorial.notifications.title" = "So aktivieren Sie Mitteilungen";
-"permission_tutorial.update_os.first" = "<b>1. Öffnen Sie die Systemeinstellungen</b>";
-"permission_tutorial.update_os.fourth" = "<b>Tippen Sie auf \"Herunterladen und installieren\" und befolgen Sie die Anweisungen</b>";
-"permission_tutorial.update_os.second" = "<b>2. Gehen Sie zu \"Allgemein\"</b>";
-"permission_tutorial.update_os.third" = "<b>3. Gehen Sie zu \"Softwareupdate\"</b>";
+"permission_tutorial.update_os.second" = "<b>2. Öffnen Sie die Systemeinstellungen</b>";
+"permission_tutorial.update_os.third" = "<b>3. Gehen Sie zu \"Allgemein\"</b>";
+"permission_tutorial.update_os.fourth" = "<b>4. Gehen Sie zu \"Softwareupdate\"</b>";
+"permission_tutorial.update_os.fifth" = "<b>5. Tippen Sie auf \"Herunterladen und installieren\" und befolgen Sie die Anweisungen</b>";
 "permission_tutorial.update_os.title" = "So aktualisieren Sie Ihr Betriebssystem";
 "privacy.checkbox.above14" = "Ich bin mindestens 14 Jahre alt";
 "privacy.checkbox.privacyPolicyRead" = "Ich habe die <l>Datenschutzerklärung</l> gelesen";
