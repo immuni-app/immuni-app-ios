@@ -282,6 +282,29 @@ extension PermissionTutorialVM.Content {
     )
   }
 
+  static var cantUpdateOperatingSystem: Self {
+    return PermissionTutorialVM.Content(
+      title: L10n.PermissionTutorial.CantUpdate.title,
+      items: [
+        .spacer(.big),
+        .textualContent(L10n.PermissionTutorial.CantUpdate.first),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.CantUpdate.second),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.CantUpdate.third),
+        .spacer(.small),
+        .imageContent(Asset.PermissionTutorial.downloadAndInstall.image),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.CantUpdate.fourth),
+        .spacer(.small),
+        .imageContent(Asset.PermissionTutorial.installNow.image),
+        .spacer(.big)
+      ],
+      mainActionTitle: nil,
+      action: nil
+    )
+  }
+
   static func howImmuniWorks(shouldShowFaqButton: Bool) -> Self {
     var items: [Item] = [
       .spacer(.big),
