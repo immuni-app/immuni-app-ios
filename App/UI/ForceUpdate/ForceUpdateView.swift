@@ -132,11 +132,7 @@ class ForceUpdateView: UIView, ViewControllerModellableView {
   override func layoutSubviews() {
     super.layoutSubviews()
 
-    guard let model = self.model else {
-      return
-    }
-
-    let shouldShowSecondaryButton = model.shouldShowSecondaryButton
+    let shouldShowSecondaryButton = self.model?.shouldShowSecondaryButton ?? false
 
     self.contentContainerView.pin.all(self.safeAreaInsets)
 
