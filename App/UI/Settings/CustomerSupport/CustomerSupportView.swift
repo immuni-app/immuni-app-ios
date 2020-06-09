@@ -24,6 +24,7 @@ struct CustomerSupportVM: ViewModelWithLocalState {
     case separator
     case spacer(ContentCollectionSpacerVM.Size)
     case contact(CustomerSupportContactCellVM.Kind)
+    case infoHeader(String)
     case info(String, String)
   }
 
@@ -62,6 +63,8 @@ struct CustomerSupportVM: ViewModelWithLocalState {
       return ContentCollectionSpacerVM(size: size)
     case .contact(let kind):
       return CustomerSupportContactCellVM(kind: kind)
+    case .infoHeader(let title):
+      return CustomerSupportInfoHeaderCellVM(title: title)
     case .info(let info, let value):
       return CustomerSupportInfoCellVM(info: info, value: value, shouldShowSeparator: !isLastCell)
     }
@@ -84,7 +87,8 @@ extension CustomerSupportVM {
     .contact(.email),
     .spacer(.small),
     .separator,
-    .spacer(.big)
+    .spacer(.small),
+    .infoHeader(L10n.Support.Info.title)
   ]
 
   init?(state: AppState?, localState: CustomerSupportLS) {
@@ -127,6 +131,7 @@ class CustomerSupportView: UIView, ViewControllerModellableView {
     collection.register(ContentCollectionSpacer.self)
     collection.register(ContentCollectionButtonCell.self)
     collection.register(CustomerSupportContactCell.self)
+    collection.register(CustomerSupportInfoHeaderCell.self)
     collection.register(CustomerSupportInfoCell.self)
 
     return collection
@@ -218,7 +223,12 @@ class CustomerSupportView: UIView, ViewControllerModellableView {
       height: 150
     )
 
-    self.contentCollection.contentInset = UIEdgeInsets(top: 80, left: 0, bottom: 0, right: 0)
+    self.contentCollection.contentInset = UIEdgeInsets(
+      top: 80,
+      left: 0,
+      bottom: self.universalSafeAreaInsets.bottom + 40,
+      right: 0
+    )
   }
 }
 
@@ -283,6 +293,13 @@ extension CustomerSupportView: UICollectionViewDataSource {
     case .contact:
       return self.dequeue(
         CustomerSupportContactCell.self,
+        for: indexPath,
+        in: collectionView,
+        using: model.cellVM(for: item, isLastCell: isLastCell)
+      )
+    case .infoHeader:
+      return self.dequeue(
+        CustomerSupportInfoHeaderCell.self,
         for: indexPath,
         in: collectionView,
         using: model.cellVM(for: item, isLastCell: isLastCell)
