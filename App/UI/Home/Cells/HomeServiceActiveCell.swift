@@ -194,7 +194,7 @@ class HomeServiceActiveCell: UICollectionViewCell, ModellableView, ReusableView,
       .bottom(HomeView.cellHorizontalInset)
 
     self.discoverMoreButton.pin
-      .left(HomeView.cellHorizontalInset)
+      .horizontally(HomeView.cellHorizontalInset)
       .sizeToFit(.widthFlexible)
       .bottom(HomeServiceActiveCell.verticalOffset)
 
@@ -378,6 +378,8 @@ private extension HomeServiceActiveCell {
       )
 
       button.attributedTitle = content.styled(with: style)
+      button.contentHorizontalAlignment = .left
+      button.titleLabel?.numberOfLines = 0
     }
   }
 }
