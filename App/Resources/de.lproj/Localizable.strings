@@ -153,9 +153,7 @@
 "settings.setting.debug_utilities" = "Debug-Menü";
 "settings.setting.faq" = "Häufig gestellte Fragen (FAQ)";
 "settings.setting.leave_review" = "Bewertung schreiben";
-"settings.setting.load_data" = "";
 "settings.setting.privacy" = "Datenschutzerklärung";
-"settings.setting.section.data" = "";
 "settings.setting.section.general" = "Allgemein";
 "settings.setting.section.info" = "Informationen";
 "settings.setting.tos" = "Nutzungsbedingungen";
