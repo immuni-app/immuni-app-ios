@@ -24,8 +24,8 @@ struct UploadDataVM: ViewModelWithLocalState {
   /// The number of seconds until a new request can be performed.
   let errorSecondsLeft: Int
 
-  var warningVM: UploadDataWarningVM {
-    return UploadDataWarningVM()
+  var warningVM: UploadDataHeaderVM {
+    return UploadDataHeaderVM()
   }
 
   var codeVM: UploadDataCodeVM {
@@ -77,7 +77,7 @@ class UploadDataView: UIView, ViewControllerModellableView {
   private let title = UILabel()
   private var backButton = ImageButton()
   let scrollView = UIScrollView()
-  private let warningCard = UploadDataWarningView()
+  private let warningCard = UploadDataHeaderView()
   private let codeCard = UploadDataCodeView()
   private let messageCard = UploadDataMessageView()
   let verifyCard = UploadDataVerifyView()

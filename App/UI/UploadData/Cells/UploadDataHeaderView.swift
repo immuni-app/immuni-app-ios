@@ -1,4 +1,4 @@
-// UploadDataWarning.swift
+// UploadDataHeaderView.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -16,14 +16,14 @@ import Foundation
 import Lottie
 import Tempura
 
-struct UploadDataWarningVM: ViewModel {}
+struct UploadDataHeaderVM: ViewModel {}
 
 // MARK: - View
 
-class UploadDataWarningView: UIView, ModellableView {
+class UploadDataHeaderView: UIView, ModellableView {
   static let horizontalMargin: CGFloat = 30.0
 
-  typealias VM = UploadDataWarningVM
+  typealias VM = UploadDataHeaderVM
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -76,7 +76,7 @@ class UploadDataWarningView: UIView, ModellableView {
 
 // MARK: - Style
 
-private extension UploadDataWarningView {
+private extension UploadDataHeaderView {
   enum Style {
     static func background(_ view: UIView) {
       view.backgroundColor = .clear
