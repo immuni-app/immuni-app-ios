@@ -67,7 +67,7 @@ class CustomerSupportUITests: AppViewTestCase, ViewTestCase {
         "customer_support_mobile_data": CustomerSupportVM(cells: self.mobileDataCells, isHeaderVisible: false),
         "customer_support_scrolled": CustomerSupportVM(cells: self.defaultCells, isHeaderVisible: true)
       ],
-      context: UITests.Context<V>()
+      context: UITests.Context<V>(renderSafeArea: false)
     )
   }
 

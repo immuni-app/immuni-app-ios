@@ -29,7 +29,7 @@ class ConfirmUploadUITests: AppViewTestCase, ViewTestCase {
       testCases: [
         "confirm_upload_default": self.defaultVM
       ],
-      context: UITests.Context<V>()
+      context: UITests.Context<V>(renderSafeArea: false)
     )
   }
 

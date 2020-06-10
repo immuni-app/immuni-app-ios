@@ -65,7 +65,7 @@ class SettingsUITests: AppViewTestCase, ViewTestCase {
   }
 
   func testUI() {
-    let context = UITests.Context<V>()
+    let context = UITests.Context<V>(renderSafeArea: false)
 
     self.uiTest(
       testCases: [

@@ -36,7 +36,7 @@ class OnboardingRegionUITests: AppViewTestCase, ViewTestCase {
       navigationController.accessoryView?.setNeedsLayout()
       navigationController.accessoryView?.layoutIfNeeded()
       return navigationController
-    })
+    }, renderSafeArea: false)
 
     self.uiTest(
       testCases: [

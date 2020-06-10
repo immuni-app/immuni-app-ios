@@ -28,7 +28,7 @@ class WelcomeUITests: AppViewTestCase, ViewTestCase {
         "welcome_third_page": WelcomeVM(currentPage: 2),
         "welcome_fourth_page": WelcomeVM(currentPage: 3)
       ],
-      context: UITests.Context<V>()
+      context: UITests.Context<V>(renderSafeArea: false)
     )
   }
 

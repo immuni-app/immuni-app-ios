@@ -56,7 +56,7 @@ class PrivacyUITests: AppViewTestCase, ViewTestCase {
         "settings_privacy": PrivacyVM.settingsPrivacy(isHeaderVisible: false),
         "settings_privacy_header_visible": PrivacyVM.settingsPrivacy(isHeaderVisible: true)
       ],
-      context: UITests.Context<V>()
+      context: UITests.Context<V>(renderSafeArea: false)
     )
   }
 

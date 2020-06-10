@@ -20,7 +20,7 @@ import XCTest
 class PermissionTutorialUITests: AppViewTestCase, ViewTestCase {
   typealias V = PermissionTutorialView
   func testUI() {
-    let context = UITests.Context<V>()
+    let context = UITests.Context<V>(renderSafeArea: false)
 
     self.uiTest(
       testCases: [

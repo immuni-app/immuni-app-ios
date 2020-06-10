@@ -30,7 +30,7 @@ class FaqUITests: AppViewTestCase, ViewTestCase {
         "faq_with_header": FaqVM(faqs: FAQ.mockedFAQs, isPresentedModally: false, isHeaderVisible: true),
         "faq_modal_with_header": FaqVM(faqs: FAQ.mockedFAQs, isPresentedModally: true, isHeaderVisible: true)
       ],
-      context: UITests.Context<V>()
+      context: UITests.Context<V>(renderSafeArea: false)
     )
   }
 
