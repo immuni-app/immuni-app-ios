@@ -24,8 +24,8 @@ struct UploadDataVM: ViewModelWithLocalState {
   /// The number of seconds until a new request can be performed.
   let errorSecondsLeft: Int
 
-  var warningVM: UploadDataWarningVM {
-    return UploadDataWarningVM()
+  var headerVM: UploadDataHeaderVM {
+    return UploadDataHeaderVM()
   }
 
   var codeVM: UploadDataCodeVM {
@@ -77,7 +77,7 @@ class UploadDataView: UIView, ViewControllerModellableView {
   private let title = UILabel()
   private var backButton = ImageButton()
   let scrollView = UIScrollView()
-  private let warningCard = UploadDataWarningView()
+  private let headerView = UploadDataHeaderView()
   private let codeCard = UploadDataCodeView()
   private let messageCard = UploadDataMessageView()
   let verifyCard = UploadDataVerifyView()
@@ -86,6 +86,7 @@ class UploadDataView: UIView, ViewControllerModellableView {
 
   var didTapBack: Interaction?
   var didTapVerifyCode: Interaction?
+  var didTapDiscoverMore: Interaction?
 
   // MARK: - Setup
 
@@ -95,7 +96,7 @@ class UploadDataView: UIView, ViewControllerModellableView {
     self.addSubview(self.title)
     self.addSubview(self.backButton)
 
-    self.scrollView.addSubview(self.warningCard)
+    self.scrollView.addSubview(self.headerView)
     self.scrollView.addSubview(self.codeCard)
     self.scrollView.addSubview(self.messageCard)
     self.scrollView.addSubview(self.verifyCard)
@@ -106,8 +107,13 @@ class UploadDataView: UIView, ViewControllerModellableView {
     self.backButton.on(.touchUpInside) { [weak self] _ in
       self?.didTapBack?()
     }
+
     self.verifyCard.didTapAction = { [weak self] in
       self?.didTapVerifyCode?()
+    }
+
+    self.headerView.didTapDiscoverMore = { [weak self] in
+      self?.didTapDiscoverMore?()
     }
   }
 
@@ -131,7 +137,7 @@ class UploadDataView: UIView, ViewControllerModellableView {
       return
     }
 
-    self.warningCard.model = model.warningVM
+    self.headerView.model = model.headerVM
     self.codeCard.model = model.codeVM
     self.messageCard.model = model.messageVM
     self.verifyCard.model = model.verifyVM
@@ -167,7 +173,7 @@ class UploadDataView: UIView, ViewControllerModellableView {
       .marginTop(5)
       .bottom(self.universalSafeAreaInsets.bottom)
 
-    self.warningCard.pin
+    self.headerView.pin
       .horizontally()
       .sizeToFit(.width)
       .top(30)
@@ -175,7 +181,7 @@ class UploadDataView: UIView, ViewControllerModellableView {
     self.codeCard.pin
       .horizontally()
       .sizeToFit(.width)
-      .below(of: self.warningCard)
+      .below(of: self.headerView)
       .marginTop(25)
 
     self.messageCard.pin

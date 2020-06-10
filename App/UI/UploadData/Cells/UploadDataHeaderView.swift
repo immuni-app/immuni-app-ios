@@ -1,4 +1,4 @@
-// UploadDataWarning.swift
+// UploadDataHeaderView.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -16,12 +16,17 @@ import Foundation
 import Lottie
 import Tempura
 
-struct UploadDataWarningVM: ViewModel {}
+struct UploadDataHeaderVM: ViewModel {}
 
 // MARK: - View
 
-class UploadDataWarningView: UIView, ModellableView {
-  typealias VM = UploadDataWarningVM
+class UploadDataHeaderView: UIView, ModellableView {
+  static let horizontalMargin: CGFloat = 30.0
+  static let textToDiscoverMore: CGFloat = 10.0
+
+  typealias VM = UploadDataHeaderVM
+
+  var didTapDiscoverMore: Interaction?
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -35,22 +40,26 @@ class UploadDataWarningView: UIView, ModellableView {
     self.style()
   }
 
-  private let warning = UIImageView()
   private let message = UILabel()
+  private var discoverMore = TextButton()
 
   // MARK: - Setup
 
   func setup() {
-    self.addSubview(self.warning)
     self.addSubview(self.message)
+    self.addSubview(self.discoverMore)
+
+    self.discoverMore.on(.touchUpInside) { [weak self] _ in
+      self?.didTapDiscoverMore?()
+    }
   }
 
   // MARK: - Style
 
   func style() {
     Self.Style.background(self)
-    Self.Style.warning(self.warning)
     Self.Style.message(self.message)
+    Self.Style.discoverMore(self.discoverMore)
   }
 
   // MARK: - Update
@@ -62,41 +71,42 @@ class UploadDataWarningView: UIView, ModellableView {
   override func layoutSubviews() {
     super.layoutSubviews()
 
-    self.warning.pin
-      .sizeToFit()
-      .left(38)
-      .vCenter()
+    self.discoverMore.pin
+      .bottom()
+      .horizontally(Self.horizontalMargin)
+      .sizeToFit(.width)
 
     self.message.pin
-      .after(of: self.warning, aligned: .center)
-      .right(38)
-      .marginLeft(15)
+      .above(of: self.discoverMore, aligned: .left)
+      .marginBottom(Self.textToDiscoverMore)
+      .horizontally(Self.horizontalMargin)
       .sizeToFit(.width)
   }
 
   override func sizeThatFits(_ size: CGSize) -> CGSize {
-    let labelWidth = size.width - 138
-    let messageSize = self.message.sizeThatFits(CGSize(width: labelWidth, height: .infinity))
-    return CGSize(width: size.width, height: messageSize.height)
+    let availableWidth = size.width - 2 * Self.horizontalMargin
+    let availableSize = CGSize(width: availableWidth, height: .infinity)
+
+    let messageSize = self.message.sizeThatFits(availableSize)
+    let discoverMoreSize = self.discoverMore.sizeThatFits(availableSize)
+
+    return CGSize(width: size.width, height: messageSize.height + discoverMoreSize.height + Self.textToDiscoverMore)
   }
 }
 
 // MARK: - Style
 
-private extension UploadDataWarningView {
+private extension UploadDataHeaderView {
   enum Style {
     static func background(_ view: UIView) {
       view.backgroundColor = .clear
     }
 
-    static func warning(_ view: UIImageView) {
-      view.image = Asset.Settings.UploadData.alert.image
-    }
-
     static func message(_ label: UILabel) {
       let content = L10n.UploadData.Warning.message
-      let textStyle = TextStyles.pSemibold.byAdding(
-        .color(Palette.red),
+
+      let textStyle = TextStyles.p.byAdding(
+        .color(Palette.grayNormal),
         .alignment(.left)
       )
 
@@ -105,6 +115,17 @@ private extension UploadDataWarningView {
         content: content,
         style: textStyle
       )
+    }
+
+    static func discoverMore(_ button: TextButton) {
+      let textStyle = TextStyles.pSemibold.byAdding(
+        .color(Palette.primary),
+        .alignment(.left)
+      )
+
+      button.contentHorizontalAlignment = .left
+      button.contentVerticalAlignment = .bottom
+      button.attributedTitle = L10n.UploadData.Warning.discoverMore.styled(with: textStyle)
     }
   }
 }
