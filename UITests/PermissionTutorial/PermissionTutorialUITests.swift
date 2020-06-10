@@ -73,6 +73,11 @@ class PermissionTutorialUITests: AppViewTestCase, ViewTestCase {
           content: .verifyImmuniWorks,
           isHeaderVisible: false,
           shouldAnimateContent: false
+        ),
+        "how_to_upload_when_positive": PermissionTutorialVM(
+          content: .howToUploadWhenPositive,
+          isHeaderVisible: false,
+          shouldAnimateContent: false
         )
       ],
       context: context
