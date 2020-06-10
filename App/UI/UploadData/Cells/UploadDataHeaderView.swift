@@ -26,6 +26,8 @@ class UploadDataHeaderView: UIView, ModellableView {
 
   typealias VM = UploadDataHeaderVM
 
+  var didTapDiscoverMore: Interaction?
+
   override init(frame: CGRect) {
     super.init(frame: frame)
     self.setup()
@@ -39,13 +41,17 @@ class UploadDataHeaderView: UIView, ModellableView {
   }
 
   private let message = UILabel()
-  private let discoverMore = TextButton()
+  private var discoverMore = TextButton()
 
   // MARK: - Setup
 
   func setup() {
     self.addSubview(self.message)
     self.addSubview(self.discoverMore)
+
+    self.discoverMore.on(.touchUpInside) { [weak self] _ in
+      self?.didTapDiscoverMore?()
+    }
   }
 
   // MARK: - Style
