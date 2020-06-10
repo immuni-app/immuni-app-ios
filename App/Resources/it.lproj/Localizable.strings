@@ -177,9 +177,9 @@
 "settings.setting.debug_utilities" = "Menu di Debug";
 "settings.setting.faq" = "Domande frequenti";
 "settings.setting.leave_review" = "Lascia una recensione";
-"settings.setting.load_data" = "Caricamento dati";
+"settings.setting.load_data" = "Segnala positività";
 "settings.setting.privacy" = "Informativa privacy";
-"settings.setting.section.data" = "Gestione dati";
+"settings.setting.section.data" = "Caricamento dati";
 "settings.setting.section.general" = "Generale";
 "settings.setting.section.info" = "Informazioni";
 "settings.setting.tos" = "Termini di utilizzo";

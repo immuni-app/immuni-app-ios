@@ -153,9 +153,9 @@
 "settings.setting.debug_utilities" = "Menú de depuración";
 "settings.setting.faq" = "Preguntas frecuentes";
 "settings.setting.leave_review" = "Dejar una valoración";
-"settings.setting.load_data" = "Subida de los datos";
+"settings.setting.load_data" = "";
 "settings.setting.privacy" = "Política de privacidad";
-"settings.setting.section.data" = "Gestión de los datos";
+"settings.setting.section.data" = "";
 "settings.setting.section.general" = "General";
 "settings.setting.section.info" = "Información";
 "settings.setting.tos" = "Términos de uso";
