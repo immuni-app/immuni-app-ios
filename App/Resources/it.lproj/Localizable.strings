@@ -125,7 +125,7 @@
 "permission_tutorial.how_immuni_works.fourth.title" = "<h>Ogni telefono verifica se ha incontrato in precedenza uno o più dei codici condivisi</h>";
 "permission_tutorial.how_immuni_works.second.message" = "Quando entri in contatto con un altro utente di Immuni, i dispositivi si scambiano i rispettivi codici tramite Bluetooth Low Energy. L'app riesce così a tenere traccia del contatto avvenuto, ma non può conoscere le vostre identità, né sapere dove vi siete incontrati.";
 "permission_tutorial.how_immuni_works.second.title" = "<h>I telefoni che si incontrano si scambiano i rispettivi codici casuali</h>";
-"permission_tutorial.how_immuni_works.third.message" = "Gli utenti che sono risultati positivi al virus possono caricare su un server i codici casuali che i loro dispositivi hanno trasmesso nei giorni precedenti, in modo da renderli disponibili agli altri utenti.";
+"permission_tutorial.how_immuni_works.third.message" = "Gli utenti che sono risultati positivi al virus possono caricare su un server i codici casuali che i loro dispositivi hanno trasmesso nei giorni precedenti, in modo da renderli disponibili agli altri utenti. Questa procedura avviene con l'assistenza degli operatori che comunicano l'esito positivo del test.";
 "permission_tutorial.how_immuni_works.third.title" = "<h>Chi risulta positivo sceglie se condividere i propri codici casuali</h>";
 "permission_tutorial.how_immuni_works.title" = "Come funziona l’app";
 "permission_tutorial.notifications.action" = "Apri Impostazioni";
