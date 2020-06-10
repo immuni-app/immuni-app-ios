@@ -28,6 +28,7 @@ class HomeView: UIView, ViewControllerModellableView {
   var didTapInfo: CustomInteraction<HomeVM.InfoKind>?
   var didTapHeaderCardInfo: Interaction?
   var didTapDeactivateService: Interaction?
+  var didTapActiveServiceDiscoverMore: Interaction?
 
   // MARK: - Setup
 
@@ -156,9 +157,8 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
     case .serviceActiveCard:
       let cell = collectionView.dequeueReusableCell(HomeServiceActiveCell.self, for: indexPath)
       cell.model = cellModel as? HomeServiceActiveCellVM
-      cell.didTapAction = { [weak self] in
-        self?.didTapActivateService?()
-      }
+      cell.didTapAction = { [weak self] in self?.didTapActivateService?() }
+      cell.didTapDiscoverMore = { [weak self] in self?.didTapActiveServiceDiscoverMore?() }
       return cell
 
     case .infoHeader:

@@ -25,7 +25,7 @@ class SettingsUpdateRegionUITests: AppViewTestCase, ViewTestCase {
       testCases: [
         "settings_update_region": OnboardingRegionVM(isHeaderVisible: true, isUpdatingRegion: true, currentRegion: nil)
       ],
-      context: UITests.Context<V>()
+      context: UITests.Context<V>(renderSafeArea: false)
     )
   }
 

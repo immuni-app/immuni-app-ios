@@ -19,9 +19,11 @@ import Tempura
 
 struct FaqCellVM: ViewModel {
   let faq: FAQ
+  let searchFilter: String
 
   var title: String {
     return self.faq.title
+      .replacingOccurrences(of: self.searchFilter, with: "<b>\(self.searchFilter)</b>", options: .caseInsensitive)
   }
 }
 
@@ -83,7 +85,7 @@ class FaqCell: UICollectionViewCell, ModellableView, ReusableView {
     }
 
     Self.Style.title(self.title, content: model.title)
-    self.overlayButton.accessibilityLabel = model.title
+    self.overlayButton.accessibilityLabel = model.faq.title
 
     self.setNeedsLayout()
   }
@@ -143,9 +145,16 @@ private extension FaqCell {
     }
 
     static func title(_ label: UILabel, content: String) {
+      let highlightStyle = TextStyles.pSemibold.byAdding(
+        .color(Palette.primary),
+        .alignment(.left)
+      )
       let textStyle = TextStyles.pSemibold.byAdding(
         .color(Palette.grayDark),
-        .alignment(.left)
+        .alignment(.left),
+        .xmlRules([
+          .style("b", highlightStyle)
+        ])
       )
 
       TempuraStyles.styleShrinkableLabel(

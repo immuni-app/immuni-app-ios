@@ -31,7 +31,7 @@ class SettingsUpdateProvinceUITests: AppViewTestCase, ViewTestCase {
           currentProvince: .milano
         )
       ],
-      context: UITests.Context<V>()
+      context: UITests.Context<V>(renderSafeArea: false)
     )
   }
 

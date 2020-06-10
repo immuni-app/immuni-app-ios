@@ -39,4 +39,40 @@ public extension String {
     let randomData = Data.randomData(with: requiredBytesOfRandomness)
     return String(randomData.hexString.prefix(size))
   }
+
+  /// Reimplements fuzzier string contains that tries to match the string with all possible ordered substrings of the query,
+  /// kind of like the symbol/file search feature of Xcode
+  ///
+  /// Usage:
+  /// ```
+  /// "Immuni App".fuzzyContains("Immuni") // return true
+  /// "Immuni App".fuzzyContains("ImmApp") // return true
+  /// "Immuni App".fuzzyContains("Immani") // return false
+  /// ```
+  func fuzzyContains(_ other: String) -> Bool {
+    if other == self {
+      return true
+    }
+
+    guard other.count <= self.count else {
+      return false
+    }
+
+    var selfIdx = other.startIndex
+    var otherIdx = self.startIndex
+
+    while selfIdx != other.endIndex {
+      if otherIdx == self.endIndex {
+        return false
+      }
+
+      if other[selfIdx] == self[otherIdx] {
+        selfIdx = other.index(after: selfIdx)
+      }
+
+      otherIdx = self.index(after: otherIdx)
+    }
+
+    return true
+  }
 }

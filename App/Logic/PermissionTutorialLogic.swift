@@ -132,4 +132,16 @@ extension Logic.PermissionTutorial {
         ))
     }
   }
+
+  /// Shows further explainations about how to verify that Immuni is working
+  struct ShowVerifyImmuniWorks: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      try context
+        .awaitDispatch(Show(
+          Screen.permissionTutorial,
+          animated: true,
+          context: PermissionTutorialLS(content: .verifyImmuniWorks)
+        ))
+    }
+  }
 }

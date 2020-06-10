@@ -368,6 +368,23 @@ extension PermissionTutorialVM.Content {
     )
   }
 
+  static var verifyImmuniWorks: Self {
+    return PermissionTutorialVM.Content(
+      title: L10n.PermissionTutorial.VerifyImmuniWorks.title,
+      items: [
+        .spacer(.big),
+        .textualContent(L10n.PermissionTutorial.VerifyImmuniWorks.first),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.VerifyImmuniWorks.second),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.VerifyImmuniWorks.third),
+        .spacer(.big)
+      ],
+      mainActionTitle: nil,
+      action: nil
+    )
+  }
+
   static var howToUploadWhenPositive: Self {
     return PermissionTutorialVM.Content(
       title: L10n.PermissionTutorial.HowToUploadPositive.title,

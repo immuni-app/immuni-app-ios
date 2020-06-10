@@ -29,7 +29,7 @@ class AppSetupUITests: AppViewTestCase, ViewTestCase {
       testCases: [
         "app_setup_loading": self.loadingVM
       ],
-      context: UITests.Context<V>()
+      context: UITests.Context<V>(renderSafeArea: false)
     )
   }
 }

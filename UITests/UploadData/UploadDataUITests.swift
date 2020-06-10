@@ -44,7 +44,7 @@ class UploadDataUITests: AppViewTestCase, ViewTestCase {
         "upload_data_loading": self.loadingVM,
         "upload_data_error": self.errorVM
       ],
-      context: UITests.Context<V>()
+      context: UITests.Context<V>(renderSafeArea: false)
     )
   }
 

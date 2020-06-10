@@ -28,7 +28,7 @@ class ConfirmationUITests: AppViewTestCase, ViewTestCase {
           details: ConfirmationLS.onboardingCompleted.details
         )
       ],
-      context: UITests.Context<V>()
+      context: UITests.Context<V>(renderSafeArea: false)
     )
   }
 }

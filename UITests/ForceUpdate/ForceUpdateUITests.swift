@@ -26,7 +26,7 @@ class ForceUpdateUITests: AppViewTestCase, ViewTestCase {
         "force_update_app": ForceUpdateVM(type: .app),
         "force_update_os": ForceUpdateVM(type: .operatingSystem)
       ],
-      context: UITests.Context<V>()
+      context: UITests.Context<V>(renderSafeArea: false)
     )
   }
 }
