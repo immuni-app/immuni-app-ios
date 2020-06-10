@@ -24,11 +24,62 @@ class FaqUITests: AppViewTestCase, ViewTestCase {
   func testFaq() {
     self.uiTest(
       testCases: [
-        "faq_italian": FaqVM(faqs: FAQ.mockedFAQs, isPresentedModally: false, isHeaderVisible: false),
-        "faq_empty": FaqVM(faqs: [], isPresentedModally: false, isHeaderVisible: false),
-        "faq_modal": FaqVM(faqs: FAQ.mockedFAQs, isPresentedModally: true, isHeaderVisible: false),
-        "faq_with_header": FaqVM(faqs: FAQ.mockedFAQs, isPresentedModally: false, isHeaderVisible: true),
-        "faq_modal_with_header": FaqVM(faqs: FAQ.mockedFAQs, isPresentedModally: true, isHeaderVisible: true)
+        "faq_italian": FaqVM(
+          faqs: FAQ.mockedFAQs,
+          isPresentedModally: false,
+          isHeaderVisible: false,
+          isSearching: false,
+          searchFilter: ""
+        ),
+        "faq_empty": FaqVM(
+          faqs: [],
+          isPresentedModally: false,
+          isHeaderVisible: false,
+          isSearching: false,
+          searchFilter: ""
+        ),
+        "faq_modal": FaqVM(
+          faqs: FAQ.mockedFAQs,
+          isPresentedModally: true,
+          isHeaderVisible: false,
+          isSearching: false,
+          searchFilter: ""
+        ),
+        "faq_with_header": FaqVM(
+          faqs: FAQ.mockedFAQs,
+          isPresentedModally: false,
+          isHeaderVisible: true,
+          isSearching: false,
+          searchFilter: ""
+        ),
+        "faq_modal_with_header": FaqVM(
+          faqs: FAQ.mockedFAQs,
+          isPresentedModally: true,
+          isHeaderVisible: true,
+          isSearching: false,
+          searchFilter: ""
+        ),
+        "faq_searching": FaqVM(
+          faqs: FAQ.mockedFAQs,
+          isPresentedModally: true,
+          isHeaderVisible: false,
+          isSearching: true,
+          searchFilter: ""
+        ),
+        "faq_searching_with_header": FaqVM(
+          faqs: FAQ.mockedFAQs,
+          isPresentedModally: true,
+          isHeaderVisible: true,
+          isSearching: true,
+          searchFilter: ""
+        ),
+        "faq_searching_string": FaqVM(
+          faqs: FAQ.mockedFAQs,
+          isPresentedModally: true,
+          isHeaderVisible: false,
+          isSearching: true,
+          searchFilter: "Immuni"
+        )
       ],
       context: UITests.Context<V>()
     )
@@ -42,6 +93,7 @@ class FaqUITests: AppViewTestCase, ViewTestCase {
 }
 
 extension FAQ {
+  // swiftlint:disable line_length
   static var mockedFAQ: FAQ {
     FAQ(
       title: "Immuni dice che potrei essere a rischio, ma io mi sento bene. Cosa devo fare?",
