@@ -21,6 +21,8 @@ struct UploadDataWarningVM: ViewModel {}
 // MARK: - View
 
 class UploadDataWarningView: UIView, ModellableView {
+  static let horizontalMargin: CGFloat = 30.0
+
   typealias VM = UploadDataWarningVM
 
   override init(frame: CGRect) {
@@ -35,13 +37,11 @@ class UploadDataWarningView: UIView, ModellableView {
     self.style()
   }
 
-  private let warning = UIImageView()
   private let message = UILabel()
 
   // MARK: - Setup
 
   func setup() {
-    self.addSubview(self.warning)
     self.addSubview(self.message)
   }
 
@@ -49,7 +49,6 @@ class UploadDataWarningView: UIView, ModellableView {
 
   func style() {
     Self.Style.background(self)
-    Self.Style.warning(self.warning)
     Self.Style.message(self.message)
   }
 
@@ -62,20 +61,14 @@ class UploadDataWarningView: UIView, ModellableView {
   override func layoutSubviews() {
     super.layoutSubviews()
 
-    self.warning.pin
-      .sizeToFit()
-      .left(38)
-      .vCenter()
-
     self.message.pin
-      .after(of: self.warning, aligned: .center)
-      .right(38)
-      .marginLeft(15)
+      .top()
+      .horizontally(Self.horizontalMargin)
       .sizeToFit(.width)
   }
 
   override func sizeThatFits(_ size: CGSize) -> CGSize {
-    let labelWidth = size.width - 138
+    let labelWidth = size.width - 2 * Self.horizontalMargin
     let messageSize = self.message.sizeThatFits(CGSize(width: labelWidth, height: .infinity))
     return CGSize(width: size.width, height: messageSize.height)
   }
@@ -89,14 +82,11 @@ private extension UploadDataWarningView {
       view.backgroundColor = .clear
     }
 
-    static func warning(_ view: UIImageView) {
-      view.image = Asset.Settings.UploadData.alert.image
-    }
-
     static func message(_ label: UILabel) {
       let content = L10n.UploadData.Warning.message
-      let textStyle = TextStyles.pSemibold.byAdding(
-        .color(Palette.red),
+
+      let textStyle = TextStyles.p.byAdding(
+        .color(Palette.grayNormal),
         .alignment(.left)
       )
 
