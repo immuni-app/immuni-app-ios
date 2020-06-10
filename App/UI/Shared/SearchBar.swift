@@ -55,15 +55,11 @@ open class SearchBar: UIView, ModellableView {
     self.textfield.delegate = self
 
     self.cancelButton.on(.touchUpInside) { [weak self] _ in
-      guard let self = self else { return }
-      self.textfield.text = ""
-      self.textfield.resignFirstResponder()
-      self.didChangeSearchStatus?(self.isSearching)
-      self.didChangeSearchedValue?("")
+      self?.cancelSearch()
     }
 
     self.clearButton.on(.touchUpInside) { [weak self] _ in
-      self?.textfield.text = ""
+      self?.clearTextfield()
     }
   }
 
@@ -127,8 +123,21 @@ open class SearchBar: UIView, ModellableView {
       .vertically(5)
   }
 
+  // Helpers
+
   @discardableResult override open func resignFirstResponder() -> Bool {
     return self.textfield.resignFirstResponder()
+  }
+
+  private func clearTextfield() {
+    self.textfield.text = ""
+    self.didChangeSearchedValue?("")
+  }
+
+  private func cancelSearch() {
+    self.clearTextfield()
+    self.textfield.resignFirstResponder()
+    self.didChangeSearchStatus?(self.isSearching)
   }
 }
 
