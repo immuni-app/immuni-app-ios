@@ -1,6 +1,23 @@
 "accessibility.app_name" = "Immuni";
 "accessibility.back" = "Indietro";
 "accessibility.close" = "Chiudi";
+
+
+"accessibility.image.welcome.first" = "Immagine di due persone allegre che saltano in un parco.";
+"accessibility.image.welcome.second" = "Immagine di due persone vicine. Il telefono di una delle due riceve una notifica di allerta.";
+"accessibility.image.welcome.third" = "Immagine di due persone mentre si affacciano dalle rispettive finestre.";
+"accessibility.image.onboarding.exposure_permission" = "Immagine di una persona che passeggia mentre riceve una notifica di allerta";
+"accessibility.image.onboarding.bluetooth_off" = "Immagine di due persone i cui telefoni comunicano tramite Bluetooth";
+"accessibility.image.onboarding.push_permission" = "Immagine di un telefono che riceve una notifica";
+"accessibility.image.onboarding.pin_advice" = "Immagine di un codice di sicurezza nascosto da alcuni asterischi";
+"accessibility.image.onboarding.communication_advice" = "Immagine di un malintenzionato a volto coperto intento in un’attività fraudolenta";
+"accessibility.image.risk_header.alert" = "Attenzione";
+"accessibility.image.how_it_works.first" = "Immagine di un telefono mentre genera codici casuali";
+"accessibility.image.how_it_works.second" = "Immagine di due persone vicine tra loro. Ogni telefono comunica all'altro il proprio codice casuale.";
+"accessibility.image.how_it_works.third" = "Immagine di un telefono di una persona positiva al Covid-19 che trasferisce i propri codici casuali a una lista su un server";
+"accessibility.image.how_it_works.fourth" = "Immagine di due telefoni mentre ispezionano i codici presenti sul server";
+"accessibility.image.how_it_works.fifth" = "Immagine di una persona che riceve una notifica sul proprio telefono";
+
 "app_exit_message" = "Sei sicuro di voler uscire?";
 "app_exit_title" = "Uscire";
 "app_setup_view.generic_error" = "Impossibile connettersi. Riprova più tardi.";
