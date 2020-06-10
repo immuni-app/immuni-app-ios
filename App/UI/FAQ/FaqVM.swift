@@ -77,20 +77,31 @@ extension FaqVM {
     if localState.searchFilter.isEmpty {
       self.faqs = faqs
     } else {
-      let exactMatching = faqs.filter { $0.title.lowercased().contains(localState.searchFilter.lowercased()) }
-      let fuzzyMatching = faqs.filter {
-        !exactMatching.contains($0) &&
-          (
-            $0.title.lowercased().fuzzyContains(localState.searchFilter.lowercased()) ||
-              $0.content.lowercased().contains(localState.searchFilter.lowercased())
-          )
-      }
-      self.faqs = exactMatching + fuzzyMatching
+      self.faqs = faqs.filter(with: localState.searchFilter)
     }
 
     self.isPresentedModally = localState.isPresentedModally
     self.isHeaderVisible = localState.isHeaderVisible
     self.isSearching = localState.isSearching
     self.searchFilter = localState.searchFilter
+  }
+}
+
+// MARK: - Helper
+
+extension Array where Element == FAQ {
+  /// Returns an array of the FAQs that contain the given string in the title or in the content.
+  /// The first elements of the result are the FAQs that contain the exact match with the passed string in the title.
+  /// The following elements are the FAQs that have a fuzzy match in the title or an exact match in the content.
+  func filter(with filterString: String) -> [FAQ] {
+    let exactMatching = self.filter { $0.title.lowercased().contains(filterString.lowercased()) }
+    let fuzzyMatching = self.filter {
+      !exactMatching.contains($0) &&
+        (
+          $0.title.lowercased().fuzzyContains(filterString.lowercased()) ||
+            $0.content.lowercased().contains(filterString.lowercased())
+        )
+    }
+    return exactMatching + fuzzyMatching
   }
 }

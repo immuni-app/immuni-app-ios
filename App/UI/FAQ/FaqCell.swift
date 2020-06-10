@@ -22,7 +22,8 @@ struct FaqCellVM: ViewModel {
   let searchFilter: String
 
   var title: String {
-    return self.faq.title.replacingOccurrences(of: self.searchFilter, with: "<b>\(self.searchFilter)</b>")
+    return self.faq.title
+      .replacingOccurrences(of: self.searchFilter, with: "<b>\(self.searchFilter)</b>", options: .caseInsensitive)
   }
 }
 

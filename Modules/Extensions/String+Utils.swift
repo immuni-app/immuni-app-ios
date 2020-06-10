@@ -45,9 +45,9 @@ public extension String {
   ///
   /// Usage:
   /// ```
-  /// "iron man".fuzzyContains("iron") // return true
-  /// "iron man".fuzzyContains("iman") // return true
-  /// "iron man".fuzzyContains("imaz") // return false
+  /// "Immuni App".fuzzyContains("Immuni") // return true
+  /// "Immuni App".fuzzyContains("ImmApp") // return true
+  /// "Immuni App".fuzzyContains("Immani") // return false
   /// ```
   func fuzzyContains(_ other: String) -> Bool {
     if other == self {
