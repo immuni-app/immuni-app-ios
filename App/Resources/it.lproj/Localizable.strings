@@ -45,6 +45,7 @@
 "home_view.info.protection.title" = "Cosa puoi fare per proteggerti";
 "home_view.info_header.title" = "Informazioni";
 "home_view.service.active.subtitle" = "Immuni resta operativa anche quando l'app è chiusa.";
+"home_view.service.active.discover_more" = "Scopri di più";
 "home_view.service.active.title" = "Servizio\n<b>attivo</b>";
 "home_view.service.not_active.button" = "Riattiva Immuni";
 "home_view.service.not_active.subtitle" = "Intervieni subito per permettere a Immuni di funzionare correttamente.";
@@ -133,6 +134,11 @@
 "permission_tutorial.notifications.second" = "<b>2. Entra in \"Notifiche\"</b>";
 "permission_tutorial.notifications.third" = "<b>3. Abilita la voce \"Consenti notifiche\"</b>";
 "permission_tutorial.notifications.title" = "Per attivare le notifiche";
+
+"permission_tutorial.verify_immuni_works.title" = "Come verificare che Immuni stia funzionando";
+"permission_tutorial.verify_immuni_works.first" = "<b>Se leggi \"Servizio attivo\" significa che Immuni sta già funzionando correttamente.</b> Non devi fare altro: l'app continuerà a funzionare anche quando è chiusa.";
+"permission_tutorial.verify_immuni_works.second" = "<b>Se invece dovessero esserci problemi, leggerai \"Servizio non attivo\".</b> Immuni ti fornirà istruzioni semplici per ripristinarne il corretto funzionamento.";
+"permission_tutorial.verify_immuni_works.third" = "<b>Se entri in contatto con una persona che in seguito risulti positiva al virus, Immuni ti invierà una notifica per avvertirti del rischio di contagio.</b> Aprendo l’app, riceverai indicazioni chiare ed esaustive sul da farsi.";
 
 "permission_tutorial.update_os.first" = "<b>1. Assicurati di essere connesso tramite Wi-Fi.</b> Non è possibile scaricare l’aggiornamento da rete mobile.";
 "permission_tutorial.update_os.second" = "<b>2. Apri le impostazioni di sistema</b>";

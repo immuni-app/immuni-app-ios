@@ -34,7 +34,7 @@ class QuestionUITests: AppViewTestCase, ViewTestCase {
       testCases: [
         "question_view": self.questionVM
       ],
-      context: UITests.Context<V>()
+      context: UITests.Context<V>(renderSafeArea: false)
     )
   }
 

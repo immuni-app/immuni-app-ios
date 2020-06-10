@@ -78,7 +78,7 @@ class SuggestionsUITests: AppViewTestCase, ViewTestCase {
         "suggestions_risk": self.riskVM,
         "suggestions_positive": self.positiveVM
       ],
-      context: UITests.Context<V>()
+      context: UITests.Context<V>(renderSafeArea: false)
     )
   }
 

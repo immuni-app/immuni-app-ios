@@ -12,6 +12,8 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+// swiftlint:disable line_length
+
 import Models
 import TempuraTesting
 import XCTest
@@ -81,7 +83,7 @@ class FaqUITests: AppViewTestCase, ViewTestCase {
           searchFilter: "Immuni"
         )
       ],
-      context: UITests.Context<V>()
+      context: UITests.Context<V>(renderSafeArea: false)
     )
   }
 
