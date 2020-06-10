@@ -68,6 +68,11 @@ class PermissionTutorialUITests: AppViewTestCase, ViewTestCase {
           content: .howImmuniWorks(shouldShowFaqButton: true),
           isHeaderVisible: false,
           shouldAnimateContent: false
+        ),
+        "how_verify_immuni_works": PermissionTutorialVM(
+          content: .verifyImmuniWorks,
+          isHeaderVisible: false,
+          shouldAnimateContent: false
         )
       ],
       context: context
