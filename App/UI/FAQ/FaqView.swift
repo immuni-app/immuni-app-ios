@@ -146,9 +146,15 @@ class FaqView: UIView, ViewControllerModellableView {
     }
 
     self.collection.register(FaqCell.self)
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.didTapCollection))
+    self.collection.addGestureRecognizer(tapGesture)
 
     self.collection.delegate = self
     self.collection.dataSource = self
+  }
+
+  @objc func didTapCollection() {
+    self.searchBar.resignFirstResponder()
   }
 
   // MARK: - Style
