@@ -367,4 +367,21 @@ extension PermissionTutorialVM.Content {
       action: action
     )
   }
+
+  static var verifyImmuniWorks: Self {
+    return PermissionTutorialVM.Content(
+      title: L10n.PermissionTutorial.VerifyImmuniWorks.title,
+      items: [
+        .spacer(.big),
+        .textualContent(L10n.PermissionTutorial.VerifyImmuniWorks.first),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.VerifyImmuniWorks.second),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.VerifyImmuniWorks.third),
+        .spacer(.big)
+      ],
+      mainActionTitle: nil,
+      action: nil
+    )
+  }
 }

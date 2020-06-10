@@ -45,6 +45,10 @@ class HomeVC: ViewController<HomeView> {
     self.rootView.didTapDeactivateService = { [weak self] in
       self?.dispatch(Logic.Home.ShowDeactivateService())
     }
+
+    self.rootView.didTapActiveServiceDiscoverMore = { [weak self] in
+      self?.dispatch(Logic.PermissionTutorial.ShowVerifyImmuniWorks())
+    }
   }
 
   func handleDidTapInfo(_ info: HomeVM.InfoKind) {
