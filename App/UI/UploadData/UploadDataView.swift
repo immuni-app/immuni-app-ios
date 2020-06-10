@@ -24,7 +24,7 @@ struct UploadDataVM: ViewModelWithLocalState {
   /// The number of seconds until a new request can be performed.
   let errorSecondsLeft: Int
 
-  var warningVM: UploadDataHeaderVM {
+  var headerVM: UploadDataHeaderVM {
     return UploadDataHeaderVM()
   }
 
@@ -137,7 +137,7 @@ class UploadDataView: UIView, ViewControllerModellableView {
       return
     }
 
-    self.headerView.model = model.warningVM
+    self.headerView.model = model.headerVM
     self.codeCard.model = model.codeVM
     self.messageCard.model = model.messageVM
     self.verifyCard.model = model.verifyVM
