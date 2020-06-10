@@ -29,6 +29,10 @@ class FaqVC: ViewControllerWithLocalState<FaqView> {
       self?.localState.isSearching = isSearching
     }
 
+    self.rootView.didChangeSearchedValue = { [weak self] value in
+      self?.localState.searchFilter = value
+    }
+
     self.rootView.didTapBack = { [weak self] in
       self?.dispatch(Hide(Screen.faq, animated: true))
     }
@@ -46,4 +50,6 @@ struct FAQLS: LocalState {
   var isHeaderVisible: Bool = false
   /// Whether the user is actively searching through the search bar.
   var isSearching: Bool = false
+  /// The currently searching string.
+  var searchFilter: String = ""
 }

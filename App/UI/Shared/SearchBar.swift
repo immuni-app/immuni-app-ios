@@ -43,6 +43,7 @@ open class SearchBar: UIView, ModellableView {
   }
 
   var didChangeSearchStatus: CustomInteraction<Bool>?
+  var didChangeSearchedValue: CustomInteraction<String>?
 
   public func setup() {
     self.addSubview(self.cancelButton)
@@ -58,6 +59,7 @@ open class SearchBar: UIView, ModellableView {
       self.textfield.text = ""
       self.textfield.resignFirstResponder()
       self.didChangeSearchStatus?(self.isSearching)
+      self.didChangeSearchedValue?("")
     }
 
     self.clearButton.on(.touchUpInside) { [weak self] _ in
@@ -185,5 +187,15 @@ extension SearchBar: UITextFieldDelegate {
 
   public func textFieldDidEndEditing(_ textField: UITextField) {
     self.didChangeSearchStatus?(self.isSearching)
+  }
+
+  public func textField(
+    _ textField: UITextField,
+    shouldChangeCharactersIn range: NSRange,
+    replacementString string: String
+  ) -> Bool {
+    let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
+    self.didChangeSearchedValue?(result)
+    return true
   }
 }

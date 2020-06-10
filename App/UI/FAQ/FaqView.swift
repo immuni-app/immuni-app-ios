@@ -65,7 +65,17 @@ extension FaqVM {
         return nil
     }
 
-    self.faqs = faqs
+    if localState.searchFilter.isEmpty {
+      self.faqs = faqs
+    } else {
+      let exactMatching = faqs.filter { $0.title.contains(localState.searchFilter) }
+      let fuzzyMatching = faqs.filter {
+        !exactMatching.contains($0) &&
+          ($0.title.fuzzyContains(localState.searchFilter) || $0.content.contains(localState.searchFilter))
+      }
+      self.faqs = exactMatching + fuzzyMatching
+    }
+
     self.isPresentedModally = localState.isPresentedModally
     self.isHeaderVisible = localState.isHeaderVisible
     self.isSearching = localState.isSearching
@@ -89,6 +99,7 @@ class FaqView: UIView, ViewControllerModellableView {
   let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
   var didChangeSearchStatus: CustomInteraction<Bool>?
+  var didChangeSearchedValue: CustomInteraction<String>?
   var didTapBack: Interaction?
   var didTapCell: CustomInteraction<FAQ>?
   var userDidScroll: CustomInteraction<CGFloat>?
@@ -115,6 +126,9 @@ class FaqView: UIView, ViewControllerModellableView {
 
     self.searchBar.didChangeSearchStatus = { [weak self] isSearching in
       self?.didChangeSearchStatus?(isSearching)
+    }
+    self.searchBar.didChangeSearchedValue = { [weak self] value in
+      self?.didChangeSearchedValue?(value)
     }
 
     self.collection.register(FaqCell.self)
