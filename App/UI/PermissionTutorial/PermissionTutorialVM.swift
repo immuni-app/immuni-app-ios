@@ -367,4 +367,21 @@ extension PermissionTutorialVM.Content {
       action: action
     )
   }
+
+  static var howToUploadWhenPositive: Self {
+    return PermissionTutorialVM.Content(
+      title: L10n.PermissionTutorial.HowToUploadPositive.title,
+      items: [
+        .spacer(.big),
+        .textualContent(L10n.PermissionTutorial.HowToUploadPositive.first),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.HowToUploadPositive.second),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.HowToUploadPositive.third),
+        .spacer(.big)
+      ],
+      mainActionTitle: nil,
+      action: nil
+    )
+  }
 }

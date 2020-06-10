@@ -35,7 +35,7 @@ class UploadDataVC: ViewControllerWithLocalState<UploadDataView> {
     }
 
     self.rootView.didTapDiscoverMore = { [weak self] in
-      print("DISCOVER MORE")
+      self?.dispatch(Logic.PermissionTutorial.ShowHowToUploadWhenPositive())
     }
   }
 
