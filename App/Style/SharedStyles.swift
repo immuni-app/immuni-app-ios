@@ -99,6 +99,7 @@ extension UIView {
     case headerLightBlue
     case tabbar
     case tabbarIcon
+    case textfieldFocus
   }
 
   func addShadow(_ shadow: Shadow) {
@@ -150,6 +151,11 @@ extension UIView {
       self.layer.shadowOpacity = 0.2
       self.layer.shadowRadius = 6
       self.layer.shadowOffset = CGSize(width: 2, height: 3)
+    case .textfieldFocus:
+      self.layer.shadowColor = UIColor(displayP3Red: 0.489, green: 0.471, blue: 1, alpha: 1).cgColor
+      self.layer.shadowOpacity = 0.25
+      self.layer.shadowRadius = 15
+      self.layer.shadowOffset = CGSize(width: 0, height: 3)
     }
   }
 }
