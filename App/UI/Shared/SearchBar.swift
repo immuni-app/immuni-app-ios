@@ -76,9 +76,11 @@ open class SearchBar: UIView, ModellableView {
     }
     Self.Style.shadow(self.container, isSearching: model.isSearching)
     Self.Style.searchIcon(self.searchIcon, isSearching: model.isSearching)
+    self.clearButton.isAccessibilityElement = false
 
     self.setNeedsLayout()
     UIView.animate(withDuration: 0.2) {
+      self.cancelButton.alpha = model.isSearching.cgFloat
       self.clearButton.alpha = model.isSearching.cgFloat
       self.layoutIfNeeded()
     }
