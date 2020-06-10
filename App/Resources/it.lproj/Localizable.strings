@@ -266,7 +266,8 @@
 "upload_data.vpn_error.message_europe" = "Si è verificato un errore durante l'operazione. Ti invitiamo a riprovare. Se stai utilizzando una VPN, ti suggeriamo di selezionare un server europeo o di disabilitarla temporaneamente.";
 "upload_data.vpn_error.title" = "Qualcosa è andato storto";
 "upload_data.wait_operator.message" = "Attendi la conferma dell'operatore";
-"upload_data.warning.message" = "Questa funzione richiede l'assistenza di un operatore sanitario autorizzato";
+"upload_data.warning.message" = "Questa funzione richiede l’assistenza dell'operatore che ti comunica telefonicamente l'esito positivo del test.";
+"upload_data.warning.discover_more" = "Scopri di più";
 "welcome_view.discover_more" = "Scopri di più";
 "welcome_view.go_next" = "Iniziamo";
 "welcome_view.items.first.description" = "Con il contributo di tutti, Immuni aiuta a contenere il virus e a tornare il prima possibile alla normalità.";
