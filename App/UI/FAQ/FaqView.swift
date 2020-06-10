@@ -25,6 +25,8 @@ struct FaqVM: ViewModelWithLocalState {
   let isHeaderVisible: Bool
   /// Whether the user is actively searching through the search bar.
   let isSearching: Bool
+  /// The currently searching string.
+  let searchFilter: String
 
   func shouldUpdateHeader(oldModel: FaqVM?) -> Bool {
     return self.isHeaderVisible != oldModel?.isHeaderVisible
@@ -39,14 +41,22 @@ struct FaqVM: ViewModelWithLocalState {
       return true
     }
 
-    return self.faqs != oldModel.faqs
+    if self.faqs != oldModel.faqs {
+      return true
+    }
+
+    if self.searchFilter != oldModel.searchFilter {
+      return true
+    }
+
+    return false
   }
 
   func cellModel(for indexPath: IndexPath) -> ViewModel? {
     guard let faq = self.faqs[safe: indexPath.item] else {
       return nil
     }
-    return FaqCellVM(faq: faq)
+    return FaqCellVM(faq: faq, searchFilter: self.searchFilter)
   }
 
   var searchBarVM: SearchBarVM { SearchBarVM(isSearching: self.isSearching) }
@@ -68,10 +78,13 @@ extension FaqVM {
     if localState.searchFilter.isEmpty {
       self.faqs = faqs
     } else {
-      let exactMatching = faqs.filter { $0.title.contains(localState.searchFilter) }
+      let exactMatching = faqs.filter { $0.title.lowercased().contains(localState.searchFilter.lowercased()) }
       let fuzzyMatching = faqs.filter {
         !exactMatching.contains($0) &&
-          ($0.title.fuzzyContains(localState.searchFilter) || $0.content.contains(localState.searchFilter))
+          (
+            $0.title.lowercased().fuzzyContains(localState.searchFilter.lowercased()) ||
+              $0.content.lowercased().contains(localState.searchFilter.lowercased())
+          )
       }
       self.faqs = exactMatching + fuzzyMatching
     }
@@ -79,6 +92,7 @@ extension FaqVM {
     self.isPresentedModally = localState.isPresentedModally
     self.isHeaderVisible = localState.isHeaderVisible
     self.isSearching = localState.isSearching
+    self.searchFilter = localState.searchFilter
   }
 }
 
