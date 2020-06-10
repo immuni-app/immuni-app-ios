@@ -66,10 +66,11 @@ struct PermissionTutorialVM {
     case .textualContent(let content):
       return ContentCollectionTextCellVM(content: content)
 
-    case .animationContent(let animationAsset):
+    case .animationContent(let animationAsset, let accessibilityLabel):
       return ContentCollectionAnimationCellVM(
         asset: animationAsset,
-        shouldPlay: self.shouldAnimateContent
+        shouldPlay: self.shouldAnimateContent,
+        accessibilityLabel: accessibilityLabel
       )
 
     case .imageContent(let image):
@@ -145,7 +146,7 @@ extension PermissionTutorialVM.Content {
   enum Item: Equatable {
     case title(String)
     case textualContent(String)
-    case animationContent(AnimationAsset)
+    case animationContent(AnimationAsset, accessibilityLabel: String?)
     case imageContent(UIImage)
     case textAndImage(String, UIImage, ContentCollectionTextAndImageCellVM.Alignment)
     case spacer(ContentCollectionSpacerVM.Size)
@@ -308,7 +309,7 @@ extension PermissionTutorialVM.Content {
   static func howImmuniWorks(shouldShowFaqButton: Bool) -> Self {
     var items: [Item] = [
       .spacer(.big),
-      .animationContent(.hiw1),
+      .animationContent(.hiw1, accessibilityLabel: L10n.Accessibility.Image.HowItWorks.first),
       .spacer(.medium),
       .textualContent(L10n.PermissionTutorial.HowImmuniWorks.First.title),
       .spacer(.tiny),
@@ -316,7 +317,7 @@ extension PermissionTutorialVM.Content {
       .spacer(.medium),
       .imageContent(Asset.HowImmuniWorks.break.image),
       .spacer(.big),
-      .animationContent(.hiw2),
+      .animationContent(.hiw2, accessibilityLabel: L10n.Accessibility.Image.HowItWorks.second),
       .spacer(.medium),
       .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Second.title),
       .spacer(.tiny),
@@ -324,7 +325,7 @@ extension PermissionTutorialVM.Content {
       .spacer(.medium),
       .imageContent(Asset.HowImmuniWorks.break.image),
       .spacer(.big),
-      .animationContent(.hiw3),
+      .animationContent(.hiw3, accessibilityLabel: L10n.Accessibility.Image.HowItWorks.third),
       .spacer(.medium),
       .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Third.title),
       .spacer(.tiny),
@@ -332,7 +333,7 @@ extension PermissionTutorialVM.Content {
       .spacer(.medium),
       .imageContent(Asset.HowImmuniWorks.break.image),
       .spacer(.big),
-      .animationContent(.hiw4),
+      .animationContent(.hiw4, accessibilityLabel: L10n.Accessibility.Image.HowItWorks.fourth),
       .spacer(.medium),
       .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Fourth.title),
       .spacer(.tiny),
@@ -340,7 +341,7 @@ extension PermissionTutorialVM.Content {
       .spacer(.medium),
       .imageContent(Asset.HowImmuniWorks.break.image),
       .spacer(.big),
-      .animationContent(.hiw5),
+      .animationContent(.hiw5, accessibilityLabel: L10n.Accessibility.Image.HowItWorks.fifth),
       .spacer(.medium),
       .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Fifth.title),
       .spacer(.tiny),

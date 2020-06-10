@@ -58,6 +58,17 @@ struct OnboardingAdviceVM {
       return Asset.Onboarding.pilotMessage.image
     }
   }
+
+  var imageAccessibilityLabel: String? {
+    switch self.adviceType {
+    case .pin:
+      return L10n.Accessibility.Image.Onboarding.pinAdvice
+    case .communication:
+      return L10n.Accessibility.Image.Onboarding.communicationAdvice
+    case .pilot:
+      return nil
+    }
+  }
 }
 
 extension OnboardingAdviceVM: ViewModelWithLocalState {

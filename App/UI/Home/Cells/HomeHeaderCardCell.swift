@@ -65,6 +65,15 @@ struct HomeHeaderCardCellVM: ViewModel {
     }
   }
 
+  var animationAccessibilityLabel: String? {
+    switch self.kind {
+    case .risk:
+      return L10n.Accessibility.Image.RiskHeader.alert
+    case .positive:
+      return nil
+    }
+  }
+
   var shouldShowAnimation: Bool {
     return self.animation != nil
   }
@@ -133,7 +142,7 @@ class HomeHeaderCardCell: UICollectionViewCell, ModellableView, ReusableView, St
     Self.Style.gradient(self.gradient, gradient: model.gradient)
     Self.Style.title(self.title, content: model.title)
     Self.Style.actionButton(self.infoButton, content: model.buttonTitle)
-    Self.Style.warning(self.icon, animation: model.animation)
+    Self.Style.warning(self.icon, animation: model.animation, accessibilityLabel: model.animationAccessibilityLabel)
   }
 
   var minimumHeight: CGFloat {
@@ -260,11 +269,15 @@ private extension HomeHeaderCardCell {
       button.attributedTitle = content.styled(with: textStyle)
     }
 
-    static func warning(_ view: AnimationView, animation: Animation?) {
+    static func warning(_ view: AnimationView, animation: Animation?, accessibilityLabel: String?) {
       view.animation = animation
       view.loopMode = .loop
       view.backgroundBehavior = .pauseAndRestore
       view.playIfPossible()
+
+      if let label = accessibilityLabel {
+        view.setAccessibilityLabel(label)
+      }
     }
   }
 }

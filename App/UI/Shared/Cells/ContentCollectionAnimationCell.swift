@@ -19,8 +19,12 @@ import Tempura
 struct ContentCollectionAnimationCellVM: ViewModel {
   /// The animation asset of the cell
   let asset: AnimationAsset
+
   /// Whether the animation should play. If false, the animation is paused.
   let shouldPlay: Bool
+
+  /// The accessibility label related to the cell
+  let accessibilityLabel: String?
 
   var content: Animation? {
     return self.asset.animation
@@ -70,7 +74,7 @@ final class ContentCollectionAnimationCell: UICollectionViewCell, ModellableView
     }
 
     if model.shouldUpdateAsset(oldModel: oldModel) {
-      Self.Style.content(self.animation, content: model.content)
+      Self.Style.content(self.animation, content: model.content, accessibilityLabel: model.accessibilityLabel)
     }
 
     if model.shouldUpdateState(oldModel: oldModel) {
@@ -96,11 +100,15 @@ final class ContentCollectionAnimationCell: UICollectionViewCell, ModellableView
 
 extension ContentCollectionAnimationCell {
   enum Style {
-    static func content(_ view: AnimationView, content: Animation?) {
+    static func content(_ view: AnimationView, content: Animation?, accessibilityLabel: String?) {
       view.animation = content
       view.loopMode = .loop
       view.backgroundBehavior = .pauseAndRestore
       view.shouldRasterizeWhenIdle = true
+
+      if let label = accessibilityLabel {
+        view.setAccessibilityLabel(label)
+      }
     }
   }
 }

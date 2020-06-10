@@ -13,6 +13,7 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 import Foundation
+import Lottie
 import UIKit
 
 enum SharedStyle {
@@ -165,5 +166,9 @@ extension UIView {
   func setAccessibilityLabel(_ text: String) {
     self.isAccessibilityElement = true
     self.accessibilityLabel = text
+
+    if self is UIImageView || self is AnimationView {
+      self.accessibilityTraits = .image
+    }
   }
 }

@@ -74,7 +74,7 @@ class OnboardingPermissionView: UIView, ViewControllerModellableView {
 
     Self.Style.title(self.titleLabel, content: model.title)
     Self.Style.details(self.detailsLabel, content: model.details)
-    Self.Style.image(self.image, image: model.image)
+    Self.Style.image(self.image, image: model.image, accessibilityLabel: model.imageAccessibilityLabel)
 
     self.closeButton.isHidden = !model.canBeDismissed
   }
@@ -170,9 +170,10 @@ private extension OnboardingPermissionView {
       button.attributedTitle = L10n.WelcomeView.discoverMore.styled(with: textStyle)
     }
 
-    static func image(_ imageView: UIImageView, image: UIImage) {
+    static func image(_ imageView: UIImageView, image: UIImage, accessibilityLabel: String) {
       imageView.image = image
       imageView.contentMode = .scaleAspectFit
+      imageView.setAccessibilityLabel(accessibilityLabel)
     }
 
     static func closeButton(_ btn: ImageButton) {

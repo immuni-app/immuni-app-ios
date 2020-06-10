@@ -53,7 +53,7 @@ class OnboardingAdviceView: UIView, ViewControllerModellableView {
 
     Self.Style.title(self.titleLabel, content: model.title)
     Self.Style.details(self.detailsLabel, content: model.details)
-    Self.Style.image(self.image, image: model.image)
+    Self.Style.image(self.image, image: model.image, accessibilityLabel: model.imageAccessibilityLabel)
   }
 
   // MARK: - Layout
@@ -131,9 +131,13 @@ private extension OnboardingAdviceView {
       )
     }
 
-    static func image(_ imageView: UIImageView, image: UIImage) {
+    static func image(_ imageView: UIImageView, image: UIImage, accessibilityLabel: String?) {
       imageView.image = image
       imageView.contentMode = .scaleAspectFit
+
+      if let label = accessibilityLabel {
+        imageView.setAccessibilityLabel(label)
+      }
     }
   }
 }

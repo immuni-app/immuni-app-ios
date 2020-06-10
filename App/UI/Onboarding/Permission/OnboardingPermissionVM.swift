@@ -55,6 +55,17 @@ struct OnboardingPermissionVM {
       return Asset.Onboarding.permissionPushNotifications.image
     }
   }
+
+  var imageAccessibilityLabel: String {
+    switch self.permissionType {
+    case .bluetoothOff:
+      return L10n.Accessibility.Image.Onboarding.bluetoothOff
+    case .exposureNotification:
+      return L10n.Accessibility.Image.Onboarding.exposurePermission
+    case .pushNotifications:
+      return L10n.Accessibility.Image.Onboarding.pushPermission
+    }
+  }
 }
 
 extension OnboardingPermissionVM: ViewModelWithLocalState {

@@ -52,7 +52,7 @@ class WelcomePageView: UIView, ModellableView {
   func update(oldModel: WelcomePageVM?) {
     guard let model = self.model, model != oldModel else { return }
 
-    Self.Style.image(self.imageView, image: model.image)
+    Self.Style.image(self.imageView, image: model.image, accessibilityLabel: model.imageAccessibilityLabel)
     Self.Style.title(self.titleLabel, title: model.title)
     Self.Style.details(self.detailsLabel, details: model.details)
   }
@@ -96,9 +96,13 @@ class WelcomePageView: UIView, ModellableView {
 
 extension WelcomePageView {
   enum Style {
-    static func image(_ imageView: UIImageView, image: UIImage?) {
+    static func image(_ imageView: UIImageView, image: UIImage?, accessibilityLabel: String?) {
       imageView.image = image
       imageView.contentMode = .scaleAspectFit
+
+      if let label = accessibilityLabel {
+        imageView.setAccessibilityLabel(label)
+      }
     }
 
     static func title(_ label: UILabel, title: String?) {
@@ -134,30 +138,35 @@ struct WelcomePageVM: ViewModel, Equatable {
   let image: UIImage
   let title: String
   let details: String
+  let imageAccessibilityLabel: String?
 }
 
 extension WelcomePageVM {
   static var pageOneVM = WelcomePageVM(
     image: Asset.Welcome.first.image,
     title: L10n.WelcomeView.Items.First.title,
-    details: L10n.WelcomeView.Items.First.description
+    details: L10n.WelcomeView.Items.First.description,
+    imageAccessibilityLabel: L10n.Accessibility.Image.Welcome.first
   )
 
   static var pageTwoVM = WelcomePageVM(
     image: Asset.Welcome.second.image,
     title: L10n.WelcomeView.Items.Second.title,
-    details: L10n.WelcomeView.Items.Second.description
+    details: L10n.WelcomeView.Items.Second.description,
+    imageAccessibilityLabel: L10n.Accessibility.Image.Welcome.second
   )
 
   static var pageThreeVM = WelcomePageVM(
     image: Asset.Welcome.third.image,
     title: L10n.WelcomeView.Items.Third.title,
-    details: L10n.WelcomeView.Items.Third.description
+    details: L10n.WelcomeView.Items.Third.description,
+    imageAccessibilityLabel: L10n.Accessibility.Image.Welcome.third
   )
 
   static var pageFourVM = WelcomePageVM(
     image: Asset.Welcome.fourth.image,
     title: L10n.WelcomeView.Items.Fourth.title,
-    details: L10n.WelcomeView.Items.Fourth.description
+    details: L10n.WelcomeView.Items.Fourth.description,
+    imageAccessibilityLabel: nil
   )
 }
