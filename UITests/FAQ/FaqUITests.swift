@@ -31,56 +31,64 @@ class FaqUITests: AppViewTestCase, ViewTestCase {
           isPresentedModally: false,
           isHeaderVisible: false,
           isSearching: false,
-          searchFilter: ""
+          searchFilter: "",
+          keyboardHeight: 0
         ),
         "faq_empty": FaqVM(
           faqs: [],
           isPresentedModally: false,
           isHeaderVisible: false,
           isSearching: false,
-          searchFilter: ""
+          searchFilter: "",
+          keyboardHeight: 0
         ),
         "faq_modal": FaqVM(
           faqs: FAQ.mockedFAQs,
           isPresentedModally: true,
           isHeaderVisible: false,
           isSearching: false,
-          searchFilter: ""
+          searchFilter: "",
+          keyboardHeight: 0
         ),
         "faq_with_header": FaqVM(
           faqs: FAQ.mockedFAQs,
           isPresentedModally: false,
           isHeaderVisible: true,
           isSearching: false,
-          searchFilter: ""
+          searchFilter: "",
+          keyboardHeight: 0
         ),
         "faq_modal_with_header": FaqVM(
           faqs: FAQ.mockedFAQs,
           isPresentedModally: true,
           isHeaderVisible: true,
           isSearching: false,
-          searchFilter: ""
+          searchFilter: "",
+          keyboardHeight: 0
         ),
         "faq_searching": FaqVM(
           faqs: FAQ.mockedFAQs,
           isPresentedModally: true,
           isHeaderVisible: false,
           isSearching: true,
-          searchFilter: ""
+          searchFilter: "",
+          keyboardHeight: 0
         ),
         "faq_searching_with_header": FaqVM(
           faqs: FAQ.mockedFAQs,
           isPresentedModally: true,
           isHeaderVisible: true,
           isSearching: true,
-          searchFilter: ""
+          searchFilter: "",
+          keyboardHeight: 0
         ),
         "faq_searching_string": FaqVM(
           faqs: FAQ.mockedFAQs,
           isPresentedModally: true,
           isHeaderVisible: false,
           isSearching: true,
-          searchFilter: "Immuni"
+          searchFilter: "Immuni",
+          keyboardHeight: 0
         )
       ],
       context: UITests.Context<V>(renderSafeArea: false)
