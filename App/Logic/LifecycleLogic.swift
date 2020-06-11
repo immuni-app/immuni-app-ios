@@ -129,6 +129,9 @@ extension Logic {
 
         // refresh statuses
         try context.awaitDispatch(RefreshAuthorizationStatuses())
+
+        /// removes uneeded notifications
+        try context.awaitDispatch(Logic.ExposureDetection.RemoveLocalNotificationIfNotNeeded())
       }
     }
 
@@ -172,6 +175,9 @@ extension Logic {
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
         // clears `PositiveExposureResults` older than 14 days from the `ExposureDetectionState`
         try context.awaitDispatch(Logic.ExposureDetection.ClearOutdatedResults(now: context.dependencies.now()))
+
+        /// removes uneeded notifications
+        try context.awaitDispatch(Logic.ExposureDetection.RemoveLocalNotificationIfNotNeeded())
 
         // updates the ingestion dummy traffic opportunity window if it expired
         try context.awaitDispatch(Logic.DataUpload.UpdateDummyTrafficOpportunityWindowIfExpired())
