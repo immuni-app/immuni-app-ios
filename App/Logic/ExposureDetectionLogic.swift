@@ -35,6 +35,13 @@ extension Logic.ExposureDetection {
     var forceRun: Bool = false
 
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      if case .foreground = self.type {
+        context.dependencies.pushNotification.scheduleLocalNotification(
+          .init(title: "Foreground detection started", body: "Foreground detection has started"),
+          with: .timeInterval(5)
+        )
+      }
+
       // Set the task expiration handler
       self.type.backgroundTask?.expirationHandler = {
         let timeout: ExposureDetectionOutcome = .error(.timeout)
