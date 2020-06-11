@@ -124,6 +124,13 @@ class FaqView: UIView, ViewControllerModellableView {
         self.collection.setContentOffset(contentOffset, animated: false)
       }
     }
+
+    if model.shouldUpdateLayout(oldModel: oldModel) {
+      self.setNeedsLayout()
+      UIView.update(shouldAnimate: oldModel != nil) {
+        self.layoutIfNeeded()
+      }
+    }
   }
 
   // MARK: - Layout
@@ -174,9 +181,14 @@ class FaqView: UIView, ViewControllerModellableView {
       .below(of: self.separator)
       .bottom(self.universalSafeAreaInsets.bottom)
 
+    let keyboardHeight = self.model?.keyboardHeight ?? 0
+    let bottomInset = keyboardHeight > 0 ? keyboardHeight : self.universalSafeAreaInsets.bottom
     self.noResultView.pin
       .sizeToFit()
-      .center(to: self.collection.anchor.center)
+      .below(of: self.separator)
+      .bottom(bottomInset)
+      .align(.center)
+      .hCenter()
 
     self.closeButton.pin
       .sizeToFit()

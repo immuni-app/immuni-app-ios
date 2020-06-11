@@ -26,6 +26,8 @@ struct FaqVM: ViewModelWithLocalState {
   let isSearching: Bool
   /// The currently searching string.
   let searchFilter: String
+  /// The keyboard height
+  let keyboardHeight: CGFloat
 
   func shouldUpdateHeader(oldModel: FaqVM?) -> Bool {
     return self.isHeaderVisible != oldModel?.isHeaderVisible
@@ -33,6 +35,10 @@ struct FaqVM: ViewModelWithLocalState {
 
   func shouldUpdateSearchStatus(oldModel: FaqVM?) -> Bool {
     return self.isSearching != oldModel?.isSearching
+  }
+
+  func shouldUpdateLayout(oldModel: FaqVM?) -> Bool {
+    return self.keyboardHeight != oldModel?.keyboardHeight
   }
 
   func shouldReloadCollection(oldModel: FaqVM?) -> Bool {
@@ -85,6 +91,7 @@ extension FaqVM {
     self.isHeaderVisible = localState.isHeaderVisible
     self.isSearching = localState.isSearching
     self.searchFilter = localState.searchFilter
+    self.keyboardHeight = state.environment.keyboardState.height
   }
 }
 

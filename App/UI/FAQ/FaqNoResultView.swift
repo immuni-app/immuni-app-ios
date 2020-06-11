@@ -81,21 +81,29 @@ extension FaqNoResultView {
     }
 
     static func title(_ label: UILabel) {
-      let style = TextStyles.pSemibold.byAdding(
+      let textStyle = TextStyles.pSemibold.byAdding(
         .color(Palette.grayDark),
         .alignment(.center)
       )
 
-      label.attributedText = L10n.Faq.NoResult.title.styled(with: style)
+      TempuraStyles.styleStandardLabel(
+        label,
+        content: L10n.Faq.NoResult.title,
+        style: textStyle
+      )
     }
 
     static func subtitle(_ label: UILabel) {
-      let style = TextStyles.p.byAdding(
+      let textStyle = TextStyles.p.byAdding(
         .color(Palette.grayNormal),
         .alignment(.center)
       )
 
-      label.attributedText = L10n.Faq.NoResult.message.styled(with: style)
+      TempuraStyles.styleStandardLabel(
+        label,
+        content: L10n.Faq.NoResult.message,
+        style: textStyle
+      )
     }
   }
 }
