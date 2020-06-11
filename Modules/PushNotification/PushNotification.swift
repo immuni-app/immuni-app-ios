@@ -100,6 +100,12 @@ public final class PushNotificationManager {
   public func scheduledLocalNotificationsIds() -> Promise<[String]> {
     return self.localNotificationScheduler.scheduledNotificationsIds()
   }
+
+  /// Removes the delivered notifications with the given identifiers
+  /// from the Notification Center
+  public func removeDeliveredNotifications(withIdentifiers identifiers: [String]) {
+    self.localNotificationScheduler.removeDeliveredNotifications(withIdentifiers: identifiers)
+  }
 }
 
 private extension PushNotificationManager {
