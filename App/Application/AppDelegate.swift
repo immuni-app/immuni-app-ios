@@ -96,12 +96,10 @@ extension AppDelegate {
 
         // Signals that the background task has started. This has an effect only in debug mode, and it's extracted here
         // To ensure that there is nothing preventing this notification from being scheduled.
-        if self.store.state.toggles.isBackgroundTaskDebugMode {
-          self.store.dependencies.pushNotification.scheduleLocalNotification(
-            .init(title: "Background task started", body: "\(Date().fullDateWithMillisString)\nBackground task has started"),
-            with: .timeInterval(5)
-          )
-        }
+        self.store.dependencies.pushNotification.scheduleLocalNotification(
+          .init(title: "Background task started", body: "\(Date().fullDateWithMillisString)\nBackground task has started"),
+          with: .timeInterval(5)
+        )
 
         // Handle the background task
         self.store.dispatch(Logic.Lifecycle.HandleExposureDetectionBackgroundTask(task: task))

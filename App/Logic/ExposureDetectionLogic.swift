@@ -320,10 +320,6 @@ extension Logic.ExposureDetection {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let state = context.getState()
 
-      guard state.toggles.isBackgroundTaskDebugMode else {
-        // Nothing to do
-        return
-      }
 
       let title: String
       let message: String
