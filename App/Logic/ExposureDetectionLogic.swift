@@ -325,9 +325,6 @@ extension Logic.ExposureDetection {
     let type: DetectionType
 
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      let state = context.getState()
-
-
       let title: String
       let message: String
       switch self.outcome {
