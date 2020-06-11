@@ -314,3 +314,5 @@
 "support.info.item.connectionType.none" = "Nessuna";
 "support_email.body.message" = "Descrivi eventuali dubbi o problemi di funzionamento dell’app sopra la linea. Se possibile, non cancellare il testo qui sotto. Aiuterà il supporto di Immuni ad assisterti al meglio.";
 "faq.search_bar.placeholder" = "Cerca una domanda";
+"faq.no_result.title" = "Nessun argomento trovato";
+"faq.no_result.message" = "Non abbiamo trovato nessun argomento corrispondente alla tua ricerca.";
