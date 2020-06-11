@@ -59,6 +59,7 @@ struct FaqVM: ViewModelWithLocalState {
   }
 
   var searchBarVM: SearchBarVM { SearchBarVM(isSearching: self.isSearching) }
+  var shouldShowNoResult: Bool { self.faqs.isEmpty }
   var shouldShowSeparator: Bool { !self.isHeaderVisible }
   var shouldShowTitle: Bool { !self.isSearching }
   var shouldShowBackButton: Bool { !self.isPresentedModally && !self.isSearching }

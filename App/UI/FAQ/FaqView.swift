@@ -28,6 +28,7 @@ class FaqView: UIView, ViewControllerModellableView {
   private let separator = UIImageView()
   private let headerView = UIView()
   private let title = UILabel()
+  private let noResultView = FaqNoResultView()
   private var backButton = ImageButton()
   private var closeButton = ImageButton()
   let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -42,6 +43,7 @@ class FaqView: UIView, ViewControllerModellableView {
 
   func setup() {
     self.addSubview(self.backgroundGradientView)
+    self.addSubview(self.noResultView)
     self.addSubview(self.collection)
     self.addSubview(self.headerView)
     self.addSubview(self.title)
@@ -99,6 +101,7 @@ class FaqView: UIView, ViewControllerModellableView {
 
     if model.shouldReloadCollection(oldModel: oldModel) {
       self.collection.reloadData()
+      self.noResultView.alpha = model.shouldShowNoResult.cgFloat
     }
 
     if model.shouldUpdateHeader(oldModel: oldModel) {
@@ -170,6 +173,10 @@ class FaqView: UIView, ViewControllerModellableView {
       .horizontally()
       .below(of: self.separator)
       .bottom(self.universalSafeAreaInsets.bottom)
+
+    self.noResultView.pin
+      .sizeToFit()
+      .center(to: self.collection.anchor.center)
 
     self.closeButton.pin
       .sizeToFit()
