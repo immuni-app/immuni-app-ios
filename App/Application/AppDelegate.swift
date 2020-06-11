@@ -163,6 +163,12 @@ extension AppDelegate {
       .onNotification(UIApplication.willResignActiveNotification, [
         Logic.Lifecycle.WillResignActive.self
       ]),
+      .onNotification(UIResponder.keyboardWillShowNotification, [
+        Logic.Keyboard.KeyboardWillShow.self
+      ]),
+      .onNotification(UIResponder.keyboardWillHideNotification, [
+        Logic.Keyboard.KeyboardWillHide.self
+      ]),
       .onStateChange(Logic.ForceUpdate.minimumAppVersionDidChange, [
         Logic.ForceUpdate.CheckAppVersion.self
       ])
