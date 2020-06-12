@@ -56,7 +56,7 @@ extension OnboardingRegionVM: ViewModelWithLocalState {
 
     let regionItems = Region.allCases
       .sorted().map {
-        OnboardingRegionVM.CellType.radio(regionName: $0.rawValue, isSelected: $0 == currentRegion)
+        OnboardingRegionVM.CellType.radio(regionName: $0.humanReadableName, isSelected: $0 == currentRegion)
       }
 
     self.items = [
