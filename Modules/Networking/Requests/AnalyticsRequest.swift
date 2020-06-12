@@ -23,22 +23,25 @@ public struct AnalyticsRequest: Equatable, JSONRequest {
   // swiftlint:disable:next force_unwrapping
   public var baseURL = URL(string: "https://analytics.immuni.gov.it")!
 
-  public var path = "/v1/operational-info"
+  public var path = "/v1/analytics/apple/operational-info"
   public var method: HTTPMethod = .post
   public var cachePolicy: NSURLRequest.CachePolicy = .reloadIgnoringLocalAndRemoteCacheData
 
   public let jsonParameter: Body
+  public let analyticsToken: String
   public let isDummy: Bool
 
   public var headers: [HTTPHeader] {
     return HTTPHeader.defaultImmuniHeaders + [
+      .authorization(bearerToken: self.analyticsToken),
       .contentType("application/json; charset=UTF-8"),
       .dummyData(self.isDummy)
     ]
   }
 
-  public init(body: Body, isDummy: Bool) {
+  public init(body: Body, analyticsToken: String, isDummy: Bool) {
     self.jsonParameter = body
+    self.analyticsToken = analyticsToken
     self.isDummy = isDummy
   }
 }
@@ -57,7 +60,7 @@ public extension AnalyticsRequest {
       case notificationPermission = "notification_permission"
       case bluetoothActive = "bluetooth_active"
       case exposureNotification = "exposure_notification"
-      case analyticsToken = "device_token"
+      case lastExposureDate = "last_risky_exposure_on"
     }
 
     public let operatingSystem = "ios"
@@ -66,14 +69,14 @@ public extension AnalyticsRequest {
     public let notificationPermission: Int
     public let bluetoothActive: Int
     public let exposureNotification: Int
-    public let analyticsToken: String
+    public let lastExposureDate: String
 
     public init(
       province: Province,
       exposureNotificationStatus: ExposureNotificationStatus,
       pushNotificationStatus: PushNotificationStatus,
-      riskyExposureDetected: Bool,
-      analyticsToken: String
+      lastExposureDate: Date?,
+      now: () -> Date
     ) {
       self.province = province.rawValue
       self.exposurePermission = exposureNotificationStatus.canPerformDetection.intValue
@@ -82,8 +85,10 @@ public extension AnalyticsRequest {
       let isBluetoothActive = exposureNotificationStatus != .authorizedAndBluetoothOff
       self.bluetoothActive = isBluetoothActive.intValue
 
-      self.exposureNotification = riskyExposureDetected.intValue
-      self.analyticsToken = analyticsToken
+      let isRiskyExposureDetected = lastExposureDate != nil
+      self.exposureNotification = isRiskyExposureDetected.intValue
+      #warning("Check that fallback date is acceptable")
+      self.lastExposureDate = (lastExposureDate ?? now()).utcIsoString // discarded if exposureNotification is false
     }
   }
 }
@@ -91,7 +96,7 @@ public extension AnalyticsRequest {
 public extension AnalyticsRequest.Body {
   /// Instantiates a dummy request body, which forces the caller to pass a `dummyToken` to ensure that it's the same length as
   /// a legitimate token.
-  static func dummy(dummyToken: String) -> Self {
+  static func dummy(now: () -> Date) -> Self {
     let province = Province.allCases.randomElement()
       ?? LibLogger.fatalError("No provinces defined")
 
@@ -101,12 +106,14 @@ public extension AnalyticsRequest.Body {
     let pushNotificationStatus = PushNotificationStatus.allCases.randomElement()
       ?? LibLogger.fatalError("No push notification authorization status")
 
+    let lastExposureDate = Bool.random() ? nil : now()
+
     return Self(
       province: province,
       exposureNotificationStatus: exposureNotificationStatus,
       pushNotificationStatus: pushNotificationStatus,
-      riskyExposureDetected: Bool.random(),
-      analyticsToken: dummyToken
+      lastExposureDate: lastExposureDate,
+      now: now
     )
   }
 }

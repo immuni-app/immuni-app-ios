@@ -119,7 +119,7 @@
 
         .init(
           title: "[Analytics] Trigger send with exposure logic",
-          dispatchable: Logic.Analytics.StochasticallySendOperationalInfoWithExposure()
+          dispatchable: Logic.Analytics.StochasticallySendOperationalInfoWithExposure(mostRecentExposure: Date())
         ),
 
         .init(

@@ -38,7 +38,15 @@ extension AnalyticsLogicTests {
     let dependencies = AppDependencies.mocked(getAppState: getState, dispatch: dispatchInterceptor.dispatchFunction)
     let context = AppSideEffectContext(dependencies: dependencies)
 
-    let outcome = ExposureDetectionOutcome.fullDetection(Date(), ExposureDetectionSummary.noMatch, [], 0, 0)
+    let exposureDetectionSummary = MockExposureDetectionSummaryData.mock()
+    let exposureInfo = (0 ..< exposureDetectionSummary.matchedKeyCount).map { _ in MockExposureInfo.mock() }
+    let outcome = ExposureDetectionOutcome.fullDetection(
+      Date(),
+      ExposureDetectionSummary.matches(data: exposureDetectionSummary),
+      exposureInfo,
+      0,
+      0
+    )
 
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
 
@@ -77,7 +85,7 @@ extension AnalyticsLogicTests {
 
     let context = AppSideEffectContext(dependencies: dependencies)
 
-    try Logic.Analytics.StochasticallySendOperationalInfoWithExposure().sideEffect(context)
+    try Logic.Analytics.StochasticallySendOperationalInfoWithExposure(mostRecentExposure: date).sideEffect(context)
 
     XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 2)
 
@@ -92,7 +100,7 @@ extension AnalyticsLogicTests {
       dispatchInterceptor.dispatchedItems,
       Logic.Analytics.SendRequest.self
     ) { value in
-      XCTAssertEqual(value.kind, .withExposure)
+      XCTAssertEqual(value.kind, .withExposure(mostRecentExposure: date))
     }
   }
 
@@ -156,7 +164,7 @@ extension AnalyticsLogicTests {
 
     let context = AppSideEffectContext(dependencies: dependencies)
 
-    try Logic.Analytics.StochasticallySendOperationalInfoWithExposure().sideEffect(context)
+    try Logic.Analytics.StochasticallySendOperationalInfoWithExposure(mostRecentExposure: date).sideEffect(context)
 
     XCTAssertEqual(requestExecutor.executeMethodCalls.count, 0)
 
@@ -757,7 +765,15 @@ extension AnalyticsLogicTests {
     let dependencies = AppDependencies.mocked(getAppState: getState, dispatch: dispatchInterceptor.dispatchFunction)
     let context = AppSideEffectContext(dependencies: dependencies)
 
-    let outcome = ExposureDetectionOutcome.fullDetection(Date(), ExposureDetectionSummary.noMatch, [], 0, 0)
+    let exposureDetectionSummary = MockExposureDetectionSummaryData.mock()
+    let exposureInfo = (0 ..< exposureDetectionSummary.matchedKeyCount).map { _ in MockExposureInfo.mock() }
+    let outcome = ExposureDetectionOutcome.fullDetection(
+      Date(),
+      ExposureDetectionSummary.matches(data: exposureDetectionSummary),
+      exposureInfo,
+      0,
+      0
+    )
 
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
 
@@ -837,7 +853,7 @@ extension AnalyticsLogicTests {
 
     let context = AppSideEffectContext(dependencies: dependencies)
 
-    try Logic.Analytics.SendRequest(kind: .withExposure).sideEffect(context)
+    try Logic.Analytics.SendRequest(kind: .withExposure(mostRecentExposure: date)).sideEffect(context)
 
     let expectedRequest = AnalyticsRequest(
       body:
@@ -845,9 +861,10 @@ extension AnalyticsLogicTests {
         province: state.user.province!,
         exposureNotificationStatus: state.environment.exposureNotificationAuthorizationStatus,
         pushNotificationStatus: state.environment.pushNotificationAuthorizationStatus,
-        riskyExposureDetected: true,
-        analyticsToken: token
+        lastExposureDate: date,
+        now: now
       ),
+      analyticsToken: token,
       isDummy: false
     )
 
@@ -898,9 +915,10 @@ extension AnalyticsLogicTests {
         province: state.user.province!,
         exposureNotificationStatus: state.environment.exposureNotificationAuthorizationStatus,
         pushNotificationStatus: state.environment.pushNotificationAuthorizationStatus,
-        riskyExposureDetected: false,
-        analyticsToken: token
+        lastExposureDate: nil,
+        now: now
       ),
+      analyticsToken: token,
       isDummy: false
     )
 
@@ -958,7 +976,7 @@ extension AnalyticsLogicTests {
 
     let context = AppSideEffectContext(dependencies: dependencies)
 
-    let requestKinds: [Logic.Analytics.SendRequest.Kind] = [.dummy, .withExposure, .withoutExposure]
+    let requestKinds: [Logic.Analytics.SendRequest.Kind] = [.dummy, .withExposure(mostRecentExposure: Date()), .withoutExposure]
 
     for requestKind in requestKinds {
       try Logic.Analytics.SendRequest(kind: requestKind).sideEffect(context)
@@ -1110,7 +1128,8 @@ extension AnalyticsLogicTests {
     let getState = { state }
     let dispatchInterceptor = DispatchInterceptor()
 
-    let requestExecutor = MockRequestExecutor(mockedResult: .success(Data()))
+    let requestExecutor =
+      MockRequestExecutor(mockedResult: .success(ValidateAnalyticsTokenRequest.ValidationResponse.tokenAuthorized))
 
     let dependencies = AppDependencies.mocked(
       getAppState: getState,

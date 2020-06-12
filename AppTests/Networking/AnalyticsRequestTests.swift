@@ -21,12 +21,13 @@ import XCTest
 
 class AnalyticsRequestTests: XCTestCase {
   func testAuthorized() {
+    let date = Date(timeIntervalSince1970: 1_591_961_672) //  2020-06-12T11:34:32
     let body = AnalyticsRequest.Body(
       province: .agrigento,
       exposureNotificationStatus: .authorized,
       pushNotificationStatus: .authorized,
-      riskyExposureDetected: true,
-      analyticsToken: "token"
+      lastExposureDate: date,
+      now: { Date() }
     )
 
     XCTAssertEqual(body.operatingSystem, "ios")
@@ -35,16 +36,17 @@ class AnalyticsRequestTests: XCTestCase {
     XCTAssertEqual(body.notificationPermission, 1)
     XCTAssertEqual(body.bluetoothActive, 1)
     XCTAssertEqual(body.exposureNotification, 1)
-    XCTAssertEqual(body.analyticsToken, "token")
+    XCTAssertEqual(body.lastExposureDate, "2020-06-12")
   }
 
   func testNotAuthorized() {
+    let date = Date(timeIntervalSince1970: 1_591_961_672) //  2020-06-12T11:34:32
     let body = AnalyticsRequest.Body(
       province: .agrigento,
       exposureNotificationStatus: .notAuthorized,
       pushNotificationStatus: .denied,
-      riskyExposureDetected: true,
-      analyticsToken: "token"
+      lastExposureDate: date,
+      now: { Date() }
     )
 
     XCTAssertEqual(body.operatingSystem, "ios")
@@ -53,16 +55,17 @@ class AnalyticsRequestTests: XCTestCase {
     XCTAssertEqual(body.notificationPermission, 0)
     XCTAssertEqual(body.bluetoothActive, 1)
     XCTAssertEqual(body.exposureNotification, 1)
-    XCTAssertEqual(body.analyticsToken, "token")
+    XCTAssertEqual(body.lastExposureDate, "2020-06-12")
   }
 
   func testRestricted() {
+    let date = Date(timeIntervalSince1970: 1_591_961_672) //  2020-06-12T11:34:32
     let body = AnalyticsRequest.Body(
       province: .agrigento,
       exposureNotificationStatus: .restricted,
       pushNotificationStatus: .denied,
-      riskyExposureDetected: true,
-      analyticsToken: "token"
+      lastExposureDate: date,
+      now: { Date() }
     )
 
     XCTAssertEqual(body.operatingSystem, "ios")
@@ -71,16 +74,17 @@ class AnalyticsRequestTests: XCTestCase {
     XCTAssertEqual(body.notificationPermission, 0)
     XCTAssertEqual(body.bluetoothActive, 1)
     XCTAssertEqual(body.exposureNotification, 1)
-    XCTAssertEqual(body.analyticsToken, "token")
+    XCTAssertEqual(body.lastExposureDate, "2020-06-12")
   }
 
   func testUnknown() {
+    let date = Date(timeIntervalSince1970: 1_591_961_672) //  2020-06-12T11:34:32
     let body = AnalyticsRequest.Body(
       province: .agrigento,
       exposureNotificationStatus: .unknown,
       pushNotificationStatus: .notDetermined,
-      riskyExposureDetected: true,
-      analyticsToken: "token"
+      lastExposureDate: date,
+      now: { Date() }
     )
 
     XCTAssertEqual(body.operatingSystem, "ios")
@@ -89,16 +93,17 @@ class AnalyticsRequestTests: XCTestCase {
     XCTAssertEqual(body.notificationPermission, 0)
     XCTAssertEqual(body.bluetoothActive, 1)
     XCTAssertEqual(body.exposureNotification, 1)
-    XCTAssertEqual(body.analyticsToken, "token")
+    XCTAssertEqual(body.lastExposureDate, "2020-06-12")
   }
 
   func testBluetoothOff() {
+    let date = Date(timeIntervalSince1970: 1_591_961_672) //  2020-06-12T11:34:32
     let body = AnalyticsRequest.Body(
       province: .agrigento,
       exposureNotificationStatus: .authorizedAndBluetoothOff,
       pushNotificationStatus: .denied,
-      riskyExposureDetected: true,
-      analyticsToken: "token"
+      lastExposureDate: date,
+      now: { Date() }
     )
 
     XCTAssertEqual(body.operatingSystem, "ios")
@@ -107,16 +112,37 @@ class AnalyticsRequestTests: XCTestCase {
     XCTAssertEqual(body.notificationPermission, 0)
     XCTAssertEqual(body.bluetoothActive, 0)
     XCTAssertEqual(body.exposureNotification, 1)
-    XCTAssertEqual(body.analyticsToken, "token")
+    XCTAssertEqual(body.lastExposureDate, "2020-06-12")
+  }
+
+  func testNoExposures() {
+    let date = Date(timeIntervalSince1970: 1_591_961_672) //  2020-06-12T11:34:32
+    let now = { date }
+    let body = AnalyticsRequest.Body(
+      province: .agrigento,
+      exposureNotificationStatus: .authorizedAndBluetoothOff,
+      pushNotificationStatus: .denied,
+      lastExposureDate: nil,
+      now: now
+    )
+
+    XCTAssertEqual(body.operatingSystem, "ios")
+    XCTAssertEqual(body.province, Province.agrigento.rawValue)
+    XCTAssertEqual(body.exposurePermission, 0)
+    XCTAssertEqual(body.notificationPermission, 0)
+    XCTAssertEqual(body.bluetoothActive, 0)
+    XCTAssertEqual(body.exposureNotification, 0)
+    XCTAssertEqual(body.lastExposureDate, "2020-06-12")
   }
 
   func testEncodedCorrectly() throws {
+    let date = Date(timeIntervalSince1970: 1_591_961_672) //  2020-06-12T11:34:32
     let body = AnalyticsRequest.Body(
       province: .agrigento,
       exposureNotificationStatus: .authorized,
       pushNotificationStatus: .authorized,
-      riskyExposureDetected: true,
-      analyticsToken: "token"
+      lastExposureDate: date,
+      now: { Date() }
     )
 
     let data = try JSONEncoder().encode(body)
@@ -128,6 +154,5 @@ class AnalyticsRequestTests: XCTestCase {
     XCTAssertEqual(dictionary?["notification_permission"] as? Int, 1)
     XCTAssertEqual(dictionary?["bluetooth_active"] as? Int, 1)
     XCTAssertEqual(dictionary?["exposure_notification"] as? Int, 1)
-    XCTAssertEqual(dictionary?["device_token"] as? String, "token")
   }
 }

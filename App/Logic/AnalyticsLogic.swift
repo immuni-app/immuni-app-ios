@@ -35,8 +35,14 @@ extension Logic.Analytics {
       let analyticsState = context.getState().analytics
       let now = context.dependencies.now()
 
-      if Self.shouldSendOperationInfoWithExposure(outcome: self.outcome, state: analyticsState, now: now) {
-        try context.awaitDispatch(StochasticallySendOperationalInfoWithExposure())
+      let maybeMostRecentExposureDate = Self.mostRecentExposureDateIfShouldSendOperationInfoWithExposure(
+        outcome: self.outcome,
+        state: analyticsState,
+        now: now
+      )
+
+      if let mostRecentExposureDate = maybeMostRecentExposureDate {
+        try context.awaitDispatch(StochasticallySendOperationalInfoWithExposure(mostRecentExposure: mostRecentExposureDate))
         try context.awaitDispatch(UpdateDummyTrafficOpportunityWindowIfCurrent())
       } else if Self.shouldSendOperationInfoWithoutExposure(outcome: self.outcome, state: analyticsState, now: now) {
         try context.awaitDispatch(StochasticallySendOperationalInfoWithoutExposure())
@@ -50,15 +56,20 @@ extension Logic.Analytics {
       try context.awaitDispatch(UpdateDummyTrafficOpportunityWindowIfExpired())
     }
 
-    /// Whether a genuine Operation Info With Exposure should be sent
-    private static func shouldSendOperationInfoWithExposure(
+    /// If a genuine Operation Info With Exposure should be sent, returns the date most recent exposure in the given outcome
+    private static func mostRecentExposureDateIfShouldSendOperationInfoWithExposure(
       outcome: ExposureDetectionOutcome,
       state: AnalyticsState,
       now: Date
-    ) -> Bool {
-      guard case .fullDetection = outcome else {
+    ) -> Date? {
+      guard case .fullDetection(_, .matches, let exposureInfo, _, _) = outcome else {
         // Operational Info with Exposure only makes sense for a full detection
-        return false
+        return nil
+      }
+
+      guard let mostRecentExposureDate = exposureInfo.map({ $0.date }).max() else {
+        // This should never happen: a full detection should always have at least an exposure info.
+        return nil
       }
 
       let lastSent = state.eventWithExposureLastSent
@@ -68,10 +79,10 @@ extension Logic.Analytics {
         // Only one genuine Operational Info with Exposure per month is sent.
         // Note that the device's clock may be changed to alter this sequence, but the backend will rate limit the event
         // nonetheless
-        return false
+        return nil
       }
 
-      return true
+      return mostRecentExposureDate
     }
 
     /// Whether a genuine Operation Info Without Exposure should be sent
@@ -130,6 +141,8 @@ extension Logic.Analytics {
 extension Logic.Analytics {
   /// Attempts to send an analytic event with a certain probability
   struct StochasticallySendOperationalInfoWithExposure: AppSideEffect {
+    let mostRecentExposure: Date
+
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let currentDay = context.dependencies.now().utcCalendarDay
       let state = context.getState()
@@ -146,7 +159,7 @@ extension Logic.Analytics {
       }
 
       // Send the request
-      try context.awaitDispatch(SendRequest(kind: .withExposure))
+      try context.awaitDispatch(SendRequest(kind: .withExposure(mostRecentExposure: self.mostRecentExposure)))
     }
   }
 }
@@ -308,8 +321,8 @@ extension Logic.Analytics {
 extension Logic.Analytics {
   struct SendRequest: AppSideEffect {
     /// The kind of request to send to the backend
-    enum Kind {
-      case withExposure
+    enum Kind: Equatable {
+      case withExposure(mostRecentExposure: Date)
       case withoutExposure
       case dummy
     }
@@ -332,33 +345,40 @@ extension Logic.Analytics {
       let userPushNotificationStatus = state.environment.pushNotificationAuthorizationStatus
 
       let body: AnalyticsRequest.Body
+      let analyticsToken: String
       let isDummy: Bool
       switch self.kind {
-      case .withExposure:
+      case .withExposure(let mostRecentExposure):
         body = .init(
           province: userProvince,
           exposureNotificationStatus: userExposureNotificationStatus,
           pushNotificationStatus: userPushNotificationStatus,
-          riskyExposureDetected: true,
-          analyticsToken: token.token
+          lastExposureDate: mostRecentExposure,
+          now: context.dependencies.now
         )
+        analyticsToken = token.token
         isDummy = false
       case .withoutExposure:
         body = .init(
           province: userProvince,
           exposureNotificationStatus: userExposureNotificationStatus,
           pushNotificationStatus: userPushNotificationStatus,
-          riskyExposureDetected: false,
-          analyticsToken: token.token
+          lastExposureDate: nil,
+          now: context.dependencies.now
         )
+        analyticsToken = token.token
         isDummy = false
       case .dummy:
-        body = .dummy(dummyToken: String.random(length: token.token.count))
+        body = .dummy(now: context.dependencies.now)
+        analyticsToken = String.random(length: token.token.count)
         isDummy = true
       }
 
       // Await for the request to be fulfilled but catch errors silently
-      _ = try? await(context.dependencies.networkManager.sendAnalytics(body: body, isDummy: isDummy))
+      _ = try? await(
+        context.dependencies.networkManager
+          .sendAnalytics(body: body, analyticsToken: analyticsToken, isDummy: isDummy)
+      )
     }
   }
 }
