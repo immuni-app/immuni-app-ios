@@ -44,7 +44,7 @@
 "home_view.info.button.title" = "Scopri di più";
 "home_view.info.protection.title" = "Cosa puoi fare per proteggerti";
 "home_view.info_header.title" = "Informazioni";
-"home_view.service.active.subtitle" = "Immuni resta operativa anche quando l'app è chiusa.";
+"home_view.service.active.subtitle" = "Apri Immuni una volta al giorno per verificarne lo stato.";
 "home_view.service.active.discover_more" = "Scopri di più";
 "home_view.service.active.title" = "Servizio\n<b>attivo</b>";
 "home_view.service.not_active.button" = "Riattiva Immuni";
@@ -82,7 +82,7 @@
 "onboarding.communication_advice.title" = "Fai attenzione alle false comunicazioni";
 "onboarding.complete.title" = "Configurazione completata";
 "onboarding.exposure_permission.action" = "Abilita";
-"onboarding.exposure_permission.description" = "Immuni registra i contatti con altri utenti usando il Bluetooth Low Energy, così da poterti informare in caso di esposizione al virus. Potrai disabilitarle temporaneamente dalla schermata principale.";
+"onboarding.exposure_permission.description" = "Immuni registra i contatti con altri utenti usando il Bluetooth Low Energy, così da poterti informare in caso di esposizione al virus. Potrai disabilitare il servizio temporaneamente dalla schermata principale.";
 "onboarding.exposure_permission.overlay.hint" = "Seleziona \"<b>Abilita</b>\" nel popup che apparirà qui sotto";
 "onboarding.exposure_permission.title" = "Abilita le notifiche di esposizione al COVID-19";
 "onboarding.pin_advice.action" = "Ho capito";
@@ -136,8 +136,8 @@
 "permission_tutorial.notifications.title" = "Per attivare le notifiche";
 
 "permission_tutorial.how_to_upload_positive.title" = "Come segnalare la positività";
-"permission_tutorial.how_to_upload_positive.first" = "Se risulti positivo al virus, puoi segnalarlo a Immuni caricando i tuoi codici casuali. Facendolo permetti all'app di avvertire del rischio di contagio gli utenti con cui sei stato a contatto nei giorni precedenti.";
-"permission_tutorial.how_to_upload_positive.second" = "L'operatore sanitario che comunica l'esito positivo del tampone ti assisterà telefonicamente. Ti chiederà il codice monouso visualizzato nella schermata precedente e lo userà per autorizzarti al caricamento dei tuoi dati.";
+"permission_tutorial.how_to_upload_positive.first" = "Se risulti positivo al virus, puoi segnalarlo a Immuni caricando i tuoi codici casuali. Facendolo permetti all’app di avvertire del rischio di contagio gli utenti con cui sei stato a contatto nei giorni precedenti.";
+"permission_tutorial.how_to_upload_positive.second" = "L’operatore sanitario che comunica l’esito positivo del tampone ti assisterà telefonicamente. Ti chiederà il codice monouso visualizzato nella schermata precedente e lo userà per autorizzarti al caricamento dei tuoi dati.";
 "permission_tutorial.how_to_upload_positive.third" = "Questo processo di autorizzazione impedisce a utenti che non siano effettivamente risultati positivi al virus di caricare i loro dati, causando falsi allarmi. Il codice monouso e i dati caricati non sono in alcun modo associati alla tua identità.";
 "permission_tutorial.verify_immuni_works.title" = "Come verificare che Immuni stia funzionando";
 "permission_tutorial.verify_immuni_works.first" = "<b>Se leggi \"Servizio attivo\" significa che Immuni sta già funzionando correttamente.</b> Non devi fare altro: l'app continuerà a funzionare anche quando è chiusa.";
@@ -159,7 +159,7 @@
 
 "permission_tutorial.deactivate_service.title" = "Come disattivare il servizio";
 "permission_tutorial.deactivate_service.first.message" = "<red>Per proteggere la tua salute e quella dei tuoi cari, disattiva il servizio solo se necessario e riattivalo appena puoi.</red>";
-"permission_tutorial.deactivate_service.second.message" = "In certi casi può aver senso disattivare temporaneamente l'app, ad esempio <b>mentre sei al lavoro se sei un operatore sanitario a contatto con pazienti COVID-19</b>";
+"permission_tutorial.deactivate_service.second.message" = "In certi casi può aver senso disattivare temporaneamente l’app, ad esempio mentre sei al lavoro se sei un operatore sanitario a contatto con pazienti COVID-19.";
 "permission_tutorial.deactivate_service.third.message" = "Disabilitando le notifiche di esposizione i successivi contatti con altri utenti non verranno registrati.";
 "permission_tutorial.deactivate_service.fourth.message" = "<h3>Per disabilitare le notifiche di esposizione</h3>";
 "permission_tutorial.deactivate_service.fifth.message" = "<b>1. Apri le impostazioni dal bottone in basso</b>";
@@ -253,7 +253,7 @@
 "upload_data.api_error.action" = "OK";
 "upload_data.api_error.message" = "Si è verificato un errore durante l'operazione. Ti invitiamo a riprovare. Nel caso il problema persista, ti suggeriamo di utilizzare una rete mobile.";
 "upload_data.api_error.title" = "Qualcosa è andato storto";
-"upload_data.code.message" = "Comunica questo codice all'operatore sanitario:";
+"upload_data.code.message" = "Comunica il codice monouso all'operatore sanitario:";
 "upload_data.connection_error.action" = "OK";
 "upload_data.connection_error.message" = "Qualcosa è andato storto, controlla la tua connessione internet e riprova.";
 "upload_data.connection_error.title" = "Errore di connessione";
@@ -270,13 +270,13 @@
 "upload_data.verify.loading_button.minutes" = "minuti";
 "upload_data.verify.loading_button.second" = "secondo";
 "upload_data.verify.loading_button.seconds" = "secondi";
-"upload_data.verify.message" = "Per proseguire, verifica l'autorizzazione del codice";
+"upload_data.verify.message" = "Prosegui per verificare l’autorizzazione del codice";
 "upload_data.vpn_error.action" = "OK";
 "upload_data.vpn_error.message" = "Si è verificato un errore durante l'operazione. Ti invitiamo a riprovare. Se stai utilizzando una VPN, ti suggeriamo di selezionare un server italiano o di disabilitarla temporaneamente.";
 "upload_data.vpn_error.message_europe" = "Si è verificato un errore durante l'operazione. Ti invitiamo a riprovare. Se stai utilizzando una VPN, ti suggeriamo di selezionare un server europeo o di disabilitarla temporaneamente.";
 "upload_data.vpn_error.title" = "Qualcosa è andato storto";
 "upload_data.wait_operator.message" = "Attendi la conferma dell'operatore";
-"upload_data.warning.message" = "Questa funzione richiede l'assistenza dell'operatore sanitario che ti comunica telefonicamente l'esito positivo del tampone.";
+"upload_data.warning.message" = "Questa funzione richiede l’assistenza dell'operatore sanitario che ti comunica telefonicamente l'esito positivo del tampone.";
 "upload_data.warning.discover_more" = "Scopri di più";
 "welcome_view.discover_more" = "Scopri di più";
 "welcome_view.go_next" = "Iniziamo";
