@@ -1135,8 +1135,8 @@ extension AnalyticsLogicTests {
 
     let request = try XCTUnwrap(requestExecutor.executeMethodCalls.first as? ValidateAnalyticsTokenRequest)
 
-    XCTAssertEqual(request.jsonParameter.token, expectedToken)
-    XCTAssertEqual(request.jsonParameter.dcToken, deviceToken.data(using: .utf8)!.base64EncodedString())
+    XCTAssertEqual(request.jsonParameter.analyticsToken, expectedToken)
+    XCTAssertEqual(request.jsonParameter.deviceToken, deviceToken.data(using: .utf8)!.base64EncodedString())
   }
 }
 

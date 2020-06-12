@@ -37,6 +37,9 @@ struct AnalyticsState: Codable {
 extension AnalyticsState {
   /// A rolling token to be used for analytics upload, with the given expiration date
   enum AnalyticsToken: Codable {
+    /// The default length of the token, in bytes
+    static let tokenLength: Int = 128
+
     case generated(token: String, expiration: Date)
     case validated(token: String, expiration: Date)
 

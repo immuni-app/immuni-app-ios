@@ -280,8 +280,7 @@ extension Logic.Analytics {
 
   struct RefreshAnalyticsToken: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      #warning("Ensure length is appropriate")
-      let token = context.dependencies.analyticsTokenGenerator.generateToken(length: 168)
+      let token = context.dependencies.analyticsTokenGenerator.generateToken(length: AnalyticsState.AnalyticsToken.tokenLength)
       let expiration = context.dependencies.analyticsTokenGenerator.nextExpirationDate()
 
       try context.awaitDispatch(SetAnalyticsToken(token: .generated(token: token, expiration: expiration)))
@@ -294,8 +293,11 @@ extension Logic.Analytics {
     let expiration: Date
 
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      let dcToken = try await(context.dependencies.deviceTokenGenerator.generateToken())
-      try await(context.dependencies.networkManager.validateAnalyticsToken(token: self.token, dcToken: dcToken))
+      let deviceCheckToken = try await(context.dependencies.deviceTokenGenerator.generateToken())
+      try await(
+        context.dependencies.networkManager
+          .validateAnalyticsToken(analyticsToken: self.token, deviceToken: deviceCheckToken)
+      )
       try context.awaitDispatch(SetAnalyticsToken(token: .validated(token: self.token, expiration: self.expiration)))
     }
   }
