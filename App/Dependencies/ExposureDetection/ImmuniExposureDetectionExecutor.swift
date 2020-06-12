@@ -30,6 +30,7 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
     lastExposureDetectionDate: Date?,
     latestProcessedKeyChunkIndex: Int?,
     exposureDetectionConfiguration: Configuration.ExposureDetectionConfiguration,
+    exposureRiskThreshold: Double,
     exposureWeightedDurationThreshold: Double,
     exposureDurationWeightsByAttenuation: [Double],
     userExplanationMessage: String,
@@ -111,6 +112,7 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
 
       let shouldRetrieveInfo = Self.shouldRetrieveExposureInfo(
         summary: summary,
+        riskThreshold: exposureRiskThreshold,
         weightedDurationThreshold: exposureWeightedDurationThreshold,
         durationWeightsByAttenuation: exposureDurationWeightsByAttenuation,
         isUserCovidPositive: isUserCovidPositive,
@@ -142,6 +144,7 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
   /// Returns `true` if only a full detection should be performed, `false` otherwise
   private static func shouldRetrieveExposureInfo(
     summary: ExposureDetectionSummary,
+    riskThreshold: Double,
     weightedDurationThreshold: Double,
     durationWeightsByAttenuation: [Double],
     isUserCovidPositive: Bool,
@@ -171,7 +174,9 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
         .map { $0.0 * $0.1 }
         .reduce(0, +)
 
-      return weightedDuration >= weightedDurationThreshold
+      let isAboveDurationThreshold = weightedDuration >= weightedDurationThreshold
+      let isAboveRiskThreshold = Double(data.maximumRiskScore) >= riskThreshold
+      return isAboveRiskThreshold && isAboveDurationThreshold
     }
   }
 }

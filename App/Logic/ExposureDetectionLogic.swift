@@ -51,6 +51,7 @@ extension Logic.ExposureDetection {
         lastExposureDetectionDate: state.exposureDetection.lastDetectionDate,
         latestProcessedKeyChunkIndex: state.exposureDetection.latestProcessedKeyChunkIndex,
         exposureDetectionConfiguration: state.configuration.exposureConfiguration,
+        exposureRiskThreshold: state.configuration.exposureInfoMinimumRiskScore,
         exposureWeightedDurationThreshold: state.configuration.attenuationDurationThreshold,
         exposureDurationWeightsByAttenuation: state.configuration.attenuationDurationWeights,
         userExplanationMessage: L10n.Notifications.AppleExposureNotification.message,

@@ -81,7 +81,7 @@ public struct Configuration: Codable {
   /// The minimum risk score that triggers the app to
   /// fetch the exposure info and notify the user using the SDK-provided
   /// notification.
-  public let exposureInfoMinimumRiskScore: Int
+  public let exposureInfoMinimumRiskScore: Double
 
   /// Maximum time from the last exposure detection that should
   /// pass before a foreground session should force a new one.
@@ -190,7 +190,7 @@ public struct Configuration: Codable {
     riskReminderNotificationPeriod: TimeInterval = 86400,
     exposureDetectionPeriod: TimeInterval = 14400,
     exposureConfiguration: ExposureDetectionConfiguration = .init(),
-    exposureInfoMinimumRiskScore: Int = 20,
+    exposureInfoMinimumRiskScore: Double = 20,
     maximumExposureDetectionWaitingTime: TimeInterval = 86400,
     privacyNoticeURL: [String: URL] = .defaultPrivacyNoticeURL,
     termsOfUseURL: [String: URL] = .defaultTermsOfUseURL,
