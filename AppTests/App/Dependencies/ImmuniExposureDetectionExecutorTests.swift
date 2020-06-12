@@ -43,7 +43,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: exposureConfiguration,
-      exposureInfoRiskScoreThreshold: 0,
+      exposureWeightedDurationThreshold: 0,
+      exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "test",
       enManager: enManager,
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
@@ -83,7 +84,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureInfoRiskScoreThreshold: 0,
+      exposureWeightedDurationThreshold: 0,
+      exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: userExplanation,
       enManager: enManager,
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
@@ -109,7 +111,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: Date().addingTimeInterval(-10),
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureInfoRiskScoreThreshold: 0,
+      exposureWeightedDurationThreshold: 0,
+      exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
       enManager: .init(provider: MockExposureNotificationProvider(overriddenStatus: .authorizedAndActive)),
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
@@ -133,7 +136,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureInfoRiskScoreThreshold: 0,
+      exposureWeightedDurationThreshold: 0,
+      exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
       enManager: .init(provider: MockExposureNotificationProvider(overriddenStatus: .authorized)),
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 0),
@@ -158,7 +162,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureInfoRiskScoreThreshold: 0,
+      exposureWeightedDurationThreshold: 0,
+      exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
       enManager: .init(provider: NoMatchMockExposureNotificationProvider(overriddenStatus: .authorized)),
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
@@ -184,7 +189,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureInfoRiskScoreThreshold: 0,
+      exposureWeightedDurationThreshold: 0,
+      exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
       enManager: .init(provider: NoMatchMockExposureNotificationProvider(overriddenStatus: .authorized)),
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
@@ -210,7 +216,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureInfoRiskScoreThreshold: 0,
+      exposureWeightedDurationThreshold: 0,
+      exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
       enManager: .init(provider: MatchingMockExposureNotificationProvider(overriddenStatus: .authorized)),
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
@@ -236,9 +243,13 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureInfoRiskScoreThreshold: 0,
+      exposureWeightedDurationThreshold: 899, // with `[1,1,1]` as weights the weighted duration is 900
+      exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
-      enManager: .init(provider: MatchingMockExposureNotificationProvider(overriddenStatus: .authorized)),
+      enManager: .init(provider: MatchingMockExposureNotificationProvider(
+        overriddenStatus: .authorized,
+        durationByAttenuationBucket: [300, 300, 300]
+      )),
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
       isUserCovidPositive: false,
@@ -262,9 +273,13 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureInfoRiskScoreThreshold: 10, // note: 10 is above the max value (8) in any case
+      exposureWeightedDurationThreshold: 901, // with `[1,1,1]` as weights the weighted duration is 900
+      exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
-      enManager: .init(provider: MatchingMockExposureNotificationProvider(overriddenStatus: .authorized)),
+      enManager: .init(provider: MatchingMockExposureNotificationProvider(
+        overriddenStatus: .authorized,
+        durationByAttenuationBucket: [300, 300, 300]
+      )),
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
       isUserCovidPositive: false,
@@ -280,7 +295,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
     XCTAssertEqual(outcome.rawCase, .partialDetection)
   }
 
-  func testLatestProcessedKeyChunkIndexIsRelayedToTheTEKProvider() throws {
+  func testDurationIsWeightedCorrectly() throws {
     let executor = ImmuniExposureDetectionExecutor()
 
     let latestProcessedKeyChunk = 42
@@ -291,9 +306,13 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: latestProcessedKeyChunk,
       exposureDetectionConfiguration: .init(),
-      exposureInfoRiskScoreThreshold: 0,
+      exposureWeightedDurationThreshold: 600,
+      exposureDurationWeightsByAttenuation: [0, 2, 0],
       userExplanationMessage: "this is a test",
-      enManager: .init(provider: MatchingMockExposureNotificationProvider(overriddenStatus: .authorized)),
+      enManager: .init(provider: MatchingMockExposureNotificationProvider(
+        overriddenStatus: .authorized,
+        durationByAttenuationBucket: [0, 301, 0] // with the given weight will result in 601
+      )),
       tekProvider: tekProvider,
       now: { Date() },
       isUserCovidPositive: false,
@@ -319,7 +338,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureInfoRiskScoreThreshold: 0,
+      exposureWeightedDurationThreshold: 0,
+      exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
       enManager: .init(provider: MatchingMockExposureNotificationProvider(overriddenStatus: .authorized)),
       tekProvider: tekProvider,
@@ -344,7 +364,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureInfoRiskScoreThreshold: 0,
+      exposureWeightedDurationThreshold: 0,
+      exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
       enManager: .init(provider: MatchingMockExposureNotificationProvider(overriddenStatus: .notAuthorized)),
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
@@ -372,7 +393,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureInfoRiskScoreThreshold: 0,
+      exposureWeightedDurationThreshold: 0,
+      exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
       enManager: .init(provider: MatchingMockExposureNotificationProvider(overriddenStatus: .authorized)),
       tekProvider: ThrowingMockTemporaryExposureKeyProvider(urlsToReturn: 1),
@@ -400,7 +422,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureInfoRiskScoreThreshold: 0,
+      exposureWeightedDurationThreshold: 0,
+      exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
       enManager: .init(provider: ThrowingOnDetectExposuresMockExposureNotificationProvider()),
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
@@ -428,7 +451,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureInfoRiskScoreThreshold: 0,
+      exposureWeightedDurationThreshold: 0,
+      exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
       enManager: .init(provider: ThrowingOnGetExposureInfoMockExposureNotificationProvider()),
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
@@ -459,7 +483,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureInfoRiskScoreThreshold: 0,
+      exposureWeightedDurationThreshold: 0,
+      exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
       enManager: .init(provider: NoMatchMockExposureNotificationProvider(overriddenStatus: .authorized)),
       tekProvider: MockTemporaryExposureKeyProvider(minIndexToReturn: minIndex, maxIndexToReturn: maxIndex),
@@ -492,7 +517,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureInfoRiskScoreThreshold: 0,
+      exposureWeightedDurationThreshold: 0,
+      exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
       enManager: .init(provider: MatchingMockExposureNotificationProvider(overriddenStatus: .authorized)),
       tekProvider: MockTemporaryExposureKeyProvider(minIndexToReturn: minIndex, maxIndexToReturn: maxIndex),
@@ -525,7 +551,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureInfoRiskScoreThreshold: 0,
+      exposureWeightedDurationThreshold: 0,
+      exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
       enManager: .init(provider: MatchingMockExposureNotificationProvider(overriddenStatus: .authorized)),
       tekProvider: MockTemporaryExposureKeyProvider(minIndexToReturn: minIndex, maxIndexToReturn: maxIndex),
@@ -560,12 +587,19 @@ class NoMatchMockExposureNotificationProvider: MockExposureNotificationProvider 
 }
 
 class MatchingMockExposureNotificationProvider: MockExposureNotificationProvider {
+  let durationByAttenuationBucket: [Double]
+
+  init(overriddenStatus: ExposureNotificationStatus, durationByAttenuationBucket: [Double] = [300, 300, 300]) {
+    self.durationByAttenuationBucket = durationByAttenuationBucket
+    super.init(overriddenStatus: overriddenStatus)
+  }
+
   override func detectExposures(
     configuration: ExposureDetectionConfiguration,
     diagnosisKeyURLs: [URL]
   ) -> Promise<ExposureDetectionSummary> {
     return .init(resolved: .matches(data: MockExposureDetectionSummaryData(
-      durationByAttenuationBucket: [300, 300, 300],
+      durationByAttenuationBucket: self.durationByAttenuationBucket,
       daysSinceLastExposure: 0,
       matchedKeyCount: 1,
       maximumRiskScore: 8,

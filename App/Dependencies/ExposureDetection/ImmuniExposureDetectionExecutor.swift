@@ -30,7 +30,8 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
     lastExposureDetectionDate: Date?,
     latestProcessedKeyChunkIndex: Int?,
     exposureDetectionConfiguration: Configuration.ExposureDetectionConfiguration,
-    exposureInfoRiskScoreThreshold: Int,
+    exposureWeightedDurationThreshold: Double,
+    exposureDurationWeightsByAttenuation: [Double],
     userExplanationMessage: String,
     enManager: ExposureNotificationManager,
     tekProvider: TemporaryExposureKeyProvider,
@@ -110,7 +111,8 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
 
       let shouldRetrieveInfo = Self.shouldRetrieveExposureInfo(
         summary: summary,
-        riskScoreThreshold: exposureInfoRiskScoreThreshold,
+        weightedDurationThreshold: exposureWeightedDurationThreshold,
+        durationWeightsByAttenuation: exposureDurationWeightsByAttenuation,
         isUserCovidPositive: isUserCovidPositive,
         isForceRun: forceRun
       )
@@ -140,7 +142,8 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
   /// Returns `true` if only a full detection should be performed, `false` otherwise
   private static func shouldRetrieveExposureInfo(
     summary: ExposureDetectionSummary,
-    riskScoreThreshold: Int,
+    weightedDurationThreshold: Double,
+    durationWeightsByAttenuation: [Double],
     isUserCovidPositive: Bool,
     isForceRun: Bool
   ) -> Bool {
@@ -159,7 +162,16 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
     case .noMatch:
       return false
     case .matches(let data):
-      return data.maximumRiskScore >= riskScoreThreshold
+      guard data.durationByAttenuationBucket.count <= durationWeightsByAttenuation.count else {
+        // Broken configuration. Don't notify the user
+        return false
+      }
+
+      let weightedDuration = zip(data.durationByAttenuationBucket, durationWeightsByAttenuation)
+        .map { $0.0 * $0.1 }
+        .reduce(0, +)
+
+      return weightedDuration >= weightedDurationThreshold
     }
   }
 }

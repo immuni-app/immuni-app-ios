@@ -45,6 +45,8 @@ public struct Configuration: Codable {
     case supportPhone = "support_phone"
     case supportPhoneOpeningTime = "support_phone_opening_time"
     case supportPhoneClosingTime = "support_phone_closing_time"
+    case attenuationDurationWeights = "attenuation_durations_weights"
+    case attenuationDurationThreshold = "attenuation_durations_threshold"
   }
 
   /// This is used to enforce a minimum version of the app.
@@ -152,6 +154,12 @@ public struct Configuration: Codable {
   /// The phone closing time to contact support.
   public let supportPhoneClosingTime: String?
 
+  /// Weights of the attenuation-grouped durations, for each bucket
+  public let attenuationDurationWeights: [Double]
+
+  /// The minimum weighted duration for which the user should be notified
+  public let attenuationDurationThreshold: Double
+
   /// The FAQ url for the given language. it returns english version if the given
   /// language is not available.
   /// Note that the method may still fail in case of missing english version
@@ -202,7 +210,9 @@ public struct Configuration: Codable {
     supportEmail: String? = nil,
     supportPhone: String? = nil,
     supportPhoneOpeningTime: String? = nil,
-    supportPhoneClosingTime: String? = nil
+    supportPhoneClosingTime: String? = nil,
+    attenuationDurationWeights: [Double] = [1.0, 1.0, 1.0],
+    attenuationDurationThreshold: Double = 0
   ) {
     self.minimumBuildVersion = minimumBuildVersion
     self.serviceNotActiveNotificationPeriod = serviceNotActiveNotificationPeriod
@@ -232,6 +242,8 @@ public struct Configuration: Codable {
     self.supportPhone = supportPhone
     self.supportPhoneOpeningTime = supportPhoneOpeningTime
     self.supportPhoneClosingTime = supportPhoneClosingTime
+    self.attenuationDurationWeights = attenuationDurationWeights
+    self.attenuationDurationThreshold = attenuationDurationThreshold
   }
 
   // swiftlint:enable force_unwrapping
@@ -285,11 +297,11 @@ public extension Configuration {
     /// Public initializer to allow testing
     public init(
       attenuationThresholds: [Int] = [50, 70],
-      attenuationBucketScores: [UInt8] = [0, 5, 5, 5, 5, 5, 5, 5],
+      attenuationBucketScores: [UInt8] = [1, 1, 1, 1, 1, 1, 1, 1],
       attenuationWeight: Double = 1,
       daysSinceLastExposureBucketScores: [UInt8] = [1, 1, 1, 1, 1, 1, 1, 1],
       daysSinceLastExposureWeight: Double = 1,
-      durationBucketScores: [UInt8] = [0, 0, 0, 0, 5, 5, 5, 5],
+      durationBucketScores: [UInt8] = [1, 1, 1, 1, 1, 1, 1, 1],
       durationWeight: Double = 1,
       transmissionRiskBucketScores: [UInt8] = [1, 1, 1, 1, 1, 1, 1, 1],
       transmissionRiskWeight: Double = 1,
