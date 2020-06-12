@@ -180,6 +180,8 @@ extension SuggestionsVM {
       .spacer(size: .tiny),
       .instruction(instruction: .contactAuthorities),
       .spacer(size: .medium),
+      .message(text: L10n.Suggestions.Instruction.under18Message),
+      .spacer(size: .medium),
       .separator,
       .spacer(size: .medium),
       .message(text: L10n.Suggestions.Instruction.HideAlert.message),
