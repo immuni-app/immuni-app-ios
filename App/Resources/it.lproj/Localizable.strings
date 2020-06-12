@@ -263,14 +263,14 @@
 "upload_data.missing_authorization.message" = "Le notifiche di esposizione sono necessarie durante questa procedura. Riattivale subito per continuare.";
 "upload_data.missing_authorization.title" = "Riattiva le notifiche di esposizione per continuare";
 "upload_data.send_data.loading" = "Caricamento\ndei dati...";
-"upload_data.verify.button" = "Verifica";
+"upload_data.verify.button" = "Prosegui";
 "upload_data.verify.error" = "Codice non ancora autorizzato";
 "upload_data.verify.loading" = "Verifica\nautorizzazione...";
 "upload_data.verify.loading_button" = "Attendi %d %@";
 "upload_data.verify.loading_button.minutes" = "minuti";
 "upload_data.verify.loading_button.second" = "secondo";
 "upload_data.verify.loading_button.seconds" = "secondi";
-"upload_data.verify.message" = "Per proseguire, verifica l'autorizzazione ";
+"upload_data.verify.message" = "Per proseguire, verifica l'autorizzazione del codice";
 "upload_data.vpn_error.action" = "OK";
 "upload_data.vpn_error.message" = "Si è verificato un errore durante l'operazione. Ti invitiamo a riprovare. Se stai utilizzando una VPN, ti suggeriamo di selezionare un server italiano o di disabilitarla temporaneamente.";
 "upload_data.vpn_error.message_europe" = "Si è verificato un errore durante l'operazione. Ti invitiamo a riprovare. Se stai utilizzando una VPN, ti suggeriamo di selezionare un server europeo o di disabilitarla temporaneamente.";
