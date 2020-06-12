@@ -126,7 +126,7 @@
 "permission_tutorial.how_immuni_works.fourth.title" = "<h>Ogni telefono verifica se ha incontrato in precedenza uno o più dei codici condivisi</h>";
 "permission_tutorial.how_immuni_works.second.message" = "Quando entri in contatto con un altro utente di Immuni, i dispositivi si scambiano i rispettivi codici tramite Bluetooth Low Energy. L'app riesce così a tenere traccia del contatto avvenuto, ma non può conoscere le vostre identità, né sapere dove vi siete incontrati.";
 "permission_tutorial.how_immuni_works.second.title" = "<h>I telefoni che si incontrano si scambiano i rispettivi codici casuali</h>";
-"permission_tutorial.how_immuni_works.third.message" = "Gli utenti che sono risultati positivi al virus possono caricare su un server i codici casuali che i loro dispositivi hanno trasmesso nei giorni precedenti, in modo da renderli disponibili agli altri utenti. Questa procedura avviene con l'assistenza degli operatori che comunicano l'esito positivo del test.";
+"permission_tutorial.how_immuni_works.third.message" = "Gli utenti che sono risultati positivi al virus possono caricare su un server i codici casuali che i loro dispositivi hanno trasmesso nei giorni precedenti, in modo da renderli disponibili agli altri utenti. Questa procedura avviene con l'assistenza dell'operatore sanitario che comunica l'esito positivo del tampone.";
 "permission_tutorial.how_immuni_works.third.title" = "<h>Chi risulta positivo sceglie se condividere i propri codici casuali</h>";
 "permission_tutorial.how_immuni_works.title" = "Come funziona l’app";
 "permission_tutorial.notifications.action" = "Apri Impostazioni";
@@ -137,7 +137,7 @@
 
 "permission_tutorial.how_to_upload_positive.title" = "Come segnalare la positività";
 "permission_tutorial.how_to_upload_positive.first" = "Se risulti positivo al virus, puoi segnalarlo a Immuni caricando i tuoi codici casuali. Facendolo permetti all’app di avvertire del rischio di contagio gli utenti con cui sei stato a contatto nei giorni precedenti.";
-"permission_tutorial.how_to_upload_positive.second" = "L’operatore sanitario che comunica l’esito positivo del test ti assisterà telefonicamente. Ti chiederà il codice monouso visualizzato nella schermata precedente e lo userà per autorizzarti al caricamento dei tuoi dati.";
+"permission_tutorial.how_to_upload_positive.second" = "L’operatore sanitario che comunica l’esito positivo del tampone ti assisterà telefonicamente. Ti chiederà il codice monouso visualizzato nella schermata precedente e lo userà per autorizzarti al caricamento dei tuoi dati.";
 "permission_tutorial.how_to_upload_positive.third" = "Questo processo di autorizzazione impedisce a utenti che non siano effettivamente risultati positivi al virus di caricare i loro dati, causando falsi allarmi. Il codice monouso e i dati caricati non sono in alcun modo associati alla tua identità.";
 "permission_tutorial.verify_immuni_works.title" = "Come verificare che Immuni stia funzionando";
 "permission_tutorial.verify_immuni_works.first" = "<b>Se leggi \"Servizio attivo\" significa che Immuni sta già funzionando correttamente.</b> Non devi fare altro: l'app continuerà a funzionare anche quando è chiusa.";
@@ -159,7 +159,7 @@
 
 "permission_tutorial.deactivate_service.title" = "Come disattivare il servizio";
 "permission_tutorial.deactivate_service.first.message" = "<red>Per proteggere la tua salute e quella dei tuoi cari, disattiva il servizio solo se necessario e riattivalo appena puoi.</red>";
-"permission_tutorial.deactivate_service.second.message" = "In certi casi può aver senso disattivare temporaneamente le notifiche di esposizione, ad esempio <b>se sei un operatore sanitario a contatto con pazienti COVID-19 e desideri disattivare l’app mentre sei al lavoro.</b>";
+"permission_tutorial.deactivate_service.second.message" = "In certi casi può aver senso disattivare temporaneamente l’app, ad esempio <b>mentre sei al lavoro se sei un operatore sanitario a contatto con pazienti COVID-19</b>";
 "permission_tutorial.deactivate_service.third.message" = "Disabilitando le notifiche di esposizione i successivi contatti con altri utenti non verranno registrati.";
 "permission_tutorial.deactivate_service.fourth.message" = "<h3>Per disabilitare le notifiche di esposizione</h3>";
 "permission_tutorial.deactivate_service.fifth.message" = "<b>1. Apri le impostazioni dal bottone in basso</b>";
@@ -217,10 +217,10 @@
 "suggestions.instruction.hide_alert.action" = "Nascondi avviso";
 "suggestions.instruction.hide_alert.message" = "Se necessario puoi nascondere questo avviso. A meno che tu abbia una ragione valida, ti sconsigliamo vivamente di farlo.";
 
-"suggestions.risk.first.message" = "L'app ti mostra questo avviso sulla base delle informazioni a disposizione (durata del contatto e stima approssimativa della distanza) ma non può sapere se durante il contatto indossavi una mascherina o se davi le spalle. Il rischio di contagio potrebbe quindi essere sovrastimato.";
+"suggestions.risk.first.message" = "L'app ti mostra questo avviso sulla base delle informazioni a disposizione (durata del contatto e stima approssimativa della distanza) ma non può sapere se durante il contatto indossavate mascherine o se vi davate le spalle. Il rischio di contagio potrebbe quindi essere sovrastimato.";
 "suggestions.risk.second.message" = "Per aiutare il Servizio Sanitario Nazionale a prendersi cura di te in caso di necessità l’app ha informato il Ministero della Salute della notifica che hai ricevuto.";
-"suggestions.risk.third.message" = "Per ulteriori informazioni sui dati trasmessi al Ministero della Salute puoi leggere l’<l>informativa privacy</l> al punto 4.";
-"suggestions.risk.fourth.message" = "<b>Il Ministero della Salute non può in ogni caso risalire alla tua identità sulla base di queste informazioni</b>.";
+"suggestions.risk.third.message" = "<b>Il Ministero della Salute non può in ogni caso risalire alla tua identità sulla base di queste informazioni</b>.";
+"suggestions.risk.fourth.message" = "Per ulteriori informazioni sui dati trasmessi al Ministero della Salute puoi leggere l’<l>informativa privacy</l> al punto 4.";
 
 "suggestions.instruction.hide_if_contact_doctor.action" = "Ho contattato il medico";
 "suggestions.instruction.hide_if_contact_doctor.message" = "Se sei in contatto con il tuo medico o la tua ASL, puoi nascondere questo avviso.";
@@ -276,7 +276,7 @@
 "upload_data.vpn_error.message_europe" = "Si è verificato un errore durante l'operazione. Ti invitiamo a riprovare. Se stai utilizzando una VPN, ti suggeriamo di selezionare un server europeo o di disabilitarla temporaneamente.";
 "upload_data.vpn_error.title" = "Qualcosa è andato storto";
 "upload_data.wait_operator.message" = "Attendi la conferma dell'operatore";
-"upload_data.warning.message" = "Questa funzione richiede l’assistenza dell'operatore sanitario che ti comunica telefonicamente l'esito positivo del test.";
+"upload_data.warning.message" = "Questa funzione richiede l’assistenza dell'operatore sanitario che ti comunica telefonicamente l'esito positivo del tampone.";
 "upload_data.warning.discover_more" = "Scopri di più";
 "welcome_view.discover_more" = "Scopri di più";
 "welcome_view.go_next" = "Iniziamo";
