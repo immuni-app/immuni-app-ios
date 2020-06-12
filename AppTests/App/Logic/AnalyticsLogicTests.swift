@@ -1190,7 +1190,9 @@ extension AnalyticsLogicTests {
 
     let context = AppSideEffectContext(dependencies: dependencies)
 
-    try Logic.Analytics.ValidateAnalyticsToken(token: .init(token: expectedToken, expiration: expectedExpiration, status: .generated)).sideEffect(context)
+    try Logic.Analytics
+      .ValidateAnalyticsToken(token: .init(token: expectedToken, expiration: expectedExpiration, status: .generated))
+      .sideEffect(context)
 
     try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.SetAnalyticsToken.self) { dispatchable in
       XCTAssertEqual(dispatchable.token.token, expectedToken)
@@ -1225,7 +1227,9 @@ extension AnalyticsLogicTests {
 
     let context = AppSideEffectContext(dependencies: dependencies)
 
-    try Logic.Analytics.ValidateAnalyticsToken(token: .init(token: expectedToken, expiration: expectedExpiration, status: .generated)).sideEffect(context)
+    try Logic.Analytics
+      .ValidateAnalyticsToken(token: .init(token: expectedToken, expiration: expectedExpiration, status: .generated))
+      .sideEffect(context)
 
     try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.Analytics.SetAnalyticsToken.self) { dispatchable in
       XCTAssertEqual(dispatchable.token.token, expectedToken)

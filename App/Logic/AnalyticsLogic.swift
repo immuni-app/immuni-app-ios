@@ -304,7 +304,8 @@ extension Logic.Analytics {
 
   struct RefreshAnalyticsToken: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      let tokenString = context.dependencies.analyticsTokenGenerator.generateToken(length: AnalyticsState.AnalyticsToken.tokenLength)
+      let tokenString = context.dependencies.analyticsTokenGenerator
+        .generateToken(length: AnalyticsState.AnalyticsToken.tokenLength)
       let expiration = context.dependencies.analyticsTokenGenerator.nextExpirationDate()
 
       let token = AnalyticsState.AnalyticsToken(token: tokenString, expiration: expiration, status: .generated)
@@ -334,7 +335,12 @@ extension Logic.Analytics {
         newTokenStatus = .validated
       }
 
-      try context.awaitDispatch(SetAnalyticsToken(token: .init(token: token.token, expiration: token.expiration, status: newTokenStatus)))
+      try context
+        .awaitDispatch(SetAnalyticsToken(token: .init(
+          token: self.token.token,
+          expiration: self.token.expiration,
+          status: newTokenStatus
+        )))
     }
   }
 }
