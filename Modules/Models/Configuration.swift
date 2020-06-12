@@ -297,11 +297,11 @@ public extension Configuration {
     /// Public initializer to allow testing
     public init(
       attenuationThresholds: [Int] = [50, 70],
-      attenuationBucketScores: [UInt8] = [1, 1, 1, 1, 1, 1, 1, 1],
+      attenuationBucketScores: [UInt8] = [0, 5, 5, 5, 5, 5, 5, 5],
       attenuationWeight: Double = 1,
       daysSinceLastExposureBucketScores: [UInt8] = [1, 1, 1, 1, 1, 1, 1, 1],
       daysSinceLastExposureWeight: Double = 1,
-      durationBucketScores: [UInt8] = [1, 1, 1, 1, 1, 1, 1, 1],
+      durationBucketScores: [UInt8] = [0, 0, 0, 0, 5, 5, 5, 5],
       durationWeight: Double = 1,
       transmissionRiskBucketScores: [UInt8] = [1, 1, 1, 1, 1, 1, 1, 1],
       transmissionRiskWeight: Double = 1,
