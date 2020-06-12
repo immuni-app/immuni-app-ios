@@ -42,7 +42,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, RootInstaller {
     return PersistStore<AppState>(
       storage: FileManager.default,
       encryptionKey: secretsStorage.getOrCreateSymmetricKey(for: SecretsStorageKeys.storagePasswordKey),
-      currentBuildVersion: intBuildVersion
+      currentBuildVersion: intBuildVersion,
+      migrationManager: AppMigrationManager()
     )
   }()
 
