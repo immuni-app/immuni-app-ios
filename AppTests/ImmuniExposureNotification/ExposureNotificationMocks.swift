@@ -238,7 +238,7 @@ class MockExposureDetectionExecutor: ExposureDetectionExecutor {
     lastExposureDetectionDate: Date?,
     latestProcessedKeyChunkIndex: Int?,
     exposureDetectionConfiguration: Configuration.ExposureDetectionConfiguration,
-    exposureRiskThreshold: Double,
+    exposureRiskScoreThreshold: Double,
     exposureWeightedDurationThreshold: Double,
     exposureDurationWeightsByAttenuation: [Double],
     userExplanationMessage: String,

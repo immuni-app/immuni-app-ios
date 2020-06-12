@@ -43,7 +43,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: exposureConfiguration,
-      exposureRiskThreshold: 0,
+      exposureRiskScoreThreshold: 0,
       exposureWeightedDurationThreshold: 0,
       exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "test",
@@ -85,7 +85,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureRiskThreshold: 0,
+      exposureRiskScoreThreshold: 0,
       exposureWeightedDurationThreshold: 0,
       exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: userExplanation,
@@ -113,7 +113,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: Date().addingTimeInterval(-10),
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureRiskThreshold: 0,
+      exposureRiskScoreThreshold: 0,
       exposureWeightedDurationThreshold: 0,
       exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
@@ -139,7 +139,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureRiskThreshold: 0,
+      exposureRiskScoreThreshold: 0,
       exposureWeightedDurationThreshold: 0,
       exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
@@ -166,7 +166,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureRiskThreshold: 0,
+      exposureRiskScoreThreshold: 0,
       exposureWeightedDurationThreshold: 0,
       exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
@@ -194,7 +194,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureRiskThreshold: 0,
+      exposureRiskScoreThreshold: 0,
       exposureWeightedDurationThreshold: 0,
       exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
@@ -222,7 +222,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureRiskThreshold: 0,
+      exposureRiskScoreThreshold: 0,
       exposureWeightedDurationThreshold: 0,
       exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
@@ -250,7 +250,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureRiskThreshold: 8,
+      exposureRiskScoreThreshold: 8,
       exposureWeightedDurationThreshold: 0, // all durations pass
       exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
@@ -281,8 +281,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureRiskThreshold: 8,
-      exposureWeightedDurationThreshold: 0,  // all durations pass
+      exposureRiskScoreThreshold: 8,
+      exposureWeightedDurationThreshold: 0, // all durations pass
       exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
       enManager: .init(provider: MatchingMockExposureNotificationProvider(
@@ -312,7 +312,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureRiskThreshold: 0, // all risks pass
+      exposureRiskScoreThreshold: 0, // all risks pass
       exposureWeightedDurationThreshold: 900, // with `[1,1,1]` as weights the weighted duration is 900
       exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
@@ -343,7 +343,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureRiskThreshold: 0, // all risks pass
+      exposureRiskScoreThreshold: 0, // all risks pass
       exposureWeightedDurationThreshold: 901, // with `[1,1,1]` as weights the weighted duration is 900
       exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
@@ -377,7 +377,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: latestProcessedKeyChunk,
       exposureDetectionConfiguration: .init(),
-      exposureRiskThreshold: 0,
+      exposureRiskScoreThreshold: 0,
       exposureWeightedDurationThreshold: 600,
       exposureDurationWeightsByAttenuation: [0, 2, 0],
       userExplanationMessage: "this is a test",
@@ -410,7 +410,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureRiskThreshold: 0,
+      exposureRiskScoreThreshold: 0,
       exposureWeightedDurationThreshold: 0,
       exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
@@ -437,7 +437,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureRiskThreshold: 0,
+      exposureRiskScoreThreshold: 0,
       exposureWeightedDurationThreshold: 0,
       exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
@@ -467,7 +467,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureRiskThreshold: 0,
+      exposureRiskScoreThreshold: 0,
       exposureWeightedDurationThreshold: 0,
       exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
@@ -497,7 +497,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureRiskThreshold: 0,
+      exposureRiskScoreThreshold: 0,
       exposureWeightedDurationThreshold: 0,
       exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
@@ -527,7 +527,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureRiskThreshold: 0,
+      exposureRiskScoreThreshold: 0,
       exposureWeightedDurationThreshold: 0,
       exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
@@ -560,7 +560,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureRiskThreshold: 0,
+      exposureRiskScoreThreshold: 0,
       exposureWeightedDurationThreshold: 0,
       exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
@@ -595,7 +595,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureRiskThreshold: 0,
+      exposureRiskScoreThreshold: 0,
       exposureWeightedDurationThreshold: 0,
       exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
@@ -630,7 +630,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       lastExposureDetectionDate: nil,
       latestProcessedKeyChunkIndex: nil,
       exposureDetectionConfiguration: .init(),
-      exposureRiskThreshold: 0,
+      exposureRiskScoreThreshold: 0,
       exposureWeightedDurationThreshold: 0,
       exposureDurationWeightsByAttenuation: [1, 1, 1],
       userExplanationMessage: "this is a test",
@@ -670,7 +670,11 @@ class MatchingMockExposureNotificationProvider: MockExposureNotificationProvider
   let maximumRiskScore: UInt8
   let durationByAttenuationBucket: [Double]
 
-  init(overriddenStatus: ExposureNotificationStatus, maximumRiskScore: UInt8 = 8, durationByAttenuationBucket: [Double] = [300, 300, 300]) {
+  init(
+    overriddenStatus: ExposureNotificationStatus,
+    maximumRiskScore: UInt8 = 8,
+    durationByAttenuationBucket: [Double] = [300, 300, 300]
+  ) {
     self.maximumRiskScore = maximumRiskScore
     self.durationByAttenuationBucket = durationByAttenuationBucket
     super.init(overriddenStatus: overriddenStatus)
