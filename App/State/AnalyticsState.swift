@@ -36,27 +36,20 @@ struct AnalyticsState: Codable {
 
 extension AnalyticsState {
   /// A rolling token to be used for analytics upload, with the given expiration date
-  enum AnalyticsToken: Codable {
+  struct AnalyticsToken: Codable {
     /// The default length of the token, in bytes
     static let tokenLength: Int = 128
 
-    case generated(token: String, expiration: Date)
-    case validated(token: String, expiration: Date)
+    let token: String
+    let expiration: Date
+    let status: Status
 
-    /// The actual token
-    var token: String {
-      switch self {
-      case .generated(let token, _), .validated(let token, _):
-        return token
-      }
-    }
+    enum Status: String, Codable {
+      /// The token has been generated but it hasn't been validated by the backend yet
+      case generated
 
-    /// The expiration date for this token
-    var expiration: Date {
-      switch self {
-      case .generated(_, let expiration), .validated(_, let expiration):
-        return expiration
-      }
+      /// The token has been validated by the backend
+      case validated
     }
 
     /// Whether this token is expired
@@ -64,60 +57,14 @@ extension AnalyticsState {
       return self.expiration <= now
     }
 
+    /// Whether the token has been validated and is not expired
     func isValid(now: Date) -> Bool {
-      switch self {
+      switch self.status {
       case .generated:
         return false
       case .validated:
         return !self.isExpired(now: now)
       }
-    }
-  }
-}
-
-// MARK: - Codable conformances
-
-extension AnalyticsState.AnalyticsToken {
-  private enum CodingKeys: String, CodingKey {
-    case type
-    case token
-    case expiration
-  }
-
-  private enum Case: String, Codable {
-    case generated
-    case validated
-  }
-
-  private var rawCase: Case {
-    switch self {
-    case .generated:
-      return .generated
-    case .validated:
-      return .validated
-    }
-  }
-
-  public init(from decoder: Decoder) throws {
-    let container = try decoder.container(keyedBy: CodingKeys.self)
-    let status = try container.decode(Case.self, forKey: CodingKeys.type)
-    let token = try container.decode(String.self, forKey: CodingKeys.token)
-    let expiration = try container.decode(Date.self, forKey: CodingKeys.expiration)
-    switch status {
-    case .generated:
-      self = .generated(token: token, expiration: expiration)
-    case .validated:
-      self = .validated(token: token, expiration: expiration)
-    }
-  }
-
-  public func encode(to encoder: Encoder) throws {
-    var container = encoder.container(keyedBy: CodingKeys.self)
-    try container.encode(self.rawCase, forKey: CodingKeys.type)
-    switch self {
-    case .generated(let token, let expiration), .validated(let token, let expiration):
-      try container.encode(token, forKey: CodingKeys.token)
-      try container.encode(expiration, forKey: CodingKeys.expiration)
     }
   }
 }

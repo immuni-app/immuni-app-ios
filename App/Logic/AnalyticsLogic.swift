@@ -41,6 +41,11 @@ extension Logic.Analytics {
         now: now
       )
 
+      guard let token = analyticsState.token, token.isValid(now: now) else {
+        // Token is not valid, avoid sending anything
+        return
+      }
+
       if let mostRecentExposureDate = maybeMostRecentExposureDate {
         try context.awaitDispatch(StochasticallySendOperationalInfoWithExposure(mostRecentExposure: mostRecentExposureDate))
         try context.awaitDispatch(UpdateDummyTrafficOpportunityWindowIfCurrent())
@@ -269,49 +274,67 @@ extension Logic.Analytics {
 // MARK: - Token management
 
 extension Logic.Analytics {
-  struct RefreshAnalyticsTokenIfExpired: AppSideEffect {
+  struct RefreshAnalyticsTokenIfNeeded: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let state = context.getState()
       let now = context.dependencies.now()
 
-      switch state.analytics.token {
-      case .none:
+      guard let token = state.analytics.token else {
         // No token
         try context.awaitDispatch(RefreshAnalyticsToken())
-      case .validated(_, let expiration) where expiration > now:
-        // Token not expired and validated
         return
-      case .generated(let tokenString, let expiration) where expiration > now:
-        // Token not expired but not validated
-        try context.awaitDispatch(ValidateAnalyticsToken(token: tokenString, expiration: expiration))
-      case .generated, .validated:
+      }
+
+      guard !token.isExpired(now: now) else {
         // Token expired
         try context.awaitDispatch(RefreshAnalyticsToken())
+        return
+      }
+
+      switch token.status {
+      case .validated:
+        // Token not expired and validated
+        return
+      case .generated:
+        // Token not expired but not validated
+        try context.awaitDispatch(ValidateAnalyticsToken(token: token))
       }
     }
   }
 
   struct RefreshAnalyticsToken: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      let token = context.dependencies.analyticsTokenGenerator.generateToken(length: AnalyticsState.AnalyticsToken.tokenLength)
+      let tokenString = context.dependencies.analyticsTokenGenerator.generateToken(length: AnalyticsState.AnalyticsToken.tokenLength)
       let expiration = context.dependencies.analyticsTokenGenerator.nextExpirationDate()
 
-      try context.awaitDispatch(SetAnalyticsToken(token: .generated(token: token, expiration: expiration)))
-      try context.awaitDispatch(ValidateAnalyticsToken(token: token, expiration: expiration))
+      let token = AnalyticsState.AnalyticsToken(token: tokenString, expiration: expiration, status: .generated)
+
+      try context.awaitDispatch(SetAnalyticsToken(token: token))
+      try context.awaitDispatch(ValidateAnalyticsToken(token: token))
     }
   }
 
   struct ValidateAnalyticsToken: AppSideEffect {
-    let token: String
-    let expiration: Date
+    let token: AnalyticsState.AnalyticsToken
 
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let deviceCheckToken = try await(context.dependencies.deviceTokenGenerator.generateToken())
-      try await(
+      let validationResponse = try await(
         context.dependencies.networkManager
-          .validateAnalyticsToken(analyticsToken: self.token, deviceToken: deviceCheckToken)
+          .validateAnalyticsToken(analyticsToken: self.token.token, deviceToken: deviceCheckToken)
       )
-      try context.awaitDispatch(SetAnalyticsToken(token: .validated(token: self.token, expiration: self.expiration)))
+
+      let newTokenStatus: AnalyticsState.AnalyticsToken.Status
+      switch validationResponse {
+      case .authorizationInProgress:
+        // Not validated yet
+        newTokenStatus = .generated
+      case .tokenAuthorized:
+        // Validated
+        newTokenStatus = .validated
+      }
+
+      try context.awaitDispatch(SetAnalyticsToken(token: .init(token: token.token, expiration: token.expiration, status: newTokenStatus)))
     }
   }
 }
@@ -336,8 +359,9 @@ extension Logic.Analytics {
         return
       }
 
-      guard let token = state.analytics.token, token.isValid(now: context.dependencies.now()) else {
-        // Not analytics token defined, or it is not valid. This is very unlikely.
+      // The token is assumed to be validated at this point.
+      guard let token = state.analytics.token else {
+        // Not analytics token defined. This should never happen.
         return
       }
 
