@@ -13,6 +13,7 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 import Foundation
+import Lottie
 import PinLayout
 import Tempura
 
@@ -31,7 +32,7 @@ class OnboardingPermissionView: UIView, ViewControllerModellableView {
   private var discoverMoreButton = TextButton()
   private let detailsLabel = UILabel()
   private let titleLabel = UILabel()
-  private let image = UIImageView()
+  private let animation = AnimationView()
   private var closeButton = ImageButton()
 
   // MARK: - Interactions
@@ -45,7 +46,7 @@ class OnboardingPermissionView: UIView, ViewControllerModellableView {
     self.addSubview(self.discoverMoreButton)
     self.addSubview(self.detailsLabel)
     self.addSubview(self.titleLabel)
-    self.addSubview(self.image)
+    self.addSubview(self.animation)
     self.addSubview(self.closeButton)
 
     self.discoverMoreButton.on(.touchUpInside) { [weak self] _ in
@@ -74,7 +75,7 @@ class OnboardingPermissionView: UIView, ViewControllerModellableView {
 
     Self.Style.title(self.titleLabel, content: model.title)
     Self.Style.details(self.detailsLabel, content: model.details)
-    Self.Style.image(self.image, image: model.image)
+    Self.Style.animation(self.animation, animation: model.animation.animation)
 
     self.closeButton.isHidden = !model.canBeDismissed
   }
@@ -101,7 +102,7 @@ class OnboardingPermissionView: UIView, ViewControllerModellableView {
       .marginBottom(Self.verticalSpacing)
       .sizeToFit(.width)
 
-    self.image.pin
+    self.animation.pin
       .horizontally()
       .top()
       .above(of: self.titleLabel)
@@ -118,11 +119,11 @@ class OnboardingPermissionView: UIView, ViewControllerModellableView {
   }
 
   private func updateAfterLayout() {
-    let imageSize = self.image.intrinsicContentSize
-    let realImageViewSize = self.image.frame.size
+    let contentSize = self.animation.intrinsicContentSize
+    let realContentViewSize = self.animation.frame.size
 
-    let isImageRelevant = (realImageViewSize.height / imageSize.height) > 0.3
-    self.image.alpha = isImageRelevant.cgFloat
+    let isContentRelevant = (realContentViewSize.height / contentSize.height) > 0.3
+    self.animation.alpha = isContentRelevant.cgFloat
   }
 }
 
@@ -170,9 +171,11 @@ private extension OnboardingPermissionView {
       button.attributedTitle = L10n.WelcomeView.discoverMore.styled(with: textStyle)
     }
 
-    static func image(_ imageView: UIImageView, image: UIImage) {
-      imageView.image = image
-      imageView.contentMode = .scaleAspectFit
+    static func animation(_ view: AnimationView, animation: Animation?) {
+      view.animation = animation
+      view.loopMode = .loop
+      view.backgroundBehavior = .pauseAndRestore
+      view.playIfPossible()
     }
 
     static func closeButton(_ btn: ImageButton) {
