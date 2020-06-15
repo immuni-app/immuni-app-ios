@@ -45,6 +45,10 @@ enum AnimationAsset: String, CaseIterable, Equatable {
   case shieldBackground
   case shieldCheckmark
   case shieldDisabled
+  case welcome1 = "welcomeFirst"
+  case welcome2 = "welcomeSecond"
+  case welcome3 = "welcomeThird"
+  case welcome4 = "welcomeFourth"
 }
 
 extension AnimationAsset {
@@ -80,6 +84,14 @@ extension AnimationAsset {
       return AnimationAsset.shieldCheckmarkAnimation
     case .shieldDisabled:
       return AnimationAsset.shieldDisabledAnimation
+    case .welcome1:
+      return AnimationAsset.welcome1Animation
+    case .welcome2:
+      return AnimationAsset.welcome2Animation
+    case .welcome3:
+      return AnimationAsset.welcome3Animation
+    case .welcome4:
+      return AnimationAsset.welcome4Animation
     }
   }
 
@@ -97,4 +109,8 @@ extension AnimationAsset {
   static let shieldBackgroundAnimation = Animation.named(AnimationAsset.shieldBackground.rawValue)
   static let shieldCheckmarkAnimation = Animation.named(AnimationAsset.shieldCheckmark.rawValue)
   static let shieldDisabledAnimation = Animation.named(AnimationAsset.shieldDisabled.rawValue)
+  static let welcome1Animation = Animation.named(AnimationAsset.welcome1.rawValue)
+  static let welcome2Animation = Animation.named(AnimationAsset.welcome2.rawValue)
+  static let welcome3Animation = Animation.named(AnimationAsset.welcome3.rawValue)
+  static let welcome4Animation = Animation.named(AnimationAsset.welcome4.rawValue)
 }
