@@ -142,7 +142,6 @@ class AnalyticsRequestTests: XCTestCase {
     let data = try JSONEncoder().encode(body)
     let dictionary = try JSONSerialization.jsonObject(with: data) as? [String: Any]
 
-    XCTAssertEqual(dictionary?["os"] as? String, "ios")
     XCTAssertEqual(dictionary?["province"] as? String, Province.agrigento.rawValue)
     XCTAssertEqual(dictionary?["exposure_permission"] as? Int, 1)
     XCTAssertEqual(dictionary?["notification_permission"] as? Int, 1)
