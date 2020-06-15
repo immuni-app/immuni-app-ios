@@ -42,6 +42,11 @@ enum AnimationAsset: String, CaseIterable, Equatable {
   case hiw4 = "hiw_4"
   case hiw5 = "hiw_5"
   case loader
+  case onboardingBluetooth
+  case onboardingCommunicationAdvice
+  case onboardingExposureNotifications
+  case onboardingPinAdvice
+  case onboardingPushNotifications
   case shieldBackground
   case shieldCheckmark
   case shieldDisabled
@@ -78,6 +83,16 @@ extension AnimationAsset {
       return AnimationAsset.hiw5Animation
     case .loader:
       return AnimationAsset.loaderAnimation
+    case .onboardingBluetooth:
+      return AnimationAsset.onboardingBluetoothAnimation
+    case .onboardingCommunicationAdvice:
+      return AnimationAsset.onboardingCommunicationAdviceAnimation
+    case .onboardingExposureNotifications:
+      return AnimationAsset.onboardingExposureNotificationsAnimation
+    case .onboardingPinAdvice:
+      return AnimationAsset.onboardingPinAdviceAnimation
+    case .onboardingPushNotifications:
+      return AnimationAsset.onboardingPushNotificationsAnimation
     case .shieldBackground:
       return AnimationAsset.shieldBackgroundAnimation
     case .shieldCheckmark:
@@ -106,6 +121,11 @@ extension AnimationAsset {
   static let hiw4Animation = Animation.named(AnimationAsset.hiw4.rawValue)
   static let hiw5Animation = Animation.named(AnimationAsset.hiw5.rawValue)
   static let loaderAnimation = Animation.named(AnimationAsset.loader.rawValue)
+  static let onboardingBluetoothAnimation = Animation.named(AnimationAsset.onboardingBluetooth.rawValue)
+  static let onboardingCommunicationAdviceAnimation = Animation.named(AnimationAsset.onboardingCommunicationAdvice.rawValue)
+  static let onboardingExposureNotificationsAnimation = Animation.named(AnimationAsset.onboardingExposureNotifications.rawValue)
+  static let onboardingPinAdviceAnimation = Animation.named(AnimationAsset.onboardingPinAdvice.rawValue)
+  static let onboardingPushNotificationsAnimation = Animation.named(AnimationAsset.onboardingPushNotifications.rawValue)
   static let shieldBackgroundAnimation = Animation.named(AnimationAsset.shieldBackground.rawValue)
   static let shieldCheckmarkAnimation = Animation.named(AnimationAsset.shieldCheckmark.rawValue)
   static let shieldDisabledAnimation = Animation.named(AnimationAsset.shieldDisabled.rawValue)
