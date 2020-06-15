@@ -54,7 +54,6 @@ public extension AnalyticsRequest {
   /// -seeAlso: Traffic-Analysis Mitigation document
   struct Body: Codable, Equatable {
     enum CodingKeys: String, CodingKey {
-      case operatingSystem = "os"
       case province
       case exposurePermission = "exposure_permission"
       case notificationPermission = "notification_permission"
@@ -63,7 +62,6 @@ public extension AnalyticsRequest {
       case lastExposureDate = "last_risky_exposure_on"
     }
 
-    public let operatingSystem = "ios"
     public let province: String
     public let exposurePermission: Int
     public let notificationPermission: Int
