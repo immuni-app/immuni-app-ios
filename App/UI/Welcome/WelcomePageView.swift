@@ -12,12 +12,13 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+import Lottie
 import Tempura
 
 class WelcomePageView: UIView, ModellableView {
   // MARK: - Subviews
 
-  let imageView = UIImageView()
+  let animationView = AnimationView()
   let titleLabel = UILabel()
   let detailsLabel = UILabel()
 
@@ -38,7 +39,7 @@ class WelcomePageView: UIView, ModellableView {
   // MARK: - Setup
 
   func setup() {
-    self.addSubview(self.imageView)
+    self.addSubview(self.animationView)
     self.addSubview(self.titleLabel)
     self.addSubview(self.detailsLabel)
   }
@@ -52,7 +53,7 @@ class WelcomePageView: UIView, ModellableView {
   func update(oldModel: WelcomePageVM?) {
     guard let model = self.model, model != oldModel else { return }
 
-    Self.Style.image(self.imageView, image: model.image)
+    Self.Style.animation(self.animationView, content: model.animation.animation, loopMode: model.loopMode)
     Self.Style.title(self.titleLabel, title: model.title)
     Self.Style.details(self.detailsLabel, details: model.details)
   }
@@ -73,7 +74,7 @@ class WelcomePageView: UIView, ModellableView {
       .above(of: self.detailsLabel)
       .marginBottom(UIDevice.getByScreen(normal: 30, narrow: 15))
 
-    self.imageView.pin
+    self.animationView.pin
       .horizontally()
       .top(self.universalSafeAreaInsets.top)
       .above(of: self.titleLabel)
@@ -84,11 +85,15 @@ class WelcomePageView: UIView, ModellableView {
   }
 
   private func updateAfterLayout() {
-    let imageSize = self.imageView.intrinsicContentSize
-    let realImageViewSize = self.imageView.frame.size
+    let assetSize = self.animationView.intrinsicContentSize
+    let realAssetViewSize = self.animationView.frame.size
 
-    let isImageRelevant = (realImageViewSize.height / imageSize.height) > 0.3
-    self.imageView.alpha = isImageRelevant.cgFloat
+    let isAssetRelevant = (realAssetViewSize.height / assetSize.height) > 0.3
+    self.animationView.alpha = isAssetRelevant.cgFloat
+
+    if isAssetRelevant {
+      self.animationView.playIfPossible()
+    }
   }
 }
 
@@ -96,9 +101,11 @@ class WelcomePageView: UIView, ModellableView {
 
 extension WelcomePageView {
   enum Style {
-    static func image(_ imageView: UIImageView, image: UIImage?) {
-      imageView.image = image
-      imageView.contentMode = .scaleAspectFit
+    static func animation(_ view: AnimationView, content: Animation?, loopMode: LottieLoopMode) {
+      view.animation = content
+      view.loopMode = loopMode
+      view.backgroundBehavior = .pauseAndRestore
+      view.shouldRasterizeWhenIdle = true
     }
 
     static func title(_ label: UILabel, title: String?) {
@@ -131,32 +138,37 @@ extension WelcomePageView {
 // MARK: - View Model
 
 struct WelcomePageVM: ViewModel, Equatable {
-  let image: UIImage
+  let animation: AnimationAsset
+  let loopMode: LottieLoopMode
   let title: String
   let details: String
 }
 
 extension WelcomePageVM {
   static var pageOneVM = WelcomePageVM(
-    image: Asset.Welcome.first.image,
+    animation: AnimationAsset.welcome1,
+    loopMode: .playOnce,
     title: L10n.WelcomeView.Items.First.title,
     details: L10n.WelcomeView.Items.First.description
   )
 
   static var pageTwoVM = WelcomePageVM(
-    image: Asset.Welcome.second.image,
+    animation: AnimationAsset.welcome2,
+    loopMode: .loop,
     title: L10n.WelcomeView.Items.Second.title,
     details: L10n.WelcomeView.Items.Second.description
   )
 
   static var pageThreeVM = WelcomePageVM(
-    image: Asset.Welcome.third.image,
+    animation: AnimationAsset.welcome3,
+    loopMode: .loop,
     title: L10n.WelcomeView.Items.Third.title,
     details: L10n.WelcomeView.Items.Third.description
   )
 
   static var pageFourVM = WelcomePageVM(
-    image: Asset.Welcome.fourth.image,
+    animation: AnimationAsset.welcome4,
+    loopMode: .loop,
     title: L10n.WelcomeView.Items.Fourth.title,
     details: L10n.WelcomeView.Items.Fourth.description
   )
