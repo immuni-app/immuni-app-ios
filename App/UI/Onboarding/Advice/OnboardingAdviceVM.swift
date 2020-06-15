@@ -20,7 +20,6 @@ struct OnboardingAdviceVM {
   enum AdviceType {
     case pin
     case communication
-    case pilot
   }
 
   /// The type of advice the view is presenting to be checked.
@@ -32,8 +31,6 @@ struct OnboardingAdviceVM {
       return L10n.Onboarding.PinAdvice.title
     case .communication:
       return L10n.Onboarding.CommunicationAdvice.title
-    case .pilot:
-      return L10n.Onboarding.Pilot.title
     }
   }
 
@@ -43,8 +40,6 @@ struct OnboardingAdviceVM {
       return L10n.Onboarding.PinAdvice.description
     case .communication:
       return L10n.Onboarding.CommunicationAdvice.description
-    case .pilot:
-      return L10n.Onboarding.Pilot.description
     }
   }
 
@@ -54,8 +49,6 @@ struct OnboardingAdviceVM {
       return Asset.Onboarding.advicePin.image
     case .communication:
       return Asset.Onboarding.adviceCommunication.image
-    case .pilot:
-      return Asset.Onboarding.pilotMessage.image
     }
   }
 }

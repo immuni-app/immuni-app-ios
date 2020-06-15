@@ -24,9 +24,6 @@ struct TogglesState: Codable {
   /// Whether the communication advice view has been shown during onboarding.
   var didShowCommunicationAdvice: Bool = false
 
-  /// Whether the pilot message view has been shown during onboarding.
-  var didShowPilotMessage: Bool = false
-
   /// Whether the onboarding has been completed
   var isOnboardingCompleted: Bool = false
 

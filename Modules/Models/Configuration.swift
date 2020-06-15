@@ -40,7 +40,6 @@ public struct Configuration: Codable {
     case dataUploadMaxSummaryCount = "teks_max_summary_count"
     case dataUploadMaxExposureInfoCount = "teks_max_info_count"
     case ingestionRequestTargetSize = "teks_packet_size"
-    case isExperimentalPhase = "experimental_phase"
     case supportEmail = "support_email"
     case supportPhone = "support_phone"
     case supportPhoneOpeningTime = "support_phone_opening_time"
@@ -137,9 +136,6 @@ public struct Configuration: Codable {
   /// The target size, in byte, of each ingestion request
   public let ingestionRequestTargetSize: Int
 
-  /// Whether the application is an experimental phase
-  public let isExperimentalPhase: Bool
-
   /// The email to contact support.
   public let supportEmail: String?
 
@@ -198,7 +194,6 @@ public struct Configuration: Codable {
     dataUploadMaxSummaryCount: Int = 84,
     dataUploadMaxExposureInfoCount: Int = 600,
     ingestionRequestTargetSize: Int = 110_000,
-    isExperimentalPhase: Bool = false,
     supportEmail: String? = nil,
     supportPhone: String? = nil,
     supportPhoneOpeningTime: String? = nil,
@@ -227,7 +222,6 @@ public struct Configuration: Codable {
     self.dataUploadMaxSummaryCount = dataUploadMaxSummaryCount
     self.dataUploadMaxExposureInfoCount = dataUploadMaxExposureInfoCount
     self.ingestionRequestTargetSize = ingestionRequestTargetSize
-    self.isExperimentalPhase = isExperimentalPhase
     self.supportEmail = supportEmail
     self.supportPhone = supportPhone
     self.supportPhoneOpeningTime = supportPhoneOpeningTime
