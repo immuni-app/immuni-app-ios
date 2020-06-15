@@ -248,9 +248,6 @@
 "welcome_view.items.third.title" = "Ensemble, ralentissons l'épidémie";
 "welcome_view.next_page_title" = "Suivant";
 "home_view.service.deactivate" = "Désactiver le service";
-"onboarding.pilot.title" = "Expérimentation en cours";
-"onboarding.pilot.description" = "Au cours de la phase d'expérimentation, vous ne serez averti(e) d'un contact à risque avec une personne positive au virus que si celle-ci est assistée par une ASL (unité sanitaire locale) des régions suivantes : Abruzzes, Ligurie, Marches et Pouilles.";
-"onboarding.pilot.action" = "J'ai compris";
 "permission_tutorial.deactivate_service.title" = "Comment désactiver le service";
 "permission_tutorial.deactivate_service.first.message" = "<red>Pour protéger votre santé et celle de vos proches, ne désactivez le service que si nécessaire et réactivez-le dès que possible.</red>";
 "permission_tutorial.deactivate_service.second.message" = "Dans certains cas, il peut être judicieux de désactiver temporairement les notifications d'exposition, par exemple <b>si vous êtes un professionnel de la santé en contact avec des patients atteints du COVID-19 et que vous souhaitez désactiver l'application lorsque vous êtes au travail.</b>";

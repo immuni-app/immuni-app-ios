@@ -98,9 +98,6 @@
 "onboarding.region.title" = "In che regione vivi?";
 "onboarding_exposure_api_not_activated" = "Notifiche di esposizione non attivate";
 "onboarding_exposure_message_extended" = "Le notifiche di esposizione richiedono che il servizio di localizzazione sia attivo a livello di sistema. <b>Immuni non ha accesso alla localizzazione e non può quindi conoscere la tua posizione o i tuoi spostamenti</b>.";
-"onboarding.pilot.title"= "Sperimentazione in corso";
-"onboarding.pilot.description"= "Durante la fase di sperimentazione verrai avvisato di un contatto a rischio con una persona positiva al virus solo se quest'ultima è assistita da un'ASL delle seguenti regioni: Abruzzo, Liguria, Marche e Puglia.";
-"onboarding.pilot.action"= "Ho capito";
 "open_settings" = "Apri Impostazioni";
 "permission_tutorial.bluetooth.action" = "Apri Impostazioni";
 "permission_tutorial.bluetooth.first" = "<b>1. Accedi al Centro di Controllo.</b> Scorri verso il basso dall'angolo in alto a destra oppure verso l'alto dalla parte inferiore dello schermo, a seconda del dispositivo.";

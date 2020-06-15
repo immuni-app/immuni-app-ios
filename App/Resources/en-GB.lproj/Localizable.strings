@@ -248,9 +248,6 @@
 "welcome_view.items.third.title" = "Slowing down the epidemic together";
 "welcome_view.next_page_title" = "Next";
 "home_view.service.deactivate" = "Disable the service";
-"onboarding.pilot.title" = "Testing in progress";
-"onboarding.pilot.description" = "During the testing phase, you will only be notified of a high-risk contact with a COVID-19-positive person if this person is assisted by a local health authority in the following regions: Abruzzo, Liguria, Marche or Puglia.";
-"onboarding.pilot.action" = "Got it";
 "permission_tutorial.deactivate_service.title" = "How to disable the service";
 "permission_tutorial.deactivate_service.first.message" = "<red>To protect your health and the health of your loved ones, only deactivate the service if necessary and reactivate it as soon as you can.</red>";
 "permission_tutorial.deactivate_service.second.message" = "In certain cases, it may make sense to temporarily disable exposure notifications, such as <b>if you are a healthcare professional in contact with COVID-19 patients and want to disable the app while at work.</b>";
