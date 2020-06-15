@@ -30,7 +30,6 @@ class AnalyticsRequestTests: XCTestCase {
       now: { Date() }
     )
 
-    XCTAssertEqual(body.operatingSystem, "ios")
     XCTAssertEqual(body.province, Province.agrigento.rawValue)
     XCTAssertEqual(body.exposurePermission, 1)
     XCTAssertEqual(body.notificationPermission, 1)
@@ -49,7 +48,6 @@ class AnalyticsRequestTests: XCTestCase {
       now: { Date() }
     )
 
-    XCTAssertEqual(body.operatingSystem, "ios")
     XCTAssertEqual(body.province, Province.agrigento.rawValue)
     XCTAssertEqual(body.exposurePermission, 0)
     XCTAssertEqual(body.notificationPermission, 0)
@@ -68,7 +66,6 @@ class AnalyticsRequestTests: XCTestCase {
       now: { Date() }
     )
 
-    XCTAssertEqual(body.operatingSystem, "ios")
     XCTAssertEqual(body.province, Province.agrigento.rawValue)
     XCTAssertEqual(body.exposurePermission, 0)
     XCTAssertEqual(body.notificationPermission, 0)
@@ -87,7 +84,6 @@ class AnalyticsRequestTests: XCTestCase {
       now: { Date() }
     )
 
-    XCTAssertEqual(body.operatingSystem, "ios")
     XCTAssertEqual(body.province, Province.agrigento.rawValue)
     XCTAssertEqual(body.exposurePermission, 0)
     XCTAssertEqual(body.notificationPermission, 0)
@@ -106,7 +102,6 @@ class AnalyticsRequestTests: XCTestCase {
       now: { Date() }
     )
 
-    XCTAssertEqual(body.operatingSystem, "ios")
     XCTAssertEqual(body.province, Province.agrigento.rawValue)
     XCTAssertEqual(body.exposurePermission, 0)
     XCTAssertEqual(body.notificationPermission, 0)
@@ -126,7 +121,6 @@ class AnalyticsRequestTests: XCTestCase {
       now: now
     )
 
-    XCTAssertEqual(body.operatingSystem, "ios")
     XCTAssertEqual(body.province, Province.agrigento.rawValue)
     XCTAssertEqual(body.exposurePermission, 0)
     XCTAssertEqual(body.notificationPermission, 0)
