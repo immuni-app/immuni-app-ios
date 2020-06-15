@@ -75,7 +75,10 @@ class OnboardingPermissionView: UIView, ViewControllerModellableView {
 
     Self.Style.title(self.titleLabel, content: model.title)
     Self.Style.details(self.detailsLabel, content: model.details)
-    Self.Style.animation(self.animation, animation: model.animation.animation)
+
+    if model.shouldUpdateAnimation(oldModel: oldModel) {
+      Self.Style.animation(self.animation, animation: model.animation.animation)
+    }
 
     self.closeButton.isHidden = !model.canBeDismissed
   }

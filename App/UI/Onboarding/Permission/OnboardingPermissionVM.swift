@@ -55,6 +55,10 @@ struct OnboardingPermissionVM {
       return AnimationAsset.onboardingPushNotifications
     }
   }
+
+  func shouldUpdateAnimation(oldModel: OnboardingPermissionVM?) -> Bool {
+    return self.animation != oldModel?.animation
+  }
 }
 
 extension OnboardingPermissionVM: ViewModelWithLocalState {

@@ -43,13 +43,17 @@ struct OnboardingAdviceVM {
     }
   }
 
-  var image: UIImage {
+  var animation: AnimationAsset {
     switch self.adviceType {
     case .pin:
-      return Asset.Onboarding.advicePin.image
+      return AnimationAsset.onboardingPinAdvice
     case .communication:
-      return Asset.Onboarding.adviceCommunication.image
+      return AnimationAsset.onboardingCommunicationAdvice
     }
+  }
+
+  func shouldUpdateAnimation(oldModel: OnboardingAdviceVM?) -> Bool {
+    return self.animation != oldModel?.animation
   }
 }
 
