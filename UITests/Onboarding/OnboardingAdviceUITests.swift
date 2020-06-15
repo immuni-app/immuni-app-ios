@@ -38,8 +38,6 @@ class OnboardingAdviceUITests: AppViewTestCase, ViewTestCase {
         title = L10n.Onboarding.PinAdvice.action
       case .communication:
         title = L10n.Onboarding.CommunicationAdvice.action
-      case .pilot:
-        title = L10n.Onboarding.Pilot.action
       }
 
       navController.accessoryView?.model = OnboardingContainerAccessoryVM(
@@ -58,8 +56,7 @@ class OnboardingAdviceUITests: AppViewTestCase, ViewTestCase {
     self.uiTest(
       testCases: [
         "onboarding_pin_advice": OnboardingAdviceVM(adviceType: .pin),
-        "onboarding_communication_advice": OnboardingAdviceVM(adviceType: .communication),
-        "onboarding_project_pilot": OnboardingAdviceVM(adviceType: .pilot)
+        "onboarding_communication_advice": OnboardingAdviceVM(adviceType: .communication)
       ],
       context: context
     )

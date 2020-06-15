@@ -248,9 +248,6 @@
 "welcome_view.items.third.title" = "Bremsen wir die Epidemie gemeinsam";
 "welcome_view.next_page_title" = "Weiter";
 "home_view.service.deactivate" = "Service deaktivieren";
-"onboarding.pilot.title" = "Testphase läuft";
-"onboarding.pilot.description" = "Während der Testphase werden Sie nur dann über ein potenziell ansteckendes Treffen mit einer positiv auf das Virus getesteten Person informiert, wenn diese sich in einen der folgenden Regionen vom lokalen Gesundheitsdienst (ASL) behandeln lässt: Abruzzen, Ligurien, Marken und Apulien.";
-"onboarding.pilot.action" = "Alles klar";
 "permission_tutorial.deactivate_service.title" = "So deaktivieren Sie den Service";
 "permission_tutorial.deactivate_service.first.message" = "<red>Deaktivieren Sie den Service zum Schutz Ihrer Gesundheit und der Ihrer Angehörigen nur im Bedarfsfall und aktivieren Sie ihn so bald wie möglich erneut.</red>";
 "permission_tutorial.deactivate_service.second.message" = "Manchmal kann es sinnvoll sein, die Expositionsmeldungen vorübergehend zu deaktivieren, zum Beispiel, <b>wenn Sie zum medizinischen Fachpersonal gehören und sich häufig in der Nähe von COVID-19-Patienten aufhalten, können Sie die App während der Arbeitszeit deaktivieren.</b>";

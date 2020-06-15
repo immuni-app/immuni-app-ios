@@ -13,6 +13,7 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 import Foundation
+import Lottie
 import PinLayout
 import Tempura
 
@@ -28,14 +29,14 @@ class OnboardingAdviceView: UIView, ViewControllerModellableView {
 
   private let detailsLabel = UILabel()
   private let titleLabel = UILabel()
-  private let image = UIImageView()
+  private let animation = AnimationView()
 
   // MARK: - Setup
 
   func setup() {
     self.addSubview(self.detailsLabel)
     self.addSubview(self.titleLabel)
-    self.addSubview(self.image)
+    self.addSubview(self.animation)
   }
 
   // MARK: - Style
@@ -53,7 +54,10 @@ class OnboardingAdviceView: UIView, ViewControllerModellableView {
 
     Self.Style.title(self.titleLabel, content: model.title)
     Self.Style.details(self.detailsLabel, content: model.details)
-    Self.Style.image(self.image, image: model.image)
+
+    if model.shouldUpdateAnimation(oldModel: oldModel) {
+      Self.Style.animation(self.animation, animation: model.animation.animation)
+    }
   }
 
   // MARK: - Layout
@@ -73,7 +77,7 @@ class OnboardingAdviceView: UIView, ViewControllerModellableView {
       .marginBottom(Self.verticalSpacing)
       .sizeToFit(.width)
 
-    self.image.pin
+    self.animation.pin
       .horizontally()
       .top()
       .above(of: self.titleLabel)
@@ -85,11 +89,11 @@ class OnboardingAdviceView: UIView, ViewControllerModellableView {
   }
 
   private func updateAfterLayout() {
-    let imageSize = self.image.intrinsicContentSize
-    let realImageViewSize = self.image.frame.size
+    let contentSize = self.animation.intrinsicContentSize
+    let realContentViewSize = self.animation.frame.size
 
-    let isImageRelevant = (realImageViewSize.height / imageSize.height) > 0.3
-    self.image.alpha = isImageRelevant.cgFloat
+    let isContentRelevant = (realContentViewSize.height / contentSize.height) > 0.3
+    self.animation.alpha = isContentRelevant.cgFloat
   }
 }
 
@@ -131,9 +135,11 @@ private extension OnboardingAdviceView {
       )
     }
 
-    static func image(_ imageView: UIImageView, image: UIImage) {
-      imageView.image = image
-      imageView.contentMode = .scaleAspectFit
+    static func animation(_ view: AnimationView, animation: Animation?) {
+      view.animation = animation
+      view.loopMode = .loop
+      view.backgroundBehavior = .pauseAndRestore
+      view.playIfPossible()
     }
   }
 }
