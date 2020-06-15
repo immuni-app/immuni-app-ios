@@ -118,8 +118,9 @@
         ),
 
         .init(
-          title: "[Analytics] Trigger token validation",
-          dispatchable: Logic.Analytics.ValidateAnalyticsToken(token: self.getAppState().analytics.token!)
+          title: "[Analytics] Trigger token validation / check",
+          dispatchable: Logic.Analytics
+            .ValidateAnalyticsToken(token: self.getAppState().analytics.token ?? AppLogger.fatalError("No token to validate)"))
         ),
 
         .init(
