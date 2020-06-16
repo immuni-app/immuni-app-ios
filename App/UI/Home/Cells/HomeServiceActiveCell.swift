@@ -75,8 +75,8 @@ class HomeServiceActiveCell: UICollectionViewCell, ModellableView, ReusableView,
   let shieldCheckmark = AnimationView()
   let shieldShadow = AnimationView()
   let disabledShield = AnimationView()
+  let discoverMore = UILabel()
   var actionButton = ButtonWithInsets()
-  var discoverMore = UILabel()
 
   var didTapAction: Interaction?
 
@@ -113,6 +113,8 @@ class HomeServiceActiveCell: UICollectionViewCell, ModellableView, ReusableView,
     self.actionButton.on(.touchUpInside) { [weak self] _ in
       self?.didTapAction?()
     }
+
+    self.discoverMore.accessibilityTraits = .button
   }
 
   func style() {
