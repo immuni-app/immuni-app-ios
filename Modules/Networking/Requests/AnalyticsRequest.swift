@@ -85,7 +85,6 @@ public extension AnalyticsRequest {
 
       let isRiskyExposureDetected = lastExposureDate != nil
       self.exposureNotification = isRiskyExposureDetected.intValue
-      #warning("Check that fallback date is acceptable")
       self.lastExposureDate = (lastExposureDate ?? now()).utcIsoString // discarded if exposureNotification is false
     }
   }
