@@ -76,10 +76,9 @@ class HomeServiceActiveCell: UICollectionViewCell, ModellableView, ReusableView,
   let shieldShadow = AnimationView()
   let disabledShield = AnimationView()
   var actionButton = ButtonWithInsets()
-  var discoverMoreButton = TextButton()
+  var discoverMore = UILabel()
 
   var didTapAction: Interaction?
-  var didTapDiscoverMore: Interaction?
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -109,14 +108,10 @@ class HomeServiceActiveCell: UICollectionViewCell, ModellableView, ReusableView,
     self.container.addSubview(self.shieldCheckmark)
     self.container.addSubview(self.disabledShield)
     self.container.addSubview(self.actionButton)
-    self.container.addSubview(self.discoverMoreButton)
+    self.container.addSubview(self.discoverMore)
 
     self.actionButton.on(.touchUpInside) { [weak self] _ in
       self?.didTapAction?()
-    }
-
-    self.discoverMoreButton.on(.touchUpInside) { [weak self] _ in
-      self?.didTapDiscoverMore?()
     }
   }
 
@@ -126,7 +121,7 @@ class HomeServiceActiveCell: UICollectionViewCell, ModellableView, ReusableView,
 
     Self.Style.container(self.container)
     Self.Style.statusBarBackground(self.statusBarBackground)
-    Self.Style.discoverMore(self.discoverMoreButton, content: L10n.HomeView.Service.Active.discoverMore)
+    Self.Style.discoverMore(self.discoverMore, content: L10n.HomeView.Service.Active.discoverMore)
     Self.Style.logo(self.logo)
     Self.Style.shieldShadow(self.shieldShadow)
     Self.Style.shieldCheckmark(self.shieldCheckmark)
@@ -141,7 +136,7 @@ class HomeServiceActiveCell: UICollectionViewCell, ModellableView, ReusableView,
     self.shieldShadow.isHidden = !model.isServiceActive
     self.shieldCheckmark.isHidden = !model.isServiceActive
     self.disabledShield.isHidden = model.isServiceActive
-    self.discoverMoreButton.isHidden = !model.isServiceActive
+    self.discoverMore.isHidden = !model.isServiceActive
     self.statusBarBackground.isHidden = model.hasHeaderCard
     self.actionButton.isHidden = model.isServiceActive
 
@@ -193,7 +188,7 @@ class HomeServiceActiveCell: UICollectionViewCell, ModellableView, ReusableView,
       .minHeight(53)
       .bottom(HomeView.cellHorizontalInset)
 
-    self.discoverMoreButton.pin
+    self.discoverMore.pin
       .horizontally(HomeView.cellHorizontalInset)
       .sizeToFit(.widthFlexible)
       .bottom(HomeServiceActiveCell.verticalOffset)
@@ -203,7 +198,7 @@ class HomeServiceActiveCell: UICollectionViewCell, ModellableView, ReusableView,
         .left(HomeView.cellHorizontalInset)
         .right(Self.titleRightMargin)
         .sizeToFit(.width)
-        .above(of: self.discoverMoreButton)
+        .above(of: self.discoverMore)
         .marginBottom(Self.subtitleToDiscoverMore)
     } else {
       self.subtitle.pin
@@ -258,7 +253,7 @@ class HomeServiceActiveCell: UICollectionViewCell, ModellableView, ReusableView,
     let titleSize = self.title.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
     let subtitleSize = self.subtitle.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
     let firstCellOffset: CGFloat = (self.model?.hasHeaderCard ?? false) ? 0 : topSafeArea
-    let discoverMoreSize = self.discoverMoreButton.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
+    let discoverMoreSize = self.discoverMore.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
 
     return CGSize(
       width: size.width,
@@ -372,14 +367,16 @@ private extension HomeServiceActiveCell {
       imageView.setAccessibilityLabel(L10n.Accessibility.appName)
     }
 
-    static func discoverMore(_ button: TextButton, content: String) {
+    static func discoverMore(_ label: UILabel, content: String) {
       let style = TextStyles.pSemibold.byAdding(
         .color(Palette.primary)
       )
 
-      button.attributedTitle = content.styled(with: style)
-      button.contentHorizontalAlignment = .left
-      button.titleLabel?.numberOfLines = 0
+      TempuraStyles.styleStandardLabel(
+        label,
+        content: content,
+        style: style
+      )
     }
   }
 }
