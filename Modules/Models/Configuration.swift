@@ -318,7 +318,7 @@ public extension Dictionary where Key == String, Value == URL {
   static var defaultPrivacyNoticeURL: [String: URL] {
     let values = UserLanguage.allCases.map { lang in
       // swiftlint:disable:next force_unwrapping
-      (lang.rawValue, URL(string: "https://get.immuni.gov.it/docs/app-pn-\(lang.rawValue).html")!)
+      (lang.rawValue, URL(string: "https://www.immuni.italia.it/app-pn.html")!)
     }
 
     return Dictionary(uniqueKeysWithValues: values)
@@ -328,7 +328,7 @@ public extension Dictionary where Key == String, Value == URL {
   static var defaultTermsOfUseURL: [String: URL] {
     let values = UserLanguage.allCases.map { lang in
       // swiftlint:disable:next force_unwrapping
-      (lang.rawValue, URL(string: "https://get.immuni.gov.it/docs/app-tou-\(lang.rawValue).html")!)
+      (lang.rawValue, URL(string: "https://www.immuni.italia.it/app-tou.html")!)
     }
 
     return Dictionary(uniqueKeysWithValues: values)
