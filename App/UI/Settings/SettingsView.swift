@@ -25,6 +25,7 @@ struct SettingsVM: ViewModelWithLocalState {
     case leaveReview
     case customerSupport
     case debugUtilities
+    case selectState
   }
 
   enum Header: Equatable {
@@ -102,7 +103,7 @@ extension SettingsVM {
 
       Section(
         header: .general,
-        settings: [.chageProvince, .leaveReview, .customerSupport]
+        settings: [.chageProvince, .selectState, .leaveReview, .customerSupport]
       )
     ]
     #if canImport(DebugMenu)

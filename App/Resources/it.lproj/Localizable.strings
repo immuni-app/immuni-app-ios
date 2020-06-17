@@ -314,3 +314,6 @@
 "faq.no_result.title" = "Nessun argomento trovato";
 "faq.no_result.message" = "Non abbiamo trovato nessun argomento corrispondente alla tua ricerca.";
 "suggestions.instruction.under_18_message" = "Se hai meno di 18 anni, fai leggere questo messaggio ai tuoi genitori.";
+
+
+"new.setting" = "Localized Pick State";

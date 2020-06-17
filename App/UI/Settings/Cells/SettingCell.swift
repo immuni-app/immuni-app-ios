@@ -38,6 +38,8 @@ struct SettingCellVM: ViewModel {
       return L10n.Settings.Setting.contactSupport
     case .debugUtilities:
       return L10n.Settings.Setting.debugUtilities
+    case .selectState:
+      return L10n.New.setting
     }
   }
 
@@ -45,7 +47,7 @@ struct SettingCellVM: ViewModel {
     switch self.setting {
     case .loadData, .faq:
       return true
-    case .tos, .privacy, .chageProvince, .leaveReview, .customerSupport, .debugUtilities:
+    case .tos, .privacy, .chageProvince, .leaveReview, .customerSupport, .debugUtilities, .selectState:
       return false
     }
   }

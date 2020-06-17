@@ -54,6 +54,8 @@ private extension SettingsVC {
       self.store.dispatch(Logic.Settings.ShowCustomerSupport())
     case .debugUtilities:
       self.dispatch(Logic.Settings.ShowDebugMenu())
+    case .selectState:
+      print("HELLO!")
     }
   }
 }
