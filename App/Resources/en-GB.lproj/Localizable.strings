@@ -236,7 +236,6 @@
 "suggestions.positive.subtitle" = "<b>Follow all the instructions that you have received from your general practitioner or from your local health authority's health care service.</b>";
 "suggestions.positive.title" = "Follow the instructions";
 "suggestions.risk.first.message" = "The app shows you this warning based on the information available (duration of the contact and approximate estimate of the distance), but it cannot know if both parties were wearing masks or had their backs to each other during the contact. Therefore, the risk of infection could be overestimated.";
-"suggestions.risk.footer" = "To help the National Health Service take care of you should the need arise, the app has informed the Ministry of Health of the notification you have received. <b>Please note, the Ministry of Health cannot determine your identity based on this information.</b>";
 "suggestions.risk.fourth.message" = "For more information on the data sent to the Ministry of Health, you can read the {privacy notice}, point 4.";
 "suggestions.risk.second.message" = "To help the National Health Service take care of you should the need arise, the app has informed the Ministry of Health of the notification you have received.";
 "suggestions.risk.subtitle" = "Immuni has detected that you came into close contact with a COVID-19-positive user on %@.";
@@ -273,10 +272,6 @@
 "upload_data.wait_operator.message" = "Wait for the healthcare operator to confirm";
 "upload_data.warning.discover_more" = "Find out more";
 "upload_data.warning.message" = "This feature requires assistance from the healthcare operator, who will inform you by phone of the positive result of the swab test.";
-"verify_immuni_works_first" = "<b>If you see 'Service active', Immuni is already working properly.</b>";
-"verify_immuni_works_fourth" = "For technical reasons, <b>some Android smartphone models may stop Immuni from working if the app remains closed for a few days</b>. When this happens, random codes are still exchanged with other devices, but Immuni is not able to verify if you have been exposed to potentially infectious users and warn you if you are at risk. To prevent this from happening, open the app once a day. Google is working with the manufacturers of these models to solve the problem.";
-"verify_immuni_works_second" = "<b>If there are any problems, you will see 'Service not active'.</b> Immuni will provide straightforward instructions to get the app working properly again.";
-"verify_immuni_works_third" = "<b>If you're exposed to someone who later tests positive for the virus, Immuni will send you a notification to warn you of the risk of infection.</b> When you open the app, you will receive clear and comprehensive guidance on what to do.";
 "welcome_view.discover_more" = "Find out more";
 "welcome_view.go_next" = "Let's get started";
 "welcome_view.items.first.description" = "With everyone's contribution, Immuni will help contain the virus and get us back to normal as soon as possible.";

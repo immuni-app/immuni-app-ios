@@ -54,7 +54,6 @@
 "home_view.service.not_active.button" = "Immuni erneut aktivieren";
 "home_view.service.not_active.subtitle" = "Handeln Sie sofort, damit Immuni richtig funktionieren kann.";
 "home_view.service.not_active.title" = "Service\n<b>nicht aktiv</b>";
-"home_view_service_active_advice" = "Öffnen Sie Immuni einmal täglich, um den Status zu überprüfen.";
 "how_it_works_tile_1" = "Immuni ordnet jedem Handy einen Zufallscode zu";
 "how_it_works_tile_2" = "Wenn Handys aufeinander treffen, tauschen sie ihre Zufallscodes aus";
 "how_it_works_tile_3" = "Positiv getestete Nutzer entscheiden, ob sie ihre Zufallscodes freigeben möchten";
@@ -87,7 +86,6 @@
 "onboarding.complete.title" = "Konfiguration abgeschlossen";
 "onboarding.exposure_permission.action" = "Aktivieren";
 "onboarding.exposure_permission.description" = "Immuni zeichnet Kontakte mit anderen Nutzern über Bluetooth Low Energy auf, sodass Sie im Falle einer Exposition gegenüber dem Virus informiert werden können. Sie können den Dienst vom Hauptbildschirm aus vorübergehend deaktivieren.";
-"onboarding.exposure_permission.description" = "Immuni zeichnet Zusammentreffen mit anderen Nutzern über Bluetooth Low Energy auf, sodass Sie bei Ansteckungsgefahr informiert werden können. Sie können die App über das Hauptmenü vorübergehend deaktivieren.";
 "onboarding.exposure_permission.overlay.hint" = "Tippen Sie auf \"<b>Aktivieren</b>\" in dem Popup-Fenster, das unten angezeigt wird";
 "onboarding.exposure_permission.title" = "So aktivieren Sie COVID-19-Mitteilungen";
 "onboarding.pin_advice.action" = "Alles klar";
@@ -238,9 +236,7 @@
 "suggestions.positive.subtitle" = "<b> Befolgen Sie alle Anweisungen, die Sie von Ihrem Arzt oder der Präventionsabteilung Ihrer örtlichen Gesundheitsbehörde erhalten haben. </b>";
 "suggestions.positive.title" = "Folgen Sie den Anweisungen";
 "suggestions.risk.first.message" = "Die App zeigt Ihnen diese Warnung basierend auf den verfügbaren Informationen (Dauer des Kontakts und ungefähre Schätzung der Entfernung). Die App kann jedoch nicht wissen, ob Sie während des Kontakts Masken getragen haben oder ob Sie mit dem Rücken zueinander standen. Das Ansteckungsrisiko könnte daher überschätzt werden.";
-"suggestions.risk.footer" = "Damit der staatliche Gesundheitsdienst Sie im Bedarfsfall bestmöglich unterstützen kann, hat die App das Gesundheitsministerium darüber informiert, dass Sie benachrichtigt wurden. <b>Das Gesundheitsministerium kann anhand dieser Information keine Rückschlüsse auf Ihre Identität ziehen.</b>";
 "suggestions.risk.fourth.message" = "Weitere Informationen zu den an das Gesundheitsministerium gesendeten Daten finden Sie in der <l>Datenschutzerklärung</l> unter Ziffer 4.";
-"suggestions.risk.second.message" = "Damit der staatliche Gesundheitsdienst Sie im Bedarfsfall bestmöglich unterstützen kann, hat die App das Gesundheitsministerium darüber informiert, dass Sie benachrichtigt wurden.";
 "suggestions.risk.second.message" = "Damit der staatliche Gesundheitsdienst Sie im Bedarfsfall bestmöglich unterstützen kann, hat die App das Gesundheitsministerium darüber informiert, dass Sie benachrichtigt wurden.";
 "suggestions.risk.subtitle" = "Immuni hat festgestellt, dass Sie am Tag %@ einem Nutzer nahe waren, der positiv auf COVID-19 getestet wurde.";
 "suggestions.risk.third.message" = "<b>Das Gesundheitsministerium kann anhand dieser Informationen keine Rückschlüsse auf Ihre Identität ziehen</b>.";
@@ -276,10 +272,6 @@
 "upload_data.wait_operator.message" = "Warten Sie auf die Bestätigung des Bedieners";
 "upload_data.warning.discover_more" = "Mehr erfahren";
 "upload_data.warning.message" = "Diese Funktion erfordert die Unterstützung des medizinischen Fachpersonals, das Sie telefonisch über das positive Ergebnis des Tests informiert.";
-"verify_immuni_works_first" = "<b>Wenn Sie \"Service aktiv\" lesen, bedeutet dies, dass Immuni bereits richtig funktioniert.</b>";
-"verify_immuni_works_fourth" = "Aus technischen Gründen <b> können einige Android-Smartphone-Modelle die Funktion von Immuni unterbrechen, wenn die App für einige Tage geschlossen bleibt </b>. In diesem Fall bleibt der Austausch von Zufallscodes mit anderen Geräten aktiv, Immuni kann jedoch nicht überprüfen, ob Sie potenziell ansteckenden Nutzern ausgesetzt waren, und Sie im Falle eines Risikos nicht warnen. Um dies zu verhindern empfehlen wir Ihnen, die App einmal täglich zu öffnen . Google arbeitet mit den Herstellern dieser Modelle zusammen, um das Problem zu lösen.";
-"verify_immuni_works_second" = "<b>Wenn es Probleme gibt, lesen Sie \"Service nicht aktiv\". </b>Immuni wird Ihnen einfache Anweisungen zur Wiederherstellung des korrekten Betriebs geben.";
-"verify_immuni_works_third" = "<b>Wenn Sie einer Person ausgesetzt waren, die später positiv auf das Virus getestet wird, schickt Immuni Ihnen eine Mitteilung, um Sie vor dem Infektionsrisiko zu warnen.</b> Wenn Sie die App öffnen, erhalten Sie eine klare und umfassende Anleitung darüber, was zu tun ist.";
 "welcome_view.discover_more" = "Mehr erfahren";
 "welcome_view.go_next" = "Los geht's";
 "welcome_view.items.first.description" = "Wenn jeder seinen Beitrag leistet, trägt Immuni dazu bei, das Virus einzudämmen und so rasch wie möglich zur Normalität zurückzukehren.";

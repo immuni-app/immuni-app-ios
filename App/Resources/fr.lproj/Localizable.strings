@@ -54,7 +54,6 @@
 "home_view.service.not_active.button" = "Réactiver Immuni";
 "home_view.service.not_active.subtitle" = "Agissez dès maintenant pour permettre à Immuni de fonctionner correctement.";
 "home_view.service.not_active.title" = "Service\n<b>désactivé</b>";
-"home_view_service_active_advice" = "Ouvrez Immuni une fois par jour pour vérifier son statut.";
 "how_it_works_tile_1" = "Immuni associe chaque téléphone à un code aléatoire";
 "how_it_works_tile_2" = "Les téléphones qui entrent en contact échangent leurs codes aléatoires respectifs";
 "how_it_works_tile_3" = "La personne testée positive est libre de partager ou non ses codes aléatoires";
@@ -237,7 +236,6 @@
 "suggestions.positive.subtitle" = "<b>Suivez toutes les instructions fournies par votre médecin ou par le service de prévention de votre ASL (agence de santé locale).</b>";
 "suggestions.positive.title" = "Suivez les instructions";
 "suggestions.risk.first.message" = "L'application vous montre cet avertissement sur la base des informations disponibles (durée du contact et estimation approximative de la distance) mais ne peut pas savoir si vous portiez un masque ou si vous étiez de dos lors du contact. Le risque de contagion pourrait donc être surestimé.";
-"suggestions.risk.footer" = "Afin d'aider les services de santé nationaux à prendre soin de vous, l'application a informé le Ministère de la Santé de la notification qui vous a été envoyée. <b>Le Ministère de la Santé ne peut en aucun cas retracer votre identité sur la base de cette information.</b>";
 "suggestions.risk.fourth.message" = "Pour plus d'informations sur les données transmises au Ministère de la Santé, merci de bien vouloir lire la <l>politique de confidentialité</l> disponible au point 4.";
 "suggestions.risk.second.message" = "Pour aider les services nationaux de santé à prendre soin de vous le cas échéant, l'application a informé le Ministère de la Santé de la notification qui vous a été envoyée.";
 "suggestions.risk.subtitle" = "Immuni a détecté que vous avez été proche d'un utilisateur testé positif au COVID-19 le %@.";
@@ -274,10 +272,6 @@
 "upload_data.wait_operator.message" = "Attendez la confirmation de l'opérateur";
 "upload_data.warning.discover_more" = "En savoir plus";
 "upload_data.warning.message" = "Cette fonction nécessite l'assistance du professionnel de santé qui vous informera par téléphone de l'issue positive du tampon.";
-"verify_immuni_works_first" = "<b>Si vous lisez « Service activé », cela signifie qu'Immuni fonctionne déjà correctement.</b>";
-"verify_immuni_works_fourth" = "Pour des raisons techniques, <b>certains modèles de smartphones Android peuvent interrompre le fonctionnement d'Immuni si l'application reste fermée pendant quelques jours</b>. Dans ce cas, l'échange de codes aléatoires avec d'autres appareils reste activé mais Immuni ne sera pas en mesure de vérifier si vous avez été exposé à des utilisateurs potentiellement contagieux, ni vous avertir en cas de risque. Pour éviter cela, ouvrez l'application une fois par jour. Google travaille avec les fabricants de ces modèles pour résoudre le problème.";
-"verify_immuni_works_second" = "<b>En cas de problème, la mention « Service non activé » s'affichera.</b> Immuni vous fournira des instructions faciles pour rétablir le bon fonctionnement de l'application.";
-"verify_immuni_works_third" = "<b>Si vous entrez en contact avec une personne qui s'avère par la suite positive au virus, Immuni vous enverra une notification pour vous avertir du risque de contagion.</b> En ouvrant l'application, vous recevrez des informations claires et complètes sur ce que vous devez faire.";
 "welcome_view.discover_more" = "En savoir plus";
 "welcome_view.go_next" = "C'est parti";
 "welcome_view.items.first.description" = "Grâce à la contribution de tous, Immuni aide à contenir le virus et à reprendre plus rapidement une vie normale.";

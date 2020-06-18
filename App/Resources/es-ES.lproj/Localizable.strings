@@ -54,7 +54,6 @@
 "home_view.service.not_active.button" = "Reactivar Immuni";
 "home_view.service.not_active.subtitle" = "Toma las medidas necesarias cuanto antes para que Immuni funcione correctamente.";
 "home_view.service.not_active.title" = "Servicio\n<b>inactivo</b>";
-"home_view_service_active_advice" = "Abre Immuni una vez al día para verificar su estado.";
 "how_it_works_tile_1" = "Immuni asocia a cada teléfono un código aleatorio";
 "how_it_works_tile_2" = "Los teléfonos que se detectan entre sí intercambian sus códigos aleatorios";
 "how_it_works_tile_3" = "Las personas que dan positivo deciden si quieren compartir sus códigos aleatorios";
@@ -236,9 +235,7 @@
 "suggestions.positive.info.title" = "Immuni sigue funcionando: ¡no la desinstales!";
 "suggestions.positive.subtitle" = "<b>Sigue todas las indicaciones que hayas recibido de tu médico o del Departamento de Prevención de tu Agencia Sanitaria Local.</b>";
 "suggestions.positive.title" = "Sigue las indicaciones";
-"suggestions.risk.first.message" = "La aplicación te muestra esta advertencia en función de la información disponible (duración del contacto y estimación de la distancia aproximada), pero no puede saber si durante el contacto llevabas mascarilla o si estabas de espaldas. Por lo tanto, el riesgo de contagio podría haberse sobreestimado.";
 "suggestions.risk.first.message" = "La aplicación te muestra este aviso en función de la información disponible (duración del contacto y estimación de la distancia aproximada), pero no puede saber si durante el contacto llevabais mascarilla o si estabais de espaldas. Por lo tanto, el riesgo de contagio podría haberse sobreestimado.";
-"suggestions.risk.footer" = "Para ayudar al Servicio Nacional de Salud (SSN) a cuidarte si fuera necesario, la aplicación ha avisado al Ministerio de Salud de la notificación que has recibido. <b>No obstante, el Ministerio de Salud no podrá conocer tu identidad a partir de esta información.</b>";
 "suggestions.risk.fourth.message" = "Para obtener más información sobre los datos enviados al Ministerio de Salud, puedes leer la <l>política de privacidad</l> en el punto 4.";
 "suggestions.risk.second.message" = "Para ayudar al Servicio Nacional de Salud (SSN) a cuidarte si fuera necesario, la aplicación ha avisado al Ministerio de Salud de la notificación que has recibido.";
 "suggestions.risk.subtitle" = "Immuni ha detectado que el día %@ estuviste cerca de un usuario que dio positivo por COVID-19.";
@@ -275,10 +272,6 @@
 "upload_data.wait_operator.message" = "Espera a recibir la confirmación del profesional sanitario";
 "upload_data.warning.discover_more" = "Más información";
 "upload_data.warning.message" = "Esta función requiere la asistencia del profesional sanitario que te comunique por teléfono que el resultado de la prueba es positivo.";
-"verify_immuni_works_first" = "<b>Si se muestra «Servicio activo», Immuni ya está funcionando correctamente.</b>";
-"verify_immuni_works_fourth" = "Por razones técnicas, <b>algunos modelos de teléfono Android pueden interrumpir el funcionamiento de Immuni si la aplicación no se abre durante varios días</b>. Cuando ocurre esto, el intercambio de códigos aleatorios con otros dispositivos permanece activo, pero Immuni no puede comprobar si has tenido exposición a usuarios que podrían haberte contagiado ni puede avisarte en caso de que haya riesgo. Para evitar que eso ocurra, abre la aplicación una vez al día. Google está colaborando con los fabricantes de estos modelos para resolver el problema.";
-"verify_immuni_works_second" = "<b>Si, por el contrario, hubiera algún problema, se mostrará «Servicio inactivo».</b> Immuni te proporcionará instrucciones sencillas para que la aplicación vuelva a funcionar correctamente.";
-"verify_immuni_works_third" = "<b>Si tienes exposición a una persona que posteriormente dé positivo en la prueba del virus, Immuni te enviará una notificación para avisarte del riesgo de contagio.</b> Al abrir la aplicación, recibirás indicaciones claras y detalladas para que sepas qué debes hacer.";
 "welcome_view.discover_more" = "Más información";
 "welcome_view.go_next" = "Empezar";
 "welcome_view.items.first.description" = "Con la ayuda de todos, Immuni contribuye a contener el virus y a volver a la normalidad lo antes posible.";
