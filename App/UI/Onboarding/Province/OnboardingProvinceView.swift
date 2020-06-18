@@ -134,8 +134,11 @@ final class OnboardingProvinceView: UIView, ViewControllerModellableView {
   }
 
   private func updateAfterLayout() {
-    guard let collectionViewLayout = self.contentCollection.collectionViewLayout as? UICollectionViewFlowLayout else {
-      return
+    guard
+      let collectionViewLayout = self.contentCollection.collectionViewLayout as? UICollectionViewFlowLayout,
+      collectionViewLayout.estimatedItemSize == .zero // avoid multiple adjust iteration
+      else {
+        return
     }
 
     collectionViewLayout.estimatedItemSize = CGSize(

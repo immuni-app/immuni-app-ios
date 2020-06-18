@@ -199,8 +199,11 @@ class FaqView: UIView, ViewControllerModellableView {
   }
 
   private func updateAfterLayout() {
-    guard let collectionViewLayout = self.collection.collectionViewLayout as? UICollectionViewFlowLayout else {
-      return
+    guard
+      let collectionViewLayout = self.collection.collectionViewLayout as? UICollectionViewFlowLayout,
+      collectionViewLayout.estimatedItemSize == .zero // avoid multiple adjust iteration
+      else {
+        return
     }
     collectionViewLayout.itemSize = UICollectionViewFlowLayout.automaticSize
     collectionViewLayout.estimatedItemSize = CGSize(width: self.collection.bounds.width, height: 50)
