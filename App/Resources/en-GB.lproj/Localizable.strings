@@ -158,7 +158,7 @@
 "permission_tutorial.update_os.third" = "<b>3. Go to 'General'</b>";
 "permission_tutorial.update_os.title" = "To update your operating system";
 "permission_tutorial.verify_immuni_works.first" = "<b>If you see \'Service active\', Immuni is already working properly.</b> You don't need to do anything else: the app will continue working, even when you close it.";
-"permission_tutorial.verify_immuni_works.second" = "<b>If there are any problems, you will see \'Service not active\.</b> Immuni will provide straightforward instructions to get the app working properly again.";
+"permission_tutorial.verify_immuni_works.second" = "<b>If there are any problems, you will see \'Service not active\'.</b> Immuni will provide straightforward instructions to get the app working properly again.";
 "permission_tutorial.verify_immuni_works.third" = "<b>If you come into contact with someone who later tests positive for the virus, Immuni will send you a notification to warn you of the risk of infection.</b> When you open the app, you will receive clear and comprehensive guidance on what to do.";
 "permission_tutorial.verify_immuni_works.title" = "How to check that Immuni is working";
 "privacy.checkbox.above14" = "I declare that I am at least 14 years old";
