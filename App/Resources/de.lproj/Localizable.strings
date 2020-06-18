@@ -107,9 +107,9 @@
 "permission_tutorial.bluetooth.second" = "<b>2. Aktivieren Sie Bluetooth</b>";
 "permission_tutorial.bluetooth.title" = "So aktivieren Sie Bluetooth";
 "permission_tutorial.cant_update.first" = "<b> 1. Stellen Sie sicher, dass Sie über WLAN verbunden sind. </b> Das Update kann nicht über das Mobilfunknetz heruntergeladen werden.";
-"permission_tutorial.cant_update.fourth" = "<b>4.</b> Versichern Sie sich nach dem Herunterladen, <b>dass die Installation abgeschlossen wird, indem Sie \"Jetzt installieren\" wählen</b>";
+"permission_tutorial.cant_update.fourth" = "<b>4.</b> Versichern Sie sich nach dem Herunterladen, <b>dass die Installation abgeschlossen wird, indem Sie \"Jetzt installieren” wählen\"</b>";
 "permission_tutorial.cant_update.second" = "<b>2. Sobald Sie über WLAN verbunden sind, gehen Sie zurück zu Einstellungen > Allgemein > Software-Update</b>";
-"permission_tutorial.cant_update.third" = "<b> 3. Wählen Sie \"Herunterladen und installieren\" </b>";
+"permission_tutorial.cant_update.third" = "<b> 3. Wählen Sie \"Laden und installieren\" </b>";
 "permission_tutorial.cant_update.title" = "Ist die Aktualisierung fehlgeschlagen?";
 "permission_tutorial.deactivate_service.action.cta" = "Einstellungen öffnen";
 "permission_tutorial.deactivate_service.fifth.message" = "<b>1. Öffnen Sie die Einstellungen über die Schaltfläche unten</b>";
