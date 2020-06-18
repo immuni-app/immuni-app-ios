@@ -237,9 +237,11 @@ extension ForceUpdateView {
 
     static func secondaryButton(_ button: TextButton, content: String) {
       let style = TextStyles.pLink.byAdding(
-        .color(Palette.white)
+        .color(Palette.white),
+        .alignment(.center)
       )
 
+      button.titleLabel?.numberOfLines = 0
       button.attributedTitle = content.styled(with: style)
     }
   }
