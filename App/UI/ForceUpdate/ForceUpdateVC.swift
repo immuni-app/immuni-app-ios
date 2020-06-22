@@ -40,6 +40,10 @@ class ForceUpdateVC: ViewControllerWithLocalState<ForceUpdateView> {
         self.dispatch(Logic.PermissionTutorial.ShowUpdateOperatingSystem())
       }
     }
+
+    self.rootView.didTapSecondaryButton = { [weak self] in
+      self?.dispatch(Logic.PermissionTutorial.ShowCantUpdateOperatingSystem())
+    }
   }
 }
 

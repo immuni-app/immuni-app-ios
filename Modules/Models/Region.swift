@@ -38,6 +38,51 @@ public enum Region: String, CaseIterable {
   case valleAosta = "Valle d'Aosta"
   case veneto = "Veneto"
 
+  public var humanReadableName: String {
+    switch self {
+    case .abruzzo:
+      return "Abruzzo"
+    case .basilicata:
+      return "Basilicata"
+    case .calabria:
+      return "Calabria"
+    case .campania:
+      return "Campania"
+    case .emiliaRomagna:
+      return "Emilia-Romagna"
+    case .friuliVeneziaGiulia:
+      return "Friuli-Venezia Giulia"
+    case .lazio:
+      return "Lazio"
+    case .liguria:
+      return "Liguria"
+    case .lombardia:
+      return "Lombardia"
+    case .marche:
+      return "Marche"
+    case .molise:
+      return "Molise"
+    case .piemonte:
+      return "Piemonte"
+    case .puglia:
+      return "Puglia"
+    case .sardegna:
+      return "Sardegna"
+    case .sicilia:
+      return "Sicilia"
+    case .toscana:
+      return "Toscana"
+    case .trentinoAltoAdige:
+      return "Trentino-Alto Adige / Südtirol"
+    case .umbria:
+      return "Umbria"
+    case .valleAosta:
+      return "Valle d'Aosta"
+    case .veneto:
+      return "Veneto"
+    }
+  }
+
   public var provinces: [Province] {
     switch self {
     case .abruzzo:
@@ -360,7 +405,7 @@ public extension Province {
     case .bologna:
       return "Bologna"
     case .bolzano:
-      return "Bolzano"
+      return "Bolzano / Bozen"
     case .brescia:
       return "Brescia"
     case .brindisi:

@@ -25,6 +25,14 @@ class FaqVC: ViewControllerWithLocalState<FaqView> {
       }
     }
 
+    self.rootView.didChangeSearchStatus = { [weak self] isSearching in
+      self?.localState.isSearching = isSearching
+    }
+
+    self.rootView.didChangeSearchedValue = { [weak self] value in
+      self?.localState.searchFilter = value
+    }
+
     self.rootView.didTapBack = { [weak self] in
       self?.dispatch(Hide(Screen.faq, animated: true))
     }
@@ -40,4 +48,8 @@ struct FAQLS: LocalState {
   let isPresentedModally: Bool
   /// Whether the header is visible in the view. The header is shown only when the content is scrolled.
   var isHeaderVisible: Bool = false
+  /// Whether the user is actively searching through the search bar.
+  var isSearching: Bool = false
+  /// The currently searching string.
+  var searchFilter: String = ""
 }

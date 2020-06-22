@@ -134,8 +134,11 @@ final class OnboardingRegionView: UIView, ViewControllerModellableView {
   }
 
   private func updateAfterLayout() {
-    guard let collectionViewLayout = self.contentCollection.collectionViewLayout as? UICollectionViewFlowLayout else {
-      return
+    guard
+      let collectionViewLayout = self.contentCollection.collectionViewLayout as? UICollectionViewFlowLayout,
+      collectionViewLayout.estimatedItemSize == .zero // avoid multiple adjust iteration
+      else {
+        return
     }
 
     collectionViewLayout.estimatedItemSize = CGSize(
@@ -199,7 +202,12 @@ extension OnboardingRegionView: UICollectionViewDelegateFlowLayout {
       let model = model,
       let cell = model.items[safe: indexPath.row],
       case OnboardingRegionVM.CellType.radio(let regionName, let isSelected) = cell,
-      let region = Region(rawValue: regionName)
+      // Here it would be better to have something more robust. However, from 1.1.0 onwards
+      // we had to modify the readable representation of the enum. To avoid breaking the stored states
+      // in the users' phones we decided to introduce the human readable name instead of changing
+      // the raw value. Doing otherwise would have mean going through a migration of the state,
+      // which is always risky
+      let region = Region.allCases.first(where: { $0.humanReadableName == regionName })
       else {
         return
     }

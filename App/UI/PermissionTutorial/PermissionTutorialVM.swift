@@ -61,28 +61,28 @@ struct PermissionTutorialVM {
   func cellVM(for item: Content.Item) -> ViewModel {
     switch item {
     case .title(let title):
-      return PermissionTutorialTitleCellVM(content: title)
+      return ContentCollectionTitleCellVM(content: title)
 
     case .textualContent(let content):
-      return PermissionTutorialTextCellVM(content: content)
+      return ContentCollectionTextCellVM(content: content)
 
     case .animationContent(let animationAsset):
-      return PermissionTutorialAnimationCellVM(
+      return ContentCollectionAnimationCellVM(
         asset: animationAsset,
         shouldPlay: self.shouldAnimateContent
       )
 
     case .imageContent(let image):
-      return PermissionTutorialImageCellVM(content: image)
+      return ContentCollectionImageCellVM(content: image)
 
     case .textAndImage(let text, let image, let alignment):
-      return PermissionTutorialTextAndImageCellVM(textualContent: text, image: image, alignment: alignment)
+      return ContentCollectionTextAndImageCellVM(textualContent: text, image: image, alignment: alignment)
 
     case .spacer(let size):
-      return PermissionTutorialSpacerVM(size: size)
+      return ContentCollectionSpacerVM(size: size)
 
     case .scrollableButton(let description, let buttonTitle):
-      return PermissionTutorialButtonCellVM(description: description, buttonTitle: buttonTitle)
+      return ContentCollectionButtonCellVM(description: description, buttonTitle: buttonTitle)
     }
   }
 }
@@ -147,8 +147,8 @@ extension PermissionTutorialVM.Content {
     case textualContent(String)
     case animationContent(AnimationAsset)
     case imageContent(UIImage)
-    case textAndImage(String, UIImage, PermissionTutorialTextAndImageCellVM.Alignment)
-    case spacer(PermissionTutorialSpacerVM.Size)
+    case textAndImage(String, UIImage, ContentCollectionTextAndImageCellVM.Alignment)
+    case spacer(ContentCollectionSpacerVM.Size)
     case scrollableButton(description: String, buttonTitle: String)
   }
 }
@@ -267,15 +267,37 @@ extension PermissionTutorialVM.Content {
       items: [
         .spacer(.big),
         .textualContent(L10n.PermissionTutorial.UpdateOs.first),
-        .imageContent(Asset.PermissionTutorial.settings.image),
         .spacer(.small),
         .textualContent(L10n.PermissionTutorial.UpdateOs.second),
-        .imageContent(Asset.PermissionTutorial.settingsGeneral.image),
-        .spacer(.small),
+        .imageContent(Asset.PermissionTutorial.settings.image),
         .textualContent(L10n.PermissionTutorial.UpdateOs.third),
-        .imageContent(Asset.PermissionTutorial.softwareUpdate.image),
-        .spacer(.small),
+        .imageContent(Asset.PermissionTutorial.settingsGeneral.image),
         .textualContent(L10n.PermissionTutorial.UpdateOs.fourth),
+        .imageContent(Asset.PermissionTutorial.softwareUpdate.image),
+        .textualContent(L10n.PermissionTutorial.UpdateOs.fifth),
+        .spacer(.big)
+      ],
+      mainActionTitle: nil,
+      action: nil
+    )
+  }
+
+  static var cantUpdateOperatingSystem: Self {
+    return PermissionTutorialVM.Content(
+      title: L10n.PermissionTutorial.CantUpdate.title,
+      items: [
+        .spacer(.big),
+        .textualContent(L10n.PermissionTutorial.CantUpdate.first),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.CantUpdate.second),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.CantUpdate.third),
+        .spacer(.small),
+        .imageContent(Asset.PermissionTutorial.downloadAndInstall.image),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.CantUpdate.fourth),
+        .spacer(.small),
+        .imageContent(Asset.PermissionTutorial.installNow.image),
         .spacer(.big)
       ],
       mainActionTitle: nil,
@@ -343,6 +365,40 @@ extension PermissionTutorialVM.Content {
       items: items,
       mainActionTitle: nil,
       action: action
+    )
+  }
+
+  static var verifyImmuniWorks: Self {
+    return PermissionTutorialVM.Content(
+      title: L10n.PermissionTutorial.VerifyImmuniWorks.title,
+      items: [
+        .spacer(.big),
+        .textualContent(L10n.PermissionTutorial.VerifyImmuniWorks.first),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.VerifyImmuniWorks.second),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.VerifyImmuniWorks.third),
+        .spacer(.big)
+      ],
+      mainActionTitle: nil,
+      action: nil
+    )
+  }
+
+  static var howToUploadWhenPositive: Self {
+    return PermissionTutorialVM.Content(
+      title: L10n.PermissionTutorial.HowToUploadPositive.title,
+      items: [
+        .spacer(.big),
+        .textualContent(L10n.PermissionTutorial.HowToUploadPositive.first),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.HowToUploadPositive.second),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.HowToUploadPositive.third),
+        .spacer(.big)
+      ],
+      mainActionTitle: nil,
+      action: nil
     )
   }
 }

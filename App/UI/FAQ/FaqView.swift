@@ -16,49 +16,6 @@ import Foundation
 import Models
 import Tempura
 
-struct FaqVM: ViewModelWithLocalState {
-  /// The list of FAQ to show
-  let faqs: [FAQ]
-  /// Whether the view is presented modally. This will change the back/close button visibility.
-  let isPresentedModally: Bool
-  /// Whether the header is visible in the view. The header is shown only when the content is scrolled.
-  let isHeaderVisible: Bool
-
-  func shouldUpdateHeader(oldModel: FaqVM?) -> Bool {
-    return self.isHeaderVisible != oldModel?.isHeaderVisible
-  }
-
-  func shouldReloadCollection(oldModel: FaqVM?) -> Bool {
-    guard let oldModel = oldModel else {
-      return true
-    }
-
-    return self.faqs != oldModel.faqs
-  }
-
-  func cellModel(for indexPath: IndexPath) -> ViewModel? {
-    guard let faq = self.faqs[safe: indexPath.item] else {
-      return nil
-    }
-    return FaqCellVM(faq: faq)
-  }
-
-  var shouldShowBackButton: Bool { !self.isPresentedModally }
-  var shouldShowCloseButton: Bool { self.isPresentedModally }
-}
-
-extension FaqVM {
-  init?(state: AppState?, localState: FAQLS) {
-    guard let state = state else {
-      return nil
-    }
-
-    self.faqs = state.faq.faqs(for: state.environment.userLanguage)
-    self.isPresentedModally = localState.isPresentedModally
-    self.isHeaderVisible = localState.isHeaderVisible
-  }
-}
-
 // MARK: - View
 
 class FaqView: UIView, ViewControllerModellableView {
@@ -67,12 +24,17 @@ class FaqView: UIView, ViewControllerModellableView {
   private static let horizontalSpacing: CGFloat = 30.0
 
   private let backgroundGradientView = GradientView()
+  private let searchBar = SearchBar()
+  private let separator = UIImageView()
   private let headerView = UIView()
   private let title = UILabel()
+  private let noResultView = FaqNoResultView()
   private var backButton = ImageButton()
   private var closeButton = ImageButton()
   let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
+  var didChangeSearchStatus: CustomInteraction<Bool>?
+  var didChangeSearchedValue: CustomInteraction<String>?
   var didTapBack: Interaction?
   var didTapCell: CustomInteraction<FAQ>?
   var userDidScroll: CustomInteraction<CGFloat>?
@@ -81,11 +43,14 @@ class FaqView: UIView, ViewControllerModellableView {
 
   func setup() {
     self.addSubview(self.backgroundGradientView)
+    self.addSubview(self.noResultView)
     self.addSubview(self.collection)
     self.addSubview(self.headerView)
     self.addSubview(self.title)
     self.addSubview(self.backButton)
     self.addSubview(self.closeButton)
+    self.addSubview(self.searchBar)
+    self.addSubview(self.separator)
 
     self.backButton.on(.touchUpInside) { [weak self] _ in
       self?.didTapBack?()
@@ -95,16 +60,29 @@ class FaqView: UIView, ViewControllerModellableView {
       self?.didTapBack?()
     }
 
+    self.searchBar.didChangeSearchStatus = { [weak self] isSearching in
+      self?.didChangeSearchStatus?(isSearching)
+    }
+    self.searchBar.didChangeSearchedValue = { [weak self] value in
+      self?.didChangeSearchedValue?(value)
+    }
+
     self.collection.register(FaqCell.self)
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.didTapCollection))
+    self.collection.addGestureRecognizer(tapGesture)
 
     self.collection.delegate = self
     self.collection.dataSource = self
   }
 
+  @objc func didTapCollection() {
+    self.searchBar.resignFirstResponder()
+  }
+
   // MARK: - Style
 
   func style() {
-    Self.Style.background(self)
+    Self.Style.separator(self.separator)
     Self.Style.backgroundGradient(self.backgroundGradientView)
     Self.Style.header(self.headerView)
     Self.Style.collection(self.collection)
@@ -123,16 +101,36 @@ class FaqView: UIView, ViewControllerModellableView {
 
     if model.shouldReloadCollection(oldModel: oldModel) {
       self.collection.reloadData()
+      self.noResultView.alpha = model.shouldShowNoResult.cgFloat
     }
 
     if model.shouldUpdateHeader(oldModel: oldModel) {
       UIView.update(shouldAnimate: oldModel != nil) {
         self.headerView.alpha = model.isHeaderVisible.cgFloat
+        self.separator.alpha = model.shouldShowSeparator.cgFloat
       }
     }
 
-    self.backButton.alpha = model.shouldShowBackButton.cgFloat
-    self.closeButton.alpha = model.shouldShowCloseButton.cgFloat
+    if model.shouldUpdateSearchStatus(oldModel: oldModel) {
+      self.searchBar.model = model.searchBarVM
+
+      let contentOffset = self.collection.contentOffset
+      self.setNeedsLayout()
+      UIView.update(shouldAnimate: oldModel != nil) {
+        self.title.alpha = model.shouldShowTitle.cgFloat
+        self.backButton.alpha = model.shouldShowBackButton.cgFloat
+        self.closeButton.alpha = model.shouldShowCloseButton.cgFloat
+        self.layoutIfNeeded()
+        self.collection.setContentOffset(contentOffset, animated: false)
+      }
+    }
+
+    if model.shouldUpdateLayout(oldModel: oldModel) {
+      self.setNeedsLayout()
+      UIView.update(shouldAnimate: oldModel != nil) {
+        self.layoutIfNeeded()
+      }
+    }
   }
 
   // MARK: - Layout
@@ -152,17 +150,45 @@ class FaqView: UIView, ViewControllerModellableView {
       .horizontally(Self.horizontalSpacing + self.backButton.intrinsicContentSize.width + 5)
       .sizeToFit(.width)
 
+    let isSearching = self.model?.isSearching ?? false
+    if isSearching {
+      self.searchBar.pin
+        .horizontally()
+        .vCenter(to: self.backButton.edge.vCenter)
+        .height(50)
+    } else {
+      self.searchBar.pin
+        .horizontally()
+        .below(of: self.title)
+        .marginTop(25)
+        .height(50)
+    }
+
+    self.separator.pin
+      .horizontally(25)
+      .below(of: self.searchBar)
+      .marginTop(25)
+      .height(1)
+
     self.headerView.pin
       .left()
       .top()
       .right()
-      .height(self.title.frame.maxY + 20)
+      .bottom(to: self.separator.edge.bottom)
 
     self.collection.pin
       .horizontally()
-      .below(of: self.title)
-      .marginTop(5)
+      .below(of: self.separator)
       .bottom(self.universalSafeAreaInsets.bottom)
+
+    let keyboardHeight = self.model?.keyboardHeight ?? 0
+    let bottomInset = keyboardHeight > 0 ? keyboardHeight : self.universalSafeAreaInsets.bottom
+    self.noResultView.pin
+      .sizeToFit()
+      .below(of: self.separator)
+      .bottom(bottomInset)
+      .align(.center)
+      .hCenter()
 
     self.closeButton.pin
       .sizeToFit()
@@ -173,8 +199,11 @@ class FaqView: UIView, ViewControllerModellableView {
   }
 
   private func updateAfterLayout() {
-    guard let collectionViewLayout = self.collection.collectionViewLayout as? UICollectionViewFlowLayout else {
-      return
+    guard
+      let collectionViewLayout = self.collection.collectionViewLayout as? UICollectionViewFlowLayout,
+      collectionViewLayout.estimatedItemSize == .zero // avoid multiple adjust iteration
+      else {
+        return
     }
     collectionViewLayout.itemSize = UICollectionViewFlowLayout.automaticSize
     collectionViewLayout.estimatedItemSize = CGSize(width: self.collection.bounds.width, height: 50)
@@ -186,13 +215,13 @@ class FaqView: UIView, ViewControllerModellableView {
 
 private extension FaqView {
   enum Style {
-    static func background(_ view: UIView) {
-      view.backgroundColor = Palette.grayWhite
-    }
-
     static func backgroundGradient(_ gradientView: GradientView) {
       gradientView.isUserInteractionEnabled = false
       gradientView.gradient = Palette.gradientBackgroundBlueOnBottom
+    }
+
+    static func separator(_ view: UIImageView) {
+      view.image = Asset.Common.separator.image
     }
 
     static func header(_ view: UIView) {
@@ -244,6 +273,10 @@ extension FaqView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayou
       self?.didTapCell?(faq)
     }
     return cell
+  }
+
+  func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    self.searchBar.resignFirstResponder()
   }
 
   func scrollViewDidScroll(_ scrollView: UIScrollView) {

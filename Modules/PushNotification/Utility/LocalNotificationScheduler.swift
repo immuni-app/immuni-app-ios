@@ -111,6 +111,9 @@ public protocol LocalNotificationScheduler {
 
   /// Returns all the currently scheduled notification ids
   func scheduledNotificationsIds() -> Promise<[String]>
+
+  /// Removes delivered notifications with the given ids
+  func removeDeliveredNotifications(withIdentifiers identifiers: [String])
 }
 
 class ConcreteLocalNotificationScheduler: LocalNotificationScheduler {
@@ -146,6 +149,11 @@ class ConcreteLocalNotificationScheduler: LocalNotificationScheduler {
         resolve(ids)
       }
     }
+  }
+
+  func removeDeliveredNotifications(withIdentifiers identifiers: [String]) {
+    let center = UNUserNotificationCenter.current()
+    center.removeDeliveredNotifications(withIdentifiers: identifiers)
   }
 }
 

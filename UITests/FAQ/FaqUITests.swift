@@ -24,14 +24,72 @@ class FaqUITests: AppViewTestCase, ViewTestCase {
   func testFaq() {
     self.uiTest(
       testCases: [
-        "faq_italian": FaqVM(faqs: FAQ.italianDefaultValues, isPresentedModally: false, isHeaderVisible: false),
-        "faq_english": FaqVM(faqs: FAQ.englishDefaultValues, isPresentedModally: false, isHeaderVisible: false),
-        "faq_empty": FaqVM(faqs: [], isPresentedModally: false, isHeaderVisible: false),
-        "faq_modal": FaqVM(faqs: FAQ.englishDefaultValues, isPresentedModally: true, isHeaderVisible: false),
-        "faq_with_header": FaqVM(faqs: FAQ.englishDefaultValues, isPresentedModally: false, isHeaderVisible: true),
-        "faq_modal_with_header": FaqVM(faqs: FAQ.englishDefaultValues, isPresentedModally: true, isHeaderVisible: true)
+        "faq_italian": FaqVM(
+          faqs: FAQ.mockedFAQs,
+          isPresentedModally: false,
+          isHeaderVisible: false,
+          isSearching: false,
+          searchFilter: "",
+          keyboardHeight: 0
+        ),
+        "faq_empty": FaqVM(
+          faqs: [],
+          isPresentedModally: false,
+          isHeaderVisible: false,
+          isSearching: false,
+          searchFilter: "",
+          keyboardHeight: 0
+        ),
+        "faq_modal": FaqVM(
+          faqs: FAQ.mockedFAQs,
+          isPresentedModally: true,
+          isHeaderVisible: false,
+          isSearching: false,
+          searchFilter: "",
+          keyboardHeight: 0
+        ),
+        "faq_with_header": FaqVM(
+          faqs: FAQ.mockedFAQs,
+          isPresentedModally: false,
+          isHeaderVisible: true,
+          isSearching: false,
+          searchFilter: "",
+          keyboardHeight: 0
+        ),
+        "faq_modal_with_header": FaqVM(
+          faqs: FAQ.mockedFAQs,
+          isPresentedModally: true,
+          isHeaderVisible: true,
+          isSearching: false,
+          searchFilter: "",
+          keyboardHeight: 0
+        ),
+        "faq_searching": FaqVM(
+          faqs: FAQ.mockedFAQs,
+          isPresentedModally: true,
+          isHeaderVisible: false,
+          isSearching: true,
+          searchFilter: "",
+          keyboardHeight: 0
+        ),
+        "faq_searching_with_header": FaqVM(
+          faqs: FAQ.mockedFAQs,
+          isPresentedModally: true,
+          isHeaderVisible: true,
+          isSearching: true,
+          searchFilter: "",
+          keyboardHeight: 0
+        ),
+        "faq_searching_string": FaqVM(
+          faqs: FAQ.mockedFAQs,
+          isPresentedModally: true,
+          isHeaderVisible: false,
+          isSearching: true,
+          searchFilter: "Immuni",
+          keyboardHeight: 0
+        )
       ],
-      context: UITests.Context<V>()
+      context: UITests.Context<V>(renderSafeArea: false)
     )
   }
 
@@ -39,5 +97,21 @@ class FaqUITests: AppViewTestCase, ViewTestCase {
     return [
       "collection": view.collection
     ]
+  }
+}
+
+extension FAQ {
+  // swiftlint:disable line_length
+  static var mockedFAQ: FAQ {
+    FAQ(
+      title: "Immuni dice che potrei essere a rischio, ma io mi sento bene. Cosa devo fare?",
+      content: """
+      Ti suggeriamo vivamente di seguire tutte le raccomandazioni di Immuni. Ci sono molte persone asintomatiche che hanno diffuso il virus senza rendersene conto. Uno dei punti di forza di Immuni è proprio la capacità di avvertire queste persone. Per favore, fai la tua parte seguendo le raccomandazioni, anche se pensi di non essere contagioso.
+      """
+    )
+  }
+
+  static var mockedFAQs: [FAQ] {
+    Array(repeating: Self.mockedFAQ, count: 30)
   }
 }

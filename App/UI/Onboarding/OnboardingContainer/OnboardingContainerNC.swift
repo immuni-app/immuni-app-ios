@@ -228,12 +228,6 @@ private extension OnboardingContainerNC {
         localState: OnboardingAdviceLS(adviceType: .communication)
       )
 
-    case .pilotMessage:
-      return OnboardingAdviceVC(
-        store: store,
-        localState: OnboardingAdviceLS(adviceType: .pilot)
-      )
-
     case .fixBluetoothOff:
       return OnboardingPermissionVC(
         store: store,
@@ -317,7 +311,6 @@ extension OnboardingContainerNC.NavigationContext {
     case onboardingCompleted
     case pinAdvice
     case communicationAdvice
-    case pilotMessage
 
     // fix permissions
     case fixPushNotificationPermissions

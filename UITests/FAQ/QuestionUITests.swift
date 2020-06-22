@@ -22,13 +22,11 @@ class QuestionUITests: AppViewTestCase, ViewTestCase {
   typealias V = QuestionView
 
   var questionVM: QuestionVM {
-    let mocked = FAQ.mockedQuestion
-    return QuestionVM(question: mocked.title, answer: mocked.content, isHeaderVisible: false)
+    return QuestionVM(question: FAQ.mockedFAQ.title, answer: FAQ.mockedFAQ.content, isHeaderVisible: false)
   }
 
   var scrolledVM: QuestionVM {
-    let mocked = FAQ.mockedQuestion
-    return QuestionVM(question: mocked.title, answer: mocked.content, isHeaderVisible: true)
+    return QuestionVM(question: FAQ.mockedFAQ.title, answer: FAQ.mockedFAQ.content, isHeaderVisible: true)
   }
 
   func testQuestion() {
@@ -36,7 +34,7 @@ class QuestionUITests: AppViewTestCase, ViewTestCase {
       testCases: [
         "question_view": self.questionVM
       ],
-      context: UITests.Context<V>()
+      context: UITests.Context<V>(renderSafeArea: false)
     )
   }
 
@@ -70,9 +68,4 @@ extension QuestionView {
   var contentCollectionCanScroll: Bool {
     return self.scrollView.contentSize.height > self.scrollView.frame.height + self.scrollView.contentInset.vertical
   }
-}
-
-extension FAQ {
-  // swiftlint:disable force_unwrapping
-  static let mockedQuestion = FAQ.englishDefaultValues.first!
 }

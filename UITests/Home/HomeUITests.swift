@@ -70,7 +70,7 @@ class HomeUITests: AppViewTestCase, ViewTestCase {
         "home_contact": self.riskVM,
         "home_covid_positive_disabled": self.covidPositiveDisabledVM
       ],
-      context: UITests.Context<V>()
+      context: UITests.Context<V>(renderSafeArea: false)
     )
   }
 

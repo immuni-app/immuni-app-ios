@@ -134,6 +134,10 @@ extension Logic.ExposureDetection {
 // MARK: - Notification
 
 extension Logic.ExposureDetection {
+  private enum NotificationID: String {
+    case notAuthorized = "exposure_detection_not_authorized_notification_id"
+  }
+
   /// Schedules a local notification to inform the user that the app doesn't have the required permissions to perform
   /// exposure detection
   struct ScheduleLocalNotificationIfPossible: AppSideEffect {
@@ -155,13 +159,31 @@ extension Logic.ExposureDetection {
       manager.scheduleLocalNotification(
         .init(
           title: L10n.Notifications.NotActiveService.title,
-          body: L10n.Notifications.NotActiveService.description
+          body: L10n.Notifications.NotActiveService.description,
+          identifier: NotificationID.notAuthorized.rawValue
         ),
 
         with: .date(now.addingTimeInterval(10))
       )
 
       try context.awaitDispatch(UpdateActiveNotificationTimestamp(date: now))
+    }
+  }
+
+  /// Removes the delivered local notification about missing permissions
+  /// If it is not longer needed
+  struct RemoveLocalNotificationIfNotNeeded: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      let state = context.getState()
+
+      guard state.environment.exposureNotificationAuthorizationStatus.isAuthorized else {
+        // still not authorized
+        return
+      }
+
+      context.dependencies.pushNotification.removeDeliveredNotifications(withIdentifiers: [
+        NotificationID.notAuthorized.rawValue
+      ])
     }
   }
 

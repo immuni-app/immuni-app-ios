@@ -20,7 +20,7 @@ import XCTest
 class PermissionTutorialUITests: AppViewTestCase, ViewTestCase {
   typealias V = PermissionTutorialView
   func testUI() {
-    let context = UITests.Context<V>()
+    let context = UITests.Context<V>(renderSafeArea: false)
 
     self.uiTest(
       testCases: [
@@ -54,6 +54,11 @@ class PermissionTutorialUITests: AppViewTestCase, ViewTestCase {
           isHeaderVisible: false,
           shouldAnimateContent: false
         ),
+        "permission_tutorial_cant_update_os": PermissionTutorialVM(
+          content: .cantUpdateOperatingSystem,
+          isHeaderVisible: false,
+          shouldAnimateContent: false
+        ),
         "how_immuni_works": PermissionTutorialVM(
           content: .howImmuniWorks(shouldShowFaqButton: false),
           isHeaderVisible: false,
@@ -61,6 +66,16 @@ class PermissionTutorialUITests: AppViewTestCase, ViewTestCase {
         ),
         "how_immuni_works_faq": PermissionTutorialVM(
           content: .howImmuniWorks(shouldShowFaqButton: true),
+          isHeaderVisible: false,
+          shouldAnimateContent: false
+        ),
+        "how_verify_immuni_works": PermissionTutorialVM(
+          content: .verifyImmuniWorks,
+          isHeaderVisible: false,
+          shouldAnimateContent: false
+        ),
+        "how_to_upload_when_positive": PermissionTutorialVM(
+          content: .howToUploadWhenPositive,
           isHeaderVisible: false,
           shouldAnimateContent: false
         )

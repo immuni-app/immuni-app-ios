@@ -33,6 +33,10 @@ class UploadDataVC: ViewControllerWithLocalState<UploadDataView> {
       }
       self?.verifyCode(code: code)
     }
+
+    self.rootView.didTapDiscoverMore = { [weak self] in
+      self?.dispatch(Logic.PermissionTutorial.ShowHowToUploadWhenPositive())
+    }
   }
 
   private func verifyCode(code: OTP) {

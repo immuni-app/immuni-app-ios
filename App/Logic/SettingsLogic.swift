@@ -38,7 +38,35 @@ extension Logic.Settings {
   /// Shows the FAQs screen
   struct ShowFAQs: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      context.dispatch(Show(Screen.faq, animated: true))
+      let state = context.getState()
+
+      let hasLocalFAQs = state.faq.faqs(for: state.environment.userLanguage) != nil
+      guard !hasLocalFAQs else {
+        // There are cached FAQs for the user's language.
+        try context.awaitDispatch(Show(Screen.faq, animated: true))
+        return
+      }
+
+      try context.awaitDispatch(Logic.Loading.Show())
+      do {
+        try await(context.dispatch(Logic.Configuration.PerformFAQFetch()).timeout(timeout: 5))
+        try context.awaitDispatch(Logic.Loading.Hide())
+        try context.awaitDispatch(Show(Screen.faq, animated: true))
+      } catch {
+        try context.awaitDispatch(Logic.Loading.Hide())
+
+        // Show an error alert
+        let model = Alert.Model(
+          title: L10n.UploadData.ConnectionError.title,
+          message: L10n.UploadData.ConnectionError.message,
+          preferredStyle: .alert,
+          actions: [
+            .init(title: L10n.UploadData.ConnectionError.action, style: .default)
+          ]
+        )
+
+        context.dispatch(Logic.Alert.Show(alertModel: model))
+      }
     }
   }
 
@@ -98,6 +126,14 @@ extension Logic.Settings {
       }
 
       try await(context.dependencies.application.goTo(url: url).run())
+    }
+  }
+
+  /// Shows the customer support screen
+  struct ShowCustomerSupport: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      try context.awaitDispatch(Logic.Lifecycle.RefreshNetworkReachabilityStatus())
+      try context.awaitDispatch(Show(Screen.customerSupport, animated: true))
     }
   }
 }
@@ -160,6 +196,35 @@ extension Logic.Settings {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       try context.awaitDispatch(Logic.Onboarding.SetUserProvince(province: self.newProvince))
       context.dispatch(Hide(Screen.updateProvince, animated: true))
+    }
+  }
+}
+
+// MARK: Customer Support
+
+extension Logic.Settings {
+  struct SendCustomerSupportEmail: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      let state = context.getState()
+      guard let recipient = state.configuration.supportEmail else {
+        return
+      }
+
+      // swiftlint:disable line_length
+      let infos = [
+        "\(L10n.Support.Info.Item.os): \(state.environment.osVersion)",
+        "\(L10n.Support.Info.Item.device): \(state.environment.deviceModel)",
+        "\(L10n.Support.Info.Item.exposureNotificationEnabled): \(state.environment.exposureNotificationAuthorizationStatus.isAuthorized ? L10n.Support.Info.ExposureNotifications.active : L10n.Support.Info.ExposureNotifications.inactive)",
+        "\(L10n.Support.Info.Item.bluetoothEnabled): \(state.environment.exposureNotificationAuthorizationStatus.canPerformDetection ? L10n.Support.Info.Bluetooth.active : L10n.Support.Info.Bluetooth.inactive)",
+        "\(L10n.Support.Info.Item.appVersion): \(state.environment.appVersion)",
+        "\(L10n.Support.Info.Item.connectionType): \(state.environment.networkReachabilityStatus.description)"
+      ]
+      // swiftlint:enable line_length
+      let infoString = infos.joined(separator: "; ")
+
+      let body = "\r\n——————————\r\n\(L10n.SupportEmail.Body.message)\r\n\r\n\(infoString)"
+
+      context.dispatch(Logic.Shared.SendEmail(recipient: recipient, subject: "", body: body))
     }
   }
 }

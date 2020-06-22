@@ -27,7 +27,7 @@ class OnboardingPermissionOverlayUITests: AppViewTestCase, ViewTestCase {
         "onboarding_permission_push_notification": OnboardingPermissionOverlayVM(type: .pushNotification),
         "onboarding_permission_diagnosis_keys": OnboardingPermissionOverlayVM(type: .diagnosisKeys)
       ],
-      context: UITests.Context<V>()
+      context: UITests.Context<V>(renderSafeArea: false)
     )
   }
 }

@@ -61,6 +61,7 @@ class HomeServiceActiveCell: UICollectionViewCell, ModellableView, ReusableView,
   static let verticalOffset: CGFloat = 30
   static let titleToSubtitle: CGFloat = 15
   static let titleToLogo: CGFloat = 22
+  static let subtitleToDiscoverMore: CGFloat = 10
   static let buttonToSubtitle: CGFloat = 18
   static let titleRightMargin: CGFloat = UIDevice.getByScreen(normal: 140, narrow: 100)
   static let animationSize: CGFloat = UIDevice.getByScreen(normal: 160, narrow: 130)
@@ -74,6 +75,7 @@ class HomeServiceActiveCell: UICollectionViewCell, ModellableView, ReusableView,
   let shieldCheckmark = AnimationView()
   let shieldShadow = AnimationView()
   let disabledShield = AnimationView()
+  let discoverMore = UILabel()
   var actionButton = ButtonWithInsets()
 
   var didTapAction: Interaction?
@@ -106,19 +108,26 @@ class HomeServiceActiveCell: UICollectionViewCell, ModellableView, ReusableView,
     self.container.addSubview(self.shieldCheckmark)
     self.container.addSubview(self.disabledShield)
     self.container.addSubview(self.actionButton)
+    self.container.addSubview(self.discoverMore)
 
     self.actionButton.on(.touchUpInside) { [weak self] _ in
       self?.didTapAction?()
     }
+
+    self.discoverMore.accessibilityTraits = .button
   }
 
   func style() {
     // make sure next cells won't cover this
     self.layer.zPosition = 1000
+
     Self.Style.container(self.container)
     Self.Style.statusBarBackground(self.statusBarBackground)
-    self.logo.image = Asset.Home.logoHorizontal.image
-    self.logo.setAccessibilityLabel(L10n.Accessibility.appName)
+    Self.Style.discoverMore(self.discoverMore, content: L10n.HomeView.Service.Active.discoverMore)
+    Self.Style.logo(self.logo)
+    Self.Style.shieldShadow(self.shieldShadow)
+    Self.Style.shieldCheckmark(self.shieldCheckmark)
+    Self.Style.shieldDisabled(self.disabledShield)
   }
 
   func update(oldModel: VM?) {
@@ -126,26 +135,25 @@ class HomeServiceActiveCell: UICollectionViewCell, ModellableView, ReusableView,
       return
     }
 
+    self.shieldShadow.isHidden = !model.isServiceActive
+    self.shieldCheckmark.isHidden = !model.isServiceActive
+    self.disabledShield.isHidden = model.isServiceActive
+    self.discoverMore.isHidden = !model.isServiceActive
+    self.statusBarBackground.isHidden = model.hasHeaderCard
+    self.actionButton.isHidden = model.isServiceActive
+
     if model.isServiceActive {
-      Self.Style.shieldShadow(self.shieldShadow)
-      Self.Style.shieldCheckmark(self.shieldCheckmark)
+      self.shieldShadow.playIfPossible()
+      self.shieldCheckmark.playIfPossible()
       self.disabledShield.stop()
-      self.shieldShadow.isHidden = false
-      self.shieldCheckmark.isHidden = false
-      self.disabledShield.isHidden = true
     } else {
       self.shieldShadow.stop()
       self.shieldCheckmark.stop()
-      Self.Style.shieldDisabled(self.disabledShield)
-      self.shieldShadow.isHidden = true
-      self.shieldCheckmark.isHidden = true
-      self.disabledShield.isHidden = false
+      self.disabledShield.playIfPossible()
     }
 
     Self.Style.title(self.title, content: model.title, boldColor: model.titleHighlightColor)
     Self.Style.subtitle(self.subtitle, content: model.subtitle)
-
-    self.statusBarBackground.isHidden = model.hasHeaderCard
 
     SharedStyle.primaryButton(
       self.actionButton,
@@ -155,8 +163,6 @@ class HomeServiceActiveCell: UICollectionViewCell, ModellableView, ReusableView,
       cornerRadius: 26,
       shadow: model.buttonShadow
     )
-
-    self.actionButton.isHidden = model.isServiceActive
   }
 
   var minimumHeight: CGFloat {
@@ -184,12 +190,18 @@ class HomeServiceActiveCell: UICollectionViewCell, ModellableView, ReusableView,
       .minHeight(53)
       .bottom(HomeView.cellHorizontalInset)
 
+    self.discoverMore.pin
+      .horizontally(HomeView.cellHorizontalInset)
+      .sizeToFit(.widthFlexible)
+      .bottom(HomeServiceActiveCell.verticalOffset)
+
     if isServiceActive {
       self.subtitle.pin
         .left(HomeView.cellHorizontalInset)
         .right(Self.titleRightMargin)
         .sizeToFit(.width)
-        .bottom(HomeServiceActiveCell.verticalOffset)
+        .above(of: self.discoverMore)
+        .marginBottom(Self.subtitleToDiscoverMore)
     } else {
       self.subtitle.pin
         .left(HomeView.cellHorizontalInset)
@@ -227,31 +239,64 @@ class HomeServiceActiveCell: UICollectionViewCell, ModellableView, ReusableView,
   }
 
   override func sizeThatFits(_ size: CGSize) -> CGSize {
+    let isServiceActive = self.model?.isServiceActive ?? false
+
+    if isServiceActive {
+      return self.serviceActiveSize(size)
+    } else {
+      return self.serviceNotActiveSize(size)
+    }
+  }
+
+  private func serviceActiveSize(_ size: CGSize) -> CGSize {
     let topSafeArea = self.superview?.universalSafeAreaInsets.top ?? 0
     let labelWidth = size.width - HomeView.cellHorizontalInset - HomeServiceActiveCell.titleRightMargin
     let logoSize = self.logo.intrinsicContentSize
     let titleSize = self.title.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
     let subtitleSize = self.subtitle.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
     let firstCellOffset: CGFloat = (self.model?.hasHeaderCard ?? false) ? 0 : topSafeArea
+    let discoverMoreSize = self.discoverMore.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
 
-    if self.model?.isServiceActive ?? false {
-      return CGSize(
-        width: size.width,
-        height: logoSize.height + titleSize.height + subtitleSize.height
-          + 2 * HomeServiceActiveCell.verticalOffset + HomeServiceActiveCell.titleToLogo + HomeServiceActiveCell.titleToSubtitle
-          + HomeServiceActiveCell.containerShadowOffset + firstCellOffset
-      )
-    } else {
-      let buttonSize = self.actionButton.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
-      let buttonHeight = max(buttonSize.height, 53)
+    return CGSize(
+      width: size.width,
+      height:
+      logoSize.height +
+        titleSize.height +
+        subtitleSize.height +
+        discoverMoreSize.height +
+        2 * HomeServiceActiveCell.verticalOffset +
+        HomeServiceActiveCell.titleToLogo +
+        HomeServiceActiveCell.titleToSubtitle +
+        HomeServiceActiveCell.containerShadowOffset +
+        HomeServiceActiveCell.subtitleToDiscoverMore +
+        firstCellOffset
+    )
+  }
 
-      return CGSize(
-        width: size.width,
-        height: logoSize.height + titleSize.height + subtitleSize.height + buttonHeight
-          + 2 * HomeServiceActiveCell.verticalOffset + HomeServiceActiveCell.titleToLogo + HomeServiceActiveCell.titleToSubtitle
-          + HomeServiceActiveCell.buttonToSubtitle + HomeServiceActiveCell.containerShadowOffset + firstCellOffset
-      )
-    }
+  private func serviceNotActiveSize(_ size: CGSize) -> CGSize {
+    let topSafeArea = self.superview?.universalSafeAreaInsets.top ?? 0
+    let labelWidth = size.width - HomeView.cellHorizontalInset - HomeServiceActiveCell.titleRightMargin
+    let logoSize = self.logo.intrinsicContentSize
+    let titleSize = self.title.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
+    let subtitleSize = self.subtitle.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
+    let firstCellOffset: CGFloat = (self.model?.hasHeaderCard ?? false) ? 0 : topSafeArea
+    let buttonSize = self.actionButton.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
+    let buttonHeight = max(buttonSize.height, 53)
+
+    return CGSize(
+      width: size.width,
+      height:
+      logoSize.height +
+        titleSize.height +
+        subtitleSize.height +
+        buttonHeight +
+        2 * HomeServiceActiveCell.verticalOffset +
+        HomeServiceActiveCell.titleToLogo +
+        HomeServiceActiveCell.titleToSubtitle +
+        HomeServiceActiveCell.buttonToSubtitle +
+        HomeServiceActiveCell.containerShadowOffset +
+        firstCellOffset
+    )
   }
 }
 
@@ -306,21 +351,34 @@ private extension HomeServiceActiveCell {
       animation.animation = AnimationAsset.shieldBackground.animation
       animation.loopMode = .loop
       animation.backgroundBehavior = .pauseAndRestore
-      animation.playIfPossible()
     }
 
     static func shieldCheckmark(_ animation: AnimationView) {
       animation.animation = AnimationAsset.shieldCheckmark.animation
       animation.loopMode = .playOnce
-      animation.play()
-      animation.playIfPossible()
     }
 
     static func shieldDisabled(_ animation: AnimationView) {
       animation.animation = AnimationAsset.shieldDisabled.animation
       animation.loopMode = .loop
       animation.backgroundBehavior = .pauseAndRestore
-      animation.playIfPossible()
+    }
+
+    static func logo(_ imageView: UIImageView) {
+      imageView.image = Asset.Home.logoHorizontal.image
+      imageView.setAccessibilityLabel(L10n.Accessibility.appName)
+    }
+
+    static func discoverMore(_ label: UILabel, content: String) {
+      let style = TextStyles.pSemibold.byAdding(
+        .color(Palette.primary)
+      )
+
+      TempuraStyles.styleStandardLabel(
+        label,
+        content: content,
+        style: style
+      )
     }
   }
 }

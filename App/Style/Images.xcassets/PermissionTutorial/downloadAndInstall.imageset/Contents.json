@@ -1,0 +1,40 @@
+{
+  "images" : [
+    {
+      "filename" : "downloadAndInstall-2.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "filename" : "downloadAndInstall-3.pdf",
+      "idiom" : "universal",
+      "locale" : "de"
+    },
+    {
+      "filename" : "downloadAndInstall-1.pdf",
+      "idiom" : "universal",
+      "locale" : "en-GB"
+    },
+    {
+      "filename" : "downloadAndInstall-5.pdf",
+      "idiom" : "universal",
+      "locale" : "es-ES"
+    },
+    {
+      "filename" : "downloadAndInstall-4.pdf",
+      "idiom" : "universal",
+      "locale" : "fr"
+    },
+    {
+      "filename" : "downloadAndInstall.pdf",
+      "idiom" : "universal",
+      "locale" : "it"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "localizable" : true
+  }
+}

@@ -12,6 +12,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+import Alamofire
 import BackgroundTasks
 import Extensions
 import Foundation
@@ -33,20 +34,13 @@ extension Logic {
 
         // refresh statuses
         try context.awaitDispatch(Logic.Lifecycle.RefreshAuthorizationStatuses())
+        try context.awaitDispatch(Logic.Lifecycle.RefreshNetworkReachabilityStatus())
 
         // Update user language
         try context.awaitDispatch(SetUserLanguage(language: UserLanguage(from: context.dependencies.locale)))
 
-        // Set the app name used in the application using the bundle's display name
-        if let appName = context.dependencies.bundle.appDisplayName {
-          try context.awaitDispatch(SetAppName(appName: appName))
-        }
-
-        // Set the app version used in the application using the bundle
-        if let appVersion = context.dependencies.bundle.appVersion,
-          let bundleVersion = context.dependencies.bundle.bundleVersion {
-          try context.awaitDispatch(SetAppVersion(appVersion: "\(appVersion) (\(bundleVersion))"))
-        }
+        // Update the app info using the bundle info
+        try context.awaitDispatch(UpdateAppInfo(bundle: context.dependencies.bundle))
 
         let isFirstLaunch = !state.toggles.isFirstLaunchSetupPerformed
 
@@ -135,6 +129,9 @@ extension Logic {
 
         // refresh statuses
         try context.awaitDispatch(RefreshAuthorizationStatuses())
+
+        /// removes uneeded notifications
+        try context.awaitDispatch(Logic.ExposureDetection.RemoveLocalNotificationIfNotNeeded())
       }
     }
 
@@ -178,6 +175,9 @@ extension Logic {
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
         // clears `PositiveExposureResults` older than 14 days from the `ExposureDetectionState`
         try context.awaitDispatch(Logic.ExposureDetection.ClearOutdatedResults(now: context.dependencies.now()))
+
+        /// removes uneeded notifications
+        try context.awaitDispatch(Logic.ExposureDetection.RemoveLocalNotificationIfNotNeeded())
 
         // updates the ingestion dummy traffic opportunity window if it expired
         try context.awaitDispatch(Logic.DataUpload.UpdateDummyTrafficOpportunityWindowIfExpired())
@@ -231,26 +231,43 @@ extension Logic.Lifecycle {
       ))
     }
   }
+
+  struct RefreshNetworkReachabilityStatus: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      guard let status = context.dependencies.reachabilityManager?.status else {
+        return
+      }
+      context.dispatch(UpdateNetworkReachabilityStatus(value: status))
+    }
+  }
 }
 
 // MARK: Private State Updaters
 
 private extension Logic.Lifecycle {
-  /// Update and store the app name used in the application using the bundle's display name
-  private struct SetAppName: AppStateUpdater {
-    let appName: String
+  /// Update app info using the bundle info.
+  private struct UpdateAppInfo: AppStateUpdater {
+    let bundle: Bundle
 
     func updateState(_ state: inout AppState) {
-      state.environment.appName = self.appName
+      if let appName = self.bundle.appDisplayName {
+        state.environment.appName = appName
+      }
+      if let appVersion = self.bundle.appVersion,
+        let bundleVersion = self.bundle.bundleVersion {
+        state.environment.appVersion = "\(appVersion) (\(bundleVersion))"
+      }
+      let device = UIDevice.current
+      state.environment.osVersion = "\(device.systemName) (\(device.systemVersion))"
+      state.environment.deviceModel = device.modelName
     }
   }
 
-  /// Update and store the app version
-  private struct SetAppVersion: AppStateUpdater {
-    let appVersion: String
-
+  /// Update the network reachability status
+  private struct UpdateNetworkReachabilityStatus: AppStateUpdater {
+    let value: NetworkReachabilityManager.NetworkReachabilityStatus
     func updateState(_ state: inout AppState) {
-      state.environment.appVersion = self.appVersion
+      state.environment.networkReachabilityStatus = self.value
     }
   }
 

@@ -45,15 +45,19 @@ struct OnboardingPermissionVM {
     }
   }
 
-  var image: UIImage {
+  var animation: AnimationAsset {
     switch self.permissionType {
     case .bluetoothOff:
-      return Asset.Onboarding.permissionBluetooth.image
+      return AnimationAsset.onboardingBluetooth
     case .exposureNotification:
-      return Asset.Onboarding.permissionCOVID19Notification.image
+      return AnimationAsset.onboardingExposureNotifications
     case .pushNotifications:
-      return Asset.Onboarding.permissionPushNotifications.image
+      return AnimationAsset.onboardingPushNotifications
     }
+  }
+
+  func shouldUpdateAnimation(oldModel: OnboardingPermissionVM?) -> Bool {
+    return self.animation != oldModel?.animation
   }
 }
 
