@@ -260,6 +260,11 @@ public enum Region: String, CaseIterable {
       return [Province.abroad]
     }
   }
+
+  /// Whether the region is the special "abroad" region
+  public var isAbroadRegion: Bool {
+    return self == .abroad
+  }
 }
 
 public enum Province: String, Codable, CaseIterable {

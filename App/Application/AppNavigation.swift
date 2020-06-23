@@ -171,6 +171,7 @@ extension PrivacyVC: RoutableWithConfiguration {
         vc.modalPresentationStyle = .fullScreen
         return vc
       },
+
       .hide(Screen.onboardingStep): .dismissModally(behaviour: .hard)
     ]
   }
