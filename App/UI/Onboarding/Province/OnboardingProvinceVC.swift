@@ -34,6 +34,10 @@ final class OnboardingProvinceVC: ViewControllerWithLocalState<OnboardingProvinc
       self?.localState.currentProvince = province
       self?.onboardingContainer?.setNeedsRefreshControls()
     }
+
+    self.rootView.userDidTapDiscoverMore = { [weak self] in
+      print("IMPLEMENT")
+    }
   }
 }
 

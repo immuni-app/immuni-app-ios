@@ -34,6 +34,10 @@ final class OnboardingRegionVC: ViewControllerWithLocalState<OnboardingRegionVie
       self?.localState.currentRegion = region
       self?.onboardingContainer?.setNeedsRefreshControls()
     }
+
+    self.rootView.userDidTapDiscoverMore = { [weak self] in
+      print("IMPLEMENT")
+    }
   }
 }
 

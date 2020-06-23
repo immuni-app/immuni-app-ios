@@ -33,8 +33,10 @@ final class OnboardingHeaderCell: UICollectionViewCell, ModellableView, Reusable
   static let titleToDescriptionSpacing: CGFloat = 12.0
   static let descriptionToActionSpacing: CGFloat = 6.0
 
-  private var title = UILabel()
-  private var headerDescription = UILabel()
+  var didTapActionButton: Interaction?
+
+  private let title = UILabel()
+  private let headerDescription = UILabel()
   private var actionButton = TextButton()
 
   override init(frame: CGRect) {
@@ -53,6 +55,10 @@ final class OnboardingHeaderCell: UICollectionViewCell, ModellableView, Reusable
     self.contentView.addSubview(self.title)
     self.contentView.addSubview(self.headerDescription)
     self.contentView.addSubview(self.actionButton)
+
+    self.actionButton.on(.touchUpInside) { [weak self] _ in
+      self?.didTapActionButton?()
+    }
   }
 
   func style() {}
