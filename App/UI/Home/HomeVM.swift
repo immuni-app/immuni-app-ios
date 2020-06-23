@@ -79,8 +79,10 @@ extension HomeVM {
 
     var cells: [CellType] = [
       .serviceActiveCard(isServiceActive: state.isServiceActive),
-      .infoHeader
+      .infoHeader,
+      .info(kind: .app)
     ]
+
     switch covidStatus {
     case .neutral:
       cells.append(.info(kind: .protection))
@@ -90,7 +92,6 @@ extension HomeVM {
       cells.insert(.header(kind: .positive), at: 0)
     }
 
-    cells.append(.info(kind: .app))
     cells.append(.deactivateButton(isEnabled: state.isServiceActive))
 
     self.cellTypes = cells
