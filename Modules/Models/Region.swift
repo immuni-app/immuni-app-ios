@@ -37,8 +37,9 @@ public enum Region: String, CaseIterable {
   case umbria = "Umbria"
   case valleAosta = "Valle d'Aosta"
   case veneto = "Veneto"
+  case abroad = "Abroad"
 
-  public var humanReadableName: String {
+  public func humanReadableName(with abroadName: String) -> String {
     switch self {
     case .abruzzo:
       return "Abruzzo"
@@ -80,6 +81,8 @@ public enum Region: String, CaseIterable {
       return "Valle d'Aosta"
     case .veneto:
       return "Veneto"
+    case .abroad:
+      return abroadName
     }
   }
 
@@ -252,6 +255,9 @@ public enum Region: String, CaseIterable {
         Province.verona,
         Province.vicenza
       ]
+
+    case .abroad:
+      return [Province.abroad]
     }
   }
 }
@@ -364,6 +370,9 @@ public enum Province: String, Codable, CaseIterable {
   case viboValentia = "VV"
   case vicenza = "VI"
   case viterbo = "VT"
+
+  // special
+  case abroad = "EX"
 }
 
 public extension Province {
@@ -590,12 +599,18 @@ public extension Province {
       return "Barletta-Andria-Trani"
     case .sudSardegna:
       return "Sud Sardegna"
+    case .abroad:
+      return ""
     }
   }
 }
 
 extension Region: Comparable {
   public static func < (lhs: Self, rhs: Self) -> Bool {
+    if lhs == .abroad {
+      return false
+    }
+
     return lhs.rawValue < rhs.rawValue
   }
 }

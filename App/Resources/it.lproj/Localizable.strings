@@ -99,6 +99,13 @@
 "onboarding.push_permission.title" = "Consentici di comunicare con te";
 "onboarding.region.description" = "Seleziona la tua regione di domicilio per aiutare il Servizio Sanitario Nazionale ad assisterti al meglio.";
 "onboarding.region.title" = "In che regione vivi?";
+
+"onboarding.region.abroad.item" = "Non vivo in Italia";
+"onboarding.region.abroad.alert.title" = "Sei sicuro?";
+"onboarding.region.abroad.alert.message" = "Se non vivi in Italia ma hai intenzione di recartici, ti suggeriamo di selezionare già la regione (e successivamente la provincia) in cui soggiornerai per più tempo. Lo stesso vale nel caso in cui tu ti trovi già in Italia.";
+"onboarding.region.abroad.alert.cancel" = "Annulla";
+"onboarding.region.abroad.alert.confirm" = "Continua";
+
 "onboarding_exposure_api_not_activated" = "Notifiche di esposizione non attivate";
 "onboarding_exposure_message_extended" = "Le notifiche di esposizione richiedono che il servizio di localizzazione sia attivo a livello di sistema. <b>Immuni non ha accesso alla localizzazione e non può quindi conoscere la tua posizione o i tuoi spostamenti</b>.";
 "open_settings" = "Apri Impostazioni";
