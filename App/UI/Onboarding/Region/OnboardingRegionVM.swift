@@ -75,7 +75,11 @@ extension OnboardingRegionVM {
     var cellVM: ViewModel {
       switch self {
       case .titleHeader(let title, let description):
-        return OnboardingHeaderCellVM(title: title, description: description)
+        return OnboardingHeaderCellVM(
+          title: title,
+          description: description,
+          actionButtonTitle: L10n.Onboarding.Common.discoverMore
+        )
 
       case .spacer(let size):
         return OnboardingSpacerCellVM(size: size)

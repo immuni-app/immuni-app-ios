@@ -22,6 +22,7 @@ import Tempura
 struct OnboardingHeaderCellVM: ViewModel, Equatable {
   let title: String
   let description: String
+  let actionButtonTitle: String
 
   func shouldInvalidateLayout(oldVM: Self?) -> Bool {
     return self != oldVM
@@ -29,10 +30,12 @@ struct OnboardingHeaderCellVM: ViewModel, Equatable {
 }
 
 final class OnboardingHeaderCell: UICollectionViewCell, ModellableView, ReusableView {
-  static let verticalPadding: CGFloat = 12.0
+  static let titleToDescriptionSpacing: CGFloat = 12.0
+  static let descriptionToActionSpacing: CGFloat = 6.0
 
   private var title = UILabel()
   private var headerDescription = UILabel()
+  private var actionButton = TextButton()
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -49,6 +52,7 @@ final class OnboardingHeaderCell: UICollectionViewCell, ModellableView, Reusable
   func setup() {
     self.contentView.addSubview(self.title)
     self.contentView.addSubview(self.headerDescription)
+    self.contentView.addSubview(self.actionButton)
   }
 
   func style() {}
@@ -60,6 +64,7 @@ final class OnboardingHeaderCell: UICollectionViewCell, ModellableView, Reusable
 
     Self.Style.title(self.title, content: model.title)
     Self.Style.description(self.headerDescription, content: model.description)
+    Self.Style.actionButton(self.actionButton, content: model.actionButtonTitle)
 
     if model.shouldInvalidateLayout(oldVM: oldModel) {
       self.setNeedsLayout()
@@ -76,7 +81,13 @@ final class OnboardingHeaderCell: UICollectionViewCell, ModellableView, Reusable
 
     self.headerDescription.pin
       .below(of: self.title, aligned: .start)
-      .marginTop(Self.verticalPadding)
+      .marginTop(Self.titleToDescriptionSpacing)
+      .right(OnboardingContainerAccessoryView.horizontalSpacing)
+      .sizeToFit(.width)
+
+    self.actionButton.pin
+      .below(of: self.headerDescription, aligned: .start)
+      .marginTop(Self.descriptionToActionSpacing)
       .right(OnboardingContainerAccessoryView.horizontalSpacing)
       .sizeToFit(.width)
   }
@@ -85,8 +96,13 @@ final class OnboardingHeaderCell: UICollectionViewCell, ModellableView, Reusable
     let space = CGSize(width: size.width - 2 * OnboardingContainerAccessoryView.horizontalSpacing, height: .infinity)
     let titleSize = self.title.sizeThatFits(space)
     let descriptionSize = self.headerDescription.sizeThatFits(space)
+    let actionButtonSize = self.actionButton.sizeThatFits(space)
 
-    return CGSize(width: size.width, height: titleSize.height + Self.verticalPadding + descriptionSize.height)
+    return CGSize(
+      width: size.width,
+      height: titleSize.height + Self.titleToDescriptionSpacing + descriptionSize.height + Self
+        .descriptionToActionSpacing + actionButtonSize.height
+    )
   }
 }
 
@@ -110,6 +126,17 @@ private extension OnboardingHeaderCell {
           .color(Palette.grayNormal)
         )
       )
+    }
+
+    static func actionButton(_ button: TextButton, content: String) {
+      let textStyle = TextStyles.pSemibold.byAdding(
+        .color(Palette.primary),
+        .alignment(.left)
+      )
+
+      button.contentHorizontalAlignment = .left
+      button.contentVerticalAlignment = .bottom
+      button.attributedTitle = content.styled(with: textStyle)
     }
   }
 }
