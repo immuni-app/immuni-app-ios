@@ -164,7 +164,8 @@ final class PermissionTutorialView: UIView, ViewControllerModellableView {
   private func updateAfterLayout() {
     guard
       let model = self.model,
-      let collectionViewLayout = self.contentCollection.collectionViewLayout as? UICollectionViewFlowLayout
+      let collectionViewLayout = self.contentCollection.collectionViewLayout as? UICollectionViewFlowLayout,
+      collectionViewLayout.estimatedItemSize == .zero // avoid multiple adjust iteration
       else {
         return
     }

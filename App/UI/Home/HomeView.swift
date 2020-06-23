@@ -158,7 +158,6 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
       let cell = collectionView.dequeueReusableCell(HomeServiceActiveCell.self, for: indexPath)
       cell.model = cellModel as? HomeServiceActiveCellVM
       cell.didTapAction = { [weak self] in self?.didTapActivateService?() }
-      cell.didTapDiscoverMore = { [weak self] in self?.didTapActiveServiceDiscoverMore?() }
       return cell
 
     case .infoHeader:
@@ -196,7 +195,9 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
     switch cellType {
     case .header:
       self.didTapHeaderCardInfo?()
-    case .serviceActiveCard:
+    case .serviceActiveCard(true):
+      self.didTapActiveServiceDiscoverMore?()
+    case .serviceActiveCard(false):
       self.didTapActivateService?()
     case .infoHeader:
       return

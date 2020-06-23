@@ -85,7 +85,7 @@ targets:
         CFBundleName: Immuni
         CFBundleDisplayName: Immuni
         CFBundleIcons: {}
-        CFBundleShortVersionString: "1.1.1"
+        CFBundleShortVersionString: "1.2.0"
         CFBundleVersion: "${BUNDLE_VERSION}"
         IMAppstoreID: "${APPSTORE_ID}"
         ITSAppUsesNonExemptEncryption: false
