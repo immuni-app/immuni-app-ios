@@ -36,7 +36,7 @@ final class OnboardingRegionVC: ViewControllerWithLocalState<OnboardingRegionVie
     }
 
     self.rootView.userDidTapDiscoverMore = { [weak self] in
-      print("IMPLEMENT")
+      self?.dispatch(Logic.PermissionTutorial.ShowWhyProvinceRegion())
     }
   }
 }

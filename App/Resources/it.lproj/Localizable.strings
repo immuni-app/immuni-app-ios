@@ -161,6 +161,12 @@
 "permission_tutorial.verify_immuni_works.second" = "<b>Se invece dovessero esserci problemi, leggerai \"Servizio non attivo\".</b> Immuni ti fornirà istruzioni semplici per ripristinarne il corretto funzionamento.";
 "permission_tutorial.verify_immuni_works.third" = "<b>Se entri in contatto con una persona che in seguito risulti positiva al virus, Immuni ti invierà una notifica per avvertirti del rischio di contagio.</b> Aprendo l'app, riceverai indicazioni chiare ed esaustive sul da farsi.";
 "permission_tutorial.verify_immuni_works.title" = "Come verificare che Immuni stia funzionando";
+
+"permission_tutorial.why_province_region.title" = "A cosa serve inserire regione e provincia di domicilio";
+"permission_tutorial.why_province_region.first" = "Regione e provincia di domicilio sono utili al Servizio Sanitario Nazionale per poter prevenire l’insorgenza di nuovi focolai, oltre che per poter stimare la diffusione dell’app sul territorio nazionale. La provincia di domicilio viene inviata al server del Ministero della Salute contestualmente alle informazioni sul corretto funzionamento dell’app e sul fatto che tu sia stato o meno avvertito di un contatto a rischio. Immuni raccoglie queste informazioni nella piena tutela della tua privacy.";
+"permission_tutorial.why_province_region.second" = "È possibile modificare regione e provincia di domicilio in un qualsiasi momento dalle impostazioni dell’app. Ti consigliamo di modificarle solamente in caso tu decida di cambiare domicilio. In tutti gli altri casi, inclusi viaggi occasionali, non è invece necessario farlo.";
+"permission_tutorial.why_province_region.third" = "<b>Nel caso in cui tu viva all’estero ma abbia intenzione di recarti in Italia, ti suggeriamo di selezionare già la regione (e successivamente la provincia) in cui soggiornerai per più tempo.</b> Puoi usare Immuni anche se ti trovi all’estero. L’app registrerà regolarmente i tuoi contatti con altri utenti. Non potrai tuttavia caricare i tuoi codici casuali in caso di rilevata positività fintanto che non ti troverai in Italia.";
+
 "privacy.checkbox.above14" = "Dichiaro di avere almeno 14 anni";
 "privacy.checkbox.privacyPolicyRead" = "Ho letto l'<l>informativa privacy</l>";
 "privacy.item.data_deletion" = "<b>Tutti i dati sono eliminati quando non più necessari</b> e in ogni caso non più tardi del 31 dicembre 2020.";

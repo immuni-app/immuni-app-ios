@@ -58,6 +58,18 @@ extension Logic.PermissionTutorial {
     }
   }
 
+  /// Shows the explaination about why province/region is required
+  struct ShowWhyProvinceRegion: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      try context
+        .awaitDispatch(Show(
+          Screen.permissionTutorial,
+          animated: true,
+          context: PermissionTutorialLS(content: .whyProvinceRegion)
+        ))
+    }
+  }
+
   /// Shows the Exposure notification activation tutorial
   struct ShowActivateExposureNotificationTutorial: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
