@@ -401,4 +401,21 @@ extension PermissionTutorialVM.Content {
       action: nil
     )
   }
+
+  static var whyProvinceRegion: Self {
+    return PermissionTutorialVM.Content(
+      title: L10n.PermissionTutorial.WhyProvinceRegion.title,
+      items: [
+        .spacer(.big),
+        .textualContent(L10n.PermissionTutorial.WhyProvinceRegion.first),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.WhyProvinceRegion.second),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.WhyProvinceRegion.third),
+        .spacer(.big)
+      ],
+      mainActionTitle: nil,
+      action: nil
+    )
+  }
 }
