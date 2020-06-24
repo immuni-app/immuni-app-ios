@@ -90,7 +90,8 @@ extension CustomerSupportVM {
     exposureNotificationEnabled: Bool,
     bluetoothEnabled: Bool,
     appVersion: String,
-    networkReachabilityStatus: NetworkReachabilityManager.NetworkReachabilityStatus
+    networkReachabilityStatus: NetworkReachabilityManager.NetworkReachabilityStatus,
+    lastENCheck: Date?
   ) -> [CellType] {
     // heading cells
     var cells = CustomerSupportVM.headingCells
@@ -137,6 +138,8 @@ extension CustomerSupportVM {
     ])
 
     // info
+    let lastENCheckString = lastENCheck?.asFormattedLastENCheck ?? L10n.Support.Info.Item.LastENCheck.none
+
     cells.append(contentsOf: [
       .info(L10n.Support.Info.Item.os, osVersion),
       .info(L10n.Support.Info.Item.device, deviceModel),
@@ -150,7 +153,8 @@ extension CustomerSupportVM {
         bluetoothEnabled ? L10n.Support.Info.Bluetooth.active : L10n.Support.Info.Bluetooth.inactive
       ),
       .info(L10n.Support.Info.Item.appVersion, appVersion),
-      .info(L10n.Support.Info.Item.connectionType, networkReachabilityStatus.description)
+      .info(L10n.Support.Info.Item.connectionType, networkReachabilityStatus.description),
+      .info(L10n.Support.Info.Item.lastENCheck, lastENCheckString)
     ])
 
     return cells
@@ -160,6 +164,7 @@ extension CustomerSupportVM {
     guard let state = state else {
       return nil
     }
+
     self.cells = CustomerSupportVM.cells(
       supportPhone: state.configuration.supportPhone,
       supportPhoneOpeningTime: state.configuration.supportPhoneOpeningTime,
@@ -170,8 +175,10 @@ extension CustomerSupportVM {
       exposureNotificationEnabled: state.environment.exposureNotificationAuthorizationStatus.isAuthorized,
       bluetoothEnabled: state.environment.exposureNotificationAuthorizationStatus.canPerformDetection,
       appVersion: state.environment.appVersion,
-      networkReachabilityStatus: state.environment.networkReachabilityStatus
+      networkReachabilityStatus: state.environment.networkReachabilityStatus,
+      lastENCheck: state.exposureDetection.lastDetectionDate
     )
+
     self.isHeaderVisible = localState.isHeaderVisible
   }
 }
@@ -191,5 +198,31 @@ extension NetworkReachabilityManager.NetworkReachabilityStatus {
         return L10n.Support.Info.Item.ConnectionType.mobile
       }
     }
+  }
+}
+
+// MARK: Helpers
+
+extension Date {
+  private static var timeFormatter: DateFormatter {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .none
+    formatter.timeStyle = .short
+    return formatter
+  }
+
+  private static var dateFormatter: DateFormatter {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .long
+    formatter.timeStyle = .none
+    return formatter
+  }
+
+  /// Returns a localized, human readable, string that represents
+  /// the last EN check
+  var asFormattedLastENCheck: String {
+    let formattedDate = Self.dateFormatter.string(from: self)
+    let formattedTime = Self.timeFormatter.string(from: self)
+    return L10n.Support.Info.Item.LastENCheck.date(formattedDate, formattedTime)
   }
 }

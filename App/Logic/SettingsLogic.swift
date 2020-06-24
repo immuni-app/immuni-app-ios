@@ -217,7 +217,8 @@ extension Logic.Settings {
         "\(L10n.Support.Info.Item.exposureNotificationEnabled): \(state.environment.exposureNotificationAuthorizationStatus.isAuthorized ? L10n.Support.Info.ExposureNotifications.active : L10n.Support.Info.ExposureNotifications.inactive)",
         "\(L10n.Support.Info.Item.bluetoothEnabled): \(state.environment.exposureNotificationAuthorizationStatus.canPerformDetection ? L10n.Support.Info.Bluetooth.active : L10n.Support.Info.Bluetooth.inactive)",
         "\(L10n.Support.Info.Item.appVersion): \(state.environment.appVersion)",
-        "\(L10n.Support.Info.Item.connectionType): \(state.environment.networkReachabilityStatus.description)"
+        "\(L10n.Support.Info.Item.connectionType): \(state.environment.networkReachabilityStatus.description)",
+        "\(L10n.Support.Info.Item.lastENCheck): \(state.exposureDetection.lastDetectionDate?.asFormattedLastENCheck ?? L10n.Support.Info.Item.LastENCheck.none)"
       ]
       // swiftlint:enable line_length
       let infoString = infos.joined(separator: "; ")
