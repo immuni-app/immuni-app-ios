@@ -30,7 +30,8 @@ class CustomerSupportUITests: AppViewTestCase, ViewTestCase {
     exposureNotificationEnabled: true,
     bluetoothEnabled: true,
     appVersion: "1.0.0 (23)",
-    networkReachabilityStatus: .reachable(.ethernetOrWiFi)
+    networkReachabilityStatus: .reachable(.ethernetOrWiFi),
+    lastENCheck: Date()
   )
 
   let disabledServicesCells: [CustomerSupportVM.CellType] = CustomerSupportVM.cells(
@@ -43,7 +44,8 @@ class CustomerSupportUITests: AppViewTestCase, ViewTestCase {
     exposureNotificationEnabled: false,
     bluetoothEnabled: false,
     appVersion: "1.0.0 (23)",
-    networkReachabilityStatus: .notReachable
+    networkReachabilityStatus: .notReachable,
+    lastENCheck: nil
   )
 
   let mobileDataCells: [CustomerSupportVM.CellType] = CustomerSupportVM.cells(
@@ -56,7 +58,8 @@ class CustomerSupportUITests: AppViewTestCase, ViewTestCase {
     exposureNotificationEnabled: true,
     bluetoothEnabled: false,
     appVersion: "1.0.0 (23)",
-    networkReachabilityStatus: .reachable(.cellular)
+    networkReachabilityStatus: .reachable(.cellular),
+    lastENCheck: Date()
   )
 
   func testUI() {
