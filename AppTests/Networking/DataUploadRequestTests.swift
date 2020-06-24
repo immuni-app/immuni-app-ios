@@ -119,7 +119,7 @@ class DataUploadRequestTests: XCTestCase {
       maximumExposureDetectionSummaryCount: cap
     )
 
-    XCTAssertEqual(Set(requestBody.exposureDetectionSummaries), Set([recentSummary, normalSummary]))
+    XCTAssertEqual(Set(requestBody.exposureDetectionSummaries), Set([oldSummary, normalSummary]))
   }
 
   func testMostRecentInfoIsDiscardedIfSameRisk() throws {

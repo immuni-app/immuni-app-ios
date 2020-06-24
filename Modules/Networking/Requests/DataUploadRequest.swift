@@ -99,11 +99,11 @@ extension DataUploadRequest.Body {
     maxSummaries: Int,
     maxExposureInfo: Int
   ) -> [CodableExposureDetectionSummary] {
-    // Cap the number of summaries, prioritizing the most recent ones.
+    // Cap the number of summaries, prioritizing the oldest ones.
     // Note: the cap is expected to be permissive enough so that this will reasonably never happen.
     let cappedSummaries = Array(
       summaries
-        .sorted(by: CodableExposureDetectionSummary.byDateDescending)
+        .sorted(by: CodableExposureDetectionSummary.byDateAscending)
         .prefix(maxSummaries)
     )
 
@@ -139,10 +139,10 @@ extension CodableTemporaryExposureKey {
 }
 
 extension CodableExposureDetectionSummary {
-  /// Sorting closure that sorts two summaries by date in descending order.
+  /// Sorting closure that sorts two summaries by date in ascending order.
   /// Note: `date` is a String, but it's in the `yyyy-MM-dd` format so lexicographic sorting is correct.
-  static let byDateDescending: (Self, Self) -> Bool = { lhs, rhs in
-    lhs.date > rhs.date
+  static let byDateAscending: (Self, Self) -> Bool = { lhs, rhs in
+    lhs.date < rhs.date
   }
 }
 
