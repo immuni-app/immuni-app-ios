@@ -31,7 +31,7 @@ class CustomerSupportUITests: AppViewTestCase, ViewTestCase {
     bluetoothEnabled: true,
     appVersion: "1.0.0 (23)",
     networkReachabilityStatus: .reachable(.ethernetOrWiFi),
-    lastENCheck: Date()
+    lastENCheck: Date(timeIntervalSince1970: 1_592_984_761)
   )
 
   let disabledServicesCells: [CustomerSupportVM.CellType] = CustomerSupportVM.cells(
@@ -59,7 +59,7 @@ class CustomerSupportUITests: AppViewTestCase, ViewTestCase {
     bluetoothEnabled: false,
     appVersion: "1.0.0 (23)",
     networkReachabilityStatus: .reachable(.cellular),
-    lastENCheck: Date()
+    lastENCheck: Date(timeIntervalSince1970: 1_592_984_761)
   )
 
   func testUI() {
