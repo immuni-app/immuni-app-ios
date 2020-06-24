@@ -37,6 +37,7 @@ enum Screen: String, CaseIterable {
   case permissionOverlay
   case confirmation
   case alert
+  case shareText
   case privacy
   case mailComposer
 
@@ -224,6 +225,13 @@ extension TabbarVC: RoutableWithConfiguration {
         let content = context as? Alert.Model ?? AppLogger.fatalError("Invalid context")
         let vc = UIAlertController(content: content)
         self?.recursivePresent(vc, animated: false, completion: completion)
+      },
+
+      // Share Text
+      .show(Screen.shareText): .custom { [weak self] _, _, animated, context, completion in
+        let text = context as? String ?? AppLogger.fatalError("Invalid context")
+        let vc = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+        self?.recursivePresent(vc, animated: animated, completion: completion)
       },
 
       // Permission Tutorial

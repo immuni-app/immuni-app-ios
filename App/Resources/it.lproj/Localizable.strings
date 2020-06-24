@@ -321,3 +321,6 @@
 "welcome_view.items.third.description" = "Gli utenti che scoprono di essere stati esposti al virus possono isolarsi, rallentando così la diffusione del virus e  accelerando il ritorno alla vita normale.";
 "welcome_view.items.third.title" = "Rallentiamo insieme l'epidemia";
 "welcome_view.next_page_title" = "Avanti";
+
+"settings.setting.share" = "Condividi l'app";
+"settings.setting.share.message" = "Aiutaci a combattere insieme l’epidemia di COVID-19. Scarica anche te Immuni. https://www.immuni.italia.it/";

@@ -45,13 +45,15 @@ private extension SettingsVC {
     case .tos:
       self.dispatch(Logic.Settings.ShowTOU())
     case .privacy:
-      self.store.dispatch(Logic.Settings.ShowPrivacyNotice())
+      self.dispatch(Logic.Settings.ShowPrivacyNotice())
     case .chageProvince:
-      self.store.dispatch(Logic.Settings.ShowUpdateProvince())
-    case .leaveReview:
-      self.store.dispatch(Logic.Settings.LeaveReview())
+      self.dispatch(Logic.Settings.ShowUpdateProvince())
+    case .shareApp:
+      self.dispatch(Logic.Settings.ShareApp())
     case .customerSupport:
-      self.store.dispatch(Logic.Settings.ShowCustomerSupport())
+      self.dispatch(Logic.Settings.ShowCustomerSupport())
+    case .leaveReview:
+      self.dispatch(Logic.Settings.LeaveReview())
     case .debugUtilities:
       self.dispatch(Logic.Settings.ShowDebugMenu())
     }
