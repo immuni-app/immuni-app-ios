@@ -61,6 +61,17 @@ open class SearchBar: UIView, ModellableView {
     self.clearButton.on(.touchUpInside) { [weak self] _ in
       self?.clearTextfield()
     }
+
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.didTapContainer))
+    self.container.addGestureRecognizer(tapGesture)
+  }
+
+  @objc private func didTapContainer() {
+    if self.textfield.isFirstResponder {
+      self.textfield.resignFirstResponder()
+    } else {
+      self.textfield.becomeFirstResponder()
+    }
   }
 
   public func style() {
