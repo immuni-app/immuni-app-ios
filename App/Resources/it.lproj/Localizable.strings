@@ -48,7 +48,7 @@
 "home_view.info.protection.title" = "Cosa puoi fare per proteggerti";
 "home_view.info_header.title" = "Informazioni";
 "home_view.service.active.discover_more" = "Scopri di più";
-"home_view.service.active.subtitle" = "Apri Immuni una volta al giorno per verificarne lo stato.";
+"home_view.service.active.subtitle" = "Immuni resta operativa anche quando l'app è chiusa.";
 "home_view.service.active.title" = "Servizio\n<b>attivo</b>";
 "home_view.service.deactivate" = "Disattiva il servizio";
 "home_view.service.not_active.button" = "Riattiva Immuni";
