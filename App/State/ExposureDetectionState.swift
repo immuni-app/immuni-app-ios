@@ -35,6 +35,8 @@ struct ExposureDetectionState: Codable {
   #endif
 }
 
+// MARK: Models
+
 extension ExposureDetectionState {
   /// The outcome of an exposure detection that resulted in one or more matches
   struct PositiveExposureResult: Codable {

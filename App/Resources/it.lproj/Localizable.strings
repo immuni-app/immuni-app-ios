@@ -272,6 +272,9 @@
 "support.info.item.device" = "Modello";
 "support.info.item.exposureNotificationEnabled" = "Notifiche di esposizione";
 "support.info.item.os" = "Sistema operativo";
+"support.info.item.lastENCheck" = "Ultima verifica";
+"support.info.item.lastENCheck.none" = "Nessuna";
+"support.info.item.lastENCheck.date" = "%@ alle %@";
 "support.info.title" = "Informazioni utili";
 "support.phone.description" = "Numero attivo dalle %@ alle %@.";
 "support.phone.title" = "Chiama il numero verde";
