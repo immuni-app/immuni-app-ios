@@ -171,6 +171,17 @@ class WelcomeView: UIView, ViewControllerModellableView {
       height: self.frame.height
     )
   }
+
+  func playCurrentPage() {
+    guard let model = self.model else {
+      return
+    }
+    self.pages[model.currentPage].playAnimation()
+  }
+
+  func pauseAllPages() {
+    for page in self.pages { page.pauseAnimation() }
+  }
 }
 
 // MARK: - Style
@@ -235,6 +246,9 @@ extension WelcomeView {
     frame.origin.x = frame.size.width * CGFloat(page)
     frame.origin.y = 0
     self.scrollView.scrollRectToVisible(frame, animated: animated)
+
+    self.pauseAllPages()
+    self.playCurrentPage()
 
     UIView.update(shouldAnimate: animated) {
       self.pageControl.currentPage = page
