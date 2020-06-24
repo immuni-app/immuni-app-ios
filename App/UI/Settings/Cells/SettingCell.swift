@@ -32,6 +32,8 @@ struct SettingCellVM: ViewModel {
       return L10n.Settings.Setting.privacy
     case .chageProvince:
       return L10n.Settings.Setting.chageProvince
+    case .shareApp:
+      return L10n.Settings.Setting.share
     case .leaveReview:
       return L10n.Settings.Setting.leaveReview
     case .customerSupport:
@@ -43,7 +45,7 @@ struct SettingCellVM: ViewModel {
 
   var shouldShowChevron: Bool {
     switch self.setting {
-    case .loadData, .faq:
+    case .loadData, .faq, .shareApp:
       return true
     case .tos, .privacy, .chageProvince, .leaveReview, .customerSupport, .debugUtilities:
       return false

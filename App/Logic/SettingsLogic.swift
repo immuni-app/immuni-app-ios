@@ -129,6 +129,13 @@ extension Logic.Settings {
     }
   }
 
+  /// Share the app
+  struct ShareApp: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      #warning("add code")
+    }
+  }
+
   /// Shows the customer support screen
   struct ShowCustomerSupport: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {

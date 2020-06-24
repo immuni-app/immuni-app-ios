@@ -22,8 +22,9 @@ struct SettingsVM: ViewModelWithLocalState {
     case tos
     case privacy
     case chageProvince
-    case leaveReview
+    case shareApp
     case customerSupport
+    case leaveReview
     case debugUtilities
   }
 
@@ -81,6 +82,23 @@ struct SettingsVM: ViewModelWithLocalState {
     }
     return SettingHeaderVM(header: header)
   }
+
+  static let defaultSections: [Section] = [
+    Section(
+      header: .data,
+      settings: [.loadData]
+    ),
+
+    Section(
+      header: .info,
+      settings: [.faq, .tos, .privacy]
+    ),
+
+    Section(
+      header: .general,
+      settings: [.shareApp, .customerSupport, .leaveReview, .chageProvince]
+    )
+  ]
 }
 
 extension SettingsVM {
@@ -89,22 +107,7 @@ extension SettingsVM {
       return nil
     }
 
-    var sections: [Section] = [
-      Section(
-        header: .data,
-        settings: [.loadData]
-      ),
-
-      Section(
-        header: .info,
-        settings: [.faq, .tos, .privacy]
-      ),
-
-      Section(
-        header: .general,
-        settings: [.chageProvince, .leaveReview, .customerSupport]
-      )
-    ]
+    var sections: [Section] = Self.defaultSections
     #if canImport(DebugMenu)
       sections.append(Section(header: .general, settings: [.debugUtilities]))
     #endif
