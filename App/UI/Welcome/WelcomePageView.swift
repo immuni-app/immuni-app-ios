@@ -90,10 +90,14 @@ class WelcomePageView: UIView, ModellableView {
 
     let isAssetRelevant = (realAssetViewSize.height / assetSize.height) > 0.3
     self.animationView.alpha = isAssetRelevant.cgFloat
+  }
 
-    if isAssetRelevant {
-      self.animationView.playIfPossible()
-    }
+  func playAnimation() {
+    self.animationView.playIfPossible()
+  }
+
+  func pauseAnimation() {
+    self.animationView.pause()
   }
 }
 
