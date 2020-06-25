@@ -233,7 +233,7 @@ private extension FaqView {
 
     static func collection(_ collectionView: UICollectionView) {
       collectionView.backgroundColor = .clear
-      collectionView.contentInset = UIEdgeInsets(top: 18, left: 0, bottom: 50, right: 0)
+      collectionView.contentInset = UIEdgeInsets(top: 18, left: 0, bottom: 70, right: 0)
       collectionView.showsVerticalScrollIndicator = false
     }
 

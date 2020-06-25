@@ -39,7 +39,11 @@ open class SearchBar: UIView, ModellableView {
   private var clearButton = ImageButton()
 
   var isSearching: Bool {
-    self.textfield.isFirstResponder || self.textfield.text?.isEmpty != true
+    self.textfield.isFirstResponder
+  }
+
+  var shouldShowClearButton: Bool {
+    self.isSearching && self.textfield.text != ""
   }
 
   var didChangeSearchStatus: CustomInteraction<Bool>?
@@ -82,17 +86,19 @@ open class SearchBar: UIView, ModellableView {
   }
 
   public func update(oldModel: SearchBarVM?) {
-    guard let model = model else {
+    guard let model = self.model else {
       return
     }
+
     Self.Style.shadow(self.container, isSearching: model.isSearching)
     Self.Style.searchIcon(self.searchIcon, isSearching: model.isSearching)
     self.clearButton.isAccessibilityElement = false
 
     self.setNeedsLayout()
+
     UIView.animate(withDuration: 0.2) {
       self.cancelButton.alpha = model.isSearching.cgFloat
-      self.clearButton.alpha = model.isSearching.cgFloat
+      self.clearButton.alpha = self.shouldShowClearButton.cgFloat
       self.layoutIfNeeded()
     }
   }
@@ -218,6 +224,12 @@ extension SearchBar: UITextFieldDelegate {
   ) -> Bool {
     let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
     self.didChangeSearchedValue?(result)
+
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+      // don't do it sync as the textfield is not immediately updated
+      self.update(oldModel: self.model)
+    }
+
     return true
   }
 }
