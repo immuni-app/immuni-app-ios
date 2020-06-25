@@ -49,7 +49,7 @@ struct SettingsVM: ViewModelWithLocalState {
   let isHeaderVisible: Bool
 
   var footerVM: SettingFooterVM {
-    return SettingFooterVM(title: "\(self.appName)  \(self.appVersion)")
+    return SettingFooterVM(title: "\(self.appName) \(self.appVersion)")
   }
 
   func shouldUpdateHeader(oldModel: SettingsVM?) -> Bool {

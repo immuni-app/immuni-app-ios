@@ -54,7 +54,7 @@ struct CustomerSupportVM: ViewModelWithLocalState {
     case .title(let title):
       return ContentCollectionTitleCellVM(content: title)
     case .textualContent(let content):
-      return ContentCollectionTextCellVM(content: content)
+      return ContentCollectionTextCellVM(content: content, useDarkStyle: true)
     case .button(let description, let title):
       return ContentCollectionButtonCellVM(description: description, buttonTitle: title)
     case .separator:

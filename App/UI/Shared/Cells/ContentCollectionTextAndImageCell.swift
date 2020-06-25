@@ -148,7 +148,7 @@ final class ContentCollectionTextAndImageCell: UICollectionViewCell, ModellableV
 private extension ContentCollectionTextAndImageCell {
   enum Style {
     static func textualContent(_ label: UILabel, content: String) {
-      ContentCollectionTextCell.Style.content(label, content: content)
+      ContentCollectionTextCell.Style.content(label, content: content, useDarkStyle: true)
     }
 
     static func imageContent(_ imageView: UIImageView, image: UIImage) {
