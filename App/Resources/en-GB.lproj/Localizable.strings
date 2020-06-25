@@ -205,7 +205,7 @@
 "suggestions.instruction.check_symptoms.message" = "In particular, fever or at least one of the following: sore throat, cough, cold or blocked nose, difficulty breathing, muscle pain, loss or alteration of sense of smell or taste, diarrhoea.";
 "suggestions.instruction.check_symptoms.title" = "<b>Measure your body temperature at least twice a day and assess if you are exhibiting symptoms, even mild ones.</b>";
 "suggestions.instruction.contact_doctor.message" = "Explain to your GP that you have received a COVID-19 close contact notification from Immuni. Follow your GP's instructions. \n\nYour GP will contact your local health authority's health care service. You should therefore ensure that you remain contactable by your local health authority for health monitoring activities.";
-"suggestions.instruction.contact_doctor.title" = "<b>Contact your general practitioner (or primary care paediatrician)</b>";
+"suggestions.instruction.contact_doctor.title" = "<b>Contact your general practitioner (or primary care paediatrician).</b>";
 "suggestions.instruction.distance" = "<b>Keep a distance of at least one metre when around other people.</b>";
 "suggestions.instruction.follow_instructions" = "To protect your health and the health of your loved ones, <b>please follow these guidelines:</b>";
 "suggestions.instruction.hide_alert.action" = "Hide alert";

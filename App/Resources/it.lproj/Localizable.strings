@@ -216,7 +216,7 @@
 "suggestions.instruction.check_symptoms.message" = "In particolare febbre o almeno uno dei seguenti: mal di gola, tosse, raffreddore o naso chiuso, difficoltà respiratoria, dolori muscolari, perdita o alterazioni di olfatto o gusto, diarrea.";
 "suggestions.instruction.check_symptoms.title" = "<b>Misura la temperatura corporea almeno due volte al giorno e valuta la comparsa di sintomi, anche lievi.</b>";
 "suggestions.instruction.contact_doctor.message" = "Spiega al medico di aver ricevuto una notifica di contatto stretto di COVID-19 da Immuni. Segui le indicazioni del tuo medico.\n\nIl tuo medico contatterà il Dipartimento di Prevenzione della tua ASL. Rimani, pertanto, raggiungibile per le attività di sorveglianza sanitaria da parte della tua ASL.";
-"suggestions.instruction.contact_doctor.title" = "<b>Contatta il tuo Medico di Medicina Generale (o il Pediatra di Libera Scelta)</b>";
+"suggestions.instruction.contact_doctor.title" = "<b>Contatta il tuo Medico di Medicina Generale (o il Pediatra di Libera Scelta).</b>";
 "suggestions.instruction.distance" = "<b>In presenza di altre persone, mantieni una distanza di almeno un metro.</b>";
 "suggestions.instruction.follow_instructions" = "Per proteggere la tua salute e quella dei tuoi cari, <b>rispetta le seguenti indicazioni:</b>";
 "suggestions.instruction.hide_alert.action" = "Nascondi avviso";
