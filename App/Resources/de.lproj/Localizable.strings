@@ -107,9 +107,9 @@
 "permission_tutorial.bluetooth.second" = "<b>2. Aktivieren Sie Bluetooth</b>";
 "permission_tutorial.bluetooth.title" = "So aktivieren Sie Bluetooth";
 "permission_tutorial.cant_update.first" = "<b>1. Stellen Sie sicher, dass Sie über WLAN verbunden sind.</b> Das Update kann nicht über das Mobilfunknetz heruntergeladen werden.";
+"permission_tutorial.cant_update.fourth" = "<b>4.</b> Versichern Sie sich nach dem Herunterladen, <b>dass die Installation abgeschlossen wird, indem Sie \"Jetzt installieren\" wählen</b>";
 "permission_tutorial.cant_update.second" = "<b>2. Sobald Sie über WLAN verbunden sind, gehen Sie zurück zu Einstellungen > Allgemein > Software-Update</b>";
 "permission_tutorial.cant_update.third" = "<b>3. Wählen Sie \"Herunterladen und installieren\"</b>";
-"permission_tutorial.cant_update.fourth" = "<b>4.</b> Versichern Sie sich nach dem Herunterladen, <b>dass die Installation abgeschlossen wird, indem Sie \"Jetzt installieren\" wählen</b>";
 "permission_tutorial.cant_update.title" = "Ist die Aktualisierung fehlgeschlagen?";
 "permission_tutorial.deactivate_service.action.cta" = "Einstellungen öffnen";
 "permission_tutorial.deactivate_service.fifth.message" = "<b>1. Öffnen Sie die Einstellungen über die Schaltfläche unten</b>";
@@ -212,10 +212,9 @@
 "suggestions.instruction.hide_alert.message" = "Bei Bedarf können Sie diese Warnung ausblenden. Sofern Sie keinen triftigen Grund haben, raten wir Ihnen dringend davon ab.";
 "suggestions.instruction.hide_if_contact_doctor.action" = "Ich habe den Arzt kontaktiert";
 "suggestions.instruction.hide_if_contact_doctor.message" = "Wenn Sie mit Ihrem Arzt oder Ihrer örtlichen Gesundheitsbehörde in Kontakt stehen, können Sie diese Warnung ausblenden.";
-"suggestions.instruction.isolate.title" = "<b>Wenn Symptome auftreten, isolieren Sie sich vom Rest Ihrer Mitbewohner.</b>";
 "suggestions.instruction.isolate.message" = "Tragen Sie eine Mundschutzmaske und wenden Sie sich sofort an Ihren Hausarzt (oder Kinderarzt Ihrer Wahl) und die Abteilung für Gesundheitsvorsorge Ihrer örtlichen Gesundheitsbehörde.";
+"suggestions.instruction.isolate.title" = "<b>Wenn Symptome auftreten, isolieren Sie sich vom Rest Ihrer Mitbewohner.</b>";
 "suggestions.instruction.limit_movement" = "<b>Schränken Sie die Nutzung anderer Gemeinschaftsräume des Hauses so weit es geht ein.</b>";
-"suggestions.instruction.mask" = "<b>Tragen Sie eine Maske an öffentlich zugänglichen Orten in Innenräumen</b>, einschließlich Transportmitteln, und in allen Fällen, in denen es nicht möglich ist, die Einhaltung des Sicherheitsabstands kontinuierlich zu gewährleisten.";
 "suggestions.instruction.mask.message" = "Auch in Transportmitteln und in jedem Fall überall, wo es nicht möglich ist, die Einhaltung des Sicherheitsabstands kontinuierlich zu gewährleisten.";
 "suggestions.instruction.mask.title" = "<b>Tragen Sie in öffentlich zugänglichen Innenräumen eine Maske.</b>";
 "suggestions.instruction.ministerial_decree" = "<b>Befolgen Sie die aktuellen Vorschriften in Ihrer Region.</b>";

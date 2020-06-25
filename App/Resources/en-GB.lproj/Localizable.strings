@@ -215,12 +215,13 @@
 "suggestions.instruction.isolate.message" = "Wear a surgical mask and immediately contact your general practitioner (or primary care paediatrician) and your local health authority's healthcare service.";
 "suggestions.instruction.isolate.title" = "<b>If you display symptoms, isolate yourself from the people you live with.</b>";
 "suggestions.instruction.limit_movement" = "<b>Minimise the time you spend in other common areas of the house.</b>";
-"suggestions.instruction.mask" = "<b>Wear a mask in indoor public places.</b> This includes public transport and all situations where it is not possible to ensure that a safe distance is maintained at all times.";
+"suggestions.instruction.mask.message" = "This includes public transport and all situations where it is not possible to ensure that a safe distance is maintained at all times.";  
 "suggestions.instruction.mask.title" = "<b>Wear a mask in indoor public places.</b>";
 "suggestions.instruction.ministerial_decree" = "<b>Comply with the current regulations in your area.</b>";
 "suggestions.instruction.phone_contact" = "<b>If you are having difficulty breathing, contact 112/118.</b>";
 "suggestions.instruction.social_distance" = "<b>Respect physical distancing measures</b> if you have to leave the house.";
-"suggestions.instruction.stay_home" = "<b>Stay at home for 14 days</b> after the contact date.";
+"suggestions.instruction.stay_home.message" = "Use a well-ventilated private room, if possible with its own bathroom.";
+"suggestions.instruction.stay_home.title" = "<b>Stay at home for 14 days</b> after the contact date.";
 "suggestions.instruction.under_18_message" = "If you're under 18, please have your parents/legal guardian read this message.";
 "suggestions.instruction.use_napkins" = "<b>Cough and sneeze directly into a tissue or into the crook of your elbow.</b>";
 "suggestions.instruction.wash_hands" = "<b>Wash your hands frequently</b> with soap and water or with alcohol hand sanitiser.";
