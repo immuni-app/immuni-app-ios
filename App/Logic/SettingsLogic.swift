@@ -178,6 +178,13 @@ extension Logic.Settings {
         return
       }
 
+      // handle abroad region
+      if self.region.isAbroadRegion {
+        // if the user cancels, the promise throws and the flow is interrupted.
+        // If the user accepts, instead, the flows continues as expected
+        try await(self.showAbroadConfirmation(dispatch: context.dispatch(_:)))
+      }
+
       if
         self.region.provinces.count == 1,
         let province = self.region.provinces.first {
@@ -194,6 +201,31 @@ extension Logic.Settings {
           context: OnboardingContainerNC
             .NavigationContext(child: .updateProvince(selectedRegion: self.region, currentUserProvince: province))
         ))
+    }
+
+    private func showAbroadConfirmation(dispatch: @escaping PromisableStoreDispatch) -> Promise<Void> {
+      return Promise { resolve, reject, _ in
+        let model = Alert.Model(
+          title: L10n.Onboarding.Region.Abroad.Alert.title,
+          message: L10n.Onboarding.Region.Abroad.Alert.message,
+          preferredStyle: .alert,
+          actions: [
+            .init(title: L10n.Onboarding.Region.Abroad.Alert.cancel, style: .cancel, onTap: {
+              reject(AbroadConfirmationError.userCancelled)
+            }),
+
+            .init(title: L10n.Onboarding.Region.Abroad.Alert.confirm, style: .default, onTap: {
+              resolve(())
+            })
+          ]
+        )
+
+        _ = dispatch(Logic.Alert.Show(alertModel: model))
+      }
+    }
+
+    private enum AbroadConfirmationError: Error {
+      case userCancelled
     }
   }
 
