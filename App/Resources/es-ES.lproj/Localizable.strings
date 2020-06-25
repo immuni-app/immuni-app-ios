@@ -205,7 +205,7 @@
 "suggestions.instruction.check_symptoms.message" = "Prêtez particulièrement attention à la fièvre ou à l'apparition d'au moins un des symptômes suivants : mal de gorge, toux, rhume ou nez bouché, difficulté à respirer, douleur musculaire, perte ou altération de l'odorat ou du goût, diarrhée.";
 "suggestions.instruction.check_symptoms.title" = "<b>Contrôlez votre température au moins deux fois par jour et prenez en compte l'apparition de symptômes, même s'ils sont légers.</b>";
 "suggestions.instruction.contact_doctor.message" = "Explica al médico que has recibido una notificación de contacto cercano con COVID-19 por parte de Immuni. Sigue las indicaciones de tu médico.\n\nTu médico se pondrá en contacto con el Departamento de Prevención de tu Agencia Sanitaria Local. Por tanto, mantente disponible para las operaciones de vigilancia sanitaria que lleve a cabo tu Agencia Sanitaria Local.";
-"suggestions.instruction.contact_doctor.title" = "<b>Contactez votre médecin généraliste (ou votre pédiatre)</b>";
+"suggestions.instruction.contact_doctor.title" = "<b>Contactez votre médecin généraliste (ou votre pédiatre).</b>";
 "suggestions.instruction.distance" = "<b>En présence d'autres personnes, maintenez une distance d'au moins un mètre.</b>";
 "suggestions.instruction.follow_instructions" = "Pour protéger votre santé et celle de vos proches, <b>respectez les consignes suivantes :</b>";
 "suggestions.instruction.hide_alert.action" = "Ocultar aviso";
@@ -215,12 +215,13 @@
 "suggestions.instruction.isolate.message" = "Portez un masque chirurgical et contactez immédiatement votre médecin généraliste (ou votre pédiatre) et le Service de prévention de l'ASL (agence de santé locale).";
 "suggestions.instruction.isolate.title" = "<b>Si des symptômes apparaissent, isolez-vous des personnes partageant votre domicile.</b>";
 "suggestions.instruction.limit_movement" = "<b>Limitez autant que possible vos déplacements dans les autres parties communes de la maison.</b>";
-"suggestions.instruction.mask" = "<b>Portez un masque dans les lieux intérieurs accessibles au public</b>, y compris les moyens de transport et chaque fois qu'il n'est pas possible de garantir en permanence le maintien des distances de sécurité.";
+"suggestions.instruction.mask.message" = "Incluidos los medios de transporte y en aquellos casos en que no sea posible mantener el distanciamiento físico de manera continua.";
 "suggestions.instruction.mask.title" = "<b>Portez un masque à l'intérieur des lieux accessibles au public.</b>";
 "suggestions.instruction.ministerial_decree" = "<b>Respectez la législation en vigueur dans votre région.</b>";
 "suggestions.instruction.phone_contact" = "<b>En cas de difficultés respiratoires, contactez le 112/118.</b>";
 "suggestions.instruction.social_distance" = "<b>Respectez les mesures de distanciation physique</b> si vous devez quitter votre domicile.";
-"suggestions.instruction.stay_home" = "<b>Restez à la maison pendant 14 jours</b> après la date de contact.";
+"suggestions.instruction.stay_home.message" = "Permanece en una habitación reservada y con buena ventilación, a ser posible con baño separado.";
+"suggestions.instruction.stay_home.title" = "<b>Quédate en casa durante 14 días</b> a partir de la fecha de contacto.";  
 "suggestions.instruction.under_18_message" = "Si eres menor de 18 años, pídeles a tus padres que lean este mensaje.";
 "suggestions.instruction.use_napkins" = "<b>Toussez et éternuez directement dans un mouchoir en papier ou dans votre coude.</b>";
 "suggestions.instruction.wash_hands" = "<b>Lavez-vous fréquemment les mains</b> à l'eau et au savon ou avec une solution hydroalcoolique.";
