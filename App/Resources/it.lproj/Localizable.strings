@@ -97,23 +97,21 @@
 "onboarding.push_permission.description" = "Le notifiche permettono a Immuni di avvisarti tempestivamente in caso di necessità.";
 "onboarding.push_permission.overlay.hint" = "Seleziona \"<b>Consenti</b>\" nel popup che apparirà qui sotto";
 "onboarding.push_permission.title" = "Consentici di comunicare con te";
-"onboarding.region.description" = "Seleziona la tua regione di domicilio per aiutare il Servizio Sanitario Nazionale ad assisterti al meglio.";
-"onboarding.region.title" = "In che regione vivi?";
-
-"onboarding.region.abroad.item" = "Non vivo in Italia";
-"onboarding.region.abroad.alert.title" = "Sei sicuro?";
-"onboarding.region.abroad.alert.message" = "Se non vivi in Italia ma hai intenzione di recartici, ti suggeriamo di selezionare già la regione (e successivamente la provincia) in cui soggiornerai per più tempo. Lo stesso vale nel caso in cui tu ti trovi già in Italia.";
 "onboarding.region.abroad.alert.cancel" = "Annulla";
 "onboarding.region.abroad.alert.confirm" = "Continua";
-
+"onboarding.region.abroad.alert.message" = "Se non vivi in Italia ma hai intenzione di recartici, ti suggeriamo di selezionare già la regione (e successivamente la provincia) in cui soggiornerai per più tempo. Lo stesso vale nel caso in cui tu ti trovi già in Italia.";
+"onboarding.region.abroad.alert.title" = "Sei sicuro?";
+"onboarding.region.abroad.item" = "Non vivo in Italia";
+"onboarding.region.description" = "Seleziona la tua regione di domicilio per aiutare il Servizio Sanitario Nazionale ad assisterti al meglio.";
+"onboarding.region.title" = "In che regione vivi?";
 "onboarding_exposure_api_not_activated" = "Notifiche di esposizione non attivate";
-"onboarding_exposure_message_extended" = "Le notifiche di esposizione richiedono che il servizio di localizzazione sia attivo a livello di sistema. <b>Immuni non ha accesso alla localizzazione e non può quindi conoscere la tua posizione o i tuoi spostamenti</b>.";
+"onboarding_exposure_message_extended" = "A causa di una limitazione del sistema operativo, il servizio di geolocalizzazione deve essere attivo per consentire lo scambio di codici casuali via Bluetooth. <b>Immuni non accede alla tua localizzazione, come puoi verificare consultando la lista dei permessi richiesti dall'app.</b>";
 "open_settings" = "Apri Impostazioni";
 "permission_tutorial.bluetooth.action" = "Apri Impostazioni";
 "permission_tutorial.bluetooth.first" = "<b>1. Accedi al Centro di Controllo.</b> Scorri verso il basso dall'angolo in alto a destra oppure verso l'alto dalla parte inferiore dello schermo, a seconda del dispositivo.";
 "permission_tutorial.bluetooth.second" = "<b>2. Attiva il Bluetooth</b>";
 "permission_tutorial.bluetooth.title" = "Per attivare il Bluetooth";
-"permission_tutorial.cant_update.first" = "<b>1. Assicurati di essere connesso tramite Wi-Fi.</b> Non è possibile scaricare l'aggiornamento da rete mobile.";
+"permission_tutorial.cant_update.first" = "<b>1. Assicurati di essere connesso tramite Wi-Fi.</b> Non è possibile scaricare l’aggiornamento da rete mobile.";
 "permission_tutorial.cant_update.fourth" = "<b>4.</b> Dopo averlo scaricato, <b>assicurati di averlo installato selezionando \"Installa ora\"</b>";
 "permission_tutorial.cant_update.second" = "<b>2. Una volta connesso al Wi-Fi, torna in Impostazioni > Generali > Aggiornamento Software</b>";
 "permission_tutorial.cant_update.third" = "<b>3. Seleziona \"Scarica e installa\"</b>";
@@ -159,7 +157,7 @@
 "permission_tutorial.notifications.third" = "<b>3. Abilita la voce \"Consenti notifiche\"</b>";
 "permission_tutorial.notifications.title" = "Per attivare le notifiche";
 "permission_tutorial.update_os.fifth" = "<b>5. Seleziona \"Scarica e installa\" e segui le istruzioni</b>";
-"permission_tutorial.update_os.first" = "<b>1. Assicurati di essere connesso tramite Wi-Fi.</b> Non è possibile scaricare l'aggiornamento da rete mobile.";
+"permission_tutorial.update_os.first" = "<b>1. Assicurati di essere connesso tramite Wi-Fi.</b> Non è possibile scaricare l’aggiornamento da rete mobile.";
 "permission_tutorial.update_os.fourth" = "<b>4. Entra in \"Aggiornamento Software\"</b>";
 "permission_tutorial.update_os.second" = "<b>2. Apri le impostazioni di sistema</b>";
 "permission_tutorial.update_os.third" = "<b>3. Entra in \"Generali\"</b>";
@@ -168,12 +166,10 @@
 "permission_tutorial.verify_immuni_works.second" = "<b>Se invece dovessero esserci problemi, leggerai \"Servizio non attivo\".</b> Immuni ti fornirà istruzioni semplici per ripristinarne il corretto funzionamento.";
 "permission_tutorial.verify_immuni_works.third" = "<b>Se entri in contatto con una persona che in seguito risulti positiva al virus, Immuni ti invierà una notifica per avvertirti del rischio di contagio.</b> Aprendo l'app, riceverai indicazioni chiare ed esaustive sul da farsi.";
 "permission_tutorial.verify_immuni_works.title" = "Come verificare che Immuni stia funzionando";
-
-"permission_tutorial.why_province_region.title" = "A cosa serve inserire regione e provincia di domicilio";
 "permission_tutorial.why_province_region.first" = "<b>Regione e provincia di domicilio sono utili al Servizio Sanitario Nazionale per poter prevenire l’insorgenza di nuovi focolai,</b> oltre che per poter stimare la diffusione dell’app sul territorio nazionale. La provincia di domicilio viene inviata al server del Ministero della Salute contestualmente alle informazioni sul corretto funzionamento dell’app e sul fatto che tu sia stato o meno avvertito di un contatto a rischio. Immuni raccoglie queste informazioni nella piena tutela della tua privacy.";
 "permission_tutorial.why_province_region.second" = "È possibile modificare regione e provincia di domicilio in un qualsiasi momento dalle impostazioni dell’app. Ti consigliamo di modificarle solamente in caso tu decida di cambiare domicilio. In tutti gli altri casi, inclusi viaggi occasionali, non è invece necessario farlo.";
 "permission_tutorial.why_province_region.third" = "<b>Nel caso in cui tu viva all’estero ma abbia intenzione di recarti in Italia, ti suggeriamo di selezionare già la regione (e successivamente la provincia) in cui soggiornerai per più tempo.</b> Puoi usare Immuni anche se ti trovi all’estero. L’app registrerà regolarmente i tuoi contatti con altri utenti. Non potrai tuttavia caricare i tuoi codici casuali in caso di rilevata positività fintanto che non ti troverai in Italia.";
-
+"permission_tutorial.why_province_region.title" = "A cosa serve inserire regione e provincia di domicilio";
 "privacy.checkbox.above14" = "Dichiaro di avere almeno 14 anni";
 "privacy.checkbox.privacyPolicyRead" = "Ho letto l'<l>informativa privacy</l>";
 "privacy.item.data_deletion" = "<b>Tutti i dati sono eliminati quando non più necessari</b> e in ogni caso non più tardi del 31 dicembre 2020.";
@@ -199,10 +195,12 @@
 "settings.setting.section.data" = "Caricamento dati";
 "settings.setting.section.general" = "Generale";
 "settings.setting.section.info" = "Informazioni";
+"settings.setting.share" = "Condividi l'app";
+"settings.setting.share.message" = "Aiutaci a combattere insieme l’epidemia di COVID-19. Scarica anche tu Immuni. https://www.immuni.italia.it/";
 "settings.setting.tos" = "Termini di utilizzo";
 "settings.update_province.update_province" = "Aggiorna";
 "settings_app_version" = "Immuni v%s (%d)";
-"suggestions.alert.asl_contact_confirmation.description" = "Immuni nasconderà l'avviso di contatto. Dovrai comunque seguire tutte le indicazione che hai ricevuto dal tuo medico o dalla tua ASL.";
+"suggestions.alert.asl_contact_confirmation.description" = "Immuni nasconderà l’avviso di contatto. Dovrai comunque seguire tutte le indicazioni che hai ricevuto dal tuo medico o dalla tua ASL.";
 "suggestions.alert.asl_contact_confirmation.negative_answer" = "No";
 "suggestions.alert.asl_contact_confirmation.positive_answer" = "Sì";
 "suggestions.alert.asl_contact_confirmation.title" = "Confermi di essere in contatto con il tuo medico o con la tua ASL?";
@@ -218,7 +216,7 @@
 "suggestions.instruction.check_symptoms.message" = "In particolare febbre o almeno uno dei seguenti: mal di gola, tosse, raffreddore o naso chiuso, difficoltà respiratoria, dolori muscolari, perdita o alterazioni di olfatto o gusto, diarrea.";
 "suggestions.instruction.check_symptoms.title" = "<b>Misura la temperatura corporea almeno due volte al giorno e valuta la comparsa di sintomi, anche lievi.</b>";
 "suggestions.instruction.contact_doctor.message" = "Spiega al medico di aver ricevuto una notifica di contatto stretto di COVID-19 da Immuni. Segui le indicazioni del tuo medico.\n\nIl tuo medico contatterà il Dipartimento di Prevenzione della tua ASL. Rimani, pertanto, raggiungibile per le attività di sorveglianza sanitaria da parte della tua ASL.";
-"suggestions.instruction.contact_doctor.title" = "<b>Contatta il tuo Medico di Medicina Generale (o il Pediatra di Libera Scelta).</b>";
+"suggestions.instruction.contact_doctor.title" = "<b>Contatta il tuo Medico di Medicina Generale (o il Pediatra di Libera Scelta)</b>";
 "suggestions.instruction.distance" = "<b>In presenza di altre persone, mantieni una distanza di almeno un metro.</b>";
 "suggestions.instruction.follow_instructions" = "Per proteggere la tua salute e quella dei tuoi cari, <b>rispetta le seguenti indicazioni:</b>";
 "suggestions.instruction.hide_alert.action" = "Nascondi avviso";
@@ -229,16 +227,14 @@
 "suggestions.instruction.isolate.title" = "<b>In caso di comparsa dei sintomi, isolati dal resto dei tuoi conviventi.</b>";
 "suggestions.instruction.limit_movement" = "<b>Limita al massimo i movimenti in altri spazi comuni della casa.</b>";
 "suggestions.instruction.mask" = "<b>Indossa una mascherina nei luoghi al chiuso accessibili al pubblico</b>, inclusi i mezzi di trasporto e comunque in tutte le occasioni in cui non sia possibile garantire continuativamente il mantenimento della distanza di sicurezza.";
-"suggestions.instruction.mask.message" = "Inclusi i mezzi di trasporto e comunque in tutte le occasioni in cui non sia possibile garantire continuativamente il mantenimento della distanza di sicurezza.";
 "suggestions.instruction.mask.title" = "<b>Indossa una mascherina nei luoghi al chiuso accessibili al pubblico.</b>";
 "suggestions.instruction.ministerial_decree" = "<b>Rispetta la normativa vigente nella tua area.</b>";
 "suggestions.instruction.phone_contact" = "<b>In caso di difficoltà respiratoria contatta il 112/118.</b>";
-"suggestions.instruction.social_distance" = "<b>Rispetta le misure di distanziamento fisico </b>se devi uscire di casa.";
-"suggestions.instruction.stay_home.message" = "Utilizza una stanza riservata e dotata di buona ventilazione, possibilmente con bagno dedicato.";
-"suggestions.instruction.stay_home.title" = "<b>Rimani a casa per i 14 giorni</b> successivi alla data del contatto.";
+"suggestions.instruction.social_distance" = "<b>Rispetta le misure di distanziamento fisico</b> se devi uscire di casa.";
+"suggestions.instruction.stay_home" = "<b>Rimani a casa per i 14 giorni</b> successivi alla data del contatto.";
 "suggestions.instruction.under_18_message" = "Se hai meno di 18 anni, fai leggere questo messaggio ai tuoi genitori.";
 "suggestions.instruction.use_napkins" = "<b>Tossisci e starnutisci direttamente su un fazzoletto di carta o nella piega del gomito.</b>";
-"suggestions.instruction.wash_hands" = "<b>Lavati frequentemente le mani </b>con acqua e sapone o con soluzioni idroalcoliche.";
+"suggestions.instruction.wash_hands" = "<b>Lavati frequentemente le mani</b> con acqua e sapone o con soluzioni idroalcoliche.";
 "suggestions.instruction.while_waiting_doctor" = "In via precauzionale, <b>in attesa delle indicazioni del tuo medico o della ASL:</b>";
 "suggestions.neutral.alert" = "Se sei in contatto con il tuo medico o con il Dipartimento di Prevenzione della tua ASL, segui tutte le indicazioni che hai ricevuto.";
 "suggestions.neutral.message" = "In ogni caso, <b>cerca sempre di rispettare queste indicazioni generali:</b>";
@@ -252,7 +248,7 @@
 "suggestions.risk.fourth.message" = "Per ulteriori informazioni sui dati trasmessi al Ministero della Salute puoi leggere l'<l>informativa privacy</l> al punto 4.";
 "suggestions.risk.second.message" = "Per aiutare il Servizio Sanitario Nazionale a prendersi cura di te in caso di necessità l'app ha informato il Ministero della Salute della notifica che hai ricevuto.";
 "suggestions.risk.subtitle" = "Immuni ha rilevato che il giorno %@ sei stato vicino a un utente COVID-19 positivo.";
-"suggestions.risk.third.message" = "<b>Il Ministero della Salute non può in ogni caso risalire alla tua identità sulla base di queste informazioni</b>.";
+"suggestions.risk.third.message" = "<b>Il Ministero della Salute non può in ogni caso risalire alla tua identità sulla base di queste informazioni.</b>";
 "suggestions.risk.title" = "Esposizione a rischio";
 "support.contact_support" = "Se non hai trovato la risposta che cercavi, <b>puoi contattare il supporto di Immuni.</b>";
 "support.email.description" = "Se scegli di contattare il supporto tramite email, il tuo indirizzo email sarà visibile al servizio clienti.";
@@ -271,10 +267,10 @@
 "support.info.item.connectionType.wifi" = "Wi-Fi";
 "support.info.item.device" = "Modello";
 "support.info.item.exposureNotificationEnabled" = "Notifiche di esposizione";
-"support.info.item.os" = "Sistema operativo";
 "support.info.item.lastENCheck" = "Ultima verifica";
-"support.info.item.lastENCheck.none" = "Nessuna";
 "support.info.item.lastENCheck.date" = "%@ alle %@";
+"support.info.item.lastENCheck.none" = "Nessuna";
+"support.info.item.os" = "Sistema operativo";
 "support.info.title" = "Informazioni utili";
 "support.phone.description" = "Numero attivo dalle %@ alle %@.";
 "support.phone.title" = "Chiama il numero verde";
@@ -310,6 +306,7 @@
 "upload_data.wait_operator.message" = "Attendi la conferma dell'operatore";
 "upload_data.warning.discover_more" = "Scopri di più";
 "upload_data.warning.message" = "Questa funzione richiede l'assistenza dell'operatore sanitario che ti comunica telefonicamente l'esito positivo del tampone.";
+"verify_immuni_works_fourth" = "Per motivi tecnici, <b>alcuni modelli di smartphone Android possono interrompere il funzionamento di Immuni se l’app rimane chiusa per qualche giorno</b>. Quando questo accade, lo scambio di codici casuali con altri dispositivi rimane attivo, ma Immuni non è in grado di verificare se sei stato esposto a utenti potenzialmente contagiosi, avvertendoti in caso di rischio. Per evitare che ciò accada, apri l’app una volta al giorno. Google sta collaborando con i produttori di questi modelli per risolvere il problema.";
 "welcome_view.discover_more" = "Scopri come funziona l'app";
 "welcome_view.go_next" = "Iniziamo";
 "welcome_view.items.first.description" = "Con il contributo di tutti, Immuni aiuta a contenere il virus e a tornare il prima possibile alla normalità.";
@@ -321,6 +318,3 @@
 "welcome_view.items.third.description" = "Gli utenti che scoprono di essere stati esposti al virus possono isolarsi, rallentando così la diffusione del virus e  accelerando il ritorno alla vita normale.";
 "welcome_view.items.third.title" = "Rallentiamo insieme l'epidemia";
 "welcome_view.next_page_title" = "Avanti";
-
-"settings.setting.share" = "Condividi l'app";
-"settings.setting.share.message" = "Aiutaci a combattere insieme l’epidemia di COVID-19. Scarica anche tu Immuni. https://www.immuni.italia.it/";
