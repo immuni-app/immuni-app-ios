@@ -78,6 +78,11 @@ class PermissionTutorialUITests: AppViewTestCase, ViewTestCase {
           content: .howToUploadWhenPositive,
           isHeaderVisible: false,
           shouldAnimateContent: false
+        ),
+        "why_province_region": PermissionTutorialVM(
+          content: .whyProvinceRegion,
+          isHeaderVisible: false,
+          shouldAnimateContent: false
         )
       ],
       context: context

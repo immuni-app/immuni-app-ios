@@ -138,17 +138,17 @@ class WelcomeView: UIView, ViewControllerModellableView {
       .bottom(self.universalSafeAreaInsets.bottom + UIDevice.getByScreen(normal: 30, short: 20))
       .justify(.center)
 
+    self.discoverMoreButton.pin
+      .horizontally(Self.horizontalSpacing)
+      .above(of: self.nextButton)
+      .marginBottom(UIDevice.getByScreen(normal: 25, narrow: 10))
+      .sizeToFit(.width)
+
     self.pageControl.pin
       .width(80)
       .hCenter()
-      .above(of: self.nextButton)
+      .above(of: self.discoverMoreButton)
       .marginBottom(UIDevice.getByScreen(normal: 20, narrow: 10))
-      .sizeToFit(.width)
-
-    self.discoverMoreButton.pin
-      .horizontally(Self.horizontalSpacing)
-      .above(of: self.pageControl)
-      .marginBottom(UIDevice.getByScreen(normal: 20, narrow: 0))
       .sizeToFit(.width)
 
     self.scrollView.pin.all()
@@ -156,7 +156,7 @@ class WelcomeView: UIView, ViewControllerModellableView {
     for (index, page) in self.pages.enumerated() {
       page.pin
         .top()
-        .above(of: self.discoverMoreButton)
+        .above(of: self.pageControl)
         .marginBottom(UIDevice.getByScreen(normal: 20, narrow: 10))
         .width(self.frame.width)
         .start(self.frame.width * CGFloat(index))
@@ -170,6 +170,17 @@ class WelcomeView: UIView, ViewControllerModellableView {
       width: self.frame.width * CGFloat(WelcomeVM.numberOfPages),
       height: self.frame.height
     )
+  }
+
+  func playCurrentPage() {
+    guard let model = self.model else {
+      return
+    }
+    self.pages[model.currentPage].playAnimation()
+  }
+
+  func pauseAllPages() {
+    for page in self.pages { page.pauseAnimation() }
   }
 }
 
@@ -235,6 +246,9 @@ extension WelcomeView {
     frame.origin.x = frame.size.width * CGFloat(page)
     frame.origin.y = 0
     self.scrollView.scrollRectToVisible(frame, animated: animated)
+
+    self.pauseAllPages()
+    self.playCurrentPage()
 
     UIView.update(shouldAnimate: animated) {
       self.pageControl.currentPage = page

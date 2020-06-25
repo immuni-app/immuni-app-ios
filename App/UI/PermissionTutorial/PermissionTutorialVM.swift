@@ -63,8 +63,8 @@ struct PermissionTutorialVM {
     case .title(let title):
       return ContentCollectionTitleCellVM(content: title)
 
-    case .textualContent(let content):
-      return ContentCollectionTextCellVM(content: content)
+    case .textualContent(let content, let isDark):
+      return ContentCollectionTextCellVM(content: content, useDarkStyle: isDark)
 
     case .animationContent(let animationAsset):
       return ContentCollectionAnimationCellVM(
@@ -144,7 +144,7 @@ extension PermissionTutorialVM {
 extension PermissionTutorialVM.Content {
   enum Item: Equatable {
     case title(String)
-    case textualContent(String)
+    case textualContent(String, isDark: Bool)
     case animationContent(AnimationAsset)
     case imageContent(UIImage)
     case textAndImage(String, UIImage, ContentCollectionTextAndImageCellVM.Alignment)
@@ -159,12 +159,12 @@ extension PermissionTutorialVM.Content {
       title: L10n.PermissionTutorial.Notifications.title,
       items: [
         .spacer(.big),
-        .textualContent(L10n.PermissionTutorial.Notifications.first),
+        .textualContent(L10n.PermissionTutorial.Notifications.first, isDark: true),
         .spacer(.medium),
-        .textualContent(L10n.PermissionTutorial.Notifications.second),
+        .textualContent(L10n.PermissionTutorial.Notifications.second, isDark: true),
         .imageContent(Asset.PermissionTutorial.notification.image),
         .spacer(.small),
-        .textualContent(L10n.PermissionTutorial.Notifications.third),
+        .textualContent(L10n.PermissionTutorial.Notifications.third, isDark: true),
         .imageContent(Asset.PermissionTutorial.allowNotification.image)
       ],
       mainActionTitle: L10n.PermissionTutorial.Notifications.action,
@@ -177,9 +177,9 @@ extension PermissionTutorialVM.Content {
       title: L10n.PermissionTutorial.Bluetooth.title,
       items: [
         .spacer(.big),
-        .textualContent(L10n.PermissionTutorial.Bluetooth.first),
+        .textualContent(L10n.PermissionTutorial.Bluetooth.first, isDark: true),
         .spacer(.medium),
-        .textualContent(L10n.PermissionTutorial.Bluetooth.second),
+        .textualContent(L10n.PermissionTutorial.Bluetooth.second, isDark: true),
         .imageContent(Asset.PermissionTutorial.bluetooth.image)
       ],
       mainActionTitle: nil,
@@ -193,9 +193,9 @@ extension PermissionTutorialVM.Content {
       title: L10n.PermissionTutorial.ExposureNotification.Unauthorized.title,
       items: [
         .spacer(.big),
-        .textualContent(L10n.PermissionTutorial.ExposureNotification.Unauthorized.first),
+        .textualContent(L10n.PermissionTutorial.ExposureNotification.Unauthorized.first, isDark: true),
         .spacer(.medium),
-        .textualContent(L10n.PermissionTutorial.ExposureNotification.Unauthorized.second),
+        .textualContent(L10n.PermissionTutorial.ExposureNotification.Unauthorized.second, isDark: true),
         .imageContent(Asset.PermissionTutorial.covid19ExpositionSetting.image)
       ],
       mainActionTitle: L10n.PermissionTutorial.ExposureNotification.Unauthorized.action,
@@ -209,19 +209,19 @@ extension PermissionTutorialVM.Content {
       title: L10n.PermissionTutorial.ExposureNotification.Restricted.title,
       items: [
         .spacer(.big),
-        .textualContent(L10n.PermissionTutorial.ExposureNotification.Restricted.first),
+        .textualContent(L10n.PermissionTutorial.ExposureNotification.Restricted.first, isDark: true),
         .imageContent(Asset.PermissionTutorial.settings.image),
         .spacer(.small),
-        .textualContent(L10n.PermissionTutorial.ExposureNotification.Restricted.second),
+        .textualContent(L10n.PermissionTutorial.ExposureNotification.Restricted.second, isDark: true),
         .imageContent(Asset.PermissionTutorial.privacy.image),
         .spacer(.small),
-        .textualContent(L10n.PermissionTutorial.ExposureNotification.Restricted.third),
+        .textualContent(L10n.PermissionTutorial.ExposureNotification.Restricted.third, isDark: true),
         .imageContent(Asset.PermissionTutorial.health.image),
         .spacer(.small),
-        .textualContent(L10n.PermissionTutorial.ExposureNotification.Restricted.fourth),
+        .textualContent(L10n.PermissionTutorial.ExposureNotification.Restricted.fourth, isDark: true),
         .imageContent(Asset.PermissionTutorial.covid19Exposition.image),
         .spacer(.small),
-        .textualContent(L10n.PermissionTutorial.ExposureNotification.Restricted.fifth),
+        .textualContent(L10n.PermissionTutorial.ExposureNotification.Restricted.fifth, isDark: true),
         .imageContent(Asset.PermissionTutorial.covid19ExpositionLog.image)
       ],
       mainActionTitle: nil,
@@ -240,17 +240,17 @@ extension PermissionTutorialVM.Content {
           .imageBeforeText
         ),
         .spacer(.big),
-        .textualContent(L10n.PermissionTutorial.DeactivateService.Second.message),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Second.message, isDark: true),
         .spacer(.small),
-        .textualContent(L10n.PermissionTutorial.DeactivateService.Third.message),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Third.message, isDark: true),
         .spacer(.big),
         .imageContent(Asset.Common.separator.image),
         .spacer(.big),
-        .textualContent(L10n.PermissionTutorial.DeactivateService.Fourth.message),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Fourth.message, isDark: true),
         .spacer(.big),
-        .textualContent(L10n.PermissionTutorial.DeactivateService.Fifth.message),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Fifth.message, isDark: true),
         .spacer(.medium),
-        .textualContent(L10n.PermissionTutorial.DeactivateService.Sixth.message),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Sixth.message, isDark: true),
         .spacer(.small),
         .imageContent(Asset.PermissionTutorial.covid19ExpositionDisabled.image),
         .scrollableButton(description: "", buttonTitle: L10n.PermissionTutorial.DeactivateService.Action.cta),
@@ -266,15 +266,15 @@ extension PermissionTutorialVM.Content {
       title: L10n.PermissionTutorial.UpdateOs.title,
       items: [
         .spacer(.big),
-        .textualContent(L10n.PermissionTutorial.UpdateOs.first),
+        .textualContent(L10n.PermissionTutorial.UpdateOs.first, isDark: true),
         .spacer(.small),
-        .textualContent(L10n.PermissionTutorial.UpdateOs.second),
+        .textualContent(L10n.PermissionTutorial.UpdateOs.second, isDark: true),
         .imageContent(Asset.PermissionTutorial.settings.image),
-        .textualContent(L10n.PermissionTutorial.UpdateOs.third),
+        .textualContent(L10n.PermissionTutorial.UpdateOs.third, isDark: true),
         .imageContent(Asset.PermissionTutorial.settingsGeneral.image),
-        .textualContent(L10n.PermissionTutorial.UpdateOs.fourth),
+        .textualContent(L10n.PermissionTutorial.UpdateOs.fourth, isDark: true),
         .imageContent(Asset.PermissionTutorial.softwareUpdate.image),
-        .textualContent(L10n.PermissionTutorial.UpdateOs.fifth),
+        .textualContent(L10n.PermissionTutorial.UpdateOs.fifth, isDark: true),
         .spacer(.big)
       ],
       mainActionTitle: nil,
@@ -287,15 +287,15 @@ extension PermissionTutorialVM.Content {
       title: L10n.PermissionTutorial.CantUpdate.title,
       items: [
         .spacer(.big),
-        .textualContent(L10n.PermissionTutorial.CantUpdate.first),
+        .textualContent(L10n.PermissionTutorial.CantUpdate.first, isDark: true),
         .spacer(.small),
-        .textualContent(L10n.PermissionTutorial.CantUpdate.second),
+        .textualContent(L10n.PermissionTutorial.CantUpdate.second, isDark: true),
         .spacer(.small),
-        .textualContent(L10n.PermissionTutorial.CantUpdate.third),
+        .textualContent(L10n.PermissionTutorial.CantUpdate.third, isDark: true),
         .spacer(.small),
         .imageContent(Asset.PermissionTutorial.downloadAndInstall.image),
         .spacer(.small),
-        .textualContent(L10n.PermissionTutorial.CantUpdate.fourth),
+        .textualContent(L10n.PermissionTutorial.CantUpdate.fourth, isDark: true),
         .spacer(.small),
         .imageContent(Asset.PermissionTutorial.installNow.image),
         .spacer(.big)
@@ -310,41 +310,41 @@ extension PermissionTutorialVM.Content {
       .spacer(.big),
       .animationContent(.hiw1),
       .spacer(.medium),
-      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.First.title),
+      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.First.title, isDark: true),
       .spacer(.tiny),
-      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.First.message),
+      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.First.message, isDark: true),
       .spacer(.medium),
       .imageContent(Asset.HowImmuniWorks.break.image),
       .spacer(.big),
       .animationContent(.hiw2),
       .spacer(.medium),
-      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Second.title),
+      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Second.title, isDark: true),
       .spacer(.tiny),
-      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Second.message),
+      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Second.message, isDark: true),
       .spacer(.medium),
       .imageContent(Asset.HowImmuniWorks.break.image),
       .spacer(.big),
       .animationContent(.hiw3),
       .spacer(.medium),
-      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Third.title),
+      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Third.title, isDark: true),
       .spacer(.tiny),
-      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Third.message),
+      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Third.message, isDark: true),
       .spacer(.medium),
       .imageContent(Asset.HowImmuniWorks.break.image),
       .spacer(.big),
       .animationContent(.hiw4),
       .spacer(.medium),
-      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Fourth.title),
+      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Fourth.title, isDark: true),
       .spacer(.tiny),
-      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Fourth.message),
+      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Fourth.message, isDark: true),
       .spacer(.medium),
       .imageContent(Asset.HowImmuniWorks.break.image),
       .spacer(.big),
       .animationContent(.hiw5),
       .spacer(.medium),
-      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Fifth.title),
+      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Fifth.title, isDark: true),
       .spacer(.tiny),
-      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Fifth.message),
+      .textualContent(L10n.PermissionTutorial.HowImmuniWorks.Fifth.message, isDark: true),
       .spacer(.medium)
     ]
     var action: Dispatchable?
@@ -373,11 +373,11 @@ extension PermissionTutorialVM.Content {
       title: L10n.PermissionTutorial.VerifyImmuniWorks.title,
       items: [
         .spacer(.big),
-        .textualContent(L10n.PermissionTutorial.VerifyImmuniWorks.first),
+        .textualContent(L10n.PermissionTutorial.VerifyImmuniWorks.first, isDark: false),
         .spacer(.small),
-        .textualContent(L10n.PermissionTutorial.VerifyImmuniWorks.second),
+        .textualContent(L10n.PermissionTutorial.VerifyImmuniWorks.second, isDark: false),
         .spacer(.small),
-        .textualContent(L10n.PermissionTutorial.VerifyImmuniWorks.third),
+        .textualContent(L10n.PermissionTutorial.VerifyImmuniWorks.third, isDark: false),
         .spacer(.big)
       ],
       mainActionTitle: nil,
@@ -390,11 +390,28 @@ extension PermissionTutorialVM.Content {
       title: L10n.PermissionTutorial.HowToUploadPositive.title,
       items: [
         .spacer(.big),
-        .textualContent(L10n.PermissionTutorial.HowToUploadPositive.first),
+        .textualContent(L10n.PermissionTutorial.HowToUploadPositive.first, isDark: false),
         .spacer(.small),
-        .textualContent(L10n.PermissionTutorial.HowToUploadPositive.second),
+        .textualContent(L10n.PermissionTutorial.HowToUploadPositive.second, isDark: false),
         .spacer(.small),
-        .textualContent(L10n.PermissionTutorial.HowToUploadPositive.third),
+        .textualContent(L10n.PermissionTutorial.HowToUploadPositive.third, isDark: false),
+        .spacer(.big)
+      ],
+      mainActionTitle: nil,
+      action: nil
+    )
+  }
+
+  static var whyProvinceRegion: Self {
+    return PermissionTutorialVM.Content(
+      title: L10n.PermissionTutorial.WhyProvinceRegion.title,
+      items: [
+        .spacer(.big),
+        .textualContent(L10n.PermissionTutorial.WhyProvinceRegion.first, isDark: false),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.WhyProvinceRegion.second, isDark: false),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.WhyProvinceRegion.third, isDark: false),
         .spacer(.big)
       ],
       mainActionTitle: nil,

@@ -38,9 +38,11 @@ class CollectionWithShadowLayout: UICollectionViewFlowLayout {
     self.register(ShadowedDecorationView.self, forDecorationViewOfKind: self.decorationViewKind)
   }
 
-  var startPath: IndexPath?
-  var endPath: IndexPath?
-  var decorationIndex: Int = 0
+  private var startPath: IndexPath?
+  private var endPath: IndexPath?
+  private var decorationIndex: Int = 0
+  // cached decorated cell paths. This is necessary as `cellForItem` could return `nil` when the cell is not visible.
+  private var decoratedCellPaths: Set<IndexPath> = []
 
   // swiftlint:disable discouraged_optional_collection
   override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
@@ -59,7 +61,8 @@ class CollectionWithShadowLayout: UICollectionViewFlowLayout {
         for item in 0 ..< collection.numberOfItems(inSection: section) {
           let path = IndexPath(item: item, section: section)
 
-          if collection.cellForItem(at: path) is CellWithShadow {
+          if self.decoratedCellPaths.contains(path) || collection.cellForItem(at: path) is CellWithShadow {
+            self.decoratedCellPaths.insert(path)
             // start or extend decoration
             self.startOrExtendDecoration(with: path)
           } else {

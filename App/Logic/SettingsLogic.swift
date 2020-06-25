@@ -129,6 +129,13 @@ extension Logic.Settings {
     }
   }
 
+  /// Share the app
+  struct ShareApp: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      try context.awaitDispatch(Show(Screen.shareText, animated: true, context: L10n.Settings.Setting.Share.message))
+    }
+  }
+
   /// Shows the customer support screen
   struct ShowCustomerSupport: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
@@ -171,6 +178,13 @@ extension Logic.Settings {
         return
       }
 
+      // handle abroad region
+      if self.region.isAbroadRegion {
+        // if the user cancels, the promise throws and the flow is interrupted.
+        // If the user accepts, instead, the flows continues as expected
+        try await(self.showAbroadConfirmation(dispatch: context.dispatch(_:)))
+      }
+
       if
         self.region.provinces.count == 1,
         let province = self.region.provinces.first {
@@ -187,6 +201,31 @@ extension Logic.Settings {
           context: OnboardingContainerNC
             .NavigationContext(child: .updateProvince(selectedRegion: self.region, currentUserProvince: province))
         ))
+    }
+
+    private func showAbroadConfirmation(dispatch: @escaping PromisableStoreDispatch) -> Promise<Void> {
+      return Promise { resolve, reject, _ in
+        let model = Alert.Model(
+          title: L10n.Onboarding.Region.Abroad.Alert.title,
+          message: L10n.Onboarding.Region.Abroad.Alert.message,
+          preferredStyle: .alert,
+          actions: [
+            .init(title: L10n.Onboarding.Region.Abroad.Alert.cancel, style: .cancel, onTap: {
+              reject(AbroadConfirmationError.userCancelled)
+            }),
+
+            .init(title: L10n.Onboarding.Region.Abroad.Alert.confirm, style: .default, onTap: {
+              resolve(())
+            })
+          ]
+        )
+
+        _ = dispatch(Logic.Alert.Show(alertModel: model))
+      }
+    }
+
+    private enum AbroadConfirmationError: Error {
+      case userCancelled
     }
   }
 
@@ -217,7 +256,8 @@ extension Logic.Settings {
         "\(L10n.Support.Info.Item.exposureNotificationEnabled): \(state.environment.exposureNotificationAuthorizationStatus.isAuthorized ? L10n.Support.Info.ExposureNotifications.active : L10n.Support.Info.ExposureNotifications.inactive)",
         "\(L10n.Support.Info.Item.bluetoothEnabled): \(state.environment.exposureNotificationAuthorizationStatus.canPerformDetection ? L10n.Support.Info.Bluetooth.active : L10n.Support.Info.Bluetooth.inactive)",
         "\(L10n.Support.Info.Item.appVersion): \(state.environment.appVersion)",
-        "\(L10n.Support.Info.Item.connectionType): \(state.environment.networkReachabilityStatus.description)"
+        "\(L10n.Support.Info.Item.connectionType): \(state.environment.networkReachabilityStatus.description)",
+        "\(L10n.Support.Info.Item.lastENCheck): \(state.exposureDetection.lastDetectionDate?.asFormattedLastENCheck ?? L10n.Support.Info.Item.LastENCheck.none)"
       ]
       // swiftlint:enable line_length
       let infoString = infos.joined(separator: "; ")
