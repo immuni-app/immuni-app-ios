@@ -215,7 +215,6 @@
 "suggestions.instruction.isolate.message" = "Portez un masque chirurgical et contactez immédiatement votre médecin généraliste (ou votre pédiatre) et le Service de prévention de l'ASL (agence de santé locale).";
 "suggestions.instruction.isolate.title" = "<b>Si des symptômes apparaissent, isolez-vous des personnes partageants votre domicile.</b>";
 "suggestions.instruction.limit_movement" = "<b>Limitez autant que possible vos déplacements dans les autres parties communes de la maison.</b>";
-"suggestions.instruction.mask" = "<b>Portez un masque dans les lieux intérieurs accessibles au public</b>, y compris les moyens de transport et chaque fois qu'il n'est pas possible de garantir en permanence le maintien des distances de sécurité.";
 "suggestions.instruction.mask.message" = "Y compris dans les moyens de transport et chaque fois qu'il n'est pas possible de garantir en permanence le maintien des distances de sécurité.";
 "suggestions.instruction.mask.title" = "<b>Portez un masque dans les lieux en intérieur accessibles au public.</b>";
 "suggestions.instruction.ministerial_decree" = "<b>Respectez la législation en vigueur dans votre région.</b>";
