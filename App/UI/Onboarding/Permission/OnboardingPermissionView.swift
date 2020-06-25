@@ -21,11 +21,11 @@ import Tempura
 
 class OnboardingPermissionView: UIView, ViewControllerModellableView {
   private static let verticalSpacing: CGFloat = UIDevice.getByScreen(normal: 25, narrow: 10)
-
   private static let horizontalSpacing: CGFloat = UIDevice.getByScreen(
     normal: OnboardingContainerAccessoryView.horizontalSpacing,
     narrow: OnboardingContainerAccessoryView.horizontalSpacing / 2.0
   )
+  private static let expectedAssetHeight: CGFloat = 375
 
   // MARK: - Subviews
 
@@ -122,10 +122,9 @@ class OnboardingPermissionView: UIView, ViewControllerModellableView {
   }
 
   private func updateAfterLayout() {
-    let contentSize = self.animation.intrinsicContentSize
     let realContentViewSize = self.animation.frame.size
 
-    let isContentRelevant = (realContentViewSize.height / contentSize.height) > 0.3
+    let isContentRelevant = (realContentViewSize.height / Self.expectedAssetHeight) > 0.3
     self.animation.alpha = isContentRelevant.cgFloat
   }
 }
