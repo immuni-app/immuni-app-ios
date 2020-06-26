@@ -49,7 +49,6 @@
 "home_view.info_header.title" = "Informations";
 "home_view.service.active.discover_more" = "En savoir plus";
 "home_view.service.active.subtitle" = "Immuni fonctionne même lorsque l’application est fermée.";
-"home_view.service.active.subtitle" = "Ouvrez Immuni une fois par jour pour vérifier son statut.";
 "home_view.service.active.title" = "Service\n<b>activé</b>";
 "home_view.service.deactivate" = "Désactiver le service";
 "home_view.service.not_active.button" = "Réactiver Immuni";

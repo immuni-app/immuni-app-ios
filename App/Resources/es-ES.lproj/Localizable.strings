@@ -48,7 +48,6 @@
 "home_view.info.protection.title" = "¿Qué medidas puedes adoptar para protegerte?";
 "home_view.info_header.title" = "Información";
 "home_view.service.active.discover_more" = "Más información";
-"home_view.service.active.subtitle" = "Abre Immuni una vez al día para verificar su estado.";
 "home_view.service.active.subtitle" = "Immuni sigue funcionando aunque la aplicación esté cerrada.";
 "home_view.service.active.title" = "Servicio\n<b>activo</b>";
 "home_view.service.deactivate" = "Desactivar el servicio";
@@ -308,7 +307,6 @@
 "upload_data.wait_operator.message" = "Espera a recibir la confirmación del profesional sanitario";
 "upload_data.warning.discover_more" = "Más información";
 "upload_data.warning.message" = "Esta función requiere la asistencia del profesional sanitario que te comunique por teléfono que el resultado de la prueba es positivo.";
-"verify_immuni_works_fourth" = "Pour des raisons techniques, <b>certains modèles de smartphones Android peuvent interrompre le fonctionnement d'Immuni si l'application reste fermée pendant quelques jours</b>. Dans ce cas, l'échange de codes aléatoires avec d'autres appareils reste activé mais Immuni ne sera pas en mesure de vérifier si vous avez été exposé à des utilisateurs potentiellement contagieux, ni vous avertir en cas de risque. Pour éviter cela, ouvrez l'application une fois par jour. Google travaille avec les fabricants de ces modèles pour résoudre le problème.";
 "welcome_view.discover_more" = "Descubre cómo funciona la aplicación";
 "welcome_view.go_next" = "Empezar";
 "welcome_view.items.first.description" = "Con la ayuda de todos, Immuni contribuye a contener el virus y a volver a la normalidad lo antes posible.";

@@ -307,7 +307,6 @@
 "upload_data.wait_operator.message" = "Attendi la conferma dell'operatore";
 "upload_data.warning.discover_more" = "Scopri di più";
 "upload_data.warning.message" = "Questa funzione richiede l'assistenza dell'operatore sanitario che ti comunica telefonicamente l'esito positivo del tampone.";
-"verify_immuni_works_fourth" = "Per motivi tecnici, <b>alcuni modelli di smartphone Android possono interrompere il funzionamento di Immuni se l’app rimane chiusa per qualche giorno</b>. Quando questo accade, lo scambio di codici casuali con altri dispositivi rimane attivo, ma Immuni non è in grado di verificare se sei stato esposto a utenti potenzialmente contagiosi, avvertendoti in caso di rischio. Per evitare che ciò accada, apri l’app una volta al giorno. Google sta collaborando con i produttori di questi modelli per risolvere il problema.";
 "welcome_view.discover_more" = "Scopri come funziona l'app";
 "welcome_view.go_next" = "Iniziamo";
 "welcome_view.items.first.description" = "Con il contributo di tutti, Immuni aiuta a contenere il virus e a tornare il prima possibile alla normalità.";
