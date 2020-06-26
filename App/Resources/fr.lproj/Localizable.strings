@@ -48,7 +48,7 @@
 "home_view.info.protection.title" = "Que pouvez-vous faire pour vous protéger ?";
 "home_view.info_header.title" = "Informations";
 "home_view.service.active.discover_more" = "En savoir plus";
-"home_view.service.active.subtitle" = "Ouvrez Immuni une fois par jour pour vérifier son statut.";
+"home_view.service.active.subtitle" = "Immuni fonctionne même lorsque l’application est fermée.";
 "home_view.service.active.title" = "Service\n<b>activé</b>";
 "home_view.service.deactivate" = "Désactiver le service";
 "home_view.service.not_active.button" = "Réactiver Immuni";
@@ -97,6 +97,11 @@
 "onboarding.push_permission.description" = "Les notifications permettent à Immuni de vous informer rapidement en cas de besoin.";
 "onboarding.push_permission.overlay.hint" = "Sélectionnez <b>Autoriser</b> dans la fenêtre contextuelle qui apparaîtra ci-dessous";
 "onboarding.push_permission.title" = "Autorisez-nous à communiquer avec vous";
+"onboarding.region.abroad.alert.cancel" = "Annuler";
+"onboarding.region.abroad.alert.confirm" = "Continuer";
+"onboarding.region.abroad.alert.message" = "Si vous ne vivez pas en Italie mais avez l'intention de vous y rendre, nous vous suggérons de sélectionner la région (puis la province) dans laquelle vous séjournerez le plus longtemps. Il en va de même si vous vous trouvez déjà en Italie.";
+"onboarding.region.abroad.alert.title" = "Vous êtes sûr ?";
+"onboarding.region.abroad.item" = "Je ne vis pas en italie";
 "onboarding.region.description" = "Sélectionnez la province de votre domicile pour aider les services de santé nationaux à mieux vous prêter assistance.";
 "onboarding.region.title" = "Dans quelle région habitez-vous ?";
 "onboarding_exposure_api_not_activated" = "Notifications de risque d'exposition désactivées";
@@ -161,6 +166,10 @@
 "permission_tutorial.verify_immuni_works.second" = "<b>En cas de problème, vous lirez \"Service non activé\". </b> Immuni vous fournira des instructions simples pour rétablir le bon fonctionnement de l'application.";
 "permission_tutorial.verify_immuni_works.third" = "<b>Si vous entrez en contact avec une personne dont le test de dépistage du virus s'avère positif, Immuni vous enverra une notification pour vous avertir du risque de contagion.</b> En ouvrant l'application, vous recevrez des informations claires et complètes sur ce que vous devez faire.";
 "permission_tutorial.verify_immuni_works.title" = "Comment vérifier si Immuni fonctionne";
+"permission_tutorial.why_province_region.first" = "<b>La région et la province de domicile permettent au Service national de santé de prévenir l'apparition de nouveaux foyers épidémiques,</b> tout en permettant d'estimer la diffusion de l'application sur le territoire national. La province de domicile est envoyée sur le serveur du Ministère de la santé avec des informations sur le bon fonctionnement de l'application et le fait que vous ayez été averti ou non d'un contact à risque. Immuni recueille ces informations en respectant la confidentialité de vos données personnelles.";
+"permission_tutorial.why_province_region.second" = "Il est possible de modifier votre région et votre province d'origine à tout moment en accédant aux paramètres de l'application. Nous vous conseillons de les mettre à jour uniquement si vous décidez de changer de lieu de résidence. Dans tous les autres cas, y compris les déplacements occasionnels, ceci n'est pas nécessaire.";
+"permission_tutorial.why_province_region.third" = "<b>Si vous habitez à l'étranger mais avez l'intention de voyager en Italie, nous vous suggérons de sélectionner la région (puis la province) dans laquelle vous séjournerez le plus longtemps.</b> Vous pouvez utiliser Immuni même si vous êtes à l'étranger. L'application enregistrera régulièrement vos contacts avec d'autres utilisateurs. Toutefois, si votre test se révélait positif, vous ne pourrez pas télécharger vos codes aléatoires tant que vous ne serez pas en Italie.";
+"permission_tutorial.why_province_region.title" = "Pourquoi indiquer la région et la province de domicile ?";
 "privacy.checkbox.above14" = "Je déclare avoir au moins 14 ans";
 "privacy.checkbox.privacyPolicyRead" = "J'ai lu la <l>Politique de confidentialité</l>";
 "privacy.item.data_deletion" = "<b>Toutes les données sont supprimées lorsqu'elles ne sont plus nécessaires </b>et dans tous les cas au plus tard le 31 décembre 2020.";
@@ -186,6 +195,8 @@
 "settings.setting.section.data" = "Chargement des données";
 "settings.setting.section.general" = "Général";
 "settings.setting.section.info" = "Informations";
+"settings.setting.share" = "Partagez l'application";
+"settings.setting.share.message" = "Aidez-nous à combattre l'épidémie de COVID-19. Vous aussi, téléchargez Immuni. https://www.immuni.italia.it/";
 "settings.setting.tos" = "Conditions d'utilisation";
 "settings.update_province.update_province" = "Mettre à jour";
 "settings_app_version" = "Immuni v%s (%d)";
@@ -257,6 +268,9 @@
 "support.info.item.connectionType.wifi" = "Wifi";
 "support.info.item.device" = "Modèle";
 "support.info.item.exposureNotificationEnabled" = "Notifications de risque d'exposition";
+"support.info.item.lastENCheck" = "Dernière vérification";
+"support.info.item.lastENCheck.date" = "%@ à %@";
+"support.info.item.lastENCheck.none" = "Aucune";
 "support.info.item.os" = "Système d'exploitation";
 "support.info.title" = "Informations utiles";
 "support.phone.description" = "Numéro actif de %@ à %@.";
@@ -293,7 +307,7 @@
 "upload_data.wait_operator.message" = "Attendez la confirmation de l'opérateur";
 "upload_data.warning.discover_more" = "En savoir plus";
 "upload_data.warning.message" = "Cette fonction nécessite l'assistance du professionnel de santé qui vous informera par téléphone de l'issue positive du tampon.";
-"welcome_view.discover_more" = "En savoir plus";
+"welcome_view.discover_more" = "Découvrez comment l'application fonctionne";
 "welcome_view.go_next" = "C'est parti";
 "welcome_view.items.first.description" = "Grâce à la contribution de tous, Immuni aide à contenir le virus et à reprendre plus rapidement une vie normale.";
 "welcome_view.items.first.title" = "Bonjour !";

@@ -48,7 +48,7 @@
 "home_view.info.protection.title" = "So können Sie sich schützen";
 "home_view.info_header.title" = "Informationen";
 "home_view.service.active.discover_more" = "Mehr erfahren";
-"home_view.service.active.subtitle" = "Öffnen Sie Immuni einmal täglich, um den Status zu überprüfen.";
+"home_view.service.active.subtitle" = "Immuni bleibt aktiv, auch wenn die App geschlossen ist.";
 "home_view.service.active.title" = "Service\n<b>aktiv</b>";
 "home_view.service.deactivate" = "Service deaktivieren";
 "home_view.service.not_active.button" = "Immuni erneut aktivieren";
@@ -97,6 +97,11 @@
 "onboarding.push_permission.description" = "Über die Mitteilungen kann Immuni Sie im Bedarfsfall umgehend informieren.";
 "onboarding.push_permission.overlay.hint" = "Tippen Sie auf \"<b>Erlauben</b>\" in dem Popup-Fenster, das unten angezeigt wird";
 "onboarding.push_permission.title" = "Erlauben Sie uns, mit Ihnen zu kommunizieren";
+"onboarding.region.abroad.alert.cancel" = "Abbrechen";
+"onboarding.region.abroad.alert.confirm" = "Weiter";
+"onboarding.region.abroad.alert.message" = "Sollten Sie nicht in Italien leben, aber eine Reise planen, empfehlen wir Ihnen die Region (und anschließend die Provinz) im Vorfeld auszuwählen, in der Sie sich für längere Zeit aufhalten werden. Dasselbe gilt für den Fall, dass Sie sich bereits in Italien befinden.";
+"onboarding.region.abroad.alert.title" = "Sind Sie sicher?";
+"onboarding.region.abroad.item" = "Ich lebe nicht in Italien";
 "onboarding.region.description" = "Wählen Sie die Region aus, in der Sie leben, damit der staatliche Gesundheitsdienst Sie bestmöglich unterstützen kann.";
 "onboarding.region.title" = "In welcher Region leben Sie?";
 "onboarding_exposure_api_not_activated" = "Kontaktmitteilungen nicht aktiviert";
@@ -161,6 +166,10 @@
 "permission_tutorial.verify_immuni_works.second" = "<b>Sollte es Probleme geben, erscheint die Meldung \"Service nicht aktiv\". </b>Immuni wird Ihnen einfache Anweisungen zur Wiederherstellung des korrekten Betriebs geben.";
 "permission_tutorial.verify_immuni_works.third" = "<b>Wenn Sie mit einer Person in Kontakt kommen, die später positiv auf das Virus getestet wird, wird Immuni Ihnen eine Benachrichtigung senden, um Sie vor dem Risiko einer Ansteckung zu warnen.</b> Wenn Sie die App öffnen, erhalten Sie eine klare und umfassende Anleitung darüber, was zu tun ist.";
 "permission_tutorial.verify_immuni_works.title" = "So überprüfen Sie, ob Immuni funktioniert";
+"permission_tutorial.why_province_region.first" = "<b> Region und Provinz des Wohnsitzes sind für den nationalen Gesundheitsdienst nützlich, um neue Ausbrüche zu verhindern </b> und um die Verbreitung der App auf dem Staatsgebiet abschätzen zu können. Die Provinz des Wohnsitzes wird zusammen mit Informationen über die ordnungsgemäße Funktion der App und darüber, ob Sie vor einem Risikokontakt gewarnt wurden, an den Server des Gesundheitsministeriums gesendet. Immuni sammelt diese Informationen unter vollständiger Einhaltung der Datenschutzbestimmungen.";
+"permission_tutorial.why_province_region.second" = "Sie können die Region und Provinz Ihres Wohnsitzes jederzeit in den App-Einstellungen ändern. Wir empfehlen Ihnen, diese Einstellungen jedoch nur dann zu ändern, wenn Sie Ihren Wohnsitz wechseln. In anderen Fällen, beispielsweise bei gelegentlichen Reisen, ist eine Änderung nicht notwendig.";
+"permission_tutorial.why_province_region.third" = "<b>Sollten Sie im Ausland leben, aber eine Reise nach Italien planen, empfehlen wir Ihnen die Region (und anschließend die Provinz) im Vorfeld auszuwählen, in der Sie sich für längere Zeit aufhalten werden.</b> Sie können Immuni auch nutzen, wenn Sie im Ausland sind, denn die App zeichnet regelmäßig Ihre Treffen mit anderen Nutzern auf. Im Falle eines positiven Testergebnisses, können Ihre Zufallscodes jedoch erst hochgeladen werden, sobald Sie wieder in Italien sind.";
+"permission_tutorial.why_province_region.title" = "Darum sollten Sie die Region und Provinz Ihres Wohnsitzes angeben";
 "privacy.checkbox.above14" = "Ich bin mindestens 14 Jahre alt";
 "privacy.checkbox.privacyPolicyRead" = "Ich habe die <l>Datenschutzerklärung</l> gelesen";
 "privacy.item.data_deletion" = "<b>Alle Daten werden gelöscht, sobald sie nicht mehr benötigt werden</b>. Die Löschung erfolgt bis spätestens 31. Dezember 2020.";
@@ -186,6 +195,8 @@
 "settings.setting.section.data" = "Hochladen der Daten";
 "settings.setting.section.general" = "Allgemein";
 "settings.setting.section.info" = "Informationen";
+"settings.setting.share" = "App teilen";
+"settings.setting.share.message" = "Helfen Sie uns, gemeinsam die COVID-19-Epidemie zu bekämpfen. Laden Sie auch Immuni herunter. https://www.immuni.italia.it/";
 "settings.setting.tos" = "Nutzungsbedingungen";
 "settings.update_province.update_province" = "Aktualisieren";
 "settings_app_version" = "Immuni v%s (%d)";
@@ -257,6 +268,9 @@
 "support.info.item.connectionType.wifi" = "WLAN";
 "support.info.item.device" = "Modell";
 "support.info.item.exposureNotificationEnabled" = "Expositionsmeldungen";
+"support.info.item.lastENCheck" = "Letzte Überprüfung";
+"support.info.item.lastENCheck.date" = "%@ um %@";
+"support.info.item.lastENCheck.none" = "Keine";
 "support.info.item.os" = "Betriebssystem";
 "support.info.title" = "Nützliche Hinweise";
 "support.phone.description" = "Die Hotline ist von %@ bis %@ Uhr verfügbar.";
@@ -293,7 +307,7 @@
 "upload_data.wait_operator.message" = "Warten Sie auf die Bestätigung des Bedieners";
 "upload_data.warning.discover_more" = "Mehr erfahren";
 "upload_data.warning.message" = "Diese Funktion erfordert die Unterstützung des medizinischen Fachpersonals, das Sie telefonisch über das positive Ergebnis des Tests informiert.";
-"welcome_view.discover_more" = "Mehr erfahren";
+"welcome_view.discover_more" = "So funktioniert die App";
 "welcome_view.go_next" = "Los geht's";
 "welcome_view.items.first.description" = "Wenn jeder seinen Beitrag leistet, trägt Immuni dazu bei, das Virus einzudämmen und so rasch wie möglich zur Normalität zurückzukehren.";
 "welcome_view.items.first.title" = "Hallo!";
