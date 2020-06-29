@@ -213,6 +213,7 @@ private extension WelcomeView {
 
       button.contentHorizontalAlignment = .center
       button.contentVerticalAlignment = .bottom
+      button.titleLabel?.numberOfLines = 0
       button.attributedTitle = L10n.WelcomeView.discoverMore.styled(with: textStyle)
     }
   }
