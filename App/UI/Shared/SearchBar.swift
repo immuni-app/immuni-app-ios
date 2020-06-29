@@ -43,6 +43,7 @@ open class SearchBar: UIView, ModellableView {
   }
 
   var shouldShowClearButton: Bool {
+    // swiftlint:disable:next empty_string
     self.isSearching && self.textfield.text != ""
   }
 
@@ -198,6 +199,7 @@ extension SearchBar {
         .color(Palette.grayNormal)
       ])
 
+      textfield.returnKeyType = .search
       textfield.tintColor = Palette.primary
       textfield.typingAttributes = textStyle.attributes
       textfield.defaultTextAttributes = textStyle.attributes
@@ -231,5 +233,10 @@ extension SearchBar: UITextFieldDelegate {
     }
 
     return true
+  }
+
+  public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    textField.resignFirstResponder()
+    return false
   }
 }

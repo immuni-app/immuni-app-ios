@@ -14,6 +14,7 @@
 
 import Extensions
 import Foundation
+import Models
 import Tempura
 
 struct HomeVM: ViewModelWithState {
@@ -75,10 +76,12 @@ struct HomeVM: ViewModelWithState {
 
 extension HomeVM {
   init(state: AppState) {
-    let covidStatus = state.user.covidStatus
+    self.init(isServiceActive: state.isServiceActive, covidStatus: state.user.covidStatus)
+  }
 
+  init(isServiceActive: Bool, covidStatus: CovidStatus) {
     var cells: [CellType] = [
-      .serviceActiveCard(isServiceActive: state.isServiceActive),
+      .serviceActiveCard(isServiceActive: isServiceActive),
       .infoHeader,
       .info(kind: .app)
     ]
@@ -92,7 +95,7 @@ extension HomeVM {
       cells.insert(.header(kind: .positive), at: 0)
     }
 
-    cells.append(.deactivateButton(isEnabled: state.isServiceActive))
+    cells.append(.deactivateButton(isEnabled: isServiceActive))
 
     self.cellTypes = cells
   }
