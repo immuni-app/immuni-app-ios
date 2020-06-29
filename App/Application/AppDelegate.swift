@@ -98,7 +98,7 @@ extension AppDelegate {
         // To ensure that there is nothing preventing this notification from being scheduled.
         if self.store.state.toggles.isBackgroundTaskDebugMode {
           self.store.dependencies.pushNotification.scheduleLocalNotification(
-            .init(title: "Background task started", body: "Background task has started"),
+            .init(title: "Background task started", body: "\(Date().fullDateWithMillisString)\nBackground task has started"),
             with: .timeInterval(5)
           )
         }

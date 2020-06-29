@@ -342,22 +342,19 @@ extension Logic.ExposureDetection {
         }
 
         title = "Skipped"
-        message =
-          "Exposure detection was skipped (enStatus: \(enStatus), lastDetection: \(lastDetectionString), lastChunk: \(latestProcessedChunk.map { String($0) } ?? "none"))"
+        message = "\(Date().fullDateWithMillisString)\nExposure detection was skipped (enStatus: \(enStatus), lastDetection: \(lastDetectionString), lastChunk: \(latestProcessedChunk.map { String($0) } ?? "none"))"
       case .fullDetection(_, let summary, _, let earliestChunk, let latestChunk):
         title = "Success"
-        message =
-          "Exposure detection was performed successfully: full, \(summary.matchedKeyCount) matches, chunks [\(earliestChunk), \(latestChunk)]"
+        message = "\(Date().fullDateWithMillisString)\nExposure detection was performed successfully: full, \(summary.matchedKeyCount) matches, chunks [\(earliestChunk), \(latestChunk)]"
       case .partialDetection(_, let summary, let earliestChunk, let latestChunk):
         title = "Success"
-        message =
-          "Exposure detection was performed successfully: partial, \(summary.matchedKeyCount) matches, chunks [\(earliestChunk), \(latestChunk)]"
+        message = "\(Date().fullDateWithMillisString)\nExposure detection was performed successfully: partial, \(summary.matchedKeyCount) matches, chunks [\(earliestChunk), \(latestChunk)]"
       case .error(.timeout):
         title = "Timeout"
-        message = "Background task timed out"
+        message = "\(Date().fullDateWithMillisString)\nBackground task timed out"
       case .error(let error):
         title = "Error"
-        message = "Background task resulted in error: \(error)"
+        message = "\(Date().fullDateWithMillisString)\nBackground task resulted in error: \(error)"
       }
 
       context.dependencies.pushNotification.scheduleLocalNotification(
