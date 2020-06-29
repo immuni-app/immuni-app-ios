@@ -246,7 +246,7 @@
 "suggestions.positive.subtitle" = "<b>Follow all the instructions that you have received from your general practitioner or from your local health authority's healthcare service.</b>";
 "suggestions.positive.title" = "Follow the instructions";
 "suggestions.risk.first.message" = "The app shows you this warning based on the information available (duration of the contact and approximate estimate of the distance), but it cannot know if both parties were wearing masks or had their backs to each other during the contact. Therefore, the risk of infection could be overestimated.";
-"suggestions.risk.fourth.message" = "For more information on the data sent to the Ministry of Health, you can read the {privacy notice}, point 4.";
+"suggestions.risk.fourth.message" = "For more information on the data sent to the Ministry of Health, you can read the <l>privacy notice</l>, point 4.";
 "suggestions.risk.second.message" = "To help the National Health Service take care of you should the need arise, the app has informed the Ministry of Health of the notification you have received.";
 "suggestions.risk.subtitle" = "Immuni has detected that you came into close contact with a COVID-19-positive user on %@.";
 "suggestions.risk.third.message" = "<b>The Ministry of Health cannot determine your identity from this information.</b>";
