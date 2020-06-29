@@ -37,7 +37,7 @@ extension Logic.ExposureDetection {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       if case .foreground = self.type {
         context.dependencies.pushNotification.scheduleLocalNotification(
-          .init(title: "Foreground detection started", body: "Foreground detection has started"),
+          .init(title: "Foreground detection started", body: "\(Date().fullDateWithMillisString)\nForeground detection has started"),
           with: .timeInterval(5)
         )
       }
