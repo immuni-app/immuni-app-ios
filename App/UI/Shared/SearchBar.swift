@@ -43,6 +43,7 @@ open class SearchBar: UIView, ModellableView {
   }
 
   var shouldShowClearButton: Bool {
+    // swiftlint:disable:next empty_string
     self.isSearching && self.textfield.text != ""
   }
 
