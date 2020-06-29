@@ -226,7 +226,7 @@
 "suggestions.instruction.isolate.message" = "Wear a surgical mask and immediately contact your general practitioner (or primary care paediatrician) and your local health authority's healthcare service.";
 "suggestions.instruction.isolate.title" = "<b>If you display symptoms, isolate yourself from the people you live with.</b>";
 "suggestions.instruction.limit_movement" = "<b>Minimise the time you spend in other common areas of the house.</b>";
-"suggestions.instruction.mask.message" = "This includes public transport and all situations where it is not possible to ensure that a safe distance is maintained at all times.";  
+"suggestions.instruction.mask.message" = "This includes public transport and all situations where it is not possible to ensure that a safe distance is maintained at all times.";
 "suggestions.instruction.mask.title" = "<b>Wear a mask in indoor public places.</b>";
 "suggestions.instruction.ministerial_decree" = "<b>Comply with the current regulations in your area.</b>";
 "suggestions.instruction.phone_contact" = "<b>If you are having difficulty breathing, contact 112/118.</b>";
