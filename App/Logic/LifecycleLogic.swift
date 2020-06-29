@@ -100,6 +100,9 @@ extension Logic {
         // refresh statuses
         try context.awaitDispatch(RefreshAuthorizationStatuses())
 
+        // schedule background task
+        try context.awaitDispatch(ScheduleBackgroundTask())
+
         // clears `PositiveExposureResults` older than 14 days from the `ExposureDetectionState`
         try context.awaitDispatch(Logic.ExposureDetection.ClearOutdatedResults(now: context.dependencies.now()))
 
@@ -180,6 +183,9 @@ extension Logic {
       }
 
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        // schedule background task
+        try context.awaitDispatch(ScheduleBackgroundTask())
+
         // resets the state related to dummy sessions
         try context.awaitDispatch(Logic.DataUpload.MarkForegroundSessionFinished())
       }
@@ -259,12 +265,23 @@ extension Logic.Lifecycle {
     }
   }
 
+  /// Refreshes the network reachability status in the state
   struct RefreshNetworkReachabilityStatus: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       guard let status = context.dependencies.reachabilityManager?.status else {
         return
       }
       context.dispatch(UpdateNetworkReachabilityStatus(value: status))
+    }
+  }
+
+  /// Schedules the background task
+  struct ScheduleBackgroundTask: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      let appDelegate = mainThread { context.dependencies.application.delegate as? AppDelegate }
+        ?? AppLogger.fatalError("Missing or wrong AppDelegate")
+
+      appDelegate.scheduleBackgroundTask()
     }
   }
 }

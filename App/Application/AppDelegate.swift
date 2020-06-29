@@ -109,9 +109,6 @@ extension AppDelegate {
         // Reschedule background task
         self.scheduleBackgroundTask()
       }
-
-    // Schedule the exposure detection task
-    self.scheduleBackgroundTask()
   }
 
   /// Schedules the exposure detection background task.
