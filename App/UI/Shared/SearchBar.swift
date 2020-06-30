@@ -152,6 +152,7 @@ open class SearchBar: UIView, ModellableView {
   private func clearTextfield() {
     self.textfield.text = ""
     self.didChangeSearchedValue?("")
+    self.update(oldModel: self.model)
   }
 
   private func cancelSearch() {
