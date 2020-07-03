@@ -110,6 +110,36 @@
         )
       ])
 
+      // analytics
+      items.append(contentsOf: [
+        .init(
+          title: "[Analytics] Trigger token generation",
+          dispatchable: Logic.Analytics.RefreshAnalyticsToken()
+        ),
+
+        .init(
+          title: "[Analytics] Trigger token validation / check",
+          dispatchable: Logic.Analytics
+            .ValidateAnalyticsToken(token: self.getAppState().analytics.token ?? AppLogger.fatalError("No token to validate)"))
+        ),
+
+        .init(
+          title: "[Analytics] Send dummy request",
+          dispatchable: Logic.Analytics.SendRequest(kind: .dummy)
+        ),
+
+        .init(
+          title: "[Analytics] Send analytics without exposure request",
+          dispatchable: Logic.Analytics.SendRequest(kind: .withoutExposure)
+        ),
+
+        .init(
+          title: "[Analytics] Send analytics with exposure request",
+          dispatchable: Logic.Analytics
+            .SendRequest(kind: .withExposure(mostRecentExposure: Date().addingTimeInterval(-24 * 60 * 60)))
+        )
+      ])
+
       // data upload
       items.append(contentsOf: [
         .init(

@@ -107,6 +107,23 @@ extension NetworkManager {
   }
 }
 
+// MARK: - Analytics Service requests
+
+extension NetworkManager {
+  /// Sends a request to validate an analytics token with the backend
+  public func validateAnalyticsToken(
+    analyticsToken: String,
+    deviceToken: Data
+  ) -> Promise<ValidateAnalyticsTokenRequest.ValidationResponse> {
+    return self.request(ValidateAnalyticsTokenRequest(analyticsToken: analyticsToken, deviceToken: deviceToken))
+  }
+
+  /// Sends a request to the Analytics server, following a cycle of Exposure Detection.
+  public func sendAnalytics(body: AnalyticsRequest.Body, analyticsToken: String, isDummy: Bool) -> Promise<Void> {
+    return self.request(AnalyticsRequest(body: body, analyticsToken: analyticsToken, isDummy: isDummy)).safeVoid
+  }
+}
+
 // MARK: - Supporting types
 
 public extension NetworkManager {
