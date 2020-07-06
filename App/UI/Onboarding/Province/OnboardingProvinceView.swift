@@ -26,6 +26,7 @@ final class OnboardingProvinceView: UIView, ViewControllerModellableView {
   var userDidTapClose: Interaction?
   var userDidScroll: CustomInteraction<CGFloat>?
   var userDidSelectProvince: CustomInteraction<Province?>?
+  var userDidTapDiscoverMore: Interaction?
 
   // MARK: Subviews
 
@@ -166,7 +167,9 @@ extension OnboardingProvinceView: UICollectionViewDataSource {
 
     switch item {
     case .titleHeader:
-      return self.dequeue(OnboardingHeaderCell.self, for: indexPath, in: collectionView, using: item.cellVM)
+      let cell = self.dequeue(OnboardingHeaderCell.self, for: indexPath, in: collectionView, using: item.cellVM)
+      cell.didTapActionButton = { [weak self] in self?.userDidTapDiscoverMore?() }
+      return cell
 
     case .spacer:
       return self.dequeue(OnboardingSpacerCell.self, for: indexPath, in: collectionView, using: item.cellVM)

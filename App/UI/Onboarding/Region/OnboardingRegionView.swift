@@ -26,6 +26,7 @@ final class OnboardingRegionView: UIView, ViewControllerModellableView {
   var userDidTapClose: Interaction?
   var userDidScroll: CustomInteraction<CGFloat>?
   var userDidSelectRegion: CustomInteraction<Region?>?
+  var userDidTapDiscoverMore: Interaction?
 
   // MARK: Subviews
 
@@ -166,7 +167,9 @@ extension OnboardingRegionView: UICollectionViewDataSource {
 
     switch item {
     case .titleHeader:
-      return self.dequeue(OnboardingHeaderCell.self, for: indexPath, in: collectionView, using: item.cellVM)
+      let cell = self.dequeue(OnboardingHeaderCell.self, for: indexPath, in: collectionView, using: item.cellVM)
+      cell.didTapActionButton = { [weak self] in self?.userDidTapDiscoverMore?() }
+      return cell
 
     case .spacer:
       return self.dequeue(OnboardingSpacerCell.self, for: indexPath, in: collectionView, using: item.cellVM)
@@ -201,13 +204,8 @@ extension OnboardingRegionView: UICollectionViewDelegateFlowLayout {
     guard
       let model = model,
       let cell = model.items[safe: indexPath.row],
-      case OnboardingRegionVM.CellType.radio(let regionName, let isSelected) = cell,
-      // Here it would be better to have something more robust. However, from 1.1.0 onwards
-      // we had to modify the readable representation of the enum. To avoid breaking the stored states
-      // in the users' phones we decided to introduce the human readable name instead of changing
-      // the raw value. Doing otherwise would have mean going through a migration of the state,
-      // which is always risky
-      let region = Region.allCases.first(where: { $0.humanReadableName == regionName })
+      case OnboardingRegionVM.CellType.radio(let regionRawValue, _, let isSelected) = cell,
+      let region = Region.allCases.first(where: { $0.rawValue == regionRawValue })
       else {
         return
     }

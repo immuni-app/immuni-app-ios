@@ -83,6 +83,12 @@ class OnboardingContainerNC: UINavigationController {
         return vc
       },
 
+      .show(Screen.alert): .custom { [weak self] _, _, animated, context, completion in
+        let content = context as? Alert.Model ?? AppLogger.fatalError("Invalid context")
+        let vc = UIAlertController(content: content)
+        self?.recursivePresent(vc, animated: false, completion: completion)
+      },
+
       .hide(Screen.permissionTutorial): .dismissModally(behaviour: .hard),
       .hide(Screen.permissionOverlay): .dismissModally(behaviour: .hard)
     ]

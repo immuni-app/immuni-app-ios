@@ -194,9 +194,9 @@ extension SuggestionsVM {
       .spacer(size: .tiny),
       .message(text: L10n.Suggestions.Risk.Second.message),
       .spacer(size: .tiny),
-      .message(text: L10n.Suggestions.Risk.Third.message, url: privacyNoticeURL),
+      .message(text: L10n.Suggestions.Risk.Third.message),
       .spacer(size: .tiny),
-      .message(text: L10n.Suggestions.Risk.Fourth.message),
+      .message(text: L10n.Suggestions.Risk.Fourth.message, url: privacyNoticeURL),
       .spacer(size: .big)
     ]
   }

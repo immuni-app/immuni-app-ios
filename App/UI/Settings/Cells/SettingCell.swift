@@ -32,6 +32,8 @@ struct SettingCellVM: ViewModel {
       return L10n.Settings.Setting.privacy
     case .chageProvince:
       return L10n.Settings.Setting.chageProvince
+    case .shareApp:
+      return L10n.Settings.Setting.share
     case .leaveReview:
       return L10n.Settings.Setting.leaveReview
     case .customerSupport:
@@ -41,13 +43,19 @@ struct SettingCellVM: ViewModel {
     }
   }
 
-  var shouldShowChevron: Bool {
+  var icon: UIImage? {
     switch self.setting {
     case .loadData, .faq:
-      return true
+      return Asset.Settings.settingsNext.image
+    case .shareApp:
+      return Asset.Settings.settingsShare.image
     case .tos, .privacy, .chageProvince, .leaveReview, .customerSupport, .debugUtilities:
-      return false
+      return nil
     }
+  }
+
+  var shouldShowIcon: Bool {
+    return self.icon != nil
   }
 }
 
@@ -55,13 +63,13 @@ class SettingCell: UICollectionViewCell, ModellableView, ReusableView, CellWithS
   typealias VM = SettingCellVM
 
   static let cellInset: CGFloat = 25
-  static let chevronInset: CGFloat = 30
-  static let chevronSize: CGFloat = 24
-  static let titleToChevron: CGFloat = 15
+  static let iconInset: CGFloat = 30
+  static let iconSize: CGFloat = 24
+  static let titleToIcon: CGFloat = 15
 
   let title = UILabel()
   let separator = UIView()
-  let chevron = UIImageView()
+  let icon = UIImageView()
   var overlayButton = Button()
 
   var didTapCell: CustomInteraction<SettingsVM.Setting>?
@@ -81,7 +89,7 @@ class SettingCell: UICollectionViewCell, ModellableView, ReusableView, CellWithS
   func setup() {
     self.contentView.addSubview(self.title)
     self.contentView.addSubview(self.separator)
-    self.contentView.addSubview(self.chevron)
+    self.contentView.addSubview(self.icon)
     self.contentView.addSubview(self.overlayButton)
 
     self.title.isAccessibilityElement = false
@@ -98,7 +106,6 @@ class SettingCell: UICollectionViewCell, ModellableView, ReusableView, CellWithS
   func style() {
     Self.Style.container(self.contentView)
     Self.Style.separator(self.separator)
-    Self.Style.chevron(self.chevron)
     Self.Style.overlayButton(self.overlayButton)
   }
 
@@ -108,11 +115,12 @@ class SettingCell: UICollectionViewCell, ModellableView, ReusableView, CellWithS
     }
 
     Self.Style.title(self.title, content: model.title)
+    Self.Style.icon(self.icon, icon: model.icon)
 
     self.overlayButton.accessibilityLabel = model.title
 
     self.separator.isHidden = !model.shouldShowSeparator
-    self.chevron.isHidden = !model.shouldShowChevron
+    self.icon.isHidden = !model.shouldShowIcon
 
     self.setNeedsLayout()
   }
@@ -125,18 +133,18 @@ class SettingCell: UICollectionViewCell, ModellableView, ReusableView, CellWithS
       .horizontally(SettingsView.collectionInset + Self.cellInset)
       .height(1)
 
-    self.chevron.pin
-      .right(SettingsView.collectionInset + Self.chevronInset)
+    self.icon.pin
+      .right(SettingsView.collectionInset + Self.iconInset)
       .vCenter()
-      .size(Self.chevronSize)
+      .size(Self.iconSize)
 
-    let shouldShowChevron = self.model?.shouldShowChevron ?? false
+    let shouldShowIcon = self.model?.shouldShowIcon ?? false
 
-    if shouldShowChevron {
+    if shouldShowIcon {
       self.title.pin
         .left(SettingsView.collectionInset + Self.cellInset)
-        .before(of: self.chevron)
-        .marginRight(Self.titleToChevron)
+        .before(of: self.icon)
+        .marginRight(Self.titleToIcon)
         .sizeToFit(.width)
         .vCenter()
     } else {
@@ -152,9 +160,9 @@ class SettingCell: UICollectionViewCell, ModellableView, ReusableView, CellWithS
   }
 
   override func sizeThatFits(_ size: CGSize) -> CGSize {
-    let shouldShowChevron = self.model?.shouldShowChevron ?? false
-    let labelWidth = shouldShowChevron ?
-      size.width - 2 * SettingsView.collectionInset - Self.cellInset - Self.titleToChevron - Self.chevronSize - Self.chevronInset
+    let shouldShowIcon = self.model?.shouldShowIcon ?? false
+    let labelWidth = shouldShowIcon ?
+      size.width - 2 * SettingsView.collectionInset - Self.cellInset - Self.titleToIcon - Self.iconSize - Self.iconInset
       :
       size.width - 2 * (SettingsView.collectionInset + Self.cellInset)
     let titleSize = self.title.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
@@ -172,8 +180,8 @@ private extension SettingCell {
       view.backgroundColor = Palette.grayExtraWhite
     }
 
-    static func chevron(_ view: UIImageView) {
-      view.image = Asset.Settings.settingsNext.image
+    static func icon(_ view: UIImageView, icon: UIImage?) {
+      view.image = icon
     }
 
     static func overlayButton(_ button: Button) {

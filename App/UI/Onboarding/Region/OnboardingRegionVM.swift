@@ -56,7 +56,11 @@ extension OnboardingRegionVM: ViewModelWithLocalState {
 
     let regionItems = Region.allCases
       .sorted().map {
-        OnboardingRegionVM.CellType.radio(regionName: $0.humanReadableName, isSelected: $0 == currentRegion)
+        OnboardingRegionVM.CellType.radio(
+          regionRawValue: $0.rawValue,
+          regionName: $0.humanReadableName(with: L10n.Onboarding.Region.Abroad.item),
+          isSelected: $0 == currentRegion
+        )
       }
 
     self.items = [
@@ -69,18 +73,22 @@ extension OnboardingRegionVM: ViewModelWithLocalState {
 extension OnboardingRegionVM {
   enum CellType: Equatable {
     case titleHeader(title: String, description: String)
-    case radio(regionName: String, isSelected: Bool)
+    case radio(regionRawValue: String, regionName: String, isSelected: Bool)
     case spacer(OnboardingSpacerCellVM.Size)
 
     var cellVM: ViewModel {
       switch self {
       case .titleHeader(let title, let description):
-        return OnboardingHeaderCellVM(title: title, description: description)
+        return OnboardingHeaderCellVM(
+          title: title,
+          description: description,
+          actionButtonTitle: L10n.Onboarding.Common.discoverMore
+        )
 
       case .spacer(let size):
         return OnboardingSpacerCellVM(size: size)
 
-      case .radio(let ragionName, let isSelected):
+      case .radio(_, let ragionName, let isSelected):
         return OnboardingRadioCellVM(title: ragionName, isSelected: isSelected)
       }
     }

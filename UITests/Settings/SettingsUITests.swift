@@ -22,20 +22,7 @@ class SettingsUITests: AppViewTestCase, ViewTestCase {
 
   var settingsVM: SettingsVM {
     return SettingsVM(
-      sections: [
-        SettingsVM.Section(
-          header: .data,
-          settings: [.loadData]
-        ),
-        SettingsVM.Section(
-          header: .info,
-          settings: [.faq, .tos, .privacy]
-        ),
-        SettingsVM.Section(
-          header: .general,
-          settings: [.chageProvince, .leaveReview]
-        )
-      ],
+      sections: SettingsVM.defaultSections,
       appName: "Immuni",
       appVersion: "1.2.3 (55)",
       isHeaderVisible: false
@@ -44,20 +31,7 @@ class SettingsUITests: AppViewTestCase, ViewTestCase {
 
   var scrolledVM: SettingsVM {
     return SettingsVM(
-      sections: [
-        SettingsVM.Section(
-          header: .data,
-          settings: [.loadData]
-        ),
-        SettingsVM.Section(
-          header: .info,
-          settings: [.faq, .tos, .privacy]
-        ),
-        SettingsVM.Section(
-          header: .general,
-          settings: [.chageProvince, .leaveReview]
-        )
-      ],
+      sections: SettingsVM.defaultSections,
       appName: "Immuni",
       appVersion: "1.2.3 (55)",
       isHeaderVisible: true

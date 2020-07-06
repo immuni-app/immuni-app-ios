@@ -21,6 +21,7 @@ import Tempura
 
 struct ContentCollectionTextCellVM: ViewModel {
   let content: String
+  let useDarkStyle: Bool
 
   func shouldInvalidateLayout(oldVM: Self?) -> Bool {
     guard let oldVM = oldVM else {
@@ -59,7 +60,7 @@ final class ContentCollectionTextCell: UICollectionViewCell, ModellableView, Reu
       return
     }
 
-    Self.Style.content(self.content, content: model.content)
+    Self.Style.content(self.content, content: model.content, useDarkStyle: model.useDarkStyle)
 
     if model.shouldInvalidateLayout(oldVM: oldModel) {
       self.setNeedsLayout()
@@ -83,13 +84,13 @@ final class ContentCollectionTextCell: UICollectionViewCell, ModellableView, Reu
 
 extension ContentCollectionTextCell {
   enum Style {
-    static func content(_ label: UILabel, content: String) {
+    static func content(_ label: UILabel, content: String, useDarkStyle: Bool) {
       let redStyle = TextStyles.pBold.byAdding([
         .color(Palette.red)
       ])
 
       let textStyle = TextStyles.p.byAdding(
-        .color(Palette.grayDark),
+        .color(useDarkStyle ? Palette.grayDark : Palette.grayNormal),
         .xmlRules([
           .style("b", TextStyles.pSemibold),
           .style("h", TextStyles.h4Bold),

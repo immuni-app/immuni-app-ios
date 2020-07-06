@@ -41,7 +41,8 @@ extension AppDependencies {
     exposureDetectionExecutor: ExposureDetectionExecutor = MockExposureDetectionExecutor(),
     uniformDistributionGenerator: UniformDistributionGenerator.Type = Double.self,
     exponentialDistributionGenerator: ExponentialDistributionGenerator.Type = Double.self,
-    tokenGenerator: DeviceTokenGenerator = MockDeviceTokenGenerator(result: .success("testing"))
+    deviceTokenGenerator: DeviceTokenGenerator = MockDeviceTokenGenerator(result: .success("testing")),
+    analyticsTokenGenerator: AnalyticsTokenGenerator = MockAnalyticsTokenGenerator(token: "test", expirationDate: .distantFuture)
   ) -> AppDependencies {
     let networkManager = NetworkManager()
     networkManager.start(with: .init(requestExecutor: requestExecutor, now: now))
@@ -61,7 +62,8 @@ extension AppDependencies {
       exposureDetectionExecutor: exposureDetectionExecutor,
       uniformDistributionGenerator: uniformDistributionGenerator,
       exponentialDistributionGenerator: exponentialDistributionGenerator,
-      tokenGenerator: tokenGenerator,
+      deviceTokenGenerator: deviceTokenGenerator,
+      analyticsTokenGenerator: analyticsTokenGenerator,
       now: now
     )
   }

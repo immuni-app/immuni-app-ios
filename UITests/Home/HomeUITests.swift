@@ -12,6 +12,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+import Models
 import TempuraTesting
 import XCTest
 
@@ -20,46 +21,22 @@ import XCTest
 class HomeUITests: AppViewTestCase, ViewTestCase {
   typealias V = HomeView
 
+  static let mockedLastContact = CalendarDay(year: 2020, month: 3, day: 04)
+
   var protectionActiveVM: HomeVM {
-    return HomeVM(cellTypes: [
-      .serviceActiveCard(isServiceActive: true),
-      .infoHeader,
-      .info(kind: .protection),
-      .info(kind: .app),
-      .deactivateButton(isEnabled: true)
-    ])
+    return HomeVM(isServiceActive: true, covidStatus: .neutral)
   }
 
   var protectionNotActiveVM: HomeVM {
-    return HomeVM(cellTypes: [
-      .serviceActiveCard(isServiceActive: false),
-      .infoHeader,
-      .info(kind: .protection),
-      .info(kind: .app),
-      .deactivateButton(isEnabled: false)
-    ])
+    return HomeVM(isServiceActive: false, covidStatus: .neutral)
   }
 
   var riskVM: HomeVM {
-    return HomeVM(cellTypes: [
-      .header(kind: .risk),
-      .serviceActiveCard(isServiceActive: true),
-      .infoHeader,
-      .info(kind: .protection),
-      .info(kind: .app),
-      .deactivateButton(isEnabled: true)
-    ])
+    return HomeVM(isServiceActive: true, covidStatus: .risk(lastContact: Self.mockedLastContact))
   }
 
   var covidPositiveDisabledVM: HomeVM {
-    return HomeVM(cellTypes: [
-      .header(kind: .positive),
-      .serviceActiveCard(isServiceActive: false),
-      .infoHeader,
-      .info(kind: .protection),
-      .info(kind: .app),
-      .deactivateButton(isEnabled: false)
-    ])
+    return HomeVM(isServiceActive: false, covidStatus: .positive(lastUpload: Self.mockedLastContact))
   }
 
   func testUI() {

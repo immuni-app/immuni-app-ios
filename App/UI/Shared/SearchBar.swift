@@ -39,7 +39,12 @@ open class SearchBar: UIView, ModellableView {
   private var clearButton = ImageButton()
 
   var isSearching: Bool {
-    self.textfield.isFirstResponder || self.textfield.text?.isEmpty != true
+    self.textfield.isFirstResponder
+  }
+
+  var shouldShowClearButton: Bool {
+    // swiftlint:disable:next empty_string
+    self.isSearching && self.textfield.text != ""
   }
 
   var didChangeSearchStatus: CustomInteraction<Bool>?
@@ -61,6 +66,17 @@ open class SearchBar: UIView, ModellableView {
     self.clearButton.on(.touchUpInside) { [weak self] _ in
       self?.clearTextfield()
     }
+
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.didTapContainer))
+    self.container.addGestureRecognizer(tapGesture)
+  }
+
+  @objc private func didTapContainer() {
+    if self.textfield.isFirstResponder {
+      self.textfield.resignFirstResponder()
+    } else {
+      self.textfield.becomeFirstResponder()
+    }
   }
 
   public func style() {
@@ -71,17 +87,19 @@ open class SearchBar: UIView, ModellableView {
   }
 
   public func update(oldModel: SearchBarVM?) {
-    guard let model = model else {
+    guard let model = self.model else {
       return
     }
+
     Self.Style.shadow(self.container, isSearching: model.isSearching)
     Self.Style.searchIcon(self.searchIcon, isSearching: model.isSearching)
     self.clearButton.isAccessibilityElement = false
 
     self.setNeedsLayout()
+
     UIView.animate(withDuration: 0.2) {
       self.cancelButton.alpha = model.isSearching.cgFloat
-      self.clearButton.alpha = model.isSearching.cgFloat
+      self.clearButton.alpha = self.shouldShowClearButton.cgFloat
       self.layoutIfNeeded()
     }
   }
@@ -134,6 +152,7 @@ open class SearchBar: UIView, ModellableView {
   private func clearTextfield() {
     self.textfield.text = ""
     self.didChangeSearchedValue?("")
+    self.update(oldModel: self.model)
   }
 
   private func cancelSearch() {
@@ -181,6 +200,7 @@ extension SearchBar {
         .color(Palette.grayNormal)
       ])
 
+      textfield.returnKeyType = .search
       textfield.tintColor = Palette.primary
       textfield.typingAttributes = textStyle.attributes
       textfield.defaultTextAttributes = textStyle.attributes
@@ -207,6 +227,17 @@ extension SearchBar: UITextFieldDelegate {
   ) -> Bool {
     let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
     self.didChangeSearchedValue?(result)
+
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+      // don't do it sync as the textfield is not immediately updated
+      self.update(oldModel: self.model)
+    }
+
     return true
+  }
+
+  public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    textField.resignFirstResponder()
+    return false
   }
 }
