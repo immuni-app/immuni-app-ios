@@ -170,6 +170,8 @@ extension Logic.Onboarding {
           ))
         try await(Promise<Void>.deferring(of: 1))
         _ = try await(context.dependencies.exposureNotificationManager.askAuthorizationAndStart())
+
+        try context.awaitDispatch(Logic.Lifecycle.ScheduleBackgroundTask())
         try context.awaitDispatch(Hide(Screen.permissionOverlay, animated: false))
         try context.awaitDispatch(Logic.Lifecycle.RefreshAuthorizationStatuses())
 

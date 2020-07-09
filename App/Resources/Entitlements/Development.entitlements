@@ -10,5 +10,7 @@
 	<true/>
 	<key>com.apple.developer.exposure-notification-test</key>
 	<true/>
+	<key>com.apple.developer.exposure-notification-logging</key>
+	<true/>
 </dict>
 </plist>
