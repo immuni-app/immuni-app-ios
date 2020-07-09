@@ -115,7 +115,8 @@ extension AppDelegate {
   /// To debug this, set a breakpoint right after `BGTaskScheduler.shared.submit()` and then execute the following line in the
   /// lldb console:
   /// ```
-  ///   e -l objc -- (void)[[BGTaskScheduler sharedScheduler] _simulateLaunchForTaskWithIdentifier:@"it.ministerodellasalute.immuni.exposure-notification"]
+  ///   e -l objc -- (void)[[BGTaskScheduler sharedScheduler]
+  ///   _simulateLaunchForTaskWithIdentifier:@"it.ministerodellasalute.immuni.exposure-notification"]
   /// ```
   func scheduleBackgroundTask() {
     let taskRequest = BGProcessingTaskRequest(identifier: AppDelegate.exposureDetectionBackgroundTaskIdentifier)
