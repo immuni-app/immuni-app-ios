@@ -155,6 +155,7 @@ private extension OnboardingPermissionView {
         .color(Palette.grayNormal),
         .alignment(.left)
       )
+
       TempuraStyles.styleStandardLabel(
         label,
         content: content,
@@ -171,6 +172,7 @@ private extension OnboardingPermissionView {
       button.contentHorizontalAlignment = .left
       button.contentVerticalAlignment = .bottom
       button.attributedTitle = L10n.WelcomeView.discoverMore.styled(with: textStyle)
+      button.titleLabel?.numberOfLines = 0
     }
 
     static func animation(_ view: AnimationView, animation: Animation?) {

@@ -171,6 +171,7 @@ class SettingsView: UIView, ViewControllerModellableView {
     }
 
     if model.shouldReloadCollection(oldModel: oldModel) {
+      self.collection.collectionViewLayout.invalidateLayout()
       self.collection.reloadData()
     }
 
