@@ -16,7 +16,7 @@ import Tempura
 import UIKit
 
 /// This is a special UICollectionViewFlowLayout that adds a background container with shadow shared for contiguous cells for
-/// group cells that implement the CellWithShadow protocol.
+/// group cells that implement the CellWithShadow protocol in their view model.
 /// All the shadows are at the same level without overlapping each other.
 class CollectionWithShadowLayout: UICollectionViewFlowLayout {
   // Decoration view used as background of the collection
@@ -42,7 +42,7 @@ class CollectionWithShadowLayout: UICollectionViewFlowLayout {
   private var endPath: IndexPath?
   private var decorationIndex: Int = 0
   // cached decorated cell paths. This is necessary as `cellForItem` could return `nil` when the cell is not visible.
-  private var decoratedCellPaths: Set<IndexPath> = []
+  fileprivate var decoratedCellPaths: Set<IndexPath> = []
 
   // swiftlint:disable discouraged_optional_collection
   override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
@@ -61,8 +61,7 @@ class CollectionWithShadowLayout: UICollectionViewFlowLayout {
         for item in 0 ..< collection.numberOfItems(inSection: section) {
           let path = IndexPath(item: item, section: section)
 
-          if self.decoratedCellPaths.contains(path) || collection.cellForItem(at: path) is CellWithShadow {
-            self.decoratedCellPaths.insert(path)
+          if self.decoratedCellPaths.contains(path) {
             // start or extend decoration
             self.startOrExtendDecoration(with: path)
           } else {
@@ -85,19 +84,19 @@ class CollectionWithShadowLayout: UICollectionViewFlowLayout {
     return attributes + backgroundItemShadowAttributes
   }
 
-  func startOrExtendDecoration(with path: IndexPath) {
+  private func startOrExtendDecoration(with path: IndexPath) {
     if self.startPath == nil {
       self.startPath = path
     }
     self.endPath = path
   }
 
-  func closeDecoration() {
+  private func closeDecoration() {
     self.startPath = nil
     self.endPath = nil
   }
 
-  func decorationAttributes() -> UICollectionViewLayoutAttributes? {
+  private func decorationAttributes() -> UICollectionViewLayoutAttributes? {
     guard
       let start = self.startPath,
       let end = self.endPath,
@@ -111,7 +110,7 @@ class CollectionWithShadowLayout: UICollectionViewFlowLayout {
   }
 
   /// Layout attributes for the item-specific decoration view
-  func layoutAttributesForDecorationViewItem(
+  private func layoutAttributesForDecorationViewItem(
     from startingCell: IndexPath,
     to endingCell: IndexPath,
     index: Int
@@ -167,5 +166,21 @@ private class ShadowedDecorationView: UICollectionReusableView, View {
   func update() {}
 }
 
-/// A cell that will have a section shadow in the collection.
-protocol CellWithShadow: UICollectionViewCell {}
+/// The view model of a cell that have a section shadow in the collection.
+protocol CellWithShadow: ViewModel {}
+
+extension UICollectionView {
+  func updateDecoratedCellPaths(_ cellHasShadow: (IndexPath) -> Bool) {
+    guard let layout = self.collectionViewLayout as? CollectionWithShadowLayout else {
+      return
+    }
+    for section in 0 ..< self.numberOfSections {
+      for item in 0 ..< self.numberOfItems(inSection: section) {
+        let path = IndexPath(item: item, section: section)
+        if cellHasShadow(path) {
+          layout.decoratedCellPaths.insert(path)
+        }
+      }
+    }
+  }
+}
