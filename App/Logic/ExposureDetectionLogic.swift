@@ -325,26 +325,46 @@ extension Logic.ExposureDetection {
         return
       }
 
-      guard case .background = self.type else {
-        // Only trigger notifications for background tasks
-        return
-      }
-
       let title: String
       let message: String
       switch self.outcome {
       case .noDetectionNecessary:
+        let state = context.getState()
+        let enStatus = state.environment.exposureNotificationAuthorizationStatus
+        let latestProcessedChunk = state.exposureDetection.latestProcessedKeyChunkIndex
+
+        let lastDetectionString: String
+        if let lastDetectionDate = state.exposureDetection.lastDetectionDate {
+          let hoursSinceLastDetection = context.dependencies.now().timeIntervalSince(lastDetectionDate) / 3600
+          lastDetectionString = "\(String(format: "%.1f", hoursSinceLastDetection)) hours ago"
+        } else {
+          lastDetectionString = "never"
+        }
+
         title = "Skipped"
-        message = "Background task was skipped"
-      case .fullDetection, .partialDetection:
+        message =
+          // swiftlint:disable:next line_length
+            "\(Date().fullDateWithMillisString)\nExposure detection was skipped (enStatus: \(enStatus), lastDetection: \(lastDetectionString), lastChunk: \(latestProcessedChunk.map { String($0) } ?? "none"))"
+
+      case .fullDetection(_, let summary, _, let earliestChunk, let latestChunk):
         title = "Success"
-        message = "Background task was performed successfully"
+        message =
+          // swiftlint:disable:next line_length
+            "\(Date().fullDateWithMillisString)\nExposure detection was performed successfully: full, \(summary.matchedKeyCount) matches, chunks [\(earliestChunk), \(latestChunk)]"
+
+      case .partialDetection(_, let summary, let earliestChunk, let latestChunk):
+        title = "Success"
+        message =
+          // swiftlint:disable:next line_length
+            "\(Date().fullDateWithMillisString)\nExposure detection was performed successfully: partial, \(summary.matchedKeyCount) matches, chunks [\(earliestChunk), \(latestChunk)]"
+
       case .error(.timeout):
         title = "Timeout"
-        message = "Background task timed out"
+        message = "\(Date().fullDateWithMillisString)\nBackground task timed out"
+
       case .error(let error):
         title = "Error"
-        message = "Background task resulted in error: \(error)"
+        message = "\(Date().fullDateWithMillisString)\nBackground task resulted in error: \(error)"
       }
 
       context.dependencies.pushNotification.scheduleLocalNotification(

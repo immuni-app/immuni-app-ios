@@ -98,7 +98,7 @@ extension AppDelegate {
         // To ensure that there is nothing preventing this notification from being scheduled.
         if self.store.state.toggles.isBackgroundTaskDebugMode {
           self.store.dependencies.pushNotification.scheduleLocalNotification(
-            .init(title: "Background task started", body: "Background task has started"),
+            .init(title: "Background task started", body: "\(Date().fullDateWithMillisString)\nBackground task has started"),
             with: .timeInterval(5)
           )
         }
@@ -109,16 +109,14 @@ extension AppDelegate {
         // Reschedule background task
         self.scheduleBackgroundTask()
       }
-
-    // Schedule the exposure detection task
-    self.scheduleBackgroundTask()
   }
 
   /// Schedules the exposure detection background task.
   /// To debug this, set a breakpoint right after `BGTaskScheduler.shared.submit()` and then execute the following line in the
   /// lldb console:
   /// ```
-  ///   e -l objc -- (void)[[BGTaskScheduler sharedScheduler] _simulateLaunchForTaskWithIdentifier:@"immuni.exposure_detection"]
+  ///   e -l objc -- (void)[[BGTaskScheduler sharedScheduler]
+  ///   _simulateLaunchForTaskWithIdentifier:@"it.ministerodellasalute.immuni.exposure-notification"]
   /// ```
   func scheduleBackgroundTask() {
     let taskRequest = BGProcessingTaskRequest(identifier: AppDelegate.exposureDetectionBackgroundTaskIdentifier)
