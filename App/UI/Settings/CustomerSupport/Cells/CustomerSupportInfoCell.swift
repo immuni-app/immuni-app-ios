@@ -16,13 +16,13 @@ import Extensions
 import Foundation
 import Tempura
 
-struct CustomerSupportInfoCellVM: ViewModel {
+struct CustomerSupportInfoCellVM: ViewModel, CellWithShadow {
   let info: String
   let value: String
   let shouldShowSeparator: Bool
 }
 
-class CustomerSupportInfoCell: UICollectionViewCell, ModellableView, ReusableView, CellWithShadow {
+class CustomerSupportInfoCell: UICollectionViewCell, ModellableView, ReusableView {
   typealias VM = CustomerSupportInfoCellVM
 
   static let horizontalInset: CGFloat = 55

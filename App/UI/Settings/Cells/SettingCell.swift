@@ -16,7 +16,7 @@ import Extensions
 import Foundation
 import Tempura
 
-struct SettingCellVM: ViewModel {
+struct SettingCellVM: ViewModel, CellWithShadow {
   let setting: SettingsVM.Setting
   let shouldShowSeparator: Bool
 
@@ -59,7 +59,7 @@ struct SettingCellVM: ViewModel {
   }
 }
 
-class SettingCell: UICollectionViewCell, ModellableView, ReusableView, CellWithShadow {
+class SettingCell: UICollectionViewCell, ModellableView, ReusableView {
   typealias VM = SettingCellVM
 
   static let cellInset: CGFloat = 25
