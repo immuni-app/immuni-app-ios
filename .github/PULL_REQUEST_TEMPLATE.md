@@ -1,4 +1,4 @@
-<!--- IMPORTANT: Please review [how to contribute](../CONTRIBUTING.md) before proceeding further. -->
+<!--- IMPORTANT: Please review [how to contribute](/CONTRIBUTING.md) before proceeding further. -->
 <!--- IMPORTANT: If this is a Work in Progress PR, please mark it as such in GitHub. -->
 
 ## Description
