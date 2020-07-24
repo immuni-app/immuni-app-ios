@@ -17,7 +17,7 @@ In particular, the ...
 
 <!--- Please insert an ‘x’ after you complete each step -->
 
-- [ ] I have followed the indications in the [CONTRIBUTING](../CONTRIBUTING.md).
+- [ ] I have followed the indications in the [CONTRIBUTING](/CONTRIBUTING.md).
 - [ ] The documentation related to the proposed change has been updated accordingly (plus comments in code).
 - [ ] I have written new tests for my core changes, as applicable.
 - [ ] I have successfully run tests with my changes locally.
