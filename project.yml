@@ -87,6 +87,8 @@ targets:
         CFBundleIcons: {}
         CFBundleShortVersionString: "1.3.0"
         CFBundleVersion: "${BUNDLE_VERSION}"
+        ENAPIVersion: 1
+        ENDeveloperRegion: IT
         IMAppstoreID: "${APPSTORE_ID}"
         ITSAppUsesNonExemptEncryption: false
         LSApplicationQueriesSchemes: ["googlegmail"]
