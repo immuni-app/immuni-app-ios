@@ -171,7 +171,7 @@ class SettingsView: UIView, ViewControllerModellableView {
     }
 
     if model.shouldReloadCollection(oldModel: oldModel) {
-      self.collection.collectionViewLayout.invalidateLayout()
+      self.collection.updateDecoratedCellPaths { model.cellModel(for: $0) is CellWithShadow }
       self.collection.reloadData()
     }
 

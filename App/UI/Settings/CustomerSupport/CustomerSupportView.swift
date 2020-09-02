@@ -83,6 +83,9 @@ class CustomerSupportView: UIView, ViewControllerModellableView {
     }
 
     if model.shouldReloadCollection(oldVM: oldModel) {
+      self.contentCollection.updateDecoratedCellPaths {
+        model.cellVM(for: model.cells[$0.item], isLastCell: false) is CellWithShadow
+      }
       self.contentCollection.reloadData()
     }
 
