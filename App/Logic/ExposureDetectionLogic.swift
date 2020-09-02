@@ -342,16 +342,26 @@ extension Logic.ExposureDetection {
         }
 
         title = "Skipped"
-        message = "\(Date().fullDateWithMillisString)\nExposure detection was skipped (enStatus: \(enStatus), lastDetection: \(lastDetectionString), lastChunk: \(latestProcessedChunk.map { String($0) } ?? "none"))"
+        message =
+          // swiftlint:disable:next line_length
+            "\(Date().fullDateWithMillisString)\nExposure detection was skipped (enStatus: \(enStatus), lastDetection: \(lastDetectionString), lastChunk: \(latestProcessedChunk.map { String($0) } ?? "none"))"
+
       case .fullDetection(_, let summary, _, let earliestChunk, let latestChunk):
         title = "Success"
-        message = "\(Date().fullDateWithMillisString)\nExposure detection was performed successfully: full, \(summary.matchedKeyCount) matches, chunks [\(earliestChunk), \(latestChunk)]"
+        message =
+          // swiftlint:disable:next line_length
+            "\(Date().fullDateWithMillisString)\nExposure detection was performed successfully: full, \(summary.matchedKeyCount) matches, chunks [\(earliestChunk), \(latestChunk)]"
+
       case .partialDetection(_, let summary, let earliestChunk, let latestChunk):
         title = "Success"
-        message = "\(Date().fullDateWithMillisString)\nExposure detection was performed successfully: partial, \(summary.matchedKeyCount) matches, chunks [\(earliestChunk), \(latestChunk)]"
+        message =
+          // swiftlint:disable:next line_length
+            "\(Date().fullDateWithMillisString)\nExposure detection was performed successfully: partial, \(summary.matchedKeyCount) matches, chunks [\(earliestChunk), \(latestChunk)]"
+
       case .error(.timeout):
         title = "Timeout"
         message = "\(Date().fullDateWithMillisString)\nBackground task timed out"
+
       case .error(let error):
         title = "Error"
         message = "\(Date().fullDateWithMillisString)\nBackground task resulted in error: \(error)"
