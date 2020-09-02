@@ -296,17 +296,19 @@ final class OnboardingLogicTests: XCTestCase {
 
     try Logic.Onboarding.UserDidTapExposureActionButton().sideEffect(context)
 
-    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 3)
+    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 4)
 
     try XCTAssertType(dispatchInterceptor.dispatchedItems[0], Tempura.Show.self) { value in
       XCTAssertEqual(value.identifiersToShow, [Screen.permissionOverlay.rawValue])
     }
 
-    try XCTAssertType(dispatchInterceptor.dispatchedItems[1], Tempura.Hide.self) { value in
+    try XCTAssertType(dispatchInterceptor.dispatchedItems[1], Logic.Lifecycle.ScheduleBackgroundTask.self)
+
+    try XCTAssertType(dispatchInterceptor.dispatchedItems[2], Tempura.Hide.self) { value in
       XCTAssertEqual(value.identifierToHide, Screen.permissionOverlay.rawValue)
     }
 
-    try XCTAssertType(dispatchInterceptor.dispatchedItems[2], Logic.Lifecycle.RefreshAuthorizationStatuses.self)
+    try XCTAssertType(dispatchInterceptor.dispatchedItems[3], Logic.Lifecycle.RefreshAuthorizationStatuses.self)
   }
 
   func testUserDidTapExposureActionButtonWithNotAuthorized() throws {
