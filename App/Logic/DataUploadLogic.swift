@@ -153,7 +153,14 @@ extension Logic.DataUpload {
       }
 
       // Start loading
-      try context.awaitDispatch(Logic.Loading.Show(message: L10n.UploadData.SendData.loading))
+      if #available(iOS 13.7, *) {
+        // The new UX in iOS 13.7 switches the whole UIWindow instead of just presenting an alert. This has the effect of
+        // breaking Tempura's internal navigation logic.
+        // As a workaround, the loading screen is currently disabled on iOS >= 13.7.
+        // Note: since `Hide` is idempotent, there is no need to comment it.
+      } else {
+        try context.awaitDispatch(Logic.Loading.Show(message: L10n.UploadData.SendData.loading))
+      }
 
       // Build the request payload
       let userProvince = state.user.province
