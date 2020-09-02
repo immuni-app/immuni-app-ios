@@ -123,12 +123,6 @@ extension ExposureNotificationStatus {
         self = .authorizedAndBluetoothOff
       case .restricted:
         self = .restricted
-      case .paused:
-        // Currently documented as unsupported by Apple
-        // https://developer.apple.com/documentation/exposurenotification/enstatus/paused
-        self = .restricted
-      case .unauthorized:
-        self = .notAuthorized
       @unknown default:
         self = .authorized
       }
