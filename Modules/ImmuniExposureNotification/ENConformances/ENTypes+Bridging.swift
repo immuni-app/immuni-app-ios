@@ -24,6 +24,7 @@ extension ENTemporaryExposureKey: TemporaryExposureKey {
   }
 }
 
+@available(iOS 13.5, *)
 extension ENRiskLevel {
   init(from native: RiskLevel) {
     switch native {
@@ -100,6 +101,7 @@ extension ENExposureInfo: ExposureInfo {
   }
 }
 
+@available(iOS 13.5, *)
 extension ExposureNotificationStatus {
   init(authorizationStatus: ENAuthorizationStatus, frameworkStatus: ENStatus) {
     switch authorizationStatus {
@@ -121,6 +123,12 @@ extension ExposureNotificationStatus {
         self = .authorizedAndBluetoothOff
       case .restricted:
         self = .restricted
+      case .paused:
+        // Currently documented as unsupported by Apple
+        // https://developer.apple.com/documentation/exposurenotification/enstatus/paused
+        self = .restricted
+      case .unauthorized:
+        self = .notAuthorized
       @unknown default:
         self = .authorized
       }
