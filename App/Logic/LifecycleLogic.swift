@@ -298,7 +298,8 @@ private extension Logic.Lifecycle {
         state.environment.appName = appName
       }
       if let appVersion = self.bundle.appVersion,
-        let bundleVersion = self.bundle.bundleVersion {
+        let bundleVersion = self.bundle.bundleVersion
+      {
         state.environment.appVersion = "\(appVersion) (\(bundleVersion))"
       }
       let device = UIDevice.current

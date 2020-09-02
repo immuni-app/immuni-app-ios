@@ -30,7 +30,8 @@ extension DataRequest {
     queue: DispatchQueue = DispatchQueue.global(),
     completionHandler: @escaping (DataResponse<Serializer.SerializedObject, AFError>) -> Void
   )
-    -> Self {
+    -> Self
+  {
       return response(
         queue: queue,
         responseSerializer: serializer,

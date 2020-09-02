@@ -112,8 +112,8 @@ private extension Dictionary where Key == String, Value == Any {
         let currValue = value as? [String: Any],
         let anotherValue = anotherDictionary[key] as? [String: Any]
 
-        else {
-          continue
+      else {
+        continue
       }
 
       merged[key] = currValue.deepMerged(with: anotherValue)

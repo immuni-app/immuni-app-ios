@@ -43,7 +43,8 @@ extension Logic.DataUpload {
 
       if
         let lastOtpFailedAttempt = state.ingestion.lastOtpValidationFailedAttempt,
-        now.timeIntervalSince(lastOtpFailedAttempt) <= Self.recentFailedAttemptsThreshold {
+        now.timeIntervalSince(lastOtpFailedAttempt) <= Self.recentFailedAttemptsThreshold
+      {
         let backOffDuration = UploadDataLS.backOffDuration(failedAttempts: failedAttempts)
         let backOffEnd = lastOtpFailedAttempt.addingTimeInterval(TimeInterval(backOffDuration))
         errorSecondsLeft = backOffEnd.timeIntervalSince(now).roundedInt().bounded(min: 0)

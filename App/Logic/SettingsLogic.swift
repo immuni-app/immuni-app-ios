@@ -187,7 +187,8 @@ extension Logic.Settings {
 
       if
         self.region.provinces.count == 1,
-        let province = self.region.provinces.first {
+        let province = self.region.provinces.first
+      {
         // province step not necessary
         context.dispatch(CompleteUpdateProvince(newProvince: province))
         return

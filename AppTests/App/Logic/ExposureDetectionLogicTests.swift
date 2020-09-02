@@ -318,7 +318,7 @@ final class ExposureDetectionLogicTests: XCTestCase {
       outcome: .fullDetection(Date(), .noMatch, [], 0, 5),
       type: .foreground
     )
-    .updateState(&state)
+      .updateState(&state)
     XCTAssertEqual(state.exposureDetection.recentPositiveExposureResults.count, 0)
   }
 
