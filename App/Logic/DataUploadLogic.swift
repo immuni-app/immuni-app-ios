@@ -346,6 +346,6 @@ private extension UIApplication {
   }
 
   var sceneAwareKeyWindow: UIWindow? {
-    return self.windows.filter(\.isKeyWindow).first
+    return self.windows.first(where: \.isKeyWindow)
   }
 }
