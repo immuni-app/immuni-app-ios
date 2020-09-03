@@ -137,7 +137,7 @@ extension Logic.DataUpload {
       if #available(iOS 13.7, *) {
         // The new UX in iOS 13.7 is a full screen controller from Apple.
         // It doesn't make sense to show a custom-made overlay here, so we just don't trigger it.
-        // Note: since `Hide` is idempotent, there is no need to comment it.
+        // Note: since `Hide` is idempotent, there is no need to handle it.
       } else {
         try context
           .awaitDispatch(Show(
