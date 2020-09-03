@@ -189,6 +189,10 @@ extension PermissionTutorialVM.Content {
 
   // swiftlint:disable:next identifier_name
   static var exposureNotificationUnauthorizedInstructions: Self {
+    if #available(iOS 13.7, *) {
+      return Self.exposureNotificationRestrictedOrUnauthorizedV2Instructions
+    }
+
     return PermissionTutorialVM.Content(
       title: L10n.PermissionTutorial.ExposureNotification.Unauthorized.title,
       items: [
@@ -205,6 +209,10 @@ extension PermissionTutorialVM.Content {
 
   // swiftlint:disable:next identifier_name
   static var exposureNotificationRestrictedInstructions: Self {
+    if #available(iOS 13.7, *) {
+      return Self.exposureNotificationRestrictedOrUnauthorizedV2Instructions
+    }
+
     return PermissionTutorialVM.Content(
       title: L10n.PermissionTutorial.ExposureNotification.Restricted.title,
       items: [
