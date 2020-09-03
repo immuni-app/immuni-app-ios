@@ -326,7 +326,7 @@ private extension UIApplication {
   // breaking Tempura's internal navigation logic until the key window is restored.
   // As a workaround, the app now waits for the key window to go back to its original instance
   func waitForWindowRestored() -> Promise<Void> {
-    return Promise<Void> { resolve, reject, _ in
+    return Promise<Void> { resolve, _, _ in
       self.pollWindowRestored(onRestored: resolve)
     }
   }
