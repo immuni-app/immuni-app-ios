@@ -43,8 +43,7 @@ extension Logic.DataUpload {
 
       if
         let lastOtpFailedAttempt = state.ingestion.lastOtpValidationFailedAttempt,
-        now.timeIntervalSince(lastOtpFailedAttempt) <= Self.recentFailedAttemptsThreshold
-      {
+        now.timeIntervalSince(lastOtpFailedAttempt) <= Self.recentFailedAttemptsThreshold {
         let backOffDuration = UploadDataLS.backOffDuration(failedAttempts: failedAttempts)
         let backOffEnd = lastOtpFailedAttempt.addingTimeInterval(TimeInterval(backOffDuration))
         errorSecondsLeft = backOffEnd.timeIntervalSince(now).roundedInt().bounded(min: 0)
@@ -136,12 +135,20 @@ extension Logic.DataUpload {
       }
 
       // Retrieve keys
-      try context
-        .awaitDispatch(Show(
-          Screen.permissionOverlay,
-          animated: true,
-          context: OnboardingPermissionOverlayLS(type: .diagnosisKeys)
-        ))
+      if #available(iOS 13.7, *) {
+        // The new UX in iOS 13.7 is a full screen controller from Apple.
+        // It doesn't make sense to show a custom-made overlay here, so we just don't
+        // trigger it
+        // Note: since `Hide` is idempotent, there is no need to comment it.
+
+      } else {
+        try context
+          .awaitDispatch(Show(
+            Screen.permissionOverlay,
+            animated: true,
+            context: OnboardingPermissionOverlayLS(type: .diagnosisKeys)
+          ))
+      }
 
       let keys: [TemporaryExposureKey]
       do {
