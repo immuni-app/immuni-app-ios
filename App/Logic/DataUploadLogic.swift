@@ -153,22 +153,17 @@ extension Logic.DataUpload {
       let keys: [TemporaryExposureKey]
       do {
         keys = try await(context.dependencies.exposureNotificationManager.getDiagnosisKeys())
+        try await(context.dependencies.application.waitForWindowRestored())
         try context.awaitDispatch(Hide(Screen.permissionOverlay, animated: false))
       } catch {
         // The user declined sharing the keys.
+        try await(context.dependencies.application.waitForWindowRestored())
         try context.awaitDispatch(Hide(Screen.permissionOverlay, animated: false))
         return
       }
 
       // Start loading
-      if #available(iOS 13.7, *) {
-        // The new UX in iOS 13.7 switches the whole UIWindow instead of just presenting an alert. This has the effect of
-        // breaking Tempura's internal navigation logic.
-        // As a workaround, the loading screen is currently disabled on iOS >= 13.7.
-        // Note: since `Hide` is idempotent, there is no need to comment it.
-      } else {
-        try context.awaitDispatch(Logic.Loading.Show(message: L10n.UploadData.SendData.loading))
-      }
+      try context.awaitDispatch(Logic.Loading.Show(message: L10n.UploadData.SendData.loading))
 
       // Build the request payload
       let userProvince = state.user.province
@@ -323,5 +318,29 @@ private extension CodableTemporaryExposureKey {
       rollingStartNumber: Int(native.rollingStartNumber),
       rollingPeriod: Int(native.rollingPeriod)
     )
+  }
+}
+
+private extension UIApplication {
+  // The new UX in iOS 13.7 switches the whole UIWindow instead of just presenting an alert. This has the effect of
+  // breaking Tempura's internal navigation logic until the key window is restored.
+  // As a workaround, the app now waits for the key window to go back to its original instance
+  func waitForWindowRestored() -> Promise<Void> {
+    return Promise<Void> { resolve, reject, _ in
+      self.pollWindowRestored(onRestored: resolve)
+    }
+  }
+
+  func pollWindowRestored(onRestored: @escaping Promise<Void>.Resolved) {
+    let isWindowRestored = mainThread { self.keyWindow == (self.delegate as! AppDelegate).window }
+
+    guard !isWindowRestored else {
+      onRestored(())
+      return
+    }
+
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+      self.pollWindowRestored(onRestored: onRestored)
+    }
   }
 }
