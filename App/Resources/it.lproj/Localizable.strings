@@ -122,6 +122,8 @@
 "permission_tutorial.deactivate_service.fourth.message" = "<h3>Per disabilitare le notifiche di esposizione</h3>";
 "permission_tutorial.deactivate_service.second.message" = "In certi casi può aver senso disattivare temporaneamente l'app, ad esempio mentre sei al lavoro se sei un operatore sanitario a contatto con pazienti COVID-19.";
 "permission_tutorial.deactivate_service.sixth.message" = "<b>2. Disabilita le notifiche di esposizione</b>";
+"permission_tutorial.deactivate_service.sixth.v2.message" = "<b>2. Entra in \"Notifiche di esposizione\"</b>";
+"permission_tutorial.deactivate_service.seventh.v2.message" = "3. Disabilita la condivisione delle informazioni di esposizione";
 "permission_tutorial.deactivate_service.third.message" = "Disabilitando le notifiche di esposizione i successivi contatti con altri utenti non verranno registrati.";
 "permission_tutorial.deactivate_service.title" = "Come disattivare il servizio";
 "permission_tutorial.exposure_notification.restricted.fifth" = "<b>5. Abilita la raccolta log di esposizione</b>";
