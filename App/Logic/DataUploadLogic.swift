@@ -137,10 +137,8 @@ extension Logic.DataUpload {
       // Retrieve keys
       if #available(iOS 13.7, *) {
         // The new UX in iOS 13.7 is a full screen controller from Apple.
-        // It doesn't make sense to show a custom-made overlay here, so we just don't
-        // trigger it
+        // It doesn't make sense to show a custom-made overlay here, so we just don't trigger it.
         // Note: since `Hide` is idempotent, there is no need to comment it.
-
       } else {
         try context
           .awaitDispatch(Show(
@@ -153,13 +151,16 @@ extension Logic.DataUpload {
       let keys: [TemporaryExposureKey]
       do {
         keys = try await(context.dependencies.exposureNotificationManager.getDiagnosisKeys())
-        try await(context.dependencies.application.waitForWindowRestored())
         try context.awaitDispatch(Hide(Screen.permissionOverlay, animated: false))
       } catch {
         // The user declined sharing the keys.
-        try await(context.dependencies.application.waitForWindowRestored())
         try context.awaitDispatch(Hide(Screen.permissionOverlay, animated: false))
         return
+      }
+
+      // Wait for the key window to be restored
+      if #available(iOS 13.7, *) {
+        try await(context.dependencies.application.waitForWindowRestored())
       }
 
       // Start loading
@@ -332,7 +333,8 @@ private extension UIApplication {
   }
 
   func pollWindowRestored(onRestored: @escaping Promise<Void>.Resolved) {
-    let isWindowRestored = mainThread { self.keyWindow == (self.delegate as! AppDelegate).window }
+    let appDelegate = self.delegate as? AppDelegate
+    let isWindowRestored = mainThread { self.sceneAwareKeyWindow == appDelegate?.window }
 
     guard !isWindowRestored else {
       onRestored(())
@@ -342,5 +344,9 @@ private extension UIApplication {
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
       self.pollWindowRestored(onRestored: onRestored)
     }
+  }
+
+  var sceneAwareKeyWindow: UIWindow? {
+    return self.windows.filter(\.isKeyWindow).first
   }
 }
