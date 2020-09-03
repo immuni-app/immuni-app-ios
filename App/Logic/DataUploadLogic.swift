@@ -129,7 +129,6 @@ extension Logic.DataUpload {
       do {
         try context.awaitDispatch(AssertExposureNotificationPermissionGranted())
       } catch {
-        try context.awaitDispatch(Logic.Loading.Hide())
         try context.awaitDispatch(ShowMissingAuthorizationAlert())
         return
       }
