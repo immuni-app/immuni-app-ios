@@ -74,8 +74,16 @@ extension Logic.PermissionTutorial {
   struct ShowActivateExposureNotificationTutorial: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let exposureNotificationAuthorizationStatus = context.getState().environment.exposureNotificationAuthorizationStatus
-      switch exposureNotificationAuthorizationStatus {
-      case .restricted:
+      let isUsingSettingsV2: Bool
+
+      if #available(iOS 13.7, *) {
+        isUsingSettingsV2 = true
+      } else {
+        isUsingSettingsV2 = false
+      }
+
+      switch (exposureNotificationAuthorizationStatus, isUsingSettingsV2) {
+      case (.restricted, false):
         try context
           .awaitDispatch(Show(
             Screen.permissionTutorial,
@@ -83,7 +91,7 @@ extension Logic.PermissionTutorial {
             context: PermissionTutorialLS(content: .exposureNotificationRestrictedInstructions)
           ))
 
-      case .notAuthorized:
+      case (.notAuthorized, false):
         try context
           .awaitDispatch(Show(
             Screen.permissionTutorial,
@@ -91,7 +99,16 @@ extension Logic.PermissionTutorial {
             context: PermissionTutorialLS(content: .exposureNotificationUnauthorizedInstructions)
           ))
 
-      case .authorized, .authorizedAndActive, .authorizedAndInactive, .authorizedAndBluetoothOff, .unknown:
+      case (.notAuthorized, true), (.restricted, true):
+        try context
+          .awaitDispatch(Show(
+            Screen.permissionTutorial,
+            animated: true,
+            context: PermissionTutorialLS(content: .exposureNotificationRestrictedOrUnauthorizedV2Instructions)
+          ))
+
+      case (.authorized, _), (.authorizedAndActive, _), (.authorizedAndInactive, _), (.authorizedAndBluetoothOff, _),
+           (.unknown, _):
         // should never happen
         break
       }

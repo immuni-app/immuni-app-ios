@@ -83,6 +83,11 @@ class PermissionTutorialUITests: AppViewTestCase, ViewTestCase {
           content: .whyProvinceRegion,
           isHeaderVisible: false,
           shouldAnimateContent: false
+        ),
+        "permission_tutorial_exposure_notification_restricted_or_unauthorized_v2": PermissionTutorialVM(
+          content: .exposureNotificationRestrictedOrUnauthorizedV2Instructions,
+          isHeaderVisible: false,
+          shouldAnimateContent: false
         )
       ],
       context: context

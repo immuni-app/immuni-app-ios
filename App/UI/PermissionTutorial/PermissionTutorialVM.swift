@@ -229,6 +229,30 @@ extension PermissionTutorialVM.Content {
     )
   }
 
+  // Instructions for the iOS 13.7 and 14 settings, when the EN is either restricted
+  // or not authorized
+  // swiftlint:disable:next identifier_name
+  static var exposureNotificationRestrictedOrUnauthorizedV2Instructions: Self {
+    return PermissionTutorialVM.Content(
+      title: L10n.PermissionTutorial.ExposureNotification.RestrictedOrUnauthorizedV2.title,
+      items: [
+        .spacer(.big),
+        .textualContent(L10n.PermissionTutorial.ExposureNotification.RestrictedOrUnauthorizedV2.first, isDark: true),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.ExposureNotification.RestrictedOrUnauthorizedV2.second, isDark: true),
+        .imageContent(Asset.PermissionTutorial.exposureNotification.image),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.ExposureNotification.RestrictedOrUnauthorizedV2.third, isDark: true),
+        .imageContent(Asset.PermissionTutorial.exposureNotificationShare.image),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.ExposureNotification.RestrictedOrUnauthorizedV2.fourth, isDark: true),
+        .imageContent(Asset.PermissionTutorial.setAsAsctiveRegion.image)
+      ],
+      mainActionTitle: L10n.PermissionTutorial.ExposureNotification.RestrictedOrUnauthorizedV2.action,
+      action: Logic.Shared.OpenSettings()
+    )
+  }
+
   static var deactivateServiceInstructions: Self {
     return PermissionTutorialVM.Content(
       title: L10n.PermissionTutorial.DeactivateService.title,
