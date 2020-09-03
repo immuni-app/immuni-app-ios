@@ -134,6 +134,12 @@
 "permission_tutorial.exposure_notification.unauthorized.first" = "<b>1. Apri le impostazioni</b> dal bottone in basso";
 "permission_tutorial.exposure_notification.unauthorized.second" = "<b>2. Abilita le notifiche di esposizione</b>";
 "permission_tutorial.exposure_notification.unauthorized.title" = "Per attivare le notifiche di esposizione";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.first" = "<b>1. Apri le impostazioni</b> dal bottone in basso";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.second" = "<b>2. Entra in \"Notifiche di esposizione\"</b>";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.third" = "<b>3. Abilita la condivisione delle informazioni di esposizione</b>";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.fourth" = "4. Se non l’hai già fatto, <b>imposta Immuni come zona attiva</b> per le notifiche di esposizione";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.title" = "Per attivare le notifiche di esposizione";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.action" = "Apri Impostazioni";
 "permission_tutorial.how_immuni_works.action.cta" = "Esplora le domande frequenti";
 "permission_tutorial.how_immuni_works.action.description" = "Vuoi saperne di più?";
 "permission_tutorial.how_immuni_works.fifth.message" = "Se sei stato in contatto con un utente positivo, Immuni ti avverte e ti dice cosa fare. Riesce a fare tutto questo senza mai sapere dove vai e con chi ti incontri. La tua privacy è al sicuro.";
