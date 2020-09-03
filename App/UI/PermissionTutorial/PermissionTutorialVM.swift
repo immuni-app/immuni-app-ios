@@ -262,6 +262,10 @@ extension PermissionTutorialVM.Content {
   }
 
   static var deactivateServiceInstructions: Self {
+    if #available(iOS 13.7, *) {
+      return Self.deactivateServiceInstructionsV2
+    }
+
     return PermissionTutorialVM.Content(
       title: L10n.PermissionTutorial.DeactivateService.title,
       items: [
@@ -285,6 +289,41 @@ extension PermissionTutorialVM.Content {
         .textualContent(L10n.PermissionTutorial.DeactivateService.Sixth.message, isDark: true),
         .spacer(.small),
         .imageContent(Asset.PermissionTutorial.covid19ExpositionDisabled.image),
+        .scrollableButton(description: "", buttonTitle: L10n.PermissionTutorial.DeactivateService.Action.cta),
+        .spacer(.small)
+      ],
+      mainActionTitle: nil,
+      action: Logic.Shared.OpenSettings()
+    )
+  }
+
+  // deactivate service instructions for the settings v2 (ios 13.7 or above)
+  static var deactivateServiceInstructionsV2: Self {
+    return PermissionTutorialVM.Content(
+      title: L10n.PermissionTutorial.DeactivateService.title,
+      items: [
+        .spacer(.big),
+        .textAndImage(
+          L10n.PermissionTutorial.DeactivateService.First.message,
+          Asset.Settings.UploadData.alert.image,
+          .imageBeforeText
+        ),
+        .spacer(.big),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Second.message, isDark: true),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Third.message, isDark: true),
+        .spacer(.big),
+        .imageContent(Asset.Common.separator.image),
+        .spacer(.big),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Fourth.message, isDark: true),
+        .spacer(.big),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Fifth.message, isDark: true),
+        .spacer(.medium),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Sixth.V2.message, isDark: true),
+        .imageContent(Asset.PermissionTutorial.exposureNotification.image),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Seventh.V2.message, isDark: true),
+        .imageContent(Asset.PermissionTutorial.exposureNotificationShareDeactivated.image),
         .scrollableButton(description: "", buttonTitle: L10n.PermissionTutorial.DeactivateService.Action.cta),
         .spacer(.small)
       ],
