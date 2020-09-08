@@ -73,15 +73,15 @@ final class PersistStoreMigrationStoredStateTests: XCTestCase {
       ("migration-1", { _ in
         performOrder += 1
         migration1PerformedOrder = performOrder
-              }),
+      }),
       ("migration-2", { _ in
         performOrder += 1
         migration2PerformedOrder = performOrder
-              }),
+      }),
       ("migration-3", { _ in
         performOrder += 1
         migration3PerformedOrder = performOrder
-              })
+      })
     ]
 
     self.initStore(["c": 1])

@@ -33,13 +33,13 @@ class StateExplorerTableController: UIViewController {
 
     if let dictAppState = serializedAppState as? [String: Any] {
       for (key, value) in dictAppState.sorted(by: { $0.key <= $1.key }) {
-        stateSlice.append((key, value))
+        self.stateSlice.append((key, value))
       }
     }
 
     if let arrayAppState = serializedAppState as? [Any] {
       for (index, value) in arrayAppState.enumerated() {
-        stateSlice.append(("\(index)", value))
+        self.stateSlice.append(("\(index)", value))
       }
     }
 
@@ -47,6 +47,7 @@ class StateExplorerTableController: UIViewController {
     self.title = title
   }
 
+  @available(*, unavailable)
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }

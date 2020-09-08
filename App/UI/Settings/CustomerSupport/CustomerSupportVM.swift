@@ -112,7 +112,8 @@ extension CustomerSupportVM {
     if
       let phone = supportPhone,
       let openingTime = supportPhoneOpeningTime,
-      let closingTime = supportPhoneClosingTime {
+      let closingTime = supportPhoneClosingTime
+    {
       cells.append(.contact(.phone(number: phone, openingTime: openingTime, closingTime: closingTime)))
 
       if hasEmailContact {

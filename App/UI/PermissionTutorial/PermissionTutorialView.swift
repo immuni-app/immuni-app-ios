@@ -116,7 +116,8 @@ final class PermissionTutorialView: UIView, ViewControllerModellableView {
     for path in self.contentCollection.indexPathsForVisibleItems {
       if
         let cell = self.contentCollection.cellForItem(at: path) as? ContentCollectionAnimationCell,
-        let cellModel = model.cellVM(for: model.content.items[path.item]) as? ContentCollectionAnimationCellVM {
+        let cellModel = model.cellVM(for: model.content.items[path.item]) as? ContentCollectionAnimationCellVM
+      {
         cell.model = cellModel
       }
     }

@@ -121,8 +121,9 @@ open class SecretsStorage {
    */
   open func get<T>(key: SecretsStorageKey<T>) -> T? where T: Codable {
     guard let data = get(key: key.dataVersionKey),
-      let toRet = try? JSONDecoder().decode(T.self, from: data) else {
-        return nil
+      let toRet = try? JSONDecoder().decode(T.self, from: data)
+    else {
+      return nil
     }
     return toRet
   }

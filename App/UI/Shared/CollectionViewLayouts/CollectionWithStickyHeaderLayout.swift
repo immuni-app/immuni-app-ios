@@ -39,7 +39,8 @@ class CollectionWithStickyCellsLayout: UICollectionViewFlowLayout {
     guard
       let collectionView = self.collectionView,
       let attributes = parent,
-      !attributes.isEmpty else {
+      !attributes.isEmpty
+      else {
         return parent
     }
 
@@ -48,7 +49,8 @@ class CollectionWithStickyCellsLayout: UICollectionViewFlowLayout {
     for cellAttributes in attributes {
       if
         cellAttributes.indexPath.item == 0,
-        let cell = collectionView.cellForItem(at: cellAttributes.indexPath) as? StickyCell {
+        let cell = collectionView.cellForItem(at: cellAttributes.indexPath) as? StickyCell
+      {
         let offset = collectionView.contentOffset
 
         var frame = cellAttributes.frame

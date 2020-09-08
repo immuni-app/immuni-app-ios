@@ -33,7 +33,8 @@ class TabbarVC: ViewController<TabbarView>, CustomRouteInspectables {
     super.viewDidLayoutSubviews()
     // Present the first when the view is loaded
     guard let viewModel = self.viewModel,
-      let newVC = self.vc[viewModel.selectedTab] else {
+      let newVC = self.vc[viewModel.selectedTab]
+      else {
         return
     }
     self.add(newVC, frame: self.rootView.frame)
@@ -71,7 +72,8 @@ class TabbarVC: ViewController<TabbarView>, CustomRouteInspectables {
 
   func changeTab(to newTab: TabbarVM.Tab) {
     guard let oldTab = self.viewModel?.selectedTab,
-      oldTab != newTab else {
+      oldTab != newTab
+      else {
         return
     }
 

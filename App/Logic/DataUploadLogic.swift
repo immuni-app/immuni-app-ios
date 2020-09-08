@@ -129,18 +129,23 @@ extension Logic.DataUpload {
       do {
         try context.awaitDispatch(AssertExposureNotificationPermissionGranted())
       } catch {
-        try context.awaitDispatch(Logic.Loading.Hide())
         try context.awaitDispatch(ShowMissingAuthorizationAlert())
         return
       }
 
       // Retrieve keys
-      try context
-        .awaitDispatch(Show(
-          Screen.permissionOverlay,
-          animated: true,
-          context: OnboardingPermissionOverlayLS(type: .diagnosisKeys)
-        ))
+      if #available(iOS 13.7, *) {
+        // The new UX in iOS 13.7 is a full screen controller from Apple.
+        // It doesn't make sense to show a custom-made overlay here, so we just don't trigger it.
+        // Note: since `Hide` is idempotent, there is no need to handle it.
+      } else {
+        try context
+          .awaitDispatch(Show(
+            Screen.permissionOverlay,
+            animated: true,
+            context: OnboardingPermissionOverlayLS(type: .diagnosisKeys)
+          ))
+      }
 
       let keys: [TemporaryExposureKey]
       do {
@@ -150,6 +155,11 @@ extension Logic.DataUpload {
         // The user declined sharing the keys.
         try context.awaitDispatch(Hide(Screen.permissionOverlay, animated: false))
         return
+      }
+
+      // Wait for the key window to be restored
+      if #available(iOS 13.7, *) {
+        try await(context.dependencies.application.waitForWindowRestored())
       }
 
       // Start loading
@@ -308,5 +318,34 @@ private extension CodableTemporaryExposureKey {
       rollingStartNumber: Int(native.rollingStartNumber),
       rollingPeriod: Int(native.rollingPeriod)
     )
+  }
+}
+
+private extension UIApplication {
+  // The new UX in iOS 13.7 switches the whole UIWindow instead of just presenting an alert. This has the effect of
+  // breaking Tempura's internal navigation logic until the key window is restored.
+  // As a workaround, the app now waits for the key window to go back to its original instance
+  func waitForWindowRestored() -> Promise<Void> {
+    return Promise<Void> { resolve, _, _ in
+      self.pollWindowRestored(onRestored: resolve)
+    }
+  }
+
+  func pollWindowRestored(onRestored: @escaping Promise<Void>.Resolved) {
+    let appDelegate = self.delegate as? AppDelegate
+    let isWindowRestored = mainThread { self.sceneAwareKeyWindow == appDelegate?.window }
+
+    guard !isWindowRestored else {
+      onRestored(())
+      return
+    }
+
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+      self.pollWindowRestored(onRestored: onRestored)
+    }
+  }
+
+  var sceneAwareKeyWindow: UIWindow? {
+    return self.windows.first(where: \.isKeyWindow)
   }
 }

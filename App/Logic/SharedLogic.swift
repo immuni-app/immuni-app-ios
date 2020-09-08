@@ -147,12 +147,14 @@ extension Logic.Shared {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       guard
         context.dependencies.application.currentRoutableIdentifiers
-        .contains(where: { Self.possiblePresenters.contains($0) }) else {
+        .contains(where: { Self.possiblePresenters.contains($0) })
+        else {
           return
       }
       guard
         !context.dependencies.application.currentRoutableIdentifiers
-        .contains(where: { Self.possibleBlockers.contains($0) }) else {
+        .contains(where: { Self.possibleBlockers.contains($0) })
+        else {
           return
       }
 
