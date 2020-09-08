@@ -318,3 +318,11 @@
 "welcome_view.items.third.description" = "Les utilisateurs qui découvrent avoir été exposés au virus peuvent s'isoler afin de ralentir la propagation du virus et d'accélérer le retour à une vie normale.";
 "welcome_view.items.third.title" = "Ensemble, ralentissons l'épidémie";
 "welcome_view.next_page_title" = "Suivant";
+"permission_tutorial.deactivate_service.sixth.v2.message" = "<b>2. Accédez à \"Notifications d’exposition\"</b>";
+"permission_tutorial.deactivate_service.seventh.v2.message" = "3. Désactivez le partage des informations d'exposition";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.first" = "<b>1. Ouvrez les paramètres</b> à partir du bouton en bas";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.second" = "<b>2. Accédez à \"Notifications d’exposition\"</b>";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.third" = "<b>3. Activez le partage des informations d'exposition</b>";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.fourth" = "4. Si vous ne l'avez pas encore fait, <b>définissez Immuni comme la zone active</b> pour les notifications d'exposition";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.title" = "Pour activer les notifications d'exposition";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.action" = "Ouvrez Paramètres";

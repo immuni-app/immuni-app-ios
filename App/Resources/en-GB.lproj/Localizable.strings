@@ -318,3 +318,11 @@
 "welcome_view.items.third.description" = "Users who discover that they have been exposed to the virus can self-isolate, slowing down the spread of the virus and helping us return to normal life faster.";
 "welcome_view.items.third.title" = "Slowing down the epidemic together";
 "welcome_view.next_page_title" = "Next";
+"permission_tutorial.deactivate_service.sixth.v2.message" = "<b>2. Go to \"Exposure notifications\"</b>";
+"permission_tutorial.deactivate_service.seventh.v2.message" = "3. Disable sharing of exposure notifications";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.first" = "<b>1. Open Settings</b> using the button at the bottom";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.second" = "<b>2. Go to \"Exposure notifications\"</b>";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.third" = "<b>3. Enable sharing of exposure notifications</b>";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.fourth" = "4. If you haven't already done so, <b>set Immuni as the active zone</b> for exposure notifications";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.title" = "To enable exposure notifications";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.action" = "Open Settings";
