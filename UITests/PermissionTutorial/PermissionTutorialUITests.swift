@@ -83,6 +83,16 @@ class PermissionTutorialUITests: AppViewTestCase, ViewTestCase {
           content: .whyProvinceRegion,
           isHeaderVisible: false,
           shouldAnimateContent: false
+        ),
+        "permission_tutorial_exposure_notification_restricted_or_unauthorized_v2": PermissionTutorialVM(
+          content: .exposureNotificationRestrictedOrUnauthorizedV2Instructions,
+          isHeaderVisible: false,
+          shouldAnimateContent: false
+        ),
+        "permission_tutorial_deactivate_service_v2": PermissionTutorialVM(
+          content: .deactivateServiceInstructionsV2,
+          isHeaderVisible: false,
+          shouldAnimateContent: false
         )
       ],
       context: context
@@ -143,6 +153,16 @@ class PermissionTutorialUITests: AppViewTestCase, ViewTestCase {
         "how_immuni_works_faq_scrolled": PermissionTutorialVM(
           content: .howImmuniWorks(shouldShowFaqButton: true),
           isHeaderVisible: true,
+          shouldAnimateContent: false
+        ),
+        "permission_tutorial_exposure_notification_restricted_or_unauthorized_v2_scrolled": PermissionTutorialVM(
+          content: .exposureNotificationRestrictedOrUnauthorizedV2Instructions,
+          isHeaderVisible: false,
+          shouldAnimateContent: false
+        ),
+        "permission_tutorial_deactivate_service_v2_scrolled": PermissionTutorialVM(
+          content: .deactivateServiceInstructionsV2,
+          isHeaderVisible: false,
           shouldAnimateContent: false
         )
       ],

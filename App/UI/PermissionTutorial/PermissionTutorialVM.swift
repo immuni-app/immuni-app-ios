@@ -189,6 +189,10 @@ extension PermissionTutorialVM.Content {
 
   // swiftlint:disable:next identifier_name
   static var exposureNotificationUnauthorizedInstructions: Self {
+    if #available(iOS 13.7, *) {
+      return Self.exposureNotificationRestrictedOrUnauthorizedV2Instructions
+    }
+
     return PermissionTutorialVM.Content(
       title: L10n.PermissionTutorial.ExposureNotification.Unauthorized.title,
       items: [
@@ -205,6 +209,10 @@ extension PermissionTutorialVM.Content {
 
   // swiftlint:disable:next identifier_name
   static var exposureNotificationRestrictedInstructions: Self {
+    if #available(iOS 13.7, *) {
+      return Self.exposureNotificationRestrictedOrUnauthorizedV2Instructions
+    }
+
     return PermissionTutorialVM.Content(
       title: L10n.PermissionTutorial.ExposureNotification.Restricted.title,
       items: [
@@ -229,7 +237,35 @@ extension PermissionTutorialVM.Content {
     )
   }
 
+  // Instructions for the iOS 13.7 and 14 settings, when the EN is either restricted
+  // or not authorized
+  // swiftlint:disable:next identifier_name
+  static var exposureNotificationRestrictedOrUnauthorizedV2Instructions: Self {
+    return PermissionTutorialVM.Content(
+      title: L10n.PermissionTutorial.ExposureNotification.RestrictedOrUnauthorizedV2.title,
+      items: [
+        .spacer(.big),
+        .textualContent(L10n.PermissionTutorial.ExposureNotification.RestrictedOrUnauthorizedV2.first, isDark: true),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.ExposureNotification.RestrictedOrUnauthorizedV2.second, isDark: true),
+        .imageContent(Asset.PermissionTutorial.exposureNotification.image),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.ExposureNotification.RestrictedOrUnauthorizedV2.third, isDark: true),
+        .imageContent(Asset.PermissionTutorial.exposureNotificationShare.image),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.ExposureNotification.RestrictedOrUnauthorizedV2.fourth, isDark: true),
+        .imageContent(Asset.PermissionTutorial.setAsAsctiveRegion.image)
+      ],
+      mainActionTitle: L10n.PermissionTutorial.ExposureNotification.RestrictedOrUnauthorizedV2.action,
+      action: Logic.Shared.OpenSettings()
+    )
+  }
+
   static var deactivateServiceInstructions: Self {
+    if #available(iOS 13.7, *) {
+      return Self.deactivateServiceInstructionsV2
+    }
+
     return PermissionTutorialVM.Content(
       title: L10n.PermissionTutorial.DeactivateService.title,
       items: [
@@ -253,6 +289,41 @@ extension PermissionTutorialVM.Content {
         .textualContent(L10n.PermissionTutorial.DeactivateService.Sixth.message, isDark: true),
         .spacer(.small),
         .imageContent(Asset.PermissionTutorial.covid19ExpositionDisabled.image),
+        .scrollableButton(description: "", buttonTitle: L10n.PermissionTutorial.DeactivateService.Action.cta),
+        .spacer(.small)
+      ],
+      mainActionTitle: nil,
+      action: Logic.Shared.OpenSettings()
+    )
+  }
+
+  // deactivate service instructions for the settings v2 (ios 13.7 or above)
+  static var deactivateServiceInstructionsV2: Self {
+    return PermissionTutorialVM.Content(
+      title: L10n.PermissionTutorial.DeactivateService.title,
+      items: [
+        .spacer(.big),
+        .textAndImage(
+          L10n.PermissionTutorial.DeactivateService.First.message,
+          Asset.Settings.UploadData.alert.image,
+          .imageBeforeText
+        ),
+        .spacer(.big),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Second.message, isDark: true),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Third.message, isDark: true),
+        .spacer(.big),
+        .imageContent(Asset.Common.separator.image),
+        .spacer(.big),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Fourth.message, isDark: true),
+        .spacer(.big),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Fifth.message, isDark: true),
+        .spacer(.medium),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Sixth.V2.message, isDark: true),
+        .imageContent(Asset.PermissionTutorial.exposureNotification.image),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.DeactivateService.Seventh.V2.message, isDark: true),
+        .imageContent(Asset.PermissionTutorial.exposureNotificationShareDeactivated.image),
         .scrollableButton(description: "", buttonTitle: L10n.PermissionTutorial.DeactivateService.Action.cta),
         .spacer(.small)
       ],

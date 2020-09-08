@@ -122,6 +122,8 @@
 "permission_tutorial.deactivate_service.fourth.message" = "<h3>Per disabilitare le notifiche di esposizione</h3>";
 "permission_tutorial.deactivate_service.second.message" = "In certi casi può aver senso disattivare temporaneamente l'app, ad esempio mentre sei al lavoro se sei un operatore sanitario a contatto con pazienti COVID-19.";
 "permission_tutorial.deactivate_service.sixth.message" = "<b>2. Disabilita le notifiche di esposizione</b>";
+"permission_tutorial.deactivate_service.sixth.v2.message" = "<b>2. Entra in \"Notifiche di esposizione\"</b>";
+"permission_tutorial.deactivate_service.seventh.v2.message" = "<b>3. Disabilita la condivisione delle informazioni di esposizione</b>";
 "permission_tutorial.deactivate_service.third.message" = "Disabilitando le notifiche di esposizione i successivi contatti con altri utenti non verranno registrati.";
 "permission_tutorial.deactivate_service.title" = "Come disattivare il servizio";
 "permission_tutorial.exposure_notification.restricted.fifth" = "<b>5. Abilita la raccolta log di esposizione</b>";
@@ -134,6 +136,12 @@
 "permission_tutorial.exposure_notification.unauthorized.first" = "<b>1. Apri le impostazioni</b> dal bottone in basso";
 "permission_tutorial.exposure_notification.unauthorized.second" = "<b>2. Abilita le notifiche di esposizione</b>";
 "permission_tutorial.exposure_notification.unauthorized.title" = "Per attivare le notifiche di esposizione";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.first" = "<b>1. Apri le impostazioni</b> dal bottone in basso";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.second" = "<b>2. Entra in \"Notifiche di esposizione\"</b>";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.third" = "<b>3. Abilita la condivisione delle informazioni di esposizione</b>";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.fourth" = "4. Se non l’hai già fatto, <b>imposta Immuni come zona attiva</b> per le notifiche di esposizione";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.title" = "Per attivare le notifiche di esposizione";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.action" = "Apri Impostazioni";
 "permission_tutorial.how_immuni_works.action.cta" = "Esplora le domande frequenti";
 "permission_tutorial.how_immuni_works.action.description" = "Vuoi saperne di più?";
 "permission_tutorial.how_immuni_works.fifth.message" = "Se sei stato in contatto con un utente positivo, Immuni ti avverte e ti dice cosa fare. Riesce a fare tutto questo senza mai sapere dove vai e con chi ti incontri. La tua privacy è al sicuro.";
