@@ -254,9 +254,14 @@ extension PermissionTutorialVM.Content {
         .imageContent(Asset.PermissionTutorial.exposureNotificationShare.image),
         .spacer(.small),
         .textualContent(L10n.PermissionTutorial.ExposureNotification.RestrictedOrUnauthorizedV2.fourth, isDark: true),
-        .imageContent(Asset.PermissionTutorial.setAsAsctiveRegion.image)
+        .imageContent(Asset.PermissionTutorial.setAsAsctiveRegion.image),
+        .scrollableButton(
+          description: "",
+          buttonTitle: L10n.PermissionTutorial.ExposureNotification.RestrictedOrUnauthorizedV2.action
+        ),
+        .spacer(.small)
       ],
-      mainActionTitle: L10n.PermissionTutorial.ExposureNotification.RestrictedOrUnauthorizedV2.action,
+      mainActionTitle: nil,
       action: Logic.Shared.OpenSettings()
     )
   }
