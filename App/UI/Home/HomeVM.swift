@@ -95,13 +95,7 @@ extension HomeVM {
       cells.insert(.header(kind: .positive), at: 0)
     }
 
-    if #available(iOS 13.7, *) {
-      // in iOS 13.7 or above, it seems that there is no reliable
-      // (and data-preserving) way to disable the EN reliably.
-      // For the time being, this feature is disabled
-    } else {
-      cells.append(.deactivateButton(isEnabled: isServiceActive))
-    }
+    cells.append(.deactivateButton(isEnabled: isServiceActive))
 
     self.cellTypes = cells
   }
