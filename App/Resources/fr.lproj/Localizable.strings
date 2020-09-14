@@ -61,7 +61,7 @@
 "how_it_works_tile_5" = "Vous serez prévenu en cas de contact avec une personne testée positive";
 "next" = "Suivant";
 "notification_settings_allow" = "Autorisez les notifications";
-"notification_steps_instruction_1" = "1. Accédez à Paramètres en utilisant le bouton ci-dessous";
+"notification_steps_instruction_1" = "1. Accédez à Réglages en utilisant le bouton ci-dessous";
 "notification_steps_instruction_2" = "2. Activez l'option Autoriser les notifications";
 "notification_steps_title" = "Pour activer les notifications";
 "notifications.apple_exposure_notification.message" = "Une personne avec laquelle vous avez été en contact étroit a été testée positive";
@@ -106,8 +106,8 @@
 "onboarding.region.title" = "Dans quelle région habitez-vous ?";
 "onboarding_exposure_api_not_activated" = "Notifications de risque d'exposition désactivées";
 "onboarding_exposure_message_extended" = "En raison d'une limitation du système d'exploitation, le service de géolocalisation doit être activé pour permettre l'échange de codes aléatoires via Bluetooth. <b>Immuni n'accède pas à votre position, comme vous pouvez le vérifier en consultant la liste des autorisations requises par l'application</b>.";
-"open_settings" = "Accédez à Paramètres";
-"permission_tutorial.bluetooth.action" = "Accédez à Paramètres";
+"open_settings" = "Accédez à Réglages";
+"permission_tutorial.bluetooth.action" = "Accédez à Réglages";
 "permission_tutorial.bluetooth.first" = "<b>1. Accédez au Centre de contrôle.</b> Faites défiler l'écran vers le bas à partir du coin supérieur droit ou vers le haut à partir du bas de l'écran, en fonction de l'appareil que vous utilisez.";
 "permission_tutorial.bluetooth.second" = "<b>2. Activez le Bluetooth</b>";
 "permission_tutorial.bluetooth.title" = "Pour activer la fonction Bluetooth";
@@ -130,8 +130,8 @@
 "permission_tutorial.exposure_notification.restricted.second" = "<b>2. Accédez à Confidentialité</b>";
 "permission_tutorial.exposure_notification.restricted.third" = "<b>3. Accédez à Santé</b>";
 "permission_tutorial.exposure_notification.restricted.title" = "Pour activer les notifications d'exposition";
-"permission_tutorial.exposure_notification.unauthorized.action" = "Accédez à Paramètres";
-"permission_tutorial.exposure_notification.unauthorized.first" = "<b>1. Accédez à Paramètres</b> en utilisant le bouton ci-dessous";
+"permission_tutorial.exposure_notification.unauthorized.action" = "Accédez à Réglages";
+"permission_tutorial.exposure_notification.unauthorized.first" = "<b>1. Accédez à Réglages</b> en utilisant le bouton ci-dessous";
 "permission_tutorial.exposure_notification.unauthorized.second" = "<b>2. Activez les notifications de risque d'exposition</b>";
 "permission_tutorial.exposure_notification.unauthorized.title" = "Pour activer les notifications de risque d'exposition";
 "permission_tutorial.how_immuni_works.action.cta" = "Consultez les questions fréquentes";
@@ -151,8 +151,8 @@
 "permission_tutorial.how_to_upload_positive.second" = "Le professionnel de la santé qui vous communiquera le résultat positif du test vous assistera par téléphone. Il vous demandera de lui fournir le code à usage unique affiché sur la page-écran précédente et l'utilisera pour vous autoriser à télécharger vos données.";
 "permission_tutorial.how_to_upload_positive.third" = "Ce processus d'autorisation empêche les utilisateurs qui n'ont pas été effectivement testés positifs au virus de télécharger leurs données et de provoquer ainsi de fausses alarmes. Le code à usage unique et les données téléchargées ne sont en aucun cas associés à votre identité.";
 "permission_tutorial.how_to_upload_positive.title" = "Comment signaler un résultat positif";
-"permission_tutorial.notifications.action" = "Accédez à Paramètres";
-"permission_tutorial.notifications.first" = "<b>1. Accédez à Paramètres</b> en utilisant le bouton ci-dessous";
+"permission_tutorial.notifications.action" = "Accédez à Réglages";
+"permission_tutorial.notifications.first" = "<b>1. Accédez à Réglages</b> en utilisant le bouton ci-dessous";
 "permission_tutorial.notifications.second" = "<b>2. Accédez à la section Notifications</b>";
 "permission_tutorial.notifications.third" = "<b>3. Activez l'option Autoriser les notifications</b>";
 "permission_tutorial.notifications.title" = "Pour activer les notifications";
