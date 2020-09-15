@@ -318,16 +318,7 @@ private extension PrivacyView {
     static func scrollableGradient(_ gradientView: GradientView) {
       gradientView.isUserInteractionEnabled = false
 
-      gradientView.gradient = Gradient(
-        colors: [
-          UIColor(displayP3Red: 1.00, green: 1.00, blue: 1.00, alpha: 0.00),
-          UIColor(displayP3Red: 1.00, green: 1.00, blue: 1.00, alpha: 1.00)
-        ],
-        startPoint: CGPoint(x: 0.50, y: 0.00),
-        endPoint: CGPoint(x: 0.50, y: 1.00),
-        locations: [0.00, 0.5, 1.00],
-        type: .linear
-      )
+      gradientView.gradient = Palette.gradientScrollOverlay
     }
 
     static func header(_ view: UIView) {

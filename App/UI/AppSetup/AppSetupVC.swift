@@ -18,7 +18,7 @@ import Tempura
 
 class AppSetupVC: ViewController<AppSetupView> {
   override var preferredStatusBarStyle: UIStatusBarStyle {
-    return .darkContent
+    return traitCollection.userInterfaceStyle == .dark ? .lightContent : .darkContent
   }
 
   override func viewDidAppear(_ animated: Bool) {

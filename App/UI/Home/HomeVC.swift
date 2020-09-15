@@ -20,7 +20,7 @@ class HomeVC: ViewController<HomeView> {
     if self.viewModel?.hasHeaderCard ?? false {
       return .lightContent
     } else {
-      return .darkContent
+      return traitCollection.userInterfaceStyle == .dark ? .lightContent : .darkContent
     }
   }
 

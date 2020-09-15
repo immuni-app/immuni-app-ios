@@ -17,7 +17,7 @@ import Tempura
 
 class SettingsVC: ViewControllerWithLocalState<SettingsView> {
   override var preferredStatusBarStyle: UIStatusBarStyle {
-    return .darkContent
+    return traitCollection.userInterfaceStyle == .dark ? .lightContent : .darkContent
   }
 
   override func setupInteraction() {

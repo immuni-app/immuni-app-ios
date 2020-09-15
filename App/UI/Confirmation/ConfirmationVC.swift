@@ -17,7 +17,7 @@ import Tempura
 
 class ConfirmationVC: ViewControllerWithLocalState<ConfirmationView> {
   override var preferredStatusBarStyle: UIStatusBarStyle {
-    return .darkContent
+    return traitCollection.userInterfaceStyle == .dark ? .lightContent : .darkContent
   }
 }
 
