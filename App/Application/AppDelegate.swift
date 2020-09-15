@@ -119,6 +119,11 @@ extension AppDelegate {
   ///   _simulateLaunchForTaskWithIdentifier:@"it.ministerodellasalute.immuni.exposure-notification"]
   /// ```
   func scheduleBackgroundTask() {
+    guard #available(iOS 13.5, *) else {
+      /// if iOS 13.5 is not available, it makes no sense to schedule the background task
+      return
+    }
+
     let taskRequest = BGProcessingTaskRequest(identifier: AppDelegate.exposureDetectionBackgroundTaskIdentifier)
     taskRequest.requiresNetworkConnectivity = true
     taskRequest.requiresExternalPower = false

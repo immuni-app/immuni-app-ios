@@ -61,7 +61,7 @@
 "how_it_works_tile_5" = "En caso de coincidencia positiva, el usuario recibe un aviso";
 "next" = "Siguiente";
 "notification_settings_allow" = "Permitir notificaciones";
-"notification_steps_instruction_1" = "1. Accede a los ajustes pulsando el botón de abajo";
+"notification_steps_instruction_1" = "1. Accede a los Ajustes pulsando el botón de abajo";
 "notification_steps_instruction_2" = "2. Habilita la función «Permitir notificaciones»";
 "notification_steps_title" = "Cómo activar las notificaciones";
 "notifications.apple_exposure_notification.message" = "Una persona con la que has entrado en contacto ha dado positivo en la prueba";
@@ -83,7 +83,7 @@
 "onboarding.communication_advice.action" = "Entendido";
 "onboarding.communication_advice.description" = "Immuni únicamente contactará contigo a través de la aplicación y de las notificaciones correspondientes. <b>No confíes en ningún aviso que recibas por SMS, llamada telefónica, correo electrónico u otro medio</b> y que parezca ser de Immuni, especialmente si te solicitan datos personales.";
 "onboarding.communication_advice.title" = "Ten cuidado con los mensajes engañosos";
-"onboarding.complete.title" = "Configuración completada";
+"onboarding.complete.title" = "Ajustes completada";
 "onboarding.exposure_permission.action" = "Activar";
 "onboarding.exposure_permission.description" = "Immuni registra los contactos con otros usuarios a través de Bluetooth Low Energy para poder informarte en caso de exposición al virus. Podrás inhabilitar el servicio de forma temporal desde la pantalla principal.";
 "onboarding.exposure_permission.overlay.hint" = "Selecciona «<b>Activar</b>» en la ventana emergente que aparecerá a continuación";
@@ -113,11 +113,11 @@
 "permission_tutorial.bluetooth.title" = "Cómo activar el Bluetooth";
 "permission_tutorial.cant_update.first" = "<b>1. Asegúrate de estar conectado a una red wifi.</b> No se puede descargar la actualización desde redes móviles.";
 "permission_tutorial.cant_update.fourth" = "<b>4.</b> Cuando la descargues, <b>asegúrate de instalarla pulsando en \«Instalar ahora\».</b>";
-"permission_tutorial.cant_update.second" = "<b>2. Cuando te hayas conectado a una red wifi, vuelve a Ajustes > General > Actualización de software.</b>";
+"permission_tutorial.cant_update.second" = "<b>2. Cuando te hayas conectado a una red wifi, vuelve a ajustes > General > Actualización de software.</b>";
 "permission_tutorial.cant_update.third" = "<b>3. Pulsa en «Descargar e instalar».</b>";
 "permission_tutorial.cant_update.title" = "¿No consigues actualizar el software?";
 "permission_tutorial.deactivate_service.action.cta" = "Abrir los ajustes";
-"permission_tutorial.deactivate_service.fifth.message" = "<b>1. Accede a los ajustes pulsando el botón de abajo</b>";
+"permission_tutorial.deactivate_service.fifth.message" = "<b>1. Accede a los Ajustes pulsando el botón de abajo</b>";
 "permission_tutorial.deactivate_service.first.message" = "<red>Para proteger tu salud y la de tus seres queridos, desactiva el servicio solo si es necesario y reactívalo lo antes posible.</red>";
 "permission_tutorial.deactivate_service.fourth.message" = "<h3>Para deshabilitar las notificaciones de exposición:</h3>";
 "permission_tutorial.deactivate_service.second.message" = "En algunos casos, puede tener sentido desactivar temporalmente la aplicación, por ejemplo, mientras te encuentres en el trabajo si eres un profesional sanitario que está en contacto con pacientes con la COVID-19.";
@@ -151,8 +151,8 @@
 "permission_tutorial.how_to_upload_positive.second" = "El profesional sanitario que te comunique que el resultado de la prueba es positivo te ayudará por teléfono. Te pedirá el código de un solo uso que aparecía en la pantalla anterior y lo utilizará para darte permiso para que subas tus datos.";
 "permission_tutorial.how_to_upload_positive.third" = "Este proceso de autorización impide que los usuarios que no hayan dado positivo en el virus suban sus datos y generen falsas alarmas. El código de un solo uso y los datos que se suben no están vinculados de ningún modo con tu identidad.";
 "permission_tutorial.how_to_upload_positive.title" = "Cómo informar de un resultado positivo";
-"permission_tutorial.notifications.action" = "Abrir los ajustes";
-"permission_tutorial.notifications.first" = "<b>1. Accede a los ajustes</b> pulsando el botón de abajo";
+"permission_tutorial.notifications.action" = "Abrir los Ajustes";
+"permission_tutorial.notifications.first" = "<b>1. Accede a los Ajustes</b> pulsando el botón de abajo";
 "permission_tutorial.notifications.second" = "<b>2. Accede a «Notificaciones»</b>";
 "permission_tutorial.notifications.third" = "<b>3. Habilita la función «Permitir notificaciones»</b>";
 "permission_tutorial.notifications.title" = "Cómo activar las notificaciones";
@@ -320,7 +320,7 @@
 "welcome_view.next_page_title" = "Siguiente";
 "permission_tutorial.deactivate_service.sixth.v2.message" = "<b>2. Entrar en \"Notificaciones de exposición\"</b>";
 "permission_tutorial.deactivate_service.seventh.v2.message" = "3. No compartir información de exposición";
-"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.first" = "<b>1. Accede a los ajustes</b> pulsando el botón de abajo";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.first" = "<b>1. Accede a los Ajustes</b> pulsando el botón de abajo";
 "permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.second" = "<b>2. Entrar en \«Notificaciones de exposición»</b>";
 "permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.third" = "<b>3. Compartir información de exposición</b>";
 "permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.fourth" = "4. Si aún no lo has hecho, <b>configura Immuni como zona activa</b> para las notificaciones de exposición";
