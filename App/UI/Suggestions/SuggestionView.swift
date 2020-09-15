@@ -27,7 +27,7 @@ class SuggestionsView: UIView, ViewControllerModellableView {
   private let background = GradientView()
   let collection = UICollectionView(frame: .zero, collectionViewLayout: CollectionWithStickyCellsLayout())
   private let headerContainer = UIView()
-  let headerView = GradientView()
+  let headerView = UIView()
   private let headerTitleView = UILabel()
   private var closeButton = ImageButton()
 
@@ -79,7 +79,7 @@ class SuggestionsView: UIView, ViewControllerModellableView {
       return
     }
 
-    Self.Style.header(self.headerView, gradient: model.headerGradient)
+    Self.Style.header(self.headerView)
     Self.Style.headerTitle(self.headerTitleView, content: model.headerTitle)
 
     if model.shouldUpdateHeader(oldModel: oldModel) {
@@ -154,11 +154,8 @@ private extension SuggestionsView {
       view.clipsToBounds = true
     }
 
-    static func header(_ view: GradientView, gradient: Gradient?) {
-      guard let gradient = gradient else {
-        return
-      }
-      view.gradient = gradient
+    static func header(_ view: UIView) {
+      view.backgroundColor = .clear
     }
 
     static func headerTitle(_ label: UILabel, content: String) {

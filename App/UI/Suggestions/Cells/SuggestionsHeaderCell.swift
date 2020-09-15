@@ -96,7 +96,6 @@ class SuggestionsHeaderCell: UICollectionViewCell, ModellableView, ReusableView,
 
   let shadow = UIView()
   let container = UIView()
-  let gradient = GradientView()
   let title = UILabel()
   let subtitle = UILabel()
   let icon = UIImageView()
@@ -116,7 +115,6 @@ class SuggestionsHeaderCell: UICollectionViewCell, ModellableView, ReusableView,
   func setup() {
     self.contentView.addSubview(self.shadow)
     self.shadow.addSubview(self.container)
-    self.container.addSubview(self.gradient)
     self.container.addSubview(self.title)
     self.container.addSubview(self.subtitle)
     self.container.addSubview(self.icon)
@@ -133,7 +131,6 @@ class SuggestionsHeaderCell: UICollectionViewCell, ModellableView, ReusableView,
     }
 
     Self.Style.shadow(self.shadow, shadow: model.shadow)
-    Self.Style.gradient(self.gradient, gradient: model.gradient)
     Self.Style.title(self.title, content: model.title)
     Self.Style.subtitle(self.subtitle, content: model.subtitle)
     Self.Style.icon(self.icon, image: model.image)
@@ -152,7 +149,6 @@ class SuggestionsHeaderCell: UICollectionViewCell, ModellableView, ReusableView,
 
     self.shadow.pin.all()
     self.container.pin.all()
-    self.gradient.pin.all()
 
     let shouldShowImage = self.model?.shouldShowImage ?? false
     let rightMargin = shouldShowImage ? Self.labelIconMargin : HomeView.cellHorizontalInset
@@ -243,13 +239,6 @@ private extension SuggestionsHeaderCell {
     static func shadow(_ view: UIView, shadow: Shadow) {
       view.addShadow(shadow)
       view.clipsToBounds = false
-    }
-
-    static func gradient(_ view: GradientView, gradient: Gradient?) {
-      guard let gradient = gradient else {
-        return
-      }
-      view.gradient = gradient
     }
 
     static func title(_ label: UILabel, content: String) {
