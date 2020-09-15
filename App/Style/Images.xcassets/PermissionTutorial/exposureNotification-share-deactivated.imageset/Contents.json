@@ -1,0 +1,40 @@
+{
+  "images" : [
+    {
+      "filename" : "set-as-active-region-deactivated-3.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "filename" : "set-as-active-region-deactivated-1.pdf",
+      "idiom" : "universal",
+      "locale" : "de"
+    },
+    {
+      "filename" : "set-as-active-region-deactivated-2.pdf",
+      "idiom" : "universal",
+      "locale" : "en-GB"
+    },
+    {
+      "filename" : "set-as-active-region-deactivated.pdf",
+      "idiom" : "universal",
+      "locale" : "es-ES"
+    },
+    {
+      "filename" : "set-as-active-region-deactivated-5.pdf",
+      "idiom" : "universal",
+      "locale" : "fr"
+    },
+    {
+      "filename" : "set-as-active-region-deactivated-4.pdf",
+      "idiom" : "universal",
+      "locale" : "it"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "localizable" : true
+  }
+}

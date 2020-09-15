@@ -83,7 +83,7 @@
 "onboarding.communication_advice.action" = "Entendido";
 "onboarding.communication_advice.description" = "Immuni únicamente contactará contigo a través de la aplicación y de las notificaciones correspondientes. <b>No confíes en ningún aviso que recibas por SMS, llamada telefónica, correo electrónico u otro medio</b> y que parezca ser de Immuni, especialmente si te solicitan datos personales.";
 "onboarding.communication_advice.title" = "Ten cuidado con los mensajes engañosos";
-"onboarding.complete.title" = "Configuración completada";
+"onboarding.complete.title" = "Ajustes completada";
 "onboarding.exposure_permission.action" = "Activar";
 "onboarding.exposure_permission.description" = "Immuni registra los contactos con otros usuarios a través de Bluetooth Low Energy para poder informarte en caso de exposición al virus. Podrás inhabilitar el servicio de forma temporal desde la pantalla principal.";
 "onboarding.exposure_permission.overlay.hint" = "Selecciona «<b>Activar</b>» en la ventana emergente que aparecerá a continuación";
@@ -318,3 +318,11 @@
 "welcome_view.items.third.description" = "Los usuarios que descubren que han estado expuestos al virus se pueden aislar para ralentizar su propagación y acelerar el regreso a la normalidad.";
 "welcome_view.items.third.title" = "Frenemos la epidemia juntos";
 "welcome_view.next_page_title" = "Siguiente";
+"permission_tutorial.deactivate_service.sixth.v2.message" = "<b>2. Entrar en \"Notificaciones de exposición\"</b>";
+"permission_tutorial.deactivate_service.seventh.v2.message" = "3. No compartir información de exposición";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.first" = "<b>1. Accede a los Ajustes</b> pulsando el botón de abajo";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.second" = "<b>2. Entrar en \«Notificaciones de exposición»</b>";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.third" = "<b>3. Compartir información de exposición</b>";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.fourth" = "4. Si aún no lo has hecho, <b>configura Immuni como zona activa</b> para las notificaciones de exposición";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.title" = "Cómo activar las notificaciones de exposición";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.action" = "Abrir Ajustes";

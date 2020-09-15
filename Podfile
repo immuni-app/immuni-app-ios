@@ -14,7 +14,7 @@ def shared_pods
   pod 'Katana', '= 3.2.0'
   pod 'Tempura', '= 4.4.0'
   pod 'Logging', '= 1.2.0'
-  pod 'HydraAsync', '= 1.2.1'
+  pod 'HydraAsync', '= 1.2.2'
   pod 'Alamofire', '= 5.2.1'
 end
 

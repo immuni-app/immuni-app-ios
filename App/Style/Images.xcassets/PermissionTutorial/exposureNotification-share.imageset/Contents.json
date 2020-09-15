@@ -1,0 +1,40 @@
+{
+  "images" : [
+    {
+      "filename" : "exposure-notification-share-3.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "filename" : "exposure-notification-share.pdf",
+      "idiom" : "universal",
+      "locale" : "de"
+    },
+    {
+      "filename" : "exposure-notification-share-4.pdf",
+      "idiom" : "universal",
+      "locale" : "en-GB"
+    },
+    {
+      "filename" : "exposure-notification-share-1.pdf",
+      "idiom" : "universal",
+      "locale" : "es-ES"
+    },
+    {
+      "filename" : "exposure-notification-share-2.pdf",
+      "idiom" : "universal",
+      "locale" : "fr"
+    },
+    {
+      "filename" : "exposure-notification-share-5.pdf",
+      "idiom" : "universal",
+      "locale" : "it"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "localizable" : true
+  }
+}

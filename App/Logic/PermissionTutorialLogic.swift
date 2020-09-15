@@ -74,6 +74,7 @@ extension Logic.PermissionTutorial {
   struct ShowActivateExposureNotificationTutorial: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let exposureNotificationAuthorizationStatus = context.getState().environment.exposureNotificationAuthorizationStatus
+
       switch exposureNotificationAuthorizationStatus {
       case .restricted:
         try context

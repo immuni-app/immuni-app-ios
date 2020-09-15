@@ -1,7 +1,7 @@
 PODS:
   - Alamofire (5.2.1)
   - BonMot (5.5.1)
-  - HydraAsync (1.2.1)
+  - HydraAsync (1.2.2)
   - Katana (3.2.0):
     - HydraAsync (~> 1.2)
   - Logging (1.2.0)
@@ -16,7 +16,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (= 5.2.1)
   - BonMot (= 5.5.1)
-  - HydraAsync (= 1.2.1)
+  - HydraAsync (= 1.2.2)
   - Katana (= 3.2.0)
   - Logging (= 1.2.0)
   - lottie-ios (= 3.1.8)
@@ -41,7 +41,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
   BonMot: 0d179476725af81f622a6d9f660f43048070016a
-  HydraAsync: 8f2ab62d57e140b4ca587ae0f66e1eb04e8e6965
+  HydraAsync: 7fa5c0fdd89397617deb726a5b41b2ca72b8492e
   Katana: 1859c1fca08547e8644e58cbe292619c8c9512da
   Logging: 7838d379d234d7e5ae1265fa02804a9084caf04c
   lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
@@ -50,6 +50,6 @@ SPEC CHECKSUMS:
   TempuraTesting: 3d7aaac89c7c6cbbdc4805780961ea88807b1492
   ZIPFoundation: b1f0de4eed33e74a676f76e12559ab6b75990197
 
-PODFILE CHECKSUM: 9fed32fda6e48c8188bdf3d7ace45cbcb14fb102
+PODFILE CHECKSUM: 5a12f4b0c5cce60717e5e8ef8a2a0af5ea1de27e
 
 COCOAPODS: 1.9.3
