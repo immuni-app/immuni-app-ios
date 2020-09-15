@@ -125,7 +125,7 @@
 "permission_tutorial.deactivate_service.third.message" = "La désactivation des notifications d'exposition implique que les contacts ultérieurs avec d'autres utilisateurs ne seront pas enregistrés.";
 "permission_tutorial.deactivate_service.title" = "Comment désactiver le service";
 "permission_tutorial.exposure_notification.restricted.fifth" = "<b>5. Activez la journalisation des expositions</b>";
-"permission_tutorial.exposure_notification.restricted.first" = "<b>1. Ouvrez Paramètres du système</b>";
+"permission_tutorial.exposure_notification.restricted.first" = "<b>1. Ouvrez Réglages du système</b>";
 "permission_tutorial.exposure_notification.restricted.fourth" = "<b>4. Accédez à Journalisation des expositions</b>";
 "permission_tutorial.exposure_notification.restricted.second" = "<b>2. Accédez à Confidentialité</b>";
 "permission_tutorial.exposure_notification.restricted.third" = "<b>3. Accédez à Santé</b>";
@@ -159,7 +159,7 @@
 "permission_tutorial.update_os.fifth" = "<b>5. Sélectionnez Télécharger et installer, et suivez les instructions</b>";
 "permission_tutorial.update_os.first" = "<b>1. Assurez-vous d'être connecté au wifi.</b> La mise à jour ne peut pas être téléchargée à partir du réseau mobile.";
 "permission_tutorial.update_os.fourth" = "<b>4. Accédez à la section Mise à jour logiciel</b>";
-"permission_tutorial.update_os.second" = "<b>2. Ouvrez Paramètres du système</b>";
+"permission_tutorial.update_os.second" = "<b>2. Ouvrez Réglages du système</b>";
 "permission_tutorial.update_os.third" = "<b>3. Accédez à la section Général</b>";
 "permission_tutorial.update_os.title" = "Pour mettre à jour votre système d'exploitation";
 "permission_tutorial.verify_immuni_works.first" = "<b>Si vous lisez \"Service activé\", cela signifie qu'Immuni fonctionne déjà correctement.</b> Vous n'avez rien d'autre à faire : l'application continuera de fonctionner même lorsqu'elle sera fermée.";
@@ -320,9 +320,9 @@
 "welcome_view.next_page_title" = "Suivant";
 "permission_tutorial.deactivate_service.sixth.v2.message" = "<b>2. Accédez à \"Notifications d’exposition\"</b>";
 "permission_tutorial.deactivate_service.seventh.v2.message" = "3. Désactivez le partage des informations d'exposition";
-"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.first" = "<b>1. Ouvrez les paramètres</b> à partir du bouton en bas";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.first" = "<b>1. Ouvrez les réglages</b> à partir du bouton en bas";
 "permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.second" = "<b>2. Accédez à \"Notifications d’exposition\"</b>";
 "permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.third" = "<b>3. Activez le partage des informations d'exposition</b>";
 "permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.fourth" = "4. Si vous ne l'avez pas encore fait, <b>définissez Immuni comme la zone active</b> pour les notifications d'exposition";
 "permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.title" = "Pour activer les notifications d'exposition";
-"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.action" = "Ouvrez Paramètres";
+"permission_tutorial.exposure_notification.restricted_or_unauthorized_v2.action" = "Ouvrez Réglages";
