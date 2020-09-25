@@ -170,22 +170,23 @@ extension Logic.DataUpload {
         ?? AppLogger.fatalError("Province must be set at this point")
         
       let userCountries = state.user.countriesOfInterest?.compactMap { $0.rawValue } ?? []
+
+      var exposureDetectionSummaries: [CodableExposureDetectionSummary]
         
-      let requestBodyEU = DataUploadRequestEU.Body(
-        teks: keys.map { .init(from: $0) },
-        province: userProvince.rawValue,
-        exposureDetectionSummaries: state.exposureDetectionEU.compactMap { $0.recentPositiveExposureResults.map { $0.data } }.reduce( [],+),
-        maximumExposureInfoCount: state.configuration.dataUploadMaxExposureInfoCount,
-        maximumExposureDetectionSummaryCount: state.configuration.dataUploadMaxSummaryCount,
-        countriesOfInterest: userCountries
-        )
+      if !userCountries.isEmpty {
+        exposureDetectionSummaries =  state.exposureDetection.recentPositiveExposureResults.map { $0.data } + state.exposureDetectionEU.compactMap { $0.recentPositiveExposureResults.map { $0.data } }.reduce( [],+)
+        }
+      else {
+        exposureDetectionSummaries =  state.exposureDetection.recentPositiveExposureResults.map { $0.data }
+      }
         
       let requestBody = DataUploadRequest.Body(
         teks: keys.map { .init(from: $0) },
         province: userProvince.rawValue,
-        exposureDetectionSummaries: state.exposureDetection.recentPositiveExposureResults.map { $0.data },
+        exposureDetectionSummaries: exposureDetectionSummaries,
         maximumExposureInfoCount: state.configuration.dataUploadMaxExposureInfoCount,
-        maximumExposureDetectionSummaryCount: state.configuration.dataUploadMaxSummaryCount
+        maximumExposureDetectionSummaryCount: state.configuration.dataUploadMaxSummaryCount,
+        countriesOfInterest: userCountries
       )
 
       // Send the data to the backend
@@ -198,18 +199,6 @@ extension Logic.DataUpload {
         try context.awaitDispatch(ShowErrorAlert(error: error, retryDispatchable: self))
         return
       }
-        
-      if !userCountries.isEmpty {
-        do {
-            let requestSize = state.configuration.ingestionRequestTargetSize
-            try await(context.dependencies.networkManager.uploadDataEU(body: requestBodyEU, otp: self.code, requestSize: requestSize))
-            try await(context.dispatch(Logic.Loading.Hide()))
-        } catch {
-            try await(context.dispatch(Logic.Loading.Hide()))
-            try context.awaitDispatch(ShowErrorAlert(error: error, retryDispatchable: self))
-            return
-            }
-        }
 
       let now = context.dependencies.now()
       context.dispatch(Logic.CovidStatus.UpdateStatusWithEvent(event: .dataUpload(currentDate: now.calendarDay)))

@@ -110,17 +110,7 @@ extension NetworkManager {
       targetSize: requestSize
     )).safeVoid
   }
-  public func uploadDataEU(body: DataUploadRequestEU.Body, otp: OTP, requestSize: Int) -> Promise<Void> {
-    return self.request(DataUploadRequestEU(
-        body: body,
-        otp: otp,
-        now: self.unwrappedDependencies.now,
-        targetSize: requestSize
-      )).safeVoid
-    }
-    
-    
-
+        
   /// Sends a dummy request to the backend.
   public func sendDummyIngestionRequest(requestSize: Int) -> Promise<Void> {
     return self.request(DummyIngestionRequest(now: self.unwrappedDependencies.now, targetSize: requestSize)).safeVoid
