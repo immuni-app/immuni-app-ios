@@ -65,6 +65,9 @@ extension NetworkManager {
   public func getKeysIndex() -> Promise<KeysIndex> {
     return self.request(KeysIndexRequest())
   }
+  public func getKeysIndexEU(country: String) -> Promise<KeysIndex> {
+    return self.request(KeysIndexRequestEU(country: country))
+    }
 
   /// Downloads the chunks of TEKs for the given `indexes` and returns them as an array of `Data`, each corresponding to a given
   /// index in the input parameter.
@@ -75,6 +78,13 @@ extension NetworkManager {
 
     return all(requestPromises)
   }
+  public func downloadChunksEU(with indexes: [Int], country: String) -> Promise<[Data]> {
+    let requestPromises = indexes
+        .map { DownloadKeyChunkIndexRequestEU(chunkNumber: $0, country: country) }
+        .map { self.request($0) }
+
+      return all(requestPromises)
+    }
 }
 
 // MARK: - Ingestion service requests
