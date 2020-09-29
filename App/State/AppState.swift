@@ -41,7 +41,7 @@ struct AppState: State, Codable {
   /// Slice related to Exposure Detection
   var exposureDetection = ExposureDetectionState()
     
-  var exposureDetectionEU = [ExposureDetectionState]()
+  var exposureDetectionEU = [ExposureDetectionCountriesOfInterest]()
 
   /// Slice related to configuration parameters for the app
   var configuration = Configuration()
@@ -60,6 +60,13 @@ struct AppState: State, Codable {
   var environment = EnvironmentState()
 
   init() {}
+}
+
+struct ExposureDetectionCountriesOfInterest: Codable {
+    
+    var countryId: String
+    var exposureDetectionState: ExposureDetectionState
+    
 }
 
 // MARK: Force update

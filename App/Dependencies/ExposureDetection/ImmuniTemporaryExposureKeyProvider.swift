@@ -52,6 +52,20 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
       .then { self.downloadChunks(with: $0) }
   }
 
+  func getLatestKeyChunksEU(latestKnownChunkIndex: Int?, country: String) -> Promise<[TemporaryExposureKeyChunk]> {
+    return self.getMissingChunksIndexesEU(latestKnownChunkIndex: latestKnownChunkIndex, country: country)
+        .recover { error in
+          guard case NetworkManager.Error.noBatchesFound = error else {
+            // Unrecoverable error
+            throw error
+          }
+
+          // No batches at all found on backend. Equivalent to no new batches.
+          return .init(resolved: [])
+        }
+        .then { self.downloadChunksEU(with: $0, country: country) }
+    }
+
   func clearLocalResources(for chunks: [TemporaryExposureKeyChunk]) -> Promise<Void> {
     return self.fileStorage
       .delete(chunks.flatMap { $0.localUrls })
@@ -88,6 +102,37 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
       }
   }
 
+  func getMissingChunksIndexesEU(latestKnownChunkIndex: Int?, country: String) -> Promise<[Int]> {
+    self.networkManager.getKeysIndexEU(country: country)
+        .then { (keysIndex: KeysIndex) -> [Int] in
+
+        let latestKnown = latestKnownChunkIndex ?? -1
+
+          guard
+            keysIndex.newest > latestKnown,
+            keysIndex.newest >= keysIndex.oldest
+            else {
+              // no chunks to download
+              return []
+          }
+
+          // note the +1. It is added to prevent to download the previous "latest"
+          // chunk twice
+          let firstKeyToDownload = max(latestKnown + 1, keysIndex.oldest)
+
+          // The EN cannot process more than a certain amount of keys per day. If the server returns a
+          // number of chunks that is greater than the local limit, just take the latest X.
+          // This choice has been done because:
+          // - This should happen just during the first EN check
+          // - It is better to prioritize recent contacts
+          //
+          // Note that the subsequent runs within 24 hours will fail anyway, but the manager should handle
+          // them and retry as soon as possible. Assuming we don't publish more than 15 chunks per day
+          // (which we won't) the algorithm is stable
+          return (firstKeyToDownload ... keysIndex.newest).suffix(Self.keyDailyRateLimit)
+        }
+    }
+
   private func downloadChunks(with indexes: [Int]) -> Promise<[TemporaryExposureKeyChunk]> {
     self.networkManager.downloadChunks(with: indexes)
       .then { chunksData in
@@ -105,7 +150,28 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
       }
   }
 
+  private func downloadChunksEU(with indexes: [Int], country: String) -> Promise<[TemporaryExposureKeyChunk]> {
+        self.networkManager.downloadChunksEU(with: indexes, country: country)
+        .then { chunksData in
+          assert(chunksData.count == indexes.count)
+
+          let chunksWithIndexes = zip(chunksData, indexes)
+
+          let fileWritePromises = chunksWithIndexes
+            .map { chunkData, index in
+              self.fileStorage.write(chunkData, with: Self.fileNameEU(for: index, country: country))
+                .then { localUrls in TemporaryExposureKeyChunk(localUrls: localUrls, index: index) }
+            }
+
+          return all(fileWritePromises)
+        }
+    }
+
   private static func fileName(for index: Int) -> String {
     return String(format: "tek_%06d", index)
   }
+    
+  private static func fileNameEU(for index: Int, country: String) -> String {
+    return String(format: "EU_%@_tek_%06d", country, index)
+    }
 }
