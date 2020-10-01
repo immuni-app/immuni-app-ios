@@ -140,7 +140,6 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
   func executeEU(
       exposureDetectionPeriod: TimeInterval,
       lastExposureDetectionDate: Date?,
-      latestProcessedKeyChunkIndex: Int?,
       exposureDetectionConfiguration: Configuration.ExposureDetectionConfiguration,
       exposureInfoRiskScoreThreshold: Int,
       userExplanationMessage: String,
@@ -149,8 +148,8 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
       now: @escaping () -> Date,
       isUserCovidPositive: Bool,
       forceRun: Bool,
-      exposureDetectionEU: [ExposureDetectionCountriesOfInterest]
-    ) -> Promise<ExposureDetectionOutcome> {
+      exposureDetectionEU: [(String, Int?, Date?)]
+    ) -> Promise<ExposureDetectionOutcomeEU> {
       return Promise(in: .custom(queue: Self.queue)) { resolve, _, _ in
         guard #available(iOS 13.5, *) else {
           // No exposure detection to perform, ever.
@@ -181,26 +180,27 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
         }
         
         var keyChunks: [TemporaryExposureKeyChunk] = []
+        
+        // tupla: (countryId,[TemporaryExposureKeyChunk])
+        var keyChunksMatrix: [(String, [TemporaryExposureKeyChunk])] = []
 
         for exposureDetectionOfCountry in exposureDetectionEU {
             
             // Download the keys
-            let country:String = exposureDetectionOfCountry.countryId
+            let country:String = exposureDetectionOfCountry.0
             var keyChunksOfCountry: [TemporaryExposureKeyChunk]
             do {
                keyChunksOfCountry = try await(
                 tekProvider
-                    .getLatestKeyChunksEU(latestKnownChunkIndex: latestProcessedKeyChunkIndex, country: country)
+                    .getLatestKeyChunksEU(latestKnownChunkIndex: exposureDetectionOfCountry.1, country: country)
               )
                 keyChunks += keyChunksOfCountry
+                keyChunksMatrix.append((country, keyChunksOfCountry))
             } catch {
-//              resolve(.error(.unableToRetrieveKeys(error)))
-//              return
                 continue
             }
         }
        
-
         defer {
           // Cleanup the local files of the downloaded chunks
           try? await(tekProvider.clearLocalResources(for: keyChunks))
@@ -212,11 +212,19 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
           return
         }
 
-        let firstProcessedChunk = keyChunks.map { $0.index }.min()
-          ?? AppLogger.fatalError("keyChunks cannot be empty at this stage")
+//        let firstProcessedChunk = keyChunks.map { $0.index }.min()
+//          ?? AppLogger.fatalError("keyChunks cannot be empty at this stage")
+//
+//        let lastProcessedChunk = keyChunks.map { $0.index }.max()
+//          ?? AppLogger.fatalError("keyChunks cannot be empty at this stage")
 
-        let lastProcessedChunk = keyChunks.map { $0.index }.max()
-          ?? AppLogger.fatalError("keyChunks cannot be empty at this stage")
+        var firstProcessedChunkEU:[(String, Int)] = []
+        var lastProcessedChunkEU:[(String, Int)] = []
+        
+        for element in keyChunksMatrix {
+            firstProcessedChunkEU.append((element.0, element.1.map { $0.index }.min() ?? 0))
+            lastProcessedChunkEU.append((element.0, element.1.map { $0.index }.max() ?? 0))
+        }
 
         // Retrieve the summary
         let summary: ExposureDetectionSummary
@@ -239,7 +247,7 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
 
         guard shouldRetrieveInfo else {
           // Stop at the summary
-          resolve(.partialDetection(now(), summary, firstProcessedChunk, lastProcessedChunk))
+          resolve(.partialDetection(now(), summary, firstProcessedChunkEU, lastProcessedChunkEU))
           return
         }
 
@@ -255,7 +263,7 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
           return
         }
 
-        resolve(.fullDetection(now(), summary, exposureInfo, firstProcessedChunk, lastProcessedChunk))
+        resolve(.fullDetection(now(), summary, exposureInfo, firstProcessedChunkEU, lastProcessedChunkEU))
       }
     }
   /// Returns `true` if only a full detection should be performed, `false` otherwise
