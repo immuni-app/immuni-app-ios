@@ -101,7 +101,7 @@ extension Logic.ExposureDetection {
 //            try? context.awaitDispatch(SignalBackgroundTask(outcome: outcomeEU, type: self.type))
 
             // Mark the background task as completed, if any.
-            self.type.backgroundTask?.setTaskCompleted(success: outcomeEU.isSuccessful)
+//            self.type.backgroundTask?.setTaskCompleted(success: outcomeEU.isSuccessful)
         
         }// end !state.exposureDetectionEU.isEmpty
   

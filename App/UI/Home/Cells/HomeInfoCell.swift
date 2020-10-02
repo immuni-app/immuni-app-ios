@@ -26,6 +26,8 @@ struct HomeInfoCellVM: ViewModel {
       return AnimationAsset.cardDoctor.animation
     case .app:
       return AnimationAsset.cardPerson.animation
+    case .news:
+      return  AnimationAsset.cardPerson.animation
     }
   }
 
@@ -35,6 +37,8 @@ struct HomeInfoCellVM: ViewModel {
       return L10n.HomeView.Info.Protection.title
     case .app:
       return L10n.HomeView.Info.App.title
+    case .news:
+      return "News Country"
     }
   }
 
@@ -44,6 +48,8 @@ struct HomeInfoCellVM: ViewModel {
       return true
     case .app:
       return false
+    case .news:
+      return false
     }
   }
 
@@ -52,6 +58,8 @@ struct HomeInfoCellVM: ViewModel {
     case .protection:
       return .cardPurple
     case .app:
+      return .cardLightBlue
+    case .news:
       return .cardLightBlue
     }
   }

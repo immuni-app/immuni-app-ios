@@ -227,7 +227,13 @@ extension TabbarVC: RoutableWithConfiguration {
         let vc = UIAlertController(content: content)
         self?.recursivePresent(vc, animated: false, completion: completion)
       },
-
+        
+        //Update Country
+      .show(Screen.updateCountry): .presentModally { context in
+        let currentCountries = context as? [Country] ?? AppLogger.fatalError("invalid context")
+        return OnboardingCountryVC(store: self.store, localState: OnboardingCountryLS(currentCountries: currentCountries))
+              },
+        
       // Share Text
       .show(Screen.shareText): .custom { [weak self] _, _, animated, context, completion in
         let text = context as? String ?? AppLogger.fatalError("Invalid context")
