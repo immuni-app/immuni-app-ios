@@ -52,6 +52,7 @@ enum Screen: String, CaseIterable {
   case confirmUpload
   case customerSupport
   case updateProvince
+  case updateCountry
   case faq
   case question
 }
@@ -437,6 +438,14 @@ extension SettingsNC: RoutableWithConfiguration {
         )
       },
 
+      .show(Screen.updateCountry): .presentModally { context in
+        let countries = context as? [Country] ?? AppLogger.fatalError("Invalid context")
+        return OnboardingCountryVC(
+            store: self.store,
+            localState: OnboardingCountryLS(currentCountries: countries)
+            )
+        },
+
       .show(Screen.privacy): .presentModally { context in
         PrivacyVC(store: self.store, localState: .init(kind: .settings))
       },
@@ -524,6 +533,20 @@ class UpdateProvinceNC: OnboardingContainerNC {
         self.pushViewController(using: navContext, animated: animated)
         completion()
       }
+    ]
+  }
+}
+
+// MARK: Update Country
+
+extension OnboardingCountryVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.updateCountry.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [
+      .hide(Screen.updateCountry): .dismissModally(behaviour: .hard)
     ]
   }
 }

@@ -240,6 +240,36 @@ extension Logic.Settings {
   }
 }
 
+// MARK: Update Country
+
+extension Logic.Settings {
+  /// Shows the flow to update the country
+    
+    struct ShowUpdateCountry: AppSideEffect {
+      func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        let state = context.getState()
+
+        let countries = state.user.countriesOfInterest
+        
+        try context.awaitDispatch(Show(
+          Screen.updateCountry,
+          animated: true,
+          context: countries ?? []
+        ))
+      }
+    }
+    
+    struct CompleteUpdateCountries: AppSideEffect {
+        
+       let newCountries: [Country]
+
+       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+           try context.awaitDispatch(Logic.Onboarding.SetUserCountries(countries: self.newCountries))
+         context.dispatch(Hide(Screen.updateCountry, animated: true))
+       }
+     }
+    
+}
 // MARK: Customer Support
 
 extension Logic.Settings {

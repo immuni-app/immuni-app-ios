@@ -15,6 +15,7 @@
 
 import Foundation
 public enum Country: String, Codable, CaseIterable {
+    
     case italia = "IT"
     case francia = "FR"
     case spagna = "ES"

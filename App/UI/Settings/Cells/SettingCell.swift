@@ -32,6 +32,8 @@ struct SettingCellVM: ViewModel, CellWithShadow {
       return L10n.Settings.Setting.privacy
     case .chageProvince:
       return L10n.Settings.Setting.chageProvince
+    case .updateCountry:
+      return "Select Country"
     case .shareApp:
       return L10n.Settings.Setting.share
     case .leaveReview:
@@ -49,7 +51,7 @@ struct SettingCellVM: ViewModel, CellWithShadow {
       return Asset.Settings.settingsNext.image
     case .shareApp:
       return Asset.Settings.settingsShare.image
-    case .tos, .privacy, .chageProvince, .leaveReview, .customerSupport, .debugUtilities:
+    case .tos, .privacy, .chageProvince, .updateCountry, .leaveReview, .customerSupport, .debugUtilities:
       return nil
     }
   }
