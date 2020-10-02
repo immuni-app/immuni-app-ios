@@ -68,7 +68,7 @@ extension Logic.ExposureDetection {
         
         for exposureDetectionCountry in state.exposureDetectionEU {
             exposureDetectionCountries.append(
-                (exposureDetectionCountry.countryId, exposureDetectionCountry.exposureDetectionState.latestProcessedKeyChunkIndex, exposureDetectionCountry.exposureDetectionState.lastDetectionDate))
+                (exposureDetectionCountry.country.rawValue, exposureDetectionCountry.exposureDetectionState.latestProcessedKeyChunkIndex, exposureDetectionCountry.exposureDetectionState.lastDetectionDate))
             }
         outcomeEU = try await(
           context.dependencies.exposureDetectionExecutor.executeEU(
@@ -366,7 +366,7 @@ extension Logic.ExposureDetection {
 
         for (country, lastIndex) in countryIndexCouple {
             for (index, exposureDetection) in state.exposureDetectionEU.enumerated() {
-                if exposureDetection.countryId == country {
+                if exposureDetection.country.rawValue == country {
                     state.exposureDetectionEU[index].exposureDetectionState.latestProcessedKeyChunkIndex = lastIndex
                 }
             }

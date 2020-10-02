@@ -46,7 +46,9 @@ final class OnboardingCountryVC: ViewControllerWithLocalState<OnboardingCountryV
         if self?.localState.currentCountries != nil {
             
             // Remove country if it's selected
+          
             if self!.localState.currentCountries!.contains(country!) {
+                let indexOf = self!.localState.currentCountries!.index(of: country!)
                 self!.localState.currentCountries!.remove(at: self!.localState.currentCountries!.firstIndex(of: country!)!)
                 }
             else{

@@ -334,11 +334,24 @@ extension Logic.Onboarding {
     let countries: [Country]
 
     func updateState(_ state: inout AppState) {
-        state.user.countriesOfInterest = self.countries
-      }
+
+        var exposureDetectionEUTemp = [ExposureDetectionCountriesOfInterest]()
+      
+        for state in state.exposureDetectionEU {
+            if self.countries.contains(state.country) {
+                exposureDetectionEUTemp.append(state)
+            }
+        }
+        for country in self.countries {
+            if !state.exposureDetectionEU.map({ $0.country }).contains(country) {
+                exposureDetectionEUTemp.append(ExposureDetectionCountriesOfInterest(country: country))
+            }
+        }
+        state.exposureDetectionEU = exposureDetectionEUTemp
     }
 }
 
+}
 // MARK: Private State Updaters
 
 extension Logic.Onboarding {
