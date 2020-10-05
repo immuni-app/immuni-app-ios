@@ -62,7 +62,7 @@ extension OnboardingCountryVM: ViewModelWithLocalState {
       }
    
     self.items = [
-      .titleHeader(title: "Select country Header", description: "Select country desc"),
+      .titleHeader(title: "In quale paese della comunità Europea devi andare?", description: "Seleziona il paese/i dove devi andare tra quelli che hanno aderito all’interoperabilità per contribuire al contenimento della diffusione del virus all’interno della comunità Europea."),
       .spacer(.big)
     ] + countryItems
   }
@@ -78,7 +78,7 @@ extension OnboardingCountryVM {
     var cellVM: ViewModel {
       switch self {
       case .titleHeader(let title, let description):
-        return OnboardingHeaderCellVM(title: title, description: description, actionButtonTitle: "Info btn")
+        return OnboardingHeaderCellVM(title: title, description: description, actionButtonTitle: "")
 
       case .spacer(let size):
         return OnboardingSpacerCellVM(size: size)
