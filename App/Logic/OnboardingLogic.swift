@@ -339,12 +339,12 @@ extension Logic.Onboarding {
         
         
         for state in state.exposureDetectionEU {
-            if self.countries.contains(CountrySelection( country: state.country, selectionDate: state.selectionDate)) {
+            if self.countries.contains(state.countrySelection) {
                 exposureDetectionEUTemp.append(state)
             }
         }
         for country in self.countries {
-            if !state.exposureDetectionEU.map({ $0.country }).contains(country.country) {
+            if !state.exposureDetectionEU.map({ $0.countrySelection }).contains(country) {
                 exposureDetectionEUTemp.append(ExposureDetectionCountriesOfInterest(country: country.country))
             }
         }

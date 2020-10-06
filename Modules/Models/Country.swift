@@ -73,7 +73,7 @@ extension Country: Comparable {
     }
 }
 
-public struct CountrySelection: Equatable {
+public struct CountrySelection: Equatable, Codable {
     
     public var country: Country
     public var selectionDate: Date
@@ -81,6 +81,11 @@ public struct CountrySelection: Equatable {
     public init(country: Country, selectionDate: Date){
         self.country = country
         self.selectionDate = selectionDate
+    }
+    
+    public init(country: Country){
+        self.country = country
+        self.selectionDate = Date()
     }
     
     public static func ==(lhs: CountrySelection, rhs: CountrySelection) -> Bool {

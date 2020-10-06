@@ -17,6 +17,7 @@ import Foundation
 
 public struct Configuration: Codable {
   enum CodingKeys: String, CodingKey {
+    case countries = "countries"
     case minimumBuildVersion = "minimum_build_version"
     case serviceNotActiveNotificationPeriod = "service_not_active_notification_period"
     case osForceUpdateNotificationPeriod = "onboarding_not_completed_notification_period"
@@ -45,6 +46,9 @@ public struct Configuration: Codable {
     case supportPhoneOpeningTime = "support_phone_opening_time"
     case supportPhoneClosingTime = "support_phone_closing_time"
   }
+
+  /// Countries of interest map
+  public let countries: [String: String]
 
   /// This is used to enforce a minimum version of the app.
   /// If the currently installed app has a lower version than the one specified
@@ -171,6 +175,7 @@ public struct Configuration: Codable {
 
   /// Public initializer to allow testing
   public init(
+    countries: [String:String] = .defaultCountries,
     minimumBuildVersion: Int = 1,
     serviceNotActiveNotificationPeriod: TimeInterval = 86400,
     osForceUpdateNotificationPeriod: TimeInterval = 86400,
@@ -199,6 +204,7 @@ public struct Configuration: Codable {
     supportPhoneOpeningTime: String? = nil,
     supportPhoneClosingTime: String? = nil
   ) {
+    self.countries = countries
     self.minimumBuildVersion = minimumBuildVersion
     self.serviceNotActiveNotificationPeriod = serviceNotActiveNotificationPeriod
     self.osForceUpdateNotificationPeriod = osForceUpdateNotificationPeriod
@@ -302,7 +308,6 @@ public extension Configuration {
     }
   }
 }
-
 public extension Dictionary where Key == String, Value == URL {
   /// default values for FAQs
   static var defaultFAQURL: [String: URL] {
@@ -333,4 +338,42 @@ public extension Dictionary where Key == String, Value == URL {
 
     return Dictionary(uniqueKeysWithValues: values)
   }
+}
+
+public extension Dictionary where Key == String, Value == String {
+
+    /// default values for countries
+  static var defaultCountries: [String: String] {
+    let values = [
+                  ("AT","AUSTRIA"),
+                  ("BE","BELGIO"),
+                  ("BG","BULGARIA"),
+                  ("CY","CIPRO"),
+                  ("HR","CROAZIA"),
+                  ("DK","DANIMARCA"),
+                  ("EE","ESTONIA"),
+                  ("FI","FINLANDIA"),
+                  ("DE","GERMANIA"),
+                  ("GB","GRAN BRETAGNA"),
+                  ("EL","GRECIA"),
+                  ("IE","IRLANDA"),
+                  ("LV","LETTONIA"),
+                  ("LT","LITUANIA"),
+                  ("LU","LUSSEMBURGO"),
+                  ("MT","MALTA"),
+                  ("NL","OLANDA"),
+                  ("PL","POLONIA"),
+                  ("PT","PORTOGALLO"),
+                  ("CZ","REPUBBLICA CECA"),
+                  ("SK","REPUBBLICA SLOVACCA"),
+                  ("RO","ROMANIA"),
+                  ("SI","SLOVENIA"),
+                  ("ES","SPAGNA"),
+                  ("SE","SVEZIA"),
+                  ("HU","UNGHERIA")
+    ]
+
+      return Dictionary(uniqueKeysWithValues: values)
+    }
+
 }
