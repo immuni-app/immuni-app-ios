@@ -230,7 +230,7 @@ extension TabbarVC: RoutableWithConfiguration {
         
         //Update Country
       .show(Screen.updateCountry): .presentModally { context in
-        let currentCountries = context as? [Country] ?? AppLogger.fatalError("invalid context")
+        let currentCountries = context as? [CountrySelection] ?? AppLogger.fatalError("invalid context")
         return OnboardingCountryVC(store: self.store, localState: OnboardingCountryLS(currentCountries: currentCountries))
               },
         
@@ -445,7 +445,7 @@ extension SettingsNC: RoutableWithConfiguration {
       },
 
       .show(Screen.updateCountry): .presentModally { context in
-        let countries = context as? [Country] ?? AppLogger.fatalError("Invalid context")
+        let countries = context as? [CountrySelection] ?? AppLogger.fatalError("Invalid context")
         return OnboardingCountryVC(
             store: self.store,
             localState: OnboardingCountryLS(currentCountries: countries)

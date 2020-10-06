@@ -336,7 +336,7 @@ extension OnboardingContainerNC.NavigationContext {
     // settings
     case updateRegion(currentUserProvince: Province)
     case updateProvince(selectedRegion: Region, currentUserProvince: Province)
-    case updateCountry(currentCountries: [Country])
+    case updateCountry(currentCountries: [CountrySelection])
 
   }
 }

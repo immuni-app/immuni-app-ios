@@ -249,7 +249,7 @@ extension Logic.Settings {
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
         let state = context.getState()
 
-        let countries = state.exposureDetectionEU.map{ $0.country }
+        let countries = state.exposureDetectionEU.map{ CountrySelection(country: $0.country, selectionDate: $0.selectionDate) }
         
         try context.awaitDispatch(Show(
           Screen.updateCountry,
@@ -261,7 +261,7 @@ extension Logic.Settings {
     
     struct CompleteUpdateCountries: AppSideEffect {
         
-       let newCountries: [Country]
+       let newCountries: [CountrySelection]
 
        func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
          try context.awaitDispatch(Logic.Onboarding.SetUserCountries(countries: self.newCountries))

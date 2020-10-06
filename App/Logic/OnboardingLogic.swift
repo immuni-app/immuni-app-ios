@@ -331,20 +331,21 @@ extension Logic.Onboarding {
     
   struct SetUserCountries: AppStateUpdater {
     
-    let countries: [Country]
+    let countries: [CountrySelection]
 
     func updateState(_ state: inout AppState) {
 
         var exposureDetectionEUTemp = [ExposureDetectionCountriesOfInterest]()
-      
+        
+        
         for state in state.exposureDetectionEU {
-            if self.countries.contains(state.country) {
+            if self.countries.contains(CountrySelection( country: state.country, selectionDate: state.selectionDate)) {
                 exposureDetectionEUTemp.append(state)
             }
         }
         for country in self.countries {
-            if !state.exposureDetectionEU.map({ $0.country }).contains(country) {
-                exposureDetectionEUTemp.append(ExposureDetectionCountriesOfInterest(country: country))
+            if !state.exposureDetectionEU.map({ $0.country }).contains(country.country) {
+                exposureDetectionEUTemp.append(ExposureDetectionCountriesOfInterest(country: country.country))
             }
         }
         state.exposureDetectionEU = exposureDetectionEUTemp

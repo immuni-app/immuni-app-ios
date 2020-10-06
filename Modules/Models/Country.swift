@@ -72,3 +72,18 @@ extension Country: Comparable {
         return lhs.rawValue < rhs.rawValue
     }
 }
+
+public struct CountrySelection: Equatable {
+    
+    public var country: Country
+    public var selectionDate: Date
+    
+    public init(country: Country, selectionDate: Date){
+        self.country = country
+        self.selectionDate = selectionDate
+    }
+    
+    public static func ==(lhs: CountrySelection, rhs: CountrySelection) -> Bool {
+           return lhs.country == rhs.country
+       }
+}

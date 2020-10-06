@@ -21,7 +21,7 @@ struct OnboardingCountryVM {
   let isHeaderVisible: Bool
   
   /// The currently selected Country.
-  let currentCountries: [Country]?
+  let currentCountries: [CountrySelection]?
     
   /// The array of items shown in the collection.
   let items: [CellType]
@@ -48,7 +48,7 @@ extension OnboardingCountryVM: ViewModelWithLocalState {
     )
   }
 
-  init(isHeaderVisible: Bool, currentCountries: [Country]?) {
+  init(isHeaderVisible: Bool, currentCountries: [CountrySelection]?) {
     self.isHeaderVisible = isHeaderVisible
     self.currentCountries = currentCountries
 
@@ -57,7 +57,7 @@ extension OnboardingCountryVM: ViewModelWithLocalState {
         OnboardingCountryVM.CellType.radio(
             countryIdentifier: $0.rawValue,
             countryName: $0.humanReadableName,
-            isSelected: currentCountries?.contains($0) ?? false
+            isSelected: currentCountries?.map{ $0.country }.contains($0) ?? false
         )
       }
    
