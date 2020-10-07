@@ -52,14 +52,36 @@ extension OnboardingCountryVM: ViewModelWithLocalState {
     init(isHeaderVisible: Bool, currentCountries: [CountrySelection]?, countryList:[String:String]) {
     self.isHeaderVisible = isHeaderVisible
     self.currentCountries = currentCountries
+        
+        var cellList = [(String, String, Bool, Bool)]()
+        
+        for (key, value) in countryList{
+            let index = currentCountries?.firstIndex(of: CountrySelection(country: Country(countryId: key, countryHumanReadableName: value)))
 
-    let countryItems = countryList.keys.sorted().map {
-        OnboardingCountryVM.CellType.radio(
-        countryIdentifier: $0,
-        countryName: countryList[$0]!,
-        isSelected: currentCountries?.map{ $0.country.countryId }.contains($0) ?? false
-        )
-    }
+            if index == nil || currentCountries?.isEmpty ?? true{
+                cellList.append((key, value, false, false))
+                continue
+            }
+            
+            let currentCountry = currentCountries?[index!]
+                       
+            if Date().timeIntervalSince( currentCountry!.selectionDate ) > 1209600 {
+                cellList.append((key, value, true, false))
+            }
+            else{
+                cellList.append((key, value, true, true))
+            }
+
+        }
+        
+        cellList.sort{ $0.1 < $1.1 }
+        var countryItems = [OnboardingCountryVM.CellType]()
+        for element in cellList {
+            countryItems.append(
+                OnboardingCountryVM.CellType.radio(countryIdentifier: element.0, countryName: element.1, isSelected: element.2, isDisable: element.3)
+            )
+        }
+
     self.items = [
       .titleHeader(title: "In quale paese della comunità Europea devi andare?", description: "Seleziona il paese/i dove devi andare tra quelli che hanno aderito all’interoperabilità per contribuire al contenimento della diffusione del virus all’interno della comunità Europea."),
       .spacer(.big)
@@ -71,7 +93,7 @@ extension OnboardingCountryVM {
   enum CellType: Equatable {
     
     case titleHeader(title: String, description: String)
-    case radio(countryIdentifier: String, countryName: String, isSelected: Bool)
+    case radio(countryIdentifier: String, countryName: String, isSelected: Bool, isDisable: Bool )
     case spacer(OnboardingSpacerCellVM.Size)
 
     var cellVM: ViewModel {
@@ -82,8 +104,8 @@ extension OnboardingCountryVM {
       case .spacer(let size):
         return OnboardingSpacerCellVM(size: size)
         
-      case .radio(_, let countryName, let isSelected):
-        return OnboardingCheckCellVM(title: countryName, isSelected: isSelected)
+      case .radio(_, let countryName, let isSelected, let isDisable):
+        return OnboardingCheckCellVM(title: countryName, isSelected: isSelected, isDisable: isDisable)
       }
     }
   }

@@ -243,6 +243,7 @@ extension Logic.Settings {
 // MARK: Update Country
 
 extension Logic.Settings {
+    
   /// Shows the flow to update the country
     
     struct ShowUpdateCountry: AppSideEffect {
@@ -265,9 +266,40 @@ extension Logic.Settings {
        let newCountries: [CountrySelection]
 
        func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        
+        // if the user cancels, the promise throws and the flow is interrupted.
+        // If the user accepts, instead, the flows continues as expected
+        try await(self.showUpdateCountriesConfirmation(dispatch: context.dispatch(_:)))
+        
          try context.awaitDispatch(Logic.Onboarding.SetUserCountries(countries: self.newCountries))
          context.dispatch(Hide(Screen.updateCountry, animated: true))
        }
+        
+        private func showUpdateCountriesConfirmation(dispatch: @escaping PromisableStoreDispatch) -> Promise<Void> {
+          return Promise { resolve, reject, _ in
+            let model = Alert.Model(
+              title: "Sei sicuro di voler continuare?",
+              message: L10n.Onboarding.Region.Abroad.Alert.message,
+              preferredStyle: .alert,
+              actions: [
+                .init(title: L10n.Onboarding.Region.Abroad.Alert.cancel, style: .cancel, onTap: {
+                  reject(UpdateCountriesConfirmationError.userCancelled)
+                }),
+
+                .init(title: L10n.Onboarding.Region.Abroad.Alert.confirm, style: .default, onTap: {
+                  resolve(())
+                })
+              ]
+            )
+
+            _ = dispatch(Logic.Alert.Show(alertModel: model))
+          }
+        }
+
+        private enum UpdateCountriesConfirmationError: Error {
+          case userCancelled
+        }
+        
      }
     
 }

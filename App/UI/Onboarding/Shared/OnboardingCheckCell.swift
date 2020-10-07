@@ -26,6 +26,7 @@ struct OnboardingCheckCellVM: ViewModel, Hashable {
     
   let title: String
   let isSelected: Bool
+  let isDisable:Bool
 
   var accessibilityTraits: UIAccessibilityTraits {
     if self.isSelected {
@@ -34,13 +35,7 @@ struct OnboardingCheckCellVM: ViewModel, Hashable {
       return .button
     }
   }
-    
-    func  getTitle() -> String{
-           return self.title
-       }
-    func  getIsSelected() -> Bool{
-           return self.isSelected
-       }
+
 }
 
 
@@ -96,7 +91,7 @@ class OnboardingCheckCell: UICollectionViewCell, ModellableView, ReusableView {
     self.accessibilityLabel = model.title
     self.accessibilityTraits = model.accessibilityTraits
 
-    Self.Style.checkmark(self.checkmark, isSelected: model.isSelected)
+    Self.Style.checkmark(self.checkmark, isSelected: model.isSelected, isDisable: model.isDisable)
     Self.Style.title(self.title, content: model.title)
     self.setNeedsLayout()
   }
@@ -138,10 +133,14 @@ class OnboardingCheckCell: UICollectionViewCell, ModellableView, ReusableView {
 
 private extension OnboardingCheckCell {
   enum Style {
-    static func checkmark(_ view: UIImageView, isSelected: Bool) {
-      if isSelected {
+    static func checkmark(_ view: UIImageView, isSelected: Bool, isDisable: Bool) {
+      if isSelected && !isDisable {
         view.image = Asset.Privacy.checkboxSelected.image
-      } else {
+      }
+      else if isSelected && isDisable {
+          view.image = Asset.Privacy.checkboxSelectedDisable.image
+        }
+        else {
         view.image = Asset.Privacy.checkbox.image
       }
     }

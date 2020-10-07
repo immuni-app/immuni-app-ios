@@ -78,11 +78,11 @@ final class OnboardingCountryView: UIView, ViewControllerModellableView {
     Self.Style.scrollingGradient(self.scrollingGradient)
     Self.Style.nextButton(self.nextButton, title: "Complete")
 
-    OnboardingRegionView.Style.collectionView(self.contentCollection)
-    OnboardingRegionView.Style.background(self)
-    OnboardingRegionView.Style.closeButton(self.closeButton)
-    OnboardingRegionView.Style.header(self.headerView)
-    OnboardingRegionView.Style.headerTitle(self.headerTitleView, content: "Seleziona uno o più paesi")
+    OnboardingCountryView.Style.collectionView(self.contentCollection)
+    OnboardingCountryView.Style.background(self)
+    OnboardingCountryView.Style.closeButton(self.closeButton)
+    OnboardingCountryView.Style.header(self.headerView)
+    OnboardingCountryView.Style.headerTitle(self.headerTitleView, content: "Seleziona uno o più paesi")
   }
 
   func update(oldModel: OnboardingCountryVM?) {
@@ -230,8 +230,7 @@ extension OnboardingCountryView: UICollectionViewDelegateFlowLayout {
     guard
       let model = model,
       let cell = model.items[safe: indexPath.row],
-        case OnboardingCountryVM.CellType.radio(let countryIdentifier, let countryName, _) = cell
-
+        case OnboardingCountryVM.CellType.radio(let countryIdentifier, let countryName, let isSelected, let isDisable) = cell
       else {
         return
     }
@@ -247,8 +246,11 @@ extension OnboardingCountryView: UICollectionViewDelegateFlowLayout {
   }
 }
 
-private extension OnboardingCountryView {
+// MARK: Style
+
+extension OnboardingCountryView {
   enum Style {
+    
     static func nextButton(_ btn: ButtonWithInsets, title: String) {
       SharedStyle.primaryButton(btn, title: title)
     }
@@ -271,5 +273,54 @@ private extension OnboardingCountryView {
         type: .linear
       )
     }
+    
+    static func collectionView(_ collection: UICollectionView) {
+      collection.backgroundColor = Palette.white
+      collection.showsVerticalScrollIndicator = false
+      collection.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
+
+      guard let layout = collection.collectionViewLayout as? UICollectionViewFlowLayout else {
+        return
+      }
+
+      layout.minimumLineSpacing = 0
+      layout.minimumInteritemSpacing = 0
+
+      // remember that the colletion already accounts for the safe area insets
+      collection.contentInset = UIEdgeInsets(
+        top: 60,
+        left: 0,
+        bottom: 30,
+        right: 0
+      )
+    }
+
+    static func background(_ view: UIView) {
+      view.backgroundColor = Palette.white
+    }
+
+    static func closeButton(_ btn: ImageButton) {
+      SharedStyle.closeButton(btn)
+    }
+
+    static func header(_ view: UIView) {
+      view.backgroundColor = Palette.white
+      view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+      view.layer.cornerRadius = 15.0
+      view.addShadow(.headerLightBlue)
+    }
+
+    static func headerTitle(_ label: UILabel, content: String) {
+      TempuraStyles.styleStandardLabel(
+        label,
+        content: content,
+        style: TextStyles.h4.byAdding(
+          .color(Palette.grayDark)
+        )
+      )
+    }
   }
 }
+
+
+
