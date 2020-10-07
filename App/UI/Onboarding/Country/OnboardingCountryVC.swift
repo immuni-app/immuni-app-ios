@@ -41,24 +41,30 @@ final class OnboardingCountryVC: ViewControllerWithLocalState<OnboardingCountryV
       }
     }
 
-    self.rootView.userDidSelectCountry = { [weak self] country in
+    self.rootView.userDidSelectCountry = { [weak self] countryOfInterest in
         
+        let country = Country(countryId: countryOfInterest!.0, countryHumanReadableName: countryOfInterest!.1)
+        let isSelected = countryOfInterest!.2
+        let isDisable = countryOfInterest!.3
+        
+        guard !isDisable else {
+            return
+        }
         if self?.localState.currentCountries != nil {
             
             // Remove country if it's selected
           
-            if self!.localState.currentCountries!.contains(CountrySelection(country: country!, selectionDate: Date()))
+            if self!.localState.currentCountries!.contains(CountrySelection(country: country, selectionDate: Date()))
             {
-                self!.localState.currentCountries!.remove(at: self!.localState.currentCountries!.firstIndex(of: CountrySelection(country: country!, selectionDate: Date()))!)
+                self!.localState.currentCountries!.remove(at: self!.localState.currentCountries!.firstIndex(of: CountrySelection(country: country, selectionDate: Date()))!)
                 }
             else{
-                self?.localState.currentCountries?.append(CountrySelection(country: country!, selectionDate: Date()))
+                self?.localState.currentCountries?.append(CountrySelection(country: country, selectionDate: Date()))
             }
-            
         }
         else{
             self?.localState.currentCountries = []
-            self?.localState.currentCountries?.append(CountrySelection(country: country!, selectionDate: Date()))
+            self?.localState.currentCountries?.append(CountrySelection(country: country, selectionDate: Date()))
         }
 
       self?.onboardingContainer?.setNeedsRefreshControls()

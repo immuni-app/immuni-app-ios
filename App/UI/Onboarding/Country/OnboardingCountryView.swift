@@ -26,7 +26,7 @@ final class OnboardingCountryView: UIView, ViewControllerModellableView {
 
   var userDidTapClose: Interaction?
   var userDidScroll: CustomInteraction<CGFloat>?
-  var userDidSelectCountry: CustomInteraction<Country?>?
+  var userDidSelectCountry: CustomInteraction<(String, String, Bool, Bool)?>?
   var userDidTapComplete: Interaction?
 
   static let horizontalSpacing: CGFloat = 30.0
@@ -76,7 +76,7 @@ final class OnboardingCountryView: UIView, ViewControllerModellableView {
 
   func style() {
     Self.Style.scrollingGradient(self.scrollingGradient)
-    Self.Style.nextButton(self.nextButton, title: "Complete")
+    Self.Style.nextButton(self.nextButton, title: L10n.Onboarding.Region.Abroad.Alert.confirm)
 
     OnboardingCountryView.Style.collectionView(self.contentCollection)
     OnboardingCountryView.Style.background(self)
@@ -90,7 +90,7 @@ final class OnboardingCountryView: UIView, ViewControllerModellableView {
       return
     }
 
-    SharedStyle.primaryButton(self.nextButton, title: "Complete")
+    SharedStyle.primaryButton(self.nextButton, title: L10n.Onboarding.Region.Abroad.Alert.confirm)
 
     if model.shouldReloadCollection(oldVM: oldModel) {
       self.updateCollection(using: model)
@@ -240,7 +240,7 @@ extension OnboardingCountryView: UICollectionViewDelegateFlowLayout {
       // when reloading
 
         self.userDidSelectCountry?(
-            Country(countryId: countryIdentifier, countryHumanReadableName: countryName)
+            (countryIdentifier, countryName, isSelected, isDisable)
         )
     }
   }
