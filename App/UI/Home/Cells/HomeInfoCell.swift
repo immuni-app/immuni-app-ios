@@ -20,12 +20,23 @@ import Tempura
 struct HomeInfoCellVM: ViewModel {
   let kind: HomeVM.InfoKind
 
+    var isAnimation: Bool? {
+      switch self.kind {
+      case .updateCountry:
+        return  false
+      default:
+        return true
+      }
+    }
+
   var animation: Animation? {
     switch self.kind {
     case .protection:
       return AnimationAsset.cardDoctor.animation
     case .app:
       return AnimationAsset.cardPerson.animation
+    case .updateCountry:
+      return  AnimationAsset.cardPerson.animation
     }
   }
 
@@ -35,6 +46,8 @@ struct HomeInfoCellVM: ViewModel {
       return L10n.HomeView.Info.Protection.title
     case .app:
       return L10n.HomeView.Info.App.title
+    case .updateCountry:
+      return "In quale paese dell'Europa devi andare?"
     }
   }
 
@@ -43,6 +56,8 @@ struct HomeInfoCellVM: ViewModel {
     case .protection:
       return true
     case .app:
+      return false
+    case .updateCountry:
       return false
     }
   }
@@ -53,6 +68,8 @@ struct HomeInfoCellVM: ViewModel {
       return .cardPurple
     case .app:
       return .cardLightBlue
+    case .updateCountry:
+      return .cardLightBlue
     }
   }
 }
@@ -60,11 +77,14 @@ struct HomeInfoCellVM: ViewModel {
 class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
   typealias VM = HomeInfoCellVM
 
+  private var isAnimation: Bool = true
   private static let containerInset: CGFloat = 25
   private static let iconWidth: CGFloat = UIDevice.getByScreen(normal: 130, narrow: 100)
 
   let container = UIView()
   let icon = AnimationView()
+  let flagEuropa = UIImageView()
+  let newEuropa = UIImageView()
   let title = UILabel()
   var actionButton = TextButton()
 
@@ -90,7 +110,12 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
 
   func setup() {
     self.contentView.addSubview(self.container)
+    
     self.container.addSubview(self.icon)
+   
+    self.container.addSubview(self.flagEuropa)
+    self.container.addSubview(self.newEuropa)
+
     self.container.addSubview(self.title)
     self.container.addSubview(self.actionButton)
 
@@ -105,8 +130,16 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
     guard let model = self.model else {
       return
     }
+    self.isAnimation = model.isAnimation ?? true
+    
+    if self.isAnimation {
+        Self.Style.icon(self.icon, animation: model.animation)
+    }
+    else{
+        Self.Style.logoEuropa(self.flagEuropa)
+        Self.Style.logoNewEuropa(self.newEuropa)
 
-    Self.Style.icon(self.icon, animation: model.animation)
+    }
     Self.Style.shadow(self.contentView, shadow: model.shadow)
     Self.Style.container(self.container, lightContent: model.lightContent)
     Self.Style.actionButton(self.actionButton, lightContent: model.lightContent)
@@ -126,6 +159,18 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
       .right()
       .aspectRatio(self.icon.intrinsicContentSize.width / self.icon.intrinsicContentSize.height)
       .width(Self.iconWidth)
+    
+    self.flagEuropa.pin
+      .bottom()
+      .right()
+      .aspectRatio(self.flagEuropa.intrinsicContentSize.width / self.flagEuropa.intrinsicContentSize.height)
+        .width(Self.iconWidth*1.2)
+
+    self.newEuropa.pin
+      .top()
+      .left()
+      .aspectRatio(self.newEuropa.intrinsicContentSize.width / self.newEuropa.intrinsicContentSize.height)
+        .width(Self.iconWidth*0.7)
 
     self.title.pin
       .left(HomeView.cellHorizontalInset)
@@ -189,6 +234,13 @@ private extension HomeInfoCell {
       button.titleLabel?.numberOfLines = 0
       button.attributedTitle = content.styled(with: textStyle)
     }
+    static func logoEuropa(_ imageView: UIImageView) {
+        imageView.image = Asset.Home.flagEuropa.image
+    }
+    static func logoNewEuropa(_ imageView: UIImageView) {
+        imageView.image = Asset.Home.newEuropa.image
+    }
+    
 
     static func icon(_ view: AnimationView, animation: Animation?) {
       view.animation = animation

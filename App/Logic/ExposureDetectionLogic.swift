@@ -68,7 +68,7 @@ extension Logic.ExposureDetection {
         
         for exposureDetectionCountry in state.exposureDetectionEU {
             exposureDetectionCountries.append(
-                (exposureDetectionCountry.countryId, exposureDetectionCountry.exposureDetectionState.latestProcessedKeyChunkIndex, exposureDetectionCountry.exposureDetectionState.lastDetectionDate))
+                (exposureDetectionCountry.countrySelection.country.countryId, exposureDetectionCountry.exposureDetectionState.latestProcessedKeyChunkIndex, exposureDetectionCountry.exposureDetectionState.lastDetectionDate))
             }
         outcomeEU = try await(
           context.dependencies.exposureDetectionExecutor.executeEU(
@@ -101,7 +101,7 @@ extension Logic.ExposureDetection {
 //            try? context.awaitDispatch(SignalBackgroundTask(outcome: outcomeEU, type: self.type))
 
             // Mark the background task as completed, if any.
-            self.type.backgroundTask?.setTaskCompleted(success: outcomeEU.isSuccessful)
+//            self.type.backgroundTask?.setTaskCompleted(success: outcomeEU.isSuccessful)
         
         }// end !state.exposureDetectionEU.isEmpty
   
@@ -366,7 +366,7 @@ extension Logic.ExposureDetection {
 
         for (country, lastIndex) in countryIndexCouple {
             for (index, exposureDetection) in state.exposureDetectionEU.enumerated() {
-                if exposureDetection.countryId == country {
+                if exposureDetection.countrySelection.country.countryId == country {
                     state.exposureDetectionEU[index].exposureDetectionState.latestProcessedKeyChunkIndex = lastIndex
                 }
             }

@@ -25,6 +25,14 @@ enum SharedStyle {
     button.isAccessibilityElement = true
     button.accessibilityLabel = L10n.Accessibility.close
   }
+    
+  static func completeButton(_ button: ImageButton, color: UIColor = Palette.purple) {
+    button.image = Asset.Common.checkIcon.image
+    button.tintColor = color
+
+    button.isAccessibilityElement = true
+    button.accessibilityLabel = L10n.Accessibility.close
+    }
 
   static func backButton(_ button: ImageButton) {
     button.image = Asset.Common.backButton.image

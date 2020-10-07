@@ -52,6 +52,7 @@ enum Screen: String, CaseIterable {
   case confirmUpload
   case customerSupport
   case updateProvince
+  case updateCountry
   case faq
   case question
 }
@@ -226,7 +227,16 @@ extension TabbarVC: RoutableWithConfiguration {
         let vc = UIAlertController(content: content)
         self?.recursivePresent(vc, animated: false, completion: completion)
       },
-
+        
+        //Update Country
+      .show(Screen.updateCountry): .presentModally { context in
+        let onboardingCountryLS = context as? OnboardingCountryLS ?? AppLogger.fatalError("invalid context")
+        return OnboardingCountryVC(
+            store: self.store,
+            localState: onboardingCountryLS
+            )
+              },
+        
       // Share Text
       .show(Screen.shareText): .custom { [weak self] _, _, animated, context, completion in
         let text = context as? String ?? AppLogger.fatalError("Invalid context")
@@ -437,6 +447,14 @@ extension SettingsNC: RoutableWithConfiguration {
         )
       },
 
+      .show(Screen.updateCountry): .presentModally { context in
+        let onboardingCountryLS = context as? OnboardingCountryLS ?? AppLogger.fatalError("Invalid context")
+        return OnboardingCountryVC(
+            store: self.store,
+            localState: onboardingCountryLS
+            )
+        },
+
       .show(Screen.privacy): .presentModally { context in
         PrivacyVC(store: self.store, localState: .init(kind: .settings))
       },
@@ -524,6 +542,20 @@ class UpdateProvinceNC: OnboardingContainerNC {
         self.pushViewController(using: navContext, animated: animated)
         completion()
       }
+    ]
+  }
+}
+
+// MARK: Update Country
+
+extension OnboardingCountryVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.updateCountry.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [
+      .hide(Screen.updateCountry): .dismissModally(behaviour: .hard)
     ]
   }
 }

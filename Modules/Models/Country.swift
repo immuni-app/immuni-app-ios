@@ -14,60 +14,45 @@
 
 
 import Foundation
-public enum Country: String, Codable, CaseIterable {
-    case italia = "IT"
-    case francia = "FR"
-    case spagna = "ES"
-    case germania = "DE"
-    case russia = "RU"
-    case austria = "AT"
-    case svizzera = "CH"
-    case portogallo = "PT"
-    case olanda = "NL"
-    case belgio = "BE"
-    case albania = "AL"
-    case grecia = "GR"
-    case croazia = "HR"
-    case ungheria = "HU"
+
+public struct Country: Equatable, Codable {
     
-    public var humanReadableName: String {
-        switch self {
-        case .italia:
-            return "Italia"
-        case .francia:
-            return "Francia"
-        case .spagna:
-            return "Spagna"
-        case .germania:
-            return "Germania"
-        case .russia:
-            return "Russia"
-        case .austria:
-            return "Austria"
-        case .svizzera:
-            return "Svizzera"
-        case .portogallo:
-            return "Portogallo"
-        case .olanda:
-            return "Olanda"
-        case .belgio:
-            return "Belgio"
-        case .albania:
-            return "Albania"
-        case .grecia:
-            return "Grecia"
-        case .croazia:
-            return "Croazia"
-        case .ungheria:
-            return "Ungheria"
-        }
+    public var countryId: String
+    public var countryHumanReadableName: String
+    
+    public init(countryId: String, countryHumanReadableName: String){
+        self.countryId = countryId
+        self.countryHumanReadableName = countryHumanReadableName
     }
 }
 
-
-
 extension Country: Comparable {
+    
+    public static func ==(lhs: Self, rhs: Self) -> Bool {
+           return lhs.countryId == rhs.countryId
+       }
     public static func < (lhs: Self, rhs: Self) -> Bool {
-        return lhs.rawValue < rhs.rawValue
+        return lhs.countryHumanReadableName < rhs.countryHumanReadableName
     }
+   
+}
+
+public struct CountrySelection: Equatable, Codable {
+    
+    public var country: Country
+    public var selectionDate: Date
+    
+    public init(country: Country, selectionDate: Date){
+        self.country = country
+        self.selectionDate = selectionDate
+    }
+    
+    public init(country: Country){
+        self.country = country
+        self.selectionDate = Date()
+    }
+    
+    public static func ==(lhs: CountrySelection, rhs: CountrySelection) -> Bool {
+           return lhs.country == rhs.country
+       }
 }

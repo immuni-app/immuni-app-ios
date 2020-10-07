@@ -328,8 +328,31 @@ extension Logic.Onboarding {
       state.user.province = self.province
     }
   }
+    
+  struct SetUserCountries: AppStateUpdater {
+    
+    let countries: [CountrySelection]
+
+    func updateState(_ state: inout AppState) {
+
+        var exposureDetectionEUTemp = [ExposureDetectionCountriesOfInterest]()
+        
+        
+        for state in state.exposureDetectionEU {
+            if self.countries.contains(state.countrySelection) {
+                exposureDetectionEUTemp.append(state)
+            }
+        }
+        for country in self.countries {
+            if !state.exposureDetectionEU.map({ $0.countrySelection }).contains(country) {
+                exposureDetectionEUTemp.append(ExposureDetectionCountriesOfInterest(country: country.country))
+            }
+        }
+        state.exposureDetectionEU = exposureDetectionEUTemp
+    }
 }
 
+}
 // MARK: Private State Updaters
 
 extension Logic.Onboarding {

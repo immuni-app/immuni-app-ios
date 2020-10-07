@@ -26,6 +26,7 @@ struct HomeVM: ViewModelWithState {
   enum InfoKind: Equatable {
     case protection
     case app
+    case updateCountry
   }
 
   enum CellType: Equatable {
@@ -102,6 +103,7 @@ extension HomeVM {
     } else {
       cells.append(.deactivateButton(isEnabled: isServiceActive))
     }
+    cells.append(.info(kind: .updateCountry))
 
     self.cellTypes = cells
   }
