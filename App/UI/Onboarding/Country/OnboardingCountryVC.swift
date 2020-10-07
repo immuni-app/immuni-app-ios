@@ -100,10 +100,13 @@ struct OnboardingCountryLS: LocalState {
   // var currentCountries: [Country]
   /// The currently selected Country.
   var currentCountries: [CountrySelection]?
-
-  init( currentCountries: [CountrySelection]?) {
+    
+  var countryList: [String:String]
+    
+    init( currentCountries: [CountrySelection]?, countryList: [String:String]) {
     self.isHeaderVisible = false
     self.currentCountries = currentCountries!
+    self.countryList = countryList
 
   }
 }

@@ -169,7 +169,7 @@ extension Logic.DataUpload {
       let userProvince = state.user.province
         ?? AppLogger.fatalError("Province must be set at this point")
         
-      let userCountries = state.exposureDetectionEU.map { $0.countrySelection.country.rawValue }
+      let userCountries = state.exposureDetectionEU.map { $0.countrySelection.country.countryId }
         
       var exposureDetectionSummaries: [CodableExposureDetectionSummary]
         

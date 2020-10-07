@@ -250,11 +250,12 @@ extension Logic.Settings {
         let state = context.getState()
 
         let countries = state.exposureDetectionEU.map{ $0.countrySelection }
-        
+        let countryList:[String:String] = state.configuration.countries
+
         try context.awaitDispatch(Show(
           Screen.updateCountry,
           animated: true,
-          context: countries
+          context: OnboardingCountryLS(currentCountries: countries, countryList: countryList)
         ))
       }
     }

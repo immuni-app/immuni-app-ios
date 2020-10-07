@@ -194,13 +194,13 @@ private extension OnboardingContainerNC {
         localState: OnboardingProvinceLS(isUpdatingProvince: false, selectedRegion: region, currentProvince: nil)
       )
         
-    case .country:
-        return OnboardingCountryVC(store: store, localState: OnboardingCountryLS(currentCountries: nil))
+//    case .country:
+//        return OnboardingCountryVC(store: store, localState: OnboardingCountryLS(currentCountries: nil))
 
-    case .updateCountry(let currentCountries):
+    case .updateCountry(let currentCountries, let countryList):
          return OnboardingCountryVC(
            store: store,
-           localState: OnboardingCountryLS(currentCountries: currentCountries)
+           localState: OnboardingCountryLS(currentCountries: currentCountries, countryList: countryList)
          )
 
     case .updateProvince(let selectedRegion, let currentUserProvince):
@@ -320,7 +320,7 @@ extension OnboardingContainerNC.NavigationContext {
     // onboarding
     case region
     case province(region: Region)
-    case country
+//    case country
     case exposureNotificationPermissions
     case bluetoothOff
     case pushNotificationPermissions
@@ -336,7 +336,7 @@ extension OnboardingContainerNC.NavigationContext {
     // settings
     case updateRegion(currentUserProvince: Province)
     case updateProvince(selectedRegion: Region, currentUserProvince: Province)
-    case updateCountry(currentCountries: [CountrySelection])
+    case updateCountry(currentCountries: [CountrySelection], countryList: [String:String])
 
   }
 }

@@ -59,7 +59,7 @@ class HomeVC: ViewController<HomeView> {
     case .protection:
       self.dispatch(Logic.Suggestions.ShowSuggestions())
         
-    case .news:
+    case .updateCountry:
       self.dispatch(Logic.Settings.ShowUpdateCountry())
     }
   }

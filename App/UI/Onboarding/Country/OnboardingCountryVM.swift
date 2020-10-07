@@ -44,23 +44,22 @@ extension OnboardingCountryVM: ViewModelWithLocalState {
   init?(state: AppState?, localState: OnboardingCountryLS) {
     self.init(
       isHeaderVisible: localState.isHeaderVisible,
-      currentCountries: localState.currentCountries
+      currentCountries: localState.currentCountries,
+      countryList: localState.countryList
     )
   }
 
-  init(isHeaderVisible: Bool, currentCountries: [CountrySelection]?) {
+    init(isHeaderVisible: Bool, currentCountries: [CountrySelection]?, countryList:[String:String]) {
     self.isHeaderVisible = isHeaderVisible
     self.currentCountries = currentCountries
 
-    let countryItems = Country.allCases
-      .sorted().map {
+    let countryItems = countryList.keys.sorted().map {
         OnboardingCountryVM.CellType.radio(
-            countryIdentifier: $0.rawValue,
-            countryName: $0.humanReadableName,
-            isSelected: currentCountries?.map{ $0.country }.contains($0) ?? false
+        countryIdentifier: $0,
+        countryName: countryList[$0]!,
+        isSelected: currentCountries?.map{ $0.country.countryId }.contains($0) ?? false
         )
-      }
-   
+    }
     self.items = [
       .titleHeader(title: "In quale paese della comunità Europea devi andare?", description: "Seleziona il paese/i dove devi andare tra quelli che hanno aderito all’interoperabilità per contribuire al contenimento della diffusione del virus all’interno della comunità Europea."),
       .spacer(.big)

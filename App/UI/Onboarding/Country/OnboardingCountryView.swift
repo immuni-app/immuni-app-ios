@@ -230,7 +230,7 @@ extension OnboardingCountryView: UICollectionViewDelegateFlowLayout {
     guard
       let model = model,
       let cell = model.items[safe: indexPath.row],
-        case OnboardingCountryVM.CellType.radio(let countryIdentifier, _, _) = cell
+        case OnboardingCountryVM.CellType.radio(let countryIdentifier, let countryName, _) = cell
 
       else {
         return
@@ -240,7 +240,9 @@ extension OnboardingCountryView: UICollectionViewDelegateFlowLayout {
       // async here is required to prevent glitches in the collectionview
       // when reloading
 
-      self.userDidSelectCountry?(Country(rawValue: countryIdentifier))
+        self.userDidSelectCountry?(
+            Country(countryId: countryIdentifier, countryHumanReadableName: countryName)
+        )
     }
   }
 }
