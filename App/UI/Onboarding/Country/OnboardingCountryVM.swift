@@ -62,10 +62,10 @@ extension OnboardingCountryVM: ViewModelWithLocalState {
                 cellList.append((key, value, false, false))
                 continue
             }
-            
+
             let currentCountry = currentCountries?[index!]
-                       
-            if Date().timeIntervalSince( currentCountry!.selectionDate ) > 1209600 {
+
+            if currentCountry!.selectionDate == nil || Date().timeIntervalSince( currentCountry!.selectionDate! ) > 1209600 {
                 cellList.append((key, value, true, false))
             }
             else{

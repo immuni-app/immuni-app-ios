@@ -69,7 +69,7 @@ struct ExposureDetectionCountriesOfInterest: Codable {
     var exposureDetectionState: ExposureDetectionState
     
     init(country: Country){
-        self.countrySelection = CountrySelection(country: country)
+        self.countrySelection = CountrySelection(country: country, selectionDate: Date())
         self.exposureDetectionState = ExposureDetectionState()
     }
     init(country: Country, selectionDate: Date){

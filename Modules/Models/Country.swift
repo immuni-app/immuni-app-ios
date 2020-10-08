@@ -40,7 +40,7 @@ extension Country: Comparable {
 public struct CountrySelection: Equatable, Codable {
     
     public var country: Country
-    public var selectionDate: Date
+    public var selectionDate: Date?
     
     public init(country: Country, selectionDate: Date){
         self.country = country
@@ -49,7 +49,6 @@ public struct CountrySelection: Equatable, Codable {
     
     public init(country: Country){
         self.country = country
-        self.selectionDate = Date()
     }
     
     public static func ==(lhs: CountrySelection, rhs: CountrySelection) -> Bool {
