@@ -36,7 +36,7 @@ struct HomeInfoCellVM: ViewModel {
     case .app:
       return AnimationAsset.cardPerson.animation
     case .updateCountry:
-      return  AnimationAsset.cardPerson.animation
+      return  AnimationAsset.cardFlagEuropa.animation
     }
   }
 
@@ -83,7 +83,6 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
 
   let container = UIView()
   let icon = AnimationView()
-  let flagEuropa = UIImageView()
   let newEuropa = UIImageView()
   let title = UILabel()
   var actionButton = TextButton()
@@ -112,10 +111,7 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
     self.contentView.addSubview(self.container)
     
     self.container.addSubview(self.icon)
-   
-    self.container.addSubview(self.flagEuropa)
     self.container.addSubview(self.newEuropa)
-
     self.container.addSubview(self.title)
     self.container.addSubview(self.actionButton)
 
@@ -132,14 +128,11 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
     }
     self.isAnimation = model.isAnimation ?? true
     
-    if self.isAnimation {
-        Self.Style.icon(self.icon, animation: model.animation)
-    }
-    else{
-        Self.Style.logoEuropa(self.flagEuropa)
+    if !self.isAnimation {
         Self.Style.logoNewEuropa(self.newEuropa)
-
     }
+    Self.Style.icon(self.icon, animation: model.animation)
+
     Self.Style.shadow(self.contentView, shadow: model.shadow)
     Self.Style.container(self.container, lightContent: model.lightContent)
     Self.Style.actionButton(self.actionButton, lightContent: model.lightContent)
@@ -160,12 +153,6 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
       .aspectRatio(self.icon.intrinsicContentSize.width / self.icon.intrinsicContentSize.height)
       .width(Self.iconWidth)
     
-    self.flagEuropa.pin
-      .bottom()
-      .right()
-      .aspectRatio(self.flagEuropa.intrinsicContentSize.width / self.flagEuropa.intrinsicContentSize.height)
-        .width(Self.iconWidth*1)
-
     self.newEuropa.pin
       .top()
       .left()
@@ -234,13 +221,10 @@ private extension HomeInfoCell {
       button.titleLabel?.numberOfLines = 0
       button.attributedTitle = content.styled(with: textStyle)
     }
-    static func logoEuropa(_ imageView: UIImageView) {
-        imageView.image = Asset.Home.flagEuropa.image
-    }
+
     static func logoNewEuropa(_ imageView: UIImageView) {
         imageView.image = Asset.Home.newEuropa.image
     }
-    
 
     static func icon(_ view: AnimationView, animation: Animation?) {
       view.animation = animation
