@@ -82,7 +82,7 @@ final class OnboardingCountryView: UIView, ViewControllerModellableView {
     OnboardingCountryView.Style.background(self)
     OnboardingCountryView.Style.closeButton(self.closeButton)
     OnboardingCountryView.Style.header(self.headerView)
-    OnboardingCountryView.Style.headerTitle(self.headerTitleView, content: "Seleziona uno o più paesi")
+    OnboardingCountryView.Style.headerTitle(self.headerTitleView, content: L10n.Onboarding.Country.title)
   }
 
   func update(oldModel: OnboardingCountryVM?) {

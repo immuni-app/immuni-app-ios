@@ -47,6 +47,7 @@
 "home_view.info.button.title" = "Find out more";
 "home_view.info.protection.title" = "What you can do to protect yourself";
 "home_view.info_header.title" = "Information";
+"home_view.info.update_countries.title" = "Where in EU do you have to travel?";
 "home_view.service.active.discover_more" = "Find out more";
 "home_view.service.active.subtitle" = "Even when the app is closed, Immuni continues to operate.";
 "home_view.service.active.title" = "Service\n<b>active</b>";
@@ -106,6 +107,10 @@
 "onboarding.region.title" = "Which region do you live in?";
 "onboarding_exposure_api_not_activated" = "Exposure notifications not enabled";
 "onboarding_exposure_message_extended" = "Due to an operating system limitation, geolocation services must be turned on to allow the random codes to be exchanged via Bluetooth. <b>Immuni does not access your location, and you can verify this by checking the list of permissions required by the app.</b>";
+"onboarding.country.title" = "Which country of the European Union do you have to visit?";
+"onboarding.country.description" =  "Select the country/countries where you have to travel among those who joined the agreement to contribute decreasing the virus spread across the European Union";
+"onboarding.country.alert.title" = "Are you sure?";
+"onboarding.country.alert.description" = "You won't be able to remove selected countries for 14 days";
 "open_settings" = "Open Settings";
 "permission_tutorial.bluetooth.action" = "Open Settings";
 "permission_tutorial.bluetooth.first" = "<b>1. Go to the Control Centre.</b> Depending on your device, either swipe down from the top right corner, or up from the bottom of the screen.";
@@ -198,6 +203,7 @@
 "settings.setting.share" = "Share the app";
 "settings.setting.share.message" = "Help us fight the COVID-19 epidemic together. Download Immuni. https://www.immuni.italia.it/";
 "settings.setting.tos" = "Terms of use";
+"settings.setting.chage_countries" = "Choose countries of interest";
 "settings.update_province.update_province" = "Update";
 "settings_app_version" = "Immuni v%s (%d)";
 "suggestions.alert.asl_contact_confirmation.description" = "Immuni will hide the contact alert. You will still need to follow all the instructions you have received from your general practitioner or local health authority.";

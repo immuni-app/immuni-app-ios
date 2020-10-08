@@ -83,7 +83,7 @@ extension OnboardingCountryVM: ViewModelWithLocalState {
         }
 
     self.items = [
-      .titleHeader(title: "In quale paese della comunità Europea devi andare?", description: "Seleziona il paese/i dove devi andare tra quelli che hanno aderito all’interoperabilità per contribuire al contenimento della diffusione del virus all’interno della comunità Europea."),
+        .titleHeader(title: L10n.Onboarding.Country.title, description: L10n.Onboarding.Country.description),
       .spacer(.big)
     ] + countryItems
   }
