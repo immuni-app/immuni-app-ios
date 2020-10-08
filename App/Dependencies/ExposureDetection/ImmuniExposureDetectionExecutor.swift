@@ -157,12 +157,12 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
           return
         }
 
-        let timeSinceLastDetection = now().timeIntervalSince(lastExposureDetectionDate ?? .distantPast)
-        guard forceRun || timeSinceLastDetection >= exposureDetectionPeriod else {
-          // Exposure detection was performed recently
-          resolve(.noDetectionNecessary)
-          return
-        }
+//        let timeSinceLastDetection = now().timeIntervalSince(lastExposureDetectionDate ?? .distantPast)
+//        guard forceRun || timeSinceLastDetection >= exposureDetectionPeriod else {
+//          // Exposure detection was performed recently
+//          resolve(.noDetectionNecessary)
+//          return
+//        }
 
         // Check for authorization
         let status: ExposureNotificationStatus

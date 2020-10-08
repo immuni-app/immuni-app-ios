@@ -47,7 +47,7 @@ struct HomeInfoCellVM: ViewModel {
     case .app:
       return L10n.HomeView.Info.App.title
     case .updateCountry:
-      return "In quale paese dell'Europa devi andare?"
+        return L10n.HomeView.Info.UpdateCountries.title
     }
   }
 
@@ -164,13 +164,13 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
       .bottom()
       .right()
       .aspectRatio(self.flagEuropa.intrinsicContentSize.width / self.flagEuropa.intrinsicContentSize.height)
-        .width(Self.iconWidth*1.2)
+        .width(Self.iconWidth*1)
 
     self.newEuropa.pin
       .top()
       .left()
       .aspectRatio(self.newEuropa.intrinsicContentSize.width / self.newEuropa.intrinsicContentSize.height)
-        .width(Self.iconWidth*0.7)
+        .width(Self.iconWidth*0.65)
 
     self.title.pin
       .left(HomeView.cellHorizontalInset)

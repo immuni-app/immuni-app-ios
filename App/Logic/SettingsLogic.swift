@@ -278,8 +278,8 @@ extension Logic.Settings {
         private func showUpdateCountriesConfirmation(dispatch: @escaping PromisableStoreDispatch) -> Promise<Void> {
           return Promise { resolve, reject, _ in
             let model = Alert.Model(
-              title: "Sei sicuro di voler salvare?",
-              message: "Se salvi non potrai rimuovere i paesi scelti per 14 giorni",
+              title: L10n.Onboarding.Country.Alert.title,
+              message: L10n.Onboarding.Country.Alert.description,
               preferredStyle: .alert,
               actions: [
                 .init(title: L10n.Onboarding.Region.Abroad.Alert.cancel, style: .cancel, onTap: {
