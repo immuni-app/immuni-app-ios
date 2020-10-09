@@ -157,13 +157,6 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
           return
         }
 
-//        let timeSinceLastDetection = now().timeIntervalSince(lastExposureDetectionDate ?? .distantPast)
-//        guard forceRun || timeSinceLastDetection >= exposureDetectionPeriod else {
-//          // Exposure detection was performed recently
-//          resolve(.noDetectionNecessary)
-//          return
-//        }
-
         // Check for authorization
         let status: ExposureNotificationStatus
         do {
@@ -211,12 +204,6 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
           resolve(.noDetectionNecessary)
           return
         }
-
-//        let firstProcessedChunk = keyChunks.map { $0.index }.min()
-//          ?? AppLogger.fatalError("keyChunks cannot be empty at this stage")
-//
-//        let lastProcessedChunk = keyChunks.map { $0.index }.max()
-//          ?? AppLogger.fatalError("keyChunks cannot be empty at this stage")
 
         var firstProcessedChunkEU:[(String, Int)] = []
         var lastProcessedChunkEU:[(String, Int)] = []
