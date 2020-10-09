@@ -19,7 +19,7 @@ import Models
 
 public struct DataUploadRequest: FixedSizeJSONRequest {
   // swiftlint:disable:next force_unwrapping
-    public var baseURL = URL(string: "https://testaka3.sogei.it")!
+  public var baseURL = URL(string: "https://upload.immuni.gov.it")!
   public var path = "/v1/ingestion/upload"
   public var method: HTTPMethod = .post
   public var cachePolicy: NSURLRequest.CachePolicy = .reloadIgnoringLocalAndRemoteCacheData
@@ -51,7 +51,7 @@ public extension DataUploadRequest {
     public let teks: [CodableTemporaryExposureKey]
     public let province: String
     public let exposureDetectionSummaries: [CodableExposureDetectionSummary]
-    public var countryOfInterest: [String]
+    public var countriesOfInterest: [String]
 
     /// Create a data upload request body with given teks, province and exposureDetectionSummaries.
     /// A padding is added automatically so that both valid both dummy requests will have the same size.
@@ -61,7 +61,7 @@ public extension DataUploadRequest {
       exposureDetectionSummaries: [CodableExposureDetectionSummary],
       maximumExposureInfoCount: Int,
       maximumExposureDetectionSummaryCount: Int,
-      countryOfInterest: [Country] = []
+      countriesOfInterest: [String] = []
     ) {
       self.teks = Self.cap(teks)
       self.province = province
@@ -70,7 +70,7 @@ public extension DataUploadRequest {
         maxSummaries: maximumExposureDetectionSummaryCount,
         maxExposureInfo: maximumExposureInfoCount
       )
-      self.countryOfInterest = countryOfInterest.map{ $0.countryId }
+      self.countriesOfInterest = countriesOfInterest
     }
   }
 }
@@ -80,7 +80,6 @@ public extension DataUploadRequest.Body {
     case teks
     case province
     case exposureDetectionSummaries = "exposure_detection_summaries"
-    case countryOfInterest = "country_of_interest"
   }
 }
 

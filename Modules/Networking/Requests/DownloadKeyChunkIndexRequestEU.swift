@@ -18,13 +18,13 @@ import Foundation
 public struct DownloadKeyChunkIndexRequestEU: HTTPRequest {
   // swiftlint:disable:next force_unwrapping
 
-    public var baseURL = URL(string: "https://testaka1.sogei.it")!
+  public var baseURL = URL(string: "https://get.immuni.gov.it")!
   public var method: HTTPMethod = .get
   public var cachePolicy: NSURLRequest.CachePolicy = .reloadIgnoringLocalAndRemoteCacheData
   public var parameters: [String: Any] = [:]
   public var headers: [HTTPHeader] = HTTPHeader.defaultImmuniHeaders    
     
-  public var path: String { "/v1/keys/eu/\(self.country)/\(self.chunkNumber)" }
+  public var path: String { "/v1/keyseu/\(self.country)/\(self.chunkNumber)" }
   let chunkNumber: Int
   let country: String
 }

@@ -47,7 +47,6 @@
 "home_view.info.button.title" = "Más información";
 "home_view.info.protection.title" = "¿Qué medidas puedes adoptar para protegerte?";
 "home_view.info_header.title" = "Información";
-"home_view.info.update_countries.title" = "¿A qué país de la UE tienes que dirigirte?";
 "home_view.service.active.discover_more" = "Más información";
 "home_view.service.active.subtitle" = "Immuni sigue funcionando aunque la aplicación esté cerrada.";
 "home_view.service.active.title" = "Servicio\n<b>activo</b>";
@@ -107,10 +106,6 @@
 "onboarding.region.title" = "¿En qué región vives?";
 "onboarding_exposure_api_not_activated" = "Notificaciones de exposición sin activar";
 "onboarding_exposure_message_extended" = "Debido a una limitación del sistema operativo, la ubicación debe estar activada para que se puedan intercambiar los códigos aleatorios a través de Bluetooth. <b>Immuni no tiene acceso a tu ubicación, como podrás comprobar si consultas la lista de los permisos que solicita la aplicación.</b>";
-"onboarding.country.title" = "¿A qué país de la UE tienes que dirigirte?";
-"onboarding.country.description" =  "Selecciona el país o los países a los que tienes que dirigirte entre los que se han unido a la interoperabilidad para ayudar a contener la propagación del virus en la Unión Europea.";
-"onboarding.country.alert.title" = "¿Estás seguro de que deseas continuar?";
-"onboarding.country.alert.description" = "Si aceptas no podrás cancelar los países seleccionados por los próximos 14 días";
 "open_settings" = "Abrir los ajustes";
 "permission_tutorial.bluetooth.action" = "Abrir los ajustes";
 "permission_tutorial.bluetooth.first" = "<b>1. Accede al Centro de control.</b> Desliza el dedo hacia abajo desde la esquina superior derecha o hacia arriba desde la parte inferior de la pantalla, dependiendo de tu dispositivo.";
@@ -203,7 +198,6 @@
 "settings.setting.share" = "Compartir la app";
 "settings.setting.share.message" = "Ayúdanos a combatir juntos la epidemia de COVID-19. Descárgate Immuni tú también. https://www.immuni.italia.it/";
 "settings.setting.tos" = "Términos de uso";
-"settings.setting.chage_countries" = "Países que me interesan";
 "settings.update_province.update_province" = "Actualizar";
 "settings_app_version" = "Immuni v%s (%d)";
 "suggestions.alert.asl_contact_confirmation.description" = "Immuni ocultará el aviso de contacto. En cualquier caso, deberás seguir las indicaciones que has recibido de tu médico o de tu Agencia Sanitaria Local.";
