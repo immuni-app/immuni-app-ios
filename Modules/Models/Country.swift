@@ -37,10 +37,16 @@ extension Country: Comparable {
    
 }
 
-public struct CountrySelection: Equatable, Codable {
+public struct CountryOfInterest: Equatable, Codable {
     
+    /// Country of interest
     public var country: Country
+
+    /// Date of country selection
     public var selectionDate: Date?
+    
+    /// The index of latest processed chunk of `TemporaryExposureKeys`
+    var latestProcessedKeyChunkIndex: Int? = nil
     
     public init(country: Country, selectionDate: Date){
         self.country = country
@@ -51,7 +57,7 @@ public struct CountrySelection: Equatable, Codable {
         self.country = country
     }
     
-    public static func ==(lhs: CountrySelection, rhs: CountrySelection) -> Bool {
+    public static func ==(lhs: CountryOfInterest, rhs: CountryOfInterest) -> Bool {
            return lhs.country == rhs.country
        }
 }

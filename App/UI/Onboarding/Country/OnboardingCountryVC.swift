@@ -54,17 +54,17 @@ final class OnboardingCountryVC: ViewControllerWithLocalState<OnboardingCountryV
             
             // Remove country if it's selected
           
-            if self!.localState.currentCountries!.contains(CountrySelection(country: country))
+            if self!.localState.currentCountries!.contains(CountryOfInterest(country: country))
             {
-                self!.localState.currentCountries!.remove(at: self!.localState.currentCountries!.firstIndex(of: CountrySelection(country: country))!)
+                self!.localState.currentCountries!.remove(at: self!.localState.currentCountries!.firstIndex(of: CountryOfInterest(country: country))!)
                 }
             else{
-                self?.localState.currentCountries?.append(CountrySelection(country: country))
+                self?.localState.currentCountries?.append(CountryOfInterest(country: country))
             }
         }
         else{
             self?.localState.currentCountries = []
-            self?.localState.currentCountries?.append(CountrySelection(country: country))
+            self?.localState.currentCountries?.append(CountryOfInterest(country: country))
         }
 
       self?.onboardingContainer?.setNeedsRefreshControls()
@@ -105,11 +105,11 @@ struct OnboardingCountryLS: LocalState {
   
   // var currentCountries: [Country]
   /// The currently selected Country.
-  var currentCountries: [CountrySelection]?
+  var currentCountries: [CountryOfInterest]?
     
   var countryList: [String:String]
     
-    init( currentCountries: [CountrySelection]?, countryList: [String:String]) {
+    init( currentCountries: [CountryOfInterest]?, countryList: [String:String]) {
     self.isHeaderVisible = false
     self.currentCountries = currentCountries!
     self.countryList = countryList

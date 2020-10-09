@@ -21,7 +21,7 @@ struct OnboardingCountryVM {
   let isHeaderVisible: Bool
   
   /// The currently selected Country.
-  let currentCountries: [CountrySelection]?
+  let currentCountries: [CountryOfInterest]?
     
   /// The array of items shown in the collection.
   let items: [CellType]
@@ -49,14 +49,14 @@ extension OnboardingCountryVM: ViewModelWithLocalState {
     )
   }
 
-    init(isHeaderVisible: Bool, currentCountries: [CountrySelection]?, countryList:[String:String]) {
+    init(isHeaderVisible: Bool, currentCountries: [CountryOfInterest]?, countryList:[String:String]) {
     self.isHeaderVisible = isHeaderVisible
     self.currentCountries = currentCountries
         
         var cellList = [(String, String, Bool, Bool)]()
         
         for (key, value) in countryList{
-            let index = currentCountries?.firstIndex(of: CountrySelection(country: Country(countryId: key, countryHumanReadableName: value)))
+            let index = currentCountries?.firstIndex(of: CountryOfInterest(country: Country(countryId: key, countryHumanReadableName: value)))
 
             if index == nil || currentCountries?.isEmpty ?? true{
                 cellList.append((key, value, false, false))

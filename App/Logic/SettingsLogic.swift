@@ -263,7 +263,7 @@ extension Logic.Settings {
   /// Update the countries selected by the user
     struct CompleteUpdateCountries: AppSideEffect {
         
-       let newCountries: [CountrySelection]
+       let newCountries: [CountryOfInterest]
 
        func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
         

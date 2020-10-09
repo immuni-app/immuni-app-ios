@@ -41,8 +41,6 @@ struct AppState: State, Codable {
   /// Slice related to Exposure Detection
   var exposureDetection = ExposureDetectionState()
     
-  var exposureDetectionEU = [ExposureDetectionCountriesOfInterest]()
-
   /// Slice related to configuration parameters for the app
   var configuration = Configuration()
 
@@ -60,18 +58,6 @@ struct AppState: State, Codable {
   var environment = EnvironmentState()
 
   init() {}
-}
-
-struct ExposureDetectionCountriesOfInterest: Codable {
-    
-    
-    var countrySelection: CountrySelection
-    var exposureDetectionState: ExposureDetectionState
-    
-    init(country: Country, selectionDate: Date = Date()){
-        self.countrySelection = CountrySelection(country: country, selectionDate: selectionDate)
-        self.exposureDetectionState = ExposureDetectionState()
-    }
 }
 
 // MARK: Force update
