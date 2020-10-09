@@ -54,7 +54,7 @@ enum AnimationAsset: String, CaseIterable, Equatable {
   case welcome2 = "welcomeSecond"
   case welcome3 = "welcomeThird"
   case welcome4 = "welcomeFourth"
-  case cardFlagEuropa
+  case cardFlagEuropa = "cardFlagEuropa"
 
 }
 

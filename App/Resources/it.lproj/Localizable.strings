@@ -211,7 +211,7 @@
 "settings.setting.share" = "Condividi l'app";
 "settings.setting.share.message" = "Aiutaci a combattere insieme l’epidemia di COVID-19. Scarica anche tu Immuni. https://www.immuni.italia.it/";
 "settings.setting.tos" = "Termini di utilizzo";
-"settings.setting.chage_countries" = "Scegli i paesi di interesse";
+"settings.setting.chage_countries" = "I miei paesi di interesse";
 "settings.update_province.update_province" = "Aggiorna";
 "settings_app_version" = "Immuni v%s (%d)";
 "suggestions.alert.asl_contact_confirmation.description" = "Immuni nasconderà l’avviso di contatto. Dovrai comunque seguire tutte le indicazioni che hai ricevuto dal tuo medico o dalla tua ASL.";

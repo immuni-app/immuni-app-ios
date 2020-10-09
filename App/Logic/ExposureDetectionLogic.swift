@@ -94,16 +94,9 @@ extension Logic.ExposureDetection {
               // Update the latest processed chunk in the state
                 try context.awaitDispatch(UpdateLatestProcessedKeyChunkIndexEU(countryIndexCouple: latestProcessedChunkEU))
             }
-
             try context.awaitDispatch(TrackExposureDetectionPerformedEU(outcome: outcomeEU, type: self.type))
-            try? context.awaitDispatch(Logic.Analytics.SendOperationalInfoIfNeededEU(outcome: outcomeEU))
             try context.awaitDispatch(UpdateUserStatusIfNecessaryEU(outcome: outcomeEU))
-//            try? context.awaitDispatch(SignalBackgroundTask(outcome: outcomeEU, type: self.type))
-
-            // Mark the background task as completed, if any.
-//            self.type.backgroundTask?.setTaskCompleted(success: outcomeEU.isSuccessful)
-        
-        }// end !state.exposureDetectionEU.isEmpty
+        }
   
       if let error = outcome.error {
         // Custom handling of specific errors
@@ -330,10 +323,6 @@ extension Logic.ExposureDetection {
       let type: DetectionType
 
       func updateState(_ state: inout AppState) {
-//        #if canImport(DebugMenu)
-//          let record = ExposureDetectionState.DebugRecord(kind: .init(from: self.type), result: .init(from: self.outcome))
-//          state.exposureDetection.previousDetectionResults.append(record)
-//        #endif
 
         if let positiveExposureResult = ExposureDetectionState.PositiveExposureResult(from: self.outcome) {
           state.exposureDetection.recentPositiveExposureResults.append(positiveExposureResult)

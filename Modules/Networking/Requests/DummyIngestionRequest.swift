@@ -21,7 +21,7 @@ public struct DummyIngestionRequest: FixedSizeJSONRequest {
   public typealias BodyModel = EmptyBody
 
   // swiftlint:disable:next force_unwrapping
-  public var baseURL = URL(string: "https://upload.immuni.gov.it")!
+    public var baseURL = URL(string: "https://testaka3.sogei.it")!
 
   // It does not matter which endpoint is used.
   public var path = "/v1/ingestion/upload"

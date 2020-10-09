@@ -20,7 +20,7 @@ public struct KeysIndexRequest: ModelResponseSerializer {
   public typealias Model = KeysIndex
 
   // swiftlint:disable:next force_unwrapping
-  public var baseURL = URL(string: "https://get.immuni.gov.it")!
+  public var baseURL = URL(string: "https://testaka1.sogei.it")!
 
   public var path = "/v1/keys/index"
   public var method: HTTPMethod = .get

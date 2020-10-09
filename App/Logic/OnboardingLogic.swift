@@ -337,17 +337,13 @@ extension Logic.Onboarding {
 
         var exposureDetectionEUTemp = [ExposureDetectionCountriesOfInterest]()
         
-        
         for state in state.exposureDetectionEU {
             if self.countries.contains(state.countrySelection) {
                 exposureDetectionEUTemp.append(state)
             }
         }
-        for country in self.countries {
-            if !state.exposureDetectionEU.map({ $0.countrySelection }).contains(country) {
-                exposureDetectionEUTemp.append(ExposureDetectionCountriesOfInterest(country: country.country))
-            }
-        }
+        let newCountries = self.countries.map { ExposureDetectionCountriesOfInterest(country: $0.country) }
+        exposureDetectionEUTemp.append(contentsOf: newCountries)
         state.exposureDetectionEU = exposureDetectionEUTemp
     }
 }

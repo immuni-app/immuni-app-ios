@@ -235,7 +235,7 @@ extension TabbarVC: RoutableWithConfiguration {
             store: self.store,
             localState: onboardingCountryLS
             )
-              },
+        },
         
       // Share Text
       .show(Screen.shareText): .custom { [weak self] _, _, animated, context, completion in
