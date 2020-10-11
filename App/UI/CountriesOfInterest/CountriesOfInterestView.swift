@@ -1,4 +1,4 @@
-// OnboardingCountryView.swift
+// CountriesOfInterestView.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -20,18 +20,17 @@ import Models
 import PinLayout
 import Tempura
 
-final class OnboardingCountryView: UIView, ViewControllerModellableView {
-    
+final class CountriesOfInterestView: UIView, ViewControllerModellableView {
   // MARK: Interactions
 
   var userDidTapClose: Interaction?
   var userDidScroll: CustomInteraction<CGFloat>?
-  var userDidSelectCountry: CustomInteraction<(String, String, Bool, Bool)?>?
+  var userDidSelectCountry: CustomInteraction<(String, String, Bool)?>?
   var userDidTapComplete: Interaction?
 
   static let horizontalSpacing: CGFloat = 30.0
   static let gradientToButtonMaring: CGFloat = 50.0
-    
+
   // MARK: Subviews
 
   lazy var contentCollection: UICollectionView = {
@@ -49,43 +48,41 @@ final class OnboardingCountryView: UIView, ViewControllerModellableView {
   private var closeButton = ImageButton()
   private let headerView = UIView()
   private let headerTitleView = UILabel()
-    
+
   let nextButton = ButtonWithInsets()
   private let scrollingGradient = GradientView()
-    
 
   // MARK: Methods
 
   func setup() {
-    
     self.addSubview(self.contentCollection)
     self.addSubview(self.headerView)
     self.addSubview(self.closeButton)
     self.addSubview(self.scrollingGradient)
     self.addSubview(self.nextButton)
-    
+
     self.headerView.addSubview(self.headerTitleView)
 
     self.closeButton.on(.touchUpInside) { [weak self] _ in
-         self?.userDidTapClose?()
-       }
+      self?.userDidTapClose?()
+    }
     self.nextButton.on(.touchUpInside) { [weak self] _ in
-        self?.userDidTapComplete?()
-        }
+      self?.userDidTapComplete?()
+    }
   }
 
   func style() {
     Self.Style.scrollingGradient(self.scrollingGradient)
     Self.Style.nextButton(self.nextButton, title: L10n.Onboarding.Region.Abroad.Alert.confirm)
 
-    OnboardingCountryView.Style.collectionView(self.contentCollection)
-    OnboardingCountryView.Style.background(self)
-    OnboardingCountryView.Style.closeButton(self.closeButton)
-    OnboardingCountryView.Style.header(self.headerView)
-    OnboardingCountryView.Style.headerTitle(self.headerTitleView, content: L10n.Onboarding.Country.title)
+    CountriesOfInterestView.Style.collectionView(self.contentCollection)
+    CountriesOfInterestView.Style.background(self)
+    CountriesOfInterestView.Style.closeButton(self.closeButton)
+    CountriesOfInterestView.Style.header(self.headerView)
+    CountriesOfInterestView.Style.headerTitle(self.headerTitleView, content: L10n.CountriesOfInterest.title)
   }
 
-  func update(oldModel: OnboardingCountryVM?) {
+  func update(oldModel: CountriesOfInterestVM?) {
     guard let model = self.model else {
       return
     }
@@ -109,8 +106,7 @@ final class OnboardingCountryView: UIView, ViewControllerModellableView {
   /// but the result is flawless.
   ///
   /// - warning: the method assumes that 1)cells' order doesn't change and 2) only radio cells change
-  private func updateCollection(using model: OnboardingCountryVM) {
-    
+  private func updateCollection(using model: CountriesOfInterestVM) {
     let radioCells = self.contentCollection.visibleCells.filter { item in
       item is OnboardingCheckCell
     }
@@ -128,28 +124,28 @@ final class OnboardingCountryView: UIView, ViewControllerModellableView {
 
   override func layoutSubviews() {
     super.layoutSubviews()
-    
+
     self.scrollingGradient.pin
-    .bottom()
-    .left()
-    .right()
-    .top(to: self.nextButton.edge.top)
-    .marginTop(-Self.gradientToButtonMaring)
-    
+      .bottom()
+      .left()
+      .right()
+      .top(to: self.nextButton.edge.top)
+      .marginTop(-Self.gradientToButtonMaring)
+
     self.nextButton.pin
-    .bottom(20 + self.safeAreaInsets.bottom)
-    .right(Self.horizontalSpacing)
-    .size(CGSize(width: 158, height: 55))
+      .bottom(20 + self.safeAreaInsets.bottom)
+      .right(Self.horizontalSpacing)
+      .size(CGSize(width: 158, height: 55))
 //    .marginTop(50)
 
     self.contentCollection.pin
-        .all()
-        .marginBottom(60)
-    
+      .all()
+      .marginBottom(60)
+
     self.closeButton.pin
-    .top(15 + self.safeAreaInsets.top)
-    .right(28)
-    .sizeToFit()
+      .top(15 + self.safeAreaInsets.top)
+      .right(28)
+      .sizeToFit()
 
     self.headerTitleView.pin
       .left(OnboardingContainerAccessoryView.horizontalSpacing)
@@ -179,7 +175,7 @@ final class OnboardingCountryView: UIView, ViewControllerModellableView {
 
 // MARK: UICollectionViewDataSource
 
-extension OnboardingCountryView: UICollectionViewDataSource {
+extension CountriesOfInterestView: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return self.model?.items.count ?? 0
   }
@@ -210,7 +206,6 @@ extension OnboardingCountryView: UICollectionViewDataSource {
     in collectionView: UICollectionView,
     using viewModel: ViewModel
   ) -> Cell {
-    
     let cell = collectionView.dequeueReusableCell(Cell.self, for: indexPath)
     cell.model = viewModel as? Cell.VM
     return cell
@@ -219,7 +214,7 @@ extension OnboardingCountryView: UICollectionViewDataSource {
 
 // MARK: UICollectionViewDelegate
 
-extension OnboardingCountryView: UICollectionViewDelegateFlowLayout {
+extension CountriesOfInterestView: UICollectionViewDelegateFlowLayout {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     self.userDidScroll?(scrollView.contentOffset.y)
   }
@@ -230,27 +225,26 @@ extension OnboardingCountryView: UICollectionViewDelegateFlowLayout {
     guard
       let model = model,
       let cell = model.items[safe: indexPath.row],
-        case OnboardingCountryVM.CellType.radio(let countryIdentifier, let countryName, let isSelected, let isDisable) = cell
-      else {
-        return
+      case CountriesOfInterestVM.CellType.radio(let countryIdentifier, let countryName, _, let isDisable) = cell
+    else {
+      return
     }
 
     DispatchQueue.main.async {
       // async here is required to prevent glitches in the collectionview
       // when reloading
 
-        self.userDidSelectCountry?(
-            (countryIdentifier, countryName, isSelected, isDisable)
-        )
+      self.userDidSelectCountry?(
+        (countryIdentifier, countryName, isDisable)
+      )
     }
   }
 }
 
 // MARK: Style
 
-extension OnboardingCountryView {
+extension CountriesOfInterestView {
   enum Style {
-    
     static func nextButton(_ btn: ButtonWithInsets, title: String) {
       SharedStyle.primaryButton(btn, title: title)
     }
@@ -273,7 +267,7 @@ extension OnboardingCountryView {
         type: .linear
       )
     }
-    
+
     static func collectionView(_ collection: UICollectionView) {
       collection.backgroundColor = Palette.white
       collection.showsVerticalScrollIndicator = false
@@ -321,6 +315,3 @@ extension OnboardingCountryView {
     }
   }
 }
-
-
-
