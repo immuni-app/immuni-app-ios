@@ -48,7 +48,7 @@ public struct Configuration: Codable {
   }
 
   /// Countries of interest map
-  public let countries: [String: String]
+  public let countries: [String: [String: String]]
 
   /// This is used to enforce a minimum version of the app.
   /// If the currently installed app has a lower version than the one specified
@@ -175,7 +175,7 @@ public struct Configuration: Codable {
 
   /// Public initializer to allow testing
   public init(
-    countries: [String: String] = .defaultCountries,
+    countries: [String: [String: String]] = .defaultCountries,
     minimumBuildVersion: Int = 1,
     serviceNotActiveNotificationPeriod: TimeInterval = 86400,
     osForceUpdateNotificationPeriod: TimeInterval = 86400,
@@ -341,36 +341,70 @@ public extension Dictionary where Key == String, Value == URL {
   }
 }
 
-public extension Dictionary where Key == String, Value == String {
+public extension Dictionary where Key == String, Value == [String: String] {
   /// default values for countries
-  static var defaultCountries: [String: String] {
+  static var defaultCountries: [String: [String: String]] {
     let values = [
-      "AT": "AUSTRIA",
-      "BE": "BELGIO",
-      "BG": "BULGARIA",
-      "CY": "CIPRO",
-      "HR": "CROAZIA",
-      "DK": "DANIMARCA",
-      "EE": "ESTONIA",
-      "FI": "FINLANDIA",
-      "DE": "GERMANIA",
-      "GB": "GRAN BRETAGNA",
-      "EL": "GRECIA",
-      "IE": "IRLANDA",
-      "LV": "LETTONIA",
-      "LT": "LITUANIA",
-      "LU": "LUSSEMBURGO",
-      "MT": "MALTA",
-      "NL": "OLANDA",
-      "PL": "POLONIA",
-      "PT": "PORTOGALLO",
-      "CZ": "REPUBBLICA CECA",
-      "SK": "REPUBBLICA SLOVACCA",
-      "RO": "ROMANIA",
-      "SI": "SLOVENIA",
-      "ES": "SPAGNA",
-      "SE": "SVEZIA",
-      "HU": "UNGHERIA"
+      "it": [
+        "AT": "AUSTRIA",
+        "DK": "DANIMARCA",
+        "EE": "ESTONIA",
+        "DE": "GERMANIA",
+        "IE": "IRLANDA",
+        "LV": "LETTONIA",
+        "NL": "OLANDA",
+        "PL": "POLONIA",
+        "CZ": "REPUBBLICA CECA",
+        "ES": "SPAGNA"
+      ],
+      "de": [
+        "AT": "ÖSTERREICH",
+        "DK": "DÄNEMARK",
+        "EE": "ESTONIA",
+        "DE": "DEUTSCHLAND",
+        "IE": "IRLAND",
+        "LV": "LETTLAND",
+        "NL": "NIEDERLANDE",
+        "PL": "POLEN",
+        "CZ": "TSCHECHISCHE REPUBLIK",
+        "ES": "SPANIEN"
+      ],
+      "en": [
+        "AT": "AUSTRIA",
+        "DK": "DENMARK",
+        "EE": "ESTONIA",
+        "DE": "GERMANY",
+        "IE": "IRELAND",
+        "LV": "LATVIA",
+        "NL": "NETHERLANDS",
+        "PL": "POLAND",
+        "CZ": "CZECH REPUBLIC",
+        "ES": "SPAIN"
+      ],
+      "fr": [
+        "AT": "AUTRICHE",
+        "DK": "DANEMARK",
+        "EE": "ESTONIE",
+        "DE": "ALLEMAGNE",
+        "IE": "IRLANDE",
+        "LV": "LETTONIE",
+        "NL": "PAYS-BAS",
+        "PL": "POLOGNE",
+        "CZ": "RÉPUBLIQUE TCHÈQUE",
+        "ES": "ESPAGNE"
+      ],
+      "es": [
+        "AT": "AUSTRIA",
+        "DK": "DINAMARCA",
+        "EE": "ESTONIA",
+        "DE": "ALEMANIA",
+        "IE": "IRLANDA",
+        "LV": "LETONIA",
+        "NL": "PAÍSES BAJOS",
+        "PL": "POLONIA",
+        "CZ": "REPÚBLICA CHECA",
+        "ES": "ESPAÑA"
+      ]
     ]
     return values
   }
