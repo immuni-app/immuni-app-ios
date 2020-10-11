@@ -346,7 +346,7 @@ public extension Dictionary where Key == String, Value == [String: String] {
   static var defaultCountries: [String: [String: String]] {
     let values = [
       "it": [
-        "AT": "AUSTRIAxxx",
+        "AT": "AUSTRIA",
         "DK": "DANIMARCA",
         "EE": "ESTONIA",
         "DE": "GERMANIA",
