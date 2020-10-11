@@ -1,4 +1,4 @@
-// OnboardingCheckCellVM.swift
+// OnboardingCheckCell.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -12,7 +12,6 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-
 import BonMot
 import Extensions
 import Foundation
@@ -23,10 +22,9 @@ import Tempura
 // MARK: - Model
 
 struct OnboardingCheckCellVM: ViewModel, Hashable {
-    
   let title: String
   let isSelected: Bool
-  let isDisable:Bool
+  let isDisable: Bool
 
   var accessibilityTraits: UIAccessibilityTraits {
     if self.isSelected {
@@ -35,15 +33,11 @@ struct OnboardingCheckCellVM: ViewModel, Hashable {
       return .button
     }
   }
-
 }
-
-
 
 // MARK: - View
 
 class OnboardingCheckCell: UICollectionViewCell, ModellableView, ReusableView {
-    
   private static let titleToCheckmarkMargin: CGFloat = 20
 
   // we cannot rely on the proper asset size, as the checked one
@@ -136,11 +130,9 @@ private extension OnboardingCheckCell {
     static func checkmark(_ view: UIImageView, isSelected: Bool, isDisable: Bool) {
       if isSelected && !isDisable {
         view.image = Asset.Privacy.checkboxSelected.image
-      }
-      else if isSelected && isDisable {
-          view.image = Asset.Privacy.checkboxSelectedDisable.image
-        }
-        else {
+      } else if isSelected && isDisable {
+        view.image = Asset.Privacy.checkboxSelectedDisable.image
+      } else {
         view.image = Asset.Privacy.checkbox.image
       }
     }

@@ -62,29 +62,18 @@ extension NetworkManager {
 
 extension NetworkManager {
   /// Returns the current manifest for the chunk of TEKs exposed by the backend
-  public func getKeysIndex() -> Promise<KeysIndex> {
-    return self.request(KeysIndexRequest())
+  public func getKeysIndex(country: String?) -> Promise<KeysIndex> {
+    return self.request(KeysIndexRequest(country: country))
   }
-  public func getKeysIndexEU(country: String) -> Promise<KeysIndex> {
-    return self.request(KeysIndexRequestEU(country: country))
-    }
 
   /// Downloads the chunks of TEKs for the given `indexes` and returns them as an array of `Data`, each corresponding to a given
   /// index in the input parameter.
-  public func downloadChunks(with indexes: [Int]) -> Promise<[Data]> {
+  public func downloadChunks(with indexes: [Int], country: String?) -> Promise<[Data]> {
     let requestPromises = indexes
-      .map { DownloadKeyChunkIndexRequest(chunkNumber: $0) }
+      .map { DownloadKeyChunkIndexRequest(chunkNumber: $0, country: country) }
       .map { self.request($0) }
-
     return all(requestPromises)
   }
-  public func downloadChunksEU(with indexes: [Int], country: String) -> Promise<[Data]> {
-    let requestPromises = indexes
-        .map { DownloadKeyChunkIndexRequestEU(chunkNumber: $0, country: country) }
-        .map { self.request($0) }
-
-      return all(requestPromises)
-    }
 }
 
 // MARK: - Ingestion service requests
@@ -110,7 +99,7 @@ extension NetworkManager {
       targetSize: requestSize
     )).safeVoid
   }
-        
+
   /// Sends a dummy request to the backend.
   public func sendDummyIngestionRequest(requestSize: Int) -> Promise<Void> {
     return self.request(DummyIngestionRequest(now: self.unwrappedDependencies.now, targetSize: requestSize)).safeVoid

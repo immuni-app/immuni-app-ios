@@ -47,6 +47,7 @@
 "home_view.info.button.title" = "Mehr erfahren";
 "home_view.info.protection.title" = "So können Sie sich schützen";
 "home_view.info_header.title" = "Informationen";
+"home_view.info.update_countries.title" = "Where in EU do you have to travel?";
 "home_view.service.active.discover_more" = "Mehr erfahren";
 "home_view.service.active.subtitle" = "Immuni bleibt aktiv, auch wenn die App geschlossen ist.";
 "home_view.service.active.title" = "Service\n<b>aktiv</b>";
@@ -106,6 +107,10 @@
 "onboarding.region.title" = "In welcher Region leben Sie?";
 "onboarding_exposure_api_not_activated" = "Kontaktmitteilungen nicht aktiviert";
 "onboarding_exposure_message_extended" = "Aufgrund einer Einschränkung des Betriebssystems muss der Geolokalisierungsdienst aktiv sein, damit der Austausch von Zufallscodes über Bluetooth möglich ist. <b>Immuni greift nicht auf Ihren Standort zu. Sie können dies anhand der Liste der Berechtigungen, die für die App erforderlich sind, überprüfen.</b>";
+"countries_of_interest.title" = "Which country of the European Union do you have to visit?";
+"countries_of_interest.description" =  "Select the country/countries where you have to travel among those who joined the agreement to contribute decreasing the virus spread across the European Union";
+"countries_of_interest.alert.title" = "Are you sure?";
+"countries_of_interest.alert.description" = "You won't be able to remove selected countries for 14 days";
 "open_settings" = "Einstellungen öffnen";
 "permission_tutorial.bluetooth.action" = "Einstellungen öffnen";
 "permission_tutorial.bluetooth.first" = "<b>1. Weiter zum Kontrollzentrum.</b>Je nach Gerät müssen Sie dazu die rechte obere Bildschirmecke nach unten bzw. den unteren Bildschirmrand nach oben ziehen.";

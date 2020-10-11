@@ -27,7 +27,7 @@ final class ImmuniTemporaryExposureKeyProviderTests: XCTestCase {
 
     let keyProvider = ImmuniTemporaryExposureKeyProvider(networkManager: networkManager, fileStorage: MockFileStorage())
 
-    let promise = keyProvider.getMissingChunksIndexes(latestKnownChunkIndex: nil)
+    let promise = keyProvider.getMissingChunksIndexes(latestKnownChunkIndex: nil, country: nil)
 
     expectToEventually(promise.isPending == false)
 
@@ -44,7 +44,7 @@ final class ImmuniTemporaryExposureKeyProviderTests: XCTestCase {
 
     let keyProvider = ImmuniTemporaryExposureKeyProvider(networkManager: networkManager, fileStorage: MockFileStorage())
 
-    let promise = keyProvider.getMissingChunksIndexes(latestKnownChunkIndex: nil)
+    let promise = keyProvider.getMissingChunksIndexes(latestKnownChunkIndex: nil, country: nil)
 
     expectToEventually(promise.isPending == false)
 
@@ -61,7 +61,7 @@ final class ImmuniTemporaryExposureKeyProviderTests: XCTestCase {
 
     let keyProvider = ImmuniTemporaryExposureKeyProvider(networkManager: networkManager, fileStorage: MockFileStorage())
 
-    let promise = keyProvider.getMissingChunksIndexes(latestKnownChunkIndex: 55)
+    let promise = keyProvider.getMissingChunksIndexes(latestKnownChunkIndex: 55, country: nil)
 
     expectToEventually(promise.isPending == false)
 
@@ -78,7 +78,7 @@ final class ImmuniTemporaryExposureKeyProviderTests: XCTestCase {
 
     let keyProvider = ImmuniTemporaryExposureKeyProvider(networkManager: networkManager, fileStorage: MockFileStorage())
 
-    let promise = keyProvider.getMissingChunksIndexes(latestKnownChunkIndex: 55)
+    let promise = keyProvider.getMissingChunksIndexes(latestKnownChunkIndex: 55, country: nil)
 
     expectToEventually(promise.isPending == false)
 
@@ -95,7 +95,7 @@ final class ImmuniTemporaryExposureKeyProviderTests: XCTestCase {
 
     let keyProvider = ImmuniTemporaryExposureKeyProvider(networkManager: networkManager, fileStorage: MockFileStorage())
 
-    let promise = keyProvider.getMissingChunksIndexes(latestKnownChunkIndex: 80)
+    let promise = keyProvider.getMissingChunksIndexes(latestKnownChunkIndex: 80, country: nil)
 
     expectToEventually(promise.isPending == false)
 
@@ -112,7 +112,7 @@ final class ImmuniTemporaryExposureKeyProviderTests: XCTestCase {
 
     let keyProvider = ImmuniTemporaryExposureKeyProvider(networkManager: networkManager, fileStorage: MockFileStorage())
 
-    let promise = keyProvider.getMissingChunksIndexes(latestKnownChunkIndex: nil)
+    let promise = keyProvider.getMissingChunksIndexes(latestKnownChunkIndex: nil, country: nil)
 
     expectToEventually(promise.isPending == false)
 

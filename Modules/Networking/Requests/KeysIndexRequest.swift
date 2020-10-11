@@ -20,11 +20,12 @@ public struct KeysIndexRequest: ModelResponseSerializer {
   public typealias Model = KeysIndex
 
   // swiftlint:disable:next force_unwrapping
-  public var baseURL = URL(string: "https://testaka1.sogei.it")!
+  public var baseURL = URL(string: "https://get.immuni.gov.it")!
+  public var path: String { (self.country == nil) ? "/v1/keys/index" : "/v1/keys/eu/\(self.country!)/index" }
 
-  public var path = "/v1/keys/index"
   public var method: HTTPMethod = .get
   public var cachePolicy: NSURLRequest.CachePolicy = .immuniPolicy
   public var parameters: [String: Any] = [:]
   public var headers: [HTTPHeader] = HTTPHeader.defaultImmuniHeaders
+  let country: String?
 }

@@ -33,7 +33,7 @@ struct SettingCellVM: ViewModel, CellWithShadow {
     case .chageProvince:
       return L10n.Settings.Setting.chageProvince
     case .updateCountry:
-        return L10n.Settings.Setting.chageCountries
+      return L10n.Settings.Setting.chageCountries
     case .shareApp:
       return L10n.Settings.Setting.share
     case .leaveReview:

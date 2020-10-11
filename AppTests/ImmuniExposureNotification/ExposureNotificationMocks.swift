@@ -205,7 +205,7 @@ class MockTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
     self.indexesToReturn = Array(minIndexToReturn ... maxIndexToReturn)
   }
 
-  func getLatestKeyChunks(latestKnownChunkIndex: Int?) -> Promise<[TemporaryExposureKeyChunk]> {
+  func getLatestKeyChunks(latestKnownChunkIndex: Int?, country: String?) -> Promise<[TemporaryExposureKeyChunk]> {
     self.getLatestKeyChunksMethodCalls.append(latestKnownChunkIndex)
     // swiftlint:disable force_unwrapping
     return .init(
@@ -214,17 +214,6 @@ class MockTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
     )
     // swiftlint:enable force_unwrapping
   }
-  
-    // Fix me
-  func getLatestKeyChunksEU(latestKnownChunkIndex: Int?,  country: String) -> Promise<[TemporaryExposureKeyChunk]> {
-      self.getLatestKeyChunksMethodCalls.append(latestKnownChunkIndex)
-      // swiftlint:disable force_unwrapping
-      return .init(
-        resolved: self.indexesToReturn
-          .map { .init(localUrls: [URL(string: "http://example.com/\($0)")!], index: $0) }
-      )
-      // swiftlint:enable force_unwrapping
-    }
 
   func clearLocalResources(for chunks: [TemporaryExposureKeyChunk]) -> Promise<Void> {
     self.clearLocalResourcesMethodCalls.append(chunks)
@@ -235,16 +224,13 @@ class MockTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
 // MARK: - ExposureDetectionExecutor
 
 class MockExposureDetectionExecutor: ExposureDetectionExecutor {
-  
   let outcome: ExposureDetectionOutcome
-  let outcomeEU: ExposureDetectionOutcomeEU
 
   var executeMethodCalls = 0
   var detectionPeriods: [TimeInterval] = []
 
-  init(outcome: ExposureDetectionOutcome = .noDetectionNecessary, outcomeEU: ExposureDetectionOutcomeEU = .noDetectionNecessary) {
+  init(outcome: ExposureDetectionOutcome = .noDetectionNecessary) {
     self.outcome = outcome
-    self.outcomeEU = outcomeEU
   }
 
   func execute(
@@ -258,28 +244,11 @@ class MockExposureDetectionExecutor: ExposureDetectionExecutor {
     tekProvider: TemporaryExposureKeyProvider,
     now: @escaping () -> Date,
     isUserCovidPositive: Bool,
-    forceRun: Bool
+    forceRun: Bool,
+    countriesOfInterest: [(String, Int?)]
   ) -> Promise<ExposureDetectionOutcome> {
     self.executeMethodCalls += 1
     self.detectionPeriods.append(exposureDetectionPeriod)
     return .init(resolved: self.outcome)
   }
-    
-    func executeEU(
-      exposureDetectionPeriod: TimeInterval,
-      lastExposureDetectionDate: Date?,
-      exposureDetectionConfiguration: Configuration.ExposureDetectionConfiguration,
-      exposureInfoRiskScoreThreshold: Int,
-      userExplanationMessage: String,
-      enManager: ExposureNotificationManager,
-      tekProvider: TemporaryExposureKeyProvider,
-      now: @escaping () -> Date,
-      isUserCovidPositive: Bool,
-      forceRun: Bool,
-      exposureDetectionEU: [(String, Int?, Date?)]
-    ) -> Promise<ExposureDetectionOutcomeEU> {
-        self.executeMethodCalls += 1
-        self.detectionPeriods.append(exposureDetectionPeriod)
-        return .init(resolved: self.outcomeEU)
-    }
 }

@@ -227,16 +227,16 @@ extension TabbarVC: RoutableWithConfiguration {
         let vc = UIAlertController(content: content)
         self?.recursivePresent(vc, animated: false, completion: completion)
       },
-        
-        //Update Country
+
+      // Update Country
       .show(Screen.updateCountry): .presentModally { context in
-        let onboardingCountryLS = context as? OnboardingCountryLS ?? AppLogger.fatalError("invalid context")
-        return OnboardingCountryVC(
-            store: self.store,
-            localState: onboardingCountryLS
-            )
-        },
-        
+        let countriesOfInterestLS = context as? CountriesOfInterestLS ?? AppLogger.fatalError("invalid context")
+        return CountriesOfInterestVC(
+          store: self.store,
+          localState: countriesOfInterestLS
+        )
+      },
+
       // Share Text
       .show(Screen.shareText): .custom { [weak self] _, _, animated, context, completion in
         let text = context as? String ?? AppLogger.fatalError("Invalid context")
@@ -448,12 +448,12 @@ extension SettingsNC: RoutableWithConfiguration {
       },
 
       .show(Screen.updateCountry): .presentModally { context in
-        let onboardingCountryLS = context as? OnboardingCountryLS ?? AppLogger.fatalError("Invalid context")
-        return OnboardingCountryVC(
-            store: self.store,
-            localState: onboardingCountryLS
-            )
-        },
+        let countriesOfInterestLS = context as? CountriesOfInterestLS ?? AppLogger.fatalError("Invalid context")
+        return CountriesOfInterestVC(
+          store: self.store,
+          localState: countriesOfInterestLS
+        )
+      },
 
       .show(Screen.privacy): .presentModally { context in
         PrivacyVC(store: self.store, localState: .init(kind: .settings))
@@ -548,7 +548,7 @@ class UpdateProvinceNC: OnboardingContainerNC {
 
 // MARK: Update Country
 
-extension OnboardingCountryVC: RoutableWithConfiguration {
+extension CountriesOfInterestVC: RoutableWithConfiguration {
   var routeIdentifier: RouteElementIdentifier {
     return Screen.updateCountry.rawValue
   }

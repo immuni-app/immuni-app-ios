@@ -20,14 +20,14 @@ import Tempura
 struct HomeInfoCellVM: ViewModel {
   let kind: HomeVM.InfoKind
 
-    var isAnimation: Bool? {
-      switch self.kind {
-      case .updateCountry:
-        return  false
-      default:
-        return true
-      }
+  var isAnimation: Bool? {
+    switch self.kind {
+    case .updateCountry:
+      return false
+    default:
+      return true
     }
+  }
 
   var animation: Animation? {
     switch self.kind {
@@ -36,7 +36,7 @@ struct HomeInfoCellVM: ViewModel {
     case .app:
       return AnimationAsset.cardPerson.animation
     case .updateCountry:
-      return  AnimationAsset.cardFlagEuropa.animation
+      return AnimationAsset.cardFlagEuropa.animation
     }
   }
 
@@ -47,7 +47,7 @@ struct HomeInfoCellVM: ViewModel {
     case .app:
       return L10n.HomeView.Info.App.title
     case .updateCountry:
-        return L10n.HomeView.Info.UpdateCountries.title
+      return L10n.HomeView.Info.UpdateCountries.title
     }
   }
 
@@ -109,7 +109,7 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
 
   func setup() {
     self.contentView.addSubview(self.container)
-    
+
     self.container.addSubview(self.icon)
     self.container.addSubview(self.newEuropa)
     self.container.addSubview(self.title)
@@ -127,9 +127,9 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
       return
     }
     self.isAnimation = model.isAnimation ?? true
-    
+
     if !self.isAnimation {
-        Self.Style.logoNewEuropa(self.newEuropa)
+      Self.Style.logoNewEuropa(self.newEuropa)
     }
     Self.Style.icon(self.icon, animation: model.animation)
 
@@ -152,12 +152,12 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
       .right()
       .aspectRatio(self.icon.intrinsicContentSize.width / self.icon.intrinsicContentSize.height)
       .width(Self.iconWidth)
-    
+
     self.newEuropa.pin
       .top()
       .left()
       .aspectRatio(self.newEuropa.intrinsicContentSize.width / self.newEuropa.intrinsicContentSize.height)
-        .width(Self.iconWidth*0.65)
+      .width(Self.iconWidth * 0.65)
 
     self.title.pin
       .left(HomeView.cellHorizontalInset)
@@ -223,7 +223,7 @@ private extension HomeInfoCell {
     }
 
     static func logoNewEuropa(_ imageView: UIImageView) {
-        imageView.image = Asset.Home.newEuropa.image
+      imageView.image = Asset.Home.newEuropa.image
     }
 
     static func icon(_ view: AnimationView, animation: Animation?) {

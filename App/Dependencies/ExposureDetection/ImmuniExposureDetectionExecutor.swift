@@ -36,7 +36,8 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
     tekProvider: TemporaryExposureKeyProvider,
     now: @escaping () -> Date,
     isUserCovidPositive: Bool,
-    forceRun: Bool
+    forceRun: Bool,
+    countriesOfInterest: [(String, Int?)]
   ) -> Promise<ExposureDetectionOutcome> {
     return Promise(in: .custom(queue: Self.queue)) { resolve, _, _ in
       guard #available(iOS 13.5, *) else {
@@ -67,16 +68,32 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
         return
       }
 
-      // Download the keys
-      let keyChunks: [TemporaryExposureKeyChunk]
+      var keyChunksMatrix: [String: [TemporaryExposureKeyChunk]] = [:]
+
+      // Download the italian keys
+      var keyChunks: [TemporaryExposureKeyChunk] = []
       do {
         keyChunks = try await(
           tekProvider
-            .getLatestKeyChunks(latestKnownChunkIndex: latestProcessedKeyChunkIndex)
+            .getLatestKeyChunks(latestKnownChunkIndex: latestProcessedKeyChunkIndex, country: nil)
         )
+        keyChunksMatrix["IT"] = keyChunks
       } catch {
         resolve(.error(.unableToRetrieveKeys(error)))
         return
+      }
+
+      // Download the foreign keys
+      for countryOfInterest in countriesOfInterest {
+        do {
+          let keyChunksTemp = try await(
+            tekProvider.getLatestKeyChunks(latestKnownChunkIndex: countryOfInterest.1, country: countryOfInterest.0)
+          )
+          keyChunks.append(contentsOf: keyChunksTemp)
+          keyChunksMatrix[countryOfInterest.0] = keyChunksTemp
+        } catch {
+          continue
+        }
       }
 
       defer {
@@ -90,11 +107,13 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
         return
       }
 
-      let firstProcessedChunk = keyChunks.map { $0.index }.min()
-        ?? AppLogger.fatalError("keyChunks cannot be empty at this stage")
+      var firstProcessedChunk: [String: Int] = [:]
+      var lastProcessedChunk: [String: Int] = [:]
 
-      let lastProcessedChunk = keyChunks.map { $0.index }.max()
-        ?? AppLogger.fatalError("keyChunks cannot be empty at this stage")
+      for (key, value) in keyChunksMatrix {
+        firstProcessedChunk[key] = value.map { $0.index }.min()
+        lastProcessedChunk[key] = value.map { $0.index }.max()
+      }
 
       // Retrieve the summary
       let summary: ExposureDetectionSummary
@@ -136,123 +155,7 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
       resolve(.fullDetection(now(), summary, exposureInfo, firstProcessedChunk, lastProcessedChunk))
     }
   }
- 
-  func executeEU(
-      exposureDetectionPeriod: TimeInterval,
-      lastExposureDetectionDate: Date?,
-      exposureDetectionConfiguration: Configuration.ExposureDetectionConfiguration,
-      exposureInfoRiskScoreThreshold: Int,
-      userExplanationMessage: String,
-      enManager: ExposureNotificationManager,
-      tekProvider: TemporaryExposureKeyProvider,
-      now: @escaping () -> Date,
-      isUserCovidPositive: Bool,
-      forceRun: Bool,
-      exposureDetectionEU: [(String, Int?, Date?)]
-    ) -> Promise<ExposureDetectionOutcomeEU> {
-      return Promise(in: .custom(queue: Self.queue)) { resolve, _, _ in
-        guard #available(iOS 13.5, *) else {
-          // No exposure detection to perform, ever.
-          resolve(.noDetectionNecessary)
-          return
-        }
 
-        // Check for authorization
-        let status: ExposureNotificationStatus
-        do {
-          status = try await(enManager.getStatus())
-        } catch {
-          resolve(.error(.unableToRetrieveStatus(error)))
-          return
-        }
-
-        guard status.canPerformDetection else {
-          // No authorization
-          resolve(.error(.notAuthorized))
-          return
-        }
-        
-        var keyChunks: [TemporaryExposureKeyChunk] = []
-        
-        // tupla: (countryId,[TemporaryExposureKeyChunk])
-        var keyChunksMatrix: [(String, [TemporaryExposureKeyChunk])] = []
-
-        for exposureDetectionOfCountry in exposureDetectionEU {
-            
-            // Download the keys
-            let country:String = exposureDetectionOfCountry.0
-            var keyChunksOfCountry: [TemporaryExposureKeyChunk]
-            do {
-               keyChunksOfCountry = try await(
-                tekProvider
-                    .getLatestKeyChunksEU(latestKnownChunkIndex: exposureDetectionOfCountry.1, country: country)
-              )
-                keyChunks += keyChunksOfCountry
-                keyChunksMatrix.append((country, keyChunksOfCountry))
-            } catch {
-                continue
-            }
-        }
-       
-        defer {
-          // Cleanup the local files of the downloaded chunks
-          try? await(tekProvider.clearLocalResources(for: keyChunks))
-        }
-
-        guard !keyChunks.isEmpty else {
-          // No new keys. There is not detection to perform.
-          resolve(.noDetectionNecessary)
-          return
-        }
-
-        var firstProcessedChunkEU:[(String, Int)] = []
-        var lastProcessedChunkEU:[(String, Int)] = []
-        
-        for element in keyChunksMatrix {
-            firstProcessedChunkEU.append((element.0, element.1.map { $0.index }.min() ?? 0))
-            lastProcessedChunkEU.append((element.0, element.1.map { $0.index }.max() ?? 0))
-        }
-
-        // Retrieve the summary
-        let summary: ExposureDetectionSummary
-        do {
-          summary = try await(enManager.getDetectionSummary(
-            configuration: exposureDetectionConfiguration.toNative(),
-            diagnosisKeyURLs: keyChunks.flatMap { $0.localUrls }
-          ))
-        } catch {
-          resolve(.error(.unableToRetrieveSummary(error)))
-          return
-        }
-
-        let shouldRetrieveInfo = Self.shouldRetrieveExposureInfo(
-          summary: summary,
-          riskScoreThreshold: exposureInfoRiskScoreThreshold,
-          isUserCovidPositive: isUserCovidPositive,
-          isForceRun: forceRun
-        )
-
-        guard shouldRetrieveInfo else {
-          // Stop at the summary
-          resolve(.partialDetection(now(), summary, firstProcessedChunkEU, lastProcessedChunkEU))
-          return
-        }
-
-        // Retrieve exposure info
-        let exposureInfo: [ExposureInfo]
-        do {
-          exposureInfo = try await(enManager.getExposureInfo(
-            from: summary,
-            userExplanation: userExplanationMessage
-          ))
-        } catch {
-          resolve(.error(.unableToRetrieveExposureInfo(error)))
-          return
-        }
-
-        resolve(.fullDetection(now(), summary, exposureInfo, firstProcessedChunkEU, lastProcessedChunkEU))
-      }
-    }
   /// Returns `true` if only a full detection should be performed, `false` otherwise
   private static func shouldRetrieveExposureInfo(
     summary: ExposureDetectionSummary,

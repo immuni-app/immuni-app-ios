@@ -107,10 +107,10 @@
 "onboarding.region.title" = "Which region do you live in?";
 "onboarding_exposure_api_not_activated" = "Exposure notifications not enabled";
 "onboarding_exposure_message_extended" = "Due to an operating system limitation, geolocation services must be turned on to allow the random codes to be exchanged via Bluetooth. <b>Immuni does not access your location, and you can verify this by checking the list of permissions required by the app.</b>";
-"onboarding.country.title" = "Which country of the European Union do you have to visit?";
-"onboarding.country.description" =  "Select the country/countries where you have to travel among those who joined the agreement to contribute decreasing the virus spread across the European Union";
-"onboarding.country.alert.title" = "Are you sure?";
-"onboarding.country.alert.description" = "You won't be able to remove selected countries for 14 days";
+"countries_of_interest.title" = "Which country of the European Union do you have to visit?";
+"countries_of_interest.description" =  "Select the country/countries where you have to travel among those who joined the agreement to contribute decreasing the virus spread across the European Union";
+"countries_of_interest.alert.title" = "Are you sure?";
+"countries_of_interest.alert.description" = "You won't be able to remove selected countries for 14 days";
 "open_settings" = "Open Settings";
 "permission_tutorial.bluetooth.action" = "Open Settings";
 "permission_tutorial.bluetooth.first" = "<b>1. Go to the Control Centre.</b> Depending on your device, either swipe down from the top right corner, or up from the bottom of the screen.";

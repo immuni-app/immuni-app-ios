@@ -1,4 +1,4 @@
-// OnboardingCountryVM.swift
+// CountriesOfInterestVM.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -12,17 +12,16 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-
 import Models
 import Tempura
 
-struct OnboardingCountryVM {
+struct CountriesOfInterestVM {
   /// Whether the header is visible in the view. The header is shown only when the content is scrolled.
   let isHeaderVisible: Bool
-  
+
   /// The currently selected Country.
   let currentCountries: [CountryOfInterest]?
-    
+
   /// The array of items shown in the collection.
   let items: [CellType]
 
@@ -30,70 +29,80 @@ struct OnboardingCountryVM {
     guard let oldVM = oldVM else {
       return true
     }
-    
+
     return self.items != oldVM.items
   }
 
   func shouldUpdateHeader(oldVM: Self?) -> Bool {
     return self.isHeaderVisible != oldVM?.isHeaderVisible
   }
-
 }
 
-extension OnboardingCountryVM: ViewModelWithLocalState {
-  init?(state: AppState?, localState: OnboardingCountryLS) {
+extension CountriesOfInterestVM: ViewModelWithLocalState {
+  init?(state: AppState?, localState: CountriesOfInterestLS) {
     self.init(
+      dummyIngestionWindowDuration: localState.dummyIngestionWindowDuration,
       isHeaderVisible: localState.isHeaderVisible,
       currentCountries: localState.currentCountries,
       countryList: localState.countryList
     )
   }
 
-    init(isHeaderVisible: Bool, currentCountries: [CountryOfInterest]?, countryList:[String:String]) {
+  init(
+    dummyIngestionWindowDuration: Double,
+    isHeaderVisible: Bool,
+    currentCountries: [CountryOfInterest]?,
+    countryList: [String: String]
+  ) {
     self.isHeaderVisible = isHeaderVisible
     self.currentCountries = currentCountries
-        
-        var cellList = [(String, String, Bool, Bool)]()
-        
-        for (key, value) in countryList{
-            let index = currentCountries?.firstIndex(of: CountryOfInterest(country: Country(countryId: key, countryHumanReadableName: value)))
 
-            if index == nil || currentCountries?.isEmpty ?? true{
-                cellList.append((key, value, false, false))
-                continue
-            }
+    var cellList: [(String, String, Bool, Bool)] = []
 
-            let currentCountry = currentCountries?[index!]
+    for (key, value) in countryList {
+      let index = currentCountries?
+        .firstIndex(of: CountryOfInterest(country: Country(countryId: key, countryHumanReadableName: value)))
 
-            if currentCountry!.selectionDate == nil || Date().timeIntervalSince( currentCountry!.selectionDate! ) > 1209600 {
-                cellList.append((key, value, true, false))
-            }
-            else{
-                cellList.append((key, value, true, true))
-            }
+      if index == nil || currentCountries?.isEmpty ?? true {
+        cellList.append((key, value, false, false))
+        continue
+      }
 
-        }
-        
-        cellList.sort{ $0.1 < $1.1 }
-        var countryItems = [OnboardingCountryVM.CellType]()
-        for element in cellList {
-            countryItems.append(
-                OnboardingCountryVM.CellType.radio(countryIdentifier: element.0, countryName: element.1, isSelected: element.2, isDisable: element.3)
-            )
-        }
+      let currentCountry = currentCountries?[index!]
+
+      if currentCountry!.selectionDate == nil || Date()
+        .timeIntervalSince(currentCountry!.selectionDate!) > dummyIngestionWindowDuration
+      {
+        cellList.append((key, value, true, false))
+      } else {
+        cellList.append((key, value, true, true))
+      }
+    }
+
+    cellList.sort { $0.1 < $1.1 }
+    var countryItems = [CountriesOfInterestVM.CellType]()
+    for element in cellList {
+      countryItems.append(
+        CountriesOfInterestVM.CellType.radio(
+          countryIdentifier: element.0,
+          countryName: element.1,
+          isSelected: element.2,
+          isDisable: element.3
+        )
+      )
+    }
 
     self.items = [
-        .titleHeader(title: L10n.Onboarding.Country.title, description: L10n.Onboarding.Country.description),
+      .titleHeader(title: L10n.CountriesOfInterest.title, description: L10n.CountriesOfInterest.description),
       .spacer(.big)
     ] + countryItems
   }
 }
 
-extension OnboardingCountryVM {
+extension CountriesOfInterestVM {
   enum CellType: Equatable {
-    
     case titleHeader(title: String, description: String)
-    case radio(countryIdentifier: String, countryName: String, isSelected: Bool, isDisable: Bool )
+    case radio(countryIdentifier: String, countryName: String, isSelected: Bool, isDisable: Bool)
     case spacer(OnboardingSpacerCellVM.Size)
 
     var cellVM: ViewModel {
@@ -103,7 +112,7 @@ extension OnboardingCountryVM {
 
       case .spacer(let size):
         return OnboardingSpacerCellVM(size: size)
-        
+
       case .radio(_, let countryName, let isSelected, let isDisable):
         return OnboardingCheckCellVM(title: countryName, isSelected: isSelected, isDisable: isDisable)
       }

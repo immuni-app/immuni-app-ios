@@ -243,66 +243,73 @@ extension Logic.Settings {
 // MARK: Update Country
 
 extension Logic.Settings {
-    
   /// Shows the flow to update the country
-    struct ShowUpdateCountry: AppSideEffect {
-      func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-        let state = context.getState()
+  struct ShowUpdateCountry: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      let state = context.getState()
 
-        let countries = state.exposureDetectionEU.map{ $0.countrySelection }
-        let countryList:[String:String] = state.configuration.countries
+      let dummyIngestionWindowDuration = state.configuration.dummyIngestionWindowDuration
+      let countries = state.exposureDetection.countriesOfInterest
+      let countryList: [String: String] = state.configuration.countries
 
-        try context.awaitDispatch(Show(
-          Screen.updateCountry,
-          animated: true,
-          context: OnboardingCountryLS(currentCountries: countries, countryList: countryList)
-        ))
-      }
+      try context.awaitDispatch(Show(
+        Screen.updateCountry,
+        animated: true,
+        context: CountriesOfInterestLS(
+          dummyIngestionWindowDuration: dummyIngestionWindowDuration,
+          currentCountries: countries,
+          countryList: countryList
+        )
+      ))
     }
-    
-  /// Update the countries selected by the user
-    struct CompleteUpdateCountries: AppSideEffect {
-        
-       let newCountries: [CountryOfInterest]
+  }
 
-       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-        
+  /// Update the countries selected by the user
+  struct CompleteUpdateCountries: AppSideEffect {
+    let newCountries: [CountryOfInterest]
+
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      let appState = context.getState()
+      var countriesState = appState.exposureDetection.countriesOfInterest.map { $0.country.countryId }
+      var localCountries = self.newCountries.map { $0.country.countryId }
+      countriesState.sort()
+      localCountries.sort()
+      if !countriesState.elementsEqual(localCountries) {
         // if the user cancels, the promise throws and the flow is interrupted.
         // If the user accepts, instead, the flows continues as expected
         try await(self.showUpdateCountriesConfirmation(dispatch: context.dispatch(_:)))
-        
-         try context.awaitDispatch(Logic.Onboarding.SetUserCountries(countries: self.newCountries))
-         context.dispatch(Hide(Screen.updateCountry, animated: true))
-       }
-        
-        private func showUpdateCountriesConfirmation(dispatch: @escaping PromisableStoreDispatch) -> Promise<Void> {
-          return Promise { resolve, reject, _ in
-            let model = Alert.Model(
-              title: L10n.Onboarding.Country.Alert.title,
-              message: L10n.Onboarding.Country.Alert.description,
-              preferredStyle: .alert,
-              actions: [
-                .init(title: L10n.Onboarding.Region.Abroad.Alert.cancel, style: .cancel, onTap: {
-                  reject(UpdateCountriesConfirmationError.userCancelled)
-                }),
+      }
+      try context.awaitDispatch(Logic.Onboarding.SetUserCountries(countries: self.newCountries))
+      context.dispatch(Hide(Screen.updateCountry, animated: true))
+    }
 
-                .init(title: L10n.Onboarding.Region.Abroad.Alert.confirm, style: .default, onTap: {
-                  resolve(())
-                })
-              ]
-            )
+    private func showUpdateCountriesConfirmation(dispatch: @escaping PromisableStoreDispatch) -> Promise<Void> {
+      return Promise { resolve, reject, _ in
+        let model = Alert.Model(
+          title: L10n.CountriesOfInterest.Alert.title,
+          message: L10n.CountriesOfInterest.Alert.description,
+          preferredStyle: .alert,
+          actions: [
+            .init(title: L10n.Onboarding.Region.Abroad.Alert.cancel, style: .cancel, onTap: {
+              reject(UpdateCountriesConfirmationError.userCancelled)
+            }),
 
-            _ = dispatch(Logic.Alert.Show(alertModel: model))
-          }
-        }
+            .init(title: L10n.Onboarding.Region.Abroad.Alert.confirm, style: .default, onTap: {
+              resolve(())
+            })
+          ]
+        )
 
-        private enum UpdateCountriesConfirmationError: Error {
-          case userCancelled
-        }
-        
-     }
-    
+        _ = dispatch(Logic.Alert.Show(alertModel: model))
+      }
+    }
+
+    private enum UpdateCountriesConfirmationError: Error {
+      case userCancelled
+    }
+  }
 }
+
 // MARK: Customer Support
 
 extension Logic.Settings {

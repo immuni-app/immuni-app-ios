@@ -68,18 +68,6 @@ extension ExposureDetectionState {
         self.data = .init(from: summary, with: exposureInfo, generatedAt: date)
       }
     }
-    init?(from outcome: ExposureDetectionOutcomeEU) {
-      switch outcome {
-      case .noDetectionNecessary, .error, .partialDetection(_, .noMatch, _, _), .fullDetection(_, .noMatch, _, _, _):
-        return nil
-      case .partialDetection(let date, .matches(let summary), _, _):
-        self.date = date
-        self.data = .init(from: summary, with: [], generatedAt: date)
-      case .fullDetection(let date, .matches(let summary), let exposureInfo, _, _):
-        self.date = date
-        self.data = .init(from: summary, with: exposureInfo, generatedAt: date)
-      }
-    }
   }
 }
 
@@ -135,4 +123,3 @@ private extension RiskLevel {
     }
   }
 }
-

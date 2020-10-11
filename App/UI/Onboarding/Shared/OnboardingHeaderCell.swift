@@ -72,9 +72,9 @@ final class OnboardingHeaderCell: UICollectionViewCell, ModellableView, Reusable
     Self.Style.title(self.title, content: model.title)
     Self.Style.description(self.headerDescription, content: model.description)
     Self.Style.actionButton(self.actionButton, content: model.actionButtonTitle)
-    
+
     self.showDiscoverMore = !model.actionButtonTitle.isEmpty
-    
+
     if model.shouldInvalidateLayout(oldVM: oldModel) {
       self.setNeedsLayout()
     }

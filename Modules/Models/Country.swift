@@ -12,52 +12,48 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-
 import Foundation
 
 public struct Country: Equatable, Codable {
-    
-    public var countryId: String
-    public var countryHumanReadableName: String
-    
-    public init(countryId: String, countryHumanReadableName: String){
-        self.countryId = countryId
-        self.countryHumanReadableName = countryHumanReadableName
-    }
+  public var countryId: String
+  public var countryHumanReadableName: String
+
+  public init(countryId: String, countryHumanReadableName: String) {
+    self.countryId = countryId
+    self.countryHumanReadableName = countryHumanReadableName
+  }
 }
 
 extension Country: Comparable {
-    
-    public static func ==(lhs: Self, rhs: Self) -> Bool {
-           return lhs.countryId == rhs.countryId
-       }
-    public static func < (lhs: Self, rhs: Self) -> Bool {
-        return lhs.countryHumanReadableName < rhs.countryHumanReadableName
-    }
-   
+  public static func == (lhs: Self, rhs: Self) -> Bool {
+    return lhs.countryId == rhs.countryId
+  }
+
+  public static func < (lhs: Self, rhs: Self) -> Bool {
+    return lhs.countryHumanReadableName < rhs.countryHumanReadableName
+  }
 }
 
 public struct CountryOfInterest: Equatable, Codable {
-    
-    /// Country of interest
-    public var country: Country
+  /// Country of interest
+  public var country: Country
 
-    /// Date of country selection
-    public var selectionDate: Date?
-    
-    /// The index of latest processed chunk of `TemporaryExposureKeys`
-    var latestProcessedKeyChunkIndex: Int? = nil
-    
-    public init(country: Country, selectionDate: Date){
-        self.country = country
-        self.selectionDate = selectionDate
-    }
-    
-    public init(country: Country){
-        self.country = country
-    }
-    
-    public static func ==(lhs: CountryOfInterest, rhs: CountryOfInterest) -> Bool {
-           return lhs.country == rhs.country
-       }
+  /// Date of country selection
+  public var selectionDate: Date?
+
+  /// The index of latest processed chunk of `TemporaryExposureKeys`
+  public var latestProcessedKeyChunkIndex: Int? = nil
+
+  public init(country: Country, selectionDate: Date) {
+    self.country = country
+    self.selectionDate = selectionDate
+  }
+
+  public init(country: Country) {
+    self.country = country
+  }
+
+  public static func == (lhs: CountryOfInterest, rhs: CountryOfInterest) -> Bool {
+    return lhs.country == rhs.country
+  }
 }

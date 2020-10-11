@@ -117,9 +117,11 @@ final class ExposureDetectionLogicTests: XCTestCase {
 
   func testUpdatesTheLatestProcessedChunkIfPartialDetection() throws {
     let lastIndex = 5
+    let lastCountryIndex = ["IT": lastIndex]
     let state = AppState()
     let getState = { state }
-    let exposureDetectionExecutor = MockExposureDetectionExecutor(outcome: .partialDetection(Date(), .noMatch, 0, lastIndex))
+    let exposureDetectionExecutor =
+      MockExposureDetectionExecutor(outcome: .partialDetection(Date(), .noMatch, ["IT": 0], lastCountryIndex))
     let dispatchInterceptor = DispatchInterceptor()
     let dependencies = AppDependencies.mocked(
       getAppState: getState,
@@ -135,15 +137,17 @@ final class ExposureDetectionLogicTests: XCTestCase {
       dispatchInterceptor.dispatchedItems,
       Logic.ExposureDetection.UpdateLatestProcessedKeyChunkIndex.self
     ) { dispatchable in
-      XCTAssertEqual(dispatchable.index, lastIndex)
+      XCTAssertEqual(dispatchable.countryIndexCouple, lastCountryIndex)
     }
   }
 
   func testUpdatesTheLatestProcessedChunkIfFullDetection() throws {
     let lastIndex = 5
+    let lastCountryIndex = ["IT": lastIndex]
     let state = AppState()
     let getState = { state }
-    let exposureDetectionExecutor = MockExposureDetectionExecutor(outcome: .fullDetection(Date(), .noMatch, [], 0, lastIndex))
+    let exposureDetectionExecutor =
+      MockExposureDetectionExecutor(outcome: .fullDetection(Date(), .noMatch, [], ["IT": 0], lastCountryIndex))
     let dispatchInterceptor = DispatchInterceptor()
     let dependencies = AppDependencies.mocked(
       getAppState: getState,
@@ -159,12 +163,12 @@ final class ExposureDetectionLogicTests: XCTestCase {
       dispatchInterceptor.dispatchedItems,
       Logic.ExposureDetection.UpdateLatestProcessedKeyChunkIndex.self
     ) { dispatchable in
-      XCTAssertEqual(dispatchable.index, lastIndex)
+      XCTAssertEqual(dispatchable.countryIndexCouple, lastCountryIndex)
     }
   }
 
   func testTrackExposureDetectionPerformedIsBeingCalled() throws {
-    let outcome: ExposureDetectionOutcome = .fullDetection(Date(), .noMatch, [], 0, 5)
+    let outcome: ExposureDetectionOutcome = .fullDetection(Date(), .noMatch, [], ["IT": 0], ["IT": 5])
     let state = AppState()
     let getState = { state }
     let exposureDetectionExecutor = MockExposureDetectionExecutor(outcome: outcome)
@@ -188,7 +192,7 @@ final class ExposureDetectionLogicTests: XCTestCase {
   }
 
   func testSendToAnalyticsServerIfNecessaryIsBeingCalled() throws {
-    let outcome: ExposureDetectionOutcome = .fullDetection(Date(), .noMatch, [], 0, 5)
+    let outcome: ExposureDetectionOutcome = .fullDetection(Date(), .noMatch, [], ["IT": 0], ["IT": 5])
     let state = AppState()
     let getState = { state }
     let exposureDetectionExecutor = MockExposureDetectionExecutor(outcome: outcome)
@@ -212,7 +216,7 @@ final class ExposureDetectionLogicTests: XCTestCase {
   }
 
   func testUpdateUserStatusIfNecessaryIsBeingCalled() throws {
-    let outcome: ExposureDetectionOutcome = .fullDetection(Date(), .noMatch, [], 0, 5)
+    let outcome: ExposureDetectionOutcome = .fullDetection(Date(), .noMatch, [], ["IT": 0], ["IT": 5])
     let state = AppState()
     let getState = { state }
     let exposureDetectionExecutor = MockExposureDetectionExecutor(outcome: outcome)
@@ -262,8 +266,8 @@ final class ExposureDetectionLogicTests: XCTestCase {
     let testCases: [(outcome: ExposureDetectionOutcome, expected: Bool)] = [
       (.error(.notAuthorized), false),
       (.noDetectionNecessary, true),
-      (.partialDetection(Date(), .noMatch, 1, 5), true),
-      (.fullDetection(Date(), .noMatch, [], 1, 5), true)
+      (.partialDetection(Date(), .noMatch, ["IT": 1], ["IT": 5]), true),
+      (.fullDetection(Date(), .noMatch, [], ["IT": 1], ["IT": 5]), true)
     ]
 
     for (outcome, expectedResult) in testCases {
@@ -305,7 +309,10 @@ final class ExposureDetectionLogicTests: XCTestCase {
     var state = AppState()
 
     XCTAssertEqual(state.exposureDetection.recentPositiveExposureResults.count, 0)
-    Logic.ExposureDetection.TrackExposureDetectionPerformed(outcome: .partialDetection(Date(), .noMatch, 0, 5), type: .foreground)
+    Logic.ExposureDetection.TrackExposureDetectionPerformed(
+      outcome: .partialDetection(Date(), .noMatch, ["IT": 0], ["IT": 5]),
+      type: .foreground
+    )
       .updateState(&state)
     XCTAssertEqual(state.exposureDetection.recentPositiveExposureResults.count, 0)
   }
@@ -315,7 +322,7 @@ final class ExposureDetectionLogicTests: XCTestCase {
 
     XCTAssertEqual(state.exposureDetection.recentPositiveExposureResults.count, 0)
     Logic.ExposureDetection.TrackExposureDetectionPerformed(
-      outcome: .fullDetection(Date(), .noMatch, [], 0, 5),
+      outcome: .fullDetection(Date(), .noMatch, [], ["IT": 0], ["IT": 5]),
       type: .foreground
     )
       .updateState(&state)
@@ -339,7 +346,7 @@ final class ExposureDetectionLogicTests: XCTestCase {
       metadata: nil
     )
 
-    let outcome = ExposureDetectionOutcome.partialDetection(now, .matches(data: summaryData), 0, 5)
+    let outcome = ExposureDetectionOutcome.partialDetection(now, .matches(data: summaryData), ["IT": 0], ["IT": 5])
 
     XCTAssertEqual(state.exposureDetection.recentPositiveExposureResults.count, 0)
     Logic.ExposureDetection.TrackExposureDetectionPerformed(outcome: outcome, type: .foreground).updateState(&state)
@@ -387,7 +394,7 @@ final class ExposureDetectionLogicTests: XCTestCase {
       metadata: nil
     )
 
-    let outcome = ExposureDetectionOutcome.fullDetection(now, .matches(data: summaryData), [exposureInfo], 0, 5)
+    let outcome = ExposureDetectionOutcome.fullDetection(now, .matches(data: summaryData), [exposureInfo], ["IT": 0], ["IT": 5])
 
     XCTAssertEqual(state.exposureDetection.recentPositiveExposureResults.count, 0)
     Logic.ExposureDetection.TrackExposureDetectionPerformed(outcome: outcome, type: .foreground).updateState(&state)
@@ -456,7 +463,7 @@ final class ExposureDetectionLogicTests: XCTestCase {
 
     let context = AppSideEffectContext(dependencies: dependencies)
 
-    try Logic.ExposureDetection.UpdateUserStatusIfNecessary(outcome: .partialDetection(Date(), .noMatch, 0, 5))
+    try Logic.ExposureDetection.UpdateUserStatusIfNecessary(outcome: .partialDetection(Date(), .noMatch, ["IT": 0], ["IT": 5]))
       .sideEffect(context)
     XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 0)
   }
@@ -473,7 +480,7 @@ final class ExposureDetectionLogicTests: XCTestCase {
 
     let context = AppSideEffectContext(dependencies: dependencies)
 
-    try Logic.ExposureDetection.UpdateUserStatusIfNecessary(outcome: .fullDetection(Date(), .noMatch, [], 0, 5))
+    try Logic.ExposureDetection.UpdateUserStatusIfNecessary(outcome: .fullDetection(Date(), .noMatch, [], ["IT": 0], ["IT": 5]))
       .sideEffect(context)
     XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 0)
   }
@@ -500,7 +507,8 @@ final class ExposureDetectionLogicTests: XCTestCase {
       metadata: nil
     )
 
-    try Logic.ExposureDetection.UpdateUserStatusIfNecessary(outcome: .partialDetection(Date(), .matches(data: data), 0, 5))
+    try Logic.ExposureDetection
+      .UpdateUserStatusIfNecessary(outcome: .partialDetection(Date(), .matches(data: data), ["IT": 0], ["IT": 5]))
       .sideEffect(context)
     XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 1)
 
@@ -547,7 +555,7 @@ final class ExposureDetectionLogicTests: XCTestCase {
     )
 
     try Logic.ExposureDetection
-      .UpdateUserStatusIfNecessary(outcome: .fullDetection(Date(), .matches(data: data), [exposureInfo], 0, 5))
+      .UpdateUserStatusIfNecessary(outcome: .fullDetection(Date(), .matches(data: data), [exposureInfo], ["IT": 0], ["IT": 5]))
       .sideEffect(context)
     XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 1)
 

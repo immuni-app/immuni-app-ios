@@ -17,7 +17,7 @@ import Foundation
 
 public struct Configuration: Codable {
   enum CodingKeys: String, CodingKey {
-    case countries = "countries"
+    case countries
     case minimumBuildVersion = "minimum_build_version"
     case serviceNotActiveNotificationPeriod = "service_not_active_notification_period"
     case osForceUpdateNotificationPeriod = "onboarding_not_completed_notification_period"
@@ -175,7 +175,7 @@ public struct Configuration: Codable {
 
   /// Public initializer to allow testing
   public init(
-    countries: [String:String] = .defaultCountries,
+    countries: [String: String] = .defaultCountries,
     minimumBuildVersion: Int = 1,
     serviceNotActiveNotificationPeriod: TimeInterval = 86400,
     osForceUpdateNotificationPeriod: TimeInterval = 86400,
@@ -308,6 +308,7 @@ public extension Configuration {
     }
   }
 }
+
 public extension Dictionary where Key == String, Value == URL {
   /// default values for FAQs
   static var defaultFAQURL: [String: URL] {
@@ -341,39 +342,36 @@ public extension Dictionary where Key == String, Value == URL {
 }
 
 public extension Dictionary where Key == String, Value == String {
-
-    /// default values for countries
+  /// default values for countries
   static var defaultCountries: [String: String] {
     let values = [
-                  ("AT","AUSTRIA"),
-                  ("BE","BELGIO"),
-                  ("BG","BULGARIA"),
-                  ("CY","CIPRO"),
-                  ("HR","CROAZIA"),
-                  ("DK","DANIMARCA"),
-                  ("EE","ESTONIA"),
-                  ("FI","FINLANDIA"),
-                  ("DE","GERMANIA"),
-                  ("GB","GRAN BRETAGNA"),
-                  ("EL","GRECIA"),
-                  ("IE","IRLANDA"),
-                  ("LV","LETTONIA"),
-                  ("LT","LITUANIA"),
-                  ("LU","LUSSEMBURGO"),
-                  ("MT","MALTA"),
-                  ("NL","OLANDA"),
-                  ("PL","POLONIA"),
-                  ("PT","PORTOGALLO"),
-                  ("CZ","REPUBBLICA CECA"),
-                  ("SK","REPUBBLICA SLOVACCA"),
-                  ("RO","ROMANIA"),
-                  ("SI","SLOVENIA"),
-                  ("ES","SPAGNA"),
-                  ("SE","SVEZIA"),
-                  ("HU","UNGHERIA")
+      "AT": "AUSTRIA",
+      "BE": "BELGIO",
+      "BG": "BULGARIA",
+      "CY": "CIPRO",
+      "HR": "CROAZIA",
+      "DK": "DANIMARCA",
+      "EE": "ESTONIA",
+      "FI": "FINLANDIA",
+      "DE": "GERMANIA",
+      "GB": "GRAN BRETAGNA",
+      "EL": "GRECIA",
+      "IE": "IRLANDA",
+      "LV": "LETTONIA",
+      "LT": "LITUANIA",
+      "LU": "LUSSEMBURGO",
+      "MT": "MALTA",
+      "NL": "OLANDA",
+      "PL": "POLONIA",
+      "PT": "PORTOGALLO",
+      "CZ": "REPUBBLICA CECA",
+      "SK": "REPUBBLICA SLOVACCA",
+      "RO": "ROMANIA",
+      "SI": "SLOVENIA",
+      "ES": "SPAGNA",
+      "SE": "SVEZIA",
+      "HU": "UNGHERIA"
     ]
-
-      return Dictionary(uniqueKeysWithValues: values)
-    }
-
+    return values
+  }
 }

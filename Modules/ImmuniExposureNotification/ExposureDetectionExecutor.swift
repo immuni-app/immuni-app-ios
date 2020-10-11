@@ -30,22 +30,9 @@ public protocol ExposureDetectionExecutor {
     tekProvider: TemporaryExposureKeyProvider,
     now: @escaping () -> Date,
     isUserCovidPositive: Bool,
-    forceRun: Bool
-  ) -> Promise<ExposureDetectionOutcome>
-    
-  func executeEU(
-    exposureDetectionPeriod: TimeInterval,
-    lastExposureDetectionDate: Date?,
-    exposureDetectionConfiguration: Configuration.ExposureDetectionConfiguration,
-    exposureInfoRiskScoreThreshold: Int,
-    userExplanationMessage: String,
-    enManager: ExposureNotificationManager,
-    tekProvider: TemporaryExposureKeyProvider,
-    now: @escaping () -> Date,
-    isUserCovidPositive: Bool,
     forceRun: Bool,
-    exposureDetectionEU: [(String, Int?, Date?)]
-  ) -> Promise<ExposureDetectionOutcomeEU>
+    countriesOfInterest: [(String, Int?)]
+  ) -> Promise<ExposureDetectionOutcome>
 }
 
 /// Outcome of a cycle of exposure detection
@@ -57,8 +44,8 @@ public enum ExposureDetectionOutcome {
   case partialDetection(
     _ date: Date,
     _ summary: ExposureDetectionSummary,
-    _ earliestProcessedChunk: Int,
-    _ latestProcessedChunk: Int
+    _ earliestProcessedChunk: [String: Int],
+    _ latestProcessedChunk: [String: Int]
   )
 
   /// A full detection has been performed, i.e. a detection that gathered `ExposureInfo`.`
@@ -66,8 +53,8 @@ public enum ExposureDetectionOutcome {
     _ date: Date,
     _ summary: ExposureDetectionSummary,
     _ exposureInfo: [ExposureInfo],
-    _ earliestProcessedChunk: Int,
-    _ latestProcessedChunk: Int
+    _ earliestProcessedChunk: [String: Int],
+    _ latestProcessedChunk: [String: Int]
   )
 
   /// A detection resulted in an error
@@ -84,57 +71,7 @@ public enum ExposureDetectionOutcome {
   }
 
   /// The first and the last chunk indexes processed in this detection, if any.
-  public var processedChunkBoundaries: (Int, Int)? {
-    switch self {
-    case .error, .noDetectionNecessary:
-      return nil
-    case .partialDetection(_, _, let earliestProcessedChunk, let latestProcessedChunk),
-         .fullDetection(_, _, _, let earliestProcessedChunk, let latestProcessedChunk):
-      return (earliestProcessedChunk, latestProcessedChunk)
-    }
-  }
-
-  /// Whether this detection was successful
-  public var isSuccessful: Bool {
-    return self.error == nil
-  }
-}
-public enum ExposureDetectionOutcomeEU {
-  /// No detection was necessary, for example because it was performed recently
-  case noDetectionNecessary
-
-  /// Only a partial detection has been performed, i.e. a detection that stopped at the `ExposureDetectionSummary`.`
-  case partialDetection(
-    _ date: Date,
-    _ summary: ExposureDetectionSummary,
-    _ earliestProcessedChunk: [(String, Int)],
-    _ latestProcessedChunk: [(String, Int)]
-  )
-
-  /// A full detection has been performed, i.e. a detection that gathered `ExposureInfo`.`
-  case fullDetection(
-    _ date: Date,
-    _ summary: ExposureDetectionSummary,
-    _ exposureInfo: [ExposureInfo],
-    _ earliestProcessedChunk: [(String, Int)],
-    _ latestProcessedChunk: [(String, Int)]
-  )
-
-  /// A detection resulted in an error
-  case error(ExposureDetectionError)
-
-  /// The error associated to this outcome, if any.
-  public var error: ExposureDetectionError? {
-    switch self {
-    case .error(let error):
-      return error
-    case .noDetectionNecessary, .partialDetection, .fullDetection:
-      return nil
-    }
-  }
-
-  /// The first and the last chunk indexes processed in this detection, if any.
-  public var processedChunkBoundaries: ([(String, Int)], [(String, Int)])?  {
+  public var processedChunkBoundaries: ([String: Int], [String: Int])? {
     switch self {
     case .error, .noDetectionNecessary:
       return nil

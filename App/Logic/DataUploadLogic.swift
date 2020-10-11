@@ -43,7 +43,8 @@ extension Logic.DataUpload {
 
       if
         let lastOtpFailedAttempt = state.ingestion.lastOtpValidationFailedAttempt,
-        now.timeIntervalSince(lastOtpFailedAttempt) <= Self.recentFailedAttemptsThreshold {
+        now.timeIntervalSince(lastOtpFailedAttempt) <= Self.recentFailedAttemptsThreshold
+      {
         let backOffDuration = UploadDataLS.backOffDuration(failedAttempts: failedAttempts)
         let backOffEnd = lastOtpFailedAttempt.addingTimeInterval(TimeInterval(backOffDuration))
         errorSecondsLeft = backOffEnd.timeIntervalSince(now).roundedInt().bounded(min: 0)
@@ -168,19 +169,18 @@ extension Logic.DataUpload {
       // Build the request payload
       let userProvince = state.user.province
         ?? AppLogger.fatalError("Province must be set at this point")
-      let userCountries = state.exposureDetectionEU.map { $0.countrySelection.country }
-      var exposureDetectionSummaries: [CodableExposureDetectionSummary]
-        
-      exposureDetectionSummaries =  state.exposureDetection.recentPositiveExposureResults.map { $0.data }
+      let userCountries = state.exposureDetection.countriesOfInterest.map { $0.country }
 
-        
+      let exposureDetectionSummaries: [CodableExposureDetectionSummary] = state.exposureDetection.recentPositiveExposureResults
+        .map { $0.data }
+
       let requestBody = DataUploadRequest.Body(
         teks: keys.map { .init(from: $0) },
         province: userProvince.rawValue,
         exposureDetectionSummaries: exposureDetectionSummaries,
         maximumExposureInfoCount: state.configuration.dataUploadMaxExposureInfoCount,
         maximumExposureDetectionSummaryCount: state.configuration.dataUploadMaxSummaryCount,
-        countryOfInterest: userCountries
+        countriesOfInterest: userCountries
       )
 
       // Send the data to the backend

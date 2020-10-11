@@ -47,6 +47,7 @@
 "home_view.info.button.title" = "En savoir plus";
 "home_view.info.protection.title" = "Que pouvez-vous faire pour vous protéger ?";
 "home_view.info_header.title" = "Informations";
+"home_view.info.update_countries.title" = "Where in EU do you have to travel?";
 "home_view.service.active.discover_more" = "En savoir plus";
 "home_view.service.active.subtitle" = "Immuni fonctionne même lorsque l’application est fermée.";
 "home_view.service.active.title" = "Service\n<b>activé</b>";
@@ -106,6 +107,10 @@
 "onboarding.region.title" = "Dans quelle région habitez-vous ?";
 "onboarding_exposure_api_not_activated" = "Notifications de risque d'exposition désactivées";
 "onboarding_exposure_message_extended" = "En raison d'une limitation du système d'exploitation, le service de géolocalisation doit être activé pour permettre l'échange de codes aléatoires via Bluetooth. <b>Immuni n'accède pas à votre position, comme vous pouvez le vérifier en consultant la liste des autorisations requises par l'application</b>.";
+"countries_of_interest.title" = "Which country of the European Union do you have to visit?";
+"countries_of_interest.description" =  "Select the country/countries where you have to travel among those who joined the agreement to contribute decreasing the virus spread across the European Union";
+"countries_of_interest.alert.title" = "Are you sure?";
+"countries_of_interest.alert.description" = "You won't be able to remove selected countries for 14 days";
 "open_settings" = "Accédez à Paramètres";
 "permission_tutorial.bluetooth.action" = "Accédez à Paramètres";
 "permission_tutorial.bluetooth.first" = "<b>1. Accédez au Centre de contrôle.</b> Faites défiler l'écran vers le bas à partir du coin supérieur droit ou vers le haut à partir du bas de l'écran, en fonction de l'appareil que vous utilisez.";
