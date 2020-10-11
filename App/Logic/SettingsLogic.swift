@@ -274,12 +274,35 @@ extension Logic.Settings {
       var localCountries = self.newCountries.map { $0.country.countryId }
       countriesState.sort()
       localCountries.sort()
+
+      var newCountriesOfInterest: [CountryOfInterest] = []
+
+      for countryOfInterest in appState.exposureDetection.countriesOfInterest {
+        if self.newCountries.contains(countryOfInterest) {
+            newCountriesOfInterest.append(countryOfInterest)
+        }
+      }
+
+      for country in self.newCountries {
+        if !appState.exposureDetection.countriesOfInterest.contains(country) {
+            newCountriesOfInterest.append(CountryOfInterest(country: country.country, selectionDate: Date()))
+        }
+      }
+        print(newCountriesOfInterest)
+        print(appState.exposureDetection.countriesOfInterest)
+
+      if newCountriesOfInterest.count > 3 {
+        // if the user cancels, the promise throws and the flow is interrupted.
+        // If the user accepts, instead, the flows continues as expected
+        try await(self.showCountriesLimitExceededAlert(dispatch: context.dispatch(_:)))
+      }
       if !countriesState.elementsEqual(localCountries) {
         // if the user cancels, the promise throws and the flow is interrupted.
         // If the user accepts, instead, the flows continues as expected
         try await(self.showUpdateCountriesConfirmation(dispatch: context.dispatch(_:)))
       }
-      try context.awaitDispatch(Logic.Onboarding.SetUserCountries(countries: self.newCountries))
+
+      try context.awaitDispatch(Logic.Onboarding.SetUserCountries(countries: newCountriesOfInterest))
       context.dispatch(Hide(Screen.updateCountry, animated: true))
     }
 
@@ -296,6 +319,23 @@ extension Logic.Settings {
 
             .init(title: L10n.Onboarding.Region.Abroad.Alert.confirm, style: .default, onTap: {
               resolve(())
+            })
+          ]
+        )
+
+        _ = dispatch(Logic.Alert.Show(alertModel: model))
+      }
+    }
+
+    private func showCountriesLimitExceededAlert(dispatch: @escaping PromisableStoreDispatch) -> Promise<Void> {
+      return Promise { _, reject, _ in
+        let model = Alert.Model(
+          title: "Attenzione",
+          message: "puoi selezionare massiomo 3 paesi",
+          preferredStyle: .alert,
+          actions: [
+            .init(title: "ok", style: .cancel, onTap: {
+              reject(UpdateCountriesConfirmationError.userCancelled)
             })
           ]
         )

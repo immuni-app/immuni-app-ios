@@ -333,21 +333,7 @@ extension Logic.Onboarding {
     let countries: [CountryOfInterest]
 
     func updateState(_ state: inout AppState) {
-      var countriesOfInterestTemp: [CountryOfInterest] = []
-
-      for countryOfInterest in state.exposureDetection.countriesOfInterest {
-        if self.countries.contains(countryOfInterest) {
-          countriesOfInterestTemp.append(countryOfInterest)
-        }
-      }
-
-      for country in self.countries {
-        if !state.exposureDetection.countriesOfInterest.contains(country) {
-          countriesOfInterestTemp.append(CountryOfInterest(country: country.country, selectionDate: Date()))
-        }
-      }
-
-      state.exposureDetection.countriesOfInterest = countriesOfInterestTemp
+      state.exposureDetection.countriesOfInterest = self.countries
     }
   }
 }
