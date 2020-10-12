@@ -31,7 +31,7 @@ public protocol ExposureDetectionExecutor {
     now: @escaping () -> Date,
     isUserCovidPositive: Bool,
     forceRun: Bool,
-    countriesOfInterest: [(String, Int?)]
+    countriesOfInterest: [CountryOfInterest]
   ) -> Promise<ExposureDetectionOutcome>
 }
 

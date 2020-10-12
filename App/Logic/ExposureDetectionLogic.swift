@@ -44,10 +44,7 @@ extension Logic.ExposureDetection {
       }
 
       let state = context.getState()
-      let countriesOfInterest = state.exposureDetection.countriesOfInterest
-        .map { ($0.country.countryId, $0.latestProcessedKeyChunkIndex) }
 
-      /// Perform a cycle of exposure detection and retrieve its outcome
       let outcome = try await(context.dependencies.exposureDetectionExecutor.execute(
         exposureDetectionPeriod: self.type.detectionPeriod(using: state.configuration),
         lastExposureDetectionDate: state.exposureDetection.lastDetectionDate,
@@ -60,7 +57,7 @@ extension Logic.ExposureDetection {
         now: context.dependencies.now,
         isUserCovidPositive: state.user.covidStatus.isCovidPositive,
         forceRun: self.forceRun,
-        countriesOfInterest: countriesOfInterest
+        countriesOfInterest: state.exposureDetection.countriesOfInterest
       ))
 
       if let error = outcome.error {
@@ -258,7 +255,6 @@ extension Logic.ExposureDetection {
           }
         }
       }
-      print("prnt")
     }
   }
 }

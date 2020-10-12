@@ -14,7 +14,7 @@
 
 import Foundation
 
-public struct Country: Equatable, Codable {
+public struct Country: Equatable, Codable, Hashable {
   public var countryId: String
   public var countryHumanReadableName: String
 

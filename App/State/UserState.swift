@@ -20,9 +20,6 @@ struct UserState: Codable {
   /// The user's province
   var province: Province?
 
-  /// The user's countries
-  var countriesOfInterest: [Country]?
-
   /// The date of the last service not active local notification
   var lastServiceNotActiveDate = Date.distantPast
 

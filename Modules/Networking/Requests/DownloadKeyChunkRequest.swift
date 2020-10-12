@@ -14,6 +14,7 @@
 
 import Alamofire
 import Foundation
+import Models
 
 public struct DownloadKeyChunkIndexRequest: HTTPRequest {
   // swiftlint:disable:next force_unwrapping
@@ -24,9 +25,9 @@ public struct DownloadKeyChunkIndexRequest: HTTPRequest {
   public var headers: [HTTPHeader] = HTTPHeader.defaultImmuniHeaders
 
   public var path: String {
-    (self.country == nil) ? "/v1/keys/\(self.chunkNumber)" : "/v1/keys/eu/\(self.country!)/\(self.chunkNumber)"
+    (self.country == nil) ? "/v1/keys/\(self.chunkNumber)" : "/v1/keys/eu/\(self.country!.countryId)/\(self.chunkNumber)"
   }
 
   let chunkNumber: Int
-  let country: String?
+  let country: Country?
 }

@@ -37,7 +37,7 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
     now: @escaping () -> Date,
     isUserCovidPositive: Bool,
     forceRun: Bool,
-    countriesOfInterest: [(String, Int?)]
+    countriesOfInterest: [CountryOfInterest]
   ) -> Promise<ExposureDetectionOutcome> {
     return Promise(in: .custom(queue: Self.queue)) { resolve, _, _ in
       guard #available(iOS 13.5, *) else {
@@ -68,7 +68,7 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
         return
       }
 
-      var keyChunksMatrix: [String: [TemporaryExposureKeyChunk]] = [:]
+      var keyChunksMatrix: [Country: [TemporaryExposureKeyChunk]] = [:]
 
       // Download the italian keys
       var keyChunks: [TemporaryExposureKeyChunk] = []
@@ -77,7 +77,7 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
           tekProvider
             .getLatestKeyChunks(latestKnownChunkIndex: latestProcessedKeyChunkIndex, country: nil)
         )
-        keyChunksMatrix["IT"] = keyChunks
+        keyChunksMatrix[Country(countryId: "IT", countryHumanReadableName: "ITALIA")] = keyChunks
       } catch {
         resolve(.error(.unableToRetrieveKeys(error)))
         return
@@ -87,10 +87,13 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
       for countryOfInterest in countriesOfInterest {
         do {
           let keyChunksTemp = try await(
-            tekProvider.getLatestKeyChunks(latestKnownChunkIndex: countryOfInterest.1, country: countryOfInterest.0)
+            tekProvider.getLatestKeyChunks(
+              latestKnownChunkIndex: countryOfInterest.latestProcessedKeyChunkIndex,
+              country: countryOfInterest.country
+            )
           )
           keyChunks.append(contentsOf: keyChunksTemp)
-          keyChunksMatrix[countryOfInterest.0] = keyChunksTemp
+          keyChunksMatrix[countryOfInterest.country] = keyChunksTemp
         } catch {
           continue
         }
@@ -111,8 +114,8 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
       var lastProcessedChunk: [String: Int] = [:]
 
       for (key, value) in keyChunksMatrix {
-        firstProcessedChunk[key] = value.map { $0.index }.min()
-        lastProcessedChunk[key] = value.map { $0.index }.max()
+        firstProcessedChunk[key.countryId] = value.map { $0.index }.min()
+        lastProcessedChunk[key.countryId] = value.map { $0.index }.max()
       }
 
       // Retrieve the summary

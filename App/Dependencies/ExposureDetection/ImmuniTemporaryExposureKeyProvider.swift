@@ -38,7 +38,7 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
     self.fileStorage = fileStorage
   }
 
-  func getLatestKeyChunks(latestKnownChunkIndex: Int?, country: String?) -> Promise<[TemporaryExposureKeyChunk]> {
+  func getLatestKeyChunks(latestKnownChunkIndex: Int?, country: Country?) -> Promise<[TemporaryExposureKeyChunk]> {
     return self.getMissingChunksIndexes(latestKnownChunkIndex: latestKnownChunkIndex, country: country)
       .recover { error in
         guard case NetworkManager.Error.noBatchesFound = error else {
@@ -57,7 +57,7 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
       .delete(chunks.flatMap { $0.localUrls })
   }
 
-  func getMissingChunksIndexes(latestKnownChunkIndex: Int?, country: String?) -> Promise<[Int]> {
+  func getMissingChunksIndexes(latestKnownChunkIndex: Int?, country: Country?) -> Promise<[Int]> {
     self.networkManager.getKeysIndex(country: country)
       .then { (keysIndex: KeysIndex) -> [Int] in
 
@@ -88,7 +88,7 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
       }
   }
 
-  private func downloadChunks(with indexes: [Int], country: String?) -> Promise<[TemporaryExposureKeyChunk]> {
+  private func downloadChunks(with indexes: [Int], country: Country?) -> Promise<[TemporaryExposureKeyChunk]> {
     self.networkManager.downloadChunks(with: indexes, country: country)
       .then { chunksData in
         assert(chunksData.count == indexes.count)
@@ -105,7 +105,7 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
       }
   }
 
-  private static func fileName(for index: Int, country: String?) -> String {
-    if country == nil { return String(format: "tek_%06d", index) } else { return String(format: "%@_tek_%06d", country!, index) }
+  private static func fileName(for index: Int, country: Country?) -> String {
+    if country == nil { return String(format: "tek_%06d", index) } else { return String(format: "%@_tek_%06d", country!.countryId, index) }
   }
 }
