@@ -270,33 +270,35 @@ extension Logic.Settings {
 
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let appState = context.getState()
-      var countriesState = appState.exposureDetection.countriesOfInterest.map { $0.country.countryId }
-      var localCountries = self.newCountries.map { $0.country.countryId }
-      countriesState.sort()
-      localCountries.sort()
 
       var newCountriesOfInterest: [CountryOfInterest] = []
 
       for countryOfInterest in appState.exposureDetection.countriesOfInterest {
         if self.newCountries.contains(countryOfInterest) {
-            newCountriesOfInterest.append(countryOfInterest)
+          newCountriesOfInterest.append(countryOfInterest)
         }
       }
 
       for country in self.newCountries {
         if !appState.exposureDetection.countriesOfInterest.contains(country) {
-            newCountriesOfInterest.append(CountryOfInterest(country: country.country, selectionDate: Date()))
+          newCountriesOfInterest.append(CountryOfInterest(country: country.country, selectionDate: Date()))
         }
       }
-        print(newCountriesOfInterest)
-        print(appState.exposureDetection.countriesOfInterest)
+
+      var countriesState = appState.exposureDetection.countriesOfInterest.map { $0.country.countryId }
+      var countriesLocal = newCountriesOfInterest.map { $0.country.countryId }
+      countriesState.sort()
+      countriesLocal.sort()
+
+      print(countriesState)
+      print(countriesLocal)
+      print(countriesLocal != countriesState)
 
       if newCountriesOfInterest.count > 3 {
-        // if the user cancels, the promise throws and the flow is interrupted.
-        // If the user accepts, instead, the flows continues as expected
+        // the promise throws and the flow is interrupted.
         try await(self.showCountriesLimitExceededAlert(dispatch: context.dispatch(_:)))
       }
-      if !countriesState.elementsEqual(localCountries) {
+      if countriesLocal != countriesState {
         // if the user cancels, the promise throws and the flow is interrupted.
         // If the user accepts, instead, the flows continues as expected
         try await(self.showUpdateCountriesConfirmation(dispatch: context.dispatch(_:)))
