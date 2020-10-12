@@ -109,8 +109,10 @@
 "onboarding_exposure_message_extended" = "A causa di una limitazione del sistema operativo, il servizio di geolocalizzazione deve essere attivo per consentire lo scambio di codici casuali via Bluetooth. <b>Immuni non accede alla tua localizzazione, come puoi verificare consultando la lista dei permessi richiesti dall'app.</b>";
 "countries_of_interest.title" = "Stai andando in uno o più di questi Paesi europei?";
 "countries_of_interest.description" =  "Se stai per andare in Europa puoi selezionare il/i Paese/i di interesse, se ha/hanno già aderito all'interoperabilità, così che Immuni possa collegarsi con le altre APP europee di contact tracing e aiutare a contenere la diffusione del Covid-19 anche in ambito europeo. Puoi selezionare fino ad un massimo di 3 Paesi. La tua selezione sarà valida e non modificabile per 14 giorni";
-"countries_of_interest.alert.title" = "Sei sicuro di voler salvare?";
+"countries_of_interest.alert.title" = "Limite selezione superato";
 "countries_of_interest.alert.description" = "Puoi selezionare fino ad un massimo di 3 Paesi. La tua selezione sarà valida e non modificabile per 14 giorni.";
+"countries_of_interest.confirm.title" = "Sei sicuro di voler procedere?";
+"countries_of_interest.confirm.description" = "Confermando non potrai rimuovere i paesi scelti per i prossimi 14 giorni.";
 "open_settings" = "Apri Impostazioni";
 "permission_tutorial.bluetooth.action" = "Apri Impostazioni";
 "permission_tutorial.bluetooth.first" = "<b>1. Accedi al Centro di Controllo.</b> Scorri verso il basso dall'angolo in alto a destra oppure verso l'alto dalla parte inferiore dello schermo, a seconda del dispositivo.";

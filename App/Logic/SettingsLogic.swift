@@ -311,8 +311,8 @@ extension Logic.Settings {
     private func showUpdateCountriesConfirmation(dispatch: @escaping PromisableStoreDispatch) -> Promise<Void> {
       return Promise { resolve, reject, _ in
         let model = Alert.Model(
-          title: L10n.CountriesOfInterest.Alert.title,
-          message: L10n.CountriesOfInterest.Alert.description,
+          title: L10n.CountriesOfInterest.Confirm.title,
+          message: L10n.CountriesOfInterest.Confirm.description,
           preferredStyle: .alert,
           actions: [
             .init(title: L10n.Onboarding.Region.Abroad.Alert.cancel, style: .cancel, onTap: {
@@ -332,11 +332,11 @@ extension Logic.Settings {
     private func showCountriesLimitExceededAlert(dispatch: @escaping PromisableStoreDispatch) -> Promise<Void> {
       return Promise { _, reject, _ in
         let model = Alert.Model(
-          title: "Attenzione",
-          message: "puoi selezionare massiomo 3 paesi",
+          title: L10n.CountriesOfInterest.Alert.title,
+          message: L10n.CountriesOfInterest.Alert.description,
           preferredStyle: .alert,
           actions: [
-            .init(title: "ok", style: .cancel, onTap: {
+            .init(title: L10n.Onboarding.Region.Abroad.Alert.confirm, style: .cancel, onTap: {
               reject(UpdateCountriesConfirmationError.userCancelled)
             })
           ]
