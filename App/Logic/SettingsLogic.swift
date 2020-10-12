@@ -290,10 +290,6 @@ extension Logic.Settings {
       countriesState.sort()
       countriesLocal.sort()
 
-      print(countriesState)
-      print(countriesLocal)
-      print(countriesLocal != countriesState)
-
       if newCountriesOfInterest.count > 3 {
         // the promise throws and the flow is interrupted.
         try await(self.showCountriesLimitExceededAlert(dispatch: context.dispatch(_:)))
