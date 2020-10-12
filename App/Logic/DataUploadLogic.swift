@@ -43,7 +43,8 @@ extension Logic.DataUpload {
 
       if
         let lastOtpFailedAttempt = state.ingestion.lastOtpValidationFailedAttempt,
-        now.timeIntervalSince(lastOtpFailedAttempt) <= Self.recentFailedAttemptsThreshold {
+        now.timeIntervalSince(lastOtpFailedAttempt) <= Self.recentFailedAttemptsThreshold
+      {
         let backOffDuration = UploadDataLS.backOffDuration(failedAttempts: failedAttempts)
         let backOffEnd = lastOtpFailedAttempt.addingTimeInterval(TimeInterval(backOffDuration))
         errorSecondsLeft = backOffEnd.timeIntervalSince(now).roundedInt().bounded(min: 0)
@@ -326,7 +327,12 @@ private extension UIApplication {
   // breaking Tempura's internal navigation logic until the key window is restored.
   // As a workaround, the app now waits for the key window to go back to its original instance
   func waitForWindowRestored() -> Promise<Void> {
-    return Promise<Void> { resolve, _, _ in
+    if let _ = NSClassFromString("XCTest") {
+      // testing, just mock the execution
+      return Promise(resolved: ())
+    }
+
+    return Promise<Void>(in: .main) { resolve, _, _ in
       self.pollWindowRestored(onRestored: resolve)
     }
   }
