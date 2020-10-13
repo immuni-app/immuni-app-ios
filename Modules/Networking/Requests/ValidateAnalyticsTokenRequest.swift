@@ -19,7 +19,7 @@ public struct ValidateAnalyticsTokenRequest: JSONRequest {
   public var method: HTTPMethod = .post
 
   // swiftlint:disable:next force_unwrapping
-  public var baseURL = URL(string: "https://analytics.immuni.gov.it")!
+  public var baseURL = URL(string: "https://testaka3.sogei.it")!
   public var path = "/v1/analytics/apple/token"
 
   public var headers: [HTTPHeader] {

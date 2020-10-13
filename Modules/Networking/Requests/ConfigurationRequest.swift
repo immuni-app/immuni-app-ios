@@ -20,7 +20,7 @@ public struct ConfigurationRequest: ModelResponseSerializer {
   public typealias Model = Configuration
 
   // swiftlint:disable:next force_unwrapping
-  public var baseURL = URL(string: "https://get.immuni.gov.it")!
+  public var baseURL = URL(string: "https://testaka1.sogei.it")!
   public var path = "/v1/settings"
   public var method: HTTPMethod = .get
   public var cachePolicy: NSURLRequest.CachePolicy = .immuniPolicy

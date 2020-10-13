@@ -18,7 +18,7 @@ import Models
 
 public struct DownloadKeyChunkIndexRequest: HTTPRequest {
   // swiftlint:disable:next force_unwrapping
-  public var baseURL = URL(string: "https://get.immuni.gov.it")!
+  public var baseURL = URL(string: "https://testaka1.sogei.it")!
   public var method: HTTPMethod = .get
   public var cachePolicy: NSURLRequest.CachePolicy = .reloadIgnoringLocalAndRemoteCacheData
   public var parameters: [String: Any] = [:]
