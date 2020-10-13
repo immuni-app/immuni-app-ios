@@ -29,6 +29,7 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
   ///
   /// - seeAlso: https://developer.apple.com/documentation/exposurenotification/setting_up_an_exposure_notification_server
   static let keyDailyRateLimit = 15
+  private var keyDailyRateLimitCounter: Int
 
   private let networkManager: NetworkManager
   private let fileStorage: FileStorage
@@ -36,10 +37,17 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
   public init(networkManager: NetworkManager, fileStorage: FileStorage) {
     self.networkManager = networkManager
     self.fileStorage = fileStorage
+    self.keyDailyRateLimitCounter = Self.keyDailyRateLimit
   }
 
-  func getLatestKeyChunks(latestKnownChunkIndex: Int?, country: Country?) -> Promise<[TemporaryExposureKeyChunk]> {
-    return self.getMissingChunksIndexes(latestKnownChunkIndex: latestKnownChunkIndex, country: country)
+  func getLatestKeyChunks(
+    latestKnownChunkIndex: Int?,
+    country: Country?
+  ) -> Promise<[TemporaryExposureKeyChunk]> {
+    return self.getMissingChunksIndexes(
+      latestKnownChunkIndex: latestKnownChunkIndex,
+      country: country
+    )
       .recover { error in
         guard case NetworkManager.Error.noBatchesFound = error else {
           // Unrecoverable error
@@ -84,7 +92,21 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
         // Note that the subsequent runs within 24 hours will fail anyway, but the manager should handle
         // them and retry as soon as possible. Assuming we don't publish more than 15 chunks per day
         // (which we won't) the algorithm is stable
-        return (firstKeyToDownload ... keysIndex.newest).suffix(Self.keyDailyRateLimit)
+
+        let indexCount = (firstKeyToDownload ... keysIndex.newest).suffix(Self.keyDailyRateLimit).count
+        if #available(iOS 13.6, *) {
+          return (firstKeyToDownload ... keysIndex.newest).suffix(Self.keyDailyRateLimit)
+        } else {
+          if self.keyDailyRateLimitCounter - indexCount >= 0 {
+            let indexDailyRate = self.keyDailyRateLimitCounter
+            self.keyDailyRateLimitCounter = self.keyDailyRateLimitCounter - indexCount
+            return (firstKeyToDownload ... keysIndex.newest).suffix(indexDailyRate)
+          } else {
+            let indexDailyRate = self.keyDailyRateLimitCounter
+            self.keyDailyRateLimitCounter = 0
+            return (firstKeyToDownload ... keysIndex.newest).suffix(indexDailyRate)
+          }
+        }
       }
   }
 

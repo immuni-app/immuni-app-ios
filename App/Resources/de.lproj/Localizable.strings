@@ -47,7 +47,7 @@
 "home_view.info.button.title" = "Mehr erfahren";
 "home_view.info.protection.title" = "So können Sie sich schützen";
 "home_view.info_header.title" = "Informationen";
-"home_view.info.update_countries.title" = "Where in EU do you have to travel?";
+"home_view.info.update_countries.title" = "Wenn Sie in ein anderes europäisches Land reisen";
 "home_view.service.active.discover_more" = "Mehr erfahren";
 "home_view.service.active.subtitle" = "Immuni bleibt aktiv, auch wenn die App geschlossen ist.";
 "home_view.service.active.title" = "Service\n<b>aktiv</b>";
@@ -107,10 +107,12 @@
 "onboarding.region.title" = "In welcher Region leben Sie?";
 "onboarding_exposure_api_not_activated" = "Kontaktmitteilungen nicht aktiviert";
 "onboarding_exposure_message_extended" = "Aufgrund einer Einschränkung des Betriebssystems muss der Geolokalisierungsdienst aktiv sein, damit der Austausch von Zufallscodes über Bluetooth möglich ist. <b>Immuni greift nicht auf Ihren Standort zu. Sie können dies anhand der Liste der Berechtigungen, die für die App erforderlich sind, überprüfen.</b>";
-"countries_of_interest.title" = "Which country of the European Union do you have to visit?";
-"countries_of_interest.description" =  "Select the country/countries where you have to travel among those who joined the agreement to contribute decreasing the virus spread across the European Union";
-"countries_of_interest.alert.title" = "Are you sure?";
-"countries_of_interest.alert.description" = "You won't be able to remove selected countries for 14 days";
+"countries_of_interest.title" = "Gehen Sie in eines oder mehrere dieser europäischen Länder?";
+"countries_of_interest.description" =  "Wenn Sie nach Europa reisen, können Sie das/die interessierende (n) Land (e) Länder auswählen, sofern /das bereits der Interoperabilität beigetreten ist, damit Immuni eine Verbindung zu den anderen europäischen Kontactverfolgungs-APPs herstellen und die verbreitung von Covid-19 in Europa eindämmen kann. Sie können maximal 3 Länder auswählen. Ihre Auswahl ist 14 Tage lang gültig und bei der keine Veränderung mehr für 14 Tage möglich ist.";
+"countries_of_interest.alert.title" = "Auswahlgrenze überschritten";
+"countries_of_interest.alert.description" = "Sie können maximal 3 Länder auswählen. Ihre Auswahl ist 14 Tage lang gültig und bei der keine Veränderung mehr für 14 Tage möglich ist.";
+"countries_of_interest.confirm.title" = "Sind Sie sich sicher, dass Sie fortfahren möchten?";
+"countries_of_interest.confirm.description" = "Durch die Bestätigung können Sie die ausgewählten Länder für die nächsten 14 Tage nicht entfernen.";
 "open_settings" = "Einstellungen öffnen";
 "permission_tutorial.bluetooth.action" = "Einstellungen öffnen";
 "permission_tutorial.bluetooth.first" = "<b>1. Weiter zum Kontrollzentrum.</b>Je nach Gerät müssen Sie dazu die rechte obere Bildschirmecke nach unten bzw. den unteren Bildschirmrand nach oben ziehen.";
@@ -203,6 +205,7 @@
 "settings.setting.share" = "App teilen";
 "settings.setting.share.message" = "Helfen Sie uns, gemeinsam die COVID-19-Epidemie zu bekämpfen. Laden Sie auch Immuni herunter. https://www.immuni.italia.it/";
 "settings.setting.tos" = "Nutzungsbedingungen";
+"settings.setting.chage_countries" = "Wählen Sie ein europäisches Land aus";
 "settings.update_province.update_province" = "Aktualisieren";
 "settings_app_version" = "Immuni v%s (%d)";
 "suggestions.alert.asl_contact_confirmation.description" = "Immuni blendet die Kontaktwarnung aus. Sie müssen weiterhin alle Hinweise befolgen, die Sie von Ihrem Arzt oder Ihrer örtlichen Gesundheitsbehörde erhalten haben.";

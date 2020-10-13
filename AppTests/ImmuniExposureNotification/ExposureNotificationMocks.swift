@@ -245,7 +245,7 @@ class MockExposureDetectionExecutor: ExposureDetectionExecutor {
     now: @escaping () -> Date,
     isUserCovidPositive: Bool,
     forceRun: Bool,
-    countriesOfInterest: [(String, Int?)]
+    countriesOfInterest: [CountryOfInterest]
   ) -> Promise<ExposureDetectionOutcome> {
     self.executeMethodCalls += 1
     self.detectionPeriods.append(exposureDetectionPeriod)

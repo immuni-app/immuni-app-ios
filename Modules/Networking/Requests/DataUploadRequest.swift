@@ -61,7 +61,7 @@ public extension DataUploadRequest {
       exposureDetectionSummaries: [CodableExposureDetectionSummary],
       maximumExposureInfoCount: Int,
       maximumExposureDetectionSummaryCount: Int,
-      countriesOfInterest: [Country] = []
+      countriesOfInterest: [Country]
     ) {
       self.teks = Self.cap(teks)
       self.province = province

@@ -38,7 +38,7 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       minimumRiskScore: 1
     )
 
-    let countriesOfInterest: [(String, Int?)] = []
+    let countriesOfInterest: [CountryOfInterest] = []
 
     let promise = executor.execute(
       exposureDetectionPeriod: 0,

@@ -67,7 +67,6 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
         resolve(.error(.notAuthorized))
         return
       }
-
       var keyChunksMatrix: [Country: [TemporaryExposureKeyChunk]] = [:]
 
       // Download the italian keys
