@@ -38,14 +38,15 @@ struct ImmuniSessionProvider: SessionProvider {
     #if DEBUG
       return .default
     #else
-      let trustEvaluator = ImmuniTrustEvaluator(using: self.bundle)
-      let evaluators = Self.productionHosts.map { ($0, trustEvaluator) }
-      let trustManager = ServerTrustManager(
-        allHostsMustBeEvaluated: true,
-        evaluators: Dictionary(uniqueKeysWithValues: evaluators)
-      )
-
-      return Session(serverTrustManager: trustManager)
+//      let trustEvaluator = ImmuniTrustEvaluator(using: self.bundle)
+//      let evaluators = Self.productionHosts.map { ($0, trustEvaluator) }
+//      let trustManager = ServerTrustManager(
+//        allHostsMustBeEvaluated: true,
+//        evaluators: Dictionary(uniqueKeysWithValues: evaluators)
+//      )
+//
+//      return Session(serverTrustManager: trustManager)
+      return .default
     #endif
   }
 }
