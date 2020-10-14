@@ -321,7 +321,6 @@ extension OnboardingContainerNC.NavigationContext {
     // onboarding
     case region
     case province(region: Region)
-//    case country
     case exposureNotificationPermissions
     case bluetoothOff
     case pushNotificationPermissions
@@ -337,7 +336,7 @@ extension OnboardingContainerNC.NavigationContext {
     // settings
     case updateRegion(currentUserProvince: Province)
     case updateProvince(selectedRegion: Region, currentUserProvince: Province)
-    case updateCountry(dummyIngestionWindowDuration: Double, currentCountries: [CountryOfInterest], countryList: [String: String])
+    case updateCountry(dummyIngestionWindowDuration: Double, currentCountries: [CountryOfInterest], countryList: [Country])
   }
 }
 

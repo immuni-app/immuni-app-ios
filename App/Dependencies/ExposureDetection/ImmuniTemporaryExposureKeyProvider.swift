@@ -128,6 +128,9 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
   }
 
   private static func fileName(for index: Int, country: Country?) -> String {
-    if country == nil { return String(format: "tek_%06d", index) } else { return String(format: "%@_tek_%06d", country!.countryId, index) }
+    guard let country = country else {
+      return String(format: "tek_%06d", index)
+    }
+    return String(format: "%@_tek_%06d", country.countryId, index)
   }
 }

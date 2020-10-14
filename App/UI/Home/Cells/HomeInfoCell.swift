@@ -20,15 +20,6 @@ import Tempura
 struct HomeInfoCellVM: ViewModel {
   let kind: HomeVM.InfoKind
 
-  var isAnimation: Bool? {
-    switch self.kind {
-    case .updateCountry:
-      return false
-    default:
-      return true
-    }
-  }
-
   var animation: Animation? {
     switch self.kind {
     case .protection:
@@ -77,13 +68,12 @@ struct HomeInfoCellVM: ViewModel {
 class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
   typealias VM = HomeInfoCellVM
 
-  private var isAnimation: Bool = true
   private static let containerInset: CGFloat = 25
   private static let iconWidth: CGFloat = UIDevice.getByScreen(normal: 130, narrow: 100)
 
   let container = UIView()
   let icon = AnimationView()
-  let newEuropa = UIImageView()
+  let cardImageNew = UIImageView()
   let title = UILabel()
   var actionButton = TextButton()
 
@@ -111,7 +101,7 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
     self.contentView.addSubview(self.container)
 
     self.container.addSubview(self.icon)
-    self.container.addSubview(self.newEuropa)
+    self.container.addSubview(self.cardImageNew)
     self.container.addSubview(self.title)
     self.container.addSubview(self.actionButton)
 
@@ -126,10 +116,9 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
     guard let model = self.model else {
       return
     }
-    self.isAnimation = model.isAnimation ?? true
 
-    if !self.isAnimation {
-      Self.Style.logoNewEuropa(self.newEuropa)
+    if model.kind == .updateCountry {
+      Self.Style.logoNewEuropa(self.cardImageNew)
     }
     Self.Style.icon(self.icon, animation: model.animation)
 
@@ -153,10 +142,10 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
       .aspectRatio(self.icon.intrinsicContentSize.width / self.icon.intrinsicContentSize.height)
       .width(Self.iconWidth)
 
-    self.newEuropa.pin
+    self.cardImageNew.pin
       .top()
       .left()
-      .aspectRatio(self.newEuropa.intrinsicContentSize.width / self.newEuropa.intrinsicContentSize.height)
+      .aspectRatio(self.cardImageNew.intrinsicContentSize.width / self.cardImageNew.intrinsicContentSize.height)
       .width(Self.iconWidth * 0.65)
 
     self.title.pin
@@ -223,7 +212,7 @@ private extension HomeInfoCell {
     }
 
     static func logoNewEuropa(_ imageView: UIImageView) {
-      imageView.image = Asset.Home.newEuropa.image
+      imageView.image = Asset.Home.cardImageNew.image
     }
 
     static func icon(_ view: AnimationView, animation: Animation?) {

@@ -76,7 +76,7 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
           tekProvider
             .getLatestKeyChunks(latestKnownChunkIndex: latestProcessedKeyChunkIndex, country: nil)
         )
-        keyChunksMatrix[Country(countryId: "IT", countryHumanReadableName: "ITALIA")] = keyChunks
+        keyChunksMatrix[Country(countryId: Country.italyId, countryHumanReadableName: Country.italyHumanReadableName)] = keyChunks
       } catch {
         resolve(.error(.unableToRetrieveKeys(error)))
         return

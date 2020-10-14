@@ -94,9 +94,9 @@ struct CountriesOfInterestLS: LocalState {
   /// The currently selected Country.
   var currentCountries: [CountryOfInterest] = []
 
-  var countryList: [String: String]
+  var countryList: [Country]
 
-  init(dummyIngestionWindowDuration: Double, currentCountries: [CountryOfInterest], countryList: [String: String]) {
+  init(dummyIngestionWindowDuration: Double, currentCountries: [CountryOfInterest], countryList: [Country]) {
     self.isHeaderVisible = false
     self.currentCountries = currentCountries
     self.countryList = countryList

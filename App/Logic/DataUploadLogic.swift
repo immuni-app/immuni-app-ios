@@ -169,18 +169,14 @@ extension Logic.DataUpload {
       // Build the request payload
       let userProvince = state.user.province
         ?? AppLogger.fatalError("Province must be set at this point")
-      let userCountries = state.exposureDetection.countriesOfInterest.map { $0.country }
-
-      let exposureDetectionSummaries: [CodableExposureDetectionSummary] = state.exposureDetection.recentPositiveExposureResults
-        .map { $0.data }
 
       let requestBody = DataUploadRequest.Body(
         teks: keys.map { .init(from: $0) },
         province: userProvince.rawValue,
-        exposureDetectionSummaries: exposureDetectionSummaries,
+        exposureDetectionSummaries: state.exposureDetection.recentPositiveExposureResults.map { $0.data },
         maximumExposureInfoCount: state.configuration.dataUploadMaxExposureInfoCount,
         maximumExposureDetectionSummaryCount: state.configuration.dataUploadMaxSummaryCount,
-        countriesOfInterest: userCountries
+        countriesOfInterest: state.exposureDetection.countriesOfInterest.map { $0.country }
       )
 
       // Send the data to the backend
@@ -332,7 +328,12 @@ private extension UIApplication {
   // breaking Tempura's internal navigation logic until the key window is restored.
   // As a workaround, the app now waits for the key window to go back to its original instance
   func waitForWindowRestored() -> Promise<Void> {
-    return Promise<Void> { resolve, _, _ in
+    if let _ = NSClassFromString("XCTest") {
+      // testing, just mock the execution
+      return Promise(resolved: ())
+    }
+
+    return Promise<Void>(in: .main) { resolve, _, _ in
       self.pollWindowRestored(onRestored: resolve)
     }
   }
