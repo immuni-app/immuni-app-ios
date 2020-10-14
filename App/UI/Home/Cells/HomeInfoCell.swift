@@ -119,6 +119,8 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
 
     if model.kind == .updateCountry {
       Self.Style.logoNewEuropa(self.cardImageNew)
+    } else {
+      self.cardImageNew.image = nil
     }
     Self.Style.icon(self.icon, animation: model.animation)
 

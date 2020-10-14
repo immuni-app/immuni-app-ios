@@ -97,7 +97,6 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
           continue
         }
       }
-
       defer {
         // Cleanup the local files of the downloaded chunks
         try? await(tekProvider.clearLocalResources(for: keyChunks))
