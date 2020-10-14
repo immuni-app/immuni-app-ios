@@ -179,7 +179,7 @@
 "permission_tutorial.why_province_region.title" = "Darum sollten Sie die Region und Provinz Ihres Wohnsitzes angeben";
 "privacy.checkbox.above14" = "Ich bin mindestens 14 Jahre alt";
 "privacy.checkbox.privacyPolicyRead" = "Ich habe die <l>Datenschutzerklärung</l> gelesen";
-"privacy.item.data_deletion" = "<b>Alle Daten werden gelöscht, sobald sie nicht mehr benötigt werden</b>. Die Löschung erfolgt bis spätestens 31. Dezember 2020.";
+"privacy.item.data_deletion" = "<b>Alle Daten werden gelöscht, sobald sie nicht mehr benötigt werden</b>";
 "privacy.item.identity" = "<b>Immuni erfasst weder Ihren Vor- und Nachnamen, noch Ihr Geburtsdatum, Ihre Adresse, Telefonnummer oder E-Mail-Adresse.</b>";
 "privacy.item.italy" = "Ihre Daten werden auf Servern in Italien gespeichert, <b>von öffentlichen Stellen verwaltet und vom Gesundheitsministerium überwacht.</b>";
 "privacy.item.location" = "<b>Immuni sammelt keine Geolokalisierungsdaten</b>, somit auch keine GPS-Daten. Ihre Bewegungen werden in keiner Weise nachverfolgt.";

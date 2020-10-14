@@ -179,7 +179,7 @@
 "permission_tutorial.why_province_region.title" = "Pourquoi indiquer la région et la province de domicile ?";
 "privacy.checkbox.above14" = "Je déclare avoir au moins 14 ans";
 "privacy.checkbox.privacyPolicyRead" = "J'ai lu la <l>Politique de confidentialité</l>";
-"privacy.item.data_deletion" = "<b>Toutes les données sont supprimées lorsqu'elles ne sont plus nécessaires </b>et dans tous les cas au plus tard le 31 décembre 2020.";
+"privacy.item.data_deletion" = "<b>Toutes les données sont supprimées lorsqu'elles ne sont plus nécessaires </b>";
 "privacy.item.identity" = "<b>Immuni ne collecte pas vos nom, prénom, date de naissance, adresse, numéro de téléphone ou e-mail.</b>";
 "privacy.item.italy" = "Vos données sont enregistrées sur des serveurs en Italie. <b>Elles sont gérées par des organismes publiques et contrôlées par le Ministère de la santé.</b>";
 "privacy.item.location" = "<b>Immuni ne collecte aucune information de géolocalisation</b>, coordonnées GPS incluses. Vos mouvements ne font en aucun cas l'objet d'un suivi.";
