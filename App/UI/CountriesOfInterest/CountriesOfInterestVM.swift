@@ -59,12 +59,15 @@ extension CountriesOfInterestVM: ViewModelWithLocalState {
 
     var cellList: [(String, String, Bool, Bool)] = []
 
-    for (key, value) in countryList {
+    for (countryId, countryName) in countryList {
       let index = currentCountries?
-        .firstIndex(of: CountryOfInterest(country: Country(countryId: key, countryHumanReadableName: value)))
+        .firstIndex(of: CountryOfInterest(country: Country(
+          countryId: countryId,
+          countryHumanReadableName: countryName
+        )))
 
       if index == nil || currentCountries?.isEmpty ?? true {
-        cellList.append((key, value, false, false))
+        cellList.append((countryId, countryName, false, false))
         continue
       }
 
@@ -73,9 +76,9 @@ extension CountriesOfInterestVM: ViewModelWithLocalState {
       if currentCountry!.selectionDate == nil || Date()
         .timeIntervalSince(currentCountry!.selectionDate!) > dummyIngestionWindowDuration
       {
-        cellList.append((key, value, true, false))
+        cellList.append((countryId, countryName, true, false))
       } else {
-        cellList.append((key, value, true, true))
+        cellList.append((countryId, countryName, true, true))
       }
     }
 

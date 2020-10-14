@@ -267,6 +267,9 @@ extension Logic.Settings {
 
   /// Update the countries selected by the user
   struct CompleteUpdateCountries: AppSideEffect {
+    /// This number represents the maximum amount of countries that can be selected
+    static let selectionLimitOfCountries = 3
+
     let newCountries: [CountryOfInterest]
 
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
@@ -291,7 +294,7 @@ extension Logic.Settings {
       countriesState.sort()
       countriesLocal.sort()
 
-      if newCountriesOfInterest.count > 3 {
+      if newCountriesOfInterest.count > Self.selectionLimitOfCountries {
         // the promise throws and the flow is interrupted.
         try await(self.showCountriesLimitExceededAlert(dispatch: context.dispatch(_:)))
       }

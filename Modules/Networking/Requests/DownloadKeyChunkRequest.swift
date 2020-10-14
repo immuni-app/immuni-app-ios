@@ -25,7 +25,10 @@ public struct DownloadKeyChunkIndexRequest: HTTPRequest {
   public var headers: [HTTPHeader] = HTTPHeader.defaultImmuniHeaders
 
   public var path: String {
-    (self.country == nil) ? "/v1/keys/\(self.chunkNumber)" : "/v1/keys/eu/\(self.country!.countryId)/\(self.chunkNumber)"
+    guard let country = self.country else {
+      return "/v1/keys/\(self.chunkNumber)"
+    }
+    return "/v1/keys/eu/\(country.countryId)/\(self.chunkNumber)"
   }
 
   let chunkNumber: Int

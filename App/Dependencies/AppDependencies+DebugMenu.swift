@@ -399,7 +399,8 @@
         province: "AA",
         exposureDetectionSummaries: summaries,
         maximumExposureInfoCount: 600,
-        maximumExposureDetectionSummaryCount: 100
+        maximumExposureDetectionSummaryCount: 100,
+        countriesOfInterest: []
       )
     }
   }

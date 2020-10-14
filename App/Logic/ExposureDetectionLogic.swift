@@ -245,7 +245,7 @@ extension Logic.ExposureDetection {
 
     func updateState(_ state: inout AppState) {
       for (key, value) in self.countryIndexCouple {
-        if key == "IT" {
+        if key == Country.italyId {
           state.exposureDetection.latestProcessedKeyChunkIndex = value
           continue
         }

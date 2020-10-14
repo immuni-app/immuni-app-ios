@@ -321,7 +321,6 @@ extension OnboardingContainerNC.NavigationContext {
     // onboarding
     case region
     case province(region: Region)
-//    case country
     case exposureNotificationPermissions
     case bluetoothOff
     case pushNotificationPermissions

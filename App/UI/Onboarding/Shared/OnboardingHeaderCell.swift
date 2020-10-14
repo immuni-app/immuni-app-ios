@@ -32,7 +32,6 @@ struct OnboardingHeaderCellVM: ViewModel, Equatable {
 final class OnboardingHeaderCell: UICollectionViewCell, ModellableView, ReusableView {
   static let titleToDescriptionSpacing: CGFloat = 12.0
   static let descriptionToActionSpacing: CGFloat = 6.0
-  var showDiscoverMore: Bool = true
 
   var didTapActionButton: Interaction?
 
@@ -73,8 +72,6 @@ final class OnboardingHeaderCell: UICollectionViewCell, ModellableView, Reusable
     Self.Style.description(self.headerDescription, content: model.description)
     Self.Style.actionButton(self.actionButton, content: model.actionButtonTitle)
 
-    self.showDiscoverMore = !model.actionButtonTitle.isEmpty
-
     if model.shouldInvalidateLayout(oldVM: oldModel) {
       self.setNeedsLayout()
     }
@@ -110,7 +107,7 @@ final class OnboardingHeaderCell: UICollectionViewCell, ModellableView, Reusable
     return CGSize(
       width: size.width,
       height: titleSize.height + Self.titleToDescriptionSpacing + descriptionSize.height + Self
-        .descriptionToActionSpacing + (self.showDiscoverMore ? actionButtonSize.height : 0)
+        .descriptionToActionSpacing + (!(self.model?.actionButtonTitle.isEmpty ?? true) ? actionButtonSize.height : 0)
     )
   }
 }

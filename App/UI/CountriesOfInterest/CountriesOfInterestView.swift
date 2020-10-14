@@ -136,7 +136,6 @@ final class CountriesOfInterestView: UIView, ViewControllerModellableView {
       .bottom(20 + self.safeAreaInsets.bottom)
       .right(Self.horizontalSpacing)
       .size(CGSize(width: 158, height: 55))
-//    .marginTop(50)
 
     self.contentCollection.pin
       .all()

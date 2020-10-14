@@ -67,7 +67,6 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
         resolve(.error(.notAuthorized))
         return
       }
-
       var keyChunksMatrix: [Country: [TemporaryExposureKeyChunk]] = [:]
 
       // Download the italian keys
@@ -77,7 +76,7 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
           tekProvider
             .getLatestKeyChunks(latestKnownChunkIndex: latestProcessedKeyChunkIndex, country: nil)
         )
-        keyChunksMatrix[Country(countryId: "IT", countryHumanReadableName: "ITALIA")] = keyChunks
+        keyChunksMatrix[Country(countryId: Country.italyId, countryHumanReadableName: Country.italyHumanReadableName)] = keyChunks
       } catch {
         resolve(.error(.unableToRetrieveKeys(error)))
         return
@@ -98,7 +97,6 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
           continue
         }
       }
-
       defer {
         // Cleanup the local files of the downloaded chunks
         try? await(tekProvider.clearLocalResources(for: keyChunks))

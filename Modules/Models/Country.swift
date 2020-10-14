@@ -15,13 +15,19 @@
 import Foundation
 
 public struct Country: Equatable, Codable, Hashable {
-  public var countryId: String
+  public typealias ID = String
+  public typealias NAME = String
+
+  public var countryId: ID
   public var countryHumanReadableName: String
 
   public init(countryId: String, countryHumanReadableName: String) {
     self.countryId = countryId
     self.countryHumanReadableName = countryHumanReadableName
   }
+
+  public static let italyId: Country.ID = "IT"
+  public static let italyHumanReadableName: Country.NAME = "ITALIA"
 }
 
 extension Country: Comparable {
