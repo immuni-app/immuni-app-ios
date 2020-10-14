@@ -52,22 +52,22 @@ extension CountriesOfInterestVM: ViewModelWithLocalState {
     dummyIngestionWindowDuration: Double,
     isHeaderVisible: Bool,
     currentCountries: [CountryOfInterest]?,
-    countryList: [Country]
+    countryList: [String: String]
   ) {
     self.isHeaderVisible = isHeaderVisible
     self.currentCountries = currentCountries
 
     var cellList: [(String, String, Bool, Bool)] = []
 
-    for country in countryList {
+    for (countryId, countryName) in countryList {
       let index = currentCountries?
         .firstIndex(of: CountryOfInterest(country: Country(
-          countryId: country.countryId,
-          countryHumanReadableName: country.countryHumanReadableName
+          countryId: countryId,
+          countryHumanReadableName: countryName
         )))
 
       if index == nil || currentCountries?.isEmpty ?? true {
-        cellList.append((country.countryId, country.countryHumanReadableName, false, false))
+        cellList.append((countryId, countryName, false, false))
         continue
       }
 
@@ -76,9 +76,9 @@ extension CountriesOfInterestVM: ViewModelWithLocalState {
       if currentCountry!.selectionDate == nil || Date()
         .timeIntervalSince(currentCountry!.selectionDate!) > dummyIngestionWindowDuration
       {
-        cellList.append((country.countryId, country.countryHumanReadableName, true, false))
+        cellList.append((countryId, countryName, true, false))
       } else {
-        cellList.append((country.countryId, country.countryHumanReadableName, true, true))
+        cellList.append((countryId, countryName, true, true))
       }
     }
 
