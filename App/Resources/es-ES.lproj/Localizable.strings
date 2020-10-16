@@ -235,12 +235,12 @@
 "suggestions.instruction.isolate.title" = "<b>Si muestras síntomas, aíslate de las personas con las que vivas.</b>";
 "suggestions.instruction.limit_movement" = "<b>Permanece en una habitación privada con buena ventilación, si es posible con baño separado,</b> y limita al máximo tus desplazamientos a otros espacios comunes de la casa.";
 "suggestions.instruction.mask.message" = "Úsala en casa en presencia de personas no convivientes y también al aire libre cuando no es posible mantener la distancia social.";
-"suggestions.instruction.mask.title" = "<b>Lleva siempre contigo la mascarilla</b> y úsala en los lugares cerrados a diferencia de tu casa.";
+"suggestions.instruction.mask.title" = "<b>Lleva siempre contigo la mascarilla</b> y úsala en lugares cerrados a diferencia de tu casa.";
 "suggestions.instruction.ministerial_decree" = "<b>Respeta la normativa vigente en tu zona.</b>";
 "suggestions.instruction.phone_contact" = "<b>En caso de dificultades para respirar, llama al 112/118.</b>";
 "suggestions.instruction.social_distance" = "<b>Respeta las medidas de distanciamiento físico</b> y evita las aglomeraciones.";
 "suggestions.instruction.stay_home.message" = "Bajo indicación de la ASL, el periodo de cuarentena puede ser reducido a 10 días en el caso de que haya hecho la prueba de antígeno o prueba molecular el décimo día y este resulte negativo.";
-"suggestions.instruction.stay_home.title" = "<b>Quédate en casa durante 14 días</b>  a partir del último día en el que estuvo en contacto cercano con la persona.";
+"suggestions.instruction.stay_home.title" = "<b>Quédate en casa durante 14 días</b> a partir de la fecha de contacto.";
 "suggestions.instruction.under_18_message" = "Si eres menor de 18 años, pídeles a tus padres que lean este mensaje.";
 "suggestions.instruction.use_napkins" = "<b>Tose o estornuda en un pañuelo de papel o en el pliegue del codo.</b>";
 "suggestions.instruction.wash_hands" = "<b>Lávate las manos frecuentemente</b> con agua y jabón o soluciones hidroalcohólicas.";

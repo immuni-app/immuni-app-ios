@@ -240,7 +240,7 @@
 "suggestions.instruction.phone_contact" = "<b>If you are having difficulty breathing, contact 112/118.</b>";
 "suggestions.instruction.social_distance" = "<b>Respect physical distancing measures</b> and avoid gatherings.";
 "suggestions.instruction.stay_home.message" = "On indication of the ASL, the quarantine period may be reduced to 10 days in the event of a negative antigen or molecular test performed on the tenth day.";
-"suggestions.instruction.stay_home.title" = "<b>Stay at home for 14 days after the contact date.</b>";
+"suggestions.instruction.stay_home.title" = "<b>Stay at home for 14 days</b> after the contact date.";
 "suggestions.instruction.under_18_message" = "If you're under 18, please have your parents/legal guardian read this message.";
 "suggestions.instruction.use_napkins" = "<b>Cough and sneeze directly into a tissue or into the crook of your elbow.</b>";
 "suggestions.instruction.wash_hands" = "<b>Wash your hands frequently</b> with soap and water or with alcohol hand sanitiser.";
