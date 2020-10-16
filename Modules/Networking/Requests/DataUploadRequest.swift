@@ -51,6 +51,7 @@ public extension DataUploadRequest {
     public let teks: [CodableTemporaryExposureKey]
     public let province: String
     public let exposureDetectionSummaries: [CodableExposureDetectionSummary]
+    public var countriesOfInterest: [String]
 
     /// Create a data upload request body with given teks, province and exposureDetectionSummaries.
     /// A padding is added automatically so that both valid both dummy requests will have the same size.
@@ -59,7 +60,8 @@ public extension DataUploadRequest {
       province: String,
       exposureDetectionSummaries: [CodableExposureDetectionSummary],
       maximumExposureInfoCount: Int,
-      maximumExposureDetectionSummaryCount: Int
+      maximumExposureDetectionSummaryCount: Int,
+      countriesOfInterest: [Country]
     ) {
       self.teks = Self.cap(teks)
       self.province = province
@@ -68,6 +70,7 @@ public extension DataUploadRequest {
         maxSummaries: maximumExposureDetectionSummaryCount,
         maxExposureInfo: maximumExposureInfoCount
       )
+      self.countriesOfInterest = countriesOfInterest.map { $0.countryId }
     }
   }
 }
@@ -77,6 +80,7 @@ public extension DataUploadRequest.Body {
     case teks
     case province
     case exposureDetectionSummaries = "exposure_detection_summaries"
+    case countriesOfInterest = "countries_of_interest"
   }
 }
 

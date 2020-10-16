@@ -47,6 +47,7 @@
 "home_view.info.button.title" = "Scopri di più";
 "home_view.info.protection.title" = "Cosa puoi fare per proteggerti";
 "home_view.info_header.title" = "Informazioni";
+"home_view.info.update_countries.title" = "Se stai andando in un altro Paese europeo";
 "home_view.service.active.discover_more" = "Scopri di più";
 "home_view.service.active.subtitle" = "Immuni resta operativa anche quando l'app è chiusa.";
 "home_view.service.active.title" = "Servizio\n<b>attivo</b>";
@@ -106,6 +107,12 @@
 "onboarding.region.title" = "In che regione vivi?";
 "onboarding_exposure_api_not_activated" = "Notifiche di esposizione non attivate";
 "onboarding_exposure_message_extended" = "A causa di una limitazione del sistema operativo, il servizio di geolocalizzazione deve essere attivo per consentire lo scambio di codici casuali via Bluetooth. <b>Immuni non accede alla tua localizzazione, come puoi verificare consultando la lista dei permessi richiesti dall'app.</b>";
+"countries_of_interest.title" = "Stai andando in uno o più di questi Paesi europei?";
+"countries_of_interest.description" =  "Se stai per andare in Europa puoi selezionare il/i Paese/i di interesse, se ha/hanno già aderito all'interoperabilità, così che Immuni possa collegarsi con le altre APP europee di contact tracing e aiutare a contenere la diffusione del Covid-19 anche in ambito europeo. Puoi selezionare fino ad un massimo di 3 Paesi. La tua selezione sarà valida e non modificabile per 14 giorni";
+"countries_of_interest.alert.title" = "Limite selezione superato";
+"countries_of_interest.alert.description" = "Puoi selezionare fino ad un massimo di 3 Paesi. La tua selezione sarà valida e non modificabile per 14 giorni.";
+"countries_of_interest.confirm.title" = "Sei sicuro di voler procedere?";
+"countries_of_interest.confirm.description" = "Confermando non potrai rimuovere i paesi scelti per i prossimi 14 giorni.";
 "open_settings" = "Apri Impostazioni";
 "permission_tutorial.bluetooth.action" = "Apri Impostazioni";
 "permission_tutorial.bluetooth.first" = "<b>1. Accedi al Centro di Controllo.</b> Scorri verso il basso dall'angolo in alto a destra oppure verso l'alto dalla parte inferiore dello schermo, a seconda del dispositivo.";
@@ -180,7 +187,7 @@
 "permission_tutorial.why_province_region.title" = "A cosa serve inserire regione e provincia di domicilio";
 "privacy.checkbox.above14" = "Dichiaro di avere almeno 14 anni";
 "privacy.checkbox.privacyPolicyRead" = "Ho letto l'<l>informativa privacy</l>";
-"privacy.item.data_deletion" = "<b>Tutti i dati sono eliminati quando non più necessari</b> e in ogni caso non più tardi del 31 dicembre 2020.";
+"privacy.item.data_deletion" = "<b>Tutti i dati sono eliminati quando non più necessari</b>";
 "privacy.item.identity" = "<b>Immuni non raccoglie il tuo nome, cognome, data di nascita, indirizzo, numero di telefono o email.</b>";
 "privacy.item.italy" = "I tuoi dati sono salvati su server in Italia, <b>sono gestiti da soggetti pubblici e controllati dal Ministero della Salute.</b>";
 "privacy.item.location" = "<b>Immuni non raccoglie alcun dato di geolocalizzazione</b>, inclusi i dati del GPS. I tuoi spostamenti non sono tracciati in alcun modo.";
@@ -206,6 +213,7 @@
 "settings.setting.share" = "Condividi l'app";
 "settings.setting.share.message" = "Aiutaci a combattere insieme l’epidemia di COVID-19. Scarica anche tu Immuni. https://www.immuni.italia.it/";
 "settings.setting.tos" = "Termini di utilizzo";
+"settings.setting.chage_countries" = "Seleziona Paese europeo";
 "settings.update_province.update_province" = "Aggiorna";
 "settings_app_version" = "Immuni v%s (%d)";
 "suggestions.alert.asl_contact_confirmation.description" = "Immuni nasconderà l’avviso di contatto. Dovrai comunque seguire tutte le indicazioni che hai ricevuto dal tuo medico o dalla tua ASL.";
@@ -233,13 +241,13 @@
 "suggestions.instruction.hide_if_contact_doctor.message" = "Se sei in contatto con il tuo medico o la tua ASL, puoi nascondere questo avviso.";
 "suggestions.instruction.isolate.message" = "Indossa una mascherina chirurgica e contatta immediatamente il tuo Medico di Medicina Generale (o il Pediatra di Libera Scelta) e il Dipartimento di Prevenzione della ASL.";
 "suggestions.instruction.isolate.title" = "<b>In caso di comparsa dei sintomi, isolati dal resto dei tuoi conviventi.</b>";
-"suggestions.instruction.limit_movement" = "<b>Limita al massimo i movimenti in altri spazi comuni della casa.</b>";
-"suggestions.instruction.mask.message" = "Inclusi i mezzi di trasporto e comunque in tutte le occasioni in cui non sia possibile garantire continuativamente il mantenimento della distanza di sicurezza.";
-"suggestions.instruction.mask.title" = "<b>Indossa una mascherina nei luoghi al chiuso accessibili al pubblico.</b>";
+"suggestions.instruction.limit_movement" = "<b>Utilizza una stanza riservata e dotata di buona ventilazione, possibilmente con bagno dedicato,</b> e limita al massimo i movimenti in altri spazi comuni della casa.";
+"suggestions.instruction.mask.message" = "Indossala a casa o in presenza di persone non conviventi. Usala anche all’aperto quando non è possibile restare isolati.";
+"suggestions.instruction.mask.title" = "<b>Porta sempre con te la mascherina</b> e indossala nei luoghi al chiuso diversi dalla tua casa.";
 "suggestions.instruction.ministerial_decree" = "<b>Rispetta la normativa vigente nella tua area.</b>";
 "suggestions.instruction.phone_contact" = "<b>In caso di difficoltà respiratoria contatta il 112/118.</b>";
-"suggestions.instruction.social_distance" = "<b>Rispetta le misure di distanziamento fisico</b> se devi uscire di casa.";
-"suggestions.instruction.stay_home.message" = "Utilizza una stanza riservata e dotata di buona ventilazione, possibilmente con bagno dedicato.";
+"suggestions.instruction.social_distance" = "<b>Rispetta le misure di distanziamento fisico</b> ed evita gli assembramenti.";
+"suggestions.instruction.stay_home.message" = "Su indicazione dell’ASL, il periodo di quarantena potrà essere ridotto a 10 giorni in caso di test antigienico o molecolare negativo effettuato il decimo giorno.";
 "suggestions.instruction.stay_home.title" = "<b>Rimani a casa per i 14 giorni</b> successivi alla data del contatto.";
 "suggestions.instruction.under_18_message" = "Se hai meno di 18 anni, fai leggere questo messaggio ai tuoi genitori.";
 "suggestions.instruction.use_napkins" = "<b>Tossisci e starnutisci direttamente su un fazzoletto di carta o nella piega del gomito.</b>";

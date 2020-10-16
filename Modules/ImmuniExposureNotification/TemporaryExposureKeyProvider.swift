@@ -14,12 +14,13 @@
 
 import Foundation
 import Hydra
+import Models
 
 /// Provider of files containing `TemporaryExposureKey`s for Exposure Detection
 public protocol TemporaryExposureKeyProvider {
   /// Given an optional `latestKnownChunkIndex`, returns all the missing chunk of `TemporaryExposureKeys`, if any
-  func getLatestKeyChunks(latestKnownChunkIndex: Int?) -> Promise<[TemporaryExposureKeyChunk]>
-
+  func getLatestKeyChunks(latestKnownChunkIndex: Int?, country: Country?)
+    -> Promise<[TemporaryExposureKeyChunk]>
   /// Asks the provider to clean up the local resources associated with `TemporaryExposureKeyChunk`s
   func clearLocalResources(for chunks: [TemporaryExposureKeyChunk]) -> Promise<Void>
 }

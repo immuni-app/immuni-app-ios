@@ -26,6 +26,7 @@ struct HomeVM: ViewModelWithState {
   enum InfoKind: Equatable {
     case protection
     case app
+    case updateCountry
   }
 
   enum CellType: Equatable {
@@ -94,6 +95,7 @@ extension HomeVM {
     case .positive:
       cells.insert(.header(kind: .positive), at: 0)
     }
+    cells.append(.info(kind: .updateCountry))
 
     if #available(iOS 13.7, *) {
       // in iOS 13.7 or above, it seems that there is no reliable

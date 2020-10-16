@@ -175,7 +175,8 @@ extension Logic.DataUpload {
         province: userProvince.rawValue,
         exposureDetectionSummaries: state.exposureDetection.recentPositiveExposureResults.map { $0.data },
         maximumExposureInfoCount: state.configuration.dataUploadMaxExposureInfoCount,
-        maximumExposureDetectionSummaryCount: state.configuration.dataUploadMaxSummaryCount
+        maximumExposureDetectionSummaryCount: state.configuration.dataUploadMaxSummaryCount,
+        countriesOfInterest: state.exposureDetection.countriesOfInterest.map { $0.country }
       )
 
       // Send the data to the backend

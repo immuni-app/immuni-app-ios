@@ -205,7 +205,7 @@ class MockTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
     self.indexesToReturn = Array(minIndexToReturn ... maxIndexToReturn)
   }
 
-  func getLatestKeyChunks(latestKnownChunkIndex: Int?) -> Promise<[TemporaryExposureKeyChunk]> {
+  func getLatestKeyChunks(latestKnownChunkIndex: Int?, country: Country?) -> Promise<[TemporaryExposureKeyChunk]> {
     self.getLatestKeyChunksMethodCalls.append(latestKnownChunkIndex)
     // swiftlint:disable force_unwrapping
     return .init(
@@ -244,7 +244,8 @@ class MockExposureDetectionExecutor: ExposureDetectionExecutor {
     tekProvider: TemporaryExposureKeyProvider,
     now: @escaping () -> Date,
     isUserCovidPositive: Bool,
-    forceRun: Bool
+    forceRun: Bool,
+    countriesOfInterest: [CountryOfInterest]
   ) -> Promise<ExposureDetectionOutcome> {
     self.executeMethodCalls += 1
     self.detectionPeriods.append(exposureDetectionPeriod)
