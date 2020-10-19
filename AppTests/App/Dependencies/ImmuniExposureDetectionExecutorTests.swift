@@ -595,7 +595,11 @@ class MatchingMockExposureNotificationProvider: MockExposureNotificationProvider
 }
 
 class ThrowingMockTemporaryExposureKeyProvider: MockTemporaryExposureKeyProvider {
-  override func getLatestKeyChunks(latestKnownChunkIndex: Int?, country: Country?) -> Promise<[TemporaryExposureKeyChunk]> {
+  override func getLatestKeyChunks(
+    latestKnownChunkIndex: Int?,
+    country: Country?,
+    isFirstFlow: Bool?
+  ) -> Promise<[TemporaryExposureKeyChunk]> {
     return .init(rejected: NSError(domain: "Some Error", code: 1, userInfo: nil))
   }
 }

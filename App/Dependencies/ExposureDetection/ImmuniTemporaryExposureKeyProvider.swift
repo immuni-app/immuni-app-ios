@@ -37,13 +37,17 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
   public init(networkManager: NetworkManager, fileStorage: FileStorage) {
     self.networkManager = networkManager
     self.fileStorage = fileStorage
-    self.keyDailyRateLimitCounter = Self.keyDailyRateLimit
+    self.keyDailyRateLimitCounter = 0
   }
 
   func getLatestKeyChunks(
     latestKnownChunkIndex: Int?,
-    country: Country?
+    country: Country?,
+    isFirstFlow: Bool?
   ) -> Promise<[TemporaryExposureKeyChunk]> {
+    if let _ = isFirstFlow {
+      self.keyDailyRateLimitCounter = Self.keyDailyRateLimit
+    }
     return self.getMissingChunksIndexes(
       latestKnownChunkIndex: latestKnownChunkIndex,
       country: country

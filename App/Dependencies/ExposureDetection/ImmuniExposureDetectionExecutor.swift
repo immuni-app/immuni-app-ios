@@ -46,6 +46,29 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
         return
       }
 
+      var isFirstFlow: Bool?
+
+      let domani = Calendar.current.date(byAdding: .hour, value: 11, to: now())!
+
+      print("#now", now())
+      print("#domani", domani)
+      print("#lastExposureDetectionDate", lastExposureDetectionDate)
+
+      var order = Calendar.current.compare(domani, to: lastExposureDetectionDate ?? .distantPast, toGranularity: .day)
+
+      switch order {
+      case .orderedDescending:
+        print("#DESCENDING")
+      case .orderedAscending:
+        print("#ASCENDING")
+      case .orderedSame:
+        print("#SAME")
+      }
+
+      if order == .orderedDescending {
+        isFirstFlow = true
+      }
+
       let timeSinceLastDetection = now().timeIntervalSince(lastExposureDetectionDate ?? .distantPast)
       guard forceRun || timeSinceLastDetection >= exposureDetectionPeriod else {
         // Exposure detection was performed recently
@@ -74,7 +97,11 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
       do {
         keyChunks = try await(
           tekProvider
-            .getLatestKeyChunks(latestKnownChunkIndex: latestProcessedKeyChunkIndex, country: nil)
+            .getLatestKeyChunks(
+              latestKnownChunkIndex: latestProcessedKeyChunkIndex,
+              country: nil,
+              isFirstFlow: isFirstFlow
+            )
         )
         keyChunksMatrix[Country(countryId: Country.italyId, countryHumanReadableName: Country.italyHumanReadableName)] = keyChunks
       } catch {
@@ -88,7 +115,8 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
           let keyChunksTemp = try await(
             tekProvider.getLatestKeyChunks(
               latestKnownChunkIndex: countryOfInterest.latestProcessedKeyChunkIndex,
-              country: countryOfInterest.country
+              country: countryOfInterest.country,
+              isFirstFlow: nil
             )
           )
           keyChunks.append(contentsOf: keyChunksTemp)
