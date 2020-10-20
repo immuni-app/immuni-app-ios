@@ -220,7 +220,7 @@
 "suggestions.alert.hide_alert.negative_answer" = "Nein";
 "suggestions.alert.hide_alert.positive_answer" = "Ja";
 "suggestions.alert.hide_alert.title" = "Möchten Sie diesen Hinweis verbergen?";
-"suggestions.header.short_title.neutral" = "Wegbeschreibung für Sie";
+"suggestions.header.short_title.neutral" = "Vorschriften für Sie";
 "suggestions.instruction.check_symptoms.message" = "Insbesondere bei Fieber oder Auftreten von mindestens einem der folgenden Symptome: Halsschmerzen, Husten, Erkältung oder verstopfte Nase, Atembeschwerden, Muskelschmerzen, Verlust oder Veränderung von Geruch oder Geschmack, Durchfall.";
 "suggestions.instruction.check_symptoms.title" = "<b>Messen Sie die Körpertemperatur mindestens zweimal täglich und beurteilen Sie das Auftreten auch milder Symptome.</b>";
 "suggestions.instruction.contact_doctor.message" = "Erklären Sie Ihrem Arzt, dass Sie von Immuni eine Mitteilung über einen engen Kontakt mit einer positiv auf COVID-19 getesteten Person erhalten haben. Folgen Sie den Anweisungen Ihres Arztes. \n\nIhr Arzt wird sich an die Präventionsabteilung Ihrer örtlichen Gesundheitsbehörde wenden. Bleiben Sie daher für Aktivitäten zur Gesundheitsüberwachung durch Ihre örtliche Gesundheitsbehörde erreichbar.";
@@ -233,16 +233,18 @@
 "suggestions.instruction.hide_if_contact_doctor.message" = "Wenn Sie mit Ihrem Arzt oder Ihrer örtlichen Gesundheitsbehörde in Kontakt stehen, können Sie diese Warnung ausblenden.";
 "suggestions.instruction.isolate.message" = "Tragen Sie eine Mundschutzmaske und wenden Sie sich sofort an Ihren Hausarzt (oder Kinderarzt Ihrer Wahl) und die Abteilung für Gesundheitsvorsorge Ihrer örtlichen Gesundheitsbehörde.";
 "suggestions.instruction.isolate.title" = "<b>Wenn Symptome auftreten, isolieren Sie sich vom Rest Ihrer Mitbewohner.</b>";
-"suggestions.instruction.limit_movement" = "<b>Verwenden Sie einen privaten Raum mit guter Belüftung, möglicherweise mit einem eigenen Badezimmer,</b> und beschränken Sie die Bewegungen so weit wie möglich auf anderen gemeinsamen Räumen des Hauses.";
-"suggestions.instruction.mask.message" = "Tragen Sie es zu Hause oder in Gegenwart von Menschen, die nicht zusammen leben. Verwenden Sie es auch im Freien, wenn es nicht möglich ist, isoliert zu bleiben.";
-"suggestions.instruction.mask.title" = "<b>Tragen Sie die Maske immer bei sich</b> und tragen Sie sie an anderen ​geschlossenen Räumen​ als zu Hause.";
-"suggestions.instruction.ministerial_decree" = "<b>Respektieren Sie das Gesetz in Ihrer Nähe.</b>";
+"suggestions.instruction.limit_movement" = "<b>Verwenden Sie einen privaten Raum mit guter Belüftung, möglicherweise mit einem eigenen Badezimmer,</b> und beschränken Sie so weit wie möglich die Bewegungen in anderen gemeinsamen Räumen des Hauses.";
+"suggestions.instruction.mask.message" = "Tragen Sie sie zu Hause in anwesenheit von nicht zusammen wohnenden personen. Verwenden Sie sie
+auch im Freien, wenn es nicht möglich ist, isoliert zu bleiben.";
+"suggestions.instruction.mask.title" = "<b>Nehmen Sie die Maske immer mit </b> und tragen Sie sie in ​geschlossenen Räumen​ außer Ihrer wohnung.";
+"suggestions.instruction.ministerial_decree" = "<b>Respektieren Sie die maßnahmen in Ihrem gebiet.</b>";
 "suggestions.instruction.phone_contact" = "<b>Bei Atembeschwerden wenden Sie sich an 112/118.</b>";
-"suggestions.instruction.social_distance" = "<b>Respektieren Sie physische Distanzierung Maßnahmen</b> und vermeiden Sie Versammlungen.";
-"suggestions.instruction.stay_home.message" = "Bei Angabe der ASL kann die Quarantänezeit auf 10 Tage verkürzt werden, wenn am zehnten Tag ein negativer Anti-Hygiene- oder molekularer Test durchgeführt wird.";
-"suggestions.instruction.stay_home.title" = "Bleiben Sie nach dem Kontaktdatum <b>14 Tage zu Hause.</b>";
+"suggestions.instruction.social_distance" = "<b>Respektieren Sie die maßnahmen des körperlichen Abstand</b> und vermeiden Sie Versammlungen.";
+"suggestions.instruction.stay_home.message" = "Bei Angabe der ASL kann die Quarantänezeit auf 10 Tage verkürzt werden, wenn ein negativer
+Anti-Hygiene- oder molekularer Test am zehnten Tag durchgeführt wird.";
+"suggestions.instruction.stay_home.title" = "<b>Bleiben Sie 14 Tage</b>  nach dem Kontaktdatum zu Hause.";
 "suggestions.instruction.under_18_message" = "Wenn Sie unter 18 Jahre alt sind, zeigen Sie diese Nachricht Ihren Eltern.";
-"suggestions.instruction.use_napkins" = "<b>Husten und Niesen direkt auf einem Papiertaschentuch oder in der Ellbogenbeuge.</b>";
+"suggestions.instruction.use_napkins" = "<b>Husten Sie und Niesen Sie direkt auf einem Papiertaschentuch oder in der Ellbogenbeuge.</b>";
 "suggestions.instruction.wash_hands" = "<b>Waschen Sie Ihre Hände häufig</b> mit Wasser und Seife oder hydroalkoholischen Lösungen.";
 "suggestions.instruction.while_waiting_doctor" = "Als Vorsichtsmaßnahme, bis die Angaben Ihres Arztes oder Ihrer örtlichen Gesundheitsbehörde vorliegen:";
 "suggestions.neutral.alert" = "Wenn Sie mit Ihrem Arzt oder der Abteilung für Gesundheitsvorsorge Ihrer örtlichen Gesundheitsbehörde in Kontakt stehen, befolgen Sie alle Anweisungen, die Sie erhalten haben.";
