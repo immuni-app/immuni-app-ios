@@ -48,28 +48,14 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
 
       var isFirstFlow: Bool?
 
-      let domani = Calendar.current.date(byAdding: .hour, value: 11, to: now())!
-
-      print("#now", now())
-      print("#domani", domani)
-      print("#lastExposureDetectionDate", lastExposureDetectionDate)
-
-      var order = Calendar.current.compare(domani, to: lastExposureDetectionDate ?? .distantPast, toGranularity: .day)
-
-      switch order {
-      case .orderedDescending:
-        print("#DESCENDING")
-      case .orderedAscending:
-        print("#ASCENDING")
-      case .orderedSame:
-        print("#SAME")
-      }
+      let order = Calendar.current.compare(now(), to: lastExposureDetectionDate ?? .distantPast, toGranularity: .day)
 
       if order == .orderedDescending {
         isFirstFlow = true
       }
 
       let timeSinceLastDetection = now().timeIntervalSince(lastExposureDetectionDate ?? .distantPast)
+
       guard forceRun || timeSinceLastDetection >= exposureDetectionPeriod else {
         // Exposure detection was performed recently
         resolve(.noDetectionNecessary)
