@@ -46,7 +46,16 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
         return
       }
 
+      var isFirstFlow: Bool?
+
+      let order = Calendar.current.compare(now(), to: lastExposureDetectionDate ?? .distantPast, toGranularity: .day)
+
+      if order == .orderedDescending {
+        isFirstFlow = true
+      }
+
       let timeSinceLastDetection = now().timeIntervalSince(lastExposureDetectionDate ?? .distantPast)
+
       guard forceRun || timeSinceLastDetection >= exposureDetectionPeriod else {
         // Exposure detection was performed recently
         resolve(.noDetectionNecessary)
@@ -74,7 +83,11 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
       do {
         keyChunks = try await(
           tekProvider
-            .getLatestKeyChunks(latestKnownChunkIndex: latestProcessedKeyChunkIndex, country: nil)
+            .getLatestKeyChunks(
+              latestKnownChunkIndex: latestProcessedKeyChunkIndex,
+              country: nil,
+              isFirstFlow: isFirstFlow
+            )
         )
         keyChunksMatrix[Country(countryId: Country.italyId, countryHumanReadableName: Country.italyHumanReadableName)] = keyChunks
       } catch {
@@ -88,7 +101,8 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
           let keyChunksTemp = try await(
             tekProvider.getLatestKeyChunks(
               latestKnownChunkIndex: countryOfInterest.latestProcessedKeyChunkIndex,
-              country: countryOfInterest.country
+              country: countryOfInterest.country,
+              isFirstFlow: nil
             )
           )
           keyChunks.append(contentsOf: keyChunksTemp)

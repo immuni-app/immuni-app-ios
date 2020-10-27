@@ -205,7 +205,11 @@ class MockTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
     self.indexesToReturn = Array(minIndexToReturn ... maxIndexToReturn)
   }
 
-  func getLatestKeyChunks(latestKnownChunkIndex: Int?, country: Country?) -> Promise<[TemporaryExposureKeyChunk]> {
+  func getLatestKeyChunks(
+    latestKnownChunkIndex: Int?,
+    country: Country?,
+    isFirstFlow: Bool?
+  ) -> Promise<[TemporaryExposureKeyChunk]> {
     self.getLatestKeyChunksMethodCalls.append(latestKnownChunkIndex)
     // swiftlint:disable force_unwrapping
     return .init(
