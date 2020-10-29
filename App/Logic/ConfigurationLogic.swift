@@ -31,6 +31,7 @@ extension Logic.Configuration {
       }
 
       let configuration = try await(context.dependencies.networkManager.getConfiguration(for: buildNumber))
+
       try context.awaitDispatch(UpdateConfiguration(configuration: configuration))
 
       // refresh FAQs as well

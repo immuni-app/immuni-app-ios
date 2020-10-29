@@ -29,6 +29,7 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
   ///
   /// - seeAlso: https://developer.apple.com/documentation/exposurenotification/setting_up_an_exposure_notification_server
   static let keyDailyRateLimit = 15
+  private var keyDailyRateLimitCounter: Int
 
   private let networkManager: NetworkManager
   private let fileStorage: FileStorage
@@ -36,10 +37,21 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
   public init(networkManager: NetworkManager, fileStorage: FileStorage) {
     self.networkManager = networkManager
     self.fileStorage = fileStorage
+    self.keyDailyRateLimitCounter = 0
   }
 
-  func getLatestKeyChunks(latestKnownChunkIndex: Int?) -> Promise<[TemporaryExposureKeyChunk]> {
-    return self.getMissingChunksIndexes(latestKnownChunkIndex: latestKnownChunkIndex)
+  func getLatestKeyChunks(
+    latestKnownChunkIndex: Int?,
+    country: Country?,
+    isFirstFlow: Bool?
+  ) -> Promise<[TemporaryExposureKeyChunk]> {
+    if let _ = isFirstFlow {
+      self.keyDailyRateLimitCounter = Self.keyDailyRateLimit
+    }
+    return self.getMissingChunksIndexes(
+      latestKnownChunkIndex: latestKnownChunkIndex,
+      country: country
+    )
       .recover { error in
         guard case NetworkManager.Error.noBatchesFound = error else {
           // Unrecoverable error
@@ -49,7 +61,7 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
         // No batches at all found on backend. Equivalent to no new batches.
         return .init(resolved: [])
       }
-      .then { self.downloadChunks(with: $0) }
+      .then { self.downloadChunks(with: $0, country: country) }
   }
 
   func clearLocalResources(for chunks: [TemporaryExposureKeyChunk]) -> Promise<Void> {
@@ -57,8 +69,8 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
       .delete(chunks.flatMap { $0.localUrls })
   }
 
-  func getMissingChunksIndexes(latestKnownChunkIndex: Int?) -> Promise<[Int]> {
-    self.networkManager.getKeysIndex()
+  func getMissingChunksIndexes(latestKnownChunkIndex: Int?, country: Country?) -> Promise<[Int]> {
+    self.networkManager.getKeysIndex(country: country)
       .then { (keysIndex: KeysIndex) -> [Int] in
 
         let latestKnown = latestKnownChunkIndex ?? -1
@@ -84,12 +96,26 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
         // Note that the subsequent runs within 24 hours will fail anyway, but the manager should handle
         // them and retry as soon as possible. Assuming we don't publish more than 15 chunks per day
         // (which we won't) the algorithm is stable
-        return (firstKeyToDownload ... keysIndex.newest).suffix(Self.keyDailyRateLimit)
+
+        let indexCount = (firstKeyToDownload ... keysIndex.newest).suffix(Self.keyDailyRateLimit).count
+        if #available(iOS 13.6, *) {
+          return (firstKeyToDownload ... keysIndex.newest).suffix(Self.keyDailyRateLimit)
+        } else {
+          if self.keyDailyRateLimitCounter - indexCount >= 0 {
+            let indexDailyRate = self.keyDailyRateLimitCounter
+            self.keyDailyRateLimitCounter = self.keyDailyRateLimitCounter - indexCount
+            return (firstKeyToDownload ... keysIndex.newest).suffix(indexDailyRate)
+          } else {
+            let indexDailyRate = self.keyDailyRateLimitCounter
+            self.keyDailyRateLimitCounter = 0
+            return (firstKeyToDownload ... keysIndex.newest).suffix(indexDailyRate)
+          }
+        }
       }
   }
 
-  private func downloadChunks(with indexes: [Int]) -> Promise<[TemporaryExposureKeyChunk]> {
-    self.networkManager.downloadChunks(with: indexes)
+  private func downloadChunks(with indexes: [Int], country: Country?) -> Promise<[TemporaryExposureKeyChunk]> {
+    self.networkManager.downloadChunks(with: indexes, country: country)
       .then { chunksData in
         assert(chunksData.count == indexes.count)
 
@@ -97,7 +123,7 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
 
         let fileWritePromises = chunksWithIndexes
           .map { chunkData, index in
-            self.fileStorage.write(chunkData, with: Self.fileName(for: index))
+            self.fileStorage.write(chunkData, with: Self.fileName(for: index, country: country))
               .then { localUrls in TemporaryExposureKeyChunk(localUrls: localUrls, index: index) }
           }
 
@@ -105,7 +131,10 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
       }
   }
 
-  private static func fileName(for index: Int) -> String {
-    return String(format: "tek_%06d", index)
+  private static func fileName(for index: Int, country: Country?) -> String {
+    guard let country = country else {
+      return String(format: "tek_%06d", index)
+    }
+    return String(format: "%@_tek_%06d", country.countryId, index)
   }
 }

@@ -85,7 +85,7 @@ targets:
         CFBundleName: Immuni
         CFBundleDisplayName: Immuni
         CFBundleIcons: {}
-        CFBundleShortVersionString: "1.4.0"
+        CFBundleShortVersionString: "2.1.1"
         CFBundleVersion: "${BUNDLE_VERSION}"
         ENAPIVersion: 1
         ENDeveloperRegion: IT

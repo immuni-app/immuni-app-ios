@@ -36,7 +36,8 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
     tekProvider: TemporaryExposureKeyProvider,
     now: @escaping () -> Date,
     isUserCovidPositive: Bool,
-    forceRun: Bool
+    forceRun: Bool,
+    countriesOfInterest: [CountryOfInterest]
   ) -> Promise<ExposureDetectionOutcome> {
     return Promise(in: .custom(queue: Self.queue)) { resolve, _, _ in
       guard #available(iOS 13.5, *) else {
@@ -45,7 +46,16 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
         return
       }
 
+      var isFirstFlow: Bool?
+
+      let order = Calendar.current.compare(now(), to: lastExposureDetectionDate ?? .distantPast, toGranularity: .day)
+
+      if order == .orderedDescending {
+        isFirstFlow = true
+      }
+
       let timeSinceLastDetection = now().timeIntervalSince(lastExposureDetectionDate ?? .distantPast)
+
       guard forceRun || timeSinceLastDetection >= exposureDetectionPeriod else {
         // Exposure detection was performed recently
         resolve(.noDetectionNecessary)
@@ -66,19 +76,41 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
         resolve(.error(.notAuthorized))
         return
       }
+      var keyChunksMatrix: [Country: [TemporaryExposureKeyChunk]] = [:]
 
-      // Download the keys
-      let keyChunks: [TemporaryExposureKeyChunk]
+      // Download the italian keys
+      var keyChunks: [TemporaryExposureKeyChunk] = []
       do {
         keyChunks = try await(
           tekProvider
-            .getLatestKeyChunks(latestKnownChunkIndex: latestProcessedKeyChunkIndex)
+            .getLatestKeyChunks(
+              latestKnownChunkIndex: latestProcessedKeyChunkIndex,
+              country: nil,
+              isFirstFlow: isFirstFlow
+            )
         )
+        keyChunksMatrix[Country(countryId: Country.italyId, countryHumanReadableName: Country.italyHumanReadableName)] = keyChunks
       } catch {
         resolve(.error(.unableToRetrieveKeys(error)))
         return
       }
 
+      // Download the foreign keys
+      for countryOfInterest in countriesOfInterest {
+        do {
+          let keyChunksTemp = try await(
+            tekProvider.getLatestKeyChunks(
+              latestKnownChunkIndex: countryOfInterest.latestProcessedKeyChunkIndex,
+              country: countryOfInterest.country,
+              isFirstFlow: nil
+            )
+          )
+          keyChunks.append(contentsOf: keyChunksTemp)
+          keyChunksMatrix[countryOfInterest.country] = keyChunksTemp
+        } catch {
+          continue
+        }
+      }
       defer {
         // Cleanup the local files of the downloaded chunks
         try? await(tekProvider.clearLocalResources(for: keyChunks))
@@ -90,11 +122,13 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
         return
       }
 
-      let firstProcessedChunk = keyChunks.map { $0.index }.min()
-        ?? AppLogger.fatalError("keyChunks cannot be empty at this stage")
+      var firstProcessedChunk: [String: Int] = [:]
+      var lastProcessedChunk: [String: Int] = [:]
 
-      let lastProcessedChunk = keyChunks.map { $0.index }.max()
-        ?? AppLogger.fatalError("keyChunks cannot be empty at this stage")
+      for (key, value) in keyChunksMatrix {
+        firstProcessedChunk[key.countryId] = value.map { $0.index }.min()
+        lastProcessedChunk[key.countryId] = value.map { $0.index }.max()
+      }
 
       // Retrieve the summary
       let summary: ExposureDetectionSummary

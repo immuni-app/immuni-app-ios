@@ -48,6 +48,8 @@ private extension SettingsVC {
       self.dispatch(Logic.Settings.ShowPrivacyNotice())
     case .chageProvince:
       self.dispatch(Logic.Settings.ShowUpdateProvince())
+    case .updateCountry:
+      self.store.dispatch(Logic.Settings.ShowUpdateCountry())
     case .shareApp:
       self.dispatch(Logic.Settings.ShareApp())
     case .customerSupport:

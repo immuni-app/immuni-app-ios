@@ -38,6 +38,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       minimumRiskScore: 1
     )
 
+    let countriesOfInterest: [CountryOfInterest] = []
+
     let promise = executor.execute(
       exposureDetectionPeriod: 0,
       lastExposureDetectionDate: nil,
@@ -49,7 +51,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
       isUserCovidPositive: false,
-      forceRun: true
+      forceRun: true,
+      countriesOfInterest: countriesOfInterest
     )
     promise.run()
     expectToEventually(!promise.isPending)
@@ -89,7 +92,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
       isUserCovidPositive: false,
-      forceRun: true
+      forceRun: true,
+      countriesOfInterest: []
     )
 
     promise.run()
@@ -115,7 +119,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
       isUserCovidPositive: false,
-      forceRun: false
+      forceRun: false,
+      countriesOfInterest: []
     )
     promise.run()
     expectToEventually(!promise.isPending)
@@ -139,7 +144,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 0),
       now: { Date() },
       isUserCovidPositive: false,
-      forceRun: true
+      forceRun: true,
+      countriesOfInterest: []
     )
     promise.run()
 
@@ -164,7 +170,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
       isUserCovidPositive: false,
-      forceRun: true
+      forceRun: true,
+      countriesOfInterest: []
     )
 
     promise.run()
@@ -190,7 +197,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
       isUserCovidPositive: false,
-      forceRun: false
+      forceRun: false,
+      countriesOfInterest: []
     )
 
     promise.run()
@@ -216,7 +224,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
       isUserCovidPositive: false,
-      forceRun: true
+      forceRun: true,
+      countriesOfInterest: []
     )
 
     promise.run()
@@ -242,7 +251,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
       isUserCovidPositive: false,
-      forceRun: false
+      forceRun: false,
+      countriesOfInterest: []
     )
 
     promise.run()
@@ -268,7 +278,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
       isUserCovidPositive: false,
-      forceRun: false
+      forceRun: false,
+      countriesOfInterest: []
     )
 
     promise.run()
@@ -297,7 +308,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       tekProvider: tekProvider,
       now: { Date() },
       isUserCovidPositive: false,
-      forceRun: false
+      forceRun: false,
+      countriesOfInterest: []
     )
 
     promise.run()
@@ -325,7 +337,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       tekProvider: tekProvider,
       now: { Date() },
       isUserCovidPositive: false,
-      forceRun: true
+      forceRun: true,
+      countriesOfInterest: []
     )
 
     promise.run()
@@ -350,7 +363,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
       isUserCovidPositive: false,
-      forceRun: false
+      forceRun: false,
+      countriesOfInterest: []
     )
 
     promise.run()
@@ -378,7 +392,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       tekProvider: ThrowingMockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
       isUserCovidPositive: false,
-      forceRun: false
+      forceRun: false,
+      countriesOfInterest: []
     )
 
     promise.run()
@@ -406,7 +421,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
       isUserCovidPositive: false,
-      forceRun: false
+      forceRun: false,
+      countriesOfInterest: []
     )
 
     promise.run()
@@ -434,7 +450,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       tekProvider: MockTemporaryExposureKeyProvider(urlsToReturn: 1),
       now: { Date() },
       isUserCovidPositive: false,
-      forceRun: false
+      forceRun: false,
+      countriesOfInterest: []
     )
 
     promise.run()
@@ -451,8 +468,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
   func testCorrectIndexBoundariesAreReturnedForPartialDetection() throws {
     let executor = ImmuniExposureDetectionExecutor()
 
-    let minIndex = 4
-    let maxIndex = 6
+    let minIndex = ["IT": 4]
+    let maxIndex = ["IT": 6]
 
     let promise = executor.execute(
       exposureDetectionPeriod: 0,
@@ -462,10 +479,11 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       exposureInfoRiskScoreThreshold: 0,
       userExplanationMessage: "this is a test",
       enManager: .init(provider: NoMatchMockExposureNotificationProvider(overriddenStatus: .authorized)),
-      tekProvider: MockTemporaryExposureKeyProvider(minIndexToReturn: minIndex, maxIndexToReturn: maxIndex),
+      tekProvider: MockTemporaryExposureKeyProvider(minIndexToReturn: minIndex["IT"]!, maxIndexToReturn: maxIndex["IT"]!),
       now: { Date() },
       isUserCovidPositive: false,
-      forceRun: false
+      forceRun: false,
+      countriesOfInterest: []
     )
 
     promise.run()
@@ -484,8 +502,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
   func testCorrectIndexBoundariesAreReturnedForFullDetection() throws {
     let executor = ImmuniExposureDetectionExecutor()
 
-    let minIndex = 4
-    let maxIndex = 6
+    let minIndex = ["IT": 4]
+    let maxIndex = ["IT": 6]
 
     let promise = executor.execute(
       exposureDetectionPeriod: 0,
@@ -495,10 +513,11 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       exposureInfoRiskScoreThreshold: 0,
       userExplanationMessage: "this is a test",
       enManager: .init(provider: MatchingMockExposureNotificationProvider(overriddenStatus: .authorized)),
-      tekProvider: MockTemporaryExposureKeyProvider(minIndexToReturn: minIndex, maxIndexToReturn: maxIndex),
+      tekProvider: MockTemporaryExposureKeyProvider(minIndexToReturn: minIndex["IT"]!, maxIndexToReturn: maxIndex["IT"]!),
       now: { Date() },
       isUserCovidPositive: false,
-      forceRun: true
+      forceRun: true,
+      countriesOfInterest: []
     )
 
     promise.run()
@@ -517,8 +536,8 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
   func testPreventFullDetectionWhenPositive() throws {
     let executor = ImmuniExposureDetectionExecutor()
 
-    let minIndex = 4
-    let maxIndex = 6
+    let minIndex = ["IT": 4]
+    let maxIndex = ["IT": 6]
 
     let promise = executor.execute(
       exposureDetectionPeriod: 0,
@@ -528,10 +547,11 @@ final class ImmuniExposureDetectionExecutorTests: XCTestCase {
       exposureInfoRiskScoreThreshold: 0,
       userExplanationMessage: "this is a test",
       enManager: .init(provider: MatchingMockExposureNotificationProvider(overriddenStatus: .authorized)),
-      tekProvider: MockTemporaryExposureKeyProvider(minIndexToReturn: minIndex, maxIndexToReturn: maxIndex),
+      tekProvider: MockTemporaryExposureKeyProvider(minIndexToReturn: minIndex["IT"]!, maxIndexToReturn: maxIndex["IT"]!),
       now: { Date() },
       isUserCovidPositive: true,
-      forceRun: false
+      forceRun: false,
+      countriesOfInterest: []
     )
 
     promise.run()
@@ -575,7 +595,11 @@ class MatchingMockExposureNotificationProvider: MockExposureNotificationProvider
 }
 
 class ThrowingMockTemporaryExposureKeyProvider: MockTemporaryExposureKeyProvider {
-  override func getLatestKeyChunks(latestKnownChunkIndex: Int?) -> Promise<[TemporaryExposureKeyChunk]> {
+  override func getLatestKeyChunks(
+    latestKnownChunkIndex: Int?,
+    country: Country?,
+    isFirstFlow: Bool?
+  ) -> Promise<[TemporaryExposureKeyChunk]> {
     return .init(rejected: NSError(domain: "Some Error", code: 1, userInfo: nil))
   }
 }

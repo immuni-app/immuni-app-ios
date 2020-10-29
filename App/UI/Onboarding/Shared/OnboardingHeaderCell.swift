@@ -107,7 +107,7 @@ final class OnboardingHeaderCell: UICollectionViewCell, ModellableView, Reusable
     return CGSize(
       width: size.width,
       height: titleSize.height + Self.titleToDescriptionSpacing + descriptionSize.height + Self
-        .descriptionToActionSpacing + actionButtonSize.height
+        .descriptionToActionSpacing + (!(self.model?.actionButtonTitle.isEmpty ?? true) ? actionButtonSize.height : 0)
     )
   }
 }

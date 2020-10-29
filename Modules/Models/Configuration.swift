@@ -17,6 +17,7 @@ import Foundation
 
 public struct Configuration: Codable {
   enum CodingKeys: String, CodingKey {
+    case countries
     case minimumBuildVersion = "minimum_build_version"
     case serviceNotActiveNotificationPeriod = "service_not_active_notification_period"
     case osForceUpdateNotificationPeriod = "onboarding_not_completed_notification_period"
@@ -45,6 +46,9 @@ public struct Configuration: Codable {
     case supportPhoneOpeningTime = "support_phone_opening_time"
     case supportPhoneClosingTime = "support_phone_closing_time"
   }
+
+  /// Countries of interest map
+  public let countries: [String: [String: String]]
 
   /// This is used to enforce a minimum version of the app.
   /// If the currently installed app has a lower version than the one specified
@@ -171,6 +175,7 @@ public struct Configuration: Codable {
 
   /// Public initializer to allow testing
   public init(
+    countries: [String: [String: String]] = .defaultCountries,
     minimumBuildVersion: Int = 1,
     serviceNotActiveNotificationPeriod: TimeInterval = 86400,
     osForceUpdateNotificationPeriod: TimeInterval = 86400,
@@ -199,6 +204,7 @@ public struct Configuration: Codable {
     supportPhoneOpeningTime: String? = nil,
     supportPhoneClosingTime: String? = nil
   ) {
+    self.countries = countries
     self.minimumBuildVersion = minimumBuildVersion
     self.serviceNotActiveNotificationPeriod = serviceNotActiveNotificationPeriod
     self.osForceUpdateNotificationPeriod = osForceUpdateNotificationPeriod
@@ -332,5 +338,74 @@ public extension Dictionary where Key == String, Value == URL {
     }
 
     return Dictionary(uniqueKeysWithValues: values)
+  }
+}
+
+public extension Dictionary where Key == String, Value == [String: String] {
+  /// default values for countries
+  static var defaultCountries: [String: [String: String]] {
+    let values = [
+      "it": [
+        "AT": "AUSTRIA",
+        "DK": "DANIMARCA",
+        "EE": "ESTONIA",
+        "DE": "GERMANIA",
+        "IE": "IRLANDA",
+        "LV": "LETTONIA",
+        "NL": "OLANDA",
+        "PL": "POLONIA",
+        "CZ": "REPUBBLICA CECA",
+        "ES": "SPAGNA"
+      ],
+      "de": [
+        "AT": "ÖSTERREICH",
+        "DK": "DÄNEMARK",
+        "EE": "ESTONIA",
+        "DE": "DEUTSCHLAND",
+        "IE": "IRLAND",
+        "LV": "LETTLAND",
+        "NL": "NIEDERLANDE",
+        "PL": "POLEN",
+        "CZ": "TSCHECHISCHE REPUBLIK",
+        "ES": "SPANIEN"
+      ],
+      "en": [
+        "AT": "AUSTRIA",
+        "DK": "DENMARK",
+        "EE": "ESTONIA",
+        "DE": "GERMANY",
+        "IE": "IRELAND",
+        "LV": "LATVIA",
+        "NL": "NETHERLANDS",
+        "PL": "POLAND",
+        "CZ": "CZECH REPUBLIC",
+        "ES": "SPAIN"
+      ],
+      "fr": [
+        "AT": "AUTRICHE",
+        "DK": "DANEMARK",
+        "EE": "ESTONIE",
+        "DE": "ALLEMAGNE",
+        "IE": "IRLANDE",
+        "LV": "LETTONIE",
+        "NL": "PAYS-BAS",
+        "PL": "POLOGNE",
+        "CZ": "RÉPUBLIQUE TCHÈQUE",
+        "ES": "ESPAGNE"
+      ],
+      "es": [
+        "AT": "AUSTRIA",
+        "DK": "DINAMARCA",
+        "EE": "ESTONIA",
+        "DE": "ALEMANIA",
+        "IE": "IRLANDA",
+        "LV": "LETONIA",
+        "NL": "PAÍSES BAJOS",
+        "PL": "POLONIA",
+        "CZ": "REPÚBLICA CHECA",
+        "ES": "ESPAÑA"
+      ]
+    ]
+    return values
   }
 }

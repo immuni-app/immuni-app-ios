@@ -21,10 +21,16 @@ public struct KeysIndexRequest: ModelResponseSerializer {
 
   // swiftlint:disable:next force_unwrapping
   public var baseURL = URL(string: "https://get.immuni.gov.it")!
+  public var path: String {
+    guard let country = self.country else {
+      return "/v1/keys/index"
+    }
+    return "/v1/keys/eu/\(country.countryId)/index"
+  }
 
-  public var path = "/v1/keys/index"
   public var method: HTTPMethod = .get
   public var cachePolicy: NSURLRequest.CachePolicy = .immuniPolicy
   public var parameters: [String: Any] = [:]
   public var headers: [HTTPHeader] = HTTPHeader.defaultImmuniHeaders
+  let country: Country?
 }

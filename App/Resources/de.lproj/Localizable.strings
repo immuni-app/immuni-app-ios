@@ -47,8 +47,9 @@
 "home_view.info.button.title" = "Mehr erfahren";
 "home_view.info.protection.title" = "So können Sie sich schützen";
 "home_view.info_header.title" = "Informationen";
+"home_view.info.update_countries.title" = "Wenn Sie in ein anderes europäisches Land reisen";
 "home_view.service.active.discover_more" = "Mehr erfahren";
-"home_view.service.active.subtitle" = "Immuni bleibt aktiv, auch wenn die App geschlossen ist.";
+"home_view.service.active.subtitle" = "Öffnen Sie Immuni einmal täglich, um den Status zu überprüfen.";
 "home_view.service.active.title" = "Service\n<b>aktiv</b>";
 "home_view.service.deactivate" = "Service deaktivieren";
 "home_view.service.not_active.button" = "Immuni erneut aktivieren";
@@ -106,6 +107,12 @@
 "onboarding.region.title" = "In welcher Region leben Sie?";
 "onboarding_exposure_api_not_activated" = "Kontaktmitteilungen nicht aktiviert";
 "onboarding_exposure_message_extended" = "Aufgrund einer Einschränkung des Betriebssystems muss der Geolokalisierungsdienst aktiv sein, damit der Austausch von Zufallscodes über Bluetooth möglich ist. <b>Immuni greift nicht auf Ihren Standort zu. Sie können dies anhand der Liste der Berechtigungen, die für die App erforderlich sind, überprüfen.</b>";
+"countries_of_interest.title" = "Gehen Sie in eines oder mehrere dieser europäischen Länder?";
+"countries_of_interest.description" =  "Wenn Sie nach Europa reisen, können Sie das/die interessierende (n) Land (e) Länder auswählen, sofern /das bereits der Interoperabilität beigetreten ist, damit Immuni eine Verbindung zu den anderen europäischen Kontactverfolgungs-APPs herstellen und die verbreitung von Covid-19 in Europa eindämmen kann. Sie können maximal 3 Länder auswählen. Ihre Auswahl ist 14 Tage lang gültig und bei der keine Veränderung mehr für 14 Tage möglich ist.";
+"countries_of_interest.alert.title" = "Auswahlgrenze überschritten";
+"countries_of_interest.alert.description" = "Sie können maximal 3 Länder auswählen. Ihre Auswahl ist 14 Tage lang gültig und bei der keine Veränderung mehr für 14 Tage möglich ist.";
+"countries_of_interest.confirm.title" = "Sind Sie sich sicher, dass Sie fortfahren möchten?";
+"countries_of_interest.confirm.description" = "Durch die Bestätigung können Sie die ausgewählten Länder für die nächsten 14 Tage nicht entfernen.";
 "open_settings" = "Einstellungen öffnen";
 "permission_tutorial.bluetooth.action" = "Einstellungen öffnen";
 "permission_tutorial.bluetooth.first" = "<b>1. Weiter zum Kontrollzentrum.</b>Je nach Gerät müssen Sie dazu die rechte obere Bildschirmecke nach unten bzw. den unteren Bildschirmrand nach oben ziehen.";
@@ -172,7 +179,7 @@
 "permission_tutorial.why_province_region.title" = "Darum sollten Sie die Region und Provinz Ihres Wohnsitzes angeben";
 "privacy.checkbox.above14" = "Ich bin mindestens 14 Jahre alt";
 "privacy.checkbox.privacyPolicyRead" = "Ich habe die <l>Datenschutzerklärung</l> gelesen";
-"privacy.item.data_deletion" = "<b>Alle Daten werden gelöscht, sobald sie nicht mehr benötigt werden</b>. Die Löschung erfolgt bis spätestens 31. Dezember 2020.";
+"privacy.item.data_deletion" = "<b>Alle Daten werden gelöscht, sobald sie nicht mehr benötigt werden</b>";
 "privacy.item.identity" = "<b>Immuni erfasst weder Ihren Vor- und Nachnamen, noch Ihr Geburtsdatum, Ihre Adresse, Telefonnummer oder E-Mail-Adresse.</b>";
 "privacy.item.italy" = "Ihre Daten werden auf Servern in Italien gespeichert, <b>von öffentlichen Stellen verwaltet und vom Gesundheitsministerium überwacht.</b>";
 "privacy.item.location" = "<b>Immuni sammelt keine Geolokalisierungsdaten</b>, somit auch keine GPS-Daten. Ihre Bewegungen werden in keiner Weise nachverfolgt.";
@@ -198,6 +205,7 @@
 "settings.setting.share" = "App teilen";
 "settings.setting.share.message" = "Helfen Sie uns, gemeinsam die COVID-19-Epidemie zu bekämpfen. Laden Sie auch Immuni herunter. https://www.immuni.italia.it/";
 "settings.setting.tos" = "Nutzungsbedingungen";
+"settings.setting.chage_countries" = "Wählen Sie ein europäisches Land aus";
 "settings.update_province.update_province" = "Aktualisieren";
 "settings_app_version" = "Immuni v%s (%d)";
 "suggestions.alert.asl_contact_confirmation.description" = "Immuni blendet die Kontaktwarnung aus. Sie müssen weiterhin alle Hinweise befolgen, die Sie von Ihrem Arzt oder Ihrer örtlichen Gesundheitsbehörde erhalten haben.";
@@ -212,12 +220,12 @@
 "suggestions.alert.hide_alert.negative_answer" = "Nein";
 "suggestions.alert.hide_alert.positive_answer" = "Ja";
 "suggestions.alert.hide_alert.title" = "Möchten Sie diesen Hinweis verbergen?";
-"suggestions.header.short_title.neutral" = "Anweisungen für Sie";
+"suggestions.header.short_title.neutral" = "Vorschriften für Sie";
 "suggestions.instruction.check_symptoms.message" = "Insbesondere bei Fieber oder Auftreten von mindestens einem der folgenden Symptome: Halsschmerzen, Husten, Erkältung oder verstopfte Nase, Atembeschwerden, Muskelschmerzen, Verlust oder Veränderung von Geruch oder Geschmack, Durchfall.";
 "suggestions.instruction.check_symptoms.title" = "<b>Messen Sie die Körpertemperatur mindestens zweimal täglich und beurteilen Sie das Auftreten auch milder Symptome.</b>";
 "suggestions.instruction.contact_doctor.message" = "Erklären Sie Ihrem Arzt, dass Sie von Immuni eine Mitteilung über einen engen Kontakt mit einer positiv auf COVID-19 getesteten Person erhalten haben. Folgen Sie den Anweisungen Ihres Arztes. \n\nIhr Arzt wird sich an die Präventionsabteilung Ihrer örtlichen Gesundheitsbehörde wenden. Bleiben Sie daher für Aktivitäten zur Gesundheitsüberwachung durch Ihre örtliche Gesundheitsbehörde erreichbar.";
 "suggestions.instruction.contact_doctor.title" = "<b>Wenden Sie sich an Ihren Hausarzt (oder an einen Kinderarzt Ihrer Wahl)</b>";
-"suggestions.instruction.distance" = "<b>Halten Sie bei Anwesenheit anderer Personen einen Abstand von mindestens einem Meter ein.</b>";
+"suggestions.instruction.distance" = "<b>Halten Sie in Anwesenheit anderer Personen einen Abstand von mindestens einem Meter ein.</b>";
 "suggestions.instruction.follow_instructions" = "Beachten Sie zum Schutz Ihrer Gesundheit und der Ihrer Angehörigen <b>die folgenden Richtlinien:</b>";
 "suggestions.instruction.hide_alert.action" = "Warnung ausblenden";
 "suggestions.instruction.hide_alert.message" = "Bei Bedarf können Sie diese Warnung ausblenden. Sofern Sie keinen triftigen Grund haben, raten wir Ihnen dringend davon ab.";
@@ -225,16 +233,18 @@
 "suggestions.instruction.hide_if_contact_doctor.message" = "Wenn Sie mit Ihrem Arzt oder Ihrer örtlichen Gesundheitsbehörde in Kontakt stehen, können Sie diese Warnung ausblenden.";
 "suggestions.instruction.isolate.message" = "Tragen Sie eine Mundschutzmaske und wenden Sie sich sofort an Ihren Hausarzt (oder Kinderarzt Ihrer Wahl) und die Abteilung für Gesundheitsvorsorge Ihrer örtlichen Gesundheitsbehörde.";
 "suggestions.instruction.isolate.title" = "<b>Wenn Symptome auftreten, isolieren Sie sich vom Rest Ihrer Mitbewohner.</b>";
-"suggestions.instruction.limit_movement" = "<b>Schränken Sie die Nutzung anderer Gemeinschaftsräume des Hauses so weit es geht ein.</b>";
-"suggestions.instruction.mask.message" = "Auch in Transportmitteln und in jedem Fall überall, wo es nicht möglich ist, die Einhaltung des Sicherheitsabstands kontinuierlich zu gewährleisten.";
-"suggestions.instruction.mask.title" = "<b>Tragen Sie in öffentlich zugänglichen Innenräumen eine Maske.</b>";
-"suggestions.instruction.ministerial_decree" = "<b>Befolgen Sie die aktuellen Vorschriften in Ihrer Region.</b>";
+"suggestions.instruction.limit_movement" = "<b>Verwenden Sie einen privaten Raum mit guter Belüftung, möglicherweise mit einem eigenen Badezimmer,</b> und beschränken Sie so weit wie möglich die Bewegungen in anderen gemeinsamen Räumen des Hauses.";
+"suggestions.instruction.mask.message" = "Tragen Sie sie zu Hause in anwesenheit von nicht zusammen wohnenden personen. Verwenden Sie sie
+auch im Freien, wenn es nicht möglich ist, isoliert zu bleiben.";
+"suggestions.instruction.mask.title" = "<b>Nehmen Sie die Maske immer mit </b> und tragen Sie sie in ​geschlossenen Räumen​ außer Ihrer wohnung.";
+"suggestions.instruction.ministerial_decree" = "<b>Respektieren Sie die maßnahmen in Ihrem gebiet.</b>";
 "suggestions.instruction.phone_contact" = "<b>Bei Atembeschwerden wenden Sie sich an 112/118.</b>";
-"suggestions.instruction.social_distance" = "<b>Respektieren Sie die physischen Distanzierungsmaßnahmen</b>, wenn Sie das Haus verlassen müssen.";
-"suggestions.instruction.stay_home.message" = "Verwenden Sie einen privaten Raum und achten Sie auf eine gute Belüftung. Nutzen Sie, falls möglich, ein eigenes Badezimmer.";
-"suggestions.instruction.stay_home.title" = "<b>Bleiben Sie für 14 Tage nach dem Datum des Kontakts zu Hause.</b>";
+"suggestions.instruction.social_distance" = "<b>Respektieren Sie die maßnahmen des körperlichen Abstand</b> und vermeiden Sie Versammlungen.";
+"suggestions.instruction.stay_home.message" = "Bei Angabe der ASL kann die Quarantänezeit auf 10 Tage verkürzt werden, wenn ein negativer
+Anti-Hygiene- oder molekularer Test am zehnten Tag durchgeführt wird.";
+"suggestions.instruction.stay_home.title" = "<b>Bleiben Sie 14 Tage</b>  nach dem Kontaktdatum zu Hause.";
 "suggestions.instruction.under_18_message" = "Wenn Sie unter 18 Jahre alt sind, zeigen Sie diese Nachricht Ihren Eltern.";
-"suggestions.instruction.use_napkins" = "<b>Husten und Niesen Sie direkt in ein Taschentuch oder in die Armbeuge.</b>";
+"suggestions.instruction.use_napkins" = "<b>Husten Sie und Niesen Sie direkt auf einem Papiertaschentuch oder in der Ellbogenbeuge.</b>";
 "suggestions.instruction.wash_hands" = "<b>Waschen Sie Ihre Hände häufig</b> mit Wasser und Seife oder hydroalkoholischen Lösungen.";
 "suggestions.instruction.while_waiting_doctor" = "Als Vorsichtsmaßnahme, bis die Angaben Ihres Arztes oder Ihrer örtlichen Gesundheitsbehörde vorliegen:";
 "suggestions.neutral.alert" = "Wenn Sie mit Ihrem Arzt oder der Abteilung für Gesundheitsvorsorge Ihrer örtlichen Gesundheitsbehörde in Kontakt stehen, befolgen Sie alle Anweisungen, die Sie erhalten haben.";

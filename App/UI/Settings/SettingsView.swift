@@ -22,6 +22,7 @@ struct SettingsVM: ViewModelWithLocalState {
     case tos
     case privacy
     case chageProvince
+    case updateCountry
     case shareApp
     case customerSupport
     case leaveReview
@@ -96,7 +97,7 @@ struct SettingsVM: ViewModelWithLocalState {
 
     Section(
       header: .general,
-      settings: [.shareApp, .customerSupport, .leaveReview, .chageProvince]
+      settings: [.shareApp, .customerSupport, .leaveReview, .chageProvince, .updateCountry]
     )
   ]
 }
