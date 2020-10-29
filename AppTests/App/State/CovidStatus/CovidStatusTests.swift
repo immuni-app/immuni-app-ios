@@ -119,7 +119,8 @@ fileprivate extension CovidStatus {
       return true
     case (.risk(let lhsLastContact), .risk(let rhsLastContact)):
       return lhsLastContact == rhsLastContact
-    case (.positive, .neutral), (.positive, .risk), (.risk, .positive), (.risk, .neutral), (.neutral, .risk), (.neutral, .positive):
+    case (.positive, .neutral), (.positive, .risk), (.risk, .positive), (.risk, .neutral), (.neutral, .risk),
+         (.neutral, .positive):
       return false
     }
   }
