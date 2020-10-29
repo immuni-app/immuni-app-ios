@@ -128,6 +128,7 @@ extension Logic.ExposureDetection {
 
       // Update the local COVID status of the user
       try context.awaitDispatch(Logic.CovidStatus.UpdateStatusWithEvent(event: event))
+      try? context.awaitDispatch(Logic.CovidStatus.ForceNotificationUserWillEnterRiskState())
     }
   }
 }
