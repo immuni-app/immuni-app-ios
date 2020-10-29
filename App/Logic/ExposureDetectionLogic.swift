@@ -237,6 +237,7 @@ extension Logic.ExposureDetection {
           continue
         }
         for (index, countryOfInterest) in state.exposureDetection.countriesOfInterest.enumerated() {
+          //swiftlint:disable for_where
           if countryOfInterest.country.countryId == key {
             state.exposureDetection.countriesOfInterest[index].latestProcessedKeyChunkIndex = value
           }
