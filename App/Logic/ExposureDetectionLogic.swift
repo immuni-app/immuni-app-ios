@@ -99,19 +99,9 @@ extension Logic.ExposureDetection {
       let mostRecentContactDay: CalendarDay
 
       switch self.outcome {
-      case .error, .noDetectionNecessary:
+      case .error, .noDetectionNecessary, .partialDetection:
         // Nothing to update
         return
-
-      case .partialDetection(_, let summary, _, _):
-        guard
-          let mostRecentSummaryContactDay = summary.mostRecentContactDay
-          else {
-            // No matches, nothing to update
-            return
-        }
-
-        mostRecentContactDay = mostRecentSummaryContactDay
 
       case .fullDetection(_, _, let exposureInfo, _, _):
         guard
@@ -121,14 +111,10 @@ extension Logic.ExposureDetection {
             return
         }
 
-        mostRecentContactDay = mostRecentExposureInfoContactDay
+        // Update the local COVID status of the user
+        let event: CovidEvent = .contactDetected(date: mostRecentExposureInfoContactDay)
+        try context.awaitDispatch(Logic.CovidStatus.UpdateStatusWithEvent(event: event))
       }
-
-      let event: CovidEvent = .contactDetected(date: mostRecentContactDay)
-
-      // Update the local COVID status of the user
-      try context.awaitDispatch(Logic.CovidStatus.UpdateStatusWithEvent(event: event))
-      try? context.awaitDispatch(Logic.CovidStatus.ForceNotificationUserWillEnterRiskState())
     }
   }
 }
@@ -251,6 +237,7 @@ extension Logic.ExposureDetection {
           continue
         }
         for (index, countryOfInterest) in state.exposureDetection.countriesOfInterest.enumerated() {
+          //swiftlint:disable for_where
           if countryOfInterest.country.countryId == key {
             state.exposureDetection.countriesOfInterest[index].latestProcessedKeyChunkIndex = value
           }
