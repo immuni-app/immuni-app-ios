@@ -49,7 +49,7 @@
 "home_view.info_header.title" = "Informations";
 "home_view.info.update_countries.title" = "If you are going to another European country";
 "home_view.service.active.discover_more" = "En savoir plus";
-"home_view.service.active.subtitle" = "Immuni fonctionne même lorsque l’application est fermée.";
+"home_view.service.active.subtitle" = "Ouvrez Immuni une fois par jour pour vérifier son statut.";
 "home_view.service.active.title" = "Service\n<b>activé</b>";
 "home_view.service.deactivate" = "Désactiver le service";
 "home_view.service.not_active.button" = "Réactiver Immuni";
@@ -108,7 +108,7 @@
 "onboarding_exposure_api_not_activated" = "Notifications de risque d'exposition désactivées";
 "onboarding_exposure_message_extended" = "En raison d'une limitation du système d'exploitation, le service de géolocalisation doit être activé pour permettre l'échange de codes aléatoires via Bluetooth. <b>Immuni n'accède pas à votre position, comme vous pouvez le vérifier en consultant la liste des autorisations requises par l'application</b>.";
 "countries_of_interest.title" = "Are you going to one or more of these European countries?";
-"countries_of_interest.description" =  "If you are going to Europe you can select the country/s of Interest, if it has/have already joined interoperability, so that Immuni can connect with the other European contact tracing APP's and help to contain the spead of Covid-19 in Europe. You can select up to maximum of 3 countries. Your selection will be valid and unchangeable for the next 14 days.";
+"countries_of_interest.description" =  "If you are going to Europe you can select the country/s of Interest, if it has/have already joined interoperability, so that Immuni can connect with the other European contact tracing APP's and help to contain the spread of Covid-19 in Europe. You can select up to maximum of 3 countries. Your selection will be valid and unchangeable for the next 14 days.";
 "countries_of_interest.alert.title" = "Selection limit exceeded";
 "countries_of_interest.alert.description" = "You can select up to a maximum of 3 countries. Your selection will be valid and unchangeable for 14 days.";
 "countries_of_interest.confirm.title" = "Are you sure you want to proceed?";
