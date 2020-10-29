@@ -51,33 +51,6 @@ extension Logic.CovidStatus {
     }
   }
 
-  /// The user has just entered the covid risk state
-  struct ForceNotificationUserWillEnterRiskState: AppSideEffect {
-    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      let manager = context.dependencies.pushNotification
-      let state = context.getState()
-      let currentAuth = state.environment.pushNotificationAuthorizationStatus
-
-      guard currentAuth.allowsSendingNotifications else {
-        return
-      }
-
-      // If a contact with a positive user is detected, it must be the result of a full cycle of exposure detection (i.e.
-      // detection with ExposureInfo), which already causes the operative system to immediately notify the user.
-      // On top of this, a periodic reminder is added in case the user has not opened the app since having entered the Risk
-      // state. This reminder is removed either on state change or when the app is opened.
-      manager.scheduleLocalNotification(
-        .init(
-          title: L10n.Notifications.Risk.title,
-          body: L10n.Notifications.Risk.description,
-          userInfo: [:],
-          identifier: RiskNotificationID.contactReminder.rawValue
-        ),
-        with: LocalNotificationTrigger.timeInterval(10)
-      )
-    }
-  }
-
   /// The ids of the covid status update notifications
   static let covidNotificationIDs = [
     Logic.CovidStatus.RiskNotificationID.contactReminder.rawValue,
