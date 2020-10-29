@@ -510,7 +510,7 @@ final class ExposureDetectionLogicTests: XCTestCase {
     try Logic.ExposureDetection
       .UpdateUserStatusIfNecessary(outcome: .partialDetection(Date(), .matches(data: data), ["IT": 0], ["IT": 5]))
       .sideEffect(context)
-    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 1)
+    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 2)
 
     try XCTAssertType(dispatchInterceptor.dispatchedItems.first, Logic.CovidStatus.UpdateStatusWithEvent.self) { dispatchable in
       guard case .contactDetected(let mostRecentContactDay) = dispatchable.event else {
@@ -557,7 +557,7 @@ final class ExposureDetectionLogicTests: XCTestCase {
     try Logic.ExposureDetection
       .UpdateUserStatusIfNecessary(outcome: .fullDetection(Date(), .matches(data: data), [exposureInfo], ["IT": 0], ["IT": 5]))
       .sideEffect(context)
-    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 1)
+    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 2)
 
     try XCTAssertType(dispatchInterceptor.dispatchedItems.first, Logic.CovidStatus.UpdateStatusWithEvent.self) { dispatchable in
       guard case .contactDetected(let mostRecentContactDay) = dispatchable.event else {
