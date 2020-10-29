@@ -485,7 +485,7 @@ final class ExposureDetectionLogicTests: XCTestCase {
     XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 0)
   }
 
-  func testMatchingPartialDetectionTiggersUserStatusUpdate() throws {
+  func testMatchingPartialDetectionDoesNotTriggersUserStatusUpdate() throws {
     let state = AppState()
     let getState = { state }
 
@@ -510,16 +510,7 @@ final class ExposureDetectionLogicTests: XCTestCase {
     try Logic.ExposureDetection
       .UpdateUserStatusIfNecessary(outcome: .partialDetection(Date(), .matches(data: data), ["IT": 0], ["IT": 5]))
       .sideEffect(context)
-    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 2)
-
-    try XCTAssertType(dispatchInterceptor.dispatchedItems.first, Logic.CovidStatus.UpdateStatusWithEvent.self) { dispatchable in
-      guard case .contactDetected(let mostRecentContactDay) = dispatchable.event else {
-        XCTFail("Wrong event type: \(dispatchable.event)")
-        return
-      }
-
-      XCTAssertEqual(mostRecentContactDay, CalendarDay(date: Date()).byAdding(days: -daysSinceLastExposure))
-    }
+    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 0)
   }
 
   func testMatchingFullDetectionTriggersUserStatusUpdate() throws {
@@ -557,7 +548,7 @@ final class ExposureDetectionLogicTests: XCTestCase {
     try Logic.ExposureDetection
       .UpdateUserStatusIfNecessary(outcome: .fullDetection(Date(), .matches(data: data), [exposureInfo], ["IT": 0], ["IT": 5]))
       .sideEffect(context)
-    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 2)
+    XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 1)
 
     try XCTAssertType(dispatchInterceptor.dispatchedItems.first, Logic.CovidStatus.UpdateStatusWithEvent.self) { dispatchable in
       guard case .contactDetected(let mostRecentContactDay) = dispatchable.event else {
