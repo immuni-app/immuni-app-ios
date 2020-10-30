@@ -1,4 +1,4 @@
-// StringExtensionsTests.swift
+// DateExtensionTests.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -16,12 +16,12 @@ import XCTest
 
 final class DateExtensionsTests: XCTestCase {
   func testUtcIsoStringIsComputedCorrectly() throws {
-    let date = Date(timeIntervalSince1970: 1604102399) // Friday, October 30, 2020 11:59:59 PM (GMT)
+    let date = Date(timeIntervalSince1970: 1_604_102_399) // Friday, October 30, 2020 11:59:59 PM (GMT)
     XCTAssertEqual(date.utcIsoString, "2020-10-30")
   }
 
   func testUtcIsoStringIsReadCorrectly() throws {
-    let expected = Date(timeIntervalSince1970: 1604016000) // Friday, October 30, 2020 12:00:00 AM (GMT)
+    let expected = Date(timeIntervalSince1970: 1_604_016_000) // Friday, October 30, 2020 12:00:00 AM (GMT)
     XCTAssertEqual(Date(utcIsoString: "2020-10-30"), expected)
   }
 }

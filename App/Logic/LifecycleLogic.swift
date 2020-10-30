@@ -354,6 +354,7 @@ private extension Logic.Lifecycle {
 }
 
 // MARK: - Migrations
+
 extension Logic.Lifecycle {
   /// Performs all necessary migrations, blockingly.
   struct PerformMigrationsIfNecessary: AppSideEffect {

@@ -80,7 +80,8 @@ extension CodableExposureDetectionSummary {
     exposureInfo: [CodableExposureInfo] = (0 ..< Int.random(in: 1 ... 10)).map { _ in .mock() }
   ) -> Self {
     return .init(
-      date: date, matchedKeyCount: matchedKeyCount, daysSinceLastExposure: daysSinceLastExposure, attenuationDurations: attenuationDurations, maximumRiskScore: maximumRiskScore, exposureInfo: exposureInfo
+      date: date, matchedKeyCount: matchedKeyCount, daysSinceLastExposure: daysSinceLastExposure,
+      attenuationDurations: attenuationDurations, maximumRiskScore: maximumRiskScore, exposureInfo: exposureInfo
     )
   }
 }

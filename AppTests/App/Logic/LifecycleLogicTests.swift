@@ -115,6 +115,7 @@ extension LifecycleLogicTests {
   }
 
   // MARK: - Migration
+
   func testOnStart_invokesPerformMigrationsIfNecessary() throws {
     let dispatchInterceptor = DispatchInterceptor()
     let dependencies = AppDependencies.mocked(dispatch: dispatchInterceptor.dispatchFunction)

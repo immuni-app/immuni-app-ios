@@ -560,7 +560,13 @@ final class ExposureDetectionLogicTests: XCTestCase {
     )
 
     try Logic.ExposureDetection
-      .UpdateUserStatusIfNecessary(outcome: .fullDetection(Date(), .matches(data: data), [highRiskExposure, lowRiskExposure], ["IT": 0], ["IT": 5]))
+      .UpdateUserStatusIfNecessary(outcome: .fullDetection(
+        Date(),
+        .matches(data: data),
+        [highRiskExposure, lowRiskExposure],
+        ["IT": 0],
+        ["IT": 5]
+      ))
       .sideEffect(context)
     XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 1)
 

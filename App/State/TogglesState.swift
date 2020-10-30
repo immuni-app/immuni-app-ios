@@ -44,6 +44,7 @@ struct TogglesState: Codable {
   var isBackgroundTaskDebugMode: Bool = false
 
   // MARK: - Migration values
+
   /// Whether the `ClearRiskStatusIfWronglyAttributed` migration has run
   var isWronglyAttributedRiskStatusBeenChecked: Bool = false
 }
