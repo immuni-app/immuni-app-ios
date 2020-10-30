@@ -84,19 +84,44 @@ private let positiveTransitionTest: [CovidStatusTestCase] = [
 final class CovidStatusNeutralTests: XCTestCase {
   func testNeutralTransitions() throws {
     for testCase in neutralTransitionTest {
-      XCTAssertEqual(testCase.expectedTo, testCase.from.transitioned(becauseOf: testCase.event))
+      guard CovidStatus.isEqual(testCase.expectedTo, testCase.from.transitioned(becauseOf: testCase.event)) else {
+        XCTFail("\(testCase.expectedTo) is not equal to \(testCase.from.transitioned(becauseOf: testCase.event))")
+        return
+      }
     }
   }
 
   func testRiskTransitions() throws {
     for testCase in riskTransitionTest {
-      XCTAssertEqual(testCase.expectedTo, testCase.from.transitioned(becauseOf: testCase.event))
+      guard CovidStatus.isEqual(testCase.expectedTo, testCase.from.transitioned(becauseOf: testCase.event)) else {
+        XCTFail("\(testCase.expectedTo) is not equal to \(testCase.from.transitioned(becauseOf: testCase.event))")
+        return
+      }
     }
   }
 
   func testPositiveTransitions() throws {
     for testCase in positiveTransitionTest {
-      XCTAssertEqual(testCase.expectedTo, testCase.from.transitioned(becauseOf: testCase.event))
+      guard CovidStatus.isEqual(testCase.expectedTo, testCase.from.transitioned(becauseOf: testCase.event)) else {
+        XCTFail("\(testCase.expectedTo) is not equal to \(testCase.from.transitioned(becauseOf: testCase.event))")
+        return
+      }
+    }
+  }
+}
+
+private extension CovidStatus {
+  static func isEqual(_ lhs: Self, _ rhs: Self) -> Bool {
+    switch (lhs, rhs) {
+    case (.positive(let lhsLastUpload), .positive(let rhsLastUpload)):
+      return lhsLastUpload == rhsLastUpload
+    case (.neutral, .neutral):
+      return true
+    case (.risk(let lhsLastContact), .risk(let rhsLastContact)):
+      return lhsLastContact == rhsLastContact
+    case (.positive, .neutral), (.positive, .risk), (.risk, .positive), (.risk, .neutral), (.neutral, .risk),
+         (.neutral, .positive):
+      return false
     }
   }
 }

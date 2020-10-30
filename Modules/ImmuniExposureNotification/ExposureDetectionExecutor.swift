@@ -30,7 +30,8 @@ public protocol ExposureDetectionExecutor {
     tekProvider: TemporaryExposureKeyProvider,
     now: @escaping () -> Date,
     isUserCovidPositive: Bool,
-    forceRun: Bool
+    forceRun: Bool,
+    countriesOfInterest: [CountryOfInterest]
   ) -> Promise<ExposureDetectionOutcome>
 }
 
@@ -43,8 +44,8 @@ public enum ExposureDetectionOutcome {
   case partialDetection(
     _ date: Date,
     _ summary: ExposureDetectionSummary,
-    _ earliestProcessedChunk: Int,
-    _ latestProcessedChunk: Int
+    _ earliestProcessedChunk: [String: Int],
+    _ latestProcessedChunk: [String: Int]
   )
 
   /// A full detection has been performed, i.e. a detection that gathered `ExposureInfo`.`
@@ -52,8 +53,8 @@ public enum ExposureDetectionOutcome {
     _ date: Date,
     _ summary: ExposureDetectionSummary,
     _ exposureInfo: [ExposureInfo],
-    _ earliestProcessedChunk: Int,
-    _ latestProcessedChunk: Int
+    _ earliestProcessedChunk: [String: Int],
+    _ latestProcessedChunk: [String: Int]
   )
 
   /// A detection resulted in an error
@@ -70,7 +71,7 @@ public enum ExposureDetectionOutcome {
   }
 
   /// The first and the last chunk indexes processed in this detection, if any.
-  public var processedChunkBoundaries: (Int, Int)? {
+  public var processedChunkBoundaries: ([String: Int], [String: Int])? {
     switch self {
     case .error, .noDetectionNecessary:
       return nil

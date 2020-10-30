@@ -22,7 +22,6 @@ public struct OTPValidationRequest: FixedSizeJSONRequest {
 
   // swiftlint:disable:next force_unwrapping
   public var baseURL = URL(string: "https://upload.immuni.gov.it")!
-
   public var path = "/v1/ingestion/check-otp"
   public var method: HTTPMethod = .post
   public var cachePolicy: NSURLRequest.CachePolicy = .reloadIgnoringLocalAndRemoteCacheData

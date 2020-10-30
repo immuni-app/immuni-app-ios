@@ -22,7 +22,6 @@ public struct DummyIngestionRequest: FixedSizeJSONRequest {
 
   // swiftlint:disable:next force_unwrapping
   public var baseURL = URL(string: "https://upload.immuni.gov.it")!
-
   // It does not matter which endpoint is used.
   public var path = "/v1/ingestion/upload"
   public var method: HTTPMethod = .post

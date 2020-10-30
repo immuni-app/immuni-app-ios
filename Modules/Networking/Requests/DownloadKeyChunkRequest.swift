@@ -14,16 +14,23 @@
 
 import Alamofire
 import Foundation
+import Models
 
 public struct DownloadKeyChunkIndexRequest: HTTPRequest {
   // swiftlint:disable:next force_unwrapping
   public var baseURL = URL(string: "https://get.immuni.gov.it")!
-
   public var method: HTTPMethod = .get
   public var cachePolicy: NSURLRequest.CachePolicy = .reloadIgnoringLocalAndRemoteCacheData
   public var parameters: [String: Any] = [:]
   public var headers: [HTTPHeader] = HTTPHeader.defaultImmuniHeaders
 
-  public var path: String { "/v1/keys/\(self.chunkNumber)" }
+  public var path: String {
+    guard let country = self.country else {
+      return "/v1/keys/\(self.chunkNumber)"
+    }
+    return "/v1/keys/eu/\(country.countryId)/\(self.chunkNumber)"
+  }
+
   let chunkNumber: Int
+  let country: Country?
 }

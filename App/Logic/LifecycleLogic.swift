@@ -53,13 +53,13 @@ extension Logic {
         // clears `PositiveExposureResults` older than 14 days from the `ExposureDetectionState`
         try context.awaitDispatch(Logic.ExposureDetection.ClearOutdatedResults(now: context.dependencies.now()))
 
-        // Removes notifications as the user has opened the app
-        context.dispatch(Logic.CovidStatus.RemoveRiskReminderNotification())
-
         guard context.dependencies.application.isForeground else {
           // Background sessions are handled in `HandleExposureDetectionBackgroundTask`
           return
         }
+
+        // Removes notifications as the user has opened the app
+        context.dispatch(Logic.CovidStatus.RemoveRiskReminderNotification())
 
         // refresh the analytics token if expired, silently catching errors so that the exposure detection can be performed
         try? context.awaitDispatch(Logic.Analytics.RefreshAnalyticsTokenIfNeeded())

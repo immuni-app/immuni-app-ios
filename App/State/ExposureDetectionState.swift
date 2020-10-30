@@ -28,6 +28,9 @@ struct ExposureDetectionState: Codable {
   /// They are stored so that they can be sent in case of a Data Upload (see `Logic.DataUpload`)
   var recentPositiveExposureResults: [PositiveExposureResult] = []
 
+  /// The list contains the selected country, the selection date and the latestProcessedKeyChunkIndex of the country
+  var countriesOfInterest: [CountryOfInterest] = []
+
   #if canImport(DebugMenu)
     /// The series of results of previous exposure detections.
     /// It is used only in the debug environment to collect information about every Exposure Detection run.

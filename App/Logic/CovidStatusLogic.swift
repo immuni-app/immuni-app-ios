@@ -34,7 +34,7 @@ extension Logic.CovidStatus {
 
       try context.awaitDispatch(Logic.CovidStatus.UpdateCovidStatus(newStatus: newStatus))
 
-      guard previousStatus != newStatus else {
+      guard previousStatus.rawCase != newStatus.rawCase else {
         return
       }
 

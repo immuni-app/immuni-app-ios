@@ -62,17 +62,16 @@ extension NetworkManager {
 
 extension NetworkManager {
   /// Returns the current manifest for the chunk of TEKs exposed by the backend
-  public func getKeysIndex() -> Promise<KeysIndex> {
-    return self.request(KeysIndexRequest())
+  public func getKeysIndex(country: Country?) -> Promise<KeysIndex> {
+    return self.request(KeysIndexRequest(country: country))
   }
 
   /// Downloads the chunks of TEKs for the given `indexes` and returns them as an array of `Data`, each corresponding to a given
   /// index in the input parameter.
-  public func downloadChunks(with indexes: [Int]) -> Promise<[Data]> {
+  public func downloadChunks(with indexes: [Int], country: Country?) -> Promise<[Data]> {
     let requestPromises = indexes
-      .map { DownloadKeyChunkIndexRequest(chunkNumber: $0) }
+      .map { DownloadKeyChunkIndexRequest(chunkNumber: $0, country: country) }
       .map { self.request($0) }
-
     return all(requestPromises)
   }
 }

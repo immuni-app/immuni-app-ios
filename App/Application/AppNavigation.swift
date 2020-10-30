@@ -52,6 +52,7 @@ enum Screen: String, CaseIterable {
   case confirmUpload
   case customerSupport
   case updateProvince
+  case updateCountry
   case faq
   case question
 }
@@ -225,6 +226,15 @@ extension TabbarVC: RoutableWithConfiguration {
         let content = context as? Alert.Model ?? AppLogger.fatalError("Invalid context")
         let vc = UIAlertController(content: content)
         self?.recursivePresent(vc, animated: false, completion: completion)
+      },
+
+      // Update Country
+      .show(Screen.updateCountry): .presentModally { context in
+        let countriesOfInterestLS = context as? CountriesOfInterestLS ?? AppLogger.fatalError("invalid context")
+        return CountriesOfInterestVC(
+          store: self.store,
+          localState: countriesOfInterestLS
+        )
       },
 
       // Share Text
@@ -437,6 +447,14 @@ extension SettingsNC: RoutableWithConfiguration {
         )
       },
 
+      .show(Screen.updateCountry): .presentModally { context in
+        let countriesOfInterestLS = context as? CountriesOfInterestLS ?? AppLogger.fatalError("Invalid context")
+        return CountriesOfInterestVC(
+          store: self.store,
+          localState: countriesOfInterestLS
+        )
+      },
+
       .show(Screen.privacy): .presentModally { context in
         PrivacyVC(store: self.store, localState: .init(kind: .settings))
       },
@@ -524,6 +542,20 @@ class UpdateProvinceNC: OnboardingContainerNC {
         self.pushViewController(using: navContext, animated: animated)
         completion()
       }
+    ]
+  }
+}
+
+// MARK: Update Country
+
+extension CountriesOfInterestVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.updateCountry.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [
+      .hide(Screen.updateCountry): .dismissModally(behaviour: .hard)
     ]
   }
 }

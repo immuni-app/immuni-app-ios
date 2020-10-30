@@ -45,7 +45,6 @@ extension Logic.ExposureDetection {
 
       let state = context.getState()
 
-      /// Perform a cycle of exposure detection and retrieve its outcome
       let outcome = try await(context.dependencies.exposureDetectionExecutor.execute(
         exposureDetectionPeriod: self.type.detectionPeriod(using: state.configuration),
         lastExposureDetectionDate: state.exposureDetection.lastDetectionDate,
@@ -57,7 +56,8 @@ extension Logic.ExposureDetection {
         tekProvider: context.dependencies.temporaryExposureKeyProvider,
         now: context.dependencies.now,
         isUserCovidPositive: state.user.covidStatus.isCovidPositive,
-        forceRun: self.forceRun
+        forceRun: self.forceRun,
+        countriesOfInterest: state.exposureDetection.countriesOfInterest
       ))
 
       if let error = outcome.error {
@@ -67,7 +67,7 @@ extension Logic.ExposureDetection {
 
       if let (_, latestProcessedChunk) = outcome.processedChunkBoundaries {
         // Update the latest processed chunk in the state
-        try context.awaitDispatch(UpdateLatestProcessedKeyChunkIndex(index: latestProcessedChunk))
+        try context.awaitDispatch(UpdateLatestProcessedKeyChunkIndex(countryIndexCouple: latestProcessedChunk))
       }
 
       try context.awaitDispatch(TrackExposureDetectionPerformed(outcome: outcome, type: self.type))
@@ -99,19 +99,9 @@ extension Logic.ExposureDetection {
       let mostRecentContactDay: CalendarDay
 
       switch self.outcome {
-      case .error, .noDetectionNecessary:
+      case .error, .noDetectionNecessary, .partialDetection:
         // Nothing to update
         return
-
-      case .partialDetection(_, let summary, _, _):
-        guard
-          let mostRecentSummaryContactDay = summary.mostRecentContactDay
-          else {
-            // No matches, nothing to update
-            return
-        }
-
-        mostRecentContactDay = mostRecentSummaryContactDay
 
       case .fullDetection(_, _, let exposureInfo, _, _):
         guard
@@ -121,13 +111,10 @@ extension Logic.ExposureDetection {
             return
         }
 
-        mostRecentContactDay = mostRecentExposureInfoContactDay
+        // Update the local COVID status of the user
+        let event: CovidEvent = .contactDetected(date: mostRecentExposureInfoContactDay)
+        try context.awaitDispatch(Logic.CovidStatus.UpdateStatusWithEvent(event: event))
       }
-
-      let event: CovidEvent = .contactDetected(date: mostRecentContactDay)
-
-      // Update the local COVID status of the user
-      try context.awaitDispatch(Logic.CovidStatus.UpdateStatusWithEvent(event: event))
     }
   }
 }
@@ -241,10 +228,21 @@ extension Logic.ExposureDetection {
 
   /// Updates the latest processed key chunk in the `ExposureDetectionState`
   struct UpdateLatestProcessedKeyChunkIndex: AppStateUpdater {
-    let index: Int
+    let countryIndexCouple: [String: Int]
 
     func updateState(_ state: inout AppState) {
-      state.exposureDetection.latestProcessedKeyChunkIndex = self.index
+      for (key, value) in self.countryIndexCouple {
+        if key == Country.italyId {
+          state.exposureDetection.latestProcessedKeyChunkIndex = value
+          continue
+        }
+        for (index, countryOfInterest) in state.exposureDetection.countriesOfInterest.enumerated() {
+          //swiftlint:disable for_where
+          if countryOfInterest.country.countryId == key {
+            state.exposureDetection.countriesOfInterest[index].latestProcessedKeyChunkIndex = value
+          }
+        }
+      }
     }
   }
 }

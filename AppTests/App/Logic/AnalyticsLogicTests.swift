@@ -45,8 +45,8 @@ extension AnalyticsLogicTests {
       Date(),
       ExposureDetectionSummary.matches(data: exposureDetectionSummary),
       exposureInfo,
-      0,
-      0
+      ["IT": 0],
+      ["IT": 0]
     )
 
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
@@ -68,8 +68,8 @@ extension AnalyticsLogicTests {
       Date(),
       ExposureDetectionSummary.matches(data: exposureDetectionSummary),
       exposureInfo,
-      0,
-      0
+      ["IT": 0],
+      ["IT": 0]
     )
 
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
@@ -91,8 +91,8 @@ extension AnalyticsLogicTests {
       Date(),
       ExposureDetectionSummary.matches(data: exposureDetectionSummary),
       exposureInfo,
-      0,
-      0
+      ["IT": 0],
+      ["IT": 0]
     )
 
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
@@ -174,7 +174,8 @@ extension AnalyticsLogicTests {
 
     let context = AppSideEffectContext(dependencies: dependencies)
 
-    try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: .fullDetection(now(), .noMatch, [], 0, 0)).sideEffect(context)
+    try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: .fullDetection(now(), .noMatch, [], ["IT": 0], ["IT": 0]))
+      .sideEffect(context)
 
     try XCTAssertNotContainsType(
       dispatchInterceptor.dispatchedItems,
@@ -251,7 +252,7 @@ extension AnalyticsLogicTests {
     let dependencies = AppDependencies.mocked(getAppState: getState, dispatch: dispatchInterceptor.dispatchFunction, now: { now })
     let context = AppSideEffectContext(dependencies: dependencies)
 
-    let outcome = ExposureDetectionOutcome.partialDetection(Date(), .noMatch, 0, 0)
+    let outcome = ExposureDetectionOutcome.partialDetection(Date(), .noMatch, ["IT": 0], ["IT": 0])
 
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
 
@@ -378,7 +379,7 @@ extension AnalyticsLogicTests {
 
     let context = AppSideEffectContext(dependencies: dependencies)
 
-    let outcome = ExposureDetectionOutcome.partialDetection(date, .noMatch, 0, 0)
+    let outcome = ExposureDetectionOutcome.partialDetection(date, .noMatch, ["IT": 0], ["IT": 0])
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
 
     try XCTAssertNotContainsType(
@@ -421,7 +422,7 @@ extension AnalyticsLogicTests {
 
     let context = AppSideEffectContext(dependencies: dependencies)
 
-    let outcome = ExposureDetectionOutcome.partialDetection(date, .noMatch, 0, 0)
+    let outcome = ExposureDetectionOutcome.partialDetection(date, .noMatch, ["IT": 0], ["IT": 0])
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
 
     try XCTAssertNotContainsType(
@@ -467,7 +468,7 @@ extension AnalyticsLogicTests {
 
     let context = AppSideEffectContext(dependencies: dependencies)
 
-    let outcome = ExposureDetectionOutcome.partialDetection(date, .noMatch, 0, 0)
+    let outcome = ExposureDetectionOutcome.partialDetection(date, .noMatch, ["IT": 0], ["IT": 0])
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
 
     try XCTAssertNotContainsType(
@@ -514,7 +515,7 @@ extension AnalyticsLogicTests {
 
     let context = AppSideEffectContext(dependencies: dependencies)
 
-    let outcome = ExposureDetectionOutcome.partialDetection(date, .noMatch, 0, 0)
+    let outcome = ExposureDetectionOutcome.partialDetection(date, .noMatch, ["IT": 0], ["IT": 0])
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
 
     try XCTAssertNotContainsType(
@@ -746,8 +747,8 @@ extension AnalyticsLogicTests {
 
     let possibleOutcomes: [ExposureDetectionOutcome] = [
       .error(.notAuthorized),
-      .fullDetection(Date(), .noMatch, [], 0, 0),
-      .partialDetection(Date(), .noMatch, 0, 0),
+      .fullDetection(Date(), .noMatch, [], ["IT": 0], ["IT": 0]),
+      .partialDetection(Date(), .noMatch, ["IT": 0], ["IT": 0]),
       .noDetectionNecessary
     ]
 
@@ -822,8 +823,7 @@ extension AnalyticsLogicTests {
       Date(),
       ExposureDetectionSummary.matches(data: exposureDetectionSummary),
       exposureInfo,
-      0,
-      0
+      ["IT": 0], ["IT": 0]
     )
 
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
@@ -845,7 +845,7 @@ extension AnalyticsLogicTests {
     let dependencies = AppDependencies.mocked(getAppState: getState, dispatch: dispatchInterceptor.dispatchFunction, now: { now })
     let context = AppSideEffectContext(dependencies: dependencies)
 
-    let outcome = ExposureDetectionOutcome.partialDetection(now, .noMatch, 0, 0)
+    let outcome = ExposureDetectionOutcome.partialDetection(now, .noMatch, ["IT": 0], ["IT": 0])
 
     try Logic.Analytics.SendOperationalInfoIfNeeded(outcome: outcome).sideEffect(context)
 

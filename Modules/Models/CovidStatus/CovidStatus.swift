@@ -42,7 +42,25 @@ public enum CovidStatus {
 
 // MARK: Extensions
 
-extension CovidStatus: Equatable {}
+extension CovidStatus {
+  /// The raw case of the enum, used to compare user states qualitatively
+  public enum RawCase: Equatable {
+    case neutral
+    case risk
+    case positive
+  }
+
+  public var rawCase: RawCase {
+    switch self {
+    case .neutral:
+      return .neutral
+    case .risk:
+      return .risk
+    case .positive:
+      return .positive
+    }
+  }
+}
 
 extension CovidStatus: Codable {
   enum CodingKeys: String, CodingKey {
