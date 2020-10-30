@@ -45,6 +45,7 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
     country: Country?,
     isFirstFlow: Bool?
   ) -> Promise<[TemporaryExposureKeyChunk]> {
+    // swiftlint:disable:next unused_optional_binding
     if let _ = isFirstFlow {
       self.keyDailyRateLimitCounter = Self.keyDailyRateLimit
     }

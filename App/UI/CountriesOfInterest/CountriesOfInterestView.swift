@@ -20,6 +20,8 @@ import Models
 import PinLayout
 import Tempura
 
+// swiftlint:disable all
+
 final class CountriesOfInterestView: UIView, ViewControllerModellableView {
   // MARK: Interactions
 

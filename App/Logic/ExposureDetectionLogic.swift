@@ -96,8 +96,6 @@ extension Logic.ExposureDetection {
     let outcome: ExposureDetectionOutcome
 
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      let mostRecentContactDay: CalendarDay
-
       switch self.outcome {
       case .error, .noDetectionNecessary, .partialDetection:
         // Nothing to update

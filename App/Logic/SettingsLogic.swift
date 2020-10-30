@@ -251,6 +251,7 @@ extension Logic.Settings {
       let dummyIngestionWindowDuration = state.configuration.dummyIngestionWindowDuration
       let countries = state.exposureDetection.countriesOfInterest
       let lan = Locale.current.languageCode ?? "en"
+      // swiftlint:disable:next force_unwrapping
       let countryList: [String: String] = state.configuration.countries[lan] ?? state.configuration.countries["en"]!
 
       try context.awaitDispatch(Show(

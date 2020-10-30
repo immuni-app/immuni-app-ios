@@ -16,7 +16,7 @@ import Foundation
 
 /// Namespace for KVStorage keys
 // swiftlint:disable:next convenience_type
-public enum KVStorageKeys {
+public class KVStorageKeys {
   /// Prefix applied to all the stored values of the KVStorage
   fileprivate static let keyPrefix = "BPKVStorage"
 }
