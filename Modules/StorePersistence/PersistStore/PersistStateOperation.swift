@@ -87,9 +87,9 @@ class PersistStateOperation<S: Encodable>: Operation {
       let data = try? encoder.encode(self.katanaState),
       let box = try? AES.GCM.seal(data, using: self.encryptionKey, nonce: nonce),
       let encryptedData = box.combined
-      else {
-        // we want to have the app crash here if something is wrong
-        LibLogger.fatalError("Cannot seal state")
+    else {
+      // we want to have the app crash here if something is wrong
+      LibLogger.fatalError("Cannot seal state")
     }
 
     if self.isCancelled {

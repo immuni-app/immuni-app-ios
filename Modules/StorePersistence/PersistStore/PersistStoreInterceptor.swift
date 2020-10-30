@@ -75,8 +75,8 @@ class PersistStoreInterceptor<S: State & Codable> {
       let box = try? AES.GCM.SealedBox(combined: encryptedData),
       let data = try? AES.GCM.open(box, using: encryptionKey),
       let rawState = try? JSONSerialization.jsonObject(with: data, options: [])
-      else {
-        return nil
+    else {
+      return nil
     }
 
     return rawState as? RawState

@@ -167,8 +167,8 @@ final class PermissionTutorialView: UIView, ViewControllerModellableView {
       let model = self.model,
       let collectionViewLayout = self.contentCollection.collectionViewLayout as? UICollectionViewFlowLayout,
       collectionViewLayout.estimatedItemSize == .zero // avoid multiple adjust iteration
-      else {
-        return
+    else {
+      return
     }
 
     collectionViewLayout.estimatedItemSize = CGSize(
@@ -215,8 +215,8 @@ extension PermissionTutorialView: UICollectionViewDataSource {
     guard
       let model = self.model,
       let item = model.content.items[safe: indexPath.row]
-      else {
-        AppLogger.fatalError("This should never happen")
+    else {
+      AppLogger.fatalError("This should never happen")
     }
 
     switch item {

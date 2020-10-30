@@ -15,6 +15,8 @@
 import Models
 import Tempura
 
+// swiftlint:disable all
+
 struct CountriesOfInterestVM {
   /// Whether the header is visible in the view. The header is shown only when the content is scrolled.
   let isHeaderVisible: Bool

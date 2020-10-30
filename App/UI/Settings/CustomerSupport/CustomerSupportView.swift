@@ -130,8 +130,8 @@ class CustomerSupportView: UIView, ViewControllerModellableView {
     guard
       let collectionViewLayout = self.contentCollection.collectionViewLayout as? UICollectionViewFlowLayout,
       collectionViewLayout.estimatedItemSize == .zero // avoid multiple adjust iteration
-      else {
-        return
+    else {
+      return
     }
 
     collectionViewLayout.estimatedItemSize = CGSize(
@@ -159,8 +159,8 @@ extension CustomerSupportView: UICollectionViewDataSource {
     guard
       let model = self.model,
       let item = model.cells[safe: indexPath.row]
-      else {
-        AppLogger.fatalError("This should never happen")
+    else {
+      AppLogger.fatalError("This should never happen")
     }
 
     let isLastCell = indexPath.item == collectionView.numberOfItems(inSection: indexPath.section) - 1

@@ -40,8 +40,8 @@ class CollectionWithStickyCellsLayout: UICollectionViewFlowLayout {
       let collectionView = self.collectionView,
       let attributes = parent,
       !attributes.isEmpty
-      else {
-        return parent
+    else {
+      return parent
     }
 
     // manage header attributes

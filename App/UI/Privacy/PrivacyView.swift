@@ -127,8 +127,8 @@ final class PrivacyView: UIView, ViewControllerModellableView {
       guard
         let typedCell = cell as? PrivacyCheckboxCell,
         let idxPath = self.contentCollection.indexPath(for: cell)
-        else {
-          continue
+      else {
+        continue
       }
 
       typedCell.model = model.items[safe: idxPath.row]?.cellVM as? PrivacyCheckboxCellVM
@@ -180,8 +180,8 @@ final class PrivacyView: UIView, ViewControllerModellableView {
     guard
       let collectionViewLayout = self.contentCollection.collectionViewLayout as? UICollectionViewFlowLayout,
       collectionViewLayout.estimatedItemSize == .zero // avoid multiple adjust iteration
-      else {
-        return
+    else {
+      return
     }
 
     collectionViewLayout.estimatedItemSize = CGSize(
@@ -229,8 +229,8 @@ extension PrivacyView: UICollectionViewDataSource {
       let model = self.model,
       let item = model.items[safe: indexPath.row]
 
-      else {
-        AppLogger.fatalError("This should never happen")
+    else {
+      AppLogger.fatalError("This should never happen")
     }
 
     switch item {

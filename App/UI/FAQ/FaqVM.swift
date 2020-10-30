@@ -77,8 +77,8 @@ extension FaqVM {
     guard
       let state = state,
       let faqs = state.faq.faqs(for: state.environment.userLanguage)
-      else {
-        return nil
+    else {
+      return nil
     }
 
     if localState.searchFilter.isEmpty {

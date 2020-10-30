@@ -288,42 +288,42 @@ open class Button: UIView, TargetActionable {
 
 // MARK: - Public interface to UIButton's methods and properties
 
-extension Button {
+public extension Button {
   // MARK: - Button title
 
-  public var titleLabel: UILabel? {
+  var titleLabel: UILabel? {
     return self.button.titleLabel
   }
 
-  public func title(for state: UIControl.State) -> String? {
+  func title(for state: UIControl.State) -> String? {
     return self.button.title(for: state)
   }
 
-  public func setTitle(_ title: String?, for state: UIControl.State) {
+  func setTitle(_ title: String?, for state: UIControl.State) {
     self.button.setTitle(title, for: state)
   }
 
-  public func attributedTitle(for state: UIControl.State) -> NSAttributedString? {
+  func attributedTitle(for state: UIControl.State) -> NSAttributedString? {
     return self.button.attributedTitle(for: state)
   }
 
-  public func titleColor(for state: UIControl.State) -> UIColor? {
+  func titleColor(for state: UIControl.State) -> UIColor? {
     return self.button.titleColor(for: state)
   }
 
-  public func setTitleColor(_ color: UIColor?, for state: UIControl.State) {
+  func setTitleColor(_ color: UIColor?, for state: UIControl.State) {
     self.button.setTitleColor(color, for: state)
   }
 
-  public func titleShadowColor(for state: UIControl.State) -> UIColor? {
+  func titleShadowColor(for state: UIControl.State) -> UIColor? {
     return self.button.titleShadowColor(for: state)
   }
 
-  public func setTitleShadowColor(_ color: UIColor?, for state: UIControl.State) {
+  func setTitleShadowColor(_ color: UIColor?, for state: UIControl.State) {
     self.button.setTitleShadowColor(color, for: state)
   }
 
-  public var reversesTitleShadowWhenHighlighted: Bool {
+  var reversesTitleShadowWhenHighlighted: Bool {
     get {
       return self.button.reversesTitleShadowWhenHighlighted
     }
@@ -334,7 +334,7 @@ extension Button {
 
   // MARK: - Button image
 
-  public var adjustsImageWhenHighlighted: Bool {
+  var adjustsImageWhenHighlighted: Bool {
     get {
       return self.button.adjustsImageWhenHighlighted
     }
@@ -343,7 +343,7 @@ extension Button {
     }
   }
 
-  public var adjustsImageWhenDisabled: Bool {
+  var adjustsImageWhenDisabled: Bool {
     get {
       return self.button.adjustsImageWhenDisabled
     }
@@ -352,29 +352,29 @@ extension Button {
     }
   }
 
-  public func backgroundImage(for state: UIControl.State) -> UIImage? {
+  func backgroundImage(for state: UIControl.State) -> UIImage? {
     return self.button.backgroundImage(for: state)
   }
 
-  public func setBackgroundImage(_ image: UIImage?, for state: UIControl.State) {
+  func setBackgroundImage(_ image: UIImage?, for state: UIControl.State) {
     self.button.setBackgroundImage(image, for: state)
   }
 
-  public func image(for state: UIControl.State) -> UIImage? {
+  func image(for state: UIControl.State) -> UIImage? {
     return self.button.image(for: state)
   }
 
-  public func setImage(_ image: UIImage?, for state: UIControl.State) {
+  func setImage(_ image: UIImage?, for state: UIControl.State) {
     self.button.setImage(image, for: state)
   }
 
-  public var imageView: UIImageView? {
+  var imageView: UIImageView? {
     return self.button.imageView
   }
 
   // MARK: - Button's edge insets
 
-  public var contentEdgeInsets: UIEdgeInsets {
+  var contentEdgeInsets: UIEdgeInsets {
     get {
       return self.button.contentEdgeInsets
     }
@@ -383,7 +383,7 @@ extension Button {
     }
   }
 
-  public var titleEdgeInsets: UIEdgeInsets {
+  var titleEdgeInsets: UIEdgeInsets {
     get {
       return self.button.titleEdgeInsets
     }
@@ -392,7 +392,7 @@ extension Button {
     }
   }
 
-  public var imageEdgeInsets: UIEdgeInsets {
+  var imageEdgeInsets: UIEdgeInsets {
     get {
       return self.button.imageEdgeInsets
     }
@@ -403,53 +403,53 @@ extension Button {
 
   // MARK: - Button's current state
 
-  public var currentTitle: String? {
+  var currentTitle: String? {
     return self.button.currentTitle
   }
 
-  public var currentAttributedTitle: NSAttributedString? {
+  var currentAttributedTitle: NSAttributedString? {
     return self.button.currentAttributedTitle
   }
 
-  public var currentTitleColor: UIColor {
+  var currentTitleColor: UIColor {
     return self.button.currentTitleColor
   }
 
-  public var currentTitleShadowColor: UIColor? {
+  var currentTitleShadowColor: UIColor? {
     return self.button.currentTitleShadowColor
   }
 
-  public var currentImage: UIImage? {
+  var currentImage: UIImage? {
     return self.button.currentImage
   }
 
-  public var currentBackgroundImage: UIImage? {
+  var currentBackgroundImage: UIImage? {
     return self.button.currentBackgroundImage
   }
 
   // MARK: - Dimensions
 
-  public func backgroundRect(forBounds bounds: CGRect) -> CGRect {
+  func backgroundRect(forBounds bounds: CGRect) -> CGRect {
     return self.button.backgroundRect(forBounds: bounds)
   }
 
-  public func contentRect(forBounds bounds: CGRect) -> CGRect {
+  func contentRect(forBounds bounds: CGRect) -> CGRect {
     return self.button.contentRect(forBounds: bounds)
   }
 
-  public func titleRect(forContentRect rect: CGRect) -> CGRect {
+  func titleRect(forContentRect rect: CGRect) -> CGRect {
     return self.button.titleRect(forContentRect: rect)
   }
 
-  public func imageRect(forContentRect rect: CGRect) -> CGRect {
+  func imageRect(forContentRect rect: CGRect) -> CGRect {
     return self.button.imageRect(forContentRect: rect)
   }
 }
 
 // MARK: - Content alignment
 
-extension Button {
-  public var contentVerticalAlignment: UIControl.ContentVerticalAlignment {
+public extension Button {
+  var contentVerticalAlignment: UIControl.ContentVerticalAlignment {
     get {
       return self.button.contentVerticalAlignment
     }
@@ -458,7 +458,7 @@ extension Button {
     }
   }
 
-  public var contentHorizontalAlignment: UIControl.ContentHorizontalAlignment {
+  var contentHorizontalAlignment: UIControl.ContentHorizontalAlignment {
     get {
       return self.button.contentHorizontalAlignment
     }
@@ -467,7 +467,7 @@ extension Button {
     }
   }
 
-  public var effectiveContentHorizontalAlignment: UIControl.ContentHorizontalAlignment {
+  var effectiveContentHorizontalAlignment: UIControl.ContentHorizontalAlignment {
     return self.button.effectiveContentHorizontalAlignment
   }
 }

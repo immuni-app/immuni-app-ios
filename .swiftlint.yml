@@ -1,5 +1,4 @@
 included:
-  - AppTests
   - App
   - Modules
   - UITests

@@ -94,8 +94,8 @@ private extension Dictionary where Key == String, Value == Any {
       let stateData = try? JSONEncoder().encode(state),
       let stateJSON = try? JSONSerialization.jsonObject(with: stateData),
       let typedStateJSON = stateJSON as? [String: Any]
-      else {
-        return self
+    else {
+      return self
     }
 
     return self.deepMerged(with: typedStateJSON)

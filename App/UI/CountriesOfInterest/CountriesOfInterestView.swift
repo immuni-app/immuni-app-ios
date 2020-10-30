@@ -20,6 +20,8 @@ import Models
 import PinLayout
 import Tempura
 
+// swiftlint:disable all
+
 final class CountriesOfInterestView: UIView, ViewControllerModellableView {
   // MARK: Interactions
 
@@ -114,8 +116,8 @@ final class CountriesOfInterestView: UIView, ViewControllerModellableView {
       guard
         let typedCell = cell as? OnboardingCheckCell,
         let idxPath = self.contentCollection.indexPath(for: cell)
-        else {
-          continue
+      else {
+        continue
       }
 
       typedCell.model = model.items[safe: idxPath.row]?.cellVM as? OnboardingCheckCellVM
@@ -184,8 +186,8 @@ extension CountriesOfInterestView: UICollectionViewDataSource {
       let model = self.model,
       let item = model.items[safe: indexPath.row]
 
-      else {
-        AppLogger.fatalError("This should never happen")
+    else {
+      AppLogger.fatalError("This should never happen")
     }
     switch item {
     case .titleHeader:

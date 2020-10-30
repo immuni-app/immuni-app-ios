@@ -313,7 +313,7 @@ final class ExposureDetectionLogicTests: XCTestCase {
       outcome: .partialDetection(Date(), .noMatch, ["IT": 0], ["IT": 5]),
       type: .foreground
     )
-      .updateState(&state)
+    .updateState(&state)
     XCTAssertEqual(state.exposureDetection.recentPositiveExposureResults.count, 0)
   }
 
@@ -325,7 +325,7 @@ final class ExposureDetectionLogicTests: XCTestCase {
       outcome: .fullDetection(Date(), .noMatch, [], ["IT": 0], ["IT": 5]),
       type: .foreground
     )
-      .updateState(&state)
+    .updateState(&state)
     XCTAssertEqual(state.exposureDetection.recentPositiveExposureResults.count, 0)
   }
 

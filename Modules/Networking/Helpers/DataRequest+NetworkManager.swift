@@ -32,10 +32,10 @@ extension DataRequest {
   )
     -> Self
   {
-      return response(
-        queue: queue,
-        responseSerializer: serializer,
-        completionHandler: completionHandler
-      )
+    return response(
+      queue: queue,
+      responseSerializer: serializer,
+      completionHandler: completionHandler
+    )
   }
 }

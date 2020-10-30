@@ -101,8 +101,8 @@ class CollectionWithShadowLayout: UICollectionViewFlowLayout {
       let start = self.startPath,
       let end = self.endPath,
       let attribute = self.layoutAttributesForDecorationViewItem(from: start, to: end, index: self.decorationIndex)
-      else {
-        return nil
+    else {
+      return nil
     }
 
     self.decorationIndex += 1
@@ -123,8 +123,8 @@ class CollectionWithShadowLayout: UICollectionViewFlowLayout {
     guard
       let topItemAttributes = self.layoutAttributesForItem(at: startingCell),
       let bottomItemAttributes = self.layoutAttributesForItem(at: endingCell)
-      else {
-        return nil
+    else {
+      return nil
     }
 
     decorationViewAttributes.frame = CGRect(

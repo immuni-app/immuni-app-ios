@@ -21,8 +21,8 @@ public protocol Monitorable {
   var monitorValue: Any { get }
 }
 
-extension Monitorable {
-  public var monitorValue: Any { return self }
+public extension Monitorable {
+  var monitorValue: Any { return self }
 }
 
 extension Int: Monitorable {}
