@@ -18,10 +18,14 @@ import { promisify } from "util";
 const exec = promisify(require("child_process").exec);
 
 export const checkFormat = async (files: string[]) => {
+  const toolVersion = (await exec("swiftformat --version")).stdout
+    .replace(/\s+/g, " ")
+    .trim();
+
   try {
     await exec(`swiftformat --lint ${files.join(" ")}`);
-    message(`:white_check_mark: SwiftFormat passed`);
+    message(`:white_check_mark: SwiftFormat (${toolVersion}) passed`);
   } catch {
-    fail("SwiftFormat check failed. Please format your files");
+    fail(`SwiftFormat (${toolVersion}) check failed. Please format your files`);
   }
 };
