@@ -67,18 +67,20 @@ extension CodableExposureInfo {
 }
 
 extension CodableExposureDetectionSummary {
-  static func mock() -> Self {
+  static func mock(
+    date: Date = Date(),
+    matchedKeyCount: Int = .random(in: 0 ... 15),
+    daysSinceLastExposure: Int = .random(in: 0 ... 14),
+    attenuationDurations: [TimeInterval] = [
+      .random(in: 0 ... 1800),
+      .random(in: 0 ... 1800),
+      .random(in: 0 ... 1800)
+    ],
+    maximumRiskScore: Int = .random(in: 0 ... 255),
+    exposureInfo: [CodableExposureInfo] = (0 ..< Int.random(in: 1 ... 10)).map { _ in .mock() }
+  ) -> Self {
     return .init(
-      date: Date(),
-      matchedKeyCount: Int.random(in: 0 ... 15),
-      daysSinceLastExposure: Int.random(in: 0 ... 14),
-      attenuationDurations: [
-        TimeInterval.random(in: 0 ... 1800),
-        TimeInterval.random(in: 0 ... 1800),
-        TimeInterval.random(in: 0 ... 1800)
-      ],
-      maximumRiskScore: Int.random(in: 0 ... 255),
-      exposureInfo: (0 ..< Int.random(in: 1 ... 10)).map { _ in CodableExposureInfo.mock() }
+      date: date, matchedKeyCount: matchedKeyCount, daysSinceLastExposure: daysSinceLastExposure, attenuationDurations: attenuationDurations, maximumRiskScore: maximumRiskScore, exposureInfo: exposureInfo
     )
   }
 }

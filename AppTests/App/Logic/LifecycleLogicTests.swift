@@ -113,4 +113,35 @@ extension LifecycleLogicTests {
 
     XCTAssert(dispatchInterceptor.dispatchedItems.isEmpty)
   }
+
+  // MARK: - Migration
+  func testOnStart_invokesPerformMigrationsIfNecessary() throws {
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(dispatch: dispatchInterceptor.dispatchFunction)
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.OnStart().sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.Lifecycle.PerformMigrationsIfNecessary.self)
+  }
+
+  func testWillEnterForeground_invokesPerformMigrationsIfNecessary() throws {
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(dispatch: dispatchInterceptor.dispatchFunction)
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.WillEnterForeground().sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.Lifecycle.PerformMigrationsIfNecessary.self)
+  }
+
+  func testHandleBackgroundTask_invokesPerformMigrationsIfNecessary() throws {
+    let dispatchInterceptor = DispatchInterceptor()
+    let dependencies = AppDependencies.mocked(dispatch: dispatchInterceptor.dispatchFunction)
+    let context = AppSideEffectContext(dependencies: dependencies)
+
+    try Logic.Lifecycle.HandleExposureDetectionBackgroundTask(task: MockBackgroundTask()).sideEffect(context)
+
+    try XCTAssertContainsType(dispatchInterceptor.dispatchedItems, Logic.Lifecycle.PerformMigrationsIfNecessary.self)
+  }
 }
