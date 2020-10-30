@@ -43,35 +43,45 @@ extension CodableTemporaryExposureKey {
 }
 
 extension CodableExposureInfo {
-  static func mock() -> Self {
+  static func mock(
+    date: Date = Date(),
+    duration: TimeInterval = .random(in: 0 ... 1800),
+    attenuationValue: Int = .random(in: 10 ... 100),
+    attenuationDurations: [TimeInterval] = [
+      .random(in: 0 ... 1800),
+      .random(in: 0 ... 1800),
+      .random(in: 0 ... 1800)
+    ],
+    transmissionRiskLevel: Int = .random(in: 1 ... 8),
+    totalRiskScore: Int = .random(in: 1 ... 8)
+  ) -> Self {
     return .init(
-      date: Date(),
-      duration: TimeInterval.random(in: 0 ... 1800),
-      attenuationValue: Int.random(in: 10 ... 100),
-      attenuationDurations: [
-        TimeInterval.random(in: 0 ... 1800),
-        TimeInterval.random(in: 0 ... 1800),
-        TimeInterval.random(in: 0 ... 1800)
-      ],
-      transmissionRiskLevel: Int.random(in: 1 ... 8),
-      totalRiskScore: Int.random(in: 1 ... 8)
+      date: date,
+      duration: duration,
+      attenuationValue: attenuationValue,
+      attenuationDurations: attenuationDurations,
+      transmissionRiskLevel: transmissionRiskLevel,
+      totalRiskScore: totalRiskScore
     )
   }
 }
 
 extension CodableExposureDetectionSummary {
-  static func mock() -> Self {
+  static func mock(
+    date: Date = Date(),
+    matchedKeyCount: Int = .random(in: 0 ... 15),
+    daysSinceLastExposure: Int = .random(in: 0 ... 14),
+    attenuationDurations: [TimeInterval] = [
+      .random(in: 0 ... 1800),
+      .random(in: 0 ... 1800),
+      .random(in: 0 ... 1800)
+    ],
+    maximumRiskScore: Int = .random(in: 0 ... 255),
+    exposureInfo: [CodableExposureInfo] = (0 ..< Int.random(in: 1 ... 10)).map { _ in .mock() }
+  ) -> Self {
     return .init(
-      date: Date(),
-      matchedKeyCount: Int.random(in: 0 ... 15),
-      daysSinceLastExposure: Int.random(in: 0 ... 14),
-      attenuationDurations: [
-        TimeInterval.random(in: 0 ... 1800),
-        TimeInterval.random(in: 0 ... 1800),
-        TimeInterval.random(in: 0 ... 1800)
-      ],
-      maximumRiskScore: Int.random(in: 0 ... 255),
-      exposureInfo: (0 ..< Int.random(in: 1 ... 10)).map { _ in CodableExposureInfo.mock() }
+      date: date, matchedKeyCount: matchedKeyCount, daysSinceLastExposure: daysSinceLastExposure,
+      attenuationDurations: attenuationDurations, maximumRiskScore: maximumRiskScore, exposureInfo: exposureInfo
     )
   }
 }

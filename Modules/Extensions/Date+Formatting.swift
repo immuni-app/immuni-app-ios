@@ -28,6 +28,15 @@ public extension Date {
     return Self.utcIsoFormatter.string(from: self)
   }
 
+  /// Instantiates a date from a `yyyy-MM-dd` day in UTC
+  init?(utcIsoString: String) {
+    guard let date = Self.utcIsoFormatter.date(from: utcIsoString) else {
+      return nil
+    }
+
+    self = date
+  }
+
   /// Formatter for the full date with milliseconds
   private static let fullDateTimeWithMillisFormatter: DateFormatter = {
     let formatter = DateFormatter()
