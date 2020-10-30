@@ -20,7 +20,7 @@ public extension UIWindow {
     if let presentedViewController = viewController?.presentedViewController {
       return self.topmostViewController(from: presentedViewController)
     } else if let navigationController = viewController as? UINavigationController,
-              let lastViewController = navigationController.viewControllers.last
+      let lastViewController = navigationController.viewControllers.last
     {
       return self.topmostViewController(from: lastViewController)
     } else {
