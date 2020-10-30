@@ -96,15 +96,18 @@ extension Logic.ExposureDetection {
     let outcome: ExposureDetectionOutcome
 
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      let state = context.getState()
+
       switch self.outcome {
       case .error, .noDetectionNecessary, .partialDetection:
         // Nothing to update
         return
 
       case .fullDetection(_, _, let exposureInfo, _, _):
-        guard
-          let mostRecentExposureInfoContactDay = exposureInfo.mostRecentContactDay
-        else {
+        let maybeMostRiskyRecentContactDay = exposureInfo
+          .mostRecentRiskyContactDay(closeContactRiskThreshold: state.configuration.exposureInfoMinimumRiskScore)
+
+        guard let mostRecentExposureInfoContactDay = maybeMostRiskyRecentContactDay else {
           // No matches, nothing to update
           return
         }
@@ -275,31 +278,6 @@ extension Logic.ExposureDetection {
       case .background:
         return configuration.exposureDetectionPeriod
       }
-    }
-  }
-}
-
-// MARK: - Helpers
-
-private extension Array where Element == ExposureInfo {
-  /// Most recent contact day of an array of `ExposureInfo`
-  var mostRecentContactDay: CalendarDay? {
-    let mostRecentDate = self
-      .map { $0.date }
-      .max()
-
-    return mostRecentDate?.calendarDay
-  }
-}
-
-private extension ExposureDetectionSummary {
-  /// Most recent contact day of an `ExposureDetectionSummary`
-  var mostRecentContactDay: CalendarDay? {
-    switch self {
-    case .noMatch:
-      return nil
-    case .matches(let data):
-      return Date().calendarDay.byAdding(days: -data.daysSinceLastExposure)
     }
   }
 }

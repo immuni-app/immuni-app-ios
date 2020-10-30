@@ -526,7 +526,8 @@ final class ExposureDetectionLogicTests: XCTestCase {
     let context = AppSideEffectContext(dependencies: dependencies)
 
     let daysSinceLastExposure = 2
-    let exposureDate = Date().addingTimeInterval(-Double(daysSinceLastExposure) * 24 * 60 * 60)
+    let lowRiskExposureDate = Date().addingTimeInterval(-Double(daysSinceLastExposure) * 24 * 60 * 60)
+    let highRiskExposureDate = lowRiskExposureDate.addingTimeInterval(-1 * 24 * 60 * 60)
 
     let data = MockExposureDetectionSummaryData(
       durationByAttenuationBucket: [300, 600, 300],
@@ -535,18 +536,37 @@ final class ExposureDetectionLogicTests: XCTestCase {
       maximumRiskScore: 5,
       metadata: nil
     )
-    let exposureInfo = MockExposureInfo(
+
+    // Older high risk exposure
+    let highRiskExposure = MockExposureInfo(
       attenuationValue: 3,
       durationByAttenuationBucket: [300, 600, 300],
-      date: exposureDate,
+      date: highRiskExposureDate,
       duration: 1200,
       transmissionRisk: .high,
       totalRiskScore: 255,
       metadata: nil
     )
 
+    // More recent low risk exposure
+    let lowRiskExposure = MockExposureInfo(
+      attenuationValue: 3,
+      durationByAttenuationBucket: [300, 600, 300],
+      date: lowRiskExposureDate,
+      duration: 1200,
+      transmissionRisk: .high,
+      totalRiskScore: 1,
+      metadata: nil
+    )
+
     try Logic.ExposureDetection
-      .UpdateUserStatusIfNecessary(outcome: .fullDetection(Date(), .matches(data: data), [exposureInfo], ["IT": 0], ["IT": 5]))
+      .UpdateUserStatusIfNecessary(outcome: .fullDetection(
+        Date(),
+        .matches(data: data),
+        [highRiskExposure, lowRiskExposure],
+        ["IT": 0],
+        ["IT": 5]
+      ))
       .sideEffect(context)
     XCTAssertEqual(dispatchInterceptor.dispatchedItems.count, 1)
 
@@ -556,7 +576,7 @@ final class ExposureDetectionLogicTests: XCTestCase {
         return
       }
 
-      XCTAssertEqual(mostRecentContactDay, CalendarDay(date: exposureDate))
+      XCTAssertEqual(mostRecentContactDay, CalendarDay(date: highRiskExposureDate))
     }
   }
 
