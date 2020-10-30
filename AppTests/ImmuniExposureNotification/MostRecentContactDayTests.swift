@@ -29,7 +29,7 @@ final class MostRecentContactDayTests: XCTestCase {
     let exposureInfo: [CodableExposureInfo] = [
       .mock(date: mockDay.byAdding(days: -1).utcDateAtBeginningOfTheDay, totalRiskScore: 0),
       .mock(date: mockDay.byAdding(days: -2).utcDateAtBeginningOfTheDay, totalRiskScore: 1),
-      .mock(date: mockDay.byAdding(days: -3).utcDateAtBeginningOfTheDay, totalRiskScore: 2),
+      .mock(date: mockDay.byAdding(days: -3).utcDateAtBeginningOfTheDay, totalRiskScore: 2)
     ]
     XCTAssertNil(exposureInfo.mostRecentRiskyContactDay(closeContactRiskThreshold: 3))
   }
@@ -39,7 +39,7 @@ final class MostRecentContactDayTests: XCTestCase {
     let exposureInfo: [CodableExposureInfo] = [
       .mock(date: mockDay.byAdding(days: -1).utcDateAtBeginningOfTheDay, totalRiskScore: 0),
       .mock(date: mockDay.byAdding(days: -2).utcDateAtBeginningOfTheDay, totalRiskScore: 2),
-      .mock(date: mockDay.byAdding(days: -3).utcDateAtBeginningOfTheDay, totalRiskScore: 1),
+      .mock(date: mockDay.byAdding(days: -3).utcDateAtBeginningOfTheDay, totalRiskScore: 1)
     ]
 
     let expected = mockDay.byAdding(days: -2)
@@ -52,7 +52,7 @@ final class MostRecentContactDayTests: XCTestCase {
     let exposureInfo: [CodableExposureInfo] = [
       .mock(date: mockDay.byAdding(days: -1).utcDateAtBeginningOfTheDay, totalRiskScore: 0),
       .mock(date: mockDay.byAdding(days: -2).utcDateAtBeginningOfTheDay, totalRiskScore: 2),
-      .mock(date: mockDay.byAdding(days: -3).utcDateAtBeginningOfTheDay, totalRiskScore: 1),
+      .mock(date: mockDay.byAdding(days: -3).utcDateAtBeginningOfTheDay, totalRiskScore: 1)
     ]
 
     let expected = mockDay.byAdding(days: -1)
@@ -72,7 +72,7 @@ final class MostRecentContactDayTests: XCTestCase {
     let exposureInfo: [ExposureInfo] = [
       MockExposureInfo.mock(date: mockDay.byAdding(days: -1).utcDateAtBeginningOfTheDay, totalRiskScore: 0),
       MockExposureInfo.mock(date: mockDay.byAdding(days: -2).utcDateAtBeginningOfTheDay, totalRiskScore: 1),
-      MockExposureInfo.mock(date: mockDay.byAdding(days: -3).utcDateAtBeginningOfTheDay, totalRiskScore: 2),
+      MockExposureInfo.mock(date: mockDay.byAdding(days: -3).utcDateAtBeginningOfTheDay, totalRiskScore: 2)
     ]
     XCTAssertNil(exposureInfo.mostRecentRiskyContactDay(closeContactRiskThreshold: 3))
   }
@@ -82,7 +82,7 @@ final class MostRecentContactDayTests: XCTestCase {
     let exposureInfo: [ExposureInfo] = [
       MockExposureInfo.mock(date: mockDay.byAdding(days: -1).utcDateAtBeginningOfTheDay, totalRiskScore: 0),
       MockExposureInfo.mock(date: mockDay.byAdding(days: -2).utcDateAtBeginningOfTheDay, totalRiskScore: 2),
-      MockExposureInfo.mock(date: mockDay.byAdding(days: -3).utcDateAtBeginningOfTheDay, totalRiskScore: 1),
+      MockExposureInfo.mock(date: mockDay.byAdding(days: -3).utcDateAtBeginningOfTheDay, totalRiskScore: 1)
     ]
 
     let expected = mockDay.byAdding(days: -2)
@@ -95,7 +95,7 @@ final class MostRecentContactDayTests: XCTestCase {
     let exposureInfo: [ExposureInfo] = [
       MockExposureInfo.mock(date: mockDay.byAdding(days: -1).utcDateAtBeginningOfTheDay, totalRiskScore: 0),
       MockExposureInfo.mock(date: mockDay.byAdding(days: -2).utcDateAtBeginningOfTheDay, totalRiskScore: 2),
-      MockExposureInfo.mock(date: mockDay.byAdding(days: -3).utcDateAtBeginningOfTheDay, totalRiskScore: 1),
+      MockExposureInfo.mock(date: mockDay.byAdding(days: -3).utcDateAtBeginningOfTheDay, totalRiskScore: 1)
     ]
 
     let expected = mockDay.byAdding(days: -1)
