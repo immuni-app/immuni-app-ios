@@ -33,8 +33,8 @@ extension Logic.Keyboard {
         let animationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
         let animationCurveInt = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int,
         let animationCurve = UIView.AnimationCurve(rawValue: animationCurveInt)
-        else {
-          return nil
+      else {
+        return nil
       }
 
       self.frame = frame

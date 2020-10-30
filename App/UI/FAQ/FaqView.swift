@@ -202,8 +202,8 @@ class FaqView: UIView, ViewControllerModellableView {
     guard
       let collectionViewLayout = self.collection.collectionViewLayout as? UICollectionViewFlowLayout,
       collectionViewLayout.estimatedItemSize == .zero // avoid multiple adjust iteration
-      else {
-        return
+    else {
+      return
     }
     collectionViewLayout.itemSize = UICollectionViewFlowLayout.automaticSize
     collectionViewLayout.estimatedItemSize = CGSize(width: self.collection.bounds.width, height: 50)
@@ -263,8 +263,8 @@ extension FaqView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayou
     guard
       let model = self.model,
       let cellModel = model.cellModel(for: indexPath)
-      else {
-        return UICollectionViewCell()
+    else {
+      return UICollectionViewCell()
     }
 
     let cell = collectionView.dequeueReusableCell(FaqCell.self, for: indexPath)

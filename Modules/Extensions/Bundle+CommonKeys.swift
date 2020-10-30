@@ -52,8 +52,8 @@ public extension Bundle {
     guard
       let buildVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String,
       let intBuildVersion = Int(buildVersion)
-      else {
-        return nil
+    else {
+      return nil
     }
 
     return intBuildVersion

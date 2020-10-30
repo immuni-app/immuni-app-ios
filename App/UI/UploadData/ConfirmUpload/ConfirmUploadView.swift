@@ -144,8 +144,8 @@ class ConfirmUploadView: UIView, ViewControllerModellableView {
     guard
       let collectionViewLayout = self.collection.collectionViewLayout as? UICollectionViewFlowLayout,
       collectionViewLayout.estimatedItemSize == .zero // avoid multiple adjust iteration
-      else {
-        return
+    else {
+      return
     }
     collectionViewLayout.itemSize = UICollectionViewFlowLayout.automaticSize
     collectionViewLayout.estimatedItemSize = CGSize(width: self.collection.bounds.width, height: 50)
@@ -206,8 +206,8 @@ extension ConfirmUploadView: UICollectionViewDataSource, UICollectionViewDelegat
     guard
       let model = self.model,
       let cellModel = model.cellModel(for: indexPath.item - 1)
-      else {
-        return UICollectionViewCell()
+    else {
+      return UICollectionViewCell()
     }
 
     let cell = collectionView.dequeueReusableCell(ConfirmUploadCell.self, for: indexPath)

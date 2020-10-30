@@ -113,8 +113,8 @@ extension StateExplorerTableController: UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: StateCell.reusableIdentifier, for: indexPath) as? StateCell
-      else {
-        LibLogger.fatalError("State explore cell must be a statecell")
+    else {
+      LibLogger.fatalError("State explore cell must be a statecell")
     }
 
     let index = indexPath.row

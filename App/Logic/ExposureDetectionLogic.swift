@@ -106,9 +106,9 @@ extension Logic.ExposureDetection {
       case .fullDetection(_, _, let exposureInfo, _, _):
         guard
           let mostRecentExposureInfoContactDay = exposureInfo.mostRecentContactDay
-          else {
-            // No matches, nothing to update
-            return
+        else {
+          // No matches, nothing to update
+          return
         }
 
         // Update the local COVID status of the user
@@ -139,9 +139,9 @@ extension Logic.ExposureDetection {
       guard
         state.environment.pushNotificationAuthorizationStatus.allowsSendingNotifications,
         timeSinceLastNotification >= state.configuration.serviceNotActiveNotificationPeriod
-        else {
-          // either no permissions or too soon
-          return
+      else {
+        // either no permissions or too soon
+        return
       }
 
       manager.scheduleLocalNotification(
@@ -237,7 +237,7 @@ extension Logic.ExposureDetection {
           continue
         }
         for (index, countryOfInterest) in state.exposureDetection.countriesOfInterest.enumerated() {
-          //swiftlint:disable for_where
+          // swiftlint:disable for_where
           if countryOfInterest.country.countryId == key {
             state.exposureDetection.countriesOfInterest[index].latestProcessedKeyChunkIndex = value
           }
@@ -342,19 +342,19 @@ extension Logic.ExposureDetection {
         title = "Skipped"
         message =
           // swiftlint:disable:next line_length
-            "\(Date().fullDateWithMillisString)\nExposure detection was skipped (enStatus: \(enStatus), lastDetection: \(lastDetectionString), lastChunk: \(latestProcessedChunk.map { String($0) } ?? "none"))"
+          "\(Date().fullDateWithMillisString)\nExposure detection was skipped (enStatus: \(enStatus), lastDetection: \(lastDetectionString), lastChunk: \(latestProcessedChunk.map { String($0) } ?? "none"))"
 
       case .fullDetection(_, let summary, _, let earliestChunk, let latestChunk):
         title = "Success"
         message =
           // swiftlint:disable:next line_length
-            "\(Date().fullDateWithMillisString)\nExposure detection was performed successfully: full, \(summary.matchedKeyCount) matches, chunks [\(earliestChunk), \(latestChunk)]"
+          "\(Date().fullDateWithMillisString)\nExposure detection was performed successfully: full, \(summary.matchedKeyCount) matches, chunks [\(earliestChunk), \(latestChunk)]"
 
       case .partialDetection(_, let summary, let earliestChunk, let latestChunk):
         title = "Success"
         message =
           // swiftlint:disable:next line_length
-            "\(Date().fullDateWithMillisString)\nExposure detection was performed successfully: partial, \(summary.matchedKeyCount) matches, chunks [\(earliestChunk), \(latestChunk)]"
+          "\(Date().fullDateWithMillisString)\nExposure detection was performed successfully: partial, \(summary.matchedKeyCount) matches, chunks [\(earliestChunk), \(latestChunk)]"
 
       case .error(.timeout):
         title = "Timeout"

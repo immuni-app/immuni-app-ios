@@ -47,9 +47,9 @@ public extension JSONRequest {
 /// A protocol that implements the usage of a JSON serializer for network response.
 /// This protocol is meant to be used in composition with other protocols, and not alone.
 public protocol JSONResponse: HTTPRequest {}
-extension JSONResponse {
+public extension JSONResponse {
   /// Default value is `JSONResponseSerializer`
-  public var responseSerializer: JSONResponseSerializer {
+  var responseSerializer: JSONResponseSerializer {
     return JSONResponseSerializer()
   }
 }

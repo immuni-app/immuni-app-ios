@@ -16,9 +16,9 @@ import Extensions
 import Foundation
 import Katana
 
-extension DebugMenuActions {
+public extension DebugMenuActions {
   /// Presents an alert with the given model to the top view controller.
-  public struct ShowAlert: DebugMenuSideEffect {
+  struct ShowAlert: DebugMenuSideEffect {
     public let model: DebugMenuAlertModel
     public let animated: Bool
 

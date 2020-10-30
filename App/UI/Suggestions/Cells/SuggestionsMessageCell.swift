@@ -83,8 +83,8 @@ extension SuggestionsMessageCell {
       let url = self.content.textStyling(at: textPosition, in: .forward)?[NSAttributedString.Key.link] as? URL,
       let modelURL = self.model?.url,
       url == modelURL
-      else {
-        return
+    else {
+      return
     }
 
     self.userDidTapURL?(url)

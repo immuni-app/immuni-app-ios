@@ -121,8 +121,8 @@ extension Logic.Settings {
         let appID = context.dependencies.bundle.appStoreID,
         let url = URL(string: "itms-apps://itunes.apple.com/us/app/pages/id\(appID)?mt=8&uo=4&action=write-review")
 
-        else {
-          return
+      else {
+        return
       }
 
       try await(context.dependencies.application.goTo(url: url).run())

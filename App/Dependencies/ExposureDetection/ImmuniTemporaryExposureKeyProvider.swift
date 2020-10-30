@@ -52,16 +52,16 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
       latestKnownChunkIndex: latestKnownChunkIndex,
       country: country
     )
-      .recover { error in
-        guard case NetworkManager.Error.noBatchesFound = error else {
-          // Unrecoverable error
-          throw error
-        }
-
-        // No batches at all found on backend. Equivalent to no new batches.
-        return .init(resolved: [])
+    .recover { error in
+      guard case NetworkManager.Error.noBatchesFound = error else {
+        // Unrecoverable error
+        throw error
       }
-      .then { self.downloadChunks(with: $0, country: country) }
+
+      // No batches at all found on backend. Equivalent to no new batches.
+      return .init(resolved: [])
+    }
+    .then { self.downloadChunks(with: $0, country: country) }
   }
 
   func clearLocalResources(for chunks: [TemporaryExposureKeyChunk]) -> Promise<Void> {
@@ -78,9 +78,9 @@ class ImmuniTemporaryExposureKeyProvider: TemporaryExposureKeyProvider {
         guard
           keysIndex.newest > latestKnown,
           keysIndex.newest >= keysIndex.oldest
-          else {
-            // no chunks to download
-            return []
+        else {
+          // no chunks to download
+          return []
         }
 
         // note the +1. It is added to prevent to download the previous "latest"

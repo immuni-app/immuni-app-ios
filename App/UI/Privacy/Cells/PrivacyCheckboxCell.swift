@@ -172,9 +172,9 @@ final class PrivacyCheckboxCell: UICollectionViewCell, ModellableView, ReusableV
       let url = self.details.textStyling(at: textPosition, in: .forward)?[NSAttributedString.Key.link] as? URL,
       let modelURL = self.model?.linkedURL,
       url == modelURL
-      else {
-        self.userDidTapCell?()
-        return
+    else {
+      self.userDidTapCell?()
+      return
     }
 
     self.userDidTapURL?(url)

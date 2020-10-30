@@ -26,8 +26,8 @@ class OnboardingAdviceUITests: AppViewTestCase, ViewTestCase {
         let view = vc.view as? OnboardingAdviceView,
         let model = view.model
 
-        else {
-          return vc
+      else {
+        return vc
       }
 
       let navController = OnboardingContainerNC(rootViewController: vc)

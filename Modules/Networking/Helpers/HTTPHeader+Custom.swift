@@ -15,16 +15,16 @@
 import Alamofire
 import Foundation
 
-extension HTTPHeader {
+public extension HTTPHeader {
   /// Returns an `Exp-Dummy-Data` header.
-  public static func dummyData(_ value: Bool) -> HTTPHeader {
+  static func dummyData(_ value: Bool) -> HTTPHeader {
     // Convert bool to int to ensure that the packet sizes are always the same.
     let intValue = value ? 1 : 0
     return HTTPHeader(name: "Immuni-Dummy-Data", value: String(intValue))
   }
 
   /// Returns a `Exp-Client-Clock` header.
-  public static func clientClock(_ value: Date) -> HTTPHeader {
+  static func clientClock(_ value: Date) -> HTTPHeader {
     HTTPHeader(name: "Immuni-Client-Clock", value: String(value.timeIntervalSince1970.roundedInt()))
   }
 
@@ -33,7 +33,7 @@ extension HTTPHeader {
   /// logic can be implemented correctly
   ///
   /// - seeAlso: https://github.com/immuni-app/immuni-documentation
-  public static var defaultImmuniHeaders: [HTTPHeader] = [
+  static var defaultImmuniHeaders: [HTTPHeader] = [
     .userAgent("Immuni"),
     .acceptLanguage("en-US;q=1.0"),
     .acceptEncoding("br;q=1.0")

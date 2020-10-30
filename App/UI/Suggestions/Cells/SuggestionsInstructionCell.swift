@@ -125,7 +125,7 @@ class SuggestionsInstructionCell: UICollectionViewCell, ModellableView, Reusable
   private static let titleToSubtitle: CGFloat = 15
   private static let totalHorizontalMargin: CGFloat =
     2 * SuggestionsView.cellContainerInset + SuggestionsInstructionCell.imageSize +
-      SuggestionsInstructionCell.imageToMessage + 2 * SuggestionsInstructionCell.contentInset
+    SuggestionsInstructionCell.imageToMessage + 2 * SuggestionsInstructionCell.contentInset
 
   let container = UIView()
   let message = UILabel()

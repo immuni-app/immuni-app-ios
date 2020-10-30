@@ -26,8 +26,8 @@ class OnboardingPermissionsUITests: AppViewTestCase, ViewTestCase {
         let view = vc.view as? OnboardingPermissionView,
         let model = view.model
 
-        else {
-          return vc
+      else {
+        return vc
       }
 
       let navigationController = OnboardingContainerNC(rootViewController: vc)

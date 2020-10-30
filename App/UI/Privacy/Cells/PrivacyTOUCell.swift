@@ -93,8 +93,8 @@ extension PrivacyTOUCell {
       let url = self.content.textStyling(at: textPosition, in: .forward)?[NSAttributedString.Key.link] as? URL,
       let modelURL = self.model?.tosURL,
       url == modelURL
-      else {
-        return
+    else {
+      return
     }
 
     self.userDidTapURL?(url)
