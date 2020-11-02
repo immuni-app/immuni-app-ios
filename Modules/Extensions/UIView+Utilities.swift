@@ -15,9 +15,9 @@
 import Foundation
 import Tempura
 
-extension UIView {
+public extension UIView {
   /// Executes an update block either with animation or without, according to `shouldAnimate`
-  public static func update(shouldAnimate: Bool, block: @escaping () -> Void) {
+  static func update(shouldAnimate: Bool, block: @escaping () -> Void) {
     guard shouldAnimate else {
       block()
       return

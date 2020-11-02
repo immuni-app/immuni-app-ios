@@ -45,8 +45,8 @@ extension DebugMenuActions {
       let items = try? fileManager
       .contentsOfDirectory(at: docFolderURL, includingPropertiesForKeys: nil, options: .skipsSubdirectoryDescendants)
 
-      else {
-        return
+    else {
+      return
     }
 
     for itemURL in items {

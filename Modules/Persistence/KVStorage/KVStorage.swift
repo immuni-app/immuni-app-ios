@@ -129,9 +129,9 @@ private extension KVStorage {
     guard
       let box = try? AES.GCM.seal(data, using: encryptionKey),
       let encryptedData = box.combined
-      else {
-        LibLogger.warning("Cannot store value in userdefaults for key \(key.kvStorageKey)")
-        return
+    else {
+      LibLogger.warning("Cannot store value in userdefaults for key \(key.kvStorageKey)")
+      return
     }
 
     self.userDefaults.set(encryptedData, forKey: key.kvStorageKey)
@@ -143,9 +143,9 @@ private extension KVStorage {
       let box = try? AES.GCM.SealedBox(combined: combinedData),
       let decryptedData = try? AES.GCM.open(box, using: encryptionKey)
 
-      else {
-        LibLogger.debug("[KVStorage] Cannot decrypt data for key \(key.kvStorageKey)")
-        return nil
+    else {
+      LibLogger.debug("[KVStorage] Cannot decrypt data for key \(key.kvStorageKey)")
+      return nil
     }
 
     return decryptedData

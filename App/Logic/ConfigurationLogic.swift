@@ -48,8 +48,8 @@ extension Logic.Configuration {
         let faqURL = state.configuration.faqURL(for: state.environment.userLanguage),
         var components = URLComponents(url: faqURL, resolvingAgainstBaseURL: false)
 
-        else {
-          throw FAQError.invalidConfiguration
+      else {
+        throw FAQError.invalidConfiguration
       }
 
       let path = components.path

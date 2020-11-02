@@ -42,4 +42,9 @@ struct TogglesState: Codable {
   /// Whether to send local notification at execution of background tasks to allow debugging.
   /// It is set from a Debug Menu action.
   var isBackgroundTaskDebugMode: Bool = false
+
+  // MARK: - Migration values
+
+  /// Whether the `ClearRiskStatusIfWronglyAttributed` migration has run
+  var isWronglyAttributedRiskStatusBeenChecked: Bool = false
 }

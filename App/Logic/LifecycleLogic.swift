@@ -29,7 +29,10 @@ extension Logic {
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
         let state = context.getState()
 
-        // Prelaod animation assets. Check `PreloadAssets` action for better documentation.
+        // Perform any necessary migration
+        try context.awaitDispatch(PerformMigrationsIfNecessary())
+
+        // Preload animation assets. Check `PreloadAssets` action for better documentation.
         context.dispatch(Logic.Shared.PreloadAssets())
 
         // refresh statuses
@@ -97,6 +100,9 @@ extension Logic {
       }
 
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        // Perform any necessary migration
+        try context.awaitDispatch(PerformMigrationsIfNecessary())
+
         // refresh statuses
         try context.awaitDispatch(RefreshAuthorizationStatuses())
 
@@ -197,6 +203,9 @@ extension Logic {
       var task: BackgroundTask
 
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        // Perform any necessary migration
+        try context.awaitDispatch(PerformMigrationsIfNecessary())
+
         // clears `PositiveExposureResults` older than 14 days from the `ExposureDetectionState`
         try context.awaitDispatch(Logic.ExposureDetection.ClearOutdatedResults(now: context.dependencies.now()))
 
@@ -298,7 +307,7 @@ private extension Logic.Lifecycle {
         state.environment.appName = appName
       }
       if let appVersion = self.bundle.appVersion,
-        let bundleVersion = self.bundle.bundleVersion
+         let bundleVersion = self.bundle.bundleVersion
       {
         state.environment.appVersion = "\(appVersion) (\(bundleVersion))"
       }
@@ -340,6 +349,17 @@ private extension Logic.Lifecycle {
   struct PassFirstLaunchExecuted: AppStateUpdater {
     func updateState(_ state: inout AppState) {
       state.toggles.isFirstLaunchSetupPerformed = true
+    }
+  }
+}
+
+// MARK: - Migrations
+
+extension Logic.Lifecycle {
+  /// Performs all necessary migrations, blockingly.
+  struct PerformMigrationsIfNecessary: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      try context.awaitDispatch(Logic.ExposureDetection.ClearRiskStatusIfWronglyAttributed())
     }
   }
 }

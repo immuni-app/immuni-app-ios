@@ -186,8 +186,8 @@ extension SuggestionsView: UICollectionViewDataSource, UICollectionViewDelegateF
       let model = self.model,
       let cellType = model.cellType(for: indexPath),
       let cellModel = model.cellModel(for: indexPath)
-      else {
-        return UICollectionViewCell()
+    else {
+      return UICollectionViewCell()
     }
 
     switch cellType {

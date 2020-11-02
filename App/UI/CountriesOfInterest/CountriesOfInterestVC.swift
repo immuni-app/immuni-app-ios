@@ -16,6 +16,8 @@ import Foundation
 import Models
 import Tempura
 
+// swiftlint:disable all
+
 final class CountriesOfInterestVC: ViewControllerWithLocalState<CountriesOfInterestView> {
   override func setupInteraction() {
     self.rootView.userDidTapClose = { [weak self] in

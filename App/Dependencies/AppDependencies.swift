@@ -192,8 +192,8 @@ extension AppDependencies {
     guard
       let appDelegate = mainThread({ self.application.delegate as? AppDelegate }),
       appDelegate.store.isReady
-      else {
-        return { return nil }
+    else {
+      return { return nil }
     }
 
     return self.getAppState

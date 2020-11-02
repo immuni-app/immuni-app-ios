@@ -213,8 +213,8 @@ class SettingsView: UIView, ViewControllerModellableView {
     guard
       let collectionViewLayout = self.collection.collectionViewLayout as? UICollectionViewFlowLayout,
       collectionViewLayout.estimatedItemSize == .zero // avoid multiple adjust iteration
-      else {
-        return
+    else {
+      return
     }
 
     collectionViewLayout.itemSize = UICollectionViewFlowLayout.automaticSize
@@ -279,8 +279,8 @@ extension SettingsView: UICollectionViewDataSource, UICollectionViewDelegateFlow
     guard
       let model = self.model,
       let cellModel = model.cellModel(for: indexPath)
-      else {
-        return UICollectionViewCell()
+    else {
+      return UICollectionViewCell()
     }
 
     let cell = collectionView.dequeueReusableCell(SettingCell.self, for: indexPath)

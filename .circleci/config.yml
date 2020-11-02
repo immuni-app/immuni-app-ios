@@ -288,6 +288,9 @@ commands:
               # Setup Mint package manager for Swift
               git clone https://github.com/yonaskolb/Mint.git
               cd Mint
+              
+              # Pin Mint revision to address issue with 0.15 on non-Apple platforms
+              git checkout 7b9920fd94bf67c81f2616b0c359a0243f06b767
               make
 
               # Install swiftformat

@@ -27,8 +27,8 @@ class OnboardingProvinceUITests: AppViewTestCase, ViewTestCase {
         let view = vc.view as? OnboardingProvinceView,
         let model = view.model
 
-        else {
-          return vc
+      else {
+        return vc
       }
 
       let navigationController = OnboardingContainerNC(rootViewController: vc)

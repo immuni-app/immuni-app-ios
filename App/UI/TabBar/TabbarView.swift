@@ -63,16 +63,16 @@ struct TabbarVM: ViewModelWithState {
 
   func needToReloadIndexPath(oldModel: TabbarVM?) -> [IndexPath] {
     guard let oldModel = oldModel,
-      oldModel.selectedTab != self.selectedTab
-      else {
-        return []
+          oldModel.selectedTab != self.selectedTab
+    else {
+      return []
     }
 
     return [
       self.tabs.firstIndex(of: oldModel.selectedTab).map { IndexPath(row: $0, section: 0) },
       self.tabs.firstIndex(of: self.selectedTab).map { IndexPath(row: $0, section: 0) }
     ]
-      .compactMap { $0 }
+    .compactMap { $0 }
   }
 
   func shouldReloadWholeTabbar(oldModel: TabbarVM?) -> Bool {

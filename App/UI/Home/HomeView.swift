@@ -141,8 +141,8 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
       let model = self.model,
       let cellType = model.cellType(for: indexPath),
       let cellModel = model.cellModel(for: indexPath)
-      else {
-        return UICollectionViewCell()
+    else {
+      return UICollectionViewCell()
     }
 
     switch cellType {
@@ -210,8 +210,8 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
       guard
         let cellModel = self.model?.cellModel(for: indexPath) as? HomeDeactivateServiceCellVM,
         cellModel.isEnabled
-        else {
-          return
+      else {
+        return
       }
       self.didTapDeactivateService?()
     }

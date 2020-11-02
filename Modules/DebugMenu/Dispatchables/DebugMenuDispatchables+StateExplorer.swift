@@ -15,10 +15,10 @@
 import Extensions
 import Foundation
 
-extension DebugMenuActions {
+public extension DebugMenuActions {
   /// Dispatch this action to show the State Explorer.
   /// You should typically do this from your app's Debug Menu.
-  public struct ShowStateExplorer: DebugMenuSideEffect {
+  struct ShowStateExplorer: DebugMenuSideEffect {
     public init() {}
 
     public func sideEffect(_ context: DebugMenuSideEffectContext) throws {

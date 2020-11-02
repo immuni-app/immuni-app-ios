@@ -109,8 +109,8 @@ extension Logic.Shared {
           let url = URL(string: "googlegmail:///co?to=\(recipient)&subject=\(subject)&body=\(body)"),
           context.dependencies.application.canOpenURL(url)
 
-          else {
-            return false
+        else {
+          return false
         }
 
         context.dependencies.application.open(url, options: [:], completionHandler: nil)
@@ -148,14 +148,14 @@ extension Logic.Shared {
       guard
         context.dependencies.application.currentRoutableIdentifiers
         .contains(where: { Self.possiblePresenters.contains($0) })
-        else {
-          return
+      else {
+        return
       }
       guard
         !context.dependencies.application.currentRoutableIdentifiers
         .contains(where: { Self.possibleBlockers.contains($0) })
-        else {
-          return
+      else {
+        return
       }
 
       context.dispatch(Show(Screen.sensitiveDataCover, animated: false))

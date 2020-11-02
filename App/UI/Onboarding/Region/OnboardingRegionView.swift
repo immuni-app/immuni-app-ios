@@ -101,8 +101,8 @@ final class OnboardingRegionView: UIView, ViewControllerModellableView {
       guard
         let typedCell = cell as? OnboardingRadioCell,
         let idxPath = self.contentCollection.indexPath(for: cell)
-        else {
-          continue
+      else {
+        continue
       }
 
       typedCell.model = model.items[safe: idxPath.row]?.cellVM as? OnboardingRadioCellVM
@@ -138,8 +138,8 @@ final class OnboardingRegionView: UIView, ViewControllerModellableView {
     guard
       let collectionViewLayout = self.contentCollection.collectionViewLayout as? UICollectionViewFlowLayout,
       collectionViewLayout.estimatedItemSize == .zero // avoid multiple adjust iteration
-      else {
-        return
+    else {
+      return
     }
 
     collectionViewLayout.estimatedItemSize = CGSize(
@@ -161,8 +161,8 @@ extension OnboardingRegionView: UICollectionViewDataSource {
       let model = self.model,
       let item = model.items[safe: indexPath.row]
 
-      else {
-        AppLogger.fatalError("This should never happen")
+    else {
+      AppLogger.fatalError("This should never happen")
     }
 
     switch item {
@@ -206,8 +206,8 @@ extension OnboardingRegionView: UICollectionViewDelegateFlowLayout {
       let cell = model.items[safe: indexPath.row],
       case OnboardingRegionVM.CellType.radio(let regionRawValue, _, let isSelected) = cell,
       let region = Region.allCases.first(where: { $0.rawValue == regionRawValue })
-      else {
-        return
+    else {
+      return
     }
 
     DispatchQueue.main.async {

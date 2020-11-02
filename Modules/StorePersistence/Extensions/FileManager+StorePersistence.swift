@@ -60,8 +60,8 @@ extension FileManager: MigrationLog {
       let content = self.contents(atPath: self.migrationFileURL.path),
       let model = try? decoder.decode(MigrationsPerformed.self, from: content)
 
-      else {
-        return nil
+    else {
+      return nil
     }
 
     return model

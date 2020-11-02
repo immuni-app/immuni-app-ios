@@ -168,15 +168,23 @@ struct MockExposureInfo: ExposureInfo, Equatable {
   // swiftlint:disable:next discouraged_optional_collection
   var metadata: [AnyHashable: Any]?
 
-  static func mock() -> Self {
+  static func mock(
+    attenuationValue: UInt8 = 5,
+    durationByAttenuationBucket: [TimeInterval] = [300, 600, 300],
+    date: Date = Date(),
+    duration: TimeInterval = 300,
+    transmissionRisk: RiskLevel = .high,
+    totalRiskScore: RiskScore = 100,
+    metadata: [AnyHashable: Any]? = nil
+  ) -> Self {
     return MockExposureInfo(
-      attenuationValue: 5,
-      durationByAttenuationBucket: [300, 600, 300],
-      date: Date(),
-      duration: 300,
-      transmissionRisk: .high,
-      totalRiskScore: 100,
-      metadata: nil
+      attenuationValue: attenuationValue,
+      durationByAttenuationBucket: durationByAttenuationBucket,
+      date: date,
+      duration: duration,
+      transmissionRisk: transmissionRisk,
+      totalRiskScore: totalRiskScore,
+      metadata: metadata
     )
   }
 

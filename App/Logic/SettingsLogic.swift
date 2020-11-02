@@ -121,8 +121,8 @@ extension Logic.Settings {
         let appID = context.dependencies.bundle.appStoreID,
         let url = URL(string: "itms-apps://itunes.apple.com/us/app/pages/id\(appID)?mt=8&uo=4&action=write-review")
 
-        else {
-          return
+      else {
+        return
       }
 
       try await(context.dependencies.application.goTo(url: url).run())
@@ -251,6 +251,7 @@ extension Logic.Settings {
       let dummyIngestionWindowDuration = state.configuration.dummyIngestionWindowDuration
       let countries = state.exposureDetection.countriesOfInterest
       let lan = Locale.current.languageCode ?? "en"
+      // swiftlint:disable:next force_unwrapping
       let countryList: [String: String] = state.configuration.countries[lan] ?? state.configuration.countries["en"]!
 
       try context.awaitDispatch(Show(

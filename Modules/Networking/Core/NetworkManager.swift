@@ -44,31 +44,31 @@ public class NetworkManager {
 
 // MARK: - App Configuration Service requests
 
-extension NetworkManager {
+public extension NetworkManager {
   /// Returns the most updated configuration for an app with the given `buildNumber`
-  public func getConfiguration(for buildNumber: Int) -> Promise<Configuration> {
+  func getConfiguration(for buildNumber: Int) -> Promise<Configuration> {
     return self.request(ConfigurationRequest(buildNumber: buildNumber))
   }
 
   /// Returns the most updated FAQs for the given language code.
   /// - parameter baseURL: the server's base url
   /// - parameter path: the FAQ's path
-  public func getFAQ(baseURL: URL, path: String) -> Promise<[FAQ]> {
+  func getFAQ(baseURL: URL, path: String) -> Promise<[FAQ]> {
     return self.request(FAQRequest(baseURL: baseURL, path: path)).then { $0.faqs }
   }
 }
 
 // MARK: - Reporting Service requests
 
-extension NetworkManager {
+public extension NetworkManager {
   /// Returns the current manifest for the chunk of TEKs exposed by the backend
-  public func getKeysIndex(country: Country?) -> Promise<KeysIndex> {
+  func getKeysIndex(country: Country?) -> Promise<KeysIndex> {
     return self.request(KeysIndexRequest(country: country))
   }
 
   /// Downloads the chunks of TEKs for the given `indexes` and returns them as an array of `Data`, each corresponding to a given
   /// index in the input parameter.
-  public func downloadChunks(with indexes: [Int], country: Country?) -> Promise<[Data]> {
+  func downloadChunks(with indexes: [Int], country: Country?) -> Promise<[Data]> {
     let requestPromises = indexes
       .map { DownloadKeyChunkIndexRequest(chunkNumber: $0, country: country) }
       .map { self.request($0) }
@@ -78,9 +78,9 @@ extension NetworkManager {
 
 // MARK: - Ingestion service requests
 
-extension NetworkManager {
+public extension NetworkManager {
   /// Validates a given `OTP` with the backend
-  public func validateOTP(_ otp: OTP, requestSize: Int) -> Promise<Void> {
+  func validateOTP(_ otp: OTP, requestSize: Int) -> Promise<Void> {
     return self
       .request(OTPValidationRequest(
         otp: otp,
@@ -91,7 +91,7 @@ extension NetworkManager {
 
   /// Uploads data to the backend as a consequence of a positive COVID diagnosis. The request is authenticated with a previously
   /// validated OTP.
-  public func uploadData(body: DataUploadRequest.Body, otp: OTP, requestSize: Int) -> Promise<Void> {
+  func uploadData(body: DataUploadRequest.Body, otp: OTP, requestSize: Int) -> Promise<Void> {
     return self.request(DataUploadRequest(
       body: body,
       otp: otp,
@@ -101,16 +101,16 @@ extension NetworkManager {
   }
 
   /// Sends a dummy request to the backend.
-  public func sendDummyIngestionRequest(requestSize: Int) -> Promise<Void> {
+  func sendDummyIngestionRequest(requestSize: Int) -> Promise<Void> {
     return self.request(DummyIngestionRequest(now: self.unwrappedDependencies.now, targetSize: requestSize)).safeVoid
   }
 }
 
 // MARK: - Analytics Service requests
 
-extension NetworkManager {
+public extension NetworkManager {
   /// Sends a request to validate an analytics token with the backend
-  public func validateAnalyticsToken(
+  func validateAnalyticsToken(
     analyticsToken: String,
     deviceToken: Data
   ) -> Promise<ValidateAnalyticsTokenRequest.ValidationResponse> {
@@ -118,7 +118,7 @@ extension NetworkManager {
   }
 
   /// Sends a request to the Analytics server, following a cycle of Exposure Detection.
-  public func sendAnalytics(body: AnalyticsRequest.Body, analyticsToken: String, isDummy: Bool) -> Promise<Void> {
+  func sendAnalytics(body: AnalyticsRequest.Body, analyticsToken: String, isDummy: Bool) -> Promise<Void> {
     return self.request(AnalyticsRequest(body: body, analyticsToken: analyticsToken, isDummy: isDummy)).safeVoid
   }
 }

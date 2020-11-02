@@ -42,15 +42,15 @@ public enum CovidStatus {
 
 // MARK: Extensions
 
-extension CovidStatus {
+public extension CovidStatus {
   /// The raw case of the enum, used to compare user states qualitatively
-  public enum RawCase: Equatable {
+  enum RawCase: Equatable {
     case neutral
     case risk
     case positive
   }
 
-  public var rawCase: RawCase {
+  var rawCase: RawCase {
     switch self {
     case .neutral:
       return .neutral

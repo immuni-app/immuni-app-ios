@@ -41,7 +41,6 @@ class CountriesOfInterestUITests: AppViewTestCase, ViewTestCase {
 }
 
 extension CountriesOfInterestUITests {
-  // swiftlint:disable line_length
   func mockItems() -> [CountriesOfInterestVM.CellType] {
     let countryList = [
       "AT": "AUSTRIA",
@@ -72,6 +71,7 @@ extension CountriesOfInterestUITests {
         continue
       }
 
+      // swiftlint:disable:next force_unwrapping
       let currentCountry = currentCountries[index!]
 
       if currentCountry.selectionDate == nil {
