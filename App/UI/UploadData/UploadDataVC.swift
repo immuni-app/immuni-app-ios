@@ -86,6 +86,7 @@ struct UploadDataLS: LocalState {
 
   /// Exponential backoff capped at 30 minutes
   static func backOffDuration(failedAttempts: Int) -> Int {
-    return (Int(pow(2, Double(failedAttempts - 1))) * 5).bounded(max: 30 * 60)
+    let exponent = min(failedAttempts, 60) // avoid Int overflow
+    return (Int(pow(2, Double(exponent - 1))) * 5).bounded(max: 30 * 60)
   }
 }
