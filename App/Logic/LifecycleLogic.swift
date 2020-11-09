@@ -56,7 +56,10 @@ extension Logic {
         // clears `PositiveExposureResults` older than 14 days from the `ExposureDetectionState`
         try context.awaitDispatch(Logic.ExposureDetection.ClearOutdatedResults(now: context.dependencies.now()))
 
-        guard context.dependencies.application.isForeground else {
+        guard !context.dependencies.application.isBackground else {
+          NSLog(
+            "[DEBUG] Stopping Onstart because not in foreground \(context.dependencies.application.applicationState.rawValue)"
+          )
           // Background sessions are handled in `HandleExposureDetectionBackgroundTask`
           return
         }
@@ -367,9 +370,9 @@ extension Logic.Lifecycle {
 // MARK: - Helpers
 
 extension UIApplication {
-  var isForeground: Bool {
+  var isBackground: Bool {
     mainThread {
-      self.applicationState == .active
+      self.applicationState == .background
     }
   }
 }

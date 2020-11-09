@@ -92,8 +92,15 @@ extension Logic.CovidStatus {
       let currentAuth = state.environment.pushNotificationAuthorizationStatus
       let notificationPeriod = state.configuration.riskReminderNotificationPeriod
       let notificationDebugMode = state.toggles.isPushNotificationDebugMode
+      let isBackground = context.dependencies.application.isBackground
 
-      guard currentAuth.allowsSendingNotifications else {
+      guard
+        currentAuth.allowsSendingNotifications,
+        isBackground
+      else {
+        // if the user doesn't have permissions OR the app is not
+        // in background (that is, the user has the app opened),
+        // don't schedule any notification
         return
       }
 
