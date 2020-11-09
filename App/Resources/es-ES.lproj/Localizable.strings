@@ -49,7 +49,7 @@
 "home_view.info_header.title" = "Información";
 "home_view.info.update_countries.title" = "Si te diriges a otro país europe";
 "home_view.service.active.discover_more" = "Más información";
-"home_view.service.active.subtitle" = "Abre Immuni una vez al día para verificar su estado.";
+"home_view.service.active.subtitle" = "Immuni sigue funcionando aunque la aplicación esté cerrada.";
 "home_view.service.active.title" = "Servicio\n<b>activo</b>";
 "home_view.service.deactivate" = "Desactivar el servicio";
 "home_view.service.not_active.button" = "Reactivar Immuni";
