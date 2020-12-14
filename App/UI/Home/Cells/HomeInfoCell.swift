@@ -28,6 +28,8 @@ struct HomeInfoCellVM: ViewModel {
       return AnimationAsset.cardPerson.animation
     case .updateCountry:
       return AnimationAsset.cardFlagEuropa.animation
+    case .dataUpload:
+      return AnimationAsset.cardDataUpload.animation
     }
   }
 
@@ -39,6 +41,8 @@ struct HomeInfoCellVM: ViewModel {
       return L10n.HomeView.Info.App.title
     case .updateCountry:
       return L10n.HomeView.Info.UpdateCountries.title
+    case .dataUpload:
+        return L10n.Settings.Setting.loadData
     }
   }
 
@@ -50,6 +54,8 @@ struct HomeInfoCellVM: ViewModel {
       return false
     case .updateCountry:
       return false
+    case .dataUpload:
+      return true
     }
   }
 
@@ -60,6 +66,8 @@ struct HomeInfoCellVM: ViewModel {
     case .app:
       return .cardLightBlue
     case .updateCountry:
+      return .cardLightBlue
+    case .dataUpload:
       return .cardLightBlue
     }
   }
@@ -117,7 +125,7 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
       return
     }
 
-    if model.kind == .updateCountry {
+    if model.kind == .dataUpload {
       Self.Style.logoNewEuropa(self.cardImageNew)
     } else {
       self.cardImageNew.image = nil
@@ -214,7 +222,7 @@ private extension HomeInfoCell {
     }
 
     static func logoNewEuropa(_ imageView: UIImageView) {
-      imageView.image = Asset.Home.cardImageNew.image
+        imageView.image = Asset.Home.cardImageNewWhite.image
     }
 
     static func icon(_ view: AnimationView, animation: Animation?) {

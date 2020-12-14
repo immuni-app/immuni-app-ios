@@ -164,7 +164,8 @@
 "permission_tutorial.how_immuni_works.title" = "Come funziona l'app";
 "permission_tutorial.how_to_upload_positive.first" = "Se risulti positivo al virus, puoi segnalarlo a Immuni caricando i tuoi codici casuali. Facendolo permetti all'app di avvertire del rischio di contagio gli utenti con cui sei stato a contatto nei giorni precedenti.";
 "permission_tutorial.how_to_upload_positive.second" = "L'operatore sanitario che comunica l'esito positivo del tampone ti assisterà telefonicamente. Ti chiederà il codice monouso visualizzato nella schermata precedente e lo userà per autorizzarti al caricamento dei tuoi dati.";
-"permission_tutorial.how_to_upload_positive.third" = "Questo processo di autorizzazione impedisce a utenti che non siano effettivamente risultati positivi al virus di caricare i loro dati, causando falsi allarmi. Il codice monouso e i dati caricati non sono in alcun modo associati alla tua identità.";
+"permission_tutorial.how_to_upload_positive.third" = "Se ha ricevuto il Codice Unico Nazionale (CUN) l'operatore del call center 800.91.24.91 ti chiederà anche il numero di tessera sanitaria.";
+"permission_tutorial.how_to_upload_positive.fourth" = "Questi processi di autorizzazione impediscono a utenti che non siano effettivamente risultati positivi al virus di caricare i loro dati, causando falsi allarmi. Il codice monouso e i dati caricati non sono in alcun modo associati alla tua identità.";
 "permission_tutorial.how_to_upload_positive.title" = "Come segnalare la positività";
 "permission_tutorial.notifications.action" = "Apri Impostazioni";
 "permission_tutorial.notifications.first" = "<b>1. Apri le impostazioni</b> dal bottone in basso";
@@ -298,7 +299,7 @@
 "upload_data.api_error.action" = "OK";
 "upload_data.api_error.message" = "Si è verificato un errore durante l'operazione. Ti invitiamo a riprovare. Nel caso il problema persista, ti suggeriamo di utilizzare una rete mobile.";
 "upload_data.api_error.title" = "Qualcosa è andato storto";
-"upload_data.code.message" = "Comunica il codice monouso all'operatore sanitario:";
+"upload_data.code.message" = "Comunica il codice all'operatore:";
 "upload_data.connection_error.action" = "OK";
 "upload_data.connection_error.message" = "Qualcosa è andato storto, controlla la tua connessione internet e riprova.";
 "upload_data.connection_error.title" = "Errore di connessione";
@@ -322,7 +323,7 @@
 "upload_data.vpn_error.title" = "Qualcosa è andato storto";
 "upload_data.wait_operator.message" = "Attendi la conferma dell'operatore";
 "upload_data.warning.discover_more" = "Scopri di più";
-"upload_data.warning.message" = "Questa funzione richiede l'assistenza dell'operatore sanitario che ti comunica telefonicamente l'esito positivo del tampone.";
+"upload_data.warning.message" = "Questa funzione richiede l'assistenza dell'operatore sanitario che ti comunica telefonicamente l'esito positivo del tampone. Se hai ricevuto il Codice Unico Nazionale (CUN) puoi segnalare la tua positività anche attraverso il numero verde 800.91.24.91";
 "welcome_view.discover_more" = "Scopri come funziona l'app";
 "welcome_view.go_next" = "Iniziamo";
 "welcome_view.items.first.description" = "Con il contributo di tutti, Immuni aiuta a contenere il virus e a tornare il prima possibile alla normalità.";

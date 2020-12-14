@@ -38,3 +38,26 @@ class SettingsNC: UINavigationController {
     self.interactivePopGestureRecognizer?.delegate = nil
   }
 }
+
+class HomeNC: UINavigationController {
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return .darkContent
+  }
+
+  var store: PartialStore<AppState>
+
+  init(store: PartialStore<AppState>) {
+    self.store = store
+    super.init(rootViewController: HomeVC(store: store))
+  }
+
+  required init?(coder aDecoder: NSCoder) {
+    AppLogger.fatalError("init(coder:) has not been implemented")
+  }
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    self.setNavigationBarHidden(true, animated: false)
+    self.interactivePopGestureRecognizer?.delegate = nil
+  }
+}
