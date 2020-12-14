@@ -156,7 +156,8 @@
 "permission_tutorial.how_immuni_works.title" = "Wie funktioniert die App";
 "permission_tutorial.how_to_upload_positive.first" = "Wenn Sie positiv auf das Virus getestet werden, können Sie es Immuni melden, indem Sie Ihre Zufallscodes hochladen. Auf diese Weise können Sie der App ermöglichen, Nutzer, mit denen Sie in den letzten Tagen Kontakt hatten, vor dem Risiko einer Ansteckung zu warnen.";
 "permission_tutorial.how_to_upload_positive.second" = "Das medizinische Fachpersonal, das Ihnen das positive Ergebnis des Tests mitteilt, hilft Ihnen telefonisch weiter. Sie werden nach dem auf dem vorherigen Bildschirm angezeigten Einmalcode gefragt, der dazu dient, das Hochladen Ihrer Daten zu autorisieren.";
-"permission_tutorial.how_to_upload_positive.third" = "Dieser Autorisierungsprozess verhindert, dass Nutzer, die nicht positiv auf den Virus getestet wurden, ihre Daten hochladen und somit Fehlalarme verursachen. Der Einmalcode und die hochgeladenen Daten sind in keiner Weise mit Ihrer Identität verbunden.";
+"permission_tutorial.how_to_upload_positive.third" = "Se ha ricevuto il Codice Unico Nazionale (CUN) l'operatore del call center 800.91.24.91 ti chiederà anche il numero di tessera sanitaria.";
+"permission_tutorial.how_to_upload_positive.fourth" = "Dieser Autorisierungsprozess verhindert, dass Nutzer, die nicht positiv auf den Virus getestet wurden, ihre Daten hochladen und somit Fehlalarme verursachen. Der Einmalcode und die hochgeladenen Daten sind in keiner Weise mit Ihrer Identität verbunden.";
 "permission_tutorial.how_to_upload_positive.title" = "So melden Sie das positive Ergebnis";
 "permission_tutorial.notifications.action" = "Einstellungen öffnen";
 "permission_tutorial.notifications.first" = "<b>1. Öffnen Sie die Einstellungen</b> über die Schaltfläche unten";

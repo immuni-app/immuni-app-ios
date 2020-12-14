@@ -156,7 +156,8 @@
 "permission_tutorial.how_immuni_works.title" = "How the app works";
 "permission_tutorial.how_to_upload_positive.first" = "If you test positive for the virus, you can report this to Immuni and upload your random codes. By doing so, you allow the app to warn users with whom you have been in contact over the previous days that there is a risk of infection.";
 "permission_tutorial.how_to_upload_positive.second" = "The healthcare operator who informs you that your swab has tested positive will assist you by phone. They will ask you for the one-time code displayed on the previous screen, which they will use to give you authorisation to upload your data.";
-"permission_tutorial.how_to_upload_positive.third" = "This authorisation process prevents users who have not actually tested positive for the virus from uploading their data and causing false alarms. The one-time code and the data uploaded are not associated with your identity in any way.";
+"permission_tutorial.how_to_upload_positive.third" = "Se ha ricevuto il Codice Unico Nazionale (CUN) l'operatore del call center 800.91.24.91 ti chiederà anche il numero di tessera sanitaria.";
+"permission_tutorial.how_to_upload_positive.fourth" = "This authorisation process prevents users who have not actually tested positive for the virus from uploading their data and causing false alarms. The one-time code and the data uploaded are not associated with your identity in any way.";
 "permission_tutorial.how_to_upload_positive.title" = "How to report a positive result";
 "permission_tutorial.notifications.action" = "Open Settings";
 "permission_tutorial.notifications.first" = "<b>1. Open Settings</b> using the button below";
