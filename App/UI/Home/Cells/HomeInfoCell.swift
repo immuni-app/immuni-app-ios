@@ -81,7 +81,6 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
 
   let container = UIView()
   let icon = AnimationView()
-  let cardImageNew = UIImageView()
   let title = UILabel()
   var actionButton = TextButton()
 
@@ -109,7 +108,6 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
     self.contentView.addSubview(self.container)
 
     self.container.addSubview(self.icon)
-    self.container.addSubview(self.cardImageNew)
     self.container.addSubview(self.title)
     self.container.addSubview(self.actionButton)
 
@@ -125,13 +123,7 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
       return
     }
 
-    if model.kind == .dataUpload {
-      Self.Style.logoNewEuropa(self.cardImageNew)
-    } else {
-      self.cardImageNew.image = nil
-    }
     Self.Style.icon(self.icon, animation: model.animation)
-
     Self.Style.shadow(self.contentView, shadow: model.shadow)
     Self.Style.container(self.container, lightContent: model.lightContent)
     Self.Style.actionButton(self.actionButton, lightContent: model.lightContent)
@@ -151,12 +143,6 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
       .right()
       .aspectRatio(self.icon.intrinsicContentSize.width / self.icon.intrinsicContentSize.height)
       .width(Self.iconWidth)
-
-    self.cardImageNew.pin
-      .top()
-      .left()
-      .aspectRatio(self.cardImageNew.intrinsicContentSize.width / self.cardImageNew.intrinsicContentSize.height)
-      .width(Self.iconWidth * 0.65)
 
     self.title.pin
       .left(HomeView.cellHorizontalInset)
@@ -219,10 +205,6 @@ private extension HomeInfoCell {
       button.contentHorizontalAlignment = .left
       button.titleLabel?.numberOfLines = 0
       button.attributedTitle = content.styled(with: textStyle)
-    }
-
-    static func logoNewEuropa(_ imageView: UIImageView) {
-        imageView.image = Asset.Home.cardImageNewWhite.image
     }
 
     static func icon(_ view: AnimationView, animation: Animation?) {
