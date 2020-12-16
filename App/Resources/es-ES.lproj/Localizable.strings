@@ -156,8 +156,8 @@
 "permission_tutorial.how_immuni_works.title" = "Cómo funciona la aplicación";
 "permission_tutorial.how_to_upload_positive.first" = "Si das positivo en el virus, puedes indicarlo en Immuni subiendo tus códigos aleatorios. Así permitirás que la aplicación avise del riesgo de contagio a los usuarios con los que hayas mantenido contacto en los días anteriores.";
 "permission_tutorial.how_to_upload_positive.second" = "El profesional sanitario que te comunique que el resultado de la prueba es positivo te ayudará por teléfono. Te pedirá el código de un solo uso que aparecía en la pantalla anterior y lo utilizará para darte permiso para que subas tus datos.";
-"permission_tutorial.how_to_upload_positive.third" = "Se ha ricevuto il Codice Unico Nazionale (CUN) l'operatore del call center 800.91.24.91 ti chiederà anche il numero di tessera sanitaria.";
-"permission_tutorial.how_to_upload_positive.fourth" = "Este proceso de autorización impide que los usuarios que no hayan dado positivo en el virus suban sus datos y generen falsas alarmas. El código de un solo uso y los datos que se suben no están vinculados de ningún modo con tu identidad.";
+"permission_tutorial.how_to_upload_positive.third" = "Si has recibido el Código Nacional Único (CUN) el operador del centro de llamadas 800.91.24.91 te pedirá también el numero de tu “tessera sanitaria” (tarjeta sanitaria).";
+"permission_tutorial.how_to_upload_positive.fourth" = "Estos procesos de autorización previenen que los usuarios que no hayan dado positivo en el virus suban sus datos y generen falsas alarmas. El código de un solo uso y los datos que se suben no están vinculados de ningún modo con tu identidad.";
 "permission_tutorial.how_to_upload_positive.title" = "Cómo informar de un resultado positivo";
 "permission_tutorial.notifications.action" = "Abrir los ajustes";
 "permission_tutorial.notifications.first" = "<b>1. Accede a los ajustes</b> pulsando el botón de abajo";
@@ -291,7 +291,7 @@
 "upload_data.api_error.action" = "Aceptar";
 "upload_data.api_error.message" = "Se ha producido un error. Inténtalo de nuevo. Si el problema continúa, te recomendamos utilizar una red móvil.";
 "upload_data.api_error.title" = "Ha habido un problema";
-"upload_data.code.message" = "Proporciona el código de un solo uso al profesional sanitario:";
+"upload_data.code.message" = "Proporciona el código de un solo uso al profesional:";
 "upload_data.connection_error.action" = "Aceptar";
 "upload_data.connection_error.message" = "Se ha producido un error. Comprueba tu conexión a internet e inténtalo de nuevo.";
 "upload_data.connection_error.title" = "Error de conexión";
@@ -315,7 +315,7 @@
 "upload_data.vpn_error.title" = "Ha habido un problema";
 "upload_data.wait_operator.message" = "Espera a recibir la confirmación del profesional sanitario";
 "upload_data.warning.discover_more" = "Más información";
-"upload_data.warning.message" = "Esta función requiere la asistencia del profesional sanitario que te comunique por teléfono que el resultado de la prueba es positivo.";
+"upload_data.warning.message" = "Esta función requiere la asistencia del profesional sanitario que te comunique por teléfono que el resultado de la prueba es positivo. Si has recibido el Código Nacional Único (CUN) también puedes informar tu resultado positivo a través del número gratuito 800.91.24.91";
 "welcome_view.discover_more" = "Descubre cómo funciona la aplicación";
 "welcome_view.go_next" = "Empezar";
 "welcome_view.items.first.description" = "Con la ayuda de todos, Immuni contribuye a contener el virus y a volver a la normalidad lo antes posible.";
