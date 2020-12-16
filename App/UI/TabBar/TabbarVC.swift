@@ -20,7 +20,7 @@ class TabbarVC: ViewController<TabbarView>, CustomRouteInspectables {
     return self.children.first?.preferredStatusBarStyle ?? .darkContent
   }
 
-  lazy var homeVC = HomeVC(store: self.store)
+  lazy var homeVC = HomeNC(store: self.store)
   lazy var settingsVC = SettingsNC(store: self.store)
 
   /// Array of the main VC for each tab

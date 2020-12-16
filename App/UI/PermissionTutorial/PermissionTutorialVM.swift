@@ -471,6 +471,8 @@ extension PermissionTutorialVM.Content {
         .textualContent(L10n.PermissionTutorial.HowToUploadPositive.second, isDark: false),
         .spacer(.small),
         .textualContent(L10n.PermissionTutorial.HowToUploadPositive.third, isDark: false),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.HowToUploadPositive.fourth, isDark: false),
         .spacer(.big)
       ],
       mainActionTitle: nil,
