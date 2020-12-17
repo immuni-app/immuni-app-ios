@@ -347,18 +347,20 @@ public extension Dictionary where Key == String, Value == [String: String] {
     let values = [
       "it": [
         "AT": "AUSTRIA",
+        "HR": "CROAZIA",
         "DK": "DANIMARCA",
         "EE": "ESTONIA",
         "DE": "GERMANIA",
         "IE": "IRLANDA",
         "LV": "LETTONIA",
-        "NL": "OLANDA",
+        "NL": "PAESI BASSI",
         "PL": "POLONIA",
         "CZ": "REPUBBLICA CECA",
         "ES": "SPAGNA"
       ],
       "de": [
         "AT": "ÖSTERREICH",
+        "HR": "KROATIEN",
         "DK": "DÄNEMARK",
         "EE": "ESTONIA",
         "DE": "DEUTSCHLAND",
@@ -371,6 +373,7 @@ public extension Dictionary where Key == String, Value == [String: String] {
       ],
       "en": [
         "AT": "AUSTRIA",
+        "HR": "CROATIA",
         "DK": "DENMARK",
         "EE": "ESTONIA",
         "DE": "GERMANY",
@@ -383,6 +386,7 @@ public extension Dictionary where Key == String, Value == [String: String] {
       ],
       "fr": [
         "AT": "AUTRICHE",
+        "HR": "CROATIE",
         "DK": "DANEMARK",
         "EE": "ESTONIE",
         "DE": "ALLEMAGNE",
@@ -395,6 +399,7 @@ public extension Dictionary where Key == String, Value == [String: String] {
       ],
       "es": [
         "AT": "AUSTRIA",
+        "HR": "CROACIA",
         "DK": "DINAMARCA",
         "EE": "ESTONIA",
         "DE": "ALEMANIA",
