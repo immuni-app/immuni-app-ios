@@ -353,7 +353,7 @@ public extension Dictionary where Key == String, Value == [String: String] {
                 "DE": "GERMANIA",
                 "IE": "IRLANDA",
                 "LV": "LETTONIA",
-                "NL": "OLANDA",
+                "NL": "PAESI BASSI",
                 "PL": "POLONIA",
                 "CZ": "REPUBBLICA CECA",
                 "ES": "SPAGNA"
