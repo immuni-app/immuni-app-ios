@@ -156,7 +156,8 @@
 "permission_tutorial.how_immuni_works.title" = "How the app works";
 "permission_tutorial.how_to_upload_positive.first" = "If you test positive for the virus, you can report this to Immuni and upload your random codes. By doing so, you allow the app to warn users with whom you have been in contact over the previous days that there is a risk of infection.";
 "permission_tutorial.how_to_upload_positive.second" = "The healthcare operator who informs you that your swab has tested positive will assist you by phone. They will ask you for the one-time code displayed on the previous screen, which they will use to give you authorisation to upload your data.";
-"permission_tutorial.how_to_upload_positive.third" = "This authorisation process prevents users who have not actually tested positive for the virus from uploading their data and causing false alarms. The one-time code and the data uploaded are not associated with your identity in any way.";
+"permission_tutorial.how_to_upload_positive.third" = "If you have received the Unique National Code (CUN), the call center operator 800.91.24.91 will also ask you to provide your health card number.";
+"permission_tutorial.how_to_upload_positive.fourth" = "These authorization processes prevent users who have not actually tested positive for the virus from uploading their data and causing false alarms. The one-time code and the data uploaded are not associated with your identity in any way.";
 "permission_tutorial.how_to_upload_positive.title" = "How to report a positive result";
 "permission_tutorial.notifications.action" = "Open Settings";
 "permission_tutorial.notifications.first" = "<b>1. Open Settings</b> using the button below";
@@ -290,7 +291,7 @@
 "upload_data.api_error.action" = "OK";
 "upload_data.api_error.message" = "An error occurred during the operation. Please try again. If the problem persists, we suggest using a mobile network.";
 "upload_data.api_error.title" = "Something went wrong";
-"upload_data.code.message" = "Give the healthcare operator the one-time code:";
+"upload_data.code.message" = "Give the operator the one-time code:";
 "upload_data.connection_error.action" = "OK";
 "upload_data.connection_error.message" = "Something went wrong. Please check your internet connection and try again.";
 "upload_data.connection_error.title" = "Connection error";
@@ -314,7 +315,7 @@
 "upload_data.vpn_error.title" = "Something went wrong";
 "upload_data.wait_operator.message" = "Wait for the healthcare operator to confirm";
 "upload_data.warning.discover_more" = "Find out more";
-"upload_data.warning.message" = "This feature requires assistance from the healthcare operator, who will inform you by phone of the positive result of the swab test.";
+"upload_data.warning.message" = "This feature requires assistance from the healthcare operator, who will inform you by phone of the positive result of the swab test. If you have received the Unique National Code (CUN) you can also report your positive result through our toll-free number 800.91.24.91";
 "welcome_view.discover_more" = "Find out how the app works";
 "welcome_view.go_next" = "Let's get started";
 "welcome_view.items.first.description" = "With everyone's contribution, Immuni will help contain the virus and get us back to normal as soon as possible.";

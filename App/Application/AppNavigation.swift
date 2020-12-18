@@ -84,6 +84,9 @@ extension AppDelegate {
     case .onboardingStep:
       let navigationContext = context as? OnboardingContainerNC.NavigationContext ?? AppLogger.fatalError("Invalid context")
       mainViewController = OnboardingContainerNC(with: self.store, navigationContext: navigationContext)
+    
+    case .uploadData:
+        mainViewController = HomeNC(store: self.store)
 
     default:
       AppLogger.fatalError("Root screen not handled: \(rootScreen.rawValue)")
@@ -463,6 +466,25 @@ extension SettingsNC: RoutableWithConfiguration {
       .hide(Screen.faq): .pop,
       .hide(Screen.updateProvince): .dismissModally(behaviour: .hard),
       .hide(Screen.privacy): .dismissModally(behaviour: .hard)
+    ]
+  }
+}
+
+// MARK: - Home
+
+extension HomeNC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.home.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [
+      .show(Screen.uploadData): .push { context in
+        let ls = context as? UploadDataLS ?? AppLogger.fatalError("invalid context")
+        return UploadDataVC(store: self.store, localState: ls)
+      },
+
+      .hide(Screen.uploadData): .pop,
     ]
   }
 }
