@@ -59,7 +59,22 @@ extension Logic.DataUpload {
       try context.awaitDispatch(Show(Screen.uploadData, animated: true, context: ls))
     }
   }
+  /// Shows the  UploadDataAutonomousVC screen
+  struct ShowUploadDataAutonomous: AppSideEffect {
+      
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
 
+        try context.awaitDispatch(Show(Screen.uploadDataAutonomous, animated: true, context: UploadDataAutonomousLS()))
+          }
+        }
+    /// Shows the  Choose Data Upload Mode screen
+  struct ShowChooseDataUploadMode: AppSideEffect {
+        
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+
+        try context.awaitDispatch(Show(Screen.chooseDataUploadMode, animated: true, context: ChooseDataUploadModeLS()))
+         }
+       }
   /// Performs the validation of the provided OTP
   struct VerifyCode: AppSideEffect {
     let code: OTP

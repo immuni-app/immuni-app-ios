@@ -1,4 +1,4 @@
-// SettingsNC.swift
+// HomeNC.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@ import Foundation
 import Katana
 import UIKit
 
-class SettingsNC: UINavigationController {
+class HomeNC: UINavigationController {
   override var preferredStatusBarStyle: UIStatusBarStyle {
     return .darkContent
   }
@@ -25,7 +25,7 @@ class SettingsNC: UINavigationController {
 
   init(store: PartialStore<AppState>) {
     self.store = store
-    super.init(rootViewController: SettingsVC(store: store, localState: SettingsLS()))
+    super.init(rootViewController: HomeVC(store: store))
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -38,4 +38,3 @@ class SettingsNC: UINavigationController {
     self.interactivePopGestureRecognizer?.delegate = nil
   }
 }
-

@@ -1,4 +1,4 @@
-// SettingsNC.swift
+// ChooseDataUploadModeVC.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -13,29 +13,28 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 import Foundation
-import Katana
-import UIKit
+import Models
+import Tempura
 
-class SettingsNC: UINavigationController {
-  override var preferredStatusBarStyle: UIStatusBarStyle {
-    return .darkContent
-  }
+class ChooseDataUploadModeVC: ViewControllerWithLocalState<ChooseDataUploadModeView> {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
 
-  var store: PartialStore<AppState>
+    override func setupInteraction() {
+        rootView.didTapBack = { [weak self] in
+            self?.dispatch(Hide(Screen.chooseDataUploadMode, animated: true))
+        }
 
-  init(store: PartialStore<AppState>) {
-    self.store = store
-    super.init(rootViewController: SettingsVC(store: store, localState: SettingsLS()))
-  }
-
-  required init?(coder aDecoder: NSCoder) {
-    AppLogger.fatalError("init(coder:) has not been implemented")
-  }
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    self.setNavigationBarHidden(true, animated: false)
-    self.interactivePopGestureRecognizer?.delegate = nil
-  }
+        rootView.didTapHealthWorkerMode = { [weak self] in
+            self?.dispatch(Logic.Settings.ShowUploadData())
+        }
+        rootView.didTapAutonomousMode = { [weak self] in
+            self?.dispatch(Logic.Settings.ShowUploadDataAutonomous())
+        }
+    }
 }
 
+// MARK: - LocalState
+
+struct ChooseDataUploadModeLS: LocalState {}

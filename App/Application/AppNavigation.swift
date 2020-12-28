@@ -55,6 +55,8 @@ enum Screen: String, CaseIterable {
   case updateCountry
   case faq
   case question
+  case chooseDataUploadMode
+  case uploadDataAutonomous
 }
 
 // MARK: - Root
@@ -85,8 +87,8 @@ extension AppDelegate {
       let navigationContext = context as? OnboardingContainerNC.NavigationContext ?? AppLogger.fatalError("Invalid context")
       mainViewController = OnboardingContainerNC(with: self.store, navigationContext: navigationContext)
     
-    case .uploadData:
-        mainViewController = HomeNC(store: self.store)
+    case .chooseDataUploadMode:
+      mainViewController = HomeNC(store: self.store)
 
     default:
       AppLogger.fatalError("Root screen not handled: \(rootScreen.rawValue)")
@@ -437,7 +439,12 @@ extension SettingsNC: RoutableWithConfiguration {
         let ls = context as? UploadDataLS ?? AppLogger.fatalError("invalid context")
         return UploadDataVC(store: self.store, localState: ls)
       },
-
+      .show(Screen.uploadDataAutonomous): .push { _ in
+        return UploadDataAutonomousVC(store: self.store, localState: UploadDataAutonomousLS())
+                },
+      .show(Screen.chooseDataUploadMode): .push { _ in
+        return ChooseDataUploadModeVC(store: self.store, localState: ChooseDataUploadModeLS())
+                },
       .show(Screen.faq): .push { _ in
         FaqVC(store: self.store, localState: FAQLS(isPresentedModally: false))
       },
@@ -465,7 +472,10 @@ extension SettingsNC: RoutableWithConfiguration {
       .hide(Screen.uploadData): .pop,
       .hide(Screen.faq): .pop,
       .hide(Screen.updateProvince): .dismissModally(behaviour: .hard),
-      .hide(Screen.privacy): .dismissModally(behaviour: .hard)
+      .hide(Screen.privacy): .dismissModally(behaviour: .hard),
+      .hide(Screen.chooseDataUploadMode): .pop,
+      .hide(Screen.uploadDataAutonomous): .pop
+
     ]
   }
 }
@@ -483,8 +493,19 @@ extension HomeNC: RoutableWithConfiguration {
         let ls = context as? UploadDataLS ?? AppLogger.fatalError("invalid context")
         return UploadDataVC(store: self.store, localState: ls)
       },
-
+        
+      .show(Screen.uploadDataAutonomous): .push { _ in
+        return UploadDataAutonomousVC(store: self.store, localState: UploadDataAutonomousLS())
+        },
+        
+      .show(Screen.chooseDataUploadMode): .push { _ in
+          return ChooseDataUploadModeVC(store: self.store, localState: ChooseDataUploadModeLS())
+        },
+        
       .hide(Screen.uploadData): .pop,
+      .hide(Screen.chooseDataUploadMode): .pop,
+      .hide(Screen.uploadDataAutonomous): .pop,
+
     ]
   }
 }
@@ -494,6 +515,24 @@ extension HomeNC: RoutableWithConfiguration {
 extension UploadDataVC: RoutableWithConfiguration {
   var routeIdentifier: RouteElementIdentifier {
     return Screen.uploadData.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [:]
+  }
+}
+extension UploadDataAutonomousVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.uploadDataAutonomous.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [:]
+  }
+}
+extension ChooseDataUploadModeVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.chooseDataUploadMode.rawValue
   }
 
   var navigationConfiguration: [NavigationRequest: NavigationInstruction] {

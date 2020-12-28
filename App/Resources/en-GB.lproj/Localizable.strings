@@ -48,6 +48,7 @@
 "home_view.info.protection.title" = "What you can do to protect yourself";
 "home_view.info_header.title" = "Information";
 "home_view.info.update_countries.title" = "If you are going to another European country";
+"home_view.info.load_data.title" = "Segnala positività in autonomia";
 "home_view.service.active.discover_more" = "Find out more";
 "home_view.service.active.subtitle" = "Even when the app is closed, Immuni continues to operate.";
 "home_view.service.active.title" = "Service\n<b>active</b>";
@@ -199,6 +200,17 @@
 "settings.setting.faq" = "FAQ";
 "settings.setting.leave_review" = "Leave a review";
 "settings.setting.load_data" = "Report a positive result";
+"settings.setting.load_data_autonomous.title" = "Hai bisogno di aiuto?";
+"settings.setting.load_data_autonomous.header" = "Contatta il call center per ricevere assistenza telefonicamente. Ricordati di avere a portata di mano:";
+"settings.setting.load_data_autonomous.cun" = "Codice CUN presente nel tuo referto.";
+"settings.setting.load_data_autonomous.health_card" = "Tessera Sanitaria per comunicare le ultime 8 cifre che permettono di salvaguardare la tua privacy";
+"settings.setting.load_data_autonomous.symptoms_date" = "Data dell’inizio dei primi sintomi";
+"settings.setting.load_data_autonomous.call_center.title" = "Chiama il call center";
+"settings.setting.load_data_autonomous.call_center.message" = "Numero attivo h24";
+"settings.setting.choose_data_upload.health_worker_mode.title" = "Sei stato contattato da un Operatore Sanitario?";
+"settings.setting.choose_data_upload.health_worker_mode.message" = "Segui la procedura per segnalare la tua positività";
+"settings.setting.choose_data_upload.autonomous_mode.title" = "Vuoi segnalare la tua positività in autonomia?";
+"settings.setting.choose_data_upload.autonomous_mode.message" = "Se hai ricevuto il Codice Unico Nazionale (CUN) puoi segnalare la tua positività direttamente in app";
 "settings.setting.privacy" = "Privacy notice";
 "settings.setting.section.data" = "Upload data";
 "settings.setting.section.general" = "General";
@@ -292,6 +304,7 @@
 "upload_data.api_error.message" = "An error occurred during the operation. Please try again. If the problem persists, we suggest using a mobile network.";
 "upload_data.api_error.title" = "Something went wrong";
 "upload_data.code.message" = "Give the operator the one-time code:";
+"upload_data.code.message_autonomous" = "Comunica il codice all'operatore del call center:";
 "upload_data.connection_error.action" = "OK";
 "upload_data.connection_error.message" = "Something went wrong. Please check your internet connection and try again.";
 "upload_data.connection_error.title" = "Connection error";
@@ -316,6 +329,7 @@
 "upload_data.wait_operator.message" = "Wait for the healthcare operator to confirm";
 "upload_data.warning.discover_more" = "Find out more";
 "upload_data.warning.message" = "This feature requires assistance from the healthcare operator, who will inform you by phone of the positive result of the swab test. If you have received the Unique National Code (CUN) you can also report your positive result through our toll-free number 800.91.24.91";
+"upload_data.warning.message_autonomous" = "Questa funzione richiede l'assistenza del call center che ti guiderà nella procedura di segnalazione.";
 "welcome_view.discover_more" = "Find out how the app works";
 "welcome_view.go_next" = "Let's get started";
 "welcome_view.items.first.description" = "With everyone's contribution, Immuni will help contain the virus and get us back to normal as soon as possible.";

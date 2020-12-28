@@ -48,6 +48,7 @@
 "home_view.info.protection.title" = "Cosa puoi fare per proteggerti";
 "home_view.info_header.title" = "Informazioni";
 "home_view.info.update_countries.title" = "Se stai andando in un altro Paese europeo";
+"home_view.info.load_data.title" = "Segnala positività in autonomia";
 "home_view.service.active.discover_more" = "Scopri di più";
 "home_view.service.active.subtitle" = "Immuni resta operativa anche quando l'app è chiusa.";
 "home_view.service.active.title" = "Servizio\n<b>attivo</b>";
@@ -207,6 +208,11 @@
 "settings.setting.faq" = "Domande frequenti";
 "settings.setting.leave_review" = "Lascia una recensione";
 "settings.setting.load_data" = "Segnala positività";
+"settings.setting.load_data_autonomous.title" = "Hai bisogno di aiuto?";
+"settings.setting.choose_data_upload.health_worker_mode.title" = "Sei stato contattato da un Operatore Sanitario?";
+"settings.setting.choose_data_upload.health_worker_mode.message" = "Segui la procedura per segnalare la tua positività";
+"settings.setting.choose_data_upload.autonomous_mode.title" = "Vuoi segnalare la tua positività in autonomia?";
+"settings.setting.choose_data_upload.autonomous_mode.message" = "Se hai ricevuto il Codice Unico Nazionale (CUN) puoi segnalare la tua positività direttamente in app";
 "settings.setting.privacy" = "Informativa privacy";
 "settings.setting.section.data" = "Caricamento dati";
 "settings.setting.section.general" = "Generale";
