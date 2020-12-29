@@ -21,6 +21,8 @@
 "confirm_data.footer_message" = "Espera a recibir la confirmación del profesional sanitario para subir tus datos.";
 "confirm_data.title" = "Estos son los datos que se subirán";
 "exit" = "Salir";
+"cancel" = "Cancelar";
+"confirm" = "Confirmación";
 "exposure_notification_channel" = "Notificaciones de exposición";
 "faq.no_result.message" = "No hemos encontrado ningún resultado para tu búsqueda.";
 "faq.no_result.title" = "No hay resultados";
@@ -160,6 +162,7 @@
 "permission_tutorial.how_to_upload_positive.third" = "Si has recibido el Código Nacional Único (CUN) el operador del centro de llamadas 800.91.24.91 te pedirá también el numero de tu “tessera sanitaria” (tarjeta sanitaria).";
 "permission_tutorial.how_to_upload_positive.fourth" = "Estos procesos de autorización previenen que los usuarios que no hayan dado positivo en el virus suban sus datos y generen falsas alarmas. El código de un solo uso y los datos que se suben no están vinculados de ningún modo con tu identidad.";
 "permission_tutorial.how_to_upload_positive.title" = "Cómo informar de un resultado positivo";
+"permission_tutorial.how_to_upload_positive_autonomous.title" = "Come segnalare la positività in autonomia";
 "permission_tutorial.notifications.action" = "Abrir los ajustes";
 "permission_tutorial.notifications.first" = "<b>1. Accede a los ajustes</b> pulsando el botón de abajo";
 "permission_tutorial.notifications.second" = "<b>2. Accede a «Notificaciones»</b>";
@@ -201,7 +204,7 @@
 "settings.setting.leave_review" = "Dejar una valoración";
 "settings.setting.load_data" = "Informa de un resultado positivo";
 "settings.setting.load_data_autonomous.title" = "Hai bisogno di aiuto?";
-"settings.setting.load_data_autonomous.header" = "Contatta il call center per ricevere assistenza telefonicamente. Ricordati di avere a portata di mano:";
+"settings.setting.load_data_autonomous.header" = "Questa funzione ti permette di segnalare la tua positività autonomamente tramite l'inserimento dei dati richiesti. Ricordati di avere a portata di mano codice CUN, la tua Tessera Sanitaria e la data di inizio dei primi sintomi.";
 "settings.setting.load_data_autonomous.cun" = "Codice CUN presente nel tuo referto.";
 "settings.setting.load_data_autonomous.health_card" = "Tessera Sanitaria per comunicare le ultime 8 cifre che permettono di salvaguardare la tua privacy";
 "settings.setting.load_data_autonomous.symptoms_date" = "Data dell’inizio dei primi sintomi";

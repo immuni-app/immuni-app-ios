@@ -21,6 +21,8 @@
 "confirm_data.footer_message" = "Attendi conferma da parte dell'operatore per caricare i tuoi dati.";
 "confirm_data.title" = "Ecco i dati che verranno caricati";
 "exit" = "Esci";
+"cancel" = "Annulla";
+"confirm" = "Conferma";
 "exposure_notification_channel" = "Notifiche di esposizione";
 "faq.no_result.message" = "Non abbiamo trovato nessun argomento corrispondente alla tua ricerca.";
 "faq.no_result.title" = "Nessun argomento trovato";
@@ -168,6 +170,7 @@
 "permission_tutorial.how_to_upload_positive.third" = "Se ha ricevuto il Codice Unico Nazionale (CUN) l'operatore del call center 800.91.24.91 ti chiederà anche il numero di tessera sanitaria.";
 "permission_tutorial.how_to_upload_positive.fourth" = "Questi processi di autorizzazione impediscono a utenti che non siano effettivamente risultati positivi al virus di caricare i loro dati, causando falsi allarmi. Il codice monouso e i dati caricati non sono in alcun modo associati alla tua identità.";
 "permission_tutorial.how_to_upload_positive.title" = "Come segnalare la positività";
+"permission_tutorial.how_to_upload_positive_autonomous.title" = "Come segnalare la positività in autonomia";
 "permission_tutorial.notifications.action" = "Apri Impostazioni";
 "permission_tutorial.notifications.first" = "<b>1. Apri le impostazioni</b> dal bottone in basso";
 "permission_tutorial.notifications.second" = "<b>2. Entra in \"Notifiche\"</b>";
@@ -209,10 +212,19 @@
 "settings.setting.leave_review" = "Lascia una recensione";
 "settings.setting.load_data" = "Segnala positività";
 "settings.setting.load_data_autonomous.title" = "Hai bisogno di aiuto?";
+"settings.setting.load_data_autonomous.header" = "Questa funzione ti permette di segnalare la tua positività autonomamente tramite l'inserimento dei dati richiesti. Ricordati di avere a portata di mano codice CUN, la tua Tessera Sanitaria e la data di inizio dei primi sintomi.";
+"settings.setting.load_data_autonomous.cun" = "Codice CUN presente nel tuo referto.";
+"settings.setting.load_data_autonomous.health_card" = "Tessera Sanitaria per comunicare le ultime 8 cifre che permettono di salvaguardare la tua privacy";
+"settings.setting.load_data_autonomous.symptoms_date" = "Data dell’inizio dei primi sintomi";
+"settings.setting.load_data_autonomous.call_center.title" = "Chiama il call center";
+"settings.setting.load_data_autonomous.call_center.message" = "Numero attivo h24";
+"settings.setting.load_data_autonomous.cun.placeholder" = "Inserisci Cun del referto";
+"settings.setting.load_data_autonomous.health_card.placeholder" = "Inserisci ultime 8 cifre della Tessera Sanitaria";
+"settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Seleziona data inizio sintomi";
 "settings.setting.choose_data_upload.health_worker_mode.title" = "Sei stato contattato da un Operatore Sanitario?";
 "settings.setting.choose_data_upload.health_worker_mode.message" = "Segui la procedura per segnalare la tua positività";
 "settings.setting.choose_data_upload.autonomous_mode.title" = "Vuoi segnalare la tua positività in autonomia?";
-"settings.setting.choose_data_upload.autonomous_mode.message" = "Se hai ricevuto il Codice Unico Nazionale (CUN) puoi segnalare la tua positività direttamente in app";
+"settings.setting.choose_data_upload.autonomous_mode.message" = "Inserisci i tuoi dati direttamente in app con il supporto del call center che ti aiuterà durante la procedura";
 "settings.setting.privacy" = "Informativa privacy";
 "settings.setting.section.data" = "Caricamento dati";
 "settings.setting.section.general" = "Generale";

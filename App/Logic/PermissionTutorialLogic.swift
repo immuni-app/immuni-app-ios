@@ -145,7 +145,17 @@ extension Logic.PermissionTutorial {
         ))
     }
   }
-
+  /// Shows the how to upload when positive explaination
+  struct ShowHowToUploadWhenPositiveAutonomous: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      try context
+          .awaitDispatch(Show(
+            Screen.permissionTutorial,
+            animated: true,
+            context: PermissionTutorialLS(content: .howToUploadWhenPositiveAutonomous)
+          ))
+      }
+    }
   /// Shows further explainations about how to verify that Immuni is working
   struct ShowVerifyImmuniWorks: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
