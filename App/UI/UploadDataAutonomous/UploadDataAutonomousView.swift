@@ -17,18 +17,26 @@ import Models
 import Tempura
 
 struct UploadDataAutonomousVM: ViewModelWithLocalState {
-
     var textFieldCunVM: TextFieldCunVM { TextFieldCunVM() }
     var textFieldHealthCardVM: TextFieldHealthCardVM { TextFieldHealthCardVM() }
     var pickerFieldSymptomsDateVM: PickerSymptomsDateVM { PickerSymptomsDateVM() }
 
+    /// The code to be verified
+    let code: OTP
+    /// True if it's not possible to execute a new request.
+    let isLoading: Bool
+    /// The number of seconds until a new request can be performed.
+    let errorSecondsLeft: Int
 }
 
 extension UploadDataAutonomousVM {
-    init?(state: AppState?, localState _: UploadDataAutonomousLS) {
-        guard let _ = state else {
+    init?(state: AppState?, localState: UploadDataAutonomousLS) {
+        guard let state = state else {
             return nil
         }
+        code = state.ingestion.otp
+        isLoading = localState.isLoading
+        errorSecondsLeft = localState.errorSecondsLeft
     }
 }
 
@@ -53,13 +61,12 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
     private var actionButton = ButtonWithInsets()
 
     var didTapBack: Interaction?
-    var didTapAction: Interaction?
+    var didTapVerifyCode: Interaction?
     var didTapDiscoverMore: Interaction?
-    
+
     var didChangeCunTextValue: CustomInteraction<String>?
     var didChangeHealthCardTextValue: CustomInteraction<String>?
     var didChangeSymptomsDateValue: CustomInteraction<String>?
-
 
     // MARK: - Setup
 
@@ -79,7 +86,7 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
             self?.didTapBack?()
         }
         actionButton.on(.touchUpInside) { [weak self] _ in
-            self?.didTapAction?()
+            self?.didTapVerifyCode?()
         }
         headerView.didTapDiscoverMore = { [weak self] in
             self?.didTapDiscoverMore?()
@@ -162,7 +169,7 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
             .horizontally()
             .below(of: textFieldCun)
             .marginTop(25)
-            .height(50)
+            .height(60)
 
         pickerFieldSymptomsDate.pin
             .horizontally()
@@ -176,7 +183,7 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
             .minHeight(55)
             .below(of: pickerFieldSymptomsDate)
             .marginTop(25)
-        
+
         scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: actionButton.frame.maxY)
     }
 }

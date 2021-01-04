@@ -439,8 +439,9 @@ extension SettingsNC: RoutableWithConfiguration {
         let ls = context as? UploadDataLS ?? AppLogger.fatalError("invalid context")
         return UploadDataVC(store: self.store, localState: ls)
       },
-      .show(Screen.uploadDataAutonomous): .push { _ in
-        return UploadDataAutonomousVC(store: self.store, localState: UploadDataAutonomousLS())
+      .show(Screen.uploadDataAutonomous): .push { context in
+        let ls = context as? UploadDataAutonomousLS ?? AppLogger.fatalError("invalid context")
+        return UploadDataAutonomousVC(store: self.store, localState: ls)
                 },
       .show(Screen.chooseDataUploadMode): .push { _ in
         return ChooseDataUploadModeVC(store: self.store, localState: ChooseDataUploadModeLS())
@@ -494,8 +495,9 @@ extension HomeNC: RoutableWithConfiguration {
         return UploadDataVC(store: self.store, localState: ls)
       },
         
-      .show(Screen.uploadDataAutonomous): .push { _ in
-        return UploadDataAutonomousVC(store: self.store, localState: UploadDataAutonomousLS())
+      .show(Screen.uploadDataAutonomous): .push { context in
+        let ls = context as? UploadDataAutonomousLS ?? AppLogger.fatalError("invalid context")
+        return UploadDataAutonomousVC(store: self.store, localState: ls)
         },
         
       .show(Screen.chooseDataUploadMode): .push { _ in

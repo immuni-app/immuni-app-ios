@@ -32,7 +32,7 @@ open class TextFieldHealthCard: UIView, ModellableView {
 
     private let container = UIView()
     private let textFieldIcon = UIImageView()
-    private let textfield = UITextField()
+    private let textfield = UITextView()
 
     var didChangeTextValue: CustomInteraction<String>?
 
@@ -61,7 +61,7 @@ open class TextFieldHealthCard: UIView, ModellableView {
     }
 
     public func update(oldModel _: TextFieldHealthCardVM?) {
-        guard let _ = self.model else {
+        guard let _ = model else {
             return
         }
 
@@ -87,7 +87,7 @@ open class TextFieldHealthCard: UIView, ModellableView {
             .after(of: textFieldIcon)
             .horizontally(36)
             .marginHorizontal(10)
-            .vertically(5)
+            .vertically()
     }
 
     // Helpers
@@ -116,7 +116,7 @@ extension TextFieldHealthCard {
             view.tintColor = Palette.grayNormal
         }
 
-        static func textfield(_ textfield: UITextField) {
+        static func textfield(_ textfield: UITextView) {
             let textStyle = TextStyles.p.byAdding([
                 .color(Palette.grayNormal)
             ])
@@ -128,16 +128,31 @@ extension TextFieldHealthCard {
             textfield.returnKeyType = .search
             textfield.tintColor = Palette.primary
             textfield.typingAttributes = textStyle.attributes
-            textfield.defaultTextAttributes = textStyle.attributes
-            
-            let placeholder: NSAttributedString = NSAttributedString(string: L10n.Settings.Setting.LoadDataAutonomous.HealthCard.placeholder)
-            textfield.attributedPlaceholder =  placeholder.styled(with: placeholderStyle)
-    
+            textfield.isScrollEnabled = false
+//            textfield.defaultTextAttributes = textStyle.attributes
+
+            let placeholder = NSAttributedString(string: L10n.Settings.Setting.LoadDataAutonomous.HealthCard.placeholder)
+            textfield.text = L10n.Settings.Setting.LoadDataAutonomous.HealthCard.placeholder
         }
     }
 }
 
 // MARK: - Delegate
+
+extension TextFieldHealthCard: UITextViewDelegate {
+    public func textViewDidBeginEditing(_ textView: UITextView) {
+        textView.text = nil
+    }
+
+    public func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textfield.text = L10n.Settings.Setting.LoadDataAutonomous.HealthCard.placeholder
+        }
+        else {
+            didChangeTextValue?(textView.text)
+        }
+    }
+}
 
 extension TextFieldHealthCard: UITextFieldDelegate {
     public func textFieldDidBeginEditing(_: UITextField) {

@@ -61,10 +61,35 @@ extension Logic.DataUpload {
   }
   /// Shows the  UploadDataAutonomousVC screen
   struct ShowUploadDataAutonomous: AppSideEffect {
-      
+    /// A threshold to make past failed attempts expire, so that in case of another failed attempt after a long time the
+    /// exponential backoff starts from the beginning
+    static let recentFailedAttemptsThreshold: TimeInterval = 24 * 60 * 60
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        try context.awaitDispatch(RefreshOTP())
 
-        try context.awaitDispatch(Show(Screen.uploadDataAutonomous, animated: true, context: UploadDataAutonomousLS()))
+        let state = context.getState()
+        let now = context.dependencies.now()
+        let failedAttempts = state.ingestion.otpValidationFailedAttempts
+
+        let errorSecondsLeft: Int
+        let recentFailedAttempts: Int
+
+        if
+          let lastOtpFailedAttempt = state.ingestion.lastOtpValidationFailedAttempt,
+          now.timeIntervalSince(lastOtpFailedAttempt) <= Self.recentFailedAttemptsThreshold
+        {
+          let backOffDuration = UploadDataLS.backOffDuration(failedAttempts: failedAttempts)
+          let backOffEnd = lastOtpFailedAttempt.addingTimeInterval(TimeInterval(backOffDuration))
+          errorSecondsLeft = backOffEnd.timeIntervalSince(now).roundedInt().bounded(min: 0)
+          recentFailedAttempts = failedAttempts
+        } else {
+          errorSecondsLeft = 0
+          recentFailedAttempts = 0
+        }
+
+        try context.awaitDispatch(Logic.DataUpload.SetDummyTrafficSequenceCancelled(value: true))
+        let ls = UploadDataAutonomousLS(recentFailedAttempts: recentFailedAttempts, errorSecondsLeft: errorSecondsLeft)
+        try context.awaitDispatch(Show(Screen.uploadDataAutonomous, animated: true, context: ls))
           }
         }
     /// Shows the  Choose Data Upload Mode screen
@@ -75,6 +100,26 @@ extension Logic.DataUpload {
         try context.awaitDispatch(Show(Screen.chooseDataUploadMode, animated: true, context: ChooseDataUploadModeLS()))
          }
        }
+    
+    /// Shows the alert that there is an error in loading data
+  struct ShowAutonomousUploadErrorAlert: AppSideEffect {
+    let message: String
+    
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+    
+    let model = Alert.Model(
+        title: L10n.Settings.Setting.LoadDataAutonomous.FormError.title,
+        message: message,
+        preferredStyle: .alert,
+        actions: [
+            .init(title: L10n.UploadData.ApiError.action, style: .cancel)
+        ]
+    )
+
+    try context.awaitDispatch(Logic.Alert.Show(alertModel: model))
+    }
+}
+    
   /// Performs the validation of the provided OTP
   struct VerifyCode: AppSideEffect {
     let code: OTP
@@ -214,6 +259,7 @@ extension Logic.DataUpload {
       try context.awaitDispatch(Hide(Screen.confirmation, animated: true))
       try context.awaitDispatch(Hide(Screen.confirmUpload, animated: true))
       try context.awaitDispatch(Hide(Screen.uploadData, animated: true))
+      try context.awaitDispatch(Hide(Screen.uploadDataAutonomous, animated: true))
     }
   }
 

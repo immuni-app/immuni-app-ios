@@ -210,6 +210,12 @@
 "settings.setting.load_data_autonomous.symptoms_date" = "Data dell’inizio dei primi sintomi";
 "settings.setting.load_data_autonomous.call_center.title" = "Chiama il call center";
 "settings.setting.load_data_autonomous.call_center.message" = "Numero attivo h24";
+"settings.setting.load_data_autonomous.cun.placeholder" = "Inserisci Cun del referto";
+"settings.setting.load_data_autonomous.health_card.placeholder" = "Inserisci ultime 8 cifre\ndella Tessera Sanitaria";
+"settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Seleziona data inizio sintomi";
+"settings.setting.load_data_autonomous.form_error.title" = "Errore nell'inserimento dei dati";
+"settings.setting.load_data_autonomous.form_error.cun.message" = "\n- Inserire il codice alfanumerico di 10 caratteri dopo 'Cun-'\n";
+"settings.setting.load_data_autonomous.form_error.healt_card.message" = "\n- Inserire le ultime 8 cifre della Tessera Sanitaria";
 "settings.setting.choose_data_upload.health_worker_mode.title" = "Sei stato contattato da un Operatore Sanitario?";
 "settings.setting.choose_data_upload.health_worker_mode.message" = "Segui la procedura per segnalare la tua positività";
 "settings.setting.choose_data_upload.autonomous_mode.title" = "Vuoi segnalare la tua positività in autonomia?";

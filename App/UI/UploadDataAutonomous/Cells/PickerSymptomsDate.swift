@@ -47,7 +47,6 @@ open class PickerSymptomsDate: UIView, ModellableView {
     }
 
     public func setup() {
-        
         textfield.setInputViewDatePicker(target: self, selector: #selector(tapDone))
 
         addSubview(container)
@@ -61,7 +60,6 @@ open class PickerSymptomsDate: UIView, ModellableView {
     }
 
     @objc private func didTapContainer() {
-    
         if textfield.isFirstResponder {
             textfield.resignFirstResponder()
         } else {
@@ -143,9 +141,9 @@ extension PickerSymptomsDate {
             textfield.tintColor = Palette.primary
             textfield.typingAttributes = textStyle.attributes
             textfield.defaultTextAttributes = textStyle.attributes
-            
-            let placeholder: NSAttributedString = NSAttributedString(string: L10n.Settings.Setting.LoadDataAutonomous.SymptomsDate.placeholder)
-            textfield.attributedPlaceholder =  placeholder.styled(with: placeholderStyle)
+
+            let placeholder = NSAttributedString(string: L10n.Settings.Setting.LoadDataAutonomous.SymptomsDate.placeholder)
+            textfield.attributedPlaceholder = placeholder.styled(with: placeholderStyle)
         }
     }
 }
@@ -153,11 +151,9 @@ extension PickerSymptomsDate {
 // MARK: - Delegate
 
 extension PickerSymptomsDate: UITextFieldDelegate {
-    public func textFieldDidBeginEditing(_: UITextField) {
-    }
+    public func textFieldDidBeginEditing(_: UITextField) {}
 
-    public func textFieldDidEndEditing(_: UITextField) {
-    }
+    public func textFieldDidEndEditing(_: UITextField) {}
 
     public func textField(
         _ textField: UITextField,
@@ -187,7 +183,7 @@ extension UITextField {
         let screenWidth = UIScreen.main.bounds.width
         let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 216))
 
-        datePicker.datePickerMode = .date 
+        datePicker.datePickerMode = .date
         // iOS 14 and above
         if #available(iOS 14, *) { // Added condition for iOS 14
             datePicker.preferredDatePickerStyle = .wheels
@@ -195,12 +191,15 @@ extension UITextField {
         }
         datePicker.backgroundColor = .white
 
+        datePicker.minimumDate = Calendar.current.date(byAdding: .day, value: -15, to: Date())
+        datePicker.maximumDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())
+
         inputView = datePicker
         // Create a toolbar and assign it to inputAccessoryView
         let toolBar = UIToolbar(frame: CGRect(x: 0.0, y: 0.0, width: screenWidth, height: 44.0))
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let cancel = UIBarButtonItem(title: L10n.cancel, style: .plain, target: nil, action: #selector(tapCancel))
-       
+
         let barButton = UIBarButtonItem(title: L10n.confirm, style: .plain, target: target, action: selector)
         cancel.tintColor = Palette.purple
         barButton.tintColor = Palette.purple
