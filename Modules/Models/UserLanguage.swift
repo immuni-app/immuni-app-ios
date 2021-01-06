@@ -21,6 +21,7 @@ public enum UserLanguage: String, Codable, CaseIterable {
   case german = "de"
   case french = "fr"
   case spanish = "es"
+  case vietnamese = "vi"
 
   public init(from locale: Locale) {
     guard let langCode = locale.languageCode else {
