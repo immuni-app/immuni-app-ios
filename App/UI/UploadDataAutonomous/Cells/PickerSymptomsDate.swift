@@ -33,6 +33,7 @@ open class PickerSymptomsDate: UIView, ModellableView {
     private let container = UIView()
     private let pickerIcon = UIImageView()
     private let textfield = UITextField()
+    var onFocus: Bool = false
 
     var didChangePickerValue: CustomInteraction<String>?
 
@@ -78,7 +79,7 @@ open class PickerSymptomsDate: UIView, ModellableView {
         }
 
         Self.Style.shadow(container)
-        Self.Style.pickerIcon(pickerIcon)
+        Self.Style.pickerIcon(pickerIcon, onFocus: self.onFocus)
 
         setNeedsLayout()
     }
@@ -122,15 +123,16 @@ extension PickerSymptomsDate {
             view.addShadow(.textfieldFocus)
         }
 
-        static func pickerIcon(_ view: UIImageView) {
+        static func pickerIcon(_ view: UIImageView, onFocus: Bool) {
             view.image = Asset.Settings.UploadData.calendar.image
             view.contentMode = .scaleAspectFit
-            view.tintColor = Palette.grayNormal
+            view.image = view.image?.withRenderingMode(.alwaysTemplate)
+            view.tintColor = onFocus ? Palette.primary : Palette.grayNormal
         }
 
         static func textfield(_ textfield: UITextField) {
             let textStyle = TextStyles.p.byAdding([
-                .color(Palette.grayNormal)
+                .color(Palette.primary)
             ])
             let placeholderStyle = TextStyles.p.byAdding([
                 .color(Palette.grayNormal)
@@ -151,9 +153,13 @@ extension PickerSymptomsDate {
 // MARK: - Delegate
 
 extension PickerSymptomsDate: UITextFieldDelegate {
-    public func textFieldDidBeginEditing(_: UITextField) {}
+    public func textFieldDidBeginEditing(_: UITextField) {
+        self.onFocus = true
+    }
 
-    public func textFieldDidEndEditing(_: UITextField) {}
+    public func textFieldDidEndEditing(_: UITextField) {
+        self.onFocus = false
+    }
 
     public func textField(
         _ textField: UITextField,

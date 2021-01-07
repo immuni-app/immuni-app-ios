@@ -22,6 +22,7 @@ struct DataUploadHealthWorkerModeVM: ViewModel {}
 // MARK: - View
 
 class DataUploadHealthWorkerModeView: UIView, ModellableView, ReusableView {
+    
     typealias VM = DataUploadHealthWorkerModeVM
     static let containerInset: CGFloat = 25
     static let labelLeftMargin: CGFloat = 25

@@ -137,10 +137,6 @@ private extension ChooseDataUploadModeView {
             view.backgroundColor = Palette.grayWhite
         }
 
-        static func separator(_ view: UIView) {
-            view.backgroundColor = Palette.primary.withAlphaComponent(0.4)
-        }
-
         static func backgroundGradient(_ gradientView: GradientView) {
             gradientView.isUserInteractionEnabled = false
             gradientView.gradient = Palette.gradientBackgroundBlueOnBottom

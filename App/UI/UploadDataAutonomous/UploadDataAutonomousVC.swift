@@ -28,25 +28,33 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
         }
 
         rootView.didTapVerifyCode = { [weak self] in
-            guard let code = self?.viewModel?.code else {
-                return
-            }
+
             guard let self = self else {
                 return
             }
-            if !self.validateCun(cun: self.localState.cun), !self.validateHealthCard(healthCard: self.localState.healtCard) {
-                self.dispatch(Logic.DataUpload.ShowAutonomousUploadErrorAlert(message: L10n.Settings.Setting.LoadDataAutonomous.FormError.Cun.message + L10n.Settings.Setting.LoadDataAutonomous.FormError.HealtCard.message))
+
+            guard let code = self.viewModel?.code else {
                 return
             }
+
+            print("cun", self.localState.cun.description)
+            print("healthCard", self.localState.healtCard.description)
+            print("symptomsDate", self.localState.symptomsDate.description)
+
+            var message = ""
             if !self.validateCun(cun: self.localState.cun) {
-                self.dispatch(Logic.DataUpload.ShowAutonomousUploadErrorAlert(message: L10n.Settings.Setting.LoadDataAutonomous.FormError.Cun.message))
-                return
+                message += L10n.Settings.Setting.LoadDataAutonomous.FormError.Cun.message
             }
             if !self.validateHealthCard(healthCard: self.localState.healtCard) {
-                self.dispatch(Logic.DataUpload.ShowAutonomousUploadErrorAlert(message: L10n.Settings.Setting.LoadDataAutonomous.FormError.HealtCard.message))
+                message += L10n.Settings.Setting.LoadDataAutonomous.FormError.HealtCard.message
+            }
+            if !self.validateSymptomsDate(date: self.localState.symptomsDate) {
+                message += L10n.Settings.Setting.LoadDataAutonomous.FormError.SymptomsDate.message
+            }
+            if message != "" {
+                self.dispatch(Logic.DataUpload.ShowAutonomousUploadErrorAlert(message: message))
                 return
             }
-            print("healthCard", self.localState.healtCard.description)
 
 //            self.verifyCode(code: code)
         }
@@ -70,6 +78,16 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
             return false
         }
         if cun != "", cun.count == 10, cun.range(of: ".*[^A-Za-z0-9].*", options: .regularExpression) == nil {
+            return true
+        }
+        return false
+    }
+
+    private func validateSymptomsDate(date: String?) -> Bool {
+        guard let date = date else {
+            return false
+        }
+        if date != "" {
             return true
         }
         return false

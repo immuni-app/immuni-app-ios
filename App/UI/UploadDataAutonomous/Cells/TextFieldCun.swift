@@ -33,7 +33,9 @@ open class TextFieldCun: UIView, ModellableView {
     private let container = UIView()
     private let textFieldIcon = UIImageView()
     private let textfield = UITextField()
-
+    static let prefixCun: String = "CUN-"
+    var onFocus: Bool = false
+    
     var didChangeSearchStatus: CustomInteraction<Bool>?
     var didChangeTextValue: CustomInteraction<String>?
 
@@ -62,12 +64,11 @@ open class TextFieldCun: UIView, ModellableView {
     }
 
     public func update(oldModel _: TextFieldCunVM?) {
-        guard let _ = self.model else {
+        guard let _ = model else {
             return
         }
-
         Self.Style.shadow(container)
-        Self.Style.textFieldIcon(textFieldIcon)
+        Self.Style.textFieldIcon(textFieldIcon, onFocus: self.onFocus)
 
         setNeedsLayout()
     }
@@ -111,15 +112,16 @@ extension TextFieldCun {
             view.addShadow(.textfieldFocus)
         }
 
-        static func textFieldIcon(_ view: UIImageView) {
+        static func textFieldIcon(_ view: UIImageView, onFocus: Bool) {
             view.image = Asset.Settings.UploadData.cun.image
             view.contentMode = .scaleAspectFit
-            view.tintColor = Palette.grayNormal
+            view.image = view.image?.withRenderingMode(.alwaysTemplate)
+            view.tintColor = onFocus ? Palette.primary : Palette.grayNormal
         }
 
         static func textfield(_ textfield: UITextField) {
             let textStyle = TextStyles.p.byAdding([
-                .color(Palette.grayNormal)
+                .color(Palette.primary)
             ])
             let placeholderStyle = TextStyles.p.byAdding([
                 .color(Palette.grayNormal)
@@ -139,19 +141,16 @@ extension TextFieldCun {
 
 extension TextFieldCun: UITextFieldDelegate {
     public func textFieldDidBeginEditing(_ textField: UITextField) {
-//    self.didChangeSearchStatus?(self.isSearching)
-//        textfield.placeholder = nil
-        textfield.text = "CUN-"
+        self.onFocus = true
+        if textField.text == "" {
+            textfield.text = Self.prefixCun
+        }
     }
 
     public func textFieldDidEndEditing(_ textField: UITextField) {
-//    self.didChangeSearchStatus?(self.isSearching)
-        if textField.text?.isEmpty ?? true {
-            let placeholderStyle = TextStyles.p.byAdding([
-                .color(Palette.grayNormal)
-            ])
-            let placeholder = NSAttributedString(string: L10n.Settings.Setting.LoadDataAutonomous.Cun.placeholder)
-            textfield.attributedPlaceholder = placeholder.styled(with: placeholderStyle)
+        self.onFocus = false
+        if textField.text == Self.prefixCun {
+            textField.text = nil
         }
     }
 
@@ -160,19 +159,37 @@ extension TextFieldCun: UITextFieldDelegate {
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool {
-        let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
-        didChangeTextValue?(result)
+        let protectedRange = NSRange(location: 0, length: 4)
+        let intersection = NSIntersectionRange(protectedRange, range)
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            // don't do it sync as the textfield is not immediately updated
-            self.update(oldModel: self.model)
+        if intersection.length > 0 {
+            return false
+        }
+        if range.location == 13 {
+            let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
+            didChangeTextValue?(result.deletingPrefixCun(prefix: Self.prefixCun))
+            return true
+        }
+        if range.location + range.length > 13 {
+            return false
         }
 
+        let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
+
+        didChangeTextValue?(result.deletingPrefixCun(prefix: Self.prefixCun))
+        
         return true
     }
 
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return false
+    }
+}
+
+extension String {
+    func deletingPrefixCun(prefix: String) -> String {
+        guard hasPrefix(prefix) else { return self }
+        return String(dropFirst(prefix.count))
     }
 }

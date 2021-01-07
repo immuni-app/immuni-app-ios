@@ -32,8 +32,9 @@ open class TextFieldHealthCard: UIView, ModellableView {
 
     private let container = UIView()
     private let textFieldIcon = UIImageView()
-    private let textfield = UITextView()
-
+    private let textfield = UITextField()
+    var onFocus: Bool = false
+    
     var didChangeTextValue: CustomInteraction<String>?
 
     public func setup() {
@@ -66,7 +67,7 @@ open class TextFieldHealthCard: UIView, ModellableView {
         }
 
         Self.Style.shadow(container)
-        Self.Style.textFieldIcon(textFieldIcon)
+        Self.Style.textFieldIcon(textFieldIcon, onFocus: self.onFocus)
 
         setNeedsLayout()
     }
@@ -86,7 +87,7 @@ open class TextFieldHealthCard: UIView, ModellableView {
         textfield.pin
             .after(of: textFieldIcon)
             .horizontally(36)
-            .marginHorizontal(10)
+            .marginLeft(10)
             .vertically()
     }
 
@@ -110,57 +111,42 @@ extension TextFieldHealthCard {
             view.addShadow(.textfieldFocus)
         }
 
-        static func textFieldIcon(_ view: UIImageView) {
+        static func textFieldIcon(_ view: UIImageView, onFocus: Bool) {
             view.image = Asset.Settings.UploadData.healthCard.image
             view.contentMode = .scaleAspectFit
-            view.tintColor = Palette.grayNormal
+            view.image = view.image?.withRenderingMode(.alwaysTemplate)
+            view.tintColor = onFocus ? Palette.primary : Palette.grayNormal
         }
 
-        static func textfield(_ textfield: UITextView) {
+        static func textfield(_ textfield: UITextField) {
             let textStyle = TextStyles.p.byAdding([
-                .color(Palette.grayNormal)
+                .color(Palette.primary)
             ])
             let placeholderStyle = TextStyles.p.byAdding([
                 .color(Palette.grayNormal)
-
             ])
 
             textfield.returnKeyType = .search
             textfield.tintColor = Palette.primary
             textfield.typingAttributes = textStyle.attributes
-            textfield.isScrollEnabled = false
-//            textfield.defaultTextAttributes = textStyle.attributes
+            textfield.defaultTextAttributes = textStyle.attributes
+            textfield.keyboardType = .numberPad
 
             let placeholder = NSAttributedString(string: L10n.Settings.Setting.LoadDataAutonomous.HealthCard.placeholder)
-            textfield.text = L10n.Settings.Setting.LoadDataAutonomous.HealthCard.placeholder
+            textfield.attributedPlaceholder = placeholder.styled(with: placeholderStyle)
         }
     }
 }
 
 // MARK: - Delegate
 
-extension TextFieldHealthCard: UITextViewDelegate {
-    public func textViewDidBeginEditing(_ textView: UITextView) {
-        textView.text = nil
-    }
-
-    public func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            textfield.text = L10n.Settings.Setting.LoadDataAutonomous.HealthCard.placeholder
-        }
-        else {
-            didChangeTextValue?(textView.text)
-        }
-    }
-}
-
 extension TextFieldHealthCard: UITextFieldDelegate {
     public func textFieldDidBeginEditing(_: UITextField) {
-//    self.didChangeSearchStatus?(self.isSearching)
+        self.onFocus = true
     }
 
     public func textFieldDidEndEditing(_: UITextField) {
-//    self.didChangeSearchStatus?(self.isSearching)
+        self.onFocus = false
     }
 
     public func textField(

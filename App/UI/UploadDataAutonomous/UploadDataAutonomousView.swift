@@ -169,7 +169,7 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
             .horizontally()
             .below(of: textFieldCun)
             .marginTop(25)
-            .height(60)
+            .height(50)
 
         pickerFieldSymptomsDate.pin
             .horizontally()
