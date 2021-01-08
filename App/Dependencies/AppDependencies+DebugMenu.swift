@@ -212,7 +212,7 @@
             message: message,
             preferredStyle: .alert,
             actions: [
-              .init(title: "Ok", style: .default)
+              .init(title: "OK", style: .default)
             ]
           )
         )
@@ -251,7 +251,7 @@
         model: .init(
           title: resultTitle,
           message: resultMessage,
-          actions: [.init(title: "Ok")]
+          actions: [.init(title: "OK")]
         )
       ))
     }
@@ -287,7 +287,7 @@
         model: .init(
           title: resultTitle,
           message: resultMessage,
-          actions: [.init(title: "Ok")]
+          actions: [.init(title: "OK")]
         )
       ))
     }
@@ -311,7 +311,7 @@
         model: .init(
           title: "Result",
           message: message,
-          actions: [.init(title: "Ok")]
+          actions: [.init(title: "OK")]
         )
       ))
     }
