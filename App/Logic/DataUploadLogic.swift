@@ -160,7 +160,49 @@ extension Logic.DataUpload {
       try context.awaitDispatch(ShowConfirmData(code: self.code))
     }
   }
+   
+  /// Performs the validation of the provided OTP
+  struct VerifyCun: AppSideEffect {
+    let code: OTP
+    let lastHisNumber: String
+    let symptomsStartedOn: String
 
+    enum Error: Swift.Error {
+      case verificationFailed
+    }
+
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      let state = context.getState()
+      try context.awaitDispatch(Logic.Loading.Show(message: L10n.UploadData.Verify.loading))
+
+      do {
+        try context.awaitDispatch(AssertExposureNotificationPermissionGranted())
+      } catch {
+          try context.awaitDispatch(Logic.Loading.Hide())
+          try context.awaitDispatch(ShowMissingAuthorizationAlert())
+          return
+        }
+
+      do {
+        // Send the request
+        let requestSize = state.configuration.ingestionRequestTargetSize
+        try await(context.dependencies.networkManager.validateCUN(self.code, lastHisNumber: self.lastHisNumber, symptomsStartedOn: self.symptomsStartedOn, requestSize: requestSize))
+        try context.awaitDispatch(MarkOTPValidationSuccessfulAttempt())
+        } catch NetworkManager.Error.unauthorizedOTP {
+          // User is not authorized. Bubble up the error to the calling ViewController
+          try await(context.dispatch(Logic.Loading.Hide()))
+          try context.awaitDispatch(MarkOTPValidationFailedAttempt(date: context.dependencies.now()))
+          throw Error.verificationFailed
+        } catch {
+          try await(context.dispatch(Logic.Loading.Hide()))
+          try context.awaitDispatch(ShowErrorAlert(error: error, retryDispatchable: self))
+          return
+        }
+
+        try await(context.dispatch(Logic.Loading.Hide()))
+        try context.awaitDispatch(ShowConfirmData(code: self.code))
+      }
+    }
   /// Shows the screen in which data that are uploaded are listed
   struct ShowConfirmData: AppSideEffect {
     let code: OTP

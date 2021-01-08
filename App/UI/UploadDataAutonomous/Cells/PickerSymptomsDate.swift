@@ -38,10 +38,12 @@ open class PickerSymptomsDate: UIView, ModellableView {
     var didChangePickerValue: CustomInteraction<String>?
 
     @objc func tapDone() {
+        
         if let datePicker = textfield.inputView as? UIDatePicker {
             let dateformatter = DateFormatter()
             dateformatter.dateStyle = .medium
             textfield.text = dateformatter.string(from: datePicker.date)
+            dateformatter.dateFormat = "yyyy-MM-dd"
             didChangePickerValue?(dateformatter.string(from: datePicker.date))
         }
         textfield.resignFirstResponder()
@@ -79,7 +81,7 @@ open class PickerSymptomsDate: UIView, ModellableView {
         }
 
         Self.Style.shadow(container)
-        Self.Style.pickerIcon(pickerIcon, onFocus: self.onFocus)
+        Self.Style.pickerIcon(pickerIcon, onFocus: onFocus)
 
         setNeedsLayout()
     }
@@ -132,10 +134,10 @@ extension PickerSymptomsDate {
 
         static func textfield(_ textfield: UITextField) {
             let textStyle = TextStyles.p.byAdding([
-                .color(Palette.primary)
+                .color(Palette.primary),
             ])
             let placeholderStyle = TextStyles.p.byAdding([
-                .color(Palette.grayNormal)
+                .color(Palette.grayNormal),
 
             ])
 
@@ -154,11 +156,11 @@ extension PickerSymptomsDate {
 
 extension PickerSymptomsDate: UITextFieldDelegate {
     public func textFieldDidBeginEditing(_: UITextField) {
-        self.onFocus = true
+        onFocus = true
     }
 
     public func textFieldDidEndEditing(_: UITextField) {
-        self.onFocus = false
+        onFocus = false
     }
 
     public func textField(

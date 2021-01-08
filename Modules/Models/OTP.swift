@@ -20,164 +20,212 @@ import Foundation
 /// of TEKs. The code has 9 randomly generated digit. The last charater, instead,
 /// is a control character
 public struct OTP {
-  /// The default length of the OTP
-  public static let defaultLength = 10
+    /// The default length of the OTP
+    public static let defaultLength = 10
 
-  /// The caracters of the code
-  let characters: [Character]
+    /// The prefix if otp is cun type
+    public static let prefixCun = "CUN-"
 
-  /// Generates a new random, valid OTP with the given length
-  public init(length: Int = Self.defaultLength) {
-    let characters = (0 ..< length - 1).compactMap { _ in Self.alphabet.randomElement() }
-    assert(characters.count == length - 1)
+    /// The caracters of the code
+    let characters: [Character]
 
-    let checkDigit = Self.checkDigit(for: characters)
-    self.characters = characters + [checkDigit]
-  }
+    /// type of otp code
+    var otpType: OtpType = .otp
+
+    /// Generates a new random, valid OTP with the given length
+    public init(length: Int = Self.defaultLength) {
+        let characters = (0 ..< length - 1).compactMap { _ in Self.alphabet.randomElement() }
+        assert(characters.count == length - 1)
+        let checkDigit = Self.checkDigit(for: characters)
+        self.characters = characters + [checkDigit]
+    }
+
+    /// Generates a new valid CUN with the given string
+    public init(cun: String) {
+        characters = Array(cun)
+        otpType = .cun
+    }
+}
+
+enum OtpType {
+    case otp
+    case cun
 }
 
 extension OTP: RawRepresentable {
-  public var rawValue: String {
-    String(self.characters)
-  }
-
-  public init?(rawValue: String) {
-    guard rawValue.count > 2 else {
-      return nil
+    public var rawValue: String {
+        if otpType == .cun {
+            print("return cun ", Self.prefixCun + String(characters))
+            return Self.prefixCun + String(characters)
+        }
+        print("return otp ", String(characters))
+        return String(characters)
     }
 
-    let allCharacters = Array(rawValue)
+    public init?(rawValue: String) {
+        guard rawValue.count > 2 else {
+            return nil
+        }
 
-    var characters = allCharacters
-    let checkDigit = characters.removeLast()
+        let allCharacters = Array(rawValue)
 
-    guard Self.verify(checkDigit: checkDigit, for: characters) else {
-      return nil
+        var characters = allCharacters
+        let checkDigit = characters.removeLast()
+
+        guard Self.verify(checkDigit: checkDigit, for: characters) else {
+            return nil
+        }
+
+        self.characters = allCharacters
     }
-
-    self.characters = allCharacters
-  }
 }
 
 public extension OTP {
-  /// Returns an array of strings with the code parts of the given OTP.
-  /// To simplify the readability, the code is splitted into 3 parts.
-  /// Output will look like: ["AAA", "BBBB", "CCC"].
-  var codeParts: [String] {
-    let fixedPartSize = Self.defaultLength / 3
-    let first = self.characters.prefix(fixedPartSize)
-    let last = self.characters.suffix(fixedPartSize)
-    let middle = self.characters.dropLast(fixedPartSize).dropFirst(fixedPartSize)
+    /// Returns an array of strings with the code parts of the given OTP.
+    /// To simplify the readability, the code is splitted into 3 parts.
+    /// Output will look like: ["AAA", "BBBB", "CCC"].
+    var codeParts: [String] {
+        let fixedPartSize = Self.defaultLength / 3
+        let first = characters.prefix(fixedPartSize)
+        let last = characters.suffix(fixedPartSize)
+        let middle = characters.dropLast(fixedPartSize).dropFirst(fixedPartSize)
 
-    return [first, middle, last].map { String($0) }
-  }
+        return [first, middle, last].map { String($0) }
+    }
+
+    static func verifyCun(cun: String) -> Bool {
+        
+        var characters = Array(cun)
+        let checkDigit = characters.removeLast()
+        
+        var sum = 0
+        for (index, char) in characters.enumerated() {
+            if index % 2 != 0 {
+                if let value = Self.evenMap[char] {
+                    sum += value
+                } else { return false }
+            }
+            if index % 2 == 0 {
+                if let value = Self.oddMap[char] {
+                    sum += value
+                } else { return false }
+            }
+        }
+
+        let index = sum % Self.checkDigitMap.count
+        let calculated = Self.checkDigitMap[index]
+
+        guard let _ = calculated else { return false }
+
+        return calculated == checkDigit
+    }
 }
 
 private extension OTP {
-  /// Verifies that the given check digit is valid for the given code
-  private static func verify(checkDigit: Character, for code: [Character]) -> Bool {
-    let calculated = Self.checkDigit(for: code)
-    return calculated == checkDigit
-  }
-
-  /// Calculates the check digit for the given code
-  private static func checkDigit(for code: [Character]) -> Character {
-    let sum = code.enumerated().reduce(0) { previous, item -> Int in
-      let map = (item.offset + 1).isMultiple(of: 2) ? Self.evenMap : Self.oddMap
-      let current = map[item.element] ?? LibLogger.fatalError("Broken OTP algorithm")
-      return previous + current
+    /// Verifies that the given check digit is valid for the given code
+    private static func verify(checkDigit: Character, for code: [Character]) -> Bool {
+        let calculated = Self.checkDigit(for: code)
+        return calculated == checkDigit
     }
 
-    let index = sum % Self.checkDigitMap.count
-    let checkDigit = Self.checkDigitMap[index] ?? LibLogger.fatalError("Invalid digit code")
-    return checkDigit
-  }
+    /// Calculates the check digit for the given code
+    private static func checkDigit(for code: [Character]) -> Character {
+        let sum = code.enumerated().reduce(0) { previous, item -> Int in
+            let map = (item.offset + 1).isMultiple(of: 2) ? Self.evenMap : Self.oddMap
+            let current = map[item.element] ?? LibLogger.fatalError("Broken OTP algorithm")
+            return previous + current
+        }
 
-  static let alphabet: [Character] = [
-    "A", "E", "F", "H", "I", "J", "K", "L", "Q", "R", "S", "U", "W",
-    "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9"
-  ]
+        let index = sum % Self.checkDigitMap.count
+        let checkDigit = Self.checkDigitMap[index] ?? LibLogger.fatalError("Invalid digit code")
+        return checkDigit
+    }
 
-  static var checkDigitMap: [Int: Character] {
-    let values = Self.alphabet.enumerated().map { ($0.offset, $0.element) }
-    return Dictionary(uniqueKeysWithValues: values)
-  }
+    static let alphabet: [Character] = [
+        "A", "E", "F", "H", "I", "J", "K", "L", "Q", "R", "S", "U", "W",
+        "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+    ]
 
-  static let evenMap: [Character: Int] = [
-    "0": 0,
-    "1": 1,
-    "2": 2,
-    "3": 3,
-    "4": 4,
-    "5": 5,
-    "6": 6,
-    "7": 7,
-    "8": 8,
-    "9": 9,
-    "A": 0,
-    "B": 1,
-    "C": 2,
-    "D": 3,
-    "E": 4,
-    "F": 5,
-    "G": 6,
-    "H": 7,
-    "I": 8,
-    "J": 9,
-    "K": 10,
-    "L": 11,
-    "M": 12,
-    "N": 13,
-    "O": 14,
-    "P": 15,
-    "Q": 16,
-    "R": 17,
-    "S": 18,
-    "T": 19,
-    "U": 20,
-    "V": 21,
-    "W": 22,
-    "X": 23,
-    "Y": 24,
-    "Z": 25
-  ]
+    static var checkDigitMap: [Int: Character] {
+        let values = Self.alphabet.enumerated().map { ($0.offset, $0.element) }
+        return Dictionary(uniqueKeysWithValues: values)
+    }
 
-  static let oddMap: [Character: Int] = [
-    "0": 1,
-    "1": 0,
-    "2": 5,
-    "3": 7,
-    "4": 9,
-    "5": 13,
-    "6": 15,
-    "7": 17,
-    "8": 19,
-    "9": 21,
-    "A": 1,
-    "B": 0,
-    "C": 5,
-    "D": 7,
-    "E": 9,
-    "F": 13,
-    "G": 15,
-    "H": 17,
-    "I": 19,
-    "J": 21,
-    "K": 2,
-    "L": 4,
-    "M": 18,
-    "N": 20,
-    "O": 11,
-    "P": 3,
-    "Q": 6,
-    "R": 8,
-    "S": 12,
-    "T": 14,
-    "U": 16,
-    "V": 10,
-    "W": 22,
-    "X": 25,
-    "Y": 24,
-    "Z": 23
-  ]
+    static let evenMap: [Character: Int] = [
+        "0": 0,
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 4,
+        "5": 5,
+        "6": 6,
+        "7": 7,
+        "8": 8,
+        "9": 9,
+        "A": 0,
+        "B": 1,
+        "C": 2,
+        "D": 3,
+        "E": 4,
+        "F": 5,
+        "G": 6,
+        "H": 7,
+        "I": 8,
+        "J": 9,
+        "K": 10,
+        "L": 11,
+        "M": 12,
+        "N": 13,
+        "O": 14,
+        "P": 15,
+        "Q": 16,
+        "R": 17,
+        "S": 18,
+        "T": 19,
+        "U": 20,
+        "V": 21,
+        "W": 22,
+        "X": 23,
+        "Y": 24,
+        "Z": 25,
+    ]
+
+    static let oddMap: [Character: Int] = [
+        "0": 1,
+        "1": 0,
+        "2": 5,
+        "3": 7,
+        "4": 9,
+        "5": 13,
+        "6": 15,
+        "7": 17,
+        "8": 19,
+        "9": 21,
+        "A": 1,
+        "B": 0,
+        "C": 5,
+        "D": 7,
+        "E": 9,
+        "F": 13,
+        "G": 15,
+        "H": 17,
+        "I": 19,
+        "J": 21,
+        "K": 2,
+        "L": 4,
+        "M": 18,
+        "N": 20,
+        "O": 11,
+        "P": 3,
+        "Q": 6,
+        "R": 8,
+        "S": 12,
+        "T": 14,
+        "U": 16,
+        "V": 10,
+        "W": 22,
+        "X": 25,
+        "Y": 24,
+        "Z": 23,
+    ]
 }

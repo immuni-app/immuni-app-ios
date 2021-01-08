@@ -12,6 +12,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+import Models
 import Tempura
 import UIKit
 
@@ -33,9 +34,9 @@ open class TextFieldCun: UIView, ModellableView {
     private let container = UIView()
     private let textFieldIcon = UIImageView()
     private let textfield = UITextField()
-    static let prefixCun: String = "CUN-"
+    static let prefixCun: String = OTP.prefixCun
     var onFocus: Bool = false
-    
+
     var didChangeSearchStatus: CustomInteraction<Bool>?
     var didChangeTextValue: CustomInteraction<String>?
 
@@ -68,7 +69,7 @@ open class TextFieldCun: UIView, ModellableView {
             return
         }
         Self.Style.shadow(container)
-        Self.Style.textFieldIcon(textFieldIcon, onFocus: self.onFocus)
+        Self.Style.textFieldIcon(textFieldIcon, onFocus: onFocus)
 
         setNeedsLayout()
     }
@@ -121,10 +122,10 @@ extension TextFieldCun {
 
         static func textfield(_ textfield: UITextField) {
             let textStyle = TextStyles.p.byAdding([
-                .color(Palette.primary)
+                .color(Palette.primary),
             ])
             let placeholderStyle = TextStyles.p.byAdding([
-                .color(Palette.grayNormal)
+                .color(Palette.grayNormal),
             ])
 
             textfield.returnKeyType = .search
@@ -141,14 +142,14 @@ extension TextFieldCun {
 
 extension TextFieldCun: UITextFieldDelegate {
     public func textFieldDidBeginEditing(_ textField: UITextField) {
-        self.onFocus = true
+        onFocus = true
         if textField.text == "" {
             textfield.text = Self.prefixCun
         }
     }
 
     public func textFieldDidEndEditing(_ textField: UITextField) {
-        self.onFocus = false
+        onFocus = false
         if textField.text == Self.prefixCun {
             textField.text = nil
         }
@@ -177,7 +178,7 @@ extension TextFieldCun: UITextFieldDelegate {
         let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
 
         didChangeTextValue?(result.deletingPrefixCun(prefix: Self.prefixCun))
-        
+
         return true
     }
 

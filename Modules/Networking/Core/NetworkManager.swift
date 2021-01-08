@@ -89,6 +89,20 @@ public extension NetworkManager {
       )).safeVoid
   }
 
+  /// Validates a given `CUN` with the backend
+    func validateCUN(_ otp: OTP, lastHisNumber: String, symptomsStartedOn: String, requestSize: Int) -> Promise<Void> {
+    let requestBody = CUNValidationRequest.Body(
+      lastHisNumber: lastHisNumber,
+      symptomsStartedOn: symptomsStartedOn
+    )
+    return self
+      .request(CUNValidationRequest(
+        body: requestBody,
+        otp: otp,
+        now: self.unwrappedDependencies.now,
+        targetSize: requestSize
+    )).safeVoid
+    }
   /// Uploads data to the backend as a consequence of a positive COVID diagnosis. The request is authenticated with a previously
   /// validated OTP.
   func uploadData(body: DataUploadRequest.Body, otp: OTP, requestSize: Int) -> Promise<Void> {

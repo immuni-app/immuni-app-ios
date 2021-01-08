@@ -33,14 +33,6 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
                 return
             }
 
-            guard let code = self.viewModel?.code else {
-                return
-            }
-
-            print("cun", self.localState.cun.description)
-            print("healthCard", self.localState.healtCard.description)
-            print("symptomsDate", self.localState.symptomsDate.description)
-
             var message = ""
             if !self.validateCun(cun: self.localState.cun) {
                 message += L10n.Settings.Setting.LoadDataAutonomous.FormError.Cun.message
@@ -54,9 +46,9 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
             if message != "" {
                 self.dispatch(Logic.DataUpload.ShowAutonomousUploadErrorAlert(message: message))
                 return
+            } else {
+                self.verifyCun(cun: OTP(cun: self.localState.cun), lastHisNumber: self.localState.healtCard, symptomsStartedOn: self.localState.symptomsDate)
             }
-
-//            self.verifyCode(code: code)
         }
 
         rootView.didTapDiscoverMore = { [weak self] in
@@ -77,7 +69,7 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
         guard let cun = cun else {
             return false
         }
-        if cun != "", cun.count == 10, cun.range(of: ".*[^A-Za-z0-9].*", options: .regularExpression) == nil {
+        if cun != "", cun.count == 10, OTP.verifyCun(cun: localState.cun) {
             return true
         }
         return false
@@ -103,10 +95,10 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
         return false
     }
 
-    private func verifyCode(code: OTP) {
+    private func verifyCun(cun: OTP, lastHisNumber: String, symptomsStartedOn: String) {
         localState.isLoading = true
 
-        dispatch(Logic.DataUpload.VerifyCode(code: code))
+        dispatch(Logic.DataUpload.VerifyCun(code: cun, lastHisNumber: lastHisNumber, symptomsStartedOn: symptomsStartedOn))
             .then {
                 self.localState.isLoading = false
                 self.localState.recentFailedAttempts = 0

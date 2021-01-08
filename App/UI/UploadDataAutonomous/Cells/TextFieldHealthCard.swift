@@ -34,7 +34,7 @@ open class TextFieldHealthCard: UIView, ModellableView {
     private let textFieldIcon = UIImageView()
     private let textfield = UITextField()
     var onFocus: Bool = false
-    
+
     var didChangeTextValue: CustomInteraction<String>?
 
     public func setup() {
@@ -67,7 +67,7 @@ open class TextFieldHealthCard: UIView, ModellableView {
         }
 
         Self.Style.shadow(container)
-        Self.Style.textFieldIcon(textFieldIcon, onFocus: self.onFocus)
+        Self.Style.textFieldIcon(textFieldIcon, onFocus: onFocus)
 
         setNeedsLayout()
     }
@@ -120,10 +120,10 @@ extension TextFieldHealthCard {
 
         static func textfield(_ textfield: UITextField) {
             let textStyle = TextStyles.p.byAdding([
-                .color(Palette.primary)
+                .color(Palette.primary),
             ])
             let placeholderStyle = TextStyles.p.byAdding([
-                .color(Palette.grayNormal)
+                .color(Palette.grayNormal),
             ])
 
             textfield.returnKeyType = .search
@@ -142,11 +142,11 @@ extension TextFieldHealthCard {
 
 extension TextFieldHealthCard: UITextFieldDelegate {
     public func textFieldDidBeginEditing(_: UITextField) {
-        self.onFocus = true
+        onFocus = true
     }
 
     public func textFieldDidEndEditing(_: UITextField) {
-        self.onFocus = false
+        onFocus = false
     }
 
     public func textField(
@@ -154,15 +154,19 @@ extension TextFieldHealthCard: UITextFieldDelegate {
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool {
-        let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
-        didChangeTextValue?(result)
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            // don't do it sync as the textfield is not immediately updated
-            self.update(oldModel: self.model)
+        guard let textFieldText = textField.text,
+            let rangeOfTextToReplace = Range(range, in: textFieldText)
+        else {
+            return false
         }
+        let substringToReplace = textFieldText[rangeOfTextToReplace]
+        let count = textFieldText.count - substringToReplace.count + string.count
+        if count <= 8 {
+            let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
+            didChangeTextValue?(result)
+        }
+        return count <= 8
 
-        return true
     }
 
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
