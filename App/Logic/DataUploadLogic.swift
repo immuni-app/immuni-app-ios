@@ -64,32 +64,13 @@ extension Logic.DataUpload {
     /// A threshold to make past failed attempts expire, so that in case of another failed attempt after a long time the
     /// exponential backoff starts from the beginning
     static let recentFailedAttemptsThreshold: TimeInterval = 24 * 60 * 60
+    
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
         try context.awaitDispatch(RefreshOTP())
 
-        let state = context.getState()
-        let now = context.dependencies.now()
-        let failedAttempts = state.ingestion.otpValidationFailedAttempts
-
-        let errorSecondsLeft: Int
-        let recentFailedAttempts: Int
-
-        if
-          let lastOtpFailedAttempt = state.ingestion.lastOtpValidationFailedAttempt,
-          now.timeIntervalSince(lastOtpFailedAttempt) <= Self.recentFailedAttemptsThreshold
-        {
-          let backOffDuration = UploadDataLS.backOffDuration(failedAttempts: failedAttempts)
-          let backOffEnd = lastOtpFailedAttempt.addingTimeInterval(TimeInterval(backOffDuration))
-          errorSecondsLeft = backOffEnd.timeIntervalSince(now).roundedInt().bounded(min: 0)
-          recentFailedAttempts = failedAttempts
-        } else {
-          errorSecondsLeft = 0
-          recentFailedAttempts = 0
-        }
-
         try context.awaitDispatch(Logic.DataUpload.SetDummyTrafficSequenceCancelled(value: true))
-        let ls = UploadDataAutonomousLS(recentFailedAttempts: recentFailedAttempts, errorSecondsLeft: errorSecondsLeft)
-        try context.awaitDispatch(Show(Screen.uploadDataAutonomous, animated: true, context: ls))
+        
+        try context.awaitDispatch(Show(Screen.uploadDataAutonomous, animated: true, context: UploadDataAutonomousLS()))
           }
         }
     /// Shows the  Choose Data Upload Mode screen
@@ -187,12 +168,11 @@ extension Logic.DataUpload {
         // Send the request
         let requestSize = state.configuration.ingestionRequestTargetSize
         try await(context.dependencies.networkManager.validateCUN(self.code, lastHisNumber: self.lastHisNumber, symptomsStartedOn: self.symptomsStartedOn, requestSize: requestSize))
-        try context.awaitDispatch(MarkOTPValidationSuccessfulAttempt())
         } catch NetworkManager.Error.unauthorizedOTP {
           // User is not authorized. Bubble up the error to the calling ViewController
-          try await(context.dispatch(Logic.Loading.Hide()))
-          try context.awaitDispatch(MarkOTPValidationFailedAttempt(date: context.dependencies.now()))
-          throw Error.verificationFailed
+//          try await(context.dispatch(Logic.Loading.Hide()))
+//          try context.awaitDispatch(MarkOTPValidationFailedAttempt(date: context.dependencies.now()))
+//          throw Error.verificationFailed
         } catch {
           try await(context.dispatch(Logic.Loading.Hide()))
           try context.awaitDispatch(ShowErrorAlert(error: error, retryDispatchable: self))

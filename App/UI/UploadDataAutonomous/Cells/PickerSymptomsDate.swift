@@ -38,7 +38,6 @@ open class PickerSymptomsDate: UIView, ModellableView {
     var didChangePickerValue: CustomInteraction<String>?
 
     @objc func tapDone() {
-        
         if let datePicker = textfield.inputView as? UIDatePicker {
             let dateformatter = DateFormatter()
             dateformatter.dateStyle = .medium
@@ -134,10 +133,10 @@ extension PickerSymptomsDate {
 
         static func textfield(_ textfield: UITextField) {
             let textStyle = TextStyles.p.byAdding([
-                .color(Palette.primary),
+                .color(Palette.primary)
             ])
             let placeholderStyle = TextStyles.p.byAdding([
-                .color(Palette.grayNormal),
+                .color(Palette.grayNormal)
 
             ])
 

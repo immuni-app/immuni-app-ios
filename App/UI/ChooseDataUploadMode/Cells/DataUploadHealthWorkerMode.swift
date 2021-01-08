@@ -124,7 +124,7 @@ class DataUploadHealthWorkerModeView: UIView, ModellableView, ReusableView {
         
         imageContent.pin
             .after(of: title, aligned: .center)
-          .sizeToFit()
+            .sizeToFit()
     }
 
     func buttonSize(for width: CGFloat) -> CGSize {

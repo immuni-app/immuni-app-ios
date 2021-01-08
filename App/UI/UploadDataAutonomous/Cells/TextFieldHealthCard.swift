@@ -120,10 +120,10 @@ extension TextFieldHealthCard {
 
         static func textfield(_ textfield: UITextField) {
             let textStyle = TextStyles.p.byAdding([
-                .color(Palette.primary),
+                .color(Palette.primary)
             ])
             let placeholderStyle = TextStyles.p.byAdding([
-                .color(Palette.grayNormal),
+                .color(Palette.grayNormal)
             ])
 
             textfield.returnKeyType = .search
@@ -166,7 +166,6 @@ extension TextFieldHealthCard: UITextFieldDelegate {
             didChangeTextValue?(result)
         }
         return count <= 8
-
     }
 
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {

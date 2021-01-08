@@ -90,7 +90,7 @@ public extension NetworkManager {
   }
 
   /// Validates a given `CUN` with the backend
-    func validateCUN(_ otp: OTP, lastHisNumber: String, symptomsStartedOn: String, requestSize: Int) -> Promise<Void> {
+  func validateCUN(_ otp: OTP, lastHisNumber: String, symptomsStartedOn: String, requestSize: Int) -> Promise<Void> {
     let requestBody = CUNValidationRequest.Body(
       lastHisNumber: lastHisNumber,
       symptomsStartedOn: symptomsStartedOn

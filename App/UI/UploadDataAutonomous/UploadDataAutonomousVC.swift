@@ -19,7 +19,6 @@ import Tempura
 class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousView> {
     override func viewDidLoad() {
         super.viewDidLoad()
-        startCountDownIfNecessary()
     }
 
     override func setupInteraction() {
@@ -34,7 +33,8 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
             }
 
             var message = ""
-            if !self.validateCun(cun: self.localState.cun) {
+            let cun = self.validateCun(cun: self.localState.cun)
+            if cun == nil {
                 message += L10n.Settings.Setting.LoadDataAutonomous.FormError.Cun.message
             }
             if !self.validateHealthCard(healthCard: self.localState.healtCard) {
@@ -47,7 +47,7 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
                 self.dispatch(Logic.DataUpload.ShowAutonomousUploadErrorAlert(message: message))
                 return
             } else {
-                self.verifyCun(cun: OTP(cun: self.localState.cun), lastHisNumber: self.localState.healtCard, symptomsStartedOn: self.localState.symptomsDate)
+                self.verifyCun(cun: cun!, lastHisNumber: self.localState.healtCard, symptomsStartedOn: self.localState.symptomsDate)
             }
         }
 
@@ -65,14 +65,17 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
         }
     }
 
-    private func validateCun(cun: String?) -> Bool {
+    private func validateCun(cun: String?) -> OTP? {
         guard let cun = cun else {
-            return false
+            return nil
         }
-        if cun != "", cun.count == 10, OTP.verifyCun(cun: localState.cun) {
-            return true
+        if cun != "", cun.count == 10 {
+            let otp = OTP(cun: cun)
+            if otp.verifyCun() {
+                return otp
+            }
         }
-        return false
+        return nil
     }
 
     private func validateSymptomsDate(date: String?) -> Bool {
@@ -101,33 +104,15 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
         dispatch(Logic.DataUpload.VerifyCun(code: cun, lastHisNumber: lastHisNumber, symptomsStartedOn: symptomsStartedOn))
             .then {
                 self.localState.isLoading = false
-                self.localState.recentFailedAttempts = 0
             }
             .catch { _ in
                 self.localState.isLoading = false
-                self.localState.recentFailedAttempts += 1
-                self.localState.errorSecondsLeft = UploadDataLS.backOffDuration(failedAttempts: self.localState.recentFailedAttempts)
-                self.startCountDownIfNecessary()
+
 //          self.dispatch(Logic.Accessibility.PostNotification(
 //            notification: .layoutChanged,
 //            argument: self.rootView.verifyCard.error
 //          ))
             }
-    }
-
-    private func startCountDownIfNecessary() {
-        countdown(from: localState.errorSecondsLeft)
-    }
-
-    private func countdown(from value: Int) {
-        localState.errorSecondsLeft = value
-        guard value > 0 else {
-            return
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.countdown(from: value - 1)
-        }
     }
 }
 
@@ -148,14 +133,4 @@ struct UploadDataAutonomousLS: LocalState {
 
     /// True if it's not possible to execute a new request.
     var isLoading: Bool = false
-    /// The number of recently failed attempts. Used to evaluate the backoff duration.
-    var recentFailedAttempts: Int
-    /// The number of seconds until a new request can be performed.
-    var errorSecondsLeft: Int
-
-    /// Exponential backoff capped at 30 minutes
-    static func backOffDuration(failedAttempts: Int) -> Int {
-        let exponent = min(failedAttempts, 60) // avoid Int overflow
-        return (Int(pow(2, Double(exponent - 1))) * 5).bounded(max: 30 * 60)
-    }
 }

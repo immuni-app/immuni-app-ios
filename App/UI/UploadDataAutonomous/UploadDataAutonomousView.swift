@@ -21,22 +21,13 @@ struct UploadDataAutonomousVM: ViewModelWithLocalState {
     var textFieldHealthCardVM: TextFieldHealthCardVM { TextFieldHealthCardVM() }
     var pickerFieldSymptomsDateVM: PickerSymptomsDateVM { PickerSymptomsDateVM() }
 
-    /// The code to be verified
-    let code: OTP
     /// True if it's not possible to execute a new request.
     let isLoading: Bool
-    /// The number of seconds until a new request can be performed.
-    let errorSecondsLeft: Int
 }
 
 extension UploadDataAutonomousVM {
-    init?(state: AppState?, localState: UploadDataAutonomousLS) {
-        guard let state = state else {
-            return nil
-        }
-        code = state.ingestion.otp
+    init?(state _: AppState?, localState: UploadDataAutonomousLS) {
         isLoading = localState.isLoading
-        errorSecondsLeft = localState.errorSecondsLeft
     }
 }
 

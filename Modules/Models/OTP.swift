@@ -93,9 +93,9 @@ public extension OTP {
         return [first, middle, last].map { String($0) }
     }
 
-    static func verifyCun(cun: String) -> Bool {
+    func verifyCun() -> Bool {
         
-        var characters = Array(cun)
+        var characters = self.characters
         let checkDigit = characters.removeLast()
         
         var sum = 0
