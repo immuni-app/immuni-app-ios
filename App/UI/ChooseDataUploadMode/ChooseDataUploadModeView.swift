@@ -25,10 +25,15 @@ struct ChooseDataUploadModeVM: ViewModelWithLocalState {
 
 extension ChooseDataUploadModeVM {
     init?(state: AppState?, localState _: ChooseDataUploadModeLS) {
-        guard let _ = state else {
+        guard let state = state else {
             return nil
         }
-        isAvailable = false
+        
+        guard let region = state.user.province?.region?.rawValue else {
+            isAvailable = false
+            return
+        }
+        isAvailable = state.configuration.allowedRegionsSelfUpload.contains(region)
     }
 }
 

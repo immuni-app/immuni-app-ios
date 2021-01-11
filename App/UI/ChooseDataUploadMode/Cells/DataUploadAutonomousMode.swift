@@ -66,7 +66,7 @@ class DataUploadAutonomousModeView: UIView, ModellableView {
         container.addSubview(warningIcon)
         container.addSubview(warning)
 
-        container.accessibilityElements = [title, message, actionButton, warningIcon, warning]
+        container.accessibilityElements = [title, message, actionButton, imageContent, warningIcon, warning]
 
         actionButton.on(.touchUpInside) { [weak self] _ in
             self?.didTapAction?()
@@ -184,7 +184,9 @@ class DataUploadAutonomousModeView: UIView, ModellableView {
         let messageSize = message.sizeThatFits(CGSize(width: labelWidth, height: .infinity))
         let buttonSize = actionButton.sizeThatFits(CGSize(width: labelWidth, height: .infinity))
         let buttonHeight = max(buttonSize.height, DataUploadAutonomousModeView.buttonMinHeight)
+        
         if model?.isAvailable ?? false {
+
             return CGSize(
                 width: size.width,
                 height: titleSize.height + messageSize.height + buttonHeight + 2 * DataUploadAutonomousModeView.containerInset
