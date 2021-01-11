@@ -228,6 +228,7 @@
 "settings.setting.choose_data_upload.health_worker_mode.title" = "Sei stato contattato da un Operatore Sanitario?";
 "settings.setting.choose_data_upload.health_worker_mode.message" = "Segui la procedura per segnalare la tua positività";
 "settings.setting.choose_data_upload.autonomous_mode.title" = "Vuoi segnalare la tua positività in autonomia?";
+"settings.setting.choose_data_upload.autonomous_mode.warning" = "Attenzione questo servizio non è attivo nella tua regione";
 "settings.setting.choose_data_upload.autonomous_mode.message" = "Se hai ricevuto il Codice Unico Nazionale (CUN) puoi segnalare la tua positività direttamente in app";
 "settings.setting.privacy" = "Informativa privacy";
 "settings.setting.section.data" = "Caricamento dati";

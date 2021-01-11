@@ -22,7 +22,6 @@ struct DataUploadHealthWorkerModeVM: ViewModel {}
 // MARK: - View
 
 class DataUploadHealthWorkerModeView: UIView, ModellableView, ReusableView {
-    
     typealias VM = DataUploadHealthWorkerModeVM
     static let containerInset: CGFloat = 25
     static let labelLeftMargin: CGFloat = 25
@@ -44,7 +43,7 @@ class DataUploadHealthWorkerModeView: UIView, ModellableView, ReusableView {
         setup()
         style()
     }
- 
+
     private let container = UIView()
     private let title = UILabel()
     private let message = UILabel()
@@ -62,7 +61,7 @@ class DataUploadHealthWorkerModeView: UIView, ModellableView, ReusableView {
         container.addSubview(actionButton)
         container.addSubview(imageContent)
 
-        container.accessibilityElements = [title, message, actionButton]
+        container.accessibilityElements = [title, message, actionButton, imageContent]
 
         actionButton.on(.touchUpInside) { [weak self] _ in
             self?.didTapAction?()
@@ -75,11 +74,10 @@ class DataUploadHealthWorkerModeView: UIView, ModellableView, ReusableView {
         Self.Style.container(container)
         Self.Style.title(title)
         Self.Style.message(message)
-        Self.Style.title(self.title)
-        
-        SharedStyle.primaryButton(actionButton, title: L10n.UploadData.Verify.button)
-        Self.Style.imageContent(self.imageContent, image: Asset.Settings.UploadData.stethoscope.image)
 
+        SharedStyle.primaryButton(actionButton, title: L10n.UploadData.Verify.button)
+        Self.Style.imageContent(imageContent, image: Asset.Settings.UploadData.stethoscope.image)
+        
     }
 
     // MARK: - Update
@@ -95,7 +93,7 @@ class DataUploadHealthWorkerModeView: UIView, ModellableView, ReusableView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         container.pin
             .vertically()
             .horizontally(25)
@@ -106,51 +104,50 @@ class DataUploadHealthWorkerModeView: UIView, ModellableView, ReusableView {
             .right(DataUploadHealthWorkerModeView.orderRightMargin)
             .top(Self.containerInset)
             .sizeToFit(.width)
-        
+
         message.pin
             .left(Self.labelLeftMargin)
             .right(DataUploadHealthWorkerModeView.orderRightMargin)
-            .below(of: self.title)
+            .below(of: title)
             .sizeToFit(.width)
             .marginTop(DataUploadHealthWorkerModeView.labelTopMargin)
 
         actionButton.pin
             .left(Self.labelLeftMargin)
             .right(DataUploadHealthWorkerModeView.orderRightMargin)
-            .size(self.buttonSize(for: self.bounds.width))
+            
+            .size(buttonSize(for: bounds.width))
             .minHeight(Self.buttonMinHeight)
-            .below(of: self.message)
+            .below(of: message)
             .marginTop(DataUploadAutonomousModeView.buttonTopMargin)
-        
+
         imageContent.pin
             .after(of: title, aligned: .center)
             .sizeToFit()
     }
 
     func buttonSize(for width: CGFloat) -> CGSize {
-      let labelWidth = width - DataUploadHealthWorkerModeView.orderRightMargin - DataUploadHealthWorkerModeView.labelLeftMargin
+        let labelWidth = width - DataUploadHealthWorkerModeView.orderRightMargin - DataUploadHealthWorkerModeView.labelLeftMargin
 
-      var buttonSize = self.actionButton.titleLabel?.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity)) ?? .zero
-        
-      buttonSize.width = width - DataUploadHealthWorkerModeView.orderRightMargin - DataUploadHealthWorkerModeView.labelLeftMargin
-      buttonSize.height = DataUploadAutonomousModeView.buttonMinHeight
+        var buttonSize = actionButton.titleLabel?.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity)) ?? .zero
 
-      return buttonSize
+        buttonSize.width = width - DataUploadHealthWorkerModeView.orderRightMargin - DataUploadHealthWorkerModeView.labelLeftMargin
+        buttonSize.height = DataUploadAutonomousModeView.buttonMinHeight
+
+        return buttonSize
     }
 
-
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        let imageSize = self.imageContent.intrinsicContentSize
+        let imageSize = imageContent.intrinsicContentSize
         let labelWidth = size.width - DataUploadHealthWorkerModeView.orderRightMargin - DataUploadHealthWorkerModeView.labelLeftMargin
             - 2 * DataUploadHealthWorkerModeView.containerInset - imageSize.width
         let titleSize = title.sizeThatFits(CGSize(width: labelWidth, height: .infinity))
         let messageSize = message.sizeThatFits(CGSize(width: labelWidth, height: .infinity))
         let buttonSize = actionButton.sizeThatFits(CGSize(width: labelWidth, height: .infinity))
-        let buttonHeight = max(buttonSize.height, DataUploadHealthWorkerModeView.buttonMinHeight)
 
         return CGSize(
             width: size.width,
-            height: titleSize.height + messageSize.height + buttonHeight + 2 * DataUploadHealthWorkerModeView.containerInset
+            height: titleSize.height + messageSize.height + buttonSize.height + 2 * DataUploadHealthWorkerModeView.containerInset
                 + DataUploadHealthWorkerModeView.labelBottomMargin + DataUploadHealthWorkerModeView.buttonTopMargin
         )
     }
@@ -169,10 +166,10 @@ private extension DataUploadHealthWorkerModeView {
         static func title(_ label: UILabel) {
             let content = L10n.Settings.Setting.ChooseDataUpload.HealthWorkerMode.title
             let textStyle = TextStyles.h4.byAdding(
-              .color(Palette.purple),
-              .alignment(.left)
+                .color(Palette.purple),
+                .alignment(.left)
             )
-            
+
             TempuraStyles.styleStandardLabel(
                 label,
                 content: content,
@@ -194,10 +191,9 @@ private extension DataUploadHealthWorkerModeView {
             )
         }
 
-    static func imageContent(_ imageView: UIImageView, image: UIImage) {
-        imageView.image = image
-        imageView.contentMode = .scaleAspectFit
+        static func imageContent(_ imageView: UIImageView, image: UIImage) {
+            imageView.image = image
+            imageView.contentMode = .scaleAspectFit
         }
     }
-    
 }

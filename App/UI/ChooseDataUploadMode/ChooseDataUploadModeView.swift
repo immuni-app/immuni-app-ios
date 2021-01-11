@@ -16,13 +16,19 @@ import Foundation
 import Models
 import Tempura
 
-struct ChooseDataUploadModeVM: ViewModelWithLocalState {}
+struct ChooseDataUploadModeVM: ViewModelWithLocalState {
+    var isAvailable: Bool
+    var dataUploadAutonomousModeVM: DataUploadAutonomousModeVM {
+        return DataUploadAutonomousModeVM(isAvailable: isAvailable)
+    }
+}
 
 extension ChooseDataUploadModeVM {
     init?(state: AppState?, localState _: ChooseDataUploadModeLS) {
         guard let _ = state else {
             return nil
         }
+        isAvailable = false
     }
 }
 
@@ -65,7 +71,7 @@ class ChooseDataUploadModeView: UIView, ViewControllerModellableView {
         healthWorkerModeCard.didTapAction = { [weak self] in
             self?.didTapHealthWorkerMode?()
         }
-        
+
         autonomousModeCard.didTapAction = { [weak self] in
             self?.didTapAutonomousMode?()
         }
@@ -86,9 +92,10 @@ class ChooseDataUploadModeView: UIView, ViewControllerModellableView {
     // MARK: - Update
 
     func update(oldModel _: VM?) {
-        guard let _ = self.model else {
+        guard let model = self.model else {
             return
         }
+        autonomousModeCard.model = model.dataUploadAutonomousModeVM
     }
 
     // MARK: - Layout
