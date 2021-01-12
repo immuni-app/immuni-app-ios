@@ -79,7 +79,7 @@ open class TextFieldCun: UIView, ModellableView {
 
         container.pin
             .vertically()
-            .horizontally(25)
+            .horizontally(15)
 
         textFieldIcon.pin
             .size(24)
@@ -89,7 +89,7 @@ open class TextFieldCun: UIView, ModellableView {
         textfield.pin
             .after(of: textFieldIcon)
             .horizontally(36)
-            .marginHorizontal(10)
+            .marginLeft(5)
             .vertically(5)
     }
 

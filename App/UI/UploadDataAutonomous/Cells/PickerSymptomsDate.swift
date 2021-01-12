@@ -90,7 +90,7 @@ open class PickerSymptomsDate: UIView, ModellableView {
 
         container.pin
             .vertically()
-            .horizontally(25)
+            .horizontally(15)
 
         pickerIcon.pin
             .size(24)
@@ -100,7 +100,7 @@ open class PickerSymptomsDate: UIView, ModellableView {
         textfield.pin
             .after(of: pickerIcon)
             .horizontally(36)
-            .marginHorizontal(10)
+            .marginLeft(5)
             .vertically(5)
     }
 

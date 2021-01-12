@@ -83,7 +83,7 @@ class DataUploadAutonomousModeView: UIView, ModellableView {
         Self.Style.error(warning)
 
         SharedStyle.primaryButton(actionButton, title: L10n.UploadData.Verify.button)
-        Self.Style.imageContent(imageContent, image: Asset.Settings.UploadData.hand.image)
+        Self.Style.imageContent(imageContent, image: Asset.Settings.UploadData.codeCun.image)
         Self.Style.imageContent(warningIcon, image: Asset.Settings.UploadData.alert.image)
     }
 

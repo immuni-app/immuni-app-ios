@@ -55,10 +55,8 @@ enum OtpType {
 extension OTP: RawRepresentable {
     public var rawValue: String {
         if otpType == .cun {
-            print("return cun ", Self.prefixCun + String(characters))
             return Self.prefixCun + String(characters)
         }
-        print("return otp ", String(characters))
         return String(characters)
     }
 

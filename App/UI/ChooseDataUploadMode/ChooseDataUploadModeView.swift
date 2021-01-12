@@ -169,7 +169,7 @@ private extension ChooseDataUploadModeView {
                     .color(Palette.grayDark),
                     .alignment(.center)
                 ),
-                numberOfLines: 1
+                numberOfLines: 2
             )
         }
     }

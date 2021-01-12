@@ -49,9 +49,9 @@ struct HomeInfoCellVM: ViewModel {
   var lightContent: Bool {
     switch self.kind {
     case .protection:
-      return true
-    case .app:
       return false
+    case .app:
+      return true
     case .updateCountry:
       return false
     case .dataUpload:

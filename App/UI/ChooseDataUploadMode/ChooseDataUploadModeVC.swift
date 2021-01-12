@@ -27,7 +27,7 @@ class ChooseDataUploadModeVC: ViewControllerWithLocalState<ChooseDataUploadModeV
         }
 
         rootView.didTapHealthWorkerMode = { [weak self] in
-            self?.dispatch(Logic.Settings.ShowUploadData())
+            self?.dispatch(Logic.Settings.ShowUploadData(callCenterMode: false))
         }
         rootView.didTapAutonomousMode = { [weak self] in
             self?.dispatch(Logic.Settings.ShowUploadDataAutonomous())

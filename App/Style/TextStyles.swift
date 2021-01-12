@@ -176,6 +176,19 @@ extension TextStyles {
     return style
   }
 
+  static var pAnchor: StringStyle {
+    let font = UIFont.euclidCircularBBold(size: 16)
+    let style = StringStyle(
+      .font(font),
+      .color(Palette.purple),
+      .underline(.single, nil),
+      .lineBreakMode(.byTruncatingTail),
+      .adapt(.control)
+      )
+
+      return style
+    }
+
   static var pSemibold: StringStyle {
     let font = UIFont.euclidCircularBSemibold(size: 16)
     let style = StringStyle(

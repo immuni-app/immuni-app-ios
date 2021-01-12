@@ -77,7 +77,7 @@ open class TextFieldHealthCard: UIView, ModellableView {
 
         container.pin
             .vertically()
-            .horizontally(25)
+            .horizontally(15)
 
         textFieldIcon.pin
             .size(24)
@@ -87,7 +87,7 @@ open class TextFieldHealthCard: UIView, ModellableView {
         textfield.pin
             .after(of: textFieldIcon)
             .horizontally(36)
-            .marginLeft(10)
+            .marginLeft(5)
             .vertically()
     }
 
@@ -123,7 +123,9 @@ extension TextFieldHealthCard {
                 .color(Palette.primary)
             ])
             let placeholderStyle = TextStyles.p.byAdding([
-                .color(Palette.grayNormal)
+                .color(Palette.grayNormal),
+                .font(UIFont.boldSystemFont(ofSize: 14.0))
+                
             ])
 
             textfield.returnKeyType = .search

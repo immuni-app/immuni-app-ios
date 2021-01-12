@@ -50,6 +50,10 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
                 self.verifyCun(cun: cun!, lastHisNumber: self.localState.healtCard, symptomsStartedOn: self.localState.symptomsDate)
             }
         }
+        
+        rootView.didTapHealthWorkerMode = { [weak self] in
+            self?.dispatch(Logic.Settings.ShowUploadData(callCenterMode: true))
+        }
 
         rootView.didTapDiscoverMore = { [weak self] in
             self?.dispatch(Logic.PermissionTutorial.ShowHowToUploadWhenPositiveAutonomous())
