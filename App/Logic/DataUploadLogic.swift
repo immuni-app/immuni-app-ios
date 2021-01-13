@@ -171,15 +171,14 @@ extension Logic.DataUpload {
         try await(context.dependencies.networkManager.validateCUN(self.code, lastHisNumber: self.lastHisNumber, symptomsStartedOn: self.symptomsStartedOn, requestSize: requestSize))
         } catch NetworkManager.Error.unauthorizedOTP {
           // User is not authorized. Bubble up the error to the calling ViewController
-//          try await(context.dispatch(Logic.Loading.Hide()))
-//          try context.awaitDispatch(MarkOTPValidationFailedAttempt(date: context.dependencies.now()))
-//          throw Error.verificationFailed
+          try await(context.dispatch(Logic.Loading.Hide()))
+          try context.awaitDispatch(ShowErrorAlert(error: NetworkManager.Error.connectionError, retryDispatchable: self))
+          throw Error.verificationFailed
         } catch {
           try await(context.dispatch(Logic.Loading.Hide()))
           try context.awaitDispatch(ShowErrorAlert(error: error, retryDispatchable: self))
           return
         }
-
         try await(context.dispatch(Logic.Loading.Hide()))
         try context.awaitDispatch(ShowConfirmData(code: self.code))
       }
