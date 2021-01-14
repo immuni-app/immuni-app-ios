@@ -323,6 +323,8 @@
 "upload_data.code.message_autonomous" = "Comunica il codice all'operatore del call center:";
 "upload_data.connection_error.action" = "Aceptar";
 "upload_data.connection_error.message" = "Se ha producido un error. Comprueba tu conexión a internet e inténtalo de nuevo.";
+"upload_data.unauthorized_cun.title" = "Qualcosa è andato storto";
+"upload_data.unauthorized_cun.message" = "Cun già utilizzato";
 "upload_data.connection_error.title" = "Error de conexión";
 "upload_data.diagnosis_keys.overlay.hint" = "Selecciona «<b>Compartir</b>» en la ventana emergente que aparecerá a continuación";
 "upload_data.missing_authorization.close" = "Cerrar";

@@ -334,6 +334,10 @@
 "upload_data.code.message" = "Comunica il codice all'operatore:";
 "upload_data.connection_error.action" = "OK";
 "upload_data.connection_error.message" = "Qualcosa è andato storto, controlla la tua connessione internet e riprova.";
+"upload_data.unauthorized_cun.title" = "Qualcosa è andato storto";
+"upload_data.unauthorized_cun.message" = "Cun già utilizzato";
+"upload_data.unauthorized_cun.title" = "Qualcosa è andato storto";
+"upload_data.unauthorized_cun.message" = "Cun già utilizzato";
 "upload_data.connection_error.title" = "Errore di connessione";
 "upload_data.diagnosis_keys.overlay.hint" = "Seleziona \"<b>Condividi</b>\" nel popup che apparirà qui sotto";
 "upload_data.missing_authorization.close" = "Chiudi";

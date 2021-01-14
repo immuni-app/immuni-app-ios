@@ -325,6 +325,8 @@ Anti-Hygiene- oder molekularer Test am zehnten Tag durchgeführt wird.";
 "upload_data.code.message_autonomous" = "Comunica il codice all'operatore del call center:";
 "upload_data.connection_error.action" = "OK";
 "upload_data.connection_error.message" = "Etwas ist schiefgelaufen. Überprüfen Sie Ihre Internetverbindung und versuchen Sie es noch einmal.";
+"upload_data.unauthorized_cun.title" = "Qualcosa è andato storto";
+"upload_data.unauthorized_cun.message" = "Cun già utilizzato";
 "upload_data.connection_error.title" = "Verbindungsfehler";
 "upload_data.diagnosis_keys.overlay.hint" = "Tippen Sie auf \"<b>Freigeben</b>\" in dem Popup-Fenster, das unten angezeigt wird";
 "upload_data.missing_authorization.close" = "Schließen";
