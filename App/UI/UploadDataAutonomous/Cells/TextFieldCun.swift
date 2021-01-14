@@ -125,7 +125,8 @@ extension TextFieldCun {
                 .color(Palette.primary)
             ])
             let placeholderStyle = TextStyles.p.byAdding([
-                .color(Palette.grayNormal)
+                .color(Palette.grayNormal),
+                .font(UIFont.boldSystemFont(ofSize: 14.0))
             ])
 
             textfield.returnKeyType = .search

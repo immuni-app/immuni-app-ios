@@ -125,7 +125,6 @@ extension TextFieldHealthCard {
             let placeholderStyle = TextStyles.p.byAdding([
                 .color(Palette.grayNormal),
                 .font(UIFont.boldSystemFont(ofSize: 14.0))
-                
             ])
 
             textfield.returnKeyType = .search
