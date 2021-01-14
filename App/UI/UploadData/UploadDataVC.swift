@@ -35,10 +35,10 @@ class UploadDataVC: ViewControllerWithLocalState<UploadDataView> {
     }
 
     self.rootView.didTapDiscoverMore = { [weak self] in
-      self?.dispatch(Logic.PermissionTutorial.ShowHowToUploadWhenPositive())
+        self?.dispatch(Logic.PermissionTutorial.ShowHowToUploadWhenPositive(callCenterMode: self?.localState.callCenterMode ?? true))
     }
     self.rootView.didTapContact = { [weak self] in
-      self?.dispatch(Logic.Shared.DialPhoneNumber(number: "800912491"))
+      self?.dispatch(Logic.Shared.DialCallCenter())
     }
   }
 

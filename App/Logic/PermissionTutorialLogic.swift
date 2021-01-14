@@ -136,12 +136,13 @@ extension Logic.PermissionTutorial {
 
   /// Shows the how to upload when positive explaination
   struct ShowHowToUploadWhenPositive: AppSideEffect {
+    let callCenterMode: Bool
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       try context
         .awaitDispatch(Show(
           Screen.permissionTutorial,
           animated: true,
-          context: PermissionTutorialLS(content: .howToUploadWhenPositive)
+            context: PermissionTutorialLS(content: callCenterMode ? .howToUploadWhenPositiveCallCenter : .howToUploadWhenPositive)
         ))
     }
   }

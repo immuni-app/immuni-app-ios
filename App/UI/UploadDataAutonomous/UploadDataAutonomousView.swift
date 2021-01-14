@@ -267,7 +267,7 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
         
         iconCallCenter.pin
             .size(40)
-            .left(52)
+            .left(48)
             .marginTop(50)
             .below(of: choice)
                 

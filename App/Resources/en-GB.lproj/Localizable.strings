@@ -163,6 +163,10 @@
 "permission_tutorial.how_to_upload_positive.fourth" = "These authorization processes prevent users who have not actually tested positive for the virus from uploading their data and causing false alarms. The one-time code and the data uploaded are not associated with your identity in any way.";
 "permission_tutorial.how_to_upload_positive.title" = "How to report a positive result";
 "permission_tutorial.how_to_upload_positive_autonomous.title" = "Come segnalare la positività in autonomia";
+"permission_tutorial.how_to_upload_positive_autonomous.first" = "Se risulti positivo al virus puoi segnalarlo in autonomia a Immuni caricando il codice CUN, le ultime 8 cifre della tessera sanitaria e la data di inizio dei sintomi.";
+"permission_tutorial.how_to_upload_positive_autonomous.second" = "Inserendo queste informazioni Immuni invierà automaticamente le notifiche agli altri utenti che hanno avuto contatti stretti con te a partire da due giorni prima dell'inizio dei sintomi o fino a 14 giorni prima della data in cui hai eseguito il tampone.";
+"permission_tutorial.how_to_upload_positive_autonomous.third" = "Il codice CUN è un codice univoco nazionale alfanumerico (ad esempio CUN-AB1234C567) associato al risultato del tampone molecolare. Viene comunicato ai cittadini tramite SMS, via email o all'interno del fascicolo sanitario elettronico.";
+"permission_tutorial.how_to_upload_positive_autonomous.fourth" = "Il numero di tessera sanitaria è un codice di 20 cifre che si trova all'ultima riga sul retro della tessera sanitaria.\nRicorda che è importante comunicare la data esatta di inizio sintomi per avviare un tracciamento preciso dei contatti.";
 "permission_tutorial.notifications.action" = "Open Settings";
 "permission_tutorial.notifications.first" = "<b>1. Open Settings</b> using the button below";
 "permission_tutorial.notifications.second" = "<b>2. Go to 'Notifications'</b>";

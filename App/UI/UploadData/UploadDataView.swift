@@ -149,7 +149,7 @@ class UploadDataView: UIView, ViewControllerModellableView {
     self.messageCard.model = model.messageVM
     self.verifyCard.model = model.verifyVM
 
-    Self.Style.title(self.title, content: model.callCenterMode ? L10n.Settings.Setting.loadData : L10n.Settings.Setting.LoadData.title)
+    Self.Style.title(self.title, content: model.callCenterMode ? L10n.Settings.Setting.loadDataAutonomous : L10n.Settings.Setting.LoadData.title)
 
     if model.shouldAnimateLayout(oldModel: oldModel) {
       self.setNeedsLayout()
