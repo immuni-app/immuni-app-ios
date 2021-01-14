@@ -222,9 +222,6 @@
 "settings.setting.load_data_autonomous_form_card.title" = "Sblocca in autonomia";
 "settings.setting.load_data_autonomous_call_center.title" = "Chiama il call center\n800.91.24.91";
 "settings.setting.load_data_autonomous.choice" = "oppure";
-"settings.setting.load_data_autonomous_form_card.title" = "Sblocca in autonomia";
-"settings.setting.load_data_autonomous_call_center.title" = "Chiama il call center\n800.91.24.91";
-"settings.setting.load_data_autonomous.choice" = "oppure";
 "settings.setting.load_data_autonomous.cun" = "Codice CUN presente nel tuo referto.";
 "settings.setting.load_data_autonomous.health_card" = "Tessera Sanitaria per comunicare le ultime 8 cifre che permettono di salvaguardare la tua privacy";
 "settings.setting.load_data_autonomous.symptoms_date" = "Data dell’inizio dei primi sintomi";
@@ -338,8 +335,6 @@
 "upload_data.code.message" = "Comunica il codice all'operatore:";
 "upload_data.connection_error.action" = "OK";
 "upload_data.connection_error.message" = "Qualcosa è andato storto, controlla la tua connessione internet e riprova.";
-"upload_data.unauthorized_cun.title" = "Qualcosa è andato storto";
-"upload_data.unauthorized_cun.message" = "Cun già utilizzato";
 "upload_data.unauthorized_cun.title" = "Qualcosa è andato storto";
 "upload_data.unauthorized_cun.message" = "Cun già utilizzato";
 "upload_data.connection_error.title" = "Errore di connessione";
