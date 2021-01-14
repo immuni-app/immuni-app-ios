@@ -108,6 +108,7 @@ class DataUploadAutonomousModeView: UIView, ModellableView {
             .vertically()
             .horizontally(25)
             .marginTop(DataUploadAutonomousModeView.labelTopMargin)
+            .height((model?.isAvailable ?? true) ? 250 : 300)
 
         title.pin
             .left(Self.labelLeftMargin)

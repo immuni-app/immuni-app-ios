@@ -100,6 +100,7 @@ class DataUploadHealthWorkerModeView: UIView, ModellableView, ReusableView {
             .vertically()
             .horizontally(25)
             .marginTop(Self.labelTopMargin)
+            .height(240)
 
         title.pin
             .left(Self.labelLeftMargin)
