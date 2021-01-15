@@ -221,7 +221,7 @@
 "settings.setting.load_data_autonomous.symptoms_date.message" = "*Si vous êtes asymptomatique, entrez la date du tampon";
 "settings.setting.load_data_autonomous.form_error.title" = "Erreur lors de la saisie des données";
 "settings.setting.load_data_autonomous.form_error.cun.message" = "- Saisissez les 10 derniers caractères du code CUN qui vous a été communiqué\n";
-"settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Cun incorrect\n";
+"settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Mauvais Cun\n";
 "settings.setting.load_data_autonomous.form_error.healt_card.message" = "- Entrez les 8 derniers chiffres que vous trouverez au dos de la carte Santé\n";
 "settings.setting.load_data_autonomous.form_error.symptoms_Date.message" = "- Entrez la date de début du symptôme\n";
 "settings.setting.choose_data_upload.health_worker_mode.title" = "Avez-vous été contacté par un professionnel de la santé?";

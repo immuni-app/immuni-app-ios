@@ -217,11 +217,11 @@
 "settings.setting.load_data_autonomous.call_center.title" = "Call the Call Center";
 "settings.setting.load_data_autonomous.cun.placeholder" = "CUN of the report";
 "settings.setting.load_data_autonomous.health_card.placeholder" = "The last 8 digits of your Health ID Card";
-"settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Symptom start date*";
-"settings.setting.load_data_autonomous.symptoms_date.message" = "* If you are asymptomatic, enter the date of the swab test";
+"settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Initial beginning date of the Symptoms*";
+"settings.setting.load_data_autonomous.symptoms_date.message" = "*If you are asymptomatic, enter the date of the swab test";
 "settings.setting.load_data_autonomous.form_error.title" = "Error in entering data";
 "settings.setting.load_data_autonomous.form_error.cun.message" = "- Enter the last 10 characters of the CUN code that was communicated to you\n";
-"settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Incorrect Cun\n";
+"settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Wrong Cun\n";
 "settings.setting.load_data_autonomous.form_error.healt_card.message" = "- Enter the last 8 digits you see on the back of your Health ID Card\n";
 "settings.setting.load_data_autonomous.form_error.symptoms_Date.message" = "- Enter the date when your symptoms began\n";
 "settings.setting.choose_data_upload.health_worker_mode.title" = "Are you in contact with a\nhealthcare provider?";
@@ -347,7 +347,7 @@
 "upload_data.vpn_error.title" = "Something went wrong";
 "upload_data.wait_operator.message" = "Wait for the healthcare operator to confirm";
 "upload_data.warning.discover_more" = "Find out more";
-"upload_data.warning.message" = "This function requires the assistance of the health worker who will notify you by telephone of the test result of the swab.";
+"upload_data.warning.message" = "This feature requires assistance from the healthcare operator, who will inform you by phone of the positive result of the swab test.";
 "upload_data.warning.message.call_center" = "Once you have received the National Unique Code (CUN) you can report your positivity through the toll-free number <u>800.91.24.91</u>";
 "welcome_view.discover_more" = "Find out how the app works";
 "welcome_view.go_next" = "Let's get started";

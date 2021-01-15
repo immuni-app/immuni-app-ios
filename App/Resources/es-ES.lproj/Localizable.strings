@@ -222,7 +222,7 @@
 "settings.setting.load_data_autonomous.form_error.title" = "Error al ingresar los datos";
 "settings.setting.load_data_autonomous.form_error.cun.message" = "- Introduce los últimos 10 caracteres del código CUN que te comunicaron\n";
 "settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Cun incorrecto\n";
-"settings.setting.load_data_autonomous.form_error.healt_card.message" = "- Introduce las últimas 10 cifras que encuentras en reverso de la tarjeta sanitaria\n";
+"settings.setting.load_data_autonomous.form_error.healt_card.message" = "- Introduce las últimas 8 cifras que encuentras en reverso de la tarjeta sanitaria\n";
 "settings.setting.load_data_autonomous.form_error.symptoms_Date.message" = "- Introduce la fecha de inicio de síntomas\n";
 "settings.setting.choose_data_upload.health_worker_mode.title" = "¿Estás en contacto con un\nprofesional sanitario?";
 "settings.setting.choose_data_upload.health_worker_mode.message" = "Sigue el procedimiento para\ninformar tu positividad";
