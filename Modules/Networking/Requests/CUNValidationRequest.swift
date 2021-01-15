@@ -19,6 +19,7 @@ import Models
 
 public struct CUNValidationRequest: FixedSizeJSONRequest {
 
+    
   // swiftlint:disable:next force_unwrapping
   public var baseURL = URL(string: "https://upload.immuni.gov.it")!
   public var path = "/v1/ingestion/check-cun"
