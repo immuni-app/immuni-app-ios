@@ -159,6 +159,7 @@
 "permission_tutorial.how_immuni_works.title" = "Cómo funciona la aplicación";
 "permission_tutorial.how_to_upload_positive.first" = "Si das positivo en el virus, puedes indicarlo en Immuni subiendo tus códigos aleatorios. Así permitirás que la aplicación avise del riesgo de contagio a los usuarios con los que hayas mantenido contacto en los días anteriores.";
 "permission_tutorial.how_to_upload_positive.second" = "El profesional sanitario que te comunique que el resultado de la prueba es positivo te ayudará por teléfono. Te pedirá el código de un solo uso que aparecía en la pantalla anterior y lo utilizará para darte permiso para que subas tus datos.";
+"permission_tutorial.how_to_upload_positive.call_center.second" = "El operador del centro de llamadas 800.91.24.91 te ayudará por teléfono. Te pedirá el código CUN, los últimos 8 dígitos de la tarjeta sanitaria, la fecha de inicio de síntomas y el código de un solo uso que aparecía en la pantalla anterior y lo utilizará para darte permiso para que subas tus datos.";
 "permission_tutorial.how_to_upload_positive.third" = "Si has recibido el Código Nacional Único (CUN) el operador del centro de llamadas 800.91.24.91 te pedirá también el numero de tu “tessera sanitaria” (tarjeta sanitaria).";
 "permission_tutorial.how_to_upload_positive.fourth" = "Estos procesos de autorización previenen que los usuarios que no hayan dado positivo en el virus suban sus datos y generen falsas alarmas. El código de un solo uso y los datos que se suben no están vinculados de ningún modo con tu identidad.";
 "permission_tutorial.how_to_upload_positive.title" = "Cómo informar de un resultado positivo";
@@ -326,6 +327,7 @@
 "upload_data.connection_error.message" = "Se ha producido un error. Comprueba tu conexión a internet e inténtalo de nuevo.";
 "upload_data.unauthorized_cun.title" = "Ha habido un problema";
 "upload_data.unauthorized_cun.message" = "CUN ya utilizado";
+"upload_data.error_cun.message" = "No se encontraron coincidencias. Verifique que CUN y los últimos 8 dígitos de la Tarjeta de Salud sean correctos.";
 "upload_data.connection_error.title" = "Error de conexión";
 "upload_data.diagnosis_keys.overlay.hint" = "Selecciona «<b>Compartir</b>» en la ventana emergente que aparecerá a continuación";
 "upload_data.missing_authorization.close" = "Cerrar";

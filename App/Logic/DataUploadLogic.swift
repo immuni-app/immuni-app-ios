@@ -172,7 +172,7 @@ extension Logic.DataUpload {
         } catch NetworkManager.Error.unauthorizedOTP {
           // User is not authorized. Bubble up the error to the calling ViewController
           try await(context.dispatch(Logic.Loading.Hide()))
-          try context.awaitDispatch(ShowCunErrorAlert(message: L10n.UploadData.Verify.error))
+            try context.awaitDispatch(ShowCunErrorAlert(message: L10n.UploadData.ErrorCun.message))
           throw Error.verificationFailed
         } catch NetworkManager.Error.otpAlreadyAuthorized {
             // cun Already Authorized. Bubble up the error to the calling ViewController

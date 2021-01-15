@@ -159,6 +159,7 @@
 "permission_tutorial.how_immuni_works.title" = "Wie funktioniert die App";
 "permission_tutorial.how_to_upload_positive.first" = "Wenn Sie positiv auf das Virus getestet werden, können Sie es Immuni melden, indem Sie Ihre Zufallscodes hochladen. Auf diese Weise können Sie der App ermöglichen, Nutzer, mit denen Sie in den letzten Tagen Kontakt hatten, vor dem Risiko einer Ansteckung zu warnen.";
 "permission_tutorial.how_to_upload_positive.second" = "Das medizinische Fachpersonal, das Ihnen das positive Ergebnis des Tests mitteilt, hilft Ihnen telefonisch weiter. Sie werden nach dem auf dem vorherigen Bildschirm angezeigten Einmalcode gefragt, der dazu dient, das Hochladen Ihrer Daten zu autorisieren.";
+"permission_tutorial.how_to_upload_positive.call_center.second" = "Der Call Center-Betreiber 800.91.24.91 hilft Ihnen telefonisch weiter. Sie werden nach dem auf Sie werden nach dem CUN-Code, den letzten 8 Ziffern der Gesundheitskarte, dem Startdatum der Symptome und dem Einwegcode gefragt der dazu dient, das Hochladen Ihrer Daten zu autorisieren.";
 "permission_tutorial.how_to_upload_positive.third" = "Wenn Sie den Unique National Code (CUN) erhalten haben, werden Sie vom Callcenter-Betreiber 800.91.24.91 ebenfalls nach Ihrer Gesundheitskartennummer gefragt.";
 "permission_tutorial.how_to_upload_positive.fourth" = "Diese Autorisierungsprozesse verhindern, dass Nutzer, die nicht positiv auf den Virus getestet wurden, ihre Daten hochladen und somit Fehlalarme verursachen. Der Einmalcode und die hochgeladenen Daten sind in keiner Weise mit Ihrer Identität verbunden.";
 "permission_tutorial.how_to_upload_positive_autonomous.first" = "Wenn Sie positiv auf das Virus testen, können Sie es Immuni unabhängig melden, indem Sie den CUN-Code, die letzten 8 Ziffern der Gesundheitskarte und das Startdatum der Symptome hochladen.";
@@ -328,6 +329,7 @@ Anti-Hygiene- oder molekularer Test am zehnten Tag durchgeführt wird.";
 "upload_data.connection_error.message" = "Etwas ist schiefgelaufen. Überprüfen Sie Ihre Internetverbindung und versuchen Sie es noch einmal.";
 "upload_data.unauthorized_cun.title" = "Etwas ist schiefgelaufen";
 "upload_data.unauthorized_cun.message" = "Cun schon benutzt";
+"upload_data.error_cun.message" = "Keine Treffer gefunden. Stellen Sie sicher, dass CUN und die letzten 8 Ziffern der Gesundheitskarte korrekt sind.";
 "upload_data.connection_error.title" = "Verbindungsfehler";
 "upload_data.diagnosis_keys.overlay.hint" = "Tippen Sie auf \"<b>Freigeben</b>\" in dem Popup-Fenster, das unten angezeigt wird";
 "upload_data.missing_authorization.close" = "Schließen";

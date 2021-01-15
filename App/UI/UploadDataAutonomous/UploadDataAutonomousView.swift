@@ -210,7 +210,7 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
         
         iconAutonomous.pin
             .size(28)
-            .left(52)      
+            .left(48)
             .marginTop(45)
             .below(of: headerView)
                 
@@ -243,6 +243,7 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
         asymptomaticLabel.pin
             .below(of: pickerFieldSymptomsDate)
             .marginTop(25)
+            .left(48)
             .horizontally(Self.horizontalSpacing + backButton.intrinsicContentSize.width + 5)
             .sizeToFit(.width)
 

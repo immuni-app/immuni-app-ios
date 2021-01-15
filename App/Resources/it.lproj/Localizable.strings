@@ -167,6 +167,7 @@
 "permission_tutorial.how_immuni_works.title" = "Come funziona l'app";
 "permission_tutorial.how_to_upload_positive.first" = "Se risulti positivo al virus, puoi segnalarlo a Immuni caricando i tuoi codici casuali. Facendolo permetti all'app di avvertire del rischio di contagio gli utenti con cui sei stato a contatto nei giorni precedenti.";
 "permission_tutorial.how_to_upload_positive.second" = "L'operatore sanitario che comunica l'esito positivo del tampone ti assisterà telefonicamente. Ti chiederà il codice monouso visualizzato nella schermata precedente e lo userà per autorizzarti al caricamento dei tuoi dati.";
+"permission_tutorial.how_to_upload_positive.call_center.second" = "L'operatore del call center 800.91.24.91 ti assisterà telefonicamente. Ti chiederà il codice CUN, le ultime 8 cifre della tessera sanitaria, la data di inizio dei sintomi e il codice monouso visualizzato nella schermata precedente che userà per autorizzarti al caricamento dei tuoi dati.";
 "permission_tutorial.how_to_upload_positive.third" = "Se ha ricevuto il Codice Unico Nazionale (CUN) l'operatore del call center 800.91.24.91 ti chiederà anche il numero di tessera sanitaria.";
 "permission_tutorial.how_to_upload_positive.fourth" = "Questi processi di autorizzazione impediscono a utenti che non siano effettivamente risultati positivi al virus di caricare i loro dati, causando falsi allarmi. Il codice monouso e i dati caricati non sono in alcun modo associati alla tua identità.";
 "permission_tutorial.how_to_upload_positive_autonomous.first" = "Se risulti positivo al virus puoi segnalarlo in autonomia a Immuni caricando il codice CUN, le ultime 8 cifre della tessera sanitaria e la data di inizio dei sintomi.";
@@ -335,6 +336,7 @@
 "upload_data.connection_error.message" = "Qualcosa è andato storto, controlla la tua connessione internet e riprova.";
 "upload_data.unauthorized_cun.title" = "Qualcosa è andato storto";
 "upload_data.unauthorized_cun.message" = "Cun già utilizzato";
+"upload_data.error_cun.message" = "Nessuna corrispondenza trovata. Verificare che CUN e le ultime 8 cifre della Tessera Sanitaria siano corretti.";
 "upload_data.connection_error.title" = "Errore di connessione";
 "upload_data.diagnosis_keys.overlay.hint" = "Seleziona \"<b>Condividi</b>\" nel popup che apparirà qui sotto";
 "upload_data.missing_authorization.close" = "Chiudi";
