@@ -16,9 +16,7 @@ import Extensions
 import Foundation
 import Tempura
 
-struct DataUploadAutonomousModeVM: ViewModel {
-    let isAvailable: Bool
-}
+struct DataUploadAutonomousModeVM: ViewModel {}
 
 // MARK: - View
 
@@ -50,8 +48,6 @@ class DataUploadAutonomousModeView: UIView, ModellableView {
     private let message = UILabel()
     private var actionButton = ButtonWithInsets()
     private var imageContent = UIImageView()
-    private var warningIcon = UIImageView()
-    private let warning = UILabel()
 
     var didTapAction: Interaction?
 
@@ -63,10 +59,8 @@ class DataUploadAutonomousModeView: UIView, ModellableView {
         container.addSubview(message)
         container.addSubview(actionButton)
         container.addSubview(imageContent)
-        container.addSubview(warningIcon)
-        container.addSubview(warning)
 
-        container.accessibilityElements = [title, message, actionButton, imageContent, warningIcon, warning]
+        container.accessibilityElements = [title, message, actionButton, imageContent]
 
         actionButton.on(.touchUpInside) { [weak self] _ in
             self?.didTapAction?()
@@ -80,11 +74,9 @@ class DataUploadAutonomousModeView: UIView, ModellableView {
         Self.Style.title(title)
         Self.Style.message(message)
         Self.Style.title(title)
-        Self.Style.error(warning)
 
         SharedStyle.primaryButton(actionButton, title: L10n.UploadData.Verify.button)
         Self.Style.imageContent(imageContent, image: Asset.Settings.UploadData.codeCun.image)
-        Self.Style.imageContent(warningIcon, image: Asset.Settings.UploadData.alert.image)
     }
 
     // MARK: - Update
@@ -93,9 +85,6 @@ class DataUploadAutonomousModeView: UIView, ModellableView {
         guard let model = self.model else {
             return
         }
-        actionButton.isEnabled = model.isAvailable
-        warning.alpha = model.isAvailable ? 0 : 1
-        warningIcon.alpha = model.isAvailable ? 0 : 1
         setNeedsLayout()
     }
 
@@ -108,7 +97,7 @@ class DataUploadAutonomousModeView: UIView, ModellableView {
             .vertically()
             .horizontally(25)
             .marginTop(DataUploadAutonomousModeView.labelTopMargin)
-            .height((model?.isAvailable ?? true) ? 250 : 300)
+            .height(250)
 
         title.pin
             .left(Self.labelLeftMargin)
@@ -116,51 +105,21 @@ class DataUploadAutonomousModeView: UIView, ModellableView {
             .top(Self.containerInset)
             .sizeToFit(.width)
 
-        if !(model?.isAvailable ?? true) {
-            warningIcon.pin
-                .marginVertical(10)
-                .below(of: title)
-                .sizeToFit()
-                .left(Self.labelLeftMargin)
+        message.pin
+            .left(Self.labelLeftMargin)
+            .right(DataUploadHealthWorkerModeView.orderRightMargin)
+            .below(of: title)
+            .sizeToFit(.width)
+            .marginTop(DataUploadHealthWorkerModeView.labelTopMargin)
 
-            warning.pin
-                .marginVertical(10)
-                .after(of: warningIcon)
-                .horizontally(36)
-                .marginHorizontal(10)
-                .below(of: title)
-                .sizeToFit(.width)
-
-            message.pin
-                .left(Self.labelLeftMargin)
-                .right(DataUploadAutonomousModeView.orderRightMargin)
-                .below(of: warning)
-                .sizeToFit(.width)
-                .marginVertical(DataUploadAutonomousModeView.labelBottomMargin)
-
-            actionButton.pin
-                .left(Self.labelLeftMargin)
-                .right(DataUploadAutonomousModeView.orderRightMargin)
-                .size(buttonSize(for: bounds.width))
-                .minHeight(Self.buttonMinHeight)
-                .below(of: message)
-                .marginTop(DataUploadAutonomousModeView.buttonTopMargin)
-        } else {
-            message.pin
-                .left(Self.labelLeftMargin)
-                .right(DataUploadHealthWorkerModeView.orderRightMargin)
-                .below(of: title)
-                .sizeToFit(.width)
-                .marginTop(DataUploadHealthWorkerModeView.labelTopMargin)
-
-            actionButton.pin
-                .left(Self.labelLeftMargin)
-                .right(DataUploadHealthWorkerModeView.orderRightMargin)
-                .size(buttonSize(for: bounds.width))
-                .minHeight(Self.buttonMinHeight)
-                .below(of: message)
-                .marginTop(DataUploadAutonomousModeView.buttonTopMargin)
-        }
+        actionButton.pin
+            .left(Self.labelLeftMargin)
+            .right(DataUploadHealthWorkerModeView.orderRightMargin)
+            .size(buttonSize(for: bounds.width))
+            .minHeight(Self.buttonMinHeight)
+            .below(of: message)
+            .marginTop(DataUploadAutonomousModeView.buttonTopMargin)
+        
         imageContent.pin
             .after(of: title, aligned: .center)
             .sizeToFit()
@@ -186,21 +145,12 @@ class DataUploadAutonomousModeView: UIView, ModellableView {
         let buttonSize = actionButton.sizeThatFits(CGSize(width: labelWidth, height: .infinity))
         let buttonHeight = max(buttonSize.height, DataUploadAutonomousModeView.buttonMinHeight)
         
-        if model?.isAvailable ?? false {
-
-            return CGSize(
-                width: size.width,
-                height: titleSize.height + messageSize.height + buttonHeight + 2 * DataUploadAutonomousModeView.containerInset
+        return CGSize(
+            width: size.width,
+            height: titleSize.height + messageSize.height + buttonHeight + 2 * DataUploadAutonomousModeView.containerInset
                     + DataUploadAutonomousModeView.labelBottomMargin + DataUploadAutonomousModeView.buttonTopMargin
             )
-        } else {
-            let warningSize = warning.sizeThatFits(CGSize(width: labelWidth, height: .infinity))
-            return CGSize(
-                width: size.width,
-                height: titleSize.height + warningSize.height + messageSize.height + buttonHeight + 2 * DataUploadAutonomousModeView.containerInset
-                    + DataUploadAutonomousModeView.labelBottomMargin + DataUploadAutonomousModeView.buttonTopMargin
-            )
-        }
+        
     }
 }
 

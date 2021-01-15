@@ -16,27 +16,15 @@ import Foundation
 import Models
 import Tempura
 
-struct ChooseDataUploadModeVM: ViewModelWithLocalState {
-    var isAvailable: Bool
-    var dataUploadAutonomousModeVM: DataUploadAutonomousModeVM {
-        return DataUploadAutonomousModeVM(isAvailable: isAvailable)
-    }
-}
+struct ChooseDataUploadModeVM: ViewModelWithLocalState {}
 
 extension ChooseDataUploadModeVM {
     init?(state: AppState?, localState _: ChooseDataUploadModeLS) {
-        guard let state = state else {
+        guard let _ = state else {
             return nil
         }
-        
-        guard let region = state.user.province?.region?.rawValue else {
-            isAvailable = false
-            return
-        }
-        isAvailable = state.configuration.allowedRegionsSelfUpload.contains(region)
     }
 }
-
 // MARK: - View
 
 class ChooseDataUploadModeView: UIView, ViewControllerModellableView {
@@ -97,10 +85,9 @@ class ChooseDataUploadModeView: UIView, ViewControllerModellableView {
     // MARK: - Update
 
     func update(oldModel _: VM?) {
-        guard let model = self.model else {
+        guard let _ = self.model else {
             return
         }
-        autonomousModeCard.model = model.dataUploadAutonomousModeVM
     }
 
     // MARK: - Layout
