@@ -34,8 +34,11 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
 
             var message = ""
             let cun = self.validateCun(cun: self.localState.cun)
-            if cun == nil {
+            if self.localState.cun == "" {
                 message += L10n.Settings.Setting.LoadDataAutonomous.FormError.Cun.message
+            }
+            else if cun == nil {
+                message += L10n.Settings.Setting.LoadDataAutonomous.FormError.Cun.Invalid.message
             }
             if !self.validateHealthCard(healthCard: self.localState.healtCard) {
                 message += L10n.Settings.Setting.LoadDataAutonomous.FormError.HealtCard.message
