@@ -63,7 +63,7 @@ class HomeVC: ViewController<HomeView> {
       self.dispatch(Logic.Settings.ShowUpdateCountry())
         
     case .dataUpload:
-      self.dispatch(Logic.Settings.ShowUploadData())
+      self.dispatch(Logic.Settings.ShowChooseDataUploadMode())
     }
   }
 }

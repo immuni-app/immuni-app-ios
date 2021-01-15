@@ -92,7 +92,6 @@ struct CountriesOfInterestLS: LocalState {
 
   var dummyIngestionWindowDuration: Double
 
-  // var currentCountries: [Country]
   /// The currently selected Country.
   var currentCountries: [CountryOfInterest] = []
 

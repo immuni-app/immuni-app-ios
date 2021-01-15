@@ -35,7 +35,10 @@ class UploadDataVC: ViewControllerWithLocalState<UploadDataView> {
     }
 
     self.rootView.didTapDiscoverMore = { [weak self] in
-      self?.dispatch(Logic.PermissionTutorial.ShowHowToUploadWhenPositive())
+        self?.dispatch(Logic.PermissionTutorial.ShowHowToUploadWhenPositive(callCenterMode: self?.localState.callCenterMode ?? true))
+    }
+    self.rootView.didTapContact = { [weak self] in
+      self?.dispatch(Logic.Shared.DialCallCenter())
     }
   }
 
@@ -83,6 +86,9 @@ struct UploadDataLS: LocalState {
   var recentFailedAttempts: Int
   /// The number of seconds until a new request can be performed.
   var errorSecondsLeft: Int
+    
+  let callCenterMode: Bool
+
 
   /// Exponential backoff capped at 30 minutes
   static func backOffDuration(failedAttempts: Int) -> Int {

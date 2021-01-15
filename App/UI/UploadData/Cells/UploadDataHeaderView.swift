@@ -15,8 +15,11 @@
 import Foundation
 import Lottie
 import Tempura
+import Models
 
-struct UploadDataHeaderVM: ViewModel {}
+struct UploadDataHeaderVM: ViewModel {
+    var callCenterMode: Bool
+}
 
 // MARK: - View
 
@@ -27,6 +30,7 @@ class UploadDataHeaderView: UIView, ModellableView {
   typealias VM = UploadDataHeaderVM
 
   var didTapDiscoverMore: Interaction?
+  var didTapContact: Interaction?
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -41,8 +45,18 @@ class UploadDataHeaderView: UIView, ModellableView {
   }
 
   private let message = UILabel()
+            
   private var discoverMore = TextButton()
-
+    var tapGesture =  UITapGestureRecognizer()
+    
+  @objc func contactTap(gestureRecognizer: UITapGestureRecognizer) {
+    guard let text = self.message.text else { return }
+    let termsRange = (text as NSString).range(of: "800.91.24.91")
+    if self.tapGesture.didTapAttributedTextInLabel(label: self.message, inRange: termsRange) {
+        self.didTapContact?()
+    }
+  }
+    
   // MARK: - Setup
 
   func setup() {
@@ -58,14 +72,26 @@ class UploadDataHeaderView: UIView, ModellableView {
 
   func style() {
     Self.Style.background(self)
-    Self.Style.message(self.message)
     Self.Style.discoverMore(self.discoverMore)
   }
 
   // MARK: - Update
 
-  func update(oldModel: VM?) {}
-
+    func update(oldModel _: VM?) {
+        guard let model = self.model else {
+            return
+        }
+       
+        Self.Style.message(self.message, content: model.callCenterMode ? L10n.UploadData.Warning.Message.callCenter : L10n.UploadData.Warning.message)
+        
+        if model.callCenterMode {
+            self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(contactTap))
+            self.message.isUserInteractionEnabled = true
+            self.message.addGestureRecognizer(self.tapGesture)
+        }
+        
+        setNeedsLayout()
+    }
   // MARK: - Layout
 
   override func layoutSubviews() {
@@ -102,12 +128,14 @@ private extension UploadDataHeaderView {
       view.backgroundColor = .clear
     }
 
-    static func message(_ label: UILabel) {
-      let content = L10n.UploadData.Warning.message
+    static func message(_ label: UILabel, content: String) {
 
       let textStyle = TextStyles.p.byAdding(
         .color(Palette.grayNormal),
-        .alignment(.left)
+        .alignment(.left),
+        .xmlRules([
+          .style("u", TextStyles.pAnchor)
+        ])
       )
 
       TempuraStyles.styleStandardLabel(
@@ -122,10 +150,40 @@ private extension UploadDataHeaderView {
         .color(Palette.primary),
         .alignment(.left)
       )
-
       button.contentHorizontalAlignment = .left
       button.contentVerticalAlignment = .bottom
       button.attributedTitle = L10n.UploadData.Warning.discoverMore.styled(with: textStyle)
     }
   }
 }
+
+extension UITapGestureRecognizer {
+
+      func didTapAttributedTextInLabel(label: UILabel, inRange targetRange: NSRange) -> Bool {
+          // Create instances of NSLayoutManager, NSTextContainer and NSTextStorage
+          let layoutManager = NSLayoutManager()
+          let textContainer = NSTextContainer(size: CGSize.zero)
+          let textStorage = NSTextStorage(attributedString: label.attributedText!)
+
+          // Configure layoutManager and textStorage
+          layoutManager.addTextContainer(textContainer)
+          textStorage.addLayoutManager(layoutManager)
+
+          // Configure textContainer
+          textContainer.lineFragmentPadding = 0.0
+          textContainer.lineBreakMode = label.lineBreakMode
+          textContainer.maximumNumberOfLines = label.numberOfLines
+          let labelSize = label.bounds.size
+          textContainer.size = labelSize
+          // Find the tapped character location and compare it to the specified range
+          let locationOfTouchInLabel = self.location(in: label)
+          let textBoundingBox = layoutManager.usedRect(for: textContainer)
+
+          let textContainerOffset = CGPoint(x: (labelSize.width - textBoundingBox.size.width) * 0.5 - textBoundingBox.origin.x,y:(labelSize.height - textBoundingBox.size.height) * 0.5 - textBoundingBox.origin.y)
+          let locationOfTouchInTextContainer = CGPoint(x:locationOfTouchInLabel.x - textContainerOffset.x,
+                                                       y:locationOfTouchInLabel.y - textContainerOffset.y);
+          let indexOfCharacter = layoutManager.characterIndex(for: locationOfTouchInTextContainer, in: textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
+          return NSLocationInRange(indexOfCharacter, targetRange)
+      }
+
+  }

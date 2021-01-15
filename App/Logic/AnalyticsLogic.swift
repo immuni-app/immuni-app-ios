@@ -80,7 +80,7 @@ extension Logic.Analytics {
       let lastSent = state.eventWithExposureLastSent
       let today = now.utcCalendarDay
 
-      guard today.month != lastSent.month else {
+      guard today.month != lastSent.month || (today.month == lastSent.month && today.year != lastSent.year) else {
         // Only one genuine Operational Info with Exposure per month is sent.
         // Note that the device's clock may be changed to alter this sequence, but the backend will rate limit the event
         // nonetheless
@@ -104,7 +104,7 @@ extension Logic.Analytics {
       let lastSent = state.eventWithoutExposureLastSent
       let today = now.utcCalendarDay
 
-      guard today.month != lastSent.month else {
+      guard today.month != lastSent.month || (today.month == lastSent.month && today.year != lastSent.year) else {
         // Only one genuine Operational Info without Exposure per month is sent
         // Note that the device's clock may be changed to alter this sequence, but the backend will rate limit the event
         // nonetheless

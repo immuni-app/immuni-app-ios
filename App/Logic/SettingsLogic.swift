@@ -30,11 +30,25 @@ extension Logic {
 extension Logic.Settings {
   /// Shows the Upload Data screen
   struct ShowUploadData: AppSideEffect {
+    
+    let callCenterMode: Bool
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      try context.awaitDispatch(Logic.DataUpload.ShowUploadData())
+        try context.awaitDispatch(Logic.DataUpload.ShowUploadData(callCenterMode: self.callCenterMode))
     }
   }
-
+  /// Shows the Upload Data Autonomous screen
+  struct ShowUploadDataAutonomous: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+    try context.awaitDispatch(Logic.DataUpload.ShowUploadDataAutonomous())
+        }
+      }
+      
+  /// Shows the Choose Data Upload Mode screen
+  struct ShowChooseDataUploadMode: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+          try context.awaitDispatch(Logic.DataUpload.ShowChooseDataUploadMode())
+        }
+      }
   /// Shows the FAQs screen
   struct ShowFAQs: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {

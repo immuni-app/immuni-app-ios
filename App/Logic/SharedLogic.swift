@@ -70,6 +70,17 @@ extension Logic.Shared {
     }
   }
 
+  /// Dial phone number and start a call.
+  struct DialCallCenter: AppSideEffect {
+    let number: String = "800912491"
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+    guard let url = URL(string: "tel://\(self.number.replacingOccurrences(of: " ", with: ""))") else {
+          return
+        }
+    try await(context.dependencies.application.goTo(url: url))
+      }
+    }
+
   /// Side effect to send an email with given recipient, subject and body.
   struct SendEmail: AppSideEffect {
     let recipient: String

@@ -470,8 +470,6 @@ extension PermissionTutorialVM.Content {
         .spacer(.small),
         .textualContent(L10n.PermissionTutorial.HowToUploadPositive.second, isDark: false),
         .spacer(.small),
-        .textualContent(L10n.PermissionTutorial.HowToUploadPositive.third, isDark: false),
-        .spacer(.small),
         .textualContent(L10n.PermissionTutorial.HowToUploadPositive.fourth, isDark: false),
         .spacer(.big)
       ],
@@ -479,6 +477,44 @@ extension PermissionTutorialVM.Content {
       action: nil
     )
   }
+
+  static var howToUploadWhenPositiveCallCenter: Self {
+    return PermissionTutorialVM.Content(
+      title: L10n.PermissionTutorial.HowToUploadPositive.title,
+      items: [
+        .spacer(.big),
+        .textualContent(L10n.PermissionTutorial.HowToUploadPositive.first, isDark: false),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.HowToUploadPositive.CallCenter.second, isDark: false),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.HowToUploadPositiveAutonomous.third, isDark: false),
+        .spacer(.small),
+        .textualContent(L10n.PermissionTutorial.HowToUploadPositiveAutonomous.fourth, isDark: false),
+        .spacer(.big)
+      ],
+    mainActionTitle: nil,
+    action: nil
+    )
+    }
+
+  static var howToUploadWhenPositiveAutonomous: Self {
+    return PermissionTutorialVM.Content(
+        title: L10n.PermissionTutorial.HowToUploadPositiveAutonomous.title,
+        items: [
+          .spacer(.big),
+          .textualContent(L10n.PermissionTutorial.HowToUploadPositiveAutonomous.first, isDark: false),
+          .spacer(.small),
+          .textualContent(L10n.PermissionTutorial.HowToUploadPositiveAutonomous.second, isDark: false),
+          .spacer(.small),
+          .textualContent(L10n.PermissionTutorial.HowToUploadPositiveAutonomous.third, isDark: false),
+          .spacer(.small),
+          .textualContent(L10n.PermissionTutorial.HowToUploadPositiveAutonomous.fourth, isDark: false),
+          .spacer(.big)
+        ],
+        mainActionTitle: nil,
+        action: nil
+      )
+    }
 
   static var whyProvinceRegion: Self {
     return PermissionTutorialVM.Content(

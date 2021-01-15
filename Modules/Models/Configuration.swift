@@ -18,6 +18,7 @@ import Foundation
 public struct Configuration: Codable {
   enum CodingKeys: String, CodingKey {
     case countries
+    case allowedRegionsSelfUpload = "allowed_regions_self_upload"
     case minimumBuildVersion = "minimum_build_version"
     case serviceNotActiveNotificationPeriod = "service_not_active_notification_period"
     case osForceUpdateNotificationPeriod = "onboarding_not_completed_notification_period"
@@ -49,6 +50,9 @@ public struct Configuration: Codable {
 
   /// Countries of interest map
   public let countries: [String: [String: String]]
+    
+  // Allowed regions self upload
+  public let allowedRegionsSelfUpload: [String]
 
   /// This is used to enforce a minimum version of the app.
   /// If the currently installed app has a lower version than the one specified
@@ -176,6 +180,7 @@ public struct Configuration: Codable {
   /// Public initializer to allow testing
   public init(
     countries: [String: [String: String]] = .defaultCountries,
+    allowedRegionsSelfUpload: [String] = ["Abruzzo", "Basilicata", "Calabria", "Campania", "Emilia-Romagna", "Friuli-Venezia Giulia", "Lazio", "Liguria", "Lombardia", "Marche", "Molise", "Piemonte", "Puglia", "Sardegna", "Sicilia", "Toscana", "Trentino-Alto Adige", "Umbria", "Valle d'Aosta", "Veneto"],
     minimumBuildVersion: Int = 1,
     serviceNotActiveNotificationPeriod: TimeInterval = 86400,
     osForceUpdateNotificationPeriod: TimeInterval = 86400,
@@ -205,6 +210,7 @@ public struct Configuration: Codable {
     supportPhoneClosingTime: String? = "22"
   ) {
     self.countries = countries
+    self.allowedRegionsSelfUpload = allowedRegionsSelfUpload
     self.minimumBuildVersion = minimumBuildVersion
     self.serviceNotActiveNotificationPeriod = serviceNotActiveNotificationPeriod
     self.osForceUpdateNotificationPeriod = osForceUpdateNotificationPeriod
@@ -414,3 +420,4 @@ public extension Dictionary where Key == String, Value == [String: String] {
     return values
   }
 }
+

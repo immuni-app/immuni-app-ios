@@ -23,9 +23,11 @@ struct UploadDataVM: ViewModelWithLocalState {
   let isLoading: Bool
   /// The number of seconds until a new request can be performed.
   let errorSecondsLeft: Int
+    
+  let callCenterMode: Bool
 
   var headerVM: UploadDataHeaderVM {
-    return UploadDataHeaderVM()
+    return UploadDataHeaderVM(callCenterMode: callCenterMode)
   }
 
   var codeVM: UploadDataCodeVM {
@@ -62,6 +64,7 @@ extension UploadDataVM {
     self.code = state.ingestion.otp
     self.isLoading = localState.isLoading
     self.errorSecondsLeft = localState.errorSecondsLeft
+    self.callCenterMode = localState.callCenterMode
   }
 }
 
@@ -87,6 +90,7 @@ class UploadDataView: UIView, ViewControllerModellableView {
   var didTapBack: Interaction?
   var didTapVerifyCode: Interaction?
   var didTapDiscoverMore: Interaction?
+  var didTapContact: Interaction?
 
   // MARK: - Setup
 
@@ -115,6 +119,10 @@ class UploadDataView: UIView, ViewControllerModellableView {
     self.headerView.didTapDiscoverMore = { [weak self] in
       self?.didTapDiscoverMore?()
     }
+    self.headerView.didTapContact = { [weak self] in
+      self?.didTapContact?()
+    }
+
   }
 
   // MARK: - Style
@@ -125,7 +133,6 @@ class UploadDataView: UIView, ViewControllerModellableView {
     Self.Style.separator(self.codeSeparator)
     Self.Style.separator(self.verifySeparator)
     Self.Style.scrollView(self.scrollView)
-    Self.Style.title(self.title)
 
     SharedStyle.navigationBackButton(self.backButton)
   }
@@ -136,11 +143,13 @@ class UploadDataView: UIView, ViewControllerModellableView {
     guard let model = self.model else {
       return
     }
-
+    
     self.headerView.model = model.headerVM
     self.codeCard.model = model.codeVM
     self.messageCard.model = model.messageVM
     self.verifyCard.model = model.verifyVM
+
+    Self.Style.title(self.title, content: model.callCenterMode ? L10n.Settings.Setting.loadDataAutonomous : L10n.Settings.Setting.LoadData.title)
 
     if model.shouldAnimateLayout(oldModel: oldModel) {
       self.setNeedsLayout()
@@ -239,8 +248,8 @@ private extension UploadDataView {
       scrollView.showsVerticalScrollIndicator = false
     }
 
-    static func title(_ label: UILabel) {
-      let content = L10n.Settings.Setting.loadData
+    static func title(_ label: UILabel, content: String) {
+    
       TempuraStyles.styleShrinkableLabel(
         label,
         content: content,
@@ -248,7 +257,7 @@ private extension UploadDataView {
           .color(Palette.grayDark),
           .alignment(.center)
         ),
-        numberOfLines: 1
+        numberOfLines: 2
       )
     }
   }

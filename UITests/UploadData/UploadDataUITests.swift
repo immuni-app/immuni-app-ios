@@ -26,15 +26,15 @@ class UploadDataUITests: AppViewTestCase, ViewTestCase {
   }
 
   var defaultVM: UploadDataVM {
-    return UploadDataVM(code: self.mockedCode, isLoading: false, errorSecondsLeft: 0)
+    return UploadDataVM(code: self.mockedCode, isLoading: false, errorSecondsLeft: 0, callCenterMode: false)
   }
 
   var loadingVM: UploadDataVM {
-    return UploadDataVM(code: self.mockedCode, isLoading: true, errorSecondsLeft: 0)
+    return UploadDataVM(code: self.mockedCode, isLoading: true, errorSecondsLeft: 0, callCenterMode: false)
   }
 
   var errorVM: UploadDataVM {
-    return UploadDataVM(code: self.mockedCode, isLoading: false, errorSecondsLeft: 5)
+    return UploadDataVM(code: self.mockedCode, isLoading: false, errorSecondsLeft: 5, callCenterMode: false)
   }
 
   func testView() {

@@ -549,7 +549,7 @@ extension DataUploadLogicTests {
 
     let context = AppSideEffectContext(dependencies: dependencies)
 
-    try Logic.DataUpload.ShowUploadData().sideEffect(context)
+    try Logic.DataUpload.ShowUploadData(callCenterMode: false).sideEffect(context)
 
     try XCTAssertContainsType(
       dispatchInterceptor.dispatchedItems,

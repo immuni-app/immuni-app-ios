@@ -30,6 +30,7 @@ extension Logic.DataUpload {
     /// A threshold to make past failed attempts expire, so that in case of another failed attempt after a long time the
     /// exponential backoff starts from the beginning
     static let recentFailedAttemptsThreshold: TimeInterval = 24 * 60 * 60
+    let callCenterMode: Bool
 
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       try context.awaitDispatch(RefreshOTP())
@@ -55,11 +56,52 @@ extension Logic.DataUpload {
       }
 
       try context.awaitDispatch(Logic.DataUpload.SetDummyTrafficSequenceCancelled(value: true))
-      let ls = UploadDataLS(recentFailedAttempts: recentFailedAttempts, errorSecondsLeft: errorSecondsLeft)
+        let ls = UploadDataLS(recentFailedAttempts: recentFailedAttempts, errorSecondsLeft: errorSecondsLeft, callCenterMode: self.callCenterMode)
       try context.awaitDispatch(Show(Screen.uploadData, animated: true, context: ls))
     }
   }
+  /// Shows the  UploadDataAutonomousVC screen
+  struct ShowUploadDataAutonomous: AppSideEffect {
+    /// A threshold to make past failed attempts expire, so that in case of another failed attempt after a long time the
+    /// exponential backoff starts from the beginning
+    static let recentFailedAttemptsThreshold: TimeInterval = 24 * 60 * 60
+    
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        try context.awaitDispatch(RefreshOTP())
 
+        try context.awaitDispatch(Logic.DataUpload.SetDummyTrafficSequenceCancelled(value: true))
+        
+        try context.awaitDispatch(Show(Screen.uploadDataAutonomous, animated: true, context: UploadDataAutonomousLS()))
+          }
+        }
+    /// Shows the  Choose Data Upload Mode screen
+  struct ShowChooseDataUploadMode: AppSideEffect {
+        
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+
+        try context.awaitDispatch(Show(Screen.chooseDataUploadMode, animated: true, context: ChooseDataUploadModeLS()))
+         }
+       }
+    
+    /// Shows the alert that there is an error in loading data
+  struct ShowAutonomousUploadErrorAlert: AppSideEffect {
+    let message: String
+    
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+    
+    let model = Alert.Model(
+        title: L10n.Settings.Setting.LoadDataAutonomous.FormError.title,
+        message: message,
+        preferredStyle: .alert,
+        actions: [
+            .init(title: L10n.UploadData.ApiError.action, style: .cancel)
+        ]
+    )
+
+    try context.awaitDispatch(Logic.Alert.Show(alertModel: model))
+    }
+}
+    
   /// Performs the validation of the provided OTP
   struct VerifyCode: AppSideEffect {
     let code: OTP
@@ -100,7 +142,53 @@ extension Logic.DataUpload {
       try context.awaitDispatch(ShowConfirmData(code: self.code))
     }
   }
+   
+  /// Performs the validation of the provided OTP
+  struct VerifyCun: AppSideEffect {
+    let code: OTP
+    let lastHisNumber: String
+    let symptomsStartedOn: String
 
+    enum Error: Swift.Error {
+      case verificationFailed
+    }
+
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      let state = context.getState()
+      try context.awaitDispatch(Logic.Loading.Show(message: L10n.UploadData.Verify.loading))
+
+      do {
+        try context.awaitDispatch(AssertExposureNotificationPermissionGranted())
+      } catch {
+          try context.awaitDispatch(Logic.Loading.Hide())
+          try context.awaitDispatch(ShowMissingAuthorizationAlert())
+          return
+        }
+
+      do {
+        // Send the request
+        let requestSize = state.configuration.ingestionRequestTargetSize
+        try await(context.dependencies.networkManager.validateCUN(self.code, lastHisNumber: self.lastHisNumber, symptomsStartedOn: self.symptomsStartedOn, requestSize: requestSize))
+        } catch NetworkManager.Error.unauthorizedOTP {
+          // User is not authorized. Bubble up the error to the calling ViewController
+          try await(context.dispatch(Logic.Loading.Hide()))
+            try context.awaitDispatch(ShowCunErrorAlert(message: L10n.UploadData.ErrorCun.message))
+          throw Error.verificationFailed
+        } catch NetworkManager.Error.otpAlreadyAuthorized {
+            // cun Already Authorized. Bubble up the error to the calling ViewController
+            try await(context.dispatch(Logic.Loading.Hide()))
+            try context.awaitDispatch(ShowCunErrorAlert(message: L10n.UploadData.UnauthorizedCun.message))
+              
+            throw Error.verificationFailed
+          } catch {
+          try await(context.dispatch(Logic.Loading.Hide()))
+          try context.awaitDispatch(ShowErrorAlert(error: error, retryDispatchable: self))
+          return
+        }
+        try await(context.dispatch(Logic.Loading.Hide()))
+        try context.awaitDispatch(ShowConfirmData(code: self.code))
+      }
+    }
   /// Shows the screen in which data that are uploaded are listed
   struct ShowConfirmData: AppSideEffect {
     let code: OTP
@@ -199,6 +287,7 @@ extension Logic.DataUpload {
       try context.awaitDispatch(Hide(Screen.confirmation, animated: true))
       try context.awaitDispatch(Hide(Screen.confirmUpload, animated: true))
       try context.awaitDispatch(Hide(Screen.uploadData, animated: true))
+      try context.awaitDispatch(Hide(Screen.uploadDataAutonomous, animated: true))
     }
   }
 
@@ -236,6 +325,23 @@ extension Logic.DataUpload {
       try context.awaitDispatch(Logic.Alert.Show(alertModel: model))
     }
   }
+    
+    /// Shows the alert that error Cun
+  struct ShowCunErrorAlert: AppSideEffect {
+    let message: String
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      let model = Alert.Model(
+        title: L10n.UploadData.UnauthorizedCun.title,
+        message: message,
+        preferredStyle: .alert,
+        actions: [
+          .init(title: L10n.UploadData.ApiError.action, style: .cancel),
+          ]
+        )
+
+      try context.awaitDispatch(Logic.Alert.Show(alertModel: model))
+      }
+    }
 
   /// Reusable side effect that shows a readable error when something wrong occuring
   /// while contacting the remote backend
