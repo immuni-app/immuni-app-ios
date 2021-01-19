@@ -65,7 +65,7 @@ open class TextFieldCun: UIView, ModellableView {
     }
 
     public func update(oldModel _: TextFieldCunVM?) {
-        guard let _ = model else {
+        guard model != nil else {
             return
         }
         Self.Style.shadow(container)
@@ -144,8 +144,13 @@ extension TextFieldCun {
 extension TextFieldCun: UITextFieldDelegate {
     public func textFieldDidBeginEditing(_ textField: UITextField) {
         onFocus = true
-        if textField.text == "" {
+        if textField.text?.isEmpty ?? true {
             textfield.text = Self.prefixCun
+        }
+
+        DispatchQueue.main.async {
+            let newPosition = textField.endOfDocument
+            textField.selectedTextRange = textField.textRange(from: newPosition, to: newPosition)
         }
     }
 
@@ -163,6 +168,15 @@ extension TextFieldCun: UITextFieldDelegate {
     ) -> Bool {
         let protectedRange = NSRange(location: 0, length: 4)
         let intersection = NSIntersectionRange(protectedRange, range)
+
+        if range.location < 4 || textField.text?.count ?? 0 > 13 {
+            if string.isEmpty && range.location > 3{
+                let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
+                didChangeTextValue?(result.deletingPrefixCun(prefix: Self.prefixCun))
+                return true
+            }
+            return false
+        }
 
         if intersection.length > 0 {
             return false
