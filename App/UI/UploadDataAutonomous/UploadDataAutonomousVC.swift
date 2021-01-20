@@ -26,7 +26,7 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
             self?.dispatch(Hide(Screen.uploadDataAutonomous, animated: true))
         }
 
-        rootView.didTapVerifyCode = { [weak self] in
+        rootView.didTapVerifyCode = { [weak self] value in
 
             guard let self = self else {
                 return
@@ -69,6 +69,14 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
         }
         rootView.didChangeSymptomsDateValue = { [weak self] value in
             self?.localState.symptomsDate = value
+        }
+        rootView.didChangeCheckBoxValue = { [weak self] value in
+            guard let value = value else { return }
+            self?.localState.symptomsDateIsEnabled = value
+            self?.localState.asymptomaticCheckBoxIsChecked = !value
+            if !value {
+                self?.localState.symptomsDate = ""
+                }
         }
     }
 
@@ -114,11 +122,6 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
             }
             .catch { _ in
                 self.localState.isLoading = false
-
-//          self.dispatch(Logic.Accessibility.PostNotification(
-//            notification: .layoutChanged,
-//            argument: self.rootView.verifyCard.error
-//          ))
             }
     }
 }
@@ -137,6 +140,8 @@ struct UploadDataAutonomousLS: LocalState {
     var cun: String = ""
     var healtCard: String = ""
     var symptomsDate: String = ""
+    var symptomsDateIsEnabled: Bool = true
+    var asymptomaticCheckBoxIsChecked: Bool = false
 
     /// True if it's not possible to execute a new request.
     var isLoading: Bool = false
