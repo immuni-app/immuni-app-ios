@@ -326,7 +326,7 @@ extension Logic.DataUpload {
     }
   }
     
-    /// Shows the alert that error Cun
+  /// Shows the alert that error Cun
   struct ShowCunErrorAlert: AppSideEffect {
     let message: String
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
@@ -342,6 +342,21 @@ extension Logic.DataUpload {
       try context.awaitDispatch(Logic.Alert.Show(alertModel: model))
       }
     }
+
+  /// Shows the alert that Asymptomatic warning
+  struct ShowAsymptomaticAlert: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+    let model = Alert.Model(
+        title: L10n.Settings.Setting.LoadDataAutonomous.Asymptomatic.Alert.title,
+        message: L10n.Settings.Setting.LoadDataAutonomous.Asymptomatic.Alert.message,
+        preferredStyle: .alert,
+        actions: [
+        .init(title: L10n.UploadData.ApiError.action, style: .cancel),
+        ]
+        )
+    try context.awaitDispatch(Logic.Alert.Show(alertModel: model))
+        }
+      }
 
   /// Reusable side effect that shows a readable error when something wrong occuring
   /// while contacting the remote backend

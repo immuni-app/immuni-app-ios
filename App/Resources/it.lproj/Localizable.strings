@@ -229,6 +229,9 @@
 "settings.setting.load_data_autonomous.health_card.placeholder" = "Ultime 8 cifre Tessera Sanitaria";
 "settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Data inizio sintomi*";
 "settings.setting.load_data_autonomous.symptoms_date.message" = "*Se sei un soggetto asintomatico, inserisci la data del tampone";
+"settings.setting.load_data_autonomous.asymptomatic.message" = "Sei asintomatico?";
+"settings.setting.load_data_autonomous.asymptomatic.alert.title" = "Attenzione";
+"settings.setting.load_data_autonomous.asymptomatic.alert.message" = "Spunta il box nel caso in cui sei asintomatico e quindi non hai una data di inizio sintomi";
 "settings.setting.load_data_autonomous.form_error.title" = "Errore nell'inserimento dei dati";
 "settings.setting.load_data_autonomous.form_error.cun.message" = "- Inserisci gli ultimi 10 caratteri del codice CUN che ti è stato comunicato\n";
 "settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Cun errato\n";

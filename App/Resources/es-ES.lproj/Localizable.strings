@@ -220,6 +220,9 @@
 "settings.setting.load_data_autonomous.health_card.placeholder" = "Ultimas 8 cifras de la tarjeta sanitaria";
 "settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Fecha de inicio de síntomas*";
 "settings.setting.load_data_autonomous.symptoms_date.message" = "* Si está asintomático, ingrese la fecha del hisopo";
+"settings.setting.load_data_autonomous.asymptomatic.message" = "Sei asintomatico?";
+"settings.setting.load_data_autonomous.asymptomatic.alert.title" = "Attenzione";
+"settings.setting.load_data_autonomous.asymptomatic.alert.message" = "Spunta il box nel caso in cui sei asintomatico e quindi non hai una data di inizio sintomi";
 "settings.setting.load_data_autonomous.form_error.title" = "Error al ingresar los datos";
 "settings.setting.load_data_autonomous.form_error.cun.message" = "- Introduce los últimos 10 caracteres del código CUN que te comunicaron\n";
 "settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Cun incorrecto\n";

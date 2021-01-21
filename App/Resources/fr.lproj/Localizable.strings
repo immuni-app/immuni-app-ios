@@ -220,6 +220,9 @@
 "settings.setting.load_data_autonomous.health_card.placeholder" = "Carte Santé des 8 derniers chiffres";
 "settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Date de début du symptôme*";
 "settings.setting.load_data_autonomous.symptoms_date.message" = "*Si vous êtes asymptomatique, entrez la date du tampon";
+"settings.setting.load_data_autonomous.asymptomatic.message" = "Sei asintomatico?";
+"settings.setting.load_data_autonomous.asymptomatic.alert.title" = "Attenzione";
+"settings.setting.load_data_autonomous.asymptomatic.alert.message" = "Spunta il box nel caso in cui sei asintomatico e quindi non hai una data di inizio sintomi";
 "settings.setting.load_data_autonomous.form_error.title" = "Erreur lors de la saisie des données";
 "settings.setting.load_data_autonomous.form_error.cun.message" = "- Saisissez les 10 derniers caractères du code CUN qui vous a été communiqué\n";
 "settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Mauvais Cun\n";

@@ -85,11 +85,10 @@ class AsymptomaticCheckBox: UICollectionViewCell, ModellableView, ReusableView {
             return
         }
 
-        accessibilityLabel = "Sei asintomatico?"
         accessibilityTraits = model.accessibilityTraits
 
         Self.Style.checkmark(checkmark, isSelected: model.isSelected, isEnabled: model.isEnabled)
-        Self.Style.title(title, content: "Sei asintomatico?")
+        Self.Style.title(title, content: L10n.Settings.Setting.LoadDataAutonomous.Asymptomatic.message)
         setNeedsLayout()
     }
 

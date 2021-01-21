@@ -76,7 +76,8 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
             self?.localState.asymptomaticCheckBoxIsChecked = !value
             if !value {
                 self?.localState.symptomsDate = ""
-                }
+                self?.dispatch(Logic.DataUpload.ShowAsymptomaticAlert())
+            }
         }
     }
 
