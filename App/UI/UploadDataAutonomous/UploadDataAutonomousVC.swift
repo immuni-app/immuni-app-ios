@@ -28,10 +28,9 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
 
         rootView.didTapVerifyCode = { [weak self] value in
 
-            guard let self = self else {
+            guard let self = self, let asymptomaticCheckBox = value else {
                 return
             }
-
             var message = ""
             let cun = self.validateCun(cun: self.localState.cun)
             if self.localState.cun == "" {
@@ -43,7 +42,7 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
             if !self.validateHealthCard(healthCard: self.localState.healtCard) {
                 message += L10n.Settings.Setting.LoadDataAutonomous.FormError.HealtCard.message
             }
-            if !self.validateSymptomsDate(date: self.localState.symptomsDate) {
+            if !self.validateSymptomsDate(date: self.localState.symptomsDate) && asymptomaticCheckBox {
                 message += L10n.Settings.Setting.LoadDataAutonomous.FormError.SymptomsDate.message
             }
             if message != "" {
