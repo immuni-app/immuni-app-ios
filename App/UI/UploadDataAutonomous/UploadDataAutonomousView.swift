@@ -59,7 +59,6 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
     private let textFieldCun = TextFieldCun()
     private let textFieldHealthCard = TextFieldHealthCard()
     private let pickerFieldSymptomsDate = PickerSymptomsDate()
-    private let asymptomaticLabel = UILabel()
     private let asymptomaticCheckBox = AsymptomaticCheckBox()
 
     private let containerForm = UIView()
@@ -89,7 +88,6 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
         containerForm.addSubview(textFieldCun)
         containerForm.addSubview(textFieldHealthCard)
         containerForm.addSubview(pickerFieldSymptomsDate)
-        containerForm.addSubview(asymptomaticLabel)
         containerForm.addSubview(asymptomaticCheckBox)
         containerForm.addSubview(actionButtonAutonomous)
 
@@ -109,7 +107,6 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
         scrollView.addSubview(textFieldCun)
         scrollView.addSubview(textFieldHealthCard)
         scrollView.addSubview(pickerFieldSymptomsDate)
-        scrollView.addSubview(asymptomaticLabel)
         scrollView.addSubview(asymptomaticCheckBox)
         scrollView.addSubview(actionButtonAutonomous)
         scrollView.addSubview(choice)
@@ -158,7 +155,6 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
         Self.Style.backgroundGradient(backgroundGradientView)
         Self.Style.scrollView(scrollView)
         Self.Style.title(title)
-        Self.Style.asymptomaticLabel(asymptomaticLabel)
         Self.Style.titleAutonomous(titleAutonomous)
         Self.Style.iconAutonomous(iconAutonomous)
         Self.Style.titleCallCenter(titleCallCenter)
@@ -254,15 +250,8 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
             .marginTop(25)
             .height(50)
         
-        asymptomaticLabel.pin
-            .below(of: pickerFieldSymptomsDate)
-            .marginTop(25)
-            .left(48)
-            .horizontally(Self.horizontalSpacing + backButton.intrinsicContentSize.width + 5)
-            .sizeToFit(.width)
-        
         asymptomaticCheckBox.pin
-            .below(of: asymptomaticLabel)
+            .below(of: pickerFieldSymptomsDate)
             .marginTop(25)
             .left(28)
             .horizontally(Self.horizontalSpacing + backButton.intrinsicContentSize.width + 5)
@@ -387,23 +376,7 @@ private extension UploadDataAutonomousView {
                 style: textStyle
             )
         }
-        static func asymptomaticLabel(_ label: UILabel) {
-            let content = L10n.Settings.Setting.LoadDataAutonomous.SymptomsDate.message
-            let textStyle = TextStyles.p.byAdding(
-                .color(Palette.grayNormal),
-                .alignment(.left),
-                .font(UIFont.boldSystemFont(ofSize: 12.0))
 
-            )
-
-            TempuraStyles.styleStandardLabel(
-                label,
-                content: content,
-                style: textStyle
-            )
-        }
-        
-        
         static func choice(_ label: UILabel) {
             let content = L10n.Settings.Setting.LoadDataAutonomous.choice
 

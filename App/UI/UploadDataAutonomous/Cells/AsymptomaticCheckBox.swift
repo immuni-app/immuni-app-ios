@@ -100,16 +100,16 @@ class AsymptomaticCheckBox: UICollectionViewCell, ModellableView, ReusableView {
         let titleSpacing = OnboardingContainerAccessoryView.horizontalSpacing + Self.checkmarkSize + Self.titleToCheckmarkMargin
 
         title.pin
-            .left(titleSpacing)
-            .right(OnboardingContainerAccessoryView.horizontalSpacing)
-            .sizeToFit(.width)
-            .vCenter()
+            .after(of: checkmark)
+            .horizontally()
+            .marginLeft(5)
+            .vertically()
 
         checkmark.pin
+//            .size(24)
             .sizeToFit()
-            .left()
-            .before(of: title, aligned: .center)
-            .justify(.center)
+            .left(12)
+            .vCenter()
     }
 
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -142,9 +142,12 @@ private extension AsymptomaticCheckBox {
         }
 
         static func title(_ label: UILabel, content: String) {
-            let textStyle = TextStyles.h4.byAdding(
-                .color(Palette.grayDark),
-                .alignment(.left)
+
+            let textStyle = TextStyles.p.byAdding(
+                .color(Palette.grayNormal),
+                .alignment(.left),
+                .font(UIFont.boldSystemFont(ofSize: 12.0))
+
             )
 
             TempuraStyles.styleStandardLabel(
