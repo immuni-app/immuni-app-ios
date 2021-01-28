@@ -216,7 +216,7 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
           .below(of: headerView)
           .marginTop(25)
           .horizontally(25)
-          .height(480)
+          .height(450)
         
         iconAutonomous.pin
             .size(28)
@@ -253,8 +253,7 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
         asymptomaticCheckBox.pin
             .below(of: pickerFieldSymptomsDate)
             .marginTop(25)
-            .left(28)
-            .horizontally(Self.horizontalSpacing + backButton.intrinsicContentSize.width + 5)
+            .horizontally(40)
             .sizeToFit(.width)
 
         actionButtonAutonomous.pin

@@ -97,18 +97,13 @@ class AsymptomaticCheckBox: UICollectionViewCell, ModellableView, ReusableView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        let titleSpacing = OnboardingContainerAccessoryView.horizontalSpacing + Self.checkmarkSize + Self.titleToCheckmarkMargin
-
         title.pin
             .after(of: checkmark)
-            .horizontally()
-            .marginLeft(5)
+            .horizontally(25)
             .vertically()
 
         checkmark.pin
-//            .size(24)
-            .sizeToFit()
-            .left(12)
+            .size(50)
             .vCenter()
     }
 
