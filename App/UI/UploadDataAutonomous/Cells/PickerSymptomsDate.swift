@@ -80,6 +80,9 @@ open class PickerSymptomsDate: UIView, ModellableView {
         }
 
         self.textfield.isEnabled = model.isEnabled
+        if !model.isEnabled {
+            self.textfield.text = ""
+        }
 
         Self.Style.shadow(container)
         Self.Style.pickerIcon(pickerIcon, onFocus: onFocus, isEnabled: self.textfield.isEnabled)

@@ -142,9 +142,6 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
            
         asymptomaticCheckBox.didTapCheckBox = { [weak self] value in
             guard let value = value else { return }
-            if !value {
-                self?.pickerFieldSymptomsDate.textfield.text = ""
-               }
             self?.didChangeCheckBoxValue?(value)
            }
        }
