@@ -19,6 +19,7 @@ immuni:
 	xcodegen generate --spec "${PROJECT_YAML_FILE}"
 
 	@if [ -z "$(CI_MODE)" ]; then \
+	    pod repo update; \
 	    pod install; \
 			open Immuni.xcworkspace; \
 	fi
@@ -36,7 +37,7 @@ reset:
 
 # Install dependencies, download build resources and add pre-commit hook
 setup:
-	gem install cocoapods -v 1.9.1
+	sudo gem install cocoapods -v 1.9.1 # macOS Catalina requires super user for /Library/Ruby/Gems/x.x.x
 	brew bundle
 	eval "$$add_pre_commit_script"
 
