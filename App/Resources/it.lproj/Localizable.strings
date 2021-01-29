@@ -339,6 +339,7 @@
 "upload_data.connection_error.message" = "Qualcosa è andato storto, controlla la tua connessione internet e riprova.";
 "upload_data.unauthorized_cun.title" = "Qualcosa è andato storto";
 "upload_data.unauthorized_cun.message" = "Cun già utilizzato";
+"upload_data.symptoms_is_after_swab.message" = "The date of onset symptoms is after the swab date.";
 "upload_data.error_cun.message" = "Nessuna corrispondenza trovata. Verificare che CUN e le ultime 8 cifre della Tessera Sanitaria siano corretti.";
 "upload_data.connection_error.title" = "Errore di connessione";
 "upload_data.diagnosis_keys.overlay.hint" = "Seleziona \"<b>Condividi</b>\" nel popup che apparirà qui sotto";

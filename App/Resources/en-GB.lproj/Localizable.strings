@@ -330,6 +330,7 @@
 "upload_data.connection_error.message" = "Something went wrong. Please check your internet connection and try again.";
 "upload_data.unauthorized_cun.title" = "Something went wrong";
 "upload_data.unauthorized_cun.message" = "CUN already used";
+"upload_data.symptoms_is_after_swab.message" = "The date of onset symptoms is after the swab date.";
 "upload_data.error_cun.message" = "No matches found. Verify that CUN and the last 8 digits of the Health Card are correct.";
 "upload_data.connection_error.title" = "Connection error";
 "upload_data.diagnosis_keys.overlay.hint" = "Select '<b>Share</b>' in the pop-up that appears below";

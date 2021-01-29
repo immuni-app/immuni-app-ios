@@ -330,6 +330,7 @@
 "upload_data.connection_error.message" = "Une erreur s'est produite, vérifiez votre connexion Internet et réessayez.";
 "upload_data.unauthorized_cun.title" = "Une erreur s'est produite";
 "upload_data.unauthorized_cun.message" = "Cun déjà utilisé";
+"upload_data.symptoms_is_after_swab.message" = "The date of onset symptoms is after the swab date.";
 "upload_data.error_cun.message" = "Aucun résultat. Vérifiez que le CUN et les 8 derniers chiffres de la carte Santé sont corrects.";
 "upload_data.connection_error.title" = "Erreur de connexion";
 "upload_data.diagnosis_keys.overlay.hint" = "Sélectionnez <b>Partager</b> dans la fenêtre contextuelle qui apparaîtra ci-dessous";

@@ -174,7 +174,12 @@ extension Logic.DataUpload {
           try await(context.dispatch(Logic.Loading.Hide()))
             try context.awaitDispatch(ShowCunErrorAlert(message: L10n.UploadData.ErrorCun.message))
           throw Error.verificationFailed
-        } catch NetworkManager.Error.otpAlreadyAuthorized {
+        } catch NetworkManager.Error.symptomsIsAfterSwab {
+            // User is not authorized. Bubble up the error to the calling ViewController
+            try await(context.dispatch(Logic.Loading.Hide()))
+            try context.awaitDispatch(ShowErrorAlert(error: NetworkManager.Error.symptomsIsAfterSwab, retryDispatchable: self))
+            throw Error.verificationFailed
+          } catch NetworkManager.Error.otpAlreadyAuthorized {
             // cun Already Authorized. Bubble up the error to the calling ViewController
             try await(context.dispatch(Logic.Loading.Hide()))
             try context.awaitDispatch(ShowCunErrorAlert(message: L10n.UploadData.UnauthorizedCun.message))
@@ -387,6 +392,11 @@ extension Logic.DataUpload {
         title = L10n.UploadData.ApiError.title
         message = L10n.UploadData.ApiError.message
         cancelAction = L10n.UploadData.ApiError.action
+    
+      case .symptomsIsAfterSwab:
+        title = L10n.UploadData.VpnError.title
+        message = L10n.UploadData.SymptomsIsAfterSwab.message
+        cancelAction = L10n.UploadData.VpnError.action
       }
 
       let model = Alert.Model(
