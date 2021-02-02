@@ -221,8 +221,8 @@
 "settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Initial beginning date of the Symptoms*";
 "settings.setting.load_data_autonomous.symptoms_date.message" = "*If you are asymptomatic, enter the date of the swab test";
 "settings.setting.load_data_autonomous.asymptomatic.message" = "*Spunta la casella se sei un soggetto asintomatico così da non inserire la data.";
-"settings.setting.load_data_autonomous.asymptomatic.alert.title" = "Attenzione";
-"settings.setting.load_data_autonomous.asymptomatic.alert.message" = "Spunta il box nel caso in cui sei asintomatico e quindi non hai una data di inizio sintomi";
+"settings.setting.load_data_autonomous.asymptomatic.alert.title" = "Attention";
+"settings.setting.load_data_autonomous.asymptomatic.alert.message" = "It is important to communicate the exact symptom onset date to initiate accurate contact tracking. Select \"no symptoms\" only in case of complete absence of symptoms or symptoms appear after the swab.";
 "settings.setting.load_data_autonomous.form_error.title" = "Error in entering data";
 "settings.setting.load_data_autonomous.form_error.cun.message" = "- Enter the last 10 characters of the CUN code that was communicated to you\n";
 "settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Wrong Cun\n";
@@ -330,7 +330,6 @@
 "upload_data.connection_error.message" = "Something went wrong. Please check your internet connection and try again.";
 "upload_data.unauthorized_cun.title" = "Something went wrong";
 "upload_data.unauthorized_cun.message" = "CUN already used";
-"upload_data.symptoms_is_after_swab.message" = "The date of onset symptoms is after the swab date.";
 "upload_data.error_cun.message" = "No matches found. Verify that CUN and the last 8 digits of the Health Card are correct.";
 "upload_data.connection_error.title" = "Connection error";
 "upload_data.diagnosis_keys.overlay.hint" = "Select '<b>Share</b>' in the pop-up that appears below";

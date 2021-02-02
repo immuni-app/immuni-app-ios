@@ -220,9 +220,9 @@
 "settings.setting.load_data_autonomous.health_card.placeholder" = "Carte Santé des 8 derniers chiffres";
 "settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Date de début du symptôme*";
 "settings.setting.load_data_autonomous.symptoms_date.message" = "*Si vous êtes asymptomatique, entrez la date du tampon";
-"settings.setting.load_data_autonomous.asymptomatic.message" = "*Spunta la casella se sei un soggetto asintomatico così da non inserire la data.";
-"settings.setting.load_data_autonomous.asymptomatic.alert.title" = "Attenzione";
-"settings.setting.load_data_autonomous.asymptomatic.alert.message" = "Spunta il box nel caso in cui sei asintomatico e quindi non hai una data di inizio sintomi";
+"settings.setting.load_data_autonomous.asymptomatic.message" = "*Cochez la case si vous êtes asymptomatique pour ne pas saisir la date.";
+"settings.setting.load_data_autonomous.asymptomatic.alert.title" = "Attention";
+"settings.setting.load_data_autonomous.asymptomatic.alert.message" = "Il est important de communiquer la date exacte d'apparition des symptômes pour lancer un suivi précis des contacts. Sélectionnez \"aucun symptôme\" uniquement en cas d'absence totale de symptômes ou des symptômes apparaissent après le prélèvement.";
 "settings.setting.load_data_autonomous.form_error.title" = "Erreur lors de la saisie des données";
 "settings.setting.load_data_autonomous.form_error.cun.message" = "- Saisissez les 10 derniers caractères du code CUN qui vous a été communiqué\n";
 "settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Mauvais Cun\n";
@@ -330,7 +330,6 @@
 "upload_data.connection_error.message" = "Une erreur s'est produite, vérifiez votre connexion Internet et réessayez.";
 "upload_data.unauthorized_cun.title" = "Une erreur s'est produite";
 "upload_data.unauthorized_cun.message" = "Cun déjà utilisé";
-"upload_data.symptoms_is_after_swab.message" = "The date of onset symptoms is after the swab date.";
 "upload_data.error_cun.message" = "Aucun résultat. Vérifiez que le CUN et les 8 derniers chiffres de la carte Santé sont corrects.";
 "upload_data.connection_error.title" = "Erreur de connexion";
 "upload_data.diagnosis_keys.overlay.hint" = "Sélectionnez <b>Partager</b> dans la fenêtre contextuelle qui apparaîtra ci-dessous";

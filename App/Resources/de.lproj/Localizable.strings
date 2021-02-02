@@ -221,8 +221,8 @@
 "settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Startdatum des Symptoms*";
 "settings.setting.load_data_autonomous.symptoms_date.message" = "*Wenn Sie asymptomatisch sind, geben Sie das Datum des Tampons ein";
 "settings.setting.load_data_autonomous.asymptomatic.message" = "*Spunta la casella se sei un soggetto asintomatico così da non inserire la data.";
-"settings.setting.load_data_autonomous.asymptomatic.alert.title" = "Attenzione";
-"settings.setting.load_data_autonomous.asymptomatic.alert.message" = "Spunta il box nel caso in cui sei asintomatico e quindi non hai una data di inizio sintomi";
+"settings.setting.load_data_autonomous.asymptomatic.alert.title" = "Beachtung";
+"settings.setting.load_data_autonomous.asymptomatic.alert.message" = "Es ist wichtig, das genaue Datum des Symptombeginns mitzuteilen, um eine genaue Kontaktverfolgung einzuleiten. Wählen Sie \"keine Symptome\" nur bei vollständigem Fehlen von Symptomen oder Symptome treten nach dem Tupfer auf.";
 "settings.setting.load_data_autonomous.form_error.title" = "Fehler bei der Dateneingabe";
 "settings.setting.load_data_autonomous.form_error.cun.message" = "- Geben Sie die letzten 10 Zeichen des CUN-Codes ein, der Ihnen mitgeteilt wurde\n";
 "settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Falsche Cun\n";
@@ -332,7 +332,6 @@ Anti-Hygiene- oder molekularer Test am zehnten Tag durchgeführt wird.";
 "upload_data.connection_error.message" = "Etwas ist schiefgelaufen. Überprüfen Sie Ihre Internetverbindung und versuchen Sie es noch einmal.";
 "upload_data.unauthorized_cun.title" = "Etwas ist schiefgelaufen";
 "upload_data.unauthorized_cun.message" = "Cun schon benutzt";
-"upload_data.symptoms_is_after_swab.message" = "The date of onset symptoms is after the swab date.";
 "upload_data.error_cun.message" = "Keine Treffer gefunden. Stellen Sie sicher, dass CUN und die letzten 8 Ziffern der Gesundheitskarte korrekt sind.";
 "upload_data.connection_error.title" = "Verbindungsfehler";
 "upload_data.diagnosis_keys.overlay.hint" = "Tippen Sie auf \"<b>Freigeben</b>\" in dem Popup-Fenster, das unten angezeigt wird";

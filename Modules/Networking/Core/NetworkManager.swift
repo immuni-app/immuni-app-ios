@@ -172,8 +172,6 @@ public extension NetworkManager {
     case noBatchesFound = 1301
     /// Raised when the OTP has already been auhorized.
     case otpAlreadyAuthorized = 1400
-    /// Raised when the date of onset symptoms is after the swab date.
-    case symptomsIsAfterSwab = 1200
 
   }
 }

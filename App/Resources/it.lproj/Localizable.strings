@@ -231,7 +231,7 @@
 "settings.setting.load_data_autonomous.symptoms_date.message" = "*Se sei un soggetto asintomatico, inserisci la data del tampone";
 "settings.setting.load_data_autonomous.asymptomatic.message" = "*Spunta la casella se sei un soggetto asintomatico così da non inserire la data.";
 "settings.setting.load_data_autonomous.asymptomatic.alert.title" = "Attenzione";
-"settings.setting.load_data_autonomous.asymptomatic.alert.message" = "Spunta il box nel caso in cui sei asintomatico e quindi non hai una data di inizio sintomi";
+"settings.setting.load_data_autonomous.asymptomatic.alert.message" = "È importante comunicare la data esatta di inizio sintomi per avviare un tracciamento preciso dei contatti. Seleziona \"nessun sintomo\" solo in caso di completa assenza di sintomi o di comparsa dei sintomi dopo il tampone.";
 "settings.setting.load_data_autonomous.form_error.title" = "Errore nell'inserimento dei dati";
 "settings.setting.load_data_autonomous.form_error.cun.message" = "- Inserisci gli ultimi 10 caratteri del codice CUN che ti è stato comunicato\n";
 "settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Cun errato\n";
@@ -339,7 +339,6 @@
 "upload_data.connection_error.message" = "Qualcosa è andato storto, controlla la tua connessione internet e riprova.";
 "upload_data.unauthorized_cun.title" = "Qualcosa è andato storto";
 "upload_data.unauthorized_cun.message" = "Cun già utilizzato";
-"upload_data.symptoms_is_after_swab.message" = "The date of onset symptoms is after the swab date.";
 "upload_data.error_cun.message" = "Nessuna corrispondenza trovata. Verificare che CUN e le ultime 8 cifre della Tessera Sanitaria siano corretti.";
 "upload_data.connection_error.title" = "Errore di connessione";
 "upload_data.diagnosis_keys.overlay.hint" = "Seleziona \"<b>Condividi</b>\" nel popup che apparirà qui sotto";
