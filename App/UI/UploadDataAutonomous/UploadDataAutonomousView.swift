@@ -213,7 +213,7 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
           .below(of: headerView)
           .marginTop(25)
           .horizontally(25)
-          .height(450)
+          .height(420)
         
         iconAutonomous.pin
             .size(28)
