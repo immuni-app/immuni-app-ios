@@ -221,7 +221,7 @@
 "settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Startdatum des Symptoms";
 "settings.setting.load_data_autonomous.asymptomatic.message" = "Keine Symptome";
 "settings.setting.load_data_autonomous.asymptomatic.alert.title" = "Beachtung";
-"settings.setting.load_data_autonomous.asymptomatic.alert.message" = "Es ist wichtig, das genaue Datum des Symptombeginns mitzuteilen, um eine genaue Kontaktverfolgung einzuleiten. Wählen Sie \"keine Symptome\" nur bei vollständigem Fehlen von Symptomen oder Symptome treten nach dem Tupfer auf.";
+"settings.setting.load_data_autonomous.asymptomatic.alert.message" = "Es ist wichtig, das genaue Datum des Symptombeginns mitzuteilen, um eine genaue Kontaktverfolgung einzuleiten. Wählen Sie \"keine Symptome\" nur, wenn keine Symptome vorliegen oder wenn nach dem Tupfer Symptome auftreten.";
 "settings.setting.load_data_autonomous.form_error.title" = "Fehler bei der Dateneingabe";
 "settings.setting.load_data_autonomous.form_error.cun.message" = "- Geben Sie die letzten 10 Zeichen des CUN-Codes ein, der Ihnen mitgeteilt wurde\n";
 "settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Falsche Cun\n";

@@ -221,7 +221,7 @@
 "settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Fecha de inicio de síntomas";
 "settings.setting.load_data_autonomous.asymptomatic.message" = "Sin síntomas";
 "settings.setting.load_data_autonomous.asymptomatic.alert.title" = "Atención";
-"settings.setting.load_data_autonomous.asymptomatic.alert.message" = "Es importante comunicar la fecha exacta de aparición de los síntomas para iniciar un seguimiento preciso de los contactos. Seleccione \"sin síntomas\" solo en caso de ausencia total de síntomas o aparecen síntomas después del hisopo.";
+"settings.setting.load_data_autonomous.asymptomatic.alert.message" = "Es importante comunicar la fecha exacta de aparición de los síntomas para iniciar un seguimiento de contacto preciso. Seleccione \"sin síntomas\" solo en caso de ausencia total de síntomas o después del hisopo.";
 "settings.setting.load_data_autonomous.form_error.title" = "Error al ingresar los datos";
 "settings.setting.load_data_autonomous.form_error.cun.message" = "- Introduce los últimos 10 caracteres del código CUN que te comunicaron\n";
 "settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Cun incorrecto\n";
