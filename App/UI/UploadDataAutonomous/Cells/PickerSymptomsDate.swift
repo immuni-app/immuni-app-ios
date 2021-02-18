@@ -208,8 +208,8 @@ extension UITextField {
         }
         datePicker.backgroundColor = .white
 
-        datePicker.minimumDate = Calendar.current.date(byAdding: .day, value: -15, to: Date())
-        datePicker.maximumDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())
+        datePicker.minimumDate = Calendar.current.date(byAdding: .day, value: -13, to: Date())
+        datePicker.maximumDate = Calendar.current.date(byAdding: .day, value: 0, to: Date())
 
         inputView = datePicker
         // Create a toolbar and assign it to inputAccessoryView
