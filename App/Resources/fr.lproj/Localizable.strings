@@ -218,8 +218,10 @@
 "settings.setting.load_data_autonomous.call_center.title" = "Appelez le centre d'appels";
 "settings.setting.load_data_autonomous.cun.placeholder" = "CUN du rapport";
 "settings.setting.load_data_autonomous.health_card.placeholder" = "Carte Santé des 8 derniers chiffres";
-"settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Date de début du symptôme*";
-"settings.setting.load_data_autonomous.symptoms_date.message" = "*Si vous êtes asymptomatique, entrez la date du tampon";
+"settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Date de début du symptôme";
+"settings.setting.load_data_autonomous.asymptomatic.message" = "Aucun symptôme";
+"settings.setting.load_data_autonomous.asymptomatic.alert.title" = "Attention";
+"settings.setting.load_data_autonomous.asymptomatic.alert.message" = "Il est important de communiquer la date exacte d'apparition des symptômes pour lancer un suivi précis des contacts. Sélectionnez \"aucun symptôme\" uniquement en cas d'absence totale de symptômes ou des symptômes apparaissent après le prélèvement.";
 "settings.setting.load_data_autonomous.form_error.title" = "Erreur lors de la saisie des données";
 "settings.setting.load_data_autonomous.form_error.cun.message" = "- Saisissez les 10 derniers caractères du code CUN qui vous a été communiqué\n";
 "settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Mauvais Cun\n";

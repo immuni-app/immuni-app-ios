@@ -15,8 +15,9 @@
 import Tempura
 import UIKit
 
-public struct PickerSymptomsDateVM: ViewModel {}
-
+public struct PickerSymptomsDateVM: ViewModel {
+    var isEnabled: Bool
+}
 open class PickerSymptomsDate: UIView, ModellableView {
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,7 +33,7 @@ open class PickerSymptomsDate: UIView, ModellableView {
 
     private let container = UIView()
     private let pickerIcon = UIImageView()
-    private let textfield = UITextField()
+    public let textfield = UITextField()
     var onFocus: Bool = false
 
     var didChangePickerValue: CustomInteraction<String>?
@@ -71,20 +72,24 @@ open class PickerSymptomsDate: UIView, ModellableView {
 
     public func style() {
         Self.Style.container(container)
-        Self.Style.textfield(textfield)
     }
 
     public func update(oldModel _: PickerSymptomsDateVM?) {
-        guard let _ = model else {
+        guard let model = model else {
             return
         }
 
+        self.textfield.isEnabled = model.isEnabled
+        if !model.isEnabled {
+            self.textfield.text = ""
+        }
+
         Self.Style.shadow(container)
-        Self.Style.pickerIcon(pickerIcon, onFocus: onFocus)
+        Self.Style.pickerIcon(pickerIcon, onFocus: onFocus, isEnabled: self.textfield.isEnabled)
+        Self.Style.textfield(textfield, isEnabled: self.textfield.isEnabled)
 
         setNeedsLayout()
     }
-
     override open func layoutSubviews() {
         super.layoutSubviews()
 
@@ -124,19 +129,24 @@ extension PickerSymptomsDate {
             view.addShadow(.textfieldFocus)
         }
 
-        static func pickerIcon(_ view: UIImageView, onFocus: Bool) {
+        static func pickerIcon(_ view: UIImageView, onFocus: Bool, isEnabled: Bool) {
             view.image = Asset.Settings.UploadData.calendar.image
             view.contentMode = .scaleAspectFit
             view.image = view.image?.withRenderingMode(.alwaysTemplate)
-            view.tintColor = onFocus ? Palette.primary : Palette.grayNormal
+            if isEnabled {
+                view.tintColor = onFocus ? Palette.primary : Palette.grayNormal
+            }
+            else {
+                view.tintColor = Palette.grayExtraWhite
+            }
         }
 
-        static func textfield(_ textfield: UITextField) {
+        static func textfield(_ textfield: UITextField, isEnabled: Bool) {
             let textStyle = TextStyles.p.byAdding([
                 .color(Palette.primary)
             ])
             let placeholderStyle = TextStyles.p.byAdding([
-                .color(Palette.grayNormal),
+                .color(isEnabled ? Palette.grayNormal : Palette.grayExtraWhite),
                 .font(UIFont.boldSystemFont(ofSize: 14.0))
             ])
 
@@ -198,8 +208,8 @@ extension UITextField {
         }
         datePicker.backgroundColor = .white
 
-        datePicker.minimumDate = Calendar.current.date(byAdding: .day, value: -15, to: Date())
-        datePicker.maximumDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())
+        datePicker.minimumDate = Calendar.current.date(byAdding: .day, value: -13, to: Date())
+        datePicker.maximumDate = Calendar.current.date(byAdding: .day, value: 0, to: Date())
 
         inputView = datePicker
         // Create a toolbar and assign it to inputAccessoryView

@@ -46,7 +46,7 @@ open class TextFieldCun: UIView, ModellableView {
         container.addSubview(textfield)
 
         textfield.delegate = self
-
+        textfield.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapContainer))
         container.addGestureRecognizer(tapGesture)
     }
@@ -160,6 +160,15 @@ extension TextFieldCun: UITextFieldDelegate {
             textField.text = nil
         }
     }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+            if let text:String = textfield.text {
+                DispatchQueue.main.async {
+                    self.textfield.text = text.uppercased()
+                }
+            }
+
+    }
 
     public func textField(
         _ textField: UITextField,
@@ -168,7 +177,6 @@ extension TextFieldCun: UITextFieldDelegate {
     ) -> Bool {
         let protectedRange = NSRange(location: 0, length: 4)
         let intersection = NSIntersectionRange(protectedRange, range)
-
         if range.location < 4 || textField.text?.count ?? 0 > 13 {
             if string.isEmpty && range.location > 3{
                 let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
@@ -191,7 +199,6 @@ extension TextFieldCun: UITextFieldDelegate {
         }
 
         let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
-
         didChangeTextValue?(result.deletingPrefixCun(prefix: Self.prefixCun))
 
         return true

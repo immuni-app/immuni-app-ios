@@ -218,8 +218,10 @@
 "settings.setting.load_data_autonomous.call_center.title" = "Llama el centro de llamadas";
 "settings.setting.load_data_autonomous.cun.placeholder" = "CUN del reporte";
 "settings.setting.load_data_autonomous.health_card.placeholder" = "Ultimas 8 cifras de la tarjeta sanitaria";
-"settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Fecha de inicio de síntomas*";
-"settings.setting.load_data_autonomous.symptoms_date.message" = "* Si está asintomático, ingrese la fecha del hisopo";
+"settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Fecha de inicio de síntomas";
+"settings.setting.load_data_autonomous.asymptomatic.message" = "Sin síntomas";
+"settings.setting.load_data_autonomous.asymptomatic.alert.title" = "Atención";
+"settings.setting.load_data_autonomous.asymptomatic.alert.message" = "Es importante comunicar la fecha exacta de aparición de los síntomas para iniciar un seguimiento de contacto preciso. Seleccione \"sin síntomas\" solo en caso de ausencia total de síntomas o después del hisopo.";
 "settings.setting.load_data_autonomous.form_error.title" = "Error al ingresar los datos";
 "settings.setting.load_data_autonomous.form_error.cun.message" = "- Introduce los últimos 10 caracteres del código CUN que te comunicaron\n";
 "settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Cun incorrecto\n";

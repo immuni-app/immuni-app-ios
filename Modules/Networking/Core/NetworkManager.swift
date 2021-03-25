@@ -172,5 +172,6 @@ public extension NetworkManager {
     case noBatchesFound = 1301
     /// Raised when the OTP has already been auhorized.
     case otpAlreadyAuthorized = 1400
+
   }
 }

@@ -218,8 +218,10 @@
 "settings.setting.load_data_autonomous.call_center.title" = "Call the Call Center";
 "settings.setting.load_data_autonomous.cun.placeholder" = "CUN of the report";
 "settings.setting.load_data_autonomous.health_card.placeholder" = "The last 8 digits of your Health ID Card";
-"settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Initial beginning date of the Symptoms*";
-"settings.setting.load_data_autonomous.symptoms_date.message" = "*If you are asymptomatic, enter the date of the swab test";
+"settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Initial beginning date of the Symptoms";
+"settings.setting.load_data_autonomous.asymptomatic.message" = "No symptoms";
+"settings.setting.load_data_autonomous.asymptomatic.alert.title" = "Attention";
+"settings.setting.load_data_autonomous.asymptomatic.alert.message" = "It is important to communicate the exact symptom onset date to initiate accurate contact tracking. Select \"no symptoms\" only in case of complete absence of symptoms or symptoms appear after the swab.";
 "settings.setting.load_data_autonomous.form_error.title" = "Error in entering data";
 "settings.setting.load_data_autonomous.form_error.cun.message" = "- Enter the last 10 characters of the CUN code that was communicated to you\n";
 "settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Wrong Cun\n";

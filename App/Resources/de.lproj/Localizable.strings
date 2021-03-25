@@ -218,8 +218,10 @@
 "settings.setting.load_data_autonomous.call_center.title" = "Rufen Sie das Callcenter";
 "settings.setting.load_data_autonomous.cun.placeholder" = "CUN des Berichts";
 "settings.setting.load_data_autonomous.health_card.placeholder" = "Letzten 8-stellige Nummern der Gesundheitskarte";
-"settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Startdatum des Symptoms*";
-"settings.setting.load_data_autonomous.symptoms_date.message" = "*Wenn Sie asymptomatisch sind, geben Sie das Datum des Tampons ein";
+"settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Startdatum des Symptoms";
+"settings.setting.load_data_autonomous.asymptomatic.message" = "Keine Symptome";
+"settings.setting.load_data_autonomous.asymptomatic.alert.title" = "Beachtung";
+"settings.setting.load_data_autonomous.asymptomatic.alert.message" = "Es ist wichtig, das genaue Datum des Symptombeginns mitzuteilen, um eine genaue Kontaktverfolgung einzuleiten. Wählen Sie \"keine Symptome\" nur, wenn keine Symptome vorliegen oder wenn nach dem Tupfer Symptome auftreten.";
 "settings.setting.load_data_autonomous.form_error.title" = "Fehler bei der Dateneingabe";
 "settings.setting.load_data_autonomous.form_error.cun.message" = "- Geben Sie die letzten 10 Zeichen des CUN-Codes ein, der Ihnen mitgeteilt wurde\n";
 "settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Falsche Cun\n";

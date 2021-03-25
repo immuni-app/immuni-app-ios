@@ -26,24 +26,22 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
             self?.dispatch(Hide(Screen.uploadDataAutonomous, animated: true))
         }
 
-        rootView.didTapVerifyCode = { [weak self] in
+        rootView.didTapVerifyCode = { [weak self] value in
 
-            guard let self = self else {
+            guard let self = self, let asymptomaticCheckBox = value else {
                 return
             }
-
             var message = ""
             let cun = self.validateCun(cun: self.localState.cun)
             if self.localState.cun == "" {
                 message += L10n.Settings.Setting.LoadDataAutonomous.FormError.Cun.message
-            }
-            else if cun == nil {
+            } else if cun == nil {
                 message += L10n.Settings.Setting.LoadDataAutonomous.FormError.Cun.Invalid.message
             }
             if !self.validateHealthCard(healthCard: self.localState.healtCard) {
                 message += L10n.Settings.Setting.LoadDataAutonomous.FormError.HealtCard.message
             }
-            if !self.validateSymptomsDate(date: self.localState.symptomsDate) {
+            if !self.validateSymptomsDate(date: self.localState.symptomsDate), asymptomaticCheckBox {
                 message += L10n.Settings.Setting.LoadDataAutonomous.FormError.SymptomsDate.message
             }
             if message != "" {
@@ -53,7 +51,7 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
                 self.verifyCun(cun: cun!, lastHisNumber: self.localState.healtCard, symptomsStartedOn: self.localState.symptomsDate)
             }
         }
-        
+
         rootView.didTapHealthWorkerMode = { [weak self] in
             self?.dispatch(Logic.Settings.ShowUploadData(callCenterMode: true))
         }
@@ -69,6 +67,23 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
         }
         rootView.didChangeSymptomsDateValue = { [weak self] value in
             self?.localState.symptomsDate = value
+        }
+        rootView.didChangeCheckBoxValue = { [weak self] value in
+            guard let value = value else { return }
+
+            self?.localState.symptomsDate = ""
+            
+            let asymptomaticConfirmBox = UIAlertController(
+                title: L10n.Settings.Setting.LoadDataAutonomous.Asymptomatic.Alert.title,
+                message: L10n.Settings.Setting.LoadDataAutonomous.Asymptomatic.Alert.message,
+                preferredStyle: UIAlertController.Style.alert
+            )
+            asymptomaticConfirmBox.addAction(UIAlertAction(title: L10n.confirm, style: .default, handler: { (_: UIAlertAction!) in
+                self?.localState.symptomsDateIsEnabled = value
+                self?.localState.asymptomaticCheckBoxIsChecked = !value
+            }))
+            asymptomaticConfirmBox.addAction(UIAlertAction(title: L10n.cancel, style: .cancel))
+            self?.present(asymptomaticConfirmBox, animated: true, completion: nil)
         }
     }
 
@@ -114,11 +129,6 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
             }
             .catch { _ in
                 self.localState.isLoading = false
-
-//          self.dispatch(Logic.Accessibility.PostNotification(
-//            notification: .layoutChanged,
-//            argument: self.rootView.verifyCard.error
-//          ))
             }
     }
 }
@@ -137,6 +147,8 @@ struct UploadDataAutonomousLS: LocalState {
     var cun: String = ""
     var healtCard: String = ""
     var symptomsDate: String = ""
+    var symptomsDateIsEnabled: Bool = true
+    var asymptomaticCheckBoxIsChecked: Bool = false
 
     /// True if it's not possible to execute a new request.
     var isLoading: Bool = false

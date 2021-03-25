@@ -51,7 +51,7 @@ public struct CUNValidationRequest: FixedSizeJSONRequest {
 public extension CUNValidationRequest {
   struct Body: Encodable {
     public let lastHisNumber: String
-    public let symptomsStartedOn: String
+    public let symptomsStartedOn: String?
   
     /// Create a cun validation request body with given lastHisNumber and symptomsStartedOn.
     /// A padding is added automatically so that both valid both dummy requests will have the same size.
@@ -60,7 +60,7 @@ public extension CUNValidationRequest {
       symptomsStartedOn: String
     ) {
       self.lastHisNumber = lastHisNumber
-      self.symptomsStartedOn = symptomsStartedOn
+      self.symptomsStartedOn = (symptomsStartedOn == "") ? nil : symptomsStartedOn
     }
   }
 }

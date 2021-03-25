@@ -227,8 +227,10 @@
 "settings.setting.load_data_autonomous.call_center.title" = "Chiama il call center";
 "settings.setting.load_data_autonomous.cun.placeholder" = "Cun del referto";
 "settings.setting.load_data_autonomous.health_card.placeholder" = "Ultime 8 cifre Tessera Sanitaria";
-"settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Data inizio sintomi*";
-"settings.setting.load_data_autonomous.symptoms_date.message" = "*Se sei un soggetto asintomatico, inserisci la data del tampone";
+"settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Data inizio sintomi";
+"settings.setting.load_data_autonomous.asymptomatic.message" = "Nessun sintomo";
+"settings.setting.load_data_autonomous.asymptomatic.alert.title" = "Attenzione";
+"settings.setting.load_data_autonomous.asymptomatic.alert.message" = "È importante comunicare la data esatta di inizio sintomi per avviare un tracciamento preciso dei contatti. Seleziona \"nessun sintomo\" solo in caso di completa assenza di sintomi o di comparsa dei sintomi dopo il tampone.";
 "settings.setting.load_data_autonomous.form_error.title" = "Errore nell'inserimento dei dati";
 "settings.setting.load_data_autonomous.form_error.cun.message" = "- Inserisci gli ultimi 10 caratteri del codice CUN che ti è stato comunicato\n";
 "settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Cun errato\n";

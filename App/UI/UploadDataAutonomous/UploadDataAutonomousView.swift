@@ -19,7 +19,8 @@ import Tempura
 struct UploadDataAutonomousVM: ViewModelWithLocalState {
     var textFieldCunVM: TextFieldCunVM { TextFieldCunVM() }
     var textFieldHealthCardVM: TextFieldHealthCardVM { TextFieldHealthCardVM() }
-    var pickerFieldSymptomsDateVM: PickerSymptomsDateVM { PickerSymptomsDateVM() }
+    var pickerFieldSymptomsDateVM: PickerSymptomsDateVM = PickerSymptomsDateVM(isEnabled: true)
+    var asymptomaticCheckBoxVM: AsymptomaticCheckBoxVM = AsymptomaticCheckBoxVM(isSelected: false, isEnabled: true)
 
     /// True if it's not possible to execute a new request.
     let isLoading: Bool
@@ -28,6 +29,8 @@ struct UploadDataAutonomousVM: ViewModelWithLocalState {
 extension UploadDataAutonomousVM {
     init?(state _: AppState?, localState: UploadDataAutonomousLS) {
         isLoading = localState.isLoading
+        self.asymptomaticCheckBoxVM.isSelected = localState.asymptomaticCheckBoxIsChecked
+        self.pickerFieldSymptomsDateVM.isEnabled = localState.symptomsDateIsEnabled
     }
 }
 
@@ -56,8 +59,8 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
     private let textFieldCun = TextFieldCun()
     private let textFieldHealthCard = TextFieldHealthCard()
     private let pickerFieldSymptomsDate = PickerSymptomsDate()
-    private let asymptomaticLabel = UILabel()
-    
+    private let asymptomaticCheckBox = AsymptomaticCheckBox()
+
     private let containerForm = UIView()
     private let containerCallCenter = UIView()
 
@@ -65,32 +68,32 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
     private var actionButtonCallCenter = ButtonWithInsets()
 
     var didTapBack: Interaction?
-    var didTapVerifyCode: Interaction?
+    var didTapVerifyCode: CustomInteraction<Bool?>?
     var didTapHealthWorkerMode: Interaction?
     var didTapDiscoverMore: Interaction?
 
     var didChangeCunTextValue: CustomInteraction<String>?
     var didChangeHealthCardTextValue: CustomInteraction<String>?
     var didChangeSymptomsDateValue: CustomInteraction<String>?
+    var didChangeCheckBoxValue: CustomInteraction<Bool?>?
 
     // MARK: - Setup
 
     func setup() {
-        self.addSubview(self.containerForm)
-        self.addSubview(self.containerCallCenter)
+        addSubview(containerForm)
+        addSubview(containerCallCenter)
 
-        self.containerForm.addSubview(self.iconAutonomous)
-        self.containerForm.addSubview(self.titleAutonomous)
-        self.containerForm.addSubview(self.textFieldCun)
-        self.containerForm.addSubview(self.textFieldHealthCard)
-        self.containerForm.addSubview(self.pickerFieldSymptomsDate)
-        self.containerForm.addSubview(self.asymptomaticLabel)
-        self.containerForm.addSubview(self.actionButtonAutonomous)
-        
-        self.containerCallCenter.addSubview(self.iconCallCenter)
-        self.containerCallCenter.addSubview(self.titleCallCenter)
-        self.containerCallCenter.addSubview(self.actionButtonCallCenter)
+        containerForm.addSubview(iconAutonomous)
+        containerForm.addSubview(titleAutonomous)
+        containerForm.addSubview(textFieldCun)
+        containerForm.addSubview(textFieldHealthCard)
+        containerForm.addSubview(pickerFieldSymptomsDate)
+        containerForm.addSubview(asymptomaticCheckBox)
+        containerForm.addSubview(actionButtonAutonomous)
 
+        containerCallCenter.addSubview(iconCallCenter)
+        containerCallCenter.addSubview(titleCallCenter)
+        containerCallCenter.addSubview(actionButtonCallCenter)
 
         addSubview(backgroundGradientView)
         addSubview(scrollView)
@@ -104,7 +107,7 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
         scrollView.addSubview(textFieldCun)
         scrollView.addSubview(textFieldHealthCard)
         scrollView.addSubview(pickerFieldSymptomsDate)
-        scrollView.addSubview(asymptomaticLabel)
+        scrollView.addSubview(asymptomaticCheckBox)
         scrollView.addSubview(actionButtonAutonomous)
         scrollView.addSubview(choice)
         scrollView.addSubview(containerCallCenter)
@@ -114,30 +117,34 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
 
         backButton.on(.touchUpInside) { [weak self] _ in
             self?.didTapBack?()
-        }
+           }
         actionButtonAutonomous.on(.touchUpInside) { [weak self] _ in
-            self?.didTapVerifyCode?()
-        }
+            self?.didTapVerifyCode?(self?.pickerFieldSymptomsDate.model?.isEnabled)
+           }
         actionButtonCallCenter.on(.touchUpInside) { [weak self] _ in
             self?.didTapHealthWorkerMode?()
-        }
+           }
         headerView.didTapDiscoverMore = { [weak self] in
             self?.didTapDiscoverMore?()
-        }
+           }
 
         textFieldCun.didChangeTextValue = { [weak self] value in
-            self?.didChangeCunTextValue?(value)
-        }
+            self?.didChangeCunTextValue?(value.uppercased())
+           }
 
         textFieldHealthCard.didChangeTextValue = { [weak self] value in
             self?.didChangeHealthCardTextValue?(value)
-        }
+           }
 
         pickerFieldSymptomsDate.didChangePickerValue = { [weak self] value in
             self?.didChangeSymptomsDateValue?(value)
-        }
-    }
-
+           }
+           
+        asymptomaticCheckBox.didTapCheckBox = { [weak self] value in
+            guard let value = value else { return }
+            self?.didChangeCheckBoxValue?(value)
+           }
+       }
     // MARK: - Style
 
     func style() {
@@ -145,14 +152,13 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
         Self.Style.backgroundGradient(backgroundGradientView)
         Self.Style.scrollView(scrollView)
         Self.Style.title(title)
-        Self.Style.asymptomaticLabel(asymptomaticLabel)
         Self.Style.titleAutonomous(titleAutonomous)
         Self.Style.iconAutonomous(iconAutonomous)
         Self.Style.titleCallCenter(titleCallCenter)
         Self.Style.iconCallCenter(iconCallCenter)
         Self.Style.choice(choice)
-        Self.Style.container(self.containerForm)
-        Self.Style.container(self.containerCallCenter)
+        Self.Style.container(containerForm)
+        Self.Style.container(containerCallCenter)
 
 
         SharedStyle.navigationBackButton(backButton)
@@ -170,6 +176,7 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
         textFieldCun.model = model.textFieldCunVM
         textFieldHealthCard.model = model.textFieldHealthCardVM
         pickerFieldSymptomsDate.model = model.pickerFieldSymptomsDateVM
+        asymptomaticCheckBox.model = model.asymptomaticCheckBoxVM
 
         setNeedsLayout()
     }
@@ -206,7 +213,7 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
           .below(of: headerView)
           .marginTop(25)
           .horizontally(25)
-          .height(430)
+          .height(420)
         
         iconAutonomous.pin
             .size(28)
@@ -240,23 +247,22 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
             .marginTop(25)
             .height(50)
         
-        asymptomaticLabel.pin
+        asymptomaticCheckBox.pin
             .below(of: pickerFieldSymptomsDate)
             .marginTop(25)
-            .left(48)
-            .horizontally(Self.horizontalSpacing + backButton.intrinsicContentSize.width + 5)
+            .horizontally(40)
             .sizeToFit(.width)
 
         actionButtonAutonomous.pin
             .horizontally(45)
             .sizeToFit(.width)
             .minHeight(55)
-            .below(of: asymptomaticLabel)
+            .below(of: asymptomaticCheckBox)
             .marginTop(25)
         
         choice.pin
             .below(of: actionButtonAutonomous)
-            .marginTop(45)
+            .marginTop(50)
             .horizontally()
             .sizeToFit(.width)
         
@@ -366,23 +372,7 @@ private extension UploadDataAutonomousView {
                 style: textStyle
             )
         }
-        static func asymptomaticLabel(_ label: UILabel) {
-            let content = L10n.Settings.Setting.LoadDataAutonomous.SymptomsDate.message
-            let textStyle = TextStyles.p.byAdding(
-                .color(Palette.grayNormal),
-                .alignment(.left),
-                .font(UIFont.boldSystemFont(ofSize: 12.0))
 
-            )
-
-            TempuraStyles.styleStandardLabel(
-                label,
-                content: content,
-                style: textStyle
-            )
-        }
-        
-        
         static func choice(_ label: UILabel) {
             let content = L10n.Settings.Setting.LoadDataAutonomous.choice
 
