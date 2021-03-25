@@ -129,7 +129,7 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
            }
 
         textFieldCun.didChangeTextValue = { [weak self] value in
-            self?.didChangeCunTextValue?(value)
+            self?.didChangeCunTextValue?(value.uppercased())
            }
 
         textFieldHealthCard.didChangeTextValue = { [weak self] value in
