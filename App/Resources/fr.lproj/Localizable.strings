@@ -216,7 +216,7 @@
 "settings.setting.load_data_autonomous_call_center.title" = "Appelez le centre d'appels\n800.91.24.91";
 "settings.setting.load_data_autonomous.choice" = "ou";
 "settings.setting.load_data_autonomous.call_center.title" = "Appelez le centre d'appels";
-"settings.setting.load_data_autonomous.cun.placeholder" = "CUN du rapport";
+"settings.setting.load_data_autonomous.cun.placeholder" = "CUN du test positive";
 "settings.setting.load_data_autonomous.health_card.placeholder" = "Carte Santé des 8 derniers chiffres";
 "settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Date de début du symptôme";
 "settings.setting.load_data_autonomous.asymptomatic.message" = "Aucun symptôme";
@@ -224,9 +224,9 @@
 "settings.setting.load_data_autonomous.asymptomatic.alert.message" = "Il est important de communiquer la date exacte d'apparition des symptômes pour lancer un suivi précis des contacts. Sélectionnez \"aucun symptôme\" uniquement en cas d'absence totale de symptômes ou des symptômes apparaissent après le prélèvement.";
 "settings.setting.load_data_autonomous.form_error.title" = "Erreur lors de la saisie des données";
 "settings.setting.load_data_autonomous.form_error.cun.message" = "- Saisissez les 10 derniers caractères du code CUN qui vous a été communiqué\n";
-"settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Mauvais Cun\n";
-"settings.setting.load_data_autonomous.form_error.healt_card.message" = "- Entrez les 8 derniers chiffres que vous trouverez au dos de la carte Santé\n";
-"settings.setting.load_data_autonomous.form_error.symptoms_Date.message" = "- Entrez la date de début du symptôme\n";
+"settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Le CUN saisi n'est pas formellement valide. Assurez-vous d'avoir saisi les 10 derniers chiffres du CUN que vous avez reçu par SMS ou dans le rapport associé à un écouvillon positif\n";
+"settings.setting.load_data_autonomous.form_error.healt_card.message" = "- Le numéro de carte Santé saisi n'est pas formellement valide. Assurez-vous d'avoir saisi les 8 derniers chiffres de votre carte Santé associés à un prélèvement positif\n";
+"settings.setting.load_data_autonomous.form_error.symptoms_Date.message" = "- Entrez la date de début du symptôme, si vous êtes symptomatique ou cochez la case si vous ne présentez aucun symptôme\n";
 "settings.setting.choose_data_upload.health_worker_mode.title" = "Avez-vous été contacté par un professionnel de la santé?";
 "settings.setting.choose_data_upload.health_worker_mode.message" = "Suivez la procédure pour signaler votre positivité";
 "settings.setting.choose_data_upload.autonomous_mode.title" = "Avez-vous le code CUN?";
@@ -327,9 +327,9 @@
 "upload_data.code.message" = "Communiquez le code à usage unique au professionnel:";
 "upload_data.connection_error.action" = "OK";
 "upload_data.connection_error.message" = "Une erreur s'est produite, vérifiez votre connexion Internet et réessayez.";
-"upload_data.unauthorized_cun.title" = "Une erreur s'est produite";
+"upload_data.unauthorized_cun.title" = "Attention";
 "upload_data.unauthorized_cun.message" = "Cun déjà utilisé";
-"upload_data.error_cun.message" = "Aucun résultat. Vérifiez que le CUN et les 8 derniers chiffres de la carte Santé sont corrects.";
+"upload_data.error_cun.message" = "Attention. CUN non valide. Assurez-vous d'avoir saisi les 10 derniers chiffres du CUN que vous avez reçu par SMS ou dans le rapport associé à un écouvillon positif";
 "upload_data.connection_error.title" = "Erreur de connexion";
 "upload_data.diagnosis_keys.overlay.hint" = "Sélectionnez <b>Partager</b> dans la fenêtre contextuelle qui apparaîtra ci-dessous";
 "upload_data.missing_authorization.close" = "Fermer";

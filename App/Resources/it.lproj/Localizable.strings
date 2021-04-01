@@ -225,7 +225,7 @@
 "settings.setting.load_data_autonomous.choice" = "oppure";
 "settings.setting.load_data_autonomous.symptoms_date" = "Data dell’inizio dei primi sintomi";
 "settings.setting.load_data_autonomous.call_center.title" = "Chiama il call center";
-"settings.setting.load_data_autonomous.cun.placeholder" = "Cun del referto";
+"settings.setting.load_data_autonomous.cun.placeholder" = "CUN del tampone positivo";
 "settings.setting.load_data_autonomous.health_card.placeholder" = "Ultime 8 cifre Tessera Sanitaria";
 "settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Data inizio sintomi";
 "settings.setting.load_data_autonomous.asymptomatic.message" = "Nessun sintomo";
@@ -233,9 +233,9 @@
 "settings.setting.load_data_autonomous.asymptomatic.alert.message" = "È importante comunicare la data esatta di inizio sintomi per avviare un tracciamento preciso dei contatti. Seleziona \"nessun sintomo\" solo in caso di completa assenza di sintomi o di comparsa dei sintomi dopo il tampone.";
 "settings.setting.load_data_autonomous.form_error.title" = "Errore nell'inserimento dei dati";
 "settings.setting.load_data_autonomous.form_error.cun.message" = "- Inserisci gli ultimi 10 caratteri del codice CUN che ti è stato comunicato\n";
-"settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Cun errato\n";
-"settings.setting.load_data_autonomous.form_error.healt_card.message" = "- Inserisci le ultime 8 cifre che trovi nel retro della Tessera Sanitaria\n";
-"settings.setting.load_data_autonomous.form_error.symptoms_Date.message" = "- Inserisci la data di inizio sintomi\n";
+"settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Il CUN inserito non risulta formalmente valido. Assicurati di aver inserito le ultime 10 cifre del CUN che hai ricevuto per SMS o nel referto associato a un tampone positivo\n";
+"settings.setting.load_data_autonomous.form_error.healt_card.message" = "- Il numero di Tessera Sanitaria inserito non risulta formalmente valido. Assicurati di aver inserito le ultime 8 cifre della tua Tessera sanitaria associata ad un tampone positivo\n";
+"settings.setting.load_data_autonomous.form_error.symptoms_Date.message" = "- Inserisci la data di inizio sintomi, se sei sintomatico o seleziona la casella in caso di nessun sintomo \n";
 "settings.setting.choose_data_upload.health_worker_mode.title" = "Sei in contatto con un\nOperatore Sanitario?";
 "settings.setting.choose_data_upload.health_worker_mode.message" = "Segui la procedura per\nsegnalare la tua positività";
 "settings.setting.choose_data_upload.autonomous_mode.title" = "Hai il codice CUN?";
@@ -336,9 +336,9 @@
 "upload_data.code.message" = "Comunica il codice all'operatore:";
 "upload_data.connection_error.action" = "OK";
 "upload_data.connection_error.message" = "Qualcosa è andato storto, controlla la tua connessione internet e riprova.";
-"upload_data.unauthorized_cun.title" = "Qualcosa è andato storto";
+"upload_data.unauthorized_cun.title" = "Attenzione";
 "upload_data.unauthorized_cun.message" = "Cun già utilizzato";
-"upload_data.error_cun.message" = "Nessuna corrispondenza trovata. Verificare che CUN e le ultime 8 cifre della Tessera Sanitaria siano corretti.";
+"upload_data.error_cun.message" = "Attenzione. CUN non valido. Assicurati di aver inserito le ultime 10 cifre del CUN che hai ricevuto per SMS o nel referto associato a un tampone positivo";
 "upload_data.connection_error.title" = "Errore di connessione";
 "upload_data.diagnosis_keys.overlay.hint" = "Seleziona \"<b>Condividi</b>\" nel popup che apparirà qui sotto";
 "upload_data.missing_authorization.close" = "Chiudi";

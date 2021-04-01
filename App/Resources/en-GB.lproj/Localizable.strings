@@ -216,7 +216,7 @@
 "settings.setting.load_data_autonomous_call_center.title" = "Call the Call Center at\n800.91.24.91";
 "settings.setting.load_data_autonomous.choice" = "or";
 "settings.setting.load_data_autonomous.call_center.title" = "Call the Call Center";
-"settings.setting.load_data_autonomous.cun.placeholder" = "CUN of the report";
+"settings.setting.load_data_autonomous.cun.placeholder" = "CUN of the positive swab";
 "settings.setting.load_data_autonomous.health_card.placeholder" = "The last 8 digits of your Health ID Card";
 "settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Initial beginning date of the Symptoms";
 "settings.setting.load_data_autonomous.asymptomatic.message" = "No symptoms";
@@ -224,9 +224,9 @@
 "settings.setting.load_data_autonomous.asymptomatic.alert.message" = "It is important to communicate the exact symptom onset date to initiate accurate contact tracking. Select \"no symptoms\" only in case of complete absence of symptoms or symptoms appear after the swab.";
 "settings.setting.load_data_autonomous.form_error.title" = "Error in entering data";
 "settings.setting.load_data_autonomous.form_error.cun.message" = "- Enter the last 10 characters of the CUN code that was communicated to you\n";
-"settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Wrong Cun\n";
-"settings.setting.load_data_autonomous.form_error.healt_card.message" = "- Enter the last 8 digits you see on the back of your Health ID Card\n";
-"settings.setting.load_data_autonomous.form_error.symptoms_Date.message" = "- Enter the date when your symptoms began\n";
+"settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- The entered CUN is not formally valid. Make sure you have entered the last 10 digits of the CUN you received by SMS or in the report associated with a positive swab\n";
+"settings.setting.load_data_autonomous.form_error.healt_card.message" = "- The health card number entered is not formally valid. Make sure you have entered the last 8 digits of your Health Card associated with a positive swab\n";
+"settings.setting.load_data_autonomous.form_error.symptoms_Date.message" = "- Enter the date when your symptoms began, if you are symptomatic or check the box if you have no symptoms\n";
 "settings.setting.choose_data_upload.health_worker_mode.title" = "Are you in contact with a\nhealthcare provider?";
 "settings.setting.choose_data_upload.health_worker_mode.message" = "Follow the procedure to report your being positive";
 "settings.setting.choose_data_upload.autonomous_mode.title" = "Do you have a CUN code?";
@@ -327,9 +327,9 @@
 "upload_data.code.message" = "Give the operator the one-time code:";
 "upload_data.connection_error.action" = "OK";
 "upload_data.connection_error.message" = "Something went wrong. Please check your internet connection and try again.";
-"upload_data.unauthorized_cun.title" = "Something went wrong";
+"upload_data.unauthorized_cun.title" = "Attention";
 "upload_data.unauthorized_cun.message" = "CUN already used";
-"upload_data.error_cun.message" = "No matches found. Verify that CUN and the last 8 digits of the Health Card are correct.";
+"upload_data.error_cun.message" = "Attention. Invalid CUN. Make sure you have entered the last 10 digits of the CUN you received by SMS or in the report associated with a positive swab";
 "upload_data.connection_error.title" = "Connection error";
 "upload_data.diagnosis_keys.overlay.hint" = "Select '<b>Share</b>' in the pop-up that appears below";
 "upload_data.missing_authorization.close" = "Close";

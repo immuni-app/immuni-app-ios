@@ -216,7 +216,7 @@
 "settings.setting.load_data_autonomous_call_center.title" = "Llama el centro de llamadas\n800.91.24.91";
 "settings.setting.load_data_autonomous.choice" = "o";
 "settings.setting.load_data_autonomous.call_center.title" = "Llama el centro de llamadas";
-"settings.setting.load_data_autonomous.cun.placeholder" = "CUN del reporte";
+"settings.setting.load_data_autonomous.cun.placeholder" = "CUN del hisopo positivo";
 "settings.setting.load_data_autonomous.health_card.placeholder" = "Ultimas 8 cifras de la tarjeta sanitaria";
 "settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Fecha de inicio de síntomas";
 "settings.setting.load_data_autonomous.asymptomatic.message" = "Sin síntomas";
@@ -224,9 +224,9 @@
 "settings.setting.load_data_autonomous.asymptomatic.alert.message" = "Es importante comunicar la fecha exacta de aparición de los síntomas para iniciar un seguimiento de contacto preciso. Seleccione \"sin síntomas\" solo en caso de ausencia total de síntomas o después del hisopo.";
 "settings.setting.load_data_autonomous.form_error.title" = "Error al ingresar los datos";
 "settings.setting.load_data_autonomous.form_error.cun.message" = "- Introduce los últimos 10 caracteres del código CUN que te comunicaron\n";
-"settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- Cun incorrecto\n";
-"settings.setting.load_data_autonomous.form_error.healt_card.message" = "- Introduce las últimas 8 cifras que encuentras en reverso de la tarjeta sanitaria\n";
-"settings.setting.load_data_autonomous.form_error.symptoms_Date.message" = "- Introduce la fecha de inicio de síntomas\n";
+"settings.setting.load_data_autonomous.form_error.cun.invalid.message" = "- El CUN introducido no es formalmente valido. Asegurate de haber introducido los últimos 10 caracteres del CUN que recibiste por SMS o en el informe asociado al resultado positivo\n";
+"settings.setting.load_data_autonomous.form_error.healt_card.message" = "- El numero de la tarjeta Sanitaria introducido no es formalmente valido. Asegurate de haber introducido los últimos 8 caracteres de tu tarjeta sanitaria asociada al hisopo positivo\n";
+"settings.setting.load_data_autonomous.form_error.symptoms_Date.message" = "- Introduce la fecha de inicio de síntomas, si eres sintomático o marca la casilla en caso de ningún síntoma\n";
 "settings.setting.choose_data_upload.health_worker_mode.title" = "¿Estás en contacto con un\nprofesional sanitario?";
 "settings.setting.choose_data_upload.health_worker_mode.message" = "Sigue el procedimiento para\ninformar tu positividad";
 "settings.setting.choose_data_upload.autonomous_mode.title" = "¿Tienes el codigo CUN?";
@@ -327,9 +327,9 @@
 "upload_data.code.message" = "Proporciona el código de un solo uso al profesional:";
 "upload_data.connection_error.action" = "Aceptar";
 "upload_data.connection_error.message" = "Se ha producido un error. Comprueba tu conexión a internet e inténtalo de nuevo.";
-"upload_data.unauthorized_cun.title" = "Ha habido un problema";
+"upload_data.unauthorized_cun.title" = "Atención";
 "upload_data.unauthorized_cun.message" = "CUN ya utilizado";
-"upload_data.error_cun.message" = "No se encontraron coincidencias. Verifique que CUN y los últimos 8 dígitos de la Tarjeta de Salud sean correctos.";
+"upload_data.error_cun.message" = "Atención. CUN invalido. Asegurate de haber introducido los últimos 8 caracteres del CUN que recibiste por SMS o en el informe asociado al resultado positivo";
 "upload_data.connection_error.title" = "Error de conexión";
 "upload_data.diagnosis_keys.overlay.hint" = "Selecciona «<b>Compartir</b>» en la ventana emergente que aparecerá a continuación";
 "upload_data.missing_authorization.close" = "Cerrar";
