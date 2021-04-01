@@ -172,12 +172,12 @@ extension Logic.DataUpload {
         } catch NetworkManager.Error.unauthorizedOTP {
           // User is not authorized. Bubble up the error to the calling ViewController
           try await(context.dispatch(Logic.Loading.Hide()))
-            try context.awaitDispatch(ShowCunErrorAlert(message: L10n.UploadData.ErrorCun.message))
+            try context.awaitDispatch(ShowCunErrorAlert(title: L10n.UploadData.VpnError.title, message: L10n.UploadData.ErrorCun.message))
           throw Error.verificationFailed
         } catch NetworkManager.Error.otpAlreadyAuthorized {
             // cun Already Authorized. Bubble up the error to the calling ViewController
             try await(context.dispatch(Logic.Loading.Hide()))
-            try context.awaitDispatch(ShowCunErrorAlert(message: L10n.UploadData.UnauthorizedCun.message))
+            try context.awaitDispatch(ShowCunErrorAlert(title: L10n.UploadData.UnauthorizedCun.title, message: L10n.UploadData.UnauthorizedCun.message))
               
             throw Error.verificationFailed
           } catch {
@@ -328,17 +328,17 @@ extension Logic.DataUpload {
     
   /// Shows the alert that error Cun
   struct ShowCunErrorAlert: AppSideEffect {
+    let title: String
     let message: String
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let model = Alert.Model(
-        title: L10n.UploadData.UnauthorizedCun.title,
+        title: title,
         message: message,
         preferredStyle: .alert,
         actions: [
           .init(title: L10n.UploadData.ApiError.action, style: .cancel),
           ]
         )
-
       try context.awaitDispatch(Logic.Alert.Show(alertModel: model))
       }
     }
