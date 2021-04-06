@@ -24,6 +24,7 @@ commands:
   build:
     description: Perform a build of the Immuni iOS application.
     steps:
+    
       - run:
           name: "[build] Compile and archive"
           command: |
@@ -240,6 +241,9 @@ commands:
   setup_ci:
     description: Configure the continuous integration.
     steps:
+      - run:
+          name: "[ci_setup] Update fastlane"
+          command: yes | sudo gem update fastlane
       - run:
           name: "[ci_setup] Configure Fastlane for CircleCI"
           command: |
