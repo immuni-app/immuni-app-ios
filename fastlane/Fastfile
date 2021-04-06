@@ -39,6 +39,7 @@ platform :ios do
   lane :upload_appstore do
     # Upload the binary to App Store Connect + TestFlight
     ENV['DELIVER_ITMSTRANSPORTER_ADDITIONAL_UPLOAD_PARAMETERS'] = '-t Aspera'
+    ENV['SPACESHIP_SKIP_2FA_UPGRADE'] = '1'
     pilot(
       ipa: 'Products/Immuni.ipa',
       skip_waiting_for_build_processing: true
