@@ -243,7 +243,7 @@ commands:
     steps:
       - run:
           name: "[ci_setup] Update fastlane"
-          command: yes | sudo gem update fastlane
+          command: yes | sudo gem update fastlane || true
       - run:
           name: "[ci_setup] Configure Fastlane for CircleCI"
           command: |
