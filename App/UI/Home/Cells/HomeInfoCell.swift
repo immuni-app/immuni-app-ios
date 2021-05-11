@@ -30,6 +30,8 @@ struct HomeInfoCellVM: ViewModel {
       return AnimationAsset.cardFlagEuropa.animation
     case .dataUpload:
       return AnimationAsset.cardDataUpload.animation
+    case .greenCertificate:
+      return AnimationAsset.cardFlagEuropa.animation
     }
   }
 
@@ -42,7 +44,9 @@ struct HomeInfoCellVM: ViewModel {
     case .updateCountry:
       return L10n.HomeView.Info.UpdateCountries.title
     case .dataUpload:
-        return L10n.Settings.Setting.loadData
+      return L10n.Settings.Setting.loadData
+    case .greenCertificate:
+      return "greenCertificate"
     }
   }
 
@@ -56,6 +60,8 @@ struct HomeInfoCellVM: ViewModel {
       return false
     case .dataUpload:
       return true
+    case .greenCertificate:
+      return false
     }
   }
 
@@ -68,6 +74,8 @@ struct HomeInfoCellVM: ViewModel {
     case .updateCountry:
       return .cardLightBlue
     case .dataUpload:
+      return .cardLightBlue
+    case .greenCertificate:
       return .cardLightBlue
     }
   }

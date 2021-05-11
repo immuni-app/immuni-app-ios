@@ -45,6 +45,7 @@ enum Screen: String, CaseIterable {
   case home
   case fixActiveService
   case suggestions
+  case greenCertificate
 
   // settings
   case settings
@@ -88,6 +89,9 @@ extension AppDelegate {
       mainViewController = OnboardingContainerNC(with: self.store, navigationContext: navigationContext)
     
     case .chooseDataUploadMode:
+      mainViewController = HomeNC(store: self.store)
+    
+    case .greenCertificate:
       mainViewController = HomeNC(store: self.store)
 
     default:
@@ -503,10 +507,14 @@ extension HomeNC: RoutableWithConfiguration {
       .show(Screen.chooseDataUploadMode): .push { _ in
           return ChooseDataUploadModeVC(store: self.store, localState: ChooseDataUploadModeLS())
         },
-        
+
+      .show(Screen.greenCertificate): .push { _ in
+        return GreenCertificateVC(store: self.store, localState: GreenCertificateLS())
+          },
       .hide(Screen.uploadData): .pop,
       .hide(Screen.chooseDataUploadMode): .pop,
       .hide(Screen.uploadDataAutonomous): .pop,
+      .hide(Screen.greenCertificate): .pop,
 
     ]
   }
@@ -535,6 +543,16 @@ extension UploadDataAutonomousVC: RoutableWithConfiguration {
 extension ChooseDataUploadModeVC: RoutableWithConfiguration {
   var routeIdentifier: RouteElementIdentifier {
     return Screen.chooseDataUploadMode.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [:]
+  }
+}
+
+extension GreenCertificateVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.greenCertificate.rawValue
   }
 
   var navigationConfiguration: [NavigationRequest: NavigationInstruction] {

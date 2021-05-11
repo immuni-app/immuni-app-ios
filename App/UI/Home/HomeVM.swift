@@ -28,6 +28,7 @@ struct HomeVM: ViewModelWithState {
     case app
     case updateCountry
     case dataUpload
+    case greenCertificate
   }
 
   enum CellType: Equatable {
@@ -85,6 +86,7 @@ extension HomeVM {
     var cells: [CellType] = [
       .serviceActiveCard(isServiceActive: isServiceActive),
       .infoHeader,
+      .info(kind: .greenCertificate),
       .info(kind: .dataUpload),
       .info(kind: .updateCountry),
       .info(kind: .app)

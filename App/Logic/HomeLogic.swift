@@ -148,6 +148,14 @@ extension Logic.Home {
       context.dispatch(Hide(Screen.fixActiveService, animated: true))
     }
   }
+    
+  /// Shows the Green Certificate screen
+  struct ShowGreenCertificate: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        try context.awaitDispatch(Show(Screen.greenCertificate, animated: true, context: GreenCertificateLS()))
+        }
+    }
+
 }
 
 // MARK: Helpers
