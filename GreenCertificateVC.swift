@@ -25,66 +25,54 @@ class GreenCertificateVC: ViewControllerWithLocalState<GreenCertificateView> {
         rootView.didTapBack = { [weak self] in
             self?.dispatch(Hide(Screen.greenCertificate, animated: true))
         }
-
-//        rootView.didTapVerifyCode = { [weak self] value in
-//
-//            guard let self = self, let asymptomaticCheckBox = value else {
-//                return
-//            }
-//            var message = ""
-//            let cun = self.validateCun(cun: self.localState.cun)
-//            if self.localState.cun == "" {
-//                message += L10n.Settings.Setting.LoadDataAutonomous.FormError.Cun.message
-//            } else if cun == nil {
-//                message += L10n.Settings.Setting.LoadDataAutonomous.FormError.Cun.Invalid.message
-//            }
-//            if !self.validateHealthCard(healthCard: self.localState.healtCard) {
-//                message += L10n.Settings.Setting.LoadDataAutonomous.FormError.HealtCard.message
-//            }
-//            if !self.validateSymptomsDate(date: self.localState.symptomsDate), asymptomaticCheckBox {
-//                message += L10n.Settings.Setting.LoadDataAutonomous.FormError.SymptomsDate.message
-//            }
-//            if message != "" {
-//                self.dispatch(Logic.DataUpload.ShowAutonomousUploadErrorAlert(message: message))
-//                return
-//            } else {
-//                self.verifyCun(cun: cun!, lastHisNumber: self.localState.healtCard, symptomsStartedOn: self.localState.symptomsDate)
-//            }
-//        }
-//
-//        rootView.didTapHealthWorkerMode = { [weak self] in
-//            self?.dispatch(Logic.Settings.ShowUploadData(callCenterMode: true))
-//        }
+        rootView.didSelectCell = { [unowned self] newTab in
+          self.handleTap(on: newTab)
+        }
 
         rootView.didTapDiscoverMore = { [weak self] in
             self?.dispatch(Logic.PermissionTutorial.ShowHowToUploadWhenPositiveAutonomous())
         }
-//        rootView.didChangeCunTextValue = { [weak self] value in
-//            self?.localState.cun = value
+
+    }
+    
+    func handleTap(on newTab: GreenCertificateVM.Tab) {
+      guard let oldTab = self.viewModel?.selectedTab else {
+        return
+      }
+
+      if oldTab != newTab {
+        self.changeTab(to: newTab)
+      } else {
+//        if let navigationController = self.vc[newTab] as? UINavigationController {
+//          navigationController.popViewController(animated: true)
 //        }
-//        rootView.didChangeHealthCardTextValue = { [weak self] value in
-//            self?.localState.healtCard = value
-//        }
-//        rootView.didChangeSymptomsDateValue = { [weak self] value in
-//            self?.localState.symptomsDate = value
-//        }
-//        rootView.didChangeCheckBoxValue = { [weak self] value in
-//            guard let value = value else { return }
+      }
+    }
+
+    func changeTab(to newTab: GreenCertificateVM.Tab) {
+      guard let oldTab = self.viewModel?.selectedTab,
+            oldTab != newTab
+      else {
+        return
+      }
+        self.viewModel?.selectedTab = newTab
+
+//      if let newVC = self.vc[newTab] {
+//        // remove the current child
+//        self.vc[oldTab]?.remove()
 //
-//            self?.localState.symptomsDate = ""
+//        let traitCollectionDidChange = self.traitCollection != newVC.traitCollection
+//        self.add(newVC, frame: self.rootView.frame)
+//        self.dispatch(Logic.Accessibility.PostNotification(notification: .screenChanged, argument: nil))
 //
-//            let asymptomaticConfirmBox = UIAlertController(
-//                title: L10n.Settings.Setting.LoadDataAutonomous.Asymptomatic.Alert.title,
-//                message: L10n.Settings.Setting.LoadDataAutonomous.Asymptomatic.Alert.message,
-//                preferredStyle: UIAlertController.Style.alert
-//            )
-//            asymptomaticConfirmBox.addAction(UIAlertAction(title: L10n.confirm, style: .default, handler: { (_: UIAlertAction!) in
-//                self?.localState.symptomsDateIsEnabled = value
-//                self?.localState.asymptomaticCheckBoxIsChecked = !value
-//            }))
-//            asymptomaticConfirmBox.addAction(UIAlertAction(title: L10n.cancel, style: .cancel))
-//            self?.present(asymptomaticConfirmBox, animated: true, completion: nil)
+//        if traitCollectionDidChange {
+//          // Post a `UIContentSizeCategory.didChangeNotification` to trigger the update for subviews that adopt the
+//          // `AdaptableTextContainer` protocol if trait collection did change.
+//          NotificationCenter.default.post(name: UIContentSizeCategory.didChangeNotification, object: nil)
 //        }
+//
+//        self.dispatch(Logic.Shared.UpdateSelectedTab(tab: newTab))
+//      }
     }
 
     private func validateCun(cun: String?) -> OTP? {

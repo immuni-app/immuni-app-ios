@@ -17,20 +17,63 @@ import Models
 import Tempura
 
 struct GreenCertificateVM: ViewModelWithLocalState {
-    var textFieldCunVM: TextFieldCunVM { TextFieldCunVM() }
-    var textFieldHealthCardVM: TextFieldHealthCardVM { TextFieldHealthCardVM() }
-    var pickerFieldSymptomsDateVM: PickerSymptomsDateVM = PickerSymptomsDateVM(isEnabled: true)
-    var asymptomaticCheckBoxVM: AsymptomaticCheckBoxVM = AsymptomaticCheckBoxVM(isSelected: false, isEnabled: true)
 
     /// True if it's not possible to execute a new request.
     let isLoading: Bool
+    
+    enum Tab: Int {
+      case active
+      case expired
+
+      var title: String {
+        switch self {
+        case .active:
+          return "Attivo"
+        case .expired:
+          return "Scaduti"
+        }
+      }
+    
+    }
+    /// The tabbar cells.
+    let tabs: [Tab]
+    /// The currently selected tab.
+    var selectedTab: Tab
+
+    var cellModels: [TabCellVM] {
+      return self.tabs.map { tab in
+        TabCellVM(tab: tab, isSelected: tab == self.selectedTab)
+      }
+    }
+
+    func needToReloadIndexPath(oldModel: GreenCertificateVM?) -> [IndexPath] {
+      guard let oldModel = oldModel,
+            oldModel.selectedTab != self.selectedTab
+      else {
+        return []
+      }
+
+      return [
+        self.tabs.firstIndex(of: oldModel.selectedTab).map { IndexPath(row: $0, section: 0) },
+        self.tabs.firstIndex(of: self.selectedTab).map { IndexPath(row: $0, section: 0) }
+      ]
+      .compactMap { $0 }
+    }
+
+    func shouldReloadWholeTabbar(oldModel: GreenCertificateVM?) -> Bool {
+      guard let oldModel = oldModel else {
+        return true
+      }
+
+      return self.tabs != oldModel.tabs
+    }
 }
 
 extension GreenCertificateVM {
     init?(state _: AppState?, localState: GreenCertificateLS) {
         isLoading = localState.isLoading
-        self.asymptomaticCheckBoxVM.isSelected = localState.asymptomaticCheckBoxIsChecked
-        self.pickerFieldSymptomsDateVM.isEnabled = localState.symptomsDateIsEnabled
+        self.tabs = [.active, .expired]
+        self.selectedTab = .active
     }
 }
 
@@ -41,9 +84,13 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
 
     private static let horizontalSpacing: CGFloat = 30.0
     static let orderLeftMargin: CGFloat = UIDevice.getByScreen(normal: 70, narrow: 50)
+    static let tabBarHeight: CGFloat = 69
 
     private let backgroundGradientView = GradientView()
     private let title = UILabel()
+    private let tempTitle = UILabel()
+    
+    
 
     private var backButton = ImageButton()
     let scrollView = UIScrollView()
@@ -51,6 +98,8 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
 
     private let containerQr = UIView()
     
+    private var showQr = true
+
     private var qrCode = UIImageView()
     let borderQrCode = UIView()
     let borderImageView = UIView()
@@ -58,7 +107,23 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
     
     var lineView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 1.0))
     
+    private lazy var collection: UICollectionView = {
+      let layout = UICollectionViewFlowLayout()
 
+      layout.scrollDirection = .horizontal
+
+      layout.minimumInteritemSpacing = 0
+      layout.minimumLineSpacing = 0
+
+      let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+      collection.delegate = self
+      collection.dataSource = self
+
+      collection.register(TabCell.self, forCellWithReuseIdentifier: TabCell.identifierForReuse)
+      return collection
+    }()
+    
+    var didSelectCell: ((GreenCertificateVM.Tab) -> Void)?
 
     var didTapBack: Interaction?
 //    var didTapVerifyCode: CustomInteraction<Bool?>?
@@ -76,6 +141,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         addSubview(containerQr)
 
         containerQr.addSubview(lineView)
+        containerQr.addSubview(collection)
         containerQr.addSubview(borderImageView)
         borderImageView.addSubview(borderQrCode)
         borderQrCode.addSubview(qrCode)
@@ -91,11 +157,14 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         addSubview(backgroundGradientView)
         addSubview(scrollView)
         addSubview(title)
+        addSubview(tempTitle)
         addSubview(backButton)
         scrollView.addSubview(actionButton)
         scrollView.addSubview(headerView)
 
         scrollView.addSubview(containerQr)
+        
+        self.collection.accessibilityTraits = .tabBar
 
         backButton.on(.touchUpInside) { [weak self] _ in
             self?.didTapBack?()
@@ -135,10 +204,12 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         Self.Style.background(self)
         Self.Style.backgroundGradient(backgroundGradientView)
         Self.Style.scrollView(scrollView)
-        Self.Style.title(title)
+        Self.Style.title(title, text: "Green certificato")
+        Self.Style.title(tempTitle, text: "Storico")
         Self.Style.container(containerQr)
         Self.Style.containerBorder(borderQrCode, color: Palette.white, radius: 10)
         Self.Style.containerBorder(borderImageView, color: Palette.purple, radius: 25)
+        Self.Style.collection(self.collection)
 
         
         lineView.layer.borderWidth = 1.0
@@ -155,12 +226,35 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
 
     // MARK: - Update
 
-    func update(oldModel _: VM?) {
+    func update(oldModel: VM?) {
         guard let model = self.model else {
             return
         }
-
+        if model.shouldReloadWholeTabbar(oldModel: oldModel) {
+          self.collection.reloadData()
+        }
+        
+        showQr = model.selectedTab == .active
+        if showQr {
+            addSubview(borderImageView)
+            tempTitle.removeFromSuperview()
+        }
+        else {
+            addSubview(tempTitle)
+            borderImageView.removeFromSuperview()
+            
+        }
+        
+        
+        for indexPath in model.needToReloadIndexPath(oldModel: oldModel) {
+          let tabCell = self.collection.cellForItem(at: indexPath) as? TabCell
+          tabCell?.model = self.model?.cellModels[indexPath.row]
+        }
+        setNeedsDisplay()
         setNeedsLayout()
+        
+//        layoutIfNeeded()
+
     }
 
     // MARK: - Layout
@@ -204,6 +298,13 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .height(420)
         
+        collection.pin
+          .marginTop(55)
+          .below(of: actionButton)
+            .width(self.bounds.width/1.2)
+          .hCenter()
+          .height(Self.tabBarHeight)
+        
         lineView.pin
           .below(of: headerView)
           .marginTop(160)
@@ -211,6 +312,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
           .width(containerQr.frame.width)
           .height(1)
         
+        if showQr {
         borderImageView.pin
           .below(of: headerView)
           .marginTop(220)
@@ -232,6 +334,14 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
           .hCenter()
           .width(200)
           .height(200)
+        }
+        else {
+            tempTitle.pin
+              .below(of: headerView)
+              .marginTop(220)
+              .horizontally(Self.horizontalSpacing + backButton.intrinsicContentSize.width + 5)
+              .sizeToFit(.width)
+        }
     
         scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: containerQr.frame.maxY)
     }
@@ -241,6 +351,17 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
 
 private extension GreenCertificateView {
     enum Style {
+        
+        static func collection(_ collectionView: UICollectionView) {
+          collectionView.backgroundColor = .clear
+          collectionView.isScrollEnabled = false
+          collectionView.bounces = false
+          guard let collectionViewLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+            return
+          }
+          collectionViewLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+          collectionViewLayout.minimumLineSpacing = 0
+        }
         
         static func generateButton(
           _ button: ButtonWithInsets,
@@ -269,7 +390,7 @@ private extension GreenCertificateView {
 
           if title != nil && icon != nil {
 //            button.titleEdgeInsets = .init(top: 0, left: insetAmount, bottom: 0, right: -insetAmount)
-            button.imageEdgeInsets = .init(top: 0, left: -spacing, bottom: 0, right: spacing)
+            button.imageEdgeInsets = .init(top: 0, left: -60, bottom: 0, right: 60)
           } else {
             button.titleEdgeInsets = insets
           }
@@ -303,11 +424,10 @@ private extension GreenCertificateView {
             scrollView.showsVerticalScrollIndicator = false
         }
 
-        static func title(_ label: UILabel) {
-            let content = "Green Certificate"
+        static func title(_ label: UILabel, text: String) {
             TempuraStyles.styleShrinkableLabel(
                 label,
-                content: content,
+                content: text,
                 style: TextStyles.navbarSmallTitle.byAdding(
                     .color(Palette.grayDark),
                     .alignment(.center)
@@ -377,4 +497,45 @@ private extension GreenCertificateView {
 //            imageView.layer.cornerRadius = imageView.bounds.width / 2
         }
     }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension GreenCertificateView: UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    guard let tab = self.model?.tabs[indexPath.row] else {
+      return
+    }
+
+    self.didSelectCell?(tab)
+  }
+
+  func collectionView(
+    _ collectionView: UICollectionView,
+    layout collectionViewLayout: UICollectionViewLayout,
+    sizeForItemAt indexPath: IndexPath
+  ) -> CGSize {
+    guard let model = self.model else { return .zero }
+
+    // compute the width of a single cell
+    let singleWidth: CGFloat = collectionView.bounds.width / CGFloat(model.tabs.count)
+    return CGSize(width: singleWidth, height: TabbarView.tabBarHeight)
+  }
+}
+
+extension GreenCertificateView: UICollectionViewDataSource {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return self.model?.tabs.count ?? 0
+  }
+
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TabCell.identifierForReuse, for: indexPath)
+
+    guard let typedCell = cell as? TabCell else {
+      AppLogger.fatalError("cell must conform to TabbarCell")
+    }
+
+    typedCell.model = self.model?.cellModels[indexPath.row]
+    return typedCell
+  }
 }
