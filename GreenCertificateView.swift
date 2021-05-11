@@ -53,9 +53,12 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
     
     private var qrCode = UIImageView()
     let borderQrCode = UIView()
+    let borderImageView = UIView()
+    private var actionButton = ButtonWithInsets()
+    
+    var lineView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 1.0))
+    
 
-
-//    private var actionButtonAutonomous = ButtonWithInsets()
 
     var didTapBack: Interaction?
 //    var didTapVerifyCode: CustomInteraction<Bool?>?
@@ -72,7 +75,9 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
     func setup() {
         addSubview(containerQr)
 
-        containerQr.addSubview(borderQrCode)
+        containerQr.addSubview(lineView)
+        containerQr.addSubview(borderImageView)
+        borderImageView.addSubview(borderQrCode)
         borderQrCode.addSubview(qrCode)
 //        containerQr.addSubview(qrCode)
 //        containerQr.addSubview()
@@ -82,11 +87,12 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
 //        containerQr.addSubview()
 //        containerQr.addSubview()
 
-
+        addSubview(actionButton)
         addSubview(backgroundGradientView)
         addSubview(scrollView)
         addSubview(title)
         addSubview(backButton)
+        scrollView.addSubview(actionButton)
         scrollView.addSubview(headerView)
 
         scrollView.addSubview(containerQr)
@@ -94,9 +100,9 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         backButton.on(.touchUpInside) { [weak self] _ in
             self?.didTapBack?()
            }
-//        actionButtonAutonomous.on(.touchUpInside) { [weak self] _ in
+        actionButton.on(.touchUpInside) { [weak self] _ in
 //            self?.didTapVerifyCode?(self?.pickerFieldSymptomsDate.model?.isEnabled)
-//           }
+           }
 //        actionButtonCallCenter.on(.touchUpInside) { [weak self] _ in
 //            self?.didTapHealthWorkerMode?()
 //           }
@@ -131,13 +137,17 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         Self.Style.scrollView(scrollView)
         Self.Style.title(title)
         Self.Style.container(containerQr)
-        Self.Style.containerBorder(borderQrCode)
+        Self.Style.containerBorder(borderQrCode, color: Palette.white, radius: 10)
+        Self.Style.containerBorder(borderImageView, color: Palette.purple, radius: 25)
 
+        
+        lineView.layer.borderWidth = 1.0
+        lineView.layer.borderColor = Palette.grayExtraWhite.cgColor
         
         let r = self.generateQRCode(from: "NCFOXN%TSMAHN-H5L486Q-LCBYUN+CWI47-5Y8EN6QBL53+LZEB$ZJ*DJH75*84T*K.UKO KKFRV4C%47DK4V:6S16S45B.3A9J.6ANEBWD1UCIC2K%4HCW4C 1A CWHC2.9G58QWGNO37QQG UZ$UBZP/BEMWIIOH%HMI*5O0I172Y5SX5Q.+HU1CQKQD1UACR96IDESM-FLX6WDDGAQZ1AUMJHE0ZKNL-K31J/7I*2VUWUE08NA9T141 LXRL QE4OB$DVX A/DSU0AM361309JLU1")
                
         Self.Style.imageContent(qrCode, image: r!)
-       
+        Self.Style.generateButton(actionButton, title: "Genera certificato", icon: UIImage(systemName: "qrcode.viewfinder"))
         SharedStyle.navigationBackButton(backButton)
 //        SharedStyle.primaryButton(actionButtonAutonomous, title: L10n.UploadData.Verify.button)
 //        SharedStyle.primaryButton(actionButtonCallCenter, title: L10n.UploadData.Verify.button)
@@ -181,22 +191,44 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             .sizeToFit(.width)
             .top(30)
         
+        actionButton.pin
+            .horizontally(45)
+            .sizeToFit(.width)
+            .minHeight(25)
+            .below(of: headerView)
+            .marginTop(20)
+        
         containerQr.pin
-          .below(of: headerView)
-          .marginTop(25)
+          .below(of: actionButton)
+          .marginTop(30)
           .horizontally(25)
           .height(420)
         
-        borderQrCode.pin
+        lineView.pin
           .below(of: headerView)
-          .marginTop(140)
+          .marginTop(160)
+          .hCenter()
+          .width(containerQr.frame.width)
+          .height(1)
+        
+        borderImageView.pin
+          .below(of: headerView)
+          .marginTop(220)
           .hCenter()
           .width(260)
           .height(260)
+
+        
+        borderQrCode.pin
+          .below(of: headerView)
+          .marginTop(240)
+          .hCenter()
+          .width(220)
+          .height(220)
         
         qrCode.pin
           .below(of: headerView)
-          .marginTop(170)
+          .marginTop(250)
           .hCenter()
           .width(200)
           .height(200)
@@ -210,15 +242,48 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
 private extension GreenCertificateView {
     enum Style {
         
+        static func generateButton(
+          _ button: ButtonWithInsets,
+          title: String?,
+          icon: UIImage? = nil,
+          spacing: CGFloat = 15,
+          tintColor: UIColor = Palette.white,
+          backgroundColor: UIColor = Palette.primary,
+          insets: UIEdgeInsets = .primaryButtonInsets,
+          cornerRadius: CGFloat = 28,
+          shadow: UIView.Shadow = .cardPrimary
+        ) {
+          let textStyle = TextStyles.pSemibold.byAdding([
+            .color(tintColor),
+            .alignment(.center)
+          ])
+
+          button.setBackgroundColor(backgroundColor, for: .normal)
+          button.setAttributedTitle(title?.styled(with: textStyle), for: .normal)
+          button.setImage(icon, for: .normal)
+          button.tintColor = tintColor
+          button.insets = insets
+          button.layer.cornerRadius = cornerRadius
+          button.titleLabel?.numberOfLines = 0
+          button.addShadow(shadow)
+
+          if title != nil && icon != nil {
+//            button.titleEdgeInsets = .init(top: 0, left: insetAmount, bottom: 0, right: -insetAmount)
+            button.imageEdgeInsets = .init(top: 0, left: -spacing, bottom: 0, right: spacing)
+          } else {
+            button.titleEdgeInsets = insets
+          }
+        }
+        
         static func container(_ view: UIView) {
           view.backgroundColor = Palette.white
           view.layer.cornerRadius = SharedStyle.cardCornerRadius
           view.addShadow(.cardLightBlue)
         }
         
-        static func containerBorder(_ view: UIView) {
-          view.backgroundColor = Palette.purple
-          view.layer.cornerRadius = SharedStyle.cardCornerRadius
+        static func containerBorder(_ view: UIView, color: UIColor, radius: CGFloat) {
+          view.backgroundColor = color
+          view.layer.cornerRadius = radius
           view.addShadow(.cardLightBlue)
         }
         
@@ -301,6 +366,7 @@ private extension GreenCertificateView {
                 style: textStyle
             )
         }
+        
         static func imageContent(_ imageView: UIImageView, image: UIImage) {
             imageView.image = image
             imageView.contentMode = .scaleAspectFit
