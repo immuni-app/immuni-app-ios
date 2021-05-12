@@ -96,15 +96,16 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
     let scrollView = UIScrollView()
     private let headerView = GreenCertificateHeaderView()
 
-    private let containerQr = UIView()
+    private let container = UIView()
     
     private var showQr = true
 
     private var qrCode = UIImageView()
-    let borderQrCode = UIView()
-    let borderImageView = UIView()
+    let containerQrCode = UIView()
     private var actionButton = ButtonWithInsets()
-    
+    private var activeButton = ButtonWithInsets()
+    private var expiredButton = ButtonWithInsets()
+
     var lineView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 1.0))
     
     private lazy var collection: UICollectionView = {
@@ -129,6 +130,8 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
 //    var didTapVerifyCode: CustomInteraction<Bool?>?
 //    var didTapHealthWorkerMode: Interaction?
     var didTapDiscoverMore: Interaction?
+    var didTapActiveButton: Interaction?
+    var didTapExpiredButton: Interaction?
 
 //    var didChangeCunTextValue: CustomInteraction<String>?
 //    var didChangeHealthCardTextValue: CustomInteraction<String>?
@@ -138,32 +141,29 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
     // MARK: - Setup
 
     func setup() {
-        addSubview(containerQr)
+        addSubview(container)
 
-        containerQr.addSubview(lineView)
-        containerQr.addSubview(collection)
-        containerQr.addSubview(borderImageView)
-        borderImageView.addSubview(borderQrCode)
-        borderQrCode.addSubview(qrCode)
-//        containerQr.addSubview(qrCode)
-//        containerQr.addSubview()
-//        containerQr.addSubview()
-//        containerQr.addSubview()
-//        containerQr.addSubview()
-//        containerQr.addSubview()
-//        containerQr.addSubview()
+        container.addSubview(lineView)
+        container.addSubview(activeButton)
+        container.addSubview(expiredButton)
+        container.addSubview(containerQrCode)
+        container.addSubview(tempTitle)
+        containerQrCode.addSubview(qrCode)
 
         addSubview(actionButton)
         addSubview(backgroundGradientView)
         addSubview(scrollView)
         addSubview(title)
-        addSubview(tempTitle)
+//        addSubview(tempTitle)
         addSubview(backButton)
         scrollView.addSubview(actionButton)
         scrollView.addSubview(headerView)
+//        scrollView.addSubview(containerQrCode)
+//        scrollView.addSubview(qrCode)
 
-        scrollView.addSubview(containerQr)
-        
+        scrollView.addSubview(container)
+        scrollView.addSubview(tempTitle)
+
         self.collection.accessibilityTraits = .tabBar
 
         backButton.on(.touchUpInside) { [weak self] _ in
@@ -172,9 +172,13 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         actionButton.on(.touchUpInside) { [weak self] _ in
 //            self?.didTapVerifyCode?(self?.pickerFieldSymptomsDate.model?.isEnabled)
            }
-//        actionButtonCallCenter.on(.touchUpInside) { [weak self] _ in
-//            self?.didTapHealthWorkerMode?()
-//           }
+        activeButton.on(.touchUpInside) { [weak self] _ in
+            self?.didTapActiveButton?()
+           }
+        expiredButton.on(.touchUpInside) { [weak self] _ in
+            self?.didTapExpiredButton?()
+           }
+
         headerView.didTapDiscoverMore = { [weak self] in
             self?.didTapDiscoverMore?()
            }
@@ -206,9 +210,8 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         Self.Style.scrollView(scrollView)
         Self.Style.title(title, text: "Green certificato")
         Self.Style.title(tempTitle, text: "Storico")
-        Self.Style.container(containerQr)
-        Self.Style.containerBorder(borderQrCode, color: Palette.white, radius: 10)
-        Self.Style.containerBorder(borderImageView, color: Palette.purple, radius: 25)
+        Self.Style.container(container)
+        Self.Style.containerQrCode(containerQrCode, color: Palette.white, radius: 10)
         Self.Style.collection(self.collection)
 
         
@@ -218,9 +221,13 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         let r = self.generateQRCode(from: "NCFOXN%TSMAHN-H5L486Q-LCBYUN+CWI47-5Y8EN6QBL53+LZEB$ZJ*DJH75*84T*K.UKO KKFRV4C%47DK4V:6S16S45B.3A9J.6ANEBWD1UCIC2K%4HCW4C 1A CWHC2.9G58QWGNO37QQG UZ$UBZP/BEMWIIOH%HMI*5O0I172Y5SX5Q.+HU1CQKQD1UACR96IDESM-FLX6WDDGAQZ1AUMJHE0ZKNL-K31J/7I*2VUWUE08NA9T141 LXRL QE4OB$DVX A/DSU0AM361309JLU1")
                
         Self.Style.imageContent(qrCode, image: r!)
-        Self.Style.generateButton(actionButton, title: "Genera certificato", icon: UIImage(systemName: "qrcode.viewfinder"))
+        Self.Style.generateButton(actionButton, title: "Recupera Digital Green Certificate", icon: UIImage(systemName: "qrcode.viewfinder"))
+        
+        Self.Style.menuButton(activeButton, title: "Attivo", tintColor: Palette.purple)
+        Self.Style.menuButton(expiredButton, title: "Scaduti", tintColor: Palette.grayPurple)
+
         SharedStyle.navigationBackButton(backButton)
-//        SharedStyle.primaryButton(actionButtonAutonomous, title: L10n.UploadData.Verify.button)
+        //        SharedStyle.primaryButton(actionButtonAutonomous, title: L10n.UploadData.Verify.button)
 //        SharedStyle.primaryButton(actionButtonCallCenter, title: L10n.UploadData.Verify.button)
     }
 
@@ -236,14 +243,17 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         
         showQr = model.selectedTab == .active
         if showQr {
-            addSubview(borderImageView)
+            addSubview(containerQrCode)
+            scrollView.addSubview(containerQrCode)
             tempTitle.removeFromSuperview()
         }
         else {
             addSubview(tempTitle)
-            borderImageView.removeFromSuperview()
-            
+            scrollView.addSubview(tempTitle)
+            containerQrCode.removeFromSuperview()
         }
+        Self.Style.menuButton(activeButton, title: "Attivo", tintColor: model.selectedTab == .active ? Palette.purple : Palette.grayPurple)
+        Self.Style.menuButton(expiredButton, title: "Scaduti", tintColor: model.selectedTab == .active ? Palette.grayPurple : Palette.purple)
         
         
         for indexPath in model.needToReloadIndexPath(oldModel: oldModel) {
@@ -290,50 +300,57 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             .sizeToFit(.width)
             .minHeight(25)
             .below(of: headerView)
-            .marginTop(20)
+            .marginTop(10)
         
-        containerQr.pin
+        container.pin
           .below(of: actionButton)
-          .marginTop(30)
+          .marginTop(20)
           .horizontally(25)
-          .height(420)
+          .height(370)
         
-        collection.pin
-          .marginTop(55)
+        activeButton.pin
+          .minHeight(25)
+          .marginTop(40)
           .below(of: actionButton)
-            .width(self.bounds.width/1.2)
-          .hCenter()
-          .height(Self.tabBarHeight)
+          .left(30)
+          .width(container.frame.width/3)
+        
+        expiredButton.pin
+            .minHeight(25)
+            .marginTop(40)
+            .below(of: actionButton)
+            .right(30)
+            .width(container.frame.width/3)
+
+//        collection.pin
+//          .marginTop(55)
+//          .below(of: actionButton)
+//            .width(self.bounds.width/1.2)
+//          .hCenter()
+//          .height(Self.tabBarHeight)
         
         lineView.pin
           .below(of: headerView)
-          .marginTop(160)
+          .marginTop(140)
           .hCenter()
-          .width(containerQr.frame.width)
+          .width(container.frame.width)
           .height(1)
         
         if showQr {
-        borderImageView.pin
-          .below(of: headerView)
-          .marginTop(220)
-          .hCenter()
-          .width(260)
-          .height(260)
-
         
-        borderQrCode.pin
+        containerQrCode.pin
           .below(of: headerView)
-          .marginTop(240)
+          .marginTop(180)
           .hCenter()
-          .width(220)
-          .height(220)
+          .width(240)
+          .height(240)
         
         qrCode.pin
           .below(of: headerView)
-          .marginTop(250)
+          .marginTop(190)
           .hCenter()
-          .width(200)
-          .height(200)
+          .width(220)
+          .height(220)
         }
         else {
             tempTitle.pin
@@ -343,7 +360,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
               .sizeToFit(.width)
         }
     
-        scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: containerQr.frame.maxY)
+        scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: container.frame.maxY)
     }
 }
 
@@ -361,6 +378,33 @@ private extension GreenCertificateView {
           }
           collectionViewLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
           collectionViewLayout.minimumLineSpacing = 0
+        }
+        
+        static func menuButton(
+          _ button: ButtonWithInsets,
+          title: String?,
+          spacing: CGFloat = 15,
+          tintColor: UIColor = Palette.white,
+          backgroundColor: UIColor = Palette.primary,
+          insets: UIEdgeInsets = .primaryButtonInsets,
+          cornerRadius: CGFloat = 28,
+          shadow: UIView.Shadow = .cardPrimary
+        ) {
+          let textStyle = TextStyles.pSemibold.byAdding([
+            .color(tintColor),
+            .alignment(.center)
+          ])
+
+//          button.setBackgroundColor(backgroundColor, for: .normal)
+          button.setAttributedTitle(title?.styled(with: textStyle), for: .normal)
+          button.tintColor = tintColor
+          button.insets = insets
+//          button.layer.cornerRadius = cornerRadius
+          button.titleLabel?.numberOfLines = 0
+          button.addShadow(shadow)
+         
+          button.titleEdgeInsets = insets
+          
         }
         
         static func generateButton(
@@ -390,7 +434,7 @@ private extension GreenCertificateView {
 
           if title != nil && icon != nil {
 //            button.titleEdgeInsets = .init(top: 0, left: insetAmount, bottom: 0, right: -insetAmount)
-            button.imageEdgeInsets = .init(top: 0, left: -60, bottom: 0, right: 60)
+            button.imageEdgeInsets = .init(top: 0, left: -20, bottom: 0, right: 20)
           } else {
             button.titleEdgeInsets = insets
           }
@@ -402,7 +446,7 @@ private extension GreenCertificateView {
           view.addShadow(.cardLightBlue)
         }
         
-        static func containerBorder(_ view: UIView, color: UIColor, radius: CGFloat) {
+        static func containerQrCode(_ view: UIView, color: UIColor, radius: CGFloat) {
           view.backgroundColor = color
           view.layer.cornerRadius = radius
           view.addShadow(.cardLightBlue)

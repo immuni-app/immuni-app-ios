@@ -32,6 +32,12 @@ class GreenCertificateVC: ViewControllerWithLocalState<GreenCertificateView> {
         rootView.didTapDiscoverMore = { [weak self] in
             self?.dispatch(Logic.PermissionTutorial.ShowHowToUploadWhenPositiveAutonomous())
         }
+        rootView.didTapActiveButton = { [weak self] in
+            self?.handleTap(on: .active)
+        }
+        rootView.didTapExpiredButton = { [weak self] in
+            self?.handleTap(on: .expired)
+        }
 
     }
     
