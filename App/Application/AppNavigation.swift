@@ -46,6 +46,7 @@ enum Screen: String, CaseIterable {
   case fixActiveService
   case suggestions
   case greenCertificate
+  case retriveGreenCertificate
 
   // settings
   case settings
@@ -377,6 +378,11 @@ extension HomeVC: RoutableWithConfiguration {
 
         return FixActiveService(with: self.store, navigationContext: navigationContext)
       },
+      .show(Screen.confirmation): .presentModally { context in
+        let localState = context as? ConfirmationLS ?? AppLogger.fatalError("Invalid context")
+        return ConfirmationVC(store: self.store, localState: localState)
+      },
+
 
       .hide(Screen.fixActiveService): .dismissModally(behaviour: .hard)
     ]
@@ -511,10 +517,14 @@ extension HomeNC: RoutableWithConfiguration {
       .show(Screen.greenCertificate): .push { _ in
         return GreenCertificateVC(store: self.store, localState: GreenCertificateLS())
           },
+      .show(Screen.retriveGreenCertificate): .push { _ in
+        return RetriveGreenCertificateVC(store: self.store, localState: RetriveGreenCertificateLS())
+          },
       .hide(Screen.uploadData): .pop,
       .hide(Screen.chooseDataUploadMode): .pop,
       .hide(Screen.uploadDataAutonomous): .pop,
       .hide(Screen.greenCertificate): .pop,
+      .hide(Screen.retriveGreenCertificate): .pop,
 
     ]
   }
@@ -553,6 +563,15 @@ extension ChooseDataUploadModeVC: RoutableWithConfiguration {
 extension GreenCertificateVC: RoutableWithConfiguration {
   var routeIdentifier: RouteElementIdentifier {
     return Screen.greenCertificate.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [:]
+  }
+}
+extension RetriveGreenCertificateVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.retriveGreenCertificate.rawValue
   }
 
   var navigationConfiguration: [NavigationRequest: NavigationInstruction] {

@@ -56,6 +56,14 @@ extension Logic.CovidStatus {
     Logic.CovidStatus.RiskNotificationID.contactReminder.rawValue,
     Logic.CovidStatus.PositiveNotificationID.updateStatus.rawValue
   ]
+  /// Updates the user Green Certificate
+  struct UpdateGreenCertificate: AppStateUpdater {
+    let newGreenCertificate: String?
+
+    func updateState(_ state: inout AppState) {
+    state.user.greenCertificate = self.newGreenCertificate
+    }
+  }
 }
 
 // MARK: Neutral Logic

@@ -25,4 +25,7 @@ struct UserState: Codable {
 
   /// The current user's covid status
   var covidStatus: CovidStatus = .neutral
+    
+  /// The Digital Green Certificate
+  var greenCertificate: String?
 }

@@ -1,4 +1,4 @@
-// PickerSymptomsDate.swift
+// PickerHealthCardDate.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -15,10 +15,10 @@
 import Tempura
 import UIKit
 
-public struct PickerSymptomsDateVM: ViewModel {
+public struct PickerHealthCardDateVM: ViewModel {
     var isEnabled: Bool
 }
-open class PickerSymptomsDate: UIView, ModellableView {
+open class PickerHealthCardDate: UIView, ModellableView {
     override public init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -74,7 +74,7 @@ open class PickerSymptomsDate: UIView, ModellableView {
         Self.Style.container(container)
     }
 
-    public func update(oldModel _: PickerSymptomsDateVM?) {
+    public func update(oldModel _: PickerHealthCardDateVM?) {
         guard let model = model else {
             return
         }
@@ -118,7 +118,7 @@ open class PickerSymptomsDate: UIView, ModellableView {
 
 // MARK: - Style
 
-extension PickerSymptomsDate {
+extension PickerHealthCardDate {
     enum Style {
         static func container(_ view: UIView) {
             view.backgroundColor = Palette.white
@@ -155,7 +155,7 @@ extension PickerSymptomsDate {
             textfield.typingAttributes = textStyle.attributes
             textfield.defaultTextAttributes = textStyle.attributes
 
-            let placeholder = NSAttributedString(string: L10n.Settings.Setting.LoadDataAutonomous.SymptomsDate.placeholder)
+            let placeholder = NSAttributedString(string: "Data scadenza Tessera Sanitaria")
             textfield.attributedPlaceholder = placeholder.styled(with: placeholderStyle)
         }
     }
@@ -163,7 +163,7 @@ extension PickerSymptomsDate {
 
 // MARK: - Delegate
 
-extension PickerSymptomsDate: UITextFieldDelegate {
+extension PickerHealthCardDate: UITextFieldDelegate {
     public func textFieldDidBeginEditing(_: UITextField) {
         onFocus = true
     }
@@ -208,8 +208,8 @@ private extension UITextField {
         }
         datePicker.backgroundColor = .white
 
-        datePicker.minimumDate = Calendar.current.date(byAdding: .day, value: -13, to: Date())
-        datePicker.maximumDate = Calendar.current.date(byAdding: .day, value: 0, to: Date())
+//        datePicker.minimumDate = Calendar.current.date(byAdding: .day, value: -13, to: Date())
+//        datePicker.maximumDate = Calendar.current.date(byAdding: .day, value: 0, to: Date())
 
         inputView = datePicker
         // Create a toolbar and assign it to inputAccessoryView

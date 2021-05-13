@@ -142,6 +142,61 @@ extension Logic.DataUpload {
       try context.awaitDispatch(ShowConfirmData(code: self.code))
     }
   }
+    /// Performs the validation of the provided OTP
+    struct VerifyCodeGreenCertificate: AppSideEffect {
+      let code: OTP
+      let lastHisNumber: String
+      let healthCardDate: String
+
+      enum Error: Swift.Error {
+        case verificationFailed
+      }
+
+      func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        var state = context.getState()
+        try context.awaitDispatch(Logic.Loading.Show(message: L10n.UploadData.Verify.loading))
+
+//        do {
+//          try context.awaitDispatch(AssertExposureNotificationPermissionGranted())
+//        } catch {
+//            try context.awaitDispatch(Logic.Loading.Hide())
+//            try context.awaitDispatch(ShowMissingAuthorizationAlert())
+//            return
+//          }
+
+//        do {
+//          // Send the request
+//          let requestSize = state.configuration.ingestionRequestTargetSize
+//          try await(context.dependencies.networkManager.validateCUN(self.code, lastHisNumber: self.lastHisNumber, symptomsStartedOn: self.healthCardDate, requestSize: requestSize))
+//          } catch NetworkManager.Error.unauthorizedOTP {
+//            // User is not authorized. Bubble up the error to the calling ViewController
+//            try await(context.dispatch(Logic.Loading.Hide()))
+//              try context.awaitDispatch(ShowCunErrorAlert(title: L10n.UploadData.VpnError.title, message: L10n.UploadData.ErrorCun.message))
+//            throw Error.verificationFailed
+//          } catch NetworkManager.Error.otpAlreadyAuthorized {
+//              // cun Already Authorized. Bubble up the error to the calling ViewController
+//              try await(context.dispatch(Logic.Loading.Hide()))
+//              try context.awaitDispatch(ShowCunErrorAlert(title: L10n.UploadData.UnauthorizedCun.title, message: L10n.UploadData.UnauthorizedCun.message))
+//
+//              throw Error.verificationFailed
+//            } catch {
+//            try await(context.dispatch(Logic.Loading.Hide()))
+//            try context.awaitDispatch(ShowErrorAlert(error: error, retryDispatchable: self))
+//            return
+//          }
+          try await(context.dispatch(Logic.Loading.Hide()))
+//          try context.awaitDispatch(ShowConfirmData(code: self.code))
+        let dgc = "NCFOXN%TSMAHN-H5L486Q-LCBYUN+CWI47-5Y8EN6QBL53+LZEB$ZJ*DJH75*84T*K.UKO KKFRV4C%47DK4V:6S16S45B.3A9J.6ANEBWD1UCIC2K%4HCW4C 1A CWHC2.9G58QWGNO37QQG UZ$UBZP/BEMWIIOH%HMI*5O0I172Y5SX5Q.+HU1CQKQD1UACR96IDESM-FLX6WDDGAQZ1AUMJHE0ZKNL-K31J/7I*2VUWUE08NA9T141 LXRL QE4OB$DVX A/DSU0AM361309JLU1"
+        try context.awaitDispatch(Logic.CovidStatus.UpdateGreenCertificate(newGreenCertificate: dgc))
+
+        try context.awaitDispatch(Show(Screen.confirmation, animated: true, context: ConfirmationLS.retriveGreenCertificateCompleted))
+        try await(Promise<Void>(resolved: ()).defer(3))
+
+        try context.awaitDispatch(Hide(Screen.confirmation, animated: true))
+        try context.awaitDispatch(Hide(Screen.retriveGreenCertificate, animated: true))
+//        try context.awaitDispatch(Hide(Screen.uploadData, animated: true))
+        }
+      }
    
   /// Performs the validation of the provided OTP
   struct VerifyCun: AppSideEffect {

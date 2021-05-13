@@ -46,7 +46,7 @@ struct HomeInfoCellVM: ViewModel {
     case .dataUpload:
       return L10n.Settings.Setting.loadData
     case .greenCertificate:
-      return "greenCertificate"
+      return "Digital Green Certificate"
     }
   }
 

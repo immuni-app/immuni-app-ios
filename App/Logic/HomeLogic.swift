@@ -152,9 +152,21 @@ extension Logic.Home {
   /// Shows the Green Certificate screen
   struct ShowGreenCertificate: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-        try context.awaitDispatch(Show(Screen.greenCertificate, animated: true, context: GreenCertificateLS()))
+        
+        try context.awaitDispatch(Show(Screen.greenCertificate, animated: true, context: GreenCertificateLS(greenCertificate: context.getState().user.greenCertificate)))
         }
     }
+  /// Shows the  ShowRetriveGreenCertificateVC screen
+  struct ShowRetriveGreenCertificate: AppSideEffect {
+      
+      func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+//          try context.awaitDispatch(RefreshOTP())
+
+//          try context.awaitDispatch(Logic.DataUpload.SetDummyTrafficSequenceCancelled(value: true))
+          
+          try context.awaitDispatch(Show(Screen.retriveGreenCertificate, animated: true, context: RetriveGreenCertificateLS()))
+            }
+        }
 
 }
 
