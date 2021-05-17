@@ -80,7 +80,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
     var didTapBack: Interaction?
 
     var didTapDiscoverMore: Interaction?
-    var didTapGenerate: Interaction?
+    var didTapRetriveGreenCertificate: Interaction?
 
 
     // MARK: - Setup
@@ -106,7 +106,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             self?.didTapBack?()
            }
         actionButton.on(.touchUpInside) { [weak self] _ in
-            self?.didTapGenerate?()
+            self?.didTapRetriveGreenCertificate?()
            }
 
        }
@@ -135,7 +135,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         Self.Style.background(self)
         Self.Style.backgroundGradient(backgroundGradientView)
         Self.Style.scrollView(scrollView)
-        Self.Style.title(title, text: "Green certificato")
+        Self.Style.title(title, text: "Green certificate")
         Self.Style.inactiveLabel(inactiveLabel, text: "Nessun certificato attivo")
         Self.Style.container(container)
         
@@ -155,6 +155,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         }
 
         if let greenCertificate = model.greenCertificate {
+          showQr = true
           let qr = self.generateQRCode(from: greenCertificate)
           Self.Style.imageContent(qrCode, image: qr!)
           addSubview(qrCode)
@@ -163,24 +164,12 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
           Self.Style.stateLabel(stateLabel,text: "Attivo", color: Palette.purple)
         }
         else{
+          showQr = false
           addSubview(inactiveLabel)
           scrollView.addSubview(inactiveLabel)
           qrCode.removeFromSuperview()
           Self.Style.stateLabel(stateLabel,text: "Non attivo", color: Palette.grayPurple)
         }
-        
-//        showQr = model.status == .active
-//        if showQr {
-//            addSubview(qrCode)
-//            scrollView.addSubview(qrCode)
-//            inactiveLabel.removeFromSuperview()
-//        }
-//        else {
-//            addSubview(inactiveLabel)
-//            scrollView.addSubview(inactiveLabel)
-//            qrCode.removeFromSuperview()
-//        }
-        Self.Style.stateLabel(stateLabel,text: model.status == .active ? "Attivo" : "Non attivo", color: model.status == .active ? Palette.purple : Palette.grayPurple)
         
         setNeedsLayout()
     }

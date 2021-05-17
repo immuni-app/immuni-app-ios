@@ -53,10 +53,6 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
 //            }
         }
 
-        rootView.didTapHealthWorkerMode = { [weak self] in
-            self?.dispatch(Logic.Settings.ShowUploadData(callCenterMode: true))
-        }
-
         rootView.didTapDiscoverMore = { [weak self] in
             self?.dispatch(Logic.PermissionTutorial.ShowHowToUploadWhenPositiveAutonomous())
         }
@@ -66,23 +62,8 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
         rootView.didChangeHealthCardTextValue = { [weak self] value in
             self?.localState.healtCard = value
         }
-        rootView.didChangeSymptomsDateValue = { [weak self] value in
+        rootView.didChangeDateValue = { [weak self] value in
             self?.localState.healtCardsDate = value
-        }
-        rootView.didChangeCheckBoxValue = { [weak self] value in
-            guard let value = value else { return }
-
-            self?.localState.healtCardsDate = ""
-            
-            let asymptomaticConfirmBox = UIAlertController(
-                title: L10n.Settings.Setting.LoadDataAutonomous.Asymptomatic.Alert.title,
-                message: L10n.Settings.Setting.LoadDataAutonomous.Asymptomatic.Alert.message,
-                preferredStyle: UIAlertController.Style.alert
-            )
-            asymptomaticConfirmBox.addAction(UIAlertAction(title: L10n.confirm, style: .default, handler: { (_: UIAlertAction!) in
-            }))
-            asymptomaticConfirmBox.addAction(UIAlertAction(title: L10n.cancel, style: .cancel))
-            self?.present(asymptomaticConfirmBox, animated: true, completion: nil)
         }
     }
 

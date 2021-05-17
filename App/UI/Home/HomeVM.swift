@@ -26,16 +26,20 @@ struct HomeVM: ViewModelWithState {
   enum InfoKind: Equatable {
     case protection
     case app
+  }
+  enum DoTodayKind: Equatable {
     case updateCountry
     case dataUpload
     case greenCertificate
-  }
+    }
 
   enum CellType: Equatable {
     case header(kind: HeaderKind)
     case serviceActiveCard(isServiceActive: Bool)
     case infoHeader
+    case doTodayHeader
     case info(kind: InfoKind)
+    case doToday(kind: DoTodayKind)
     case deactivateButton(isEnabled: Bool)
   }
 
@@ -73,6 +77,10 @@ struct HomeVM: ViewModelWithState {
       return HomeInfoCellVM(kind: kind)
     case .deactivateButton(let isEnabled):
       return HomeDeactivateServiceCellVM(isEnabled: isEnabled)
+    case .doTodayHeader:
+        return HomeDoTodayHeaderCellVM()
+    case .doToday(kind: let kind):
+        return HomeDoTodayCellVM(kind: kind)
     }
   }
 }
@@ -85,10 +93,11 @@ extension HomeVM {
   init(isServiceActive: Bool, covidStatus: CovidStatus) {
     var cells: [CellType] = [
       .serviceActiveCard(isServiceActive: isServiceActive),
+      .doTodayHeader,
+      .doToday(kind: .greenCertificate),
+      .doToday(kind: .dataUpload),
+      .doToday(kind: .updateCountry),
       .infoHeader,
-      .info(kind: .greenCertificate),
-      .info(kind: .dataUpload),
-      .info(kind: .updateCountry),
       .info(kind: .app)
     ]
 

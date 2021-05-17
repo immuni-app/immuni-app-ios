@@ -26,6 +26,7 @@ class HomeView: UIView, ViewControllerModellableView {
 
   var didTapActivateService: Interaction?
   var didTapInfo: CustomInteraction<HomeVM.InfoKind>?
+  var didTapDoToday: CustomInteraction<HomeVM.DoTodayKind>?
   var didTapHeaderCardInfo: Interaction?
   var didTapDeactivateService: Interaction?
   var didTapActiveServiceDiscoverMore: Interaction?
@@ -38,8 +39,10 @@ class HomeView: UIView, ViewControllerModellableView {
     self.collection.register(HomeHeaderCardCell.self)
     self.collection.register(HomeServiceActiveCell.self)
     self.collection.register(HomeInfoHeaderCell.self)
+    self.collection.register(HomeDoTodayHeaderCell.self)
     self.collection.register(HomeInfoCell.self)
     self.collection.register(HomeDeactivateServiceCell.self)
+    self.collection.register(HomeDoTodayCell.self)
 
     self.collection.delegate = self
     self.collection.dataSource = self
@@ -183,6 +186,22 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
         self?.didTapDeactivateService?()
       }
       return cell
+        
+    case .doTodayHeader:
+      let cell = collectionView.dequeueReusableCell(HomeDoTodayHeaderCell.self, for: indexPath)
+      cell.model = cellModel as? HomeDoTodayHeaderCellVM
+      return cell
+        
+    case .doToday:
+        let cell = collectionView.dequeueReusableCell(HomeDoTodayCell.self, for: indexPath)
+        cell.model = cellModel as? HomeDoTodayCellVM
+        cell.didTapAction = { [weak self] in
+          guard let todoKind = cell.model?.kind else {
+            return
+          }
+          self?.didTapDoToday?(todoKind)
+        }
+        return cell
     }
   }
 
@@ -214,6 +233,14 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
         return
       }
       self.didTapDeactivateService?()
+        
+    case .doTodayHeader:
+        return
+    case .doToday:
+      guard let cellModel = self.model?.cellModel(for: indexPath) as? HomeDoTodayCellVM else {
+        return
+      }
+      self.didTapDoToday?(cellModel.kind)
     }
   }
 }

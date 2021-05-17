@@ -1,4 +1,4 @@
-// HomeInfoCell.swift
+// HomeDoTodayCell.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -17,48 +17,56 @@ import Foundation
 import Lottie
 import Tempura
 
-struct HomeInfoCellVM: ViewModel {
-  let kind: HomeVM.InfoKind
+struct HomeDoTodayCellVM: ViewModel {
+  let kind: HomeVM.DoTodayKind
 
   var animation: Animation? {
     switch self.kind {
-    case .protection:
-      return AnimationAsset.cardDoctor.animation
-    case .app:
-      return AnimationAsset.cardPerson.animation
+    case .updateCountry:
+      return AnimationAsset.cardFlagEuropa.animation
+    case .dataUpload:
+      return AnimationAsset.cardDataUpload.animation
+    case .greenCertificate:
+      return AnimationAsset.cardFlagEuropa.animation
     }
   }
 
   var title: String {
     switch self.kind {
-    case .protection:
-      return L10n.HomeView.Info.Protection.title
-    case .app:
-      return L10n.HomeView.Info.App.title
+    case .updateCountry:
+      return L10n.HomeView.Info.UpdateCountries.title
+    case .dataUpload:
+      return L10n.Settings.Setting.loadData
+    case .greenCertificate:
+      return "Recupera Digital Green Certificate"
     }
   }
 
   var lightContent: Bool {
     switch self.kind {
-    case .protection:
+    case .updateCountry:
       return false
-    case .app:
+    case .dataUpload:
       return true
+    case .greenCertificate:
+      return false
     }
   }
 
   var shadow: UIView.Shadow {
     switch self.kind {
-    case .protection:
-      return .cardPurple
-    case .app:
+    case .updateCountry:
+      return .cardLightBlue
+    case .dataUpload:
+      return .cardLightBlue
+    case .greenCertificate:
       return .cardLightBlue
     }
   }
 }
 
-class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
-  typealias VM = HomeInfoCellVM
+class HomeDoTodayCell: UICollectionViewCell, ModellableView, ReusableView {
+  typealias VM = HomeDoTodayCellVM
 
   private static let containerInset: CGFloat = 25
   private static let iconWidth: CGFloat = UIDevice.getByScreen(normal: 130, narrow: 100)
@@ -108,6 +116,12 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
     guard let model = self.model else {
       return
     }
+    if model.kind == .greenCertificate {
+        Self.Style.logoNew(self.cardImageNew)
+    }
+    else {
+        self.cardImageNew.image = nil
+    }
     Self.Style.icon(self.icon, animation: model.animation)
     Self.Style.shadow(self.contentView, shadow: model.shadow)
     Self.Style.container(self.container, lightContent: model.lightContent)
@@ -150,7 +164,7 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
   }
 
   override func sizeThatFits(_ size: CGSize) -> CGSize {
-    let labelWidth = size.width - HomeView.cellHorizontalInset - HomeInfoCell.iconWidth - 2 * HomeInfoCell.containerInset
+    let labelWidth = size.width - HomeView.cellHorizontalInset - HomeDoTodayCell.iconWidth - 2 * HomeDoTodayCell.containerInset
     let titleSize = self.title.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
     let buttonSize = self.actionButton.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
 
@@ -158,7 +172,7 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
   }
 }
 
-private extension HomeInfoCell {
+private extension HomeDoTodayCell {
   enum Style {
     static func container(_ view: UIView, lightContent: Bool) {
       view.backgroundColor = lightContent ? Palette.purple : Palette.white

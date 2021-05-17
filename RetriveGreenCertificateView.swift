@@ -19,7 +19,7 @@ import Tempura
 struct RetriveGreenCertificateVM: ViewModelWithLocalState {
     var textFieldCunOtpVM: TextFieldCunOtpVM { TextFieldCunOtpVM() }
     var textFieldHealthCardVM: TextFieldHealthCardVM { TextFieldHealthCardVM() }
-    var pickerFieldVM: PickerHealthCardDateVM = PickerHealthCardDateVM(isEnabled: true)
+    var pickerFieldVM: PickerHealthCardDateVM { PickerHealthCardDateVM() }
 
     /// True if it's not possible to execute a new request.
     let isLoading: Bool
@@ -56,13 +56,11 @@ class RetriveGreenCertificateView: UIView, ViewControllerModellableView {
 
     var didTapBack: Interaction?
     var didTapActionButton: Interaction?
-    var didTapHealthWorkerMode: Interaction?
     var didTapDiscoverMore: Interaction?
 
     var didChangeCunTextValue: CustomInteraction<String>?
     var didChangeHealthCardTextValue: CustomInteraction<String>?
-    var didChangeSymptomsDateValue: CustomInteraction<String>?
-    var didChangeCheckBoxValue: CustomInteraction<Bool?>?
+    var didChangeDateValue: CustomInteraction<String>?
 
     // MARK: - Setup
 
@@ -106,7 +104,7 @@ class RetriveGreenCertificateView: UIView, ViewControllerModellableView {
            }
 
         pickerField.didChangePickerValue = { [weak self] value in
-            self?.didChangeSymptomsDateValue?(value)
+            self?.didChangeDateValue?(value)
            }
            
        }
@@ -232,58 +230,6 @@ private extension RetriveGreenCertificateView {
                 ),
                 numberOfLines: 1
             )
-        }
-        static func iconAutonomous(_ view: UIImageView) {
-            view.image = Asset.Settings.UploadData.smartPhone.image
-            view.contentMode = .scaleAspectFit
-        }
-        static func iconCallCenter(_ view: UIImageView) {
-            view.image = Asset.Settings.UploadData.callCenter.image
-            view.contentMode = .scaleAspectFit
-        }
-        
-        static func titleAutonomous(_ label: UILabel) {
-            let content = L10n.Settings.Setting.LoadDataAutonomousFormCard.title
-            
-            let textStyle = TextStyles.pBold.byAdding(
-                .color(Palette.purple),
-                .alignment(.left)
-            )
-
-            TempuraStyles.styleStandardLabel(
-                label,
-                content: content,
-                style: textStyle
-            )
-        }
-        static func titleCallCenter(_ label: UILabel) {
-            let content = L10n.Settings.Setting.LoadDataAutonomousCallCenter.title
-            let textStyle = TextStyles.pBold.byAdding(
-                .color(Palette.purple),
-                .alignment(.left)
-            )
-
-            TempuraStyles.styleStandardLabel(
-                label,
-                content: content,
-                style: textStyle
-            )
-        }
-
-        static func choice(_ label: UILabel) {
-            let content = L10n.Settings.Setting.LoadDataAutonomous.choice
-
-            let textStyle = TextStyles.p.byAdding(
-                .color(Palette.grayNormal),
-                .alignment(.center)
-            )
-
-            TempuraStyles.styleStandardLabel(
-                label,
-                content: content,
-                style: textStyle
-            )
-
         }
     }
 }

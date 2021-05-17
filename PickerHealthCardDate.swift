@@ -15,9 +15,8 @@
 import Tempura
 import UIKit
 
-public struct PickerHealthCardDateVM: ViewModel {
-    var isEnabled: Bool
-}
+public struct PickerHealthCardDateVM: ViewModel {}
+
 open class PickerHealthCardDate: UIView, ModellableView {
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -77,11 +76,6 @@ open class PickerHealthCardDate: UIView, ModellableView {
     public func update(oldModel _: PickerHealthCardDateVM?) {
         guard let model = model else {
             return
-        }
-
-        self.textfield.isEnabled = model.isEnabled
-        if !model.isEnabled {
-            self.textfield.text = ""
         }
 
         Self.Style.shadow(container)
@@ -215,7 +209,7 @@ private extension UITextField {
         // Create a toolbar and assign it to inputAccessoryView
         let toolBar = UIToolbar(frame: CGRect(x: 0.0, y: 0.0, width: screenWidth, height: 44.0))
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let cancel = UIBarButtonItem(title: L10n.cancel, style: .plain, target: nil, action: #selector(tapCancel))
+        let cancel = UIBarButtonItem(title: L10n.cancel, style: .plain, target: nil, action: #selector(tapCancelPickerHealthCardDate))
 
         let barButton = UIBarButtonItem(title: L10n.confirm, style: .plain, target: target, action: selector)
         cancel.tintColor = Palette.purple
@@ -224,7 +218,7 @@ private extension UITextField {
         inputAccessoryView = toolBar
     }
 
-    @objc func tapCancel() {
+    @objc func tapCancelPickerHealthCardDate() {
         resignFirstResponder()
     }
 }
