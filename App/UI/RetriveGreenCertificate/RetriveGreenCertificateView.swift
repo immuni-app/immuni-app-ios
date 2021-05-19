@@ -15,11 +15,13 @@
 import Foundation
 import Models
 import Tempura
+import DropDown
 
 struct RetriveGreenCertificateVM: ViewModelWithLocalState {
-    var textFieldCunOtpVM: TextFieldCunOtpVM { TextFieldCunOtpVM() }
+    var textFieldCodeVM: TextFieldCodeVM { TextFieldCodeVM() }
     var textFieldHealthCardVM: TextFieldHealthCardVM { TextFieldHealthCardVM() }
     var pickerFieldVM: PickerHealthCardDateVM { PickerHealthCardDateVM() }
+    var textFieldCodeTypeVM: TextFieldCodeTypeVM { TextFieldCodeTypeVM() }
 
     /// True if it's not possible to execute a new request.
     let isLoading: Bool
@@ -41,14 +43,16 @@ class RetriveGreenCertificateView: UIView, ViewControllerModellableView {
 
     private let backgroundGradientView = GradientView()
     private let title = UILabel()
-    
+    private let dropdown = DropDown()
+
     private var backButton = ImageButton()
     let scrollView = UIScrollView()
     private let headerView = RetriveGreenCardHeaderView()
 
-    private let textFieldCunOtp = TextFieldCunOtp()
+    private let textFieldCode = TextFieldCode()
     private let textFieldHealthCard = TextFieldHealthCard()
     private let pickerField = PickerHealthCardDate()
+    private let textFieldCodeType = TextFieldCodeType()
 
     private let container = UIView()
 
@@ -67,7 +71,8 @@ class RetriveGreenCertificateView: UIView, ViewControllerModellableView {
     func setup() {
         addSubview(container)
 
-        container.addSubview(textFieldCunOtp)
+        container.addSubview(textFieldCodeType)
+        container.addSubview(textFieldCode)
         container.addSubview(textFieldHealthCard)
         container.addSubview(pickerField)
         container.addSubview(actionButton)
@@ -79,7 +84,8 @@ class RetriveGreenCertificateView: UIView, ViewControllerModellableView {
         scrollView.addSubview(headerView)
 
         scrollView.addSubview(container)
-        scrollView.addSubview(textFieldCunOtp)
+        scrollView.addSubview(textFieldCodeType)
+        scrollView.addSubview(textFieldCode)
         scrollView.addSubview(textFieldHealthCard)
         scrollView.addSubview(pickerField)
         scrollView.addSubview(actionButton)
@@ -95,7 +101,7 @@ class RetriveGreenCertificateView: UIView, ViewControllerModellableView {
             self?.didTapDiscoverMore?()
            }
 
-        textFieldCunOtp.didChangeTextValue = { [weak self] value in
+        textFieldCode.didChangeTextValue = { [weak self] value in
             self?.didChangeCunTextValue?(value.uppercased())
            }
 
@@ -129,9 +135,10 @@ class RetriveGreenCertificateView: UIView, ViewControllerModellableView {
             return
         }
 
-        textFieldCunOtp.model = model.textFieldCunOtpVM
+        textFieldCode.model = model.textFieldCodeVM
         textFieldHealthCard.model = model.textFieldHealthCardVM
         pickerField.model = model.pickerFieldVM
+        textFieldCodeType.model = model.textFieldCodeTypeVM
 
         setNeedsLayout()
     }
@@ -164,15 +171,21 @@ class RetriveGreenCertificateView: UIView, ViewControllerModellableView {
             .sizeToFit(.width)
             .top(30)
 
-        textFieldCunOtp.pin
+        textFieldCodeType.pin
             .horizontally(25)
             .below(of: headerView)
+            .marginTop(25)
+            .height(50)
+        
+        textFieldCode.pin
+            .horizontally(25)
+            .below(of: textFieldCodeType)
             .marginTop(25)
             .height(50)
 
         textFieldHealthCard.pin
             .horizontally(25)
-            .below(of: textFieldCunOtp)
+            .below(of: textFieldCode)
             .marginTop(25)
             .height(50)
 
@@ -189,7 +202,7 @@ class RetriveGreenCertificateView: UIView, ViewControllerModellableView {
             .below(of: pickerField)
             .marginTop(25)
         
-        scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: container.frame.maxY)
+        scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: actionButton.frame.maxY+150)
     }
 }
 

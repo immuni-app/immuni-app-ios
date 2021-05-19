@@ -1,4 +1,4 @@
-// TextFieldCunOtp.swift
+// PickerHealthCardDate.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -12,13 +12,12 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-import Models
 import Tempura
 import UIKit
+import DropDown
+public struct TextFieldCodeTypeVM: ViewModel {}
 
-public struct TextFieldCunOtpVM: ViewModel {}
-
-open class TextFieldCunOtp: UIView, ModellableView {
+open class TextFieldCodeType: UIView, ModellableView {
     override public init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -32,26 +31,41 @@ open class TextFieldCunOtp: UIView, ModellableView {
     }
 
     private let container = UIView()
-    private let textFieldIcon = UIImageView()
-    private let textfield = UITextField()
-    static let prefixCun: String = OTP.prefixCun
-    var onFocus: Bool = false
+    private let selectIcon = UIImageView()
+    public let textfield = UITextField()
+    private let dropdown = DropDown()
 
-    var didChangeSearchStatus: CustomInteraction<Bool>?
-    var didChangeTextValue: CustomInteraction<String>?
+
+    var didChangePickerValue: CustomInteraction<String>?
 
     public func setup() {
+
         addSubview(container)
-        container.addSubview(textFieldIcon)
+        container.addSubview(selectIcon)
         container.addSubview(textfield)
 
         textfield.delegate = self
-        textfield.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
+
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapContainer))
         container.addGestureRecognizer(tapGesture)
+        let tapGestureSelect = UITapGestureRecognizer(target: self, action: #selector(didTapSelect))
+        textfield.addGestureRecognizer(tapGestureSelect)
+    }
+    @objc private func didTapSelect() {
+        Self.Style.pickerIcon(selectIcon, onFocus: true)
+        self.dropdown.dataSource = ["NRFE", "CUN", "NUCG", "OTP"]
+        self.dropdown.anchorView = self.container
+        self.dropdown.bottomOffset = CGPoint(x: 0, y: (self.container.frame.size.height))
+        self.dropdown.show()
+        self.dropdown.selectionAction = { [weak self] (index: Int, item: String) in
+            guard let self = self else { return }
+            self.textfield.text = item
+            Self.Style.pickerIcon(self.selectIcon, onFocus: false)
+            }
     }
 
     @objc private func didTapContainer() {
+
         if textfield.isFirstResponder {
             textfield.resignFirstResponder()
         } else {
@@ -61,19 +75,19 @@ open class TextFieldCunOtp: UIView, ModellableView {
 
     public func style() {
         Self.Style.container(container)
-        Self.Style.textfield(textfield)
     }
 
-    public func update(oldModel _: TextFieldCunOtpVM?) {
-        guard model != nil else {
+    public func update(oldModel _: TextFieldCodeTypeVM?) {
+        guard let model = model else {
             return
         }
+
         Self.Style.shadow(container)
-        Self.Style.textFieldIcon(textFieldIcon, onFocus: onFocus)
+        Self.Style.pickerIcon(selectIcon, onFocus: false)
+        Self.Style.textfield(textfield, isEnabled: self.textfield.isEnabled)
 
         setNeedsLayout()
     }
-
     override open func layoutSubviews() {
         super.layoutSubviews()
 
@@ -81,13 +95,13 @@ open class TextFieldCunOtp: UIView, ModellableView {
             .vertically()
             .horizontally(15)
 
-        textFieldIcon.pin
+        selectIcon.pin
             .size(24)
             .left(12)
             .vCenter()
 
         textfield.pin
-            .after(of: textFieldIcon)
+            .after(of: selectIcon)
             .horizontally(36)
             .marginLeft(5)
             .vertically(5)
@@ -102,7 +116,7 @@ open class TextFieldCunOtp: UIView, ModellableView {
 
 // MARK: - Style
 
-extension TextFieldCunOtp {
+extension TextFieldCodeType {
     enum Style {
         static func container(_ view: UIView) {
             view.backgroundColor = Palette.white
@@ -113,19 +127,21 @@ extension TextFieldCunOtp {
             view.addShadow(.textfieldFocus)
         }
 
-        static func textFieldIcon(_ view: UIImageView, onFocus: Bool) {
-            view.image = Asset.Settings.UploadData.cun.image
+        static func pickerIcon(_ view: UIImageView, onFocus: Bool) {
+            view.image = Asset.Settings.UploadData.calendar.image
             view.contentMode = .scaleAspectFit
             view.image = view.image?.withRenderingMode(.alwaysTemplate)
             view.tintColor = onFocus ? Palette.primary : Palette.grayNormal
+            
+
         }
 
-        static func textfield(_ textfield: UITextField) {
+        static func textfield(_ textfield: UITextField, isEnabled: Bool) {
             let textStyle = TextStyles.p.byAdding([
                 .color(Palette.primary)
             ])
             let placeholderStyle = TextStyles.p.byAdding([
-                .color(Palette.grayNormal),
+                .color(isEnabled ? Palette.grayNormal : Palette.grayExtraWhite),
                 .font(UIFont.boldSystemFont(ofSize: 14.0))
             ])
 
@@ -133,7 +149,8 @@ extension TextFieldCunOtp {
             textfield.tintColor = Palette.primary
             textfield.typingAttributes = textStyle.attributes
             textfield.defaultTextAttributes = textStyle.attributes
-            let placeholder = NSAttributedString(string: "NRFE/CUN/NUCG/OTP")
+
+            let placeholder = NSAttributedString(string: "Tipologia di codice")
             textfield.attributedPlaceholder = placeholder.styled(with: placeholderStyle)
         }
     }
@@ -141,40 +158,26 @@ extension TextFieldCunOtp {
 
 // MARK: - Delegate
 
-extension TextFieldCunOtp: UITextFieldDelegate {
-    public func textFieldDidBeginEditing(_ textField: UITextField) {
-        onFocus = true
-    }
+extension TextFieldCodeType: UITextFieldDelegate {
+  
+    public func textFieldDidBeginEditing(_: UITextField) {}
 
-    public func textFieldDidEndEditing(_ textField: UITextField) {
-        onFocus = false
-    }
-    
-    @objc func textFieldDidChange(_ textField: UITextField) {
-            if let text:String = textfield.text {
-                DispatchQueue.main.async {
-                    self.textfield.text = text.uppercased()
-                }
-            }
-    }
+    public func textFieldDidEndEditing(_: UITextField) {}
 
     public func textField(
         _ textField: UITextField,
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool {
-        guard let textFieldText = textField.text,
-            let rangeOfTextToReplace = Range(range, in: textFieldText)
-        else {
-            return false
+        let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
+        didChangePickerValue?(result)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            // don't do it sync as the textfield is not immediately updated
+            self.update(oldModel: self.model)
         }
-        let substringToReplace = textFieldText[rangeOfTextToReplace]
-        let count = textFieldText.count - substringToReplace.count + string.count
-        if count <= 20 {
-            let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
-            didChangeTextValue?(result)
-        }
-        return count <= 20
+
+        return true
     }
 
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -182,4 +185,3 @@ extension TextFieldCunOtp: UITextFieldDelegate {
         return false
     }
 }
-
