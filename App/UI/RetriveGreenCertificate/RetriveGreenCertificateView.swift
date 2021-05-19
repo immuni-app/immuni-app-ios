@@ -18,7 +18,7 @@ import Tempura
 import DropDown
 
 struct RetriveGreenCertificateVM: ViewModelWithLocalState {
-    var textFieldCodeVM: TextFieldCodeVM { TextFieldCodeVM() }
+    var textFieldCodeVM: TextFieldCodeVM = TextFieldCodeVM(codeType: nil)
     var textFieldHealthCardVM: TextFieldHealthCardVM { TextFieldHealthCardVM() }
     var pickerFieldVM: PickerHealthCardDateVM { PickerHealthCardDateVM() }
     var textFieldCodeTypeVM: TextFieldCodeTypeVM { TextFieldCodeTypeVM() }
@@ -30,6 +30,7 @@ struct RetriveGreenCertificateVM: ViewModelWithLocalState {
 extension RetriveGreenCertificateVM {
     init?(state _: AppState?, localState: RetriveGreenCertificateLS) {
         isLoading = localState.isLoading
+        self.textFieldCodeVM.codeType = localState.codeType
     }
 }
 
@@ -65,6 +66,7 @@ class RetriveGreenCertificateView: UIView, ViewControllerModellableView {
     var didChangeCunTextValue: CustomInteraction<String>?
     var didChangeHealthCardTextValue: CustomInteraction<String>?
     var didChangeDateValue: CustomInteraction<String>?
+    var didChangeCodeType: CustomInteraction<String>?
 
     // MARK: - Setup
 
@@ -111,6 +113,9 @@ class RetriveGreenCertificateView: UIView, ViewControllerModellableView {
 
         pickerField.didChangePickerValue = { [weak self] value in
             self?.didChangeDateValue?(value)
+           }
+        textFieldCodeType.didChangeCodeType = { [weak self] value in
+            self?.didChangeCodeType?(value)
            }
            
        }

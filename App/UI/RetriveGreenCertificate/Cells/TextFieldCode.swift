@@ -16,7 +16,9 @@ import Models
 import Tempura
 import UIKit
 
-public struct TextFieldCodeVM: ViewModel {}
+public struct TextFieldCodeVM: ViewModel {
+    var codeType: String?
+}
 
 open class TextFieldCode: UIView, ModellableView {
     override public init(frame: CGRect) {
@@ -37,7 +39,6 @@ open class TextFieldCode: UIView, ModellableView {
     static let prefixCun: String = OTP.prefixCun
     var onFocus: Bool = false
 
-    var didChangeSearchStatus: CustomInteraction<Bool>?
     var didChangeTextValue: CustomInteraction<String>?
 
     public func setup() {
@@ -61,15 +62,16 @@ open class TextFieldCode: UIView, ModellableView {
 
     public func style() {
         Self.Style.container(container)
-        Self.Style.textfield(textfield)
     }
 
     public func update(oldModel _: TextFieldCodeVM?) {
         guard model != nil else {
             return
         }
+        self.textfield.isEnabled = model?.codeType != nil
         Self.Style.shadow(container)
-        Self.Style.textFieldIcon(textFieldIcon, onFocus: onFocus)
+        Self.Style.textFieldIcon(textFieldIcon, onFocus: onFocus, isEnabled: self.textfield.isEnabled)
+        Self.Style.textfield(textfield, isEnabled: self.textfield.isEnabled, codeType: model?.codeType)
 
         setNeedsLayout()
     }
@@ -113,19 +115,24 @@ extension TextFieldCode {
             view.addShadow(.textfieldFocus)
         }
 
-        static func textFieldIcon(_ view: UIImageView, onFocus: Bool) {
+        static func textFieldIcon(_ view: UIImageView, onFocus: Bool, isEnabled: Bool) {
             view.image = Asset.Settings.UploadData.cun.image
             view.contentMode = .scaleAspectFit
             view.image = view.image?.withRenderingMode(.alwaysTemplate)
-            view.tintColor = onFocus ? Palette.primary : Palette.grayNormal
+            if isEnabled {
+                view.tintColor = onFocus ? Palette.primary : Palette.grayNormal
+            }
+            else {
+                view.tintColor = Palette.grayExtraWhite
+            }
         }
 
-        static func textfield(_ textfield: UITextField) {
+        static func textfield(_ textfield: UITextField, isEnabled: Bool, codeType: String?) {
             let textStyle = TextStyles.p.byAdding([
                 .color(Palette.primary)
             ])
             let placeholderStyle = TextStyles.p.byAdding([
-                .color(Palette.grayNormal),
+                .color(isEnabled ? Palette.grayNormal : Palette.grayExtraWhite),
                 .font(UIFont.boldSystemFont(ofSize: 14.0))
             ])
 
@@ -133,7 +140,26 @@ extension TextFieldCode {
             textfield.tintColor = Palette.primary
             textfield.typingAttributes = textStyle.attributes
             textfield.defaultTextAttributes = textStyle.attributes
-            let placeholder = NSAttributedString(string: "NRFE/CUN/NUCG/OTP")
+            
+            let placeholder:NSAttributedString
+            
+            if let codeType = codeType {
+                switch (codeType) {
+                  case "NRFE":
+                    placeholder = NSAttributedString(string: "Inserisci il codice NRFE")
+                  case "CUN":
+                    placeholder = NSAttributedString(string: "Inserisci il codice CUN")
+                  case "NUCG":
+                    placeholder = NSAttributedString(string: "Inserisci il codice NUCG")
+                  case "OTP":
+                    placeholder = NSAttributedString(string: "Inserisci il codice OTP")
+                default:
+                    placeholder = NSAttributedString(string: "Inserisci il codice")
+                }
+            }
+            else{
+                placeholder = NSAttributedString(string: "Inserisci il codice")
+            }
             textfield.attributedPlaceholder = placeholder.styled(with: placeholderStyle)
         }
     }

@@ -65,6 +65,9 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
         rootView.didChangeDateValue = { [weak self] value in
             self?.localState.healtCardsDate = value
         }
+        rootView.didChangeCodeType = { [weak self] value in
+            self?.localState.codeType = value
+        }
     }
 
     private func validateCun(cun: String?) -> OTP? {
@@ -119,6 +122,7 @@ struct RetriveGreenCertificateLS: LocalState {
     var code: String = ""
     var healtCard: String = ""
     var healtCardsDate: String = ""
+    var codeType: String?
 
     /// True if it's not possible to execute a new request.
     var isLoading: Bool = false

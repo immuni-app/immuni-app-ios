@@ -36,7 +36,7 @@ open class TextFieldCodeType: UIView, ModellableView {
     private let dropdown = DropDown()
 
 
-    var didChangePickerValue: CustomInteraction<String>?
+    var didChangeCodeType: CustomInteraction<String>?
 
     public func setup() {
 
@@ -60,6 +60,7 @@ open class TextFieldCodeType: UIView, ModellableView {
         self.dropdown.selectionAction = { [weak self] (index: Int, item: String) in
             guard let self = self else { return }
             self.textfield.text = item
+            self.didChangeCodeType?(item)
             Self.Style.pickerIcon(self.selectIcon, onFocus: false)
             }
     }
@@ -170,7 +171,6 @@ extension TextFieldCodeType: UITextFieldDelegate {
         replacementString string: String
     ) -> Bool {
         let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
-        didChangePickerValue?(result)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             // don't do it sync as the textfield is not immediately updated
