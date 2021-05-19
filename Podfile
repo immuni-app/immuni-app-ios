@@ -23,7 +23,7 @@ target 'Immuni' do
   pod 'lottie-ios', '= 3.1.8'
   pod 'PinLayout', '= 1.8.13'
   pod 'ZIPFoundation', '= 0.9.11'
-
+  pod 'DropDown'
   shared_pods
 
   target 'Immuni Tests' do
