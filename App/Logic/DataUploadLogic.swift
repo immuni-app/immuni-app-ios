@@ -142,9 +142,9 @@ extension Logic.DataUpload {
       try context.awaitDispatch(ShowConfirmData(code: self.code))
     }
   }
-    /// Performs the validation of the provided OTP
+    /// Retrive digital green certificate
     struct VerifyCodeGreenCertificate: AppSideEffect {
-      let code: OTP
+      let code: String
       let lastHisNumber: String
       let healthCardDate: String
 

@@ -515,6 +515,25 @@ extension PermissionTutorialVM.Content {
         action: nil
       )
     }
+    
+  static var howToRetriveDigitalGreenCertificate: Self {
+    return PermissionTutorialVM.Content(
+        title: "howToRetriveDigitalGreenCertificate",
+        items: [
+          .spacer(.big),
+          .textualContent(L10n.PermissionTutorial.HowToUploadPositiveAutonomous.first, isDark: false),
+          .spacer(.small),
+          .textualContent(L10n.PermissionTutorial.HowToUploadPositiveAutonomous.second, isDark: false),
+          .spacer(.small),
+          .textualContent(L10n.PermissionTutorial.HowToUploadPositiveAutonomous.third, isDark: false),
+          .spacer(.small),
+          .textualContent(L10n.PermissionTutorial.HowToUploadPositiveAutonomous.fourth, isDark: false),
+          .spacer(.big)
+          ],
+          mainActionTitle: nil,
+          action: nil
+        )
+      }
 
   static var whyProvinceRegion: Self {
     return PermissionTutorialVM.Content(

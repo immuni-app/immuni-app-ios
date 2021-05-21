@@ -17,7 +17,7 @@ import Tempura
 import UIKit
 
 public struct TextFieldCodeVM: ViewModel {
-    var codeType: String?
+    var codeType: CodeType?
 }
 
 open class TextFieldCode: UIView, ModellableView {
@@ -36,7 +36,7 @@ open class TextFieldCode: UIView, ModellableView {
     private let container = UIView()
     private let textFieldIcon = UIImageView()
     private let textfield = UITextField()
-    static let prefixCun: String = OTP.prefixCun
+    private var prefixCode: String?
     var onFocus: Bool = false
 
     var didChangeTextValue: CustomInteraction<String>?
@@ -64,10 +64,17 @@ open class TextFieldCode: UIView, ModellableView {
         Self.Style.container(container)
     }
 
-    public func update(oldModel _: TextFieldCodeVM?) {
+    public func update(oldModel: TextFieldCodeVM?) {
         guard model != nil else {
             return
         }
+
+        if oldModel?.codeType != nil, oldModel?.codeType != model?.codeType {
+          self.textfield.text = ""
+          self.textfield.isEnabled = false
+          self.textfield.isEnabled = true
+        }
+        self.prefixCode = self.getPrefix(codeType: model?.codeType)
         self.textfield.isEnabled = model?.codeType != nil
         Self.Style.shadow(container)
         Self.Style.textFieldIcon(textFieldIcon, onFocus: onFocus, isEnabled: self.textfield.isEnabled)
@@ -127,7 +134,7 @@ extension TextFieldCode {
             }
         }
 
-        static func textfield(_ textfield: UITextField, isEnabled: Bool, codeType: String?) {
+        static func textfield(_ textfield: UITextField, isEnabled: Bool, codeType: CodeType?) {
             let textStyle = TextStyles.p.byAdding([
                 .color(Palette.primary)
             ])
@@ -145,22 +152,34 @@ extension TextFieldCode {
             
             if let codeType = codeType {
                 switch (codeType) {
-                  case "NRFE":
+                case .nrfe:
                     placeholder = NSAttributedString(string: "Inserisci il codice NRFE")
-                  case "CUN":
+                case .cun:
                     placeholder = NSAttributedString(string: "Inserisci il codice CUN")
-                  case "NUCG":
+                case .nucg:
                     placeholder = NSAttributedString(string: "Inserisci il codice NUCG")
-                  case "OTP":
+                case .otp:
                     placeholder = NSAttributedString(string: "Inserisci il codice OTP")
-                default:
-                    placeholder = NSAttributedString(string: "Inserisci il codice")
                 }
             }
             else{
                 placeholder = NSAttributedString(string: "Inserisci il codice")
             }
             textfield.attributedPlaceholder = placeholder.styled(with: placeholderStyle)
+        }
+    }
+    func getPrefix(codeType: CodeType?) -> String{
+        switch codeType {
+          case .nrfe:
+            return CodeType.prefixNrfe
+          case .cun:
+            return CodeType.prefixCun
+          case .nucg:
+            return CodeType.prefixNucg
+          case .otp:
+            return CodeType.prefixOtp
+        case .none:
+            return ""
         }
     }
 }
@@ -171,7 +190,7 @@ extension TextFieldCode: UITextFieldDelegate {
     public func textFieldDidBeginEditing(_ textField: UITextField) {
         onFocus = true
         if textField.text?.isEmpty ?? true {
-            textfield.text = Self.prefixCun
+            textfield.text = self.prefixCode
         }
 
         DispatchQueue.main.async {
@@ -182,7 +201,7 @@ extension TextFieldCode: UITextFieldDelegate {
 
     public func textFieldDidEndEditing(_ textField: UITextField) {
         onFocus = false
-        if textField.text == Self.prefixCun {
+        if textField.text == self.prefixCode {
             textField.text = nil
         }
     }
@@ -201,12 +220,28 @@ extension TextFieldCode: UITextFieldDelegate {
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool {
-        let protectedRange = NSRange(location: 0, length: 4)
+        var lengthCode:Int
+        switch model?.codeType {
+        case .nrfe:
+            lengthCode = CodeType.lengthNrfe
+        case .cun:
+            lengthCode = CodeType.lengthCun
+        case .nucg:
+            lengthCode = CodeType.lengthNucg
+        case .otp:
+            lengthCode = CodeType.lengthOtp
+        default:
+            return false
+        }
+        guard let prefixCode = prefixCode else { return false }
+        let limitCode = prefixCode.count + lengthCode - 1
+        let prefixLength = prefixCode.count
+        let protectedRange = NSRange(location: 0, length: prefixLength)
         let intersection = NSIntersectionRange(protectedRange, range)
-        if range.location < 4 || textField.text?.count ?? 0 > 13 {
-            if string.isEmpty && range.location > 3{
+        if range.location < prefixCode.count || textField.text?.count ?? 0 > limitCode {
+            if string.isEmpty && range.location > prefixLength-1{
                 let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
-                didChangeTextValue?(result.deletingPrefixCun(prefix: Self.prefixCun))
+                didChangeTextValue?(result.deletingPrefixCun(prefix: self.prefixCode))
                 return true
             }
             return false
@@ -215,30 +250,30 @@ extension TextFieldCode: UITextFieldDelegate {
         if intersection.length > 0 {
             return false
         }
-        if range.location == 13 {
+        if range.location == limitCode {
             let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
-            didChangeTextValue?(result.deletingPrefixCun(prefix: Self.prefixCun))
+            didChangeTextValue?(result.deletingPrefixCun(prefix: self.prefixCode))
             return true
         }
-        if range.location + range.length > 13 {
+        if range.location + range.length > limitCode {
             return false
         }
 
         let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
-        didChangeTextValue?(result.deletingPrefixCun(prefix: Self.prefixCun))
+        didChangeTextValue?(result.deletingPrefixCun(prefix: self.prefixCode))
 
         return true
     }
-
+    
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return false
     }
 }
 
-//private extension String {
-//    func deletingPrefixCun(prefix: String) -> String {
-//        guard hasPrefix(prefix) else { return self }
-//        return String(dropFirst(prefix.count))
-//    }
-//}
+private extension String {
+    func deletingPrefixCun(prefix: String?) -> String {
+        guard let prefix = prefix, hasPrefix(prefix) else { return self }
+        return String(dropFirst(prefix.count))
+    }
+}

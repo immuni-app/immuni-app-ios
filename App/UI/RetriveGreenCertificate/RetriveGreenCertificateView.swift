@@ -63,10 +63,10 @@ class RetriveGreenCertificateView: UIView, ViewControllerModellableView {
     var didTapActionButton: Interaction?
     var didTapDiscoverMore: Interaction?
 
-    var didChangeCunTextValue: CustomInteraction<String>?
-    var didChangeHealthCardTextValue: CustomInteraction<String>?
-    var didChangeDateValue: CustomInteraction<String>?
-    var didChangeCodeType: CustomInteraction<String>?
+    var didChangeCodeValue: CustomInteraction<String>?
+    var didChangeHealthCardValue: CustomInteraction<String>?
+    var didChangeHealthCardDateValue: CustomInteraction<String>?
+    var didChangeCodeType: CustomInteraction<CodeType>?
 
     // MARK: - Setup
 
@@ -104,15 +104,15 @@ class RetriveGreenCertificateView: UIView, ViewControllerModellableView {
            }
 
         textFieldCode.didChangeTextValue = { [weak self] value in
-            self?.didChangeCunTextValue?(value.uppercased())
+            self?.didChangeCodeValue?(value.uppercased())
            }
 
         textFieldHealthCard.didChangeTextValue = { [weak self] value in
-            self?.didChangeHealthCardTextValue?(value)
+            self?.didChangeHealthCardValue?(value)
            }
 
         pickerField.didChangePickerValue = { [weak self] value in
-            self?.didChangeDateValue?(value)
+            self?.didChangeHealthCardDateValue?(value)
            }
         textFieldCodeType.didChangeCodeType = { [weak self] value in
             self?.didChangeCodeType?(value)
@@ -251,3 +251,4 @@ private extension RetriveGreenCertificateView {
         }
     }
 }
+

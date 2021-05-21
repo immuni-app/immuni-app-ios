@@ -32,16 +32,18 @@ open class TextFieldCodeType: UIView, ModellableView {
 
     private let container = UIView()
     private let selectIcon = UIImageView()
+    private let dropDownIcon = UIImageView()
     public let textfield = UITextField()
     private let dropdown = DropDown()
 
 
-    var didChangeCodeType: CustomInteraction<String>?
+    var didChangeCodeType: CustomInteraction<CodeType>?
 
     public func setup() {
 
         addSubview(container)
         container.addSubview(selectIcon)
+        container.addSubview(dropDownIcon)
         container.addSubview(textfield)
 
         textfield.delegate = self
@@ -50,17 +52,25 @@ open class TextFieldCodeType: UIView, ModellableView {
         container.addGestureRecognizer(tapGesture)
         let tapGestureSelect = UITapGestureRecognizer(target: self, action: #selector(didTapSelect))
         textfield.addGestureRecognizer(tapGestureSelect)
+        textfield.inputView = UIView()
     }
     @objc private func didTapSelect() {
         Self.Style.pickerIcon(selectIcon, onFocus: true)
-        self.dropdown.dataSource = ["NRFE", "CUN", "NUCG", "OTP"]
+        self.dropdown.cornerRadius = 15
+        self.dropdown.backgroundColor = Palette.white
+        self.dropdown.selectedTextColor = Palette.purple
+        self.dropdown.cellConfiguration = { (index, item) in
+            return "  \(item)"
+          }
+        self.dropdown.dataSource = CodeType.getCodeList()
         self.dropdown.anchorView = self.container
-        self.dropdown.bottomOffset = CGPoint(x: 0, y: (self.container.frame.size.height))
+        self.dropdown.bottomOffset = CGPoint(x: 0, y: (self.container.frame.size.height+10))
         self.dropdown.show()
         self.dropdown.selectionAction = { [weak self] (index: Int, item: String) in
-            guard let self = self else { return }
+            guard let self = self, let codeType = CodeType(rawValue: item) else { return }
             self.textfield.text = item
-            self.didChangeCodeType?(item)
+            
+            self.didChangeCodeType?(codeType)
             Self.Style.pickerIcon(self.selectIcon, onFocus: false)
             }
     }
@@ -76,10 +86,11 @@ open class TextFieldCodeType: UIView, ModellableView {
 
     public func style() {
         Self.Style.container(container)
+        Self.Style.dropDownIcon(dropDownIcon)
     }
 
     public func update(oldModel _: TextFieldCodeTypeVM?) {
-        guard let model = model else {
+        guard let _ = model else {
             return
         }
 
@@ -99,6 +110,11 @@ open class TextFieldCodeType: UIView, ModellableView {
         selectIcon.pin
             .size(24)
             .left(12)
+            .vCenter()
+        
+        dropDownIcon.pin
+            .size(24)
+            .right(12)
             .vCenter()
 
         textfield.pin
@@ -133,8 +149,12 @@ extension TextFieldCodeType {
             view.contentMode = .scaleAspectFit
             view.image = view.image?.withRenderingMode(.alwaysTemplate)
             view.tintColor = onFocus ? Palette.primary : Palette.grayNormal
-            
-
+        }
+        
+        static func dropDownIcon(_ view: UIImageView) {
+            view.image = Asset.ContactASL.chevronDown.image
+            view.contentMode = .scaleAspectFit
+            view.image = view.image?.withRenderingMode(.alwaysTemplate)
         }
 
         static func textfield(_ textfield: UITextField, isEnabled: Bool) {
@@ -170,14 +190,7 @@ extension TextFieldCodeType: UITextFieldDelegate {
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool {
-        let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            // don't do it sync as the textfield is not immediately updated
-            self.update(oldModel: self.model)
-        }
-
-        return true
+        return false
     }
 
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {

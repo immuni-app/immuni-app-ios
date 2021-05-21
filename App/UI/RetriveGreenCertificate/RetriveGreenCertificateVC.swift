@@ -32,38 +32,37 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
                 return
             }
             var message = ""
-//            let code = self.validateCun(cun: self.localState.code)
-//            if self.localState.code == "" {
-//                message += L10n.Settings.Setting.LoadDataAutonomous.FormError.Cun.message
-//            } else if code == nil {
-//                message += L10n.Settings.Setting.LoadDataAutonomous.FormError.Cun.Invalid.message
-//            }
-//            if !self.validateHealthCard(healthCard: self.localState.healtCard) {
-//                message += L10n.Settings.Setting.LoadDataAutonomous.FormError.HealtCard.message
-//            }
-//            if !self.validateHealthCardDate(date: self.localState.healtCardsDate) {
-//                message += L10n.Settings.Setting.LoadDataAutonomous.FormError.SymptomsDate.message
-//            }
-//            if message != "" {
-//                self.dispatch(Logic.DataUpload.ShowAutonomousUploadErrorAlert(message: message))
-//                return
-//            } else {
-//            self.verifyCode(code: code!, lastHisNumber: self.localState.healtCard, healthCardDate: self.localState.healtCardsDate)
-            self.verifyCode(code: OTP(), lastHisNumber: self.localState.healtCard, healthCardDate: self.localState.healtCardsDate)
-//            }
+            let code = self.validateCun(cun: self.localState.code)
+            if self.localState.code == "" {
+                message += L10n.Settings.Setting.LoadDataAutonomous.FormError.Cun.message
+            } else if code == nil {
+                message += L10n.Settings.Setting.LoadDataAutonomous.FormError.Cun.Invalid.message
+            }
+            if !self.validateHealthCard(healthCard: self.localState.healtCard) {
+                message += L10n.Settings.Setting.LoadDataAutonomous.FormError.HealtCard.message
+            }
+            if !self.validateHealthCardDate(date: self.localState.healtCardDate) {
+                message += L10n.Settings.Setting.LoadDataAutonomous.FormError.SymptomsDate.message
+            }
+            if message != "" {
+                self.dispatch(Logic.DataUpload.ShowAutonomousUploadErrorAlert(message: message))
+                return
+            } else {
+                self.verifyCode(code: code!.rawValue, lastHisNumber: self.localState.healtCard, healthCardDate: self.localState.healtCardDate)
+            }
         }
 
         rootView.didTapDiscoverMore = { [weak self] in
-            self?.dispatch(Logic.PermissionTutorial.ShowHowToUploadWhenPositiveAutonomous())
+            self?.dispatch(Logic.PermissionTutorial.ShowHowToRetriveDigitalGreenCertificate())
         }
-        rootView.didChangeCunTextValue = { [weak self] value in
+        rootView.didChangeCodeValue = { [weak self] value in
             self?.localState.code = value
         }
-        rootView.didChangeHealthCardTextValue = { [weak self] value in
+        rootView.didChangeHealthCardValue = { [weak self] value in
             self?.localState.healtCard = value
         }
-        rootView.didChangeDateValue = { [weak self] value in
-            self?.localState.healtCardsDate = value
+        rootView.didChangeHealthCardDateValue = { [weak self] value in
+            self?.localState.healtCardDate = value
         }
         rootView.didChangeCodeType = { [weak self] value in
             self?.localState.codeType = value
@@ -79,6 +78,26 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
             if otp.verifyCun() {
                 return otp
             }
+        }
+        return nil
+    }
+    
+    private func validateNucg(code: String?) -> String? {
+        guard let code = code else {
+            return nil
+        }
+        if code != "", code.count == CodeType.lengthNucg {
+            return code
+        }
+        return nil
+    }
+    
+    private func validateNrfe(code: String?) -> String? {
+        guard let code = code else {
+            return nil
+        }
+        if code != "", code.count == CodeType.lengthNrfe {
+            return code
         }
         return nil
     }
@@ -103,7 +122,7 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
         return false
     }
 
-    private func verifyCode(code: OTP, lastHisNumber: String, healthCardDate: String) {
+    private func verifyCode(code: String, lastHisNumber: String, healthCardDate: String) {
         localState.isLoading = true
 
         dispatch(Logic.DataUpload.VerifyCodeGreenCertificate(code: code, lastHisNumber: lastHisNumber, healthCardDate: healthCardDate))
@@ -121,9 +140,31 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
 struct RetriveGreenCertificateLS: LocalState {
     var code: String = ""
     var healtCard: String = ""
-    var healtCardsDate: String = ""
-    var codeType: String?
+    var healtCardDate: String = ""
+    var codeType: CodeType?
 
     /// True if it's not possible to execute a new request.
     var isLoading: Bool = false
 }
+public enum CodeType: String {
+    
+    public static let prefixNrfe = "NRFE-"
+    public static let prefixCun = "CUN-"
+    public static let prefixNucg = "NUCG-"
+    public static let prefixOtp = "OTP-"
+    
+    public static let lengthNrfe = 11
+    public static let lengthCun = 10
+    public static let lengthNucg = 9
+    public static let lengthOtp = 8
+
+    case nrfe = "NRFE"
+    case cun = "CUN"
+    case nucg = "NUCG"
+    case otp = "OTP"
+    
+    static func getCodeList() -> [String] {
+        return [CodeType.nrfe.rawValue, CodeType.cun.rawValue, CodeType.nucg.rawValue, CodeType.otp.rawValue]
+    }
+}
+

@@ -62,7 +62,8 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
     private let backgroundGradientView = GradientView()
     private let title = UILabel()
     private let inactiveLabel = UILabel()
-    
+    private let inactiveImage = UIImageView()
+
     private var backButton = ImageButton()
     let scrollView = UIScrollView()
     private let headerView = GreenCertificateHeaderView()
@@ -137,6 +138,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         Self.Style.scrollView(scrollView)
         Self.Style.title(title, text: "Green certificate")
         Self.Style.inactiveLabel(inactiveLabel, text: "Nessun certificato attivo")
+        Self.Style.imageContent(inactiveImage, image: Asset.Home.warning.image)
         Self.Style.container(container)
         
         lineView.layer.borderWidth = 1.0
@@ -161,12 +163,15 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
           addSubview(qrCode)
           scrollView.addSubview(qrCode)
           inactiveLabel.removeFromSuperview()
+          inactiveImage.removeFromSuperview()
           Self.Style.stateLabel(stateLabel,text: "Attivo", color: Palette.purple)
         }
         else{
           showQr = false
-          addSubview(inactiveLabel)
+          container.addSubview(inactiveLabel)
           scrollView.addSubview(inactiveLabel)
+          container.addSubview(inactiveImage)
+          scrollView.addSubview(inactiveImage)
           qrCode.removeFromSuperview()
           Self.Style.stateLabel(stateLabel,text: "Non attivo", color: Palette.grayPurple)
         }
@@ -232,9 +237,16 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
           .height(container.frame.width*0.9)
         }
         else {
-            inactiveLabel.pin
+            inactiveImage.pin
               .below(of: headerView)
-              .marginTop(220)
+              .marginTop(150)
+              .hCenter()
+              .width(100)
+              .height(100)
+            
+            inactiveLabel.pin
+              .below(of: inactiveImage)
+              .marginTop(20)
               .horizontally(Self.horizontalSpacing + backButton.intrinsicContentSize.width + 5)
               .sizeToFit(.width)
         }
@@ -343,11 +355,6 @@ private extension GreenCertificateView {
         static func imageContent(_ imageView: UIImageView, image: UIImage) {
             imageView.image = image
             imageView.contentMode = .scaleAspectFit
-            
-//            imageView.layer.masksToBounds = false
-//            imageView.layer.borderWidth = 20
-//            imageView.layer.borderColor = Palette.purple.cgColor
-//            imageView.layer.cornerRadius = imageView.bounds.width / 2
         }
     }
 }
