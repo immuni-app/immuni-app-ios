@@ -145,7 +145,7 @@ extension TextFieldCodeType {
         }
 
         static func pickerIcon(_ view: UIImageView, onFocus: Bool) {
-            view.image = Asset.Settings.UploadData.calendar.image
+            view.image = Asset.Home.tipology.image
             view.contentMode = .scaleAspectFit
             view.image = view.image?.withRenderingMode(.alwaysTemplate)
             view.tintColor = onFocus ? Palette.primary : Palette.grayNormal
