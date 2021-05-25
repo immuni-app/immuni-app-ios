@@ -32,11 +32,18 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
                 return
             }
             var message = ""
-            let code = self.validateCun(cun: self.localState.code)
-            if self.localState.code == "" {
+            var code: String?
+            if let codeType = self.localState.codeType {
+                code = self.validateCode(code: self.localState.code, codeType: codeType)
+                if self.localState.code == "" {
+                    message += L10n.Settings.Setting.LoadDataAutonomous.FormError.Cun.message
+                } else if code == nil {
+                    message += L10n.Settings.Setting.LoadDataAutonomous.FormError.Cun.Invalid.message
+                }
+            }
+            else {
+                message += "- Inserire la tipologia del codice\n"
                 message += L10n.Settings.Setting.LoadDataAutonomous.FormError.Cun.message
-            } else if code == nil {
-                message += L10n.Settings.Setting.LoadDataAutonomous.FormError.Cun.Invalid.message
             }
             if !self.validateHealthCard(healthCard: self.localState.healtCard) {
                 message += L10n.Settings.Setting.LoadDataAutonomous.FormError.HealtCard.message
@@ -44,11 +51,12 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
             if !self.validateHealthCardDate(date: self.localState.healtCardDate) {
                 message += L10n.Settings.Setting.LoadDataAutonomous.FormError.SymptomsDate.message
             }
+            
             if message != "" {
                 self.dispatch(Logic.DataUpload.ShowAutonomousUploadErrorAlert(message: message))
                 return
             } else {
-                self.verifyCode(code: code!.rawValue, lastHisNumber: self.localState.healtCard, healthCardDate: self.localState.healtCardDate)
+                self.verifyCode(code: code!, codeType: self.localState.codeType!, lastHisNumber: self.localState.healtCard, healthCardDate: self.localState.healtCardDate)
             }
         }
 
@@ -68,16 +76,45 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
             self?.localState.codeType = value
         }
     }
-
-    private func validateCun(cun: String?) -> OTP? {
-        guard let cun = cun else {
+    
+    private func validateCode(code: String?, codeType: CodeType) -> String? {
+        guard let code = code else {
             return nil
         }
-        if cun != "", cun.count == 10 {
-            let otp = OTP(cun: cun)
+        switch codeType {
+          case .nrfe:
+            return self.validateNrfe(code: code)
+
+          case .cun:
+            return self.validateCun(code: code)
+
+          case .nucg:
+            return self.validateNucg(code: code)
+
+          case .otp:
+            return self.validateOtp(code: code)
+        }
+    }
+
+    private func validateCun(code: String?) -> String? {
+        guard let code = code else {
+            return nil
+        }
+        if code != "", code.count == CodeType.lengthCun {
+            let otp = OTP(cun: code)
             if otp.verifyCun() {
-                return otp
+                return otp.rawValue
             }
+        }
+        return nil
+    }
+    
+    private func validateOtp(code: String?) -> String? {
+        guard let code = code else {
+            return nil
+        }
+        if code != "", code.count == CodeType.lengthOtp {
+            return code
         }
         return nil
     }
@@ -122,10 +159,10 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
         return false
     }
 
-    private func verifyCode(code: String, lastHisNumber: String, healthCardDate: String) {
+    private func verifyCode(code: String, codeType: CodeType, lastHisNumber: String, healthCardDate: String) {
         localState.isLoading = true
 
-        dispatch(Logic.DataUpload.VerifyCodeGreenCertificate(code: code, lastHisNumber: lastHisNumber, healthCardDate: healthCardDate))
+        dispatch(Logic.DataUpload.RetriveDigitalGreenCertificate(code: code, lastHisNumber: lastHisNumber, healthCardDate: healthCardDate))
             .then {
                 self.localState.isLoading = false
             }

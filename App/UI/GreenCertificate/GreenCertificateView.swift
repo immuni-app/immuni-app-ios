@@ -158,8 +158,15 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
 
         if let greenCertificate = model.greenCertificate {
           showQr = true
-          let qr = self.generateQRCode(from: greenCertificate)
-          Self.Style.imageContent(qrCode, image: qr!)
+//          let qr = self.generateQRCode(from: greenCertificate)
+            
+          let dataDecoded: Data? = Data(base64Encoded: greenCertificate, options: .ignoreUnknownCharacters)
+          if let dataDecoded = dataDecoded{
+            let decodedimage = UIImage(data: dataDecoded)
+            Self.Style.imageContent(qrCode, image: decodedimage!)
+          }
+//          yourImageView.image = decodedimage
+            
           addSubview(qrCode)
           scrollView.addSubview(qrCode)
           inactiveLabel.removeFromSuperview()
