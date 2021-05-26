@@ -64,7 +64,7 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
             self?.dispatch(Logic.PermissionTutorial.ShowHowToRetriveDigitalGreenCertificate())
         }
         rootView.didChangeCodeValue = { [weak self] value in
-            self?.localState.code = value
+            self?.localState.code = self?.localState.codeType == .nrfe ? value : value.uppercased()
         }
         rootView.didChangeHealthCardValue = { [weak self] value in
             self?.localState.healtCard = value
@@ -73,6 +73,7 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
             self?.localState.healtCardDate = value
         }
         rootView.didChangeCodeType = { [weak self] value in
+            self?.localState.code = ""
             self?.localState.codeType = value
         }
     }
@@ -101,9 +102,9 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
             return nil
         }
         if code != "", code.count == CodeType.lengthCun {
-            let otp = OTP(cun: code)
-            if otp.verifyCun() {
-                return otp.rawValue
+            let cun = OTP(code: code)
+            if cun.verifyCode() {
+                return cun.rawValue
             }
         }
         return nil
@@ -114,7 +115,10 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
             return nil
         }
         if code != "", code.count == CodeType.lengthOtp {
-            return code
+            let otp = AuthCodeOtp(code: code)
+            if otp.verifyCode() {
+                return otp.rawValue
+            }
         }
         return nil
     }
@@ -124,7 +128,10 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
             return nil
         }
         if code != "", code.count == CodeType.lengthNucg {
-            return code
+            let nucg = Nucg(code: code)
+            if nucg.verifyCode() {
+                return nucg.rawValue
+            }
         }
         return nil
     }
@@ -133,7 +140,7 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
         guard let code = code else {
             return nil
         }
-        if code != "", code.count == CodeType.lengthNrfe {
+        if code != "", code.count == CodeType.lengthNrfe, code.hasPrefix("99")  {
             return code
         }
         return nil
@@ -190,10 +197,10 @@ public enum CodeType: String {
     public static let prefixNucg = "NUCG-"
     public static let prefixOtp = "OTP-"
     
-    public static let lengthNrfe = 11
+    public static let lengthNrfe = 17
     public static let lengthCun = 10
-    public static let lengthNucg = 9
-    public static let lengthOtp = 8
+    public static let lengthNucg = 10
+    public static let lengthOtp = 12
 
     case nrfe = "NRFE"
     case cun = "CUN"

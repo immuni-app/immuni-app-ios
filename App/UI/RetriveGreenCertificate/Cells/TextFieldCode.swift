@@ -209,7 +209,7 @@ extension TextFieldCode: UITextFieldDelegate {
     @objc func textFieldDidChange(_ textField: UITextField) {
             if let text:String = textfield.text {
                 DispatchQueue.main.async {
-                    self.textfield.text = text.uppercased()
+                    self.textfield.text = self.model?.codeType == .nrfe ? text : text.uppercased()
                 }
             }
 
@@ -241,7 +241,7 @@ extension TextFieldCode: UITextFieldDelegate {
         if range.location < prefixCode.count || textField.text?.count ?? 0 > limitCode {
             if string.isEmpty && range.location > prefixLength-1{
                 let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
-                didChangeTextValue?(result.deletingPrefixCun(prefix: self.prefixCode))
+                didChangeTextValue?(result.deletingPrefix(prefix: self.prefixCode))
                 return true
             }
             return false
@@ -252,7 +252,7 @@ extension TextFieldCode: UITextFieldDelegate {
         }
         if range.location == limitCode {
             let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
-            didChangeTextValue?(result.deletingPrefixCun(prefix: self.prefixCode))
+            didChangeTextValue?(result.deletingPrefix(prefix: self.prefixCode))
             return true
         }
         if range.location + range.length > limitCode {
@@ -260,7 +260,7 @@ extension TextFieldCode: UITextFieldDelegate {
         }
 
         let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
-        didChangeTextValue?(result.deletingPrefixCun(prefix: self.prefixCode))
+        didChangeTextValue?(result.deletingPrefix(prefix: self.prefixCode))
 
         return true
     }
@@ -272,7 +272,7 @@ extension TextFieldCode: UITextFieldDelegate {
 }
 
 private extension String {
-    func deletingPrefixCun(prefix: String?) -> String {
+    func deletingPrefix(prefix: String?) -> String {
         guard let prefix = prefix, hasPrefix(prefix) else { return self }
         return String(dropFirst(prefix.count))
     }

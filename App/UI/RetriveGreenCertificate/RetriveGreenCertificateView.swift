@@ -104,7 +104,7 @@ class RetriveGreenCertificateView: UIView, ViewControllerModellableView {
            }
 
         textFieldCode.didChangeTextValue = { [weak self] value in
-            self?.didChangeCodeValue?(value.uppercased())
+            self?.didChangeCodeValue?(value)
            }
 
         textFieldHealthCard.didChangeTextValue = { [weak self] value in

@@ -1,4 +1,4 @@
-// OTP.swift
+// Nucg.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -15,48 +15,20 @@
 import Extensions
 import Foundation
 
-/// Struct that represents an OTP. An OTP
-/// is a 10-characters code that is used to authorize the upload
-/// of TEKs. The code has 9 randomly generated digit. The last charater, instead,
-/// is a control character
-public struct OTP {
-    /// The default length of the OTP
-    public static let defaultLength = 10
-
-    /// The prefix if otp is cun type
-    public static let prefixCun = "CUN-"
+/// Struct that represents an Nucg.
+public struct Nucg {
 
     /// The caracters of the code
     let characters: [Character]
 
-    /// type of otp code
-    var otpType: OtpType = .otp
-
-    /// Generates a new random, valid OTP with the given length
-    public init(length: Int = Self.defaultLength) {
-        let characters = (0 ..< length - 1).compactMap { _ in Self.alphabet.randomElement() }
-        assert(characters.count == length - 1)
-        let checkDigit = Self.checkDigit(for: characters)
-        self.characters = characters + [checkDigit]
-    }
-
-    /// Generates a new valid CUN with the given string
+    /// Generates a new valid Nucg with the given string
     public init(code: String) {
         characters = Array(code)
-        otpType = .cun
     }
 }
 
-enum OtpType {
-    case otp
-    case cun
-}
-
-extension OTP: RawRepresentable {
+extension Nucg: RawRepresentable {
     public var rawValue: String {
-        if otpType == .cun {
-            return Self.prefixCun + String(characters)
-        }
         return String(characters)
     }
 
@@ -78,18 +50,7 @@ extension OTP: RawRepresentable {
     }
 }
 
-public extension OTP {
-    /// Returns an array of strings with the code parts of the given OTP.
-    /// To simplify the readability, the code is splitted into 3 parts.
-    /// Output will look like: ["AAA", "BBBB", "CCC"].
-    var codeParts: [String] {
-        let fixedPartSize = Self.defaultLength / 3
-        let first = characters.prefix(fixedPartSize)
-        let last = characters.suffix(fixedPartSize)
-        let middle = characters.dropLast(fixedPartSize).dropFirst(fixedPartSize)
-
-        return [first, middle, last].map { String($0) }
-    }
+public extension Nucg {
 
     func verifyCode() -> Bool {
         
@@ -119,7 +80,7 @@ public extension OTP {
     }
 }
 
-private extension OTP {
+private extension Nucg {
     /// Verifies that the given check digit is valid for the given code
     private static func verify(checkDigit: Character, for code: [Character]) -> Bool {
         let calculated = Self.checkDigit(for: code)
@@ -130,7 +91,7 @@ private extension OTP {
     private static func checkDigit(for code: [Character]) -> Character {
         let sum = code.enumerated().reduce(0) { previous, item -> Int in
             let map = (item.offset + 1).isMultiple(of: 2) ? Self.evenMap : Self.oddMap
-            let current = map[item.element] ?? LibLogger.fatalError("Broken OTP algorithm")
+            let current = map[item.element] ?? LibLogger.fatalError("Broken Nucg algorithm")
             return previous + current
         }
 
@@ -140,9 +101,10 @@ private extension OTP {
     }
 
     static let alphabet: [Character] = [
-        "A", "E", "F", "H", "I", "J", "K", "L", "Q", "R", "S", "U", "W",
-        "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        "A", "B", "C", "D", "E", "F", "H", "I", "J", "K", "L", "M", "N", "P","Q", "R",
+        "S", "T", "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9"
     ]
+    
 
     static var checkDigitMap: [Int: Character] {
         let values = Self.alphabet.enumerated().map { ($0.offset, $0.element) }
