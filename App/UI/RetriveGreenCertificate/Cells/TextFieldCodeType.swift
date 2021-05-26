@@ -152,9 +152,8 @@ extension TextFieldCodeType {
         }
         
         static func dropDownIcon(_ view: UIImageView) {
-            view.image = Asset.ContactASL.chevronDown.image
+            view.image = Asset.Home.down.image
             view.contentMode = .scaleAspectFit
-            view.image = view.image?.withRenderingMode(.alwaysTemplate)
         }
 
         static func textfield(_ textfield: UITextField, isEnabled: Bool) {

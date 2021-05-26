@@ -138,13 +138,13 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         Self.Style.scrollView(scrollView)
         Self.Style.title(title, text: "Green certificate")
         Self.Style.inactiveLabel(inactiveLabel, text: "Nessun certificato attivo")
-        Self.Style.imageContent(inactiveImage, image: Asset.Home.warning.image)
+        Self.Style.imageContent(inactiveImage, image: Asset.Home.inactive.image)
         Self.Style.container(container)
         
         lineView.layer.borderWidth = 1.0
         lineView.layer.borderColor = Palette.grayExtraWhite.cgColor
         
-        Self.Style.actionButton(actionButton, icon: UIImage(systemName: "qrcode.viewfinder"))
+        Self.Style.actionButton(actionButton, icon: Asset.Home.qr.image)
         
         SharedStyle.navigationBackButton(backButton)
     }
@@ -236,24 +236,24 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         
         if showQr {
         
-        qrCode.pin
-          .below(of: headerView)
-          .marginTop(100)
-          .hCenter()
-          .width(container.frame.width*0.9)
-          .height(container.frame.width*0.9)
+            qrCode.pin
+              .below(of: headerView)
+              .marginTop(100)
+              .hCenter()
+              .width(container.frame.width*0.9)
+              .height(container.frame.width*0.9)
         }
         else {
             inactiveImage.pin
               .below(of: headerView)
               .marginTop(150)
               .hCenter()
-              .width(100)
-              .height(100)
+              .width(200)
+              .height(200)
             
             inactiveLabel.pin
               .below(of: inactiveImage)
-              .marginTop(20)
+              .marginTop(-40)
               .horizontally(Self.horizontalSpacing + backButton.intrinsicContentSize.width + 5)
               .sizeToFit(.width)
         }
@@ -278,7 +278,7 @@ private extension GreenCertificateView {
           icon: UIImage? = nil,
           tintColor: UIColor = Palette.white,
           backgroundColor: UIColor = Palette.primary,
-          cornerRadius: CGFloat = 28,
+          cornerRadius: CGFloat = 25,
           shadow: UIView.Shadow = .cardPrimary
         ) {
           
@@ -297,7 +297,7 @@ private extension GreenCertificateView {
           button.layer.cornerRadius = cornerRadius
           button.titleLabel?.numberOfLines = 2
           button.addShadow(shadow)
-          button.imageEdgeInsets = .init(top: 0, left: -70, bottom: 0, right: 0)
+          button.imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: UIDevice.getByScreen(normal: 80, short: 60))
 
         }
         
@@ -334,11 +334,11 @@ private extension GreenCertificateView {
             )
         }
         static func inactiveLabel(_ label: UILabel, text: String) {
-            TempuraStyles.styleShrinkableLabel(
+            TempuraStyles.styleStandardLabel(
                 label,
                 content: text,
-                style: TextStyles.pSemibold.byAdding(
-                    .color(Palette.grayDark),
+                style: TextStyles.p.byAdding(
+                    .color(Palette.grayNormal),
                     .alignment(.center)
                 ),
                 numberOfLines: 1

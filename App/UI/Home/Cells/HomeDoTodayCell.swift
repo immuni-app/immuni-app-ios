@@ -27,7 +27,7 @@ struct HomeDoTodayCellVM: ViewModel {
     case .dataUpload:
       return AnimationAsset.cardDataUpload.animation
     case .greenCertificate:
-      return AnimationAsset.cardFlagEuropa.animation
+      return AnimationAsset.cardDgc.animation
     }
   }
 
