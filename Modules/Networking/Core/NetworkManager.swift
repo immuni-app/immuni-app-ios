@@ -118,6 +118,10 @@ public extension NetworkManager {
   func sendDummyIngestionRequest(requestSize: Int) -> Promise<Void> {
     return self.request(DummyIngestionRequest(now: self.unwrappedDependencies.now, targetSize: requestSize)).safeVoid
   }
+  /// Returns the Digital Green Certificate
+  func retriveDigitalGreenCertificate(tokenType: String, lastHisNumber: String, healthCardDate: String, code: String) -> Promise<Data> {
+    return self.request(RetriveDgcRequest(tokenType: tokenType, lastHisNumber: lastHisNumber, healthCardDate: healthCardDate, code: code))
+  }
 }
 
 // MARK: - Analytics Service requests

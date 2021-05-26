@@ -31,6 +31,7 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
             guard let self = self else {
                 return
             }
+
             var message = ""
             var code: String?
             if let codeType = self.localState.codeType {
@@ -56,7 +57,8 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
                 self.dispatch(Logic.DataUpload.ShowAutonomousUploadErrorAlert(message: message))
                 return
             } else {
-                self.verifyCode(code: code!, codeType: self.localState.codeType!, lastHisNumber: self.localState.healtCard, healthCardDate: self.localState.healtCardDate)
+                guard let code = code, let codeType = self.localState.codeType else { return }
+                self.verifyCode(code: code, codeType: codeType, lastHisNumber: self.localState.healtCard, healthCardDate: self.localState.healtCardDate)
             }
         }
 
@@ -169,7 +171,7 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
     private func verifyCode(code: String, codeType: CodeType, lastHisNumber: String, healthCardDate: String) {
         localState.isLoading = true
 
-        dispatch(Logic.DataUpload.RetriveDigitalGreenCertificate(code: code, lastHisNumber: lastHisNumber, healthCardDate: healthCardDate))
+        dispatch(Logic.DataUpload.RetriveDigitalGreenCertificate(code: code, lastHisNumber: lastHisNumber, healthCardDate: healthCardDate, codeType: codeType))
             .then {
                 self.localState.isLoading = false
             }

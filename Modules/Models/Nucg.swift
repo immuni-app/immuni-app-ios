@@ -20,6 +20,9 @@ public struct Nucg {
 
     /// The caracters of the code
     let characters: [Character]
+    
+    /// The prefix of nucg
+    public static let prefix = "NUCG-"
 
     /// Generates a new valid Nucg with the given string
     public init(code: String) {
@@ -29,7 +32,7 @@ public struct Nucg {
 
 extension Nucg: RawRepresentable {
     public var rawValue: String {
-        return String(characters)
+        return Self.prefix + String(characters)
     }
 
     public init?(rawValue: String) {
