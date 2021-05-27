@@ -164,7 +164,6 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         guard let model = self.model else {
             return
         }
-
         if let greenCertificate = model.greenCertificate {
           showQr = true
 //          let qr = self.generateQRCode(from: greenCertificate)
@@ -230,7 +229,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
           .below(of: headerView)
           .marginTop(20)
           .horizontally(25)
-          .height(500)
+          .height(UIDevice.getByScreen(normal: 500, short: 460))
         
         stateLabel.pin
           .minHeight(25)
@@ -325,7 +324,7 @@ private extension GreenCertificateView {
           button.layer.cornerRadius = cornerRadius
           button.titleLabel?.numberOfLines = 2
           button.addShadow(shadow)
-          button.imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: UIDevice.getByScreen(normal: 80, short: 60))
+          button.imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 60)
 
         }
         

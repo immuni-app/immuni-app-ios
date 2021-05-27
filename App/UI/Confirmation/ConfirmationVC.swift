@@ -48,6 +48,6 @@ extension ConfirmationLS {
     return .init(title: L10n.ConfirmData.Confirmation.title, details: L10n.ConfirmData.Confirmation.subtitle)
   }
   static var retriveGreenCertificateCompleted: Self {
-    return .init(title: "Digital Green Certificate recuperato con successo", details: "")
+    return .init(title: L10n.ConfirmData.GreenCertificate.title, details: "")
   }
 }

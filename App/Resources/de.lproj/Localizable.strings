@@ -17,6 +17,7 @@
 "confirm_data.close_verify_alert.title" = "Sind Sie sicher, dass Sie schließen möchten?";
 "confirm_data.confirmation.subtitle" = "Danke für Ihren Beitrag";
 "confirm_data.confirmation.title" = "Die Daten wurden erfolgreich hochgeladen";
+"confirm_data.green_certificate.title" = "Digital Green Certificate recuperato con successo";
 "confirm_data.exposure_permission.overlay.hint" = "Tippen Sie auf \"<b>OK</b>\" in dem Popup-Fenster, das unten angezeigt wird";
 "confirm_data.footer_message" = "Warten Sie auf die Bestätigung des Bedieners, um Ihre Daten hochzuladen.";
 "confirm_data.title" = "Folgende Daten werden hochgeladen";
