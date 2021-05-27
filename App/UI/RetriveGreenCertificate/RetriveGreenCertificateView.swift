@@ -180,25 +180,25 @@ class RetriveGreenCertificateView: UIView, ViewControllerModellableView {
             .horizontally(25)
             .below(of: headerView)
             .marginTop(25)
-            .height(50)
+            .height(75)
         
         textFieldCode.pin
             .horizontally(25)
             .below(of: textFieldCodeType)
             .marginTop(25)
-            .height(50)
+            .height(75)
 
         textFieldHealthCard.pin
             .horizontally(25)
             .below(of: textFieldCode)
             .marginTop(25)
-            .height(50)
+            .height(75)
 
         pickerField.pin
             .horizontally(25)
             .below(of: textFieldHealthCard)
             .marginTop(25)
-            .height(50)
+            .height(75)
 
         actionButton.pin
             .horizontally(45)

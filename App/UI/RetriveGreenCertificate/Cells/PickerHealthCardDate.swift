@@ -30,6 +30,7 @@ open class PickerHealthCardDate: UIView, ModellableView {
         style()
     }
 
+    private let label = UILabel()
     private let container = UIView()
     private let pickerIcon = UIImageView()
     public let textfield = UITextField()
@@ -50,7 +51,8 @@ open class PickerHealthCardDate: UIView, ModellableView {
 
     public func setup() {
         textfield.setInputViewDatePicker(target: self, selector: #selector(tapDone))
-
+        
+        addSubview(label)
         addSubview(container)
         container.addSubview(pickerIcon)
         container.addSubview(textfield)
@@ -71,6 +73,7 @@ open class PickerHealthCardDate: UIView, ModellableView {
 
     public func style() {
         Self.Style.container(container)
+        Self.Style.title(label)
     }
 
     public func update(oldModel _: PickerHealthCardDateVM?) {
@@ -87,9 +90,15 @@ open class PickerHealthCardDate: UIView, ModellableView {
     override open func layoutSubviews() {
         super.layoutSubviews()
 
+        label.pin
+            .horizontally(25)
+            .sizeToFit(.width)
+        
         container.pin
+            .marginTop(30)
             .vertically()
             .horizontally(15)
+            .below(of: label)
 
         pickerIcon.pin
             .size(24)
@@ -114,6 +123,18 @@ open class PickerHealthCardDate: UIView, ModellableView {
 
 extension PickerHealthCardDate {
     enum Style {
+        static func title(_ label: UILabel) {
+            let content = "Data scadenza Tessera Sanitaria"
+            TempuraStyles.styleShrinkableLabel(
+                label,
+                content: content,
+                style: TextStyles.pSemibold.byAdding(
+                    .color(Palette.grayDark),
+                    .alignment(.left)
+                ),
+                numberOfLines: 1
+            )
+        }
         static func container(_ view: UIView) {
             view.backgroundColor = Palette.white
             view.layer.cornerRadius = 15

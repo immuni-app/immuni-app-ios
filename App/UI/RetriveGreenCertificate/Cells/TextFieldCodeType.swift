@@ -35,6 +35,7 @@ open class TextFieldCodeType: UIView, ModellableView {
     private let dropDownIcon = UIImageView()
     public let textfield = UITextField()
     private let dropdown = DropDown()
+    private let label = UILabel()
 
 
     var didChangeCodeType: CustomInteraction<CodeType>?
@@ -42,6 +43,7 @@ open class TextFieldCodeType: UIView, ModellableView {
     public func setup() {
 
         addSubview(container)
+        addSubview(label)
         container.addSubview(selectIcon)
         container.addSubview(dropDownIcon)
         container.addSubview(textfield)
@@ -87,6 +89,7 @@ open class TextFieldCodeType: UIView, ModellableView {
     public func style() {
         Self.Style.container(container)
         Self.Style.dropDownIcon(dropDownIcon)
+        Self.Style.title(label)
     }
 
     public func update(oldModel _: TextFieldCodeTypeVM?) {
@@ -103,10 +106,16 @@ open class TextFieldCodeType: UIView, ModellableView {
     override open func layoutSubviews() {
         super.layoutSubviews()
 
+        label.pin
+            .horizontally(25)
+            .sizeToFit(.width)
+        
         container.pin
+            .marginTop(30)
             .vertically()
             .horizontally(15)
-
+            .below(of: label)
+        
         selectIcon.pin
             .size(24)
             .left(12)
@@ -135,6 +144,18 @@ open class TextFieldCodeType: UIView, ModellableView {
 
 extension TextFieldCodeType {
     enum Style {
+        static func title(_ label: UILabel) {
+            let content = "Tipologia di codice"
+            TempuraStyles.styleShrinkableLabel(
+                label,
+                content: content,
+                style: TextStyles.pSemibold.byAdding(
+                    .color(Palette.grayDark),
+                    .alignment(.left)
+                ),
+                numberOfLines: 1
+            )
+        }
         static func container(_ view: UIView) {
             view.backgroundColor = Palette.white
             view.layer.cornerRadius = 15

@@ -213,7 +213,7 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
           .below(of: headerView)
           .marginTop(25)
           .horizontally(25)
-          .height(420)
+          .height(500)
         
         iconAutonomous.pin
             .size(28)
@@ -233,20 +233,20 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
             .horizontally(25)
             .below(of: titleAutonomous)
             .marginTop(25)
-            .height(50)
+            .height(75)
 
         textFieldHealthCard.pin
             .horizontally(25)
             .below(of: textFieldCun)
             .marginTop(25)
-            .height(50)
+            .height(75)
 
         pickerFieldSymptomsDate.pin
             .horizontally(25)
             .below(of: textFieldHealthCard)
             .marginTop(25)
-            .height(50)
-        
+            .height(75)
+
         asymptomaticCheckBox.pin
             .below(of: pickerFieldSymptomsDate)
             .marginTop(25)
