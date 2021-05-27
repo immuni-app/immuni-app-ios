@@ -38,7 +38,7 @@ struct HomeDoTodayCellVM: ViewModel {
     case .dataUpload:
       return L10n.Settings.Setting.loadData
     case .greenCertificate:
-      return "Recupera Digital Green Certificate"
+        return L10n.HomeView.Info.GreenCertificate.title
     }
   }
 

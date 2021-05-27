@@ -145,7 +145,7 @@ open class TextFieldCodeType: UIView, ModellableView {
 extension TextFieldCodeType {
     enum Style {
         static func title(_ label: UILabel) {
-            let content = "Tipologia di codice"
+            let content = L10n.HomeView.RetriveGreenCertificate.inputCodeTypeLabel
             TempuraStyles.styleShrinkableLabel(
                 label,
                 content: content,
@@ -191,7 +191,7 @@ extension TextFieldCodeType {
             textfield.typingAttributes = textStyle.attributes
             textfield.defaultTextAttributes = textStyle.attributes
 
-            let placeholder = NSAttributedString(string: "Tipologia di codice")
+            let placeholder = NSAttributedString(string: L10n.HomeView.RetriveGreenCertificate.inputCodeTypePlaceholder)
             textfield.attributedPlaceholder = placeholder.styled(with: placeholderStyle)
         }
     }

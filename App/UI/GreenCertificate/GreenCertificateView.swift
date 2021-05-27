@@ -27,14 +27,6 @@ struct GreenCertificateVM: ViewModelWithLocalState {
       case active
       case inactive
 
-      var title: String {
-        switch self {
-        case .active:
-          return "Attivo"
-        case .inactive:
-          return "Non Attivo"
-        }
-      }
     }
 
     /// The currently status.
@@ -136,8 +128,8 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         Self.Style.background(self)
         Self.Style.backgroundGradient(backgroundGradientView)
         Self.Style.scrollView(scrollView)
-        Self.Style.title(title, text: "Green certificate")
-        Self.Style.inactiveLabel(inactiveLabel, text: "Nessun certificato attivo")
+        Self.Style.title(title, text: L10n.HomeView.GreenCertificate.title)
+        Self.Style.inactiveLabel(inactiveLabel, text: L10n.HomeView.GreenCertificate.notPresentQrLabel)
         Self.Style.imageContent(inactiveImage, image: Asset.Home.inactive.image)
         Self.Style.container(container)
         
@@ -171,7 +163,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
           scrollView.addSubview(qrCode)
           inactiveLabel.removeFromSuperview()
           inactiveImage.removeFromSuperview()
-          Self.Style.stateLabel(stateLabel,text: "Attivo", color: Palette.purple)
+            Self.Style.stateLabel(stateLabel,text: L10n.HomeView.GreenCertificate.activeLabel, color: Palette.purple)
         }
         else{
           showQr = false
@@ -180,7 +172,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
           container.addSubview(inactiveImage)
           scrollView.addSubview(inactiveImage)
           qrCode.removeFromSuperview()
-          Self.Style.stateLabel(stateLabel,text: "Non attivo", color: Palette.grayPurple)
+          Self.Style.stateLabel(stateLabel,text: L10n.HomeView.GreenCertificate.inactiveLabel, color: Palette.grayPurple)
         }
         
         setNeedsLayout()
@@ -282,7 +274,7 @@ private extension GreenCertificateView {
           shadow: UIView.Shadow = .cardPrimary
         ) {
           
-          let text = "Recupera Digital Green\nCertificate"
+          let text = L10n.HomeView.GreenCertificate.retriveButton
           let textStyle = TextStyles.pSemibold.byAdding([
             .color(tintColor),
             .alignment(.center)

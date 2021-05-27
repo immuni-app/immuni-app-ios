@@ -103,7 +103,7 @@ private extension RetriveGreenCardHeaderView {
         }
 
         static func message(_ label: UILabel) {
-            let content = "Questa funzione ti permette di generare il tuo Digital Green Certificate inserendo direttamente i dati richiesti."
+            let content = L10n.HomeView.RetriveGreenCertificate.header
 
             let textStyle = TextStyles.p.byAdding(
                 .color(Palette.grayNormal),

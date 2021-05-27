@@ -127,15 +127,15 @@ extension TextFieldCode {
             var content: String
             switch (codeType) {
               case .nrfe:
-                content = "Inserisci il codice NRFE"
+                content = L10n.HomeView.RetriveGreenCertificate.inputCodeNrfeLabel
               case .cun:
-                content = "Inserisci il codice CUN"
+                content = L10n.HomeView.RetriveGreenCertificate.inputCodeCunLabel
               case .nucg:
-                content = "Inserisci il codice NUCG"
+                content = L10n.HomeView.RetriveGreenCertificate.inputCodeNucgLabel
               case .otp:
-                content = "Inserisci il codice OTP"
+                content = L10n.HomeView.RetriveGreenCertificate.inputCodeOtpLabel
               case .none:
-                content = "Inserisci il codice"
+                content = L10n.HomeView.RetriveGreenCertificate.inputCodeLabel
             }
             
             TempuraStyles.styleShrinkableLabel(
@@ -183,27 +183,26 @@ extension TextFieldCode {
             textfield.typingAttributes = textStyle.attributes
             textfield.defaultTextAttributes = textStyle.attributes
             
-            let placeholder:NSAttributedString
+            let placeholder: NSAttributedString
             
-            if let codeType = codeType {
-                switch (codeType) {
-                case .nrfe:
-                    placeholder = NSAttributedString(string: "Inserisci il codice NRFE")
-                case .cun:
-                    placeholder = NSAttributedString(string: "Inserisci il codice CUN")
-                case .nucg:
-                    placeholder = NSAttributedString(string: "Inserisci il codice NUCG")
-                case .otp:
-                    placeholder = NSAttributedString(string: "Inserisci il codice OTP")
+            switch (codeType) {
+              case .nrfe:
+                placeholder = NSAttributedString(string: L10n.HomeView.RetriveGreenCertificate.inputCodeNrfePlaceholder)
+              case .cun:
+                placeholder = NSAttributedString(string: L10n.HomeView.RetriveGreenCertificate.inputCodeCunPlaceholder)
+              case .nucg:
+                placeholder = NSAttributedString(string: L10n.HomeView.RetriveGreenCertificate.inputCodeNucgPlaceholder)
+              case .otp:
+                placeholder = NSAttributedString(string: L10n.HomeView.RetriveGreenCertificate.inputCodeOtpPlaceholder)
+              case .none:
+                placeholder = NSAttributedString(string: L10n.HomeView.RetriveGreenCertificate.inputCodePlaceholder)
                 }
-            }
-            else{
-                placeholder = NSAttributedString(string: "Inserisci il codice")
-            }
+            
             textfield.attributedPlaceholder = placeholder.styled(with: placeholderStyle)
         }
+    
     }
-    func getPrefix(codeType: CodeType?) -> String{
+    func getPrefix(codeType: CodeType?) -> String {
         switch codeType {
           case .nrfe:
             return CodeType.prefixNrfe

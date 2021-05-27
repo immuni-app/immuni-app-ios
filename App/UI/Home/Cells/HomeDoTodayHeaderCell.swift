@@ -69,7 +69,7 @@ private extension HomeDoTodayHeaderCell {
     }
 
     static func title(_ label: UILabel) {
-      let content = "Cosa vuoi fare oggi?"
+      let content = L10n.HomeView.InfoHeader.doToday
 
       let textStyle = TextStyles.pSemibold.byAdding(
         .color(Palette.grayDark),

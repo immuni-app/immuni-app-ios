@@ -238,7 +238,7 @@ private extension RetriveGreenCertificateView {
         }
 
         static func title(_ label: UILabel) {
-            let content = "Recupera Digital Green Certificate"
+            let content = L10n.HomeView.RetriveGreenCertificate.title
             TempuraStyles.styleShrinkableLabel(
                 label,
                 content: content,

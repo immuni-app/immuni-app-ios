@@ -518,16 +518,16 @@ extension PermissionTutorialVM.Content {
     
   static var howToRetriveDigitalGreenCertificate: Self {
     return PermissionTutorialVM.Content(
-        title: "howToRetriveDigitalGreenCertificate",
+        title: L10n.HomeView.RetriveGreenCertificate.discoverMoreTitle,
         items: [
           .spacer(.big),
-          .textualContent(L10n.PermissionTutorial.HowToUploadPositiveAutonomous.first, isDark: false),
+          .textualContent(L10n.HomeView.RetriveGreenCertificate.discoverMore1, isDark: false),
           .spacer(.small),
-          .textualContent(L10n.PermissionTutorial.HowToUploadPositiveAutonomous.second, isDark: false),
+          .textualContent(L10n.HomeView.RetriveGreenCertificate.discoverMore2, isDark: false),
           .spacer(.small),
-          .textualContent(L10n.PermissionTutorial.HowToUploadPositiveAutonomous.third, isDark: false),
+          .textualContent(L10n.HomeView.RetriveGreenCertificate.discoverMore2, isDark: false),
           .spacer(.small),
-          .textualContent(L10n.PermissionTutorial.HowToUploadPositiveAutonomous.fourth, isDark: false),
+          .textualContent(L10n.HomeView.RetriveGreenCertificate.discoverMore2, isDark: false),
           .spacer(.big)
           ],
           mainActionTitle: nil,

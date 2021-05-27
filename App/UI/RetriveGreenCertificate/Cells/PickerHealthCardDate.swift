@@ -124,7 +124,7 @@ open class PickerHealthCardDate: UIView, ModellableView {
 extension PickerHealthCardDate {
     enum Style {
         static func title(_ label: UILabel) {
-            let content = "Data scadenza Tessera Sanitaria"
+            let content = L10n.HomeView.RetriveGreenCertificate.inputHealthCardDateLabel
             TempuraStyles.styleShrinkableLabel(
                 label,
                 content: content,
@@ -170,7 +170,7 @@ extension PickerHealthCardDate {
             textfield.typingAttributes = textStyle.attributes
             textfield.defaultTextAttributes = textStyle.attributes
 
-            let placeholder = NSAttributedString(string: "Data scadenza Tessera Sanitaria")
+            let placeholder = NSAttributedString(string: L10n.HomeView.RetriveGreenCertificate.inputHealthCardDatePlaceholder)
             textfield.attributedPlaceholder = placeholder.styled(with: placeholderStyle)
         }
     }

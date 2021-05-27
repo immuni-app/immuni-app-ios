@@ -98,7 +98,7 @@ private extension GreenCertificateHeaderView {
         }
 
         static func message(_ label: UILabel) {
-            let content = "Il Digital Green Certificate ti permette di certificare la tua immunità al COVID-19."
+            let content = L10n.HomeView.GreenCertificate.header
 
             let textStyle = TextStyles.p.byAdding(
                 .color(Palette.grayNormal),
@@ -114,7 +114,7 @@ private extension GreenCertificateHeaderView {
         }
 
         static func label(_ label: UILabel) {
-            let content = "Il tuo Digital Green Certificate"
+            let content = L10n.HomeView.GreenCertificate.label
 
             let textStyle = TextStyles.pSemibold.byAdding(
                 .color(Palette.grayDark),
