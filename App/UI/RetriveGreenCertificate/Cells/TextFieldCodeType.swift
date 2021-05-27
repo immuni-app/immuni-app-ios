@@ -50,8 +50,6 @@ open class TextFieldCodeType: UIView, ModellableView {
 
         textfield.delegate = self
 
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapContainer))
-        container.addGestureRecognizer(tapGesture)
         let tapGestureSelect = UITapGestureRecognizer(target: self, action: #selector(didTapSelect))
         textfield.addGestureRecognizer(tapGestureSelect)
         textfield.inputView = UIView()

@@ -68,6 +68,8 @@
 "home_view.green_certificate.not_present_qr_label" = "Nessun certificato attivo";
 "home_view.green_certificate.retrive_button" = "Recupera Digital Green certificate";
 "home_view.green_certificate.delete_button" = "Elimina codice";
+"home_view.green_certificate.confirm.title" = "Attenzione";
+"home_view.green_certificate.confirm.messagge" = "Se elimini il certificato dovrai generarne un altro inserendo tutti i dati richiesti, sei sicuro di voler procedere?";
 "home_view.retrive_green_certificate.title" = "Recupera Digital Green certificate";
 "home_view.retrive_green_certificate.header" = "Questa funzione ti permette di generare il tuo Digital Green Certificate inserendo direttamente i dati richiesti.";
 "home_view.retrive_green_certificate.discover_more_title" = "discover_more_title";

@@ -256,15 +256,15 @@ extension TextFieldCode: UITextFieldDelegate {
     ) -> Bool {
         var lengthCode:Int
         switch model?.codeType {
-        case .nrfe:
+          case .nrfe:
             lengthCode = CodeType.lengthNrfe
-        case .cun:
+          case .cun:
             lengthCode = CodeType.lengthCun
-        case .nucg:
+          case .nucg:
             lengthCode = CodeType.lengthNucg
-        case .otp:
+          case .otp:
             lengthCode = CodeType.lengthOtp
-        default:
+          default:
             return false
         }
         guard let prefixCode = prefixCode else { return false }

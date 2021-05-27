@@ -194,10 +194,10 @@ struct RetriveGreenCertificateLS: LocalState {
 }
 public enum CodeType: String {
     
-    public static let prefixNrfe = "NRFE-"
+    public static let prefixNrfe = ""
     public static let prefixCun = "CUN-"
     public static let prefixNucg = "NUCG-"
-    public static let prefixOtp = "OTP-"
+    public static let prefixOtp = ""
     
     public static let lengthNrfe = 17
     public static let lengthCun = 10

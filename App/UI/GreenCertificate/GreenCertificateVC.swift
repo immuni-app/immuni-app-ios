@@ -29,6 +29,19 @@ class GreenCertificateVC: ViewControllerWithLocalState<GreenCertificateView> {
         rootView.didTapRetriveGreenCertificate = { [weak self] in
             self?.dispatch(Logic.Home.ShowRetriveGreenCertificate())
         }
+        rootView.didTapDeleteGreenCertificate = { [weak self] in
+            let deleteConfirmBox = UIAlertController(
+                title: L10n.HomeView.GreenCertificate.Confirm.title,
+                message: L10n.HomeView.GreenCertificate.Confirm.messagge,
+                preferredStyle: UIAlertController.Style.alert
+            )
+            deleteConfirmBox.addAction(UIAlertAction(title: L10n.confirm, style: .default, handler: { (_: UIAlertAction!) in
+                self?.dispatch(Logic.Home.DeleteGreenCertificate())
+            }))
+            deleteConfirmBox.addAction(UIAlertAction(title: L10n.cancel, style: .cancel))
+            self?.present(deleteConfirmBox, animated: true, completion: nil)
+            
+        }
         rootView.didTapDiscoverMore = { [weak self] in
             self?.dispatch(Logic.PermissionTutorial.ShowHowToUploadWhenPositiveAutonomous())
         }

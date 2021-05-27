@@ -66,6 +66,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
 
     private var qrCode = UIImageView()
     private var actionButton = ButtonWithInsets()
+    private var deleteButton = ButtonWithInsets()
     private var stateLabel = UILabel()
 
     var lineView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 1.0))
@@ -74,6 +75,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
 
     var didTapDiscoverMore: Interaction?
     var didTapRetriveGreenCertificate: Interaction?
+    var didTapDeleteGreenCertificate: Interaction?
 
 
     // MARK: - Setup
@@ -84,6 +86,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         container.addSubview(lineView)
         container.addSubview(stateLabel)
         container.addSubview(qrCode)
+        container.addSubview(deleteButton)
 
         addSubview(actionButton)
         addSubview(backgroundGradientView)
@@ -100,6 +103,9 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
            }
         actionButton.on(.touchUpInside) { [weak self] _ in
             self?.didTapRetriveGreenCertificate?()
+           }
+        deleteButton.on(.touchUpInside) { [weak self] _ in
+            self?.didTapDeleteGreenCertificate?()
            }
 
        }
@@ -132,6 +138,17 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         Self.Style.inactiveLabel(inactiveLabel, text: L10n.HomeView.GreenCertificate.notPresentQrLabel)
         Self.Style.imageContent(inactiveImage, image: Asset.Home.inactive.image)
         Self.Style.container(container)
+        SharedStyle.primaryButton(
+          deleteButton,
+          title: L10n.HomeView.GreenCertificate.deleteButton,
+          icon: Asset.Home.trash.image,
+          spacing: 8,
+          tintColor: Palette.white,
+          backgroundColor: Palette.grayDark,
+          insets: UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 20),
+          cornerRadius: 21,
+          shadow: .grayDark
+        )
         
         lineView.layer.borderWidth = 1.0
         lineView.layer.borderColor = Palette.grayExtraWhite.cgColor
@@ -160,10 +177,12 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
 //          yourImageView.image = decodedimage
             
           addSubview(qrCode)
+          addSubview(deleteButton)
           scrollView.addSubview(qrCode)
+          scrollView.addSubview(deleteButton)
           inactiveLabel.removeFromSuperview()
           inactiveImage.removeFromSuperview()
-            Self.Style.stateLabel(stateLabel,text: L10n.HomeView.GreenCertificate.activeLabel, color: Palette.purple)
+          Self.Style.stateLabel(stateLabel,text: L10n.HomeView.GreenCertificate.activeLabel, color: Palette.purple)
         }
         else{
           showQr = false
@@ -172,6 +191,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
           container.addSubview(inactiveImage)
           scrollView.addSubview(inactiveImage)
           qrCode.removeFromSuperview()
+          deleteButton.removeFromSuperview()
           Self.Style.stateLabel(stateLabel,text: L10n.HomeView.GreenCertificate.inactiveLabel, color: Palette.grayPurple)
         }
         
@@ -210,7 +230,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
           .below(of: headerView)
           .marginTop(20)
           .horizontally(25)
-          .height(430)
+          .height(500)
         
         stateLabel.pin
           .minHeight(25)
@@ -234,6 +254,13 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
               .hCenter()
               .width(container.frame.width*0.9)
               .height(container.frame.width*0.9)
+            
+            deleteButton.pin
+              .hCenter()
+              .size(self.buttonSize(for: self.bounds.width))
+              .minHeight(25)
+              .below(of: qrCode)
+              .marginTop(20)
         }
         else {
             inactiveImage.pin
@@ -257,6 +284,15 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             .marginTop(20)
     
         scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: actionButton.frame.maxY)
+    }
+    func buttonSize(for width: CGFloat) -> CGSize {
+      let labelWidth = width - 2 * HomeView.cellHorizontalInset - HomeDeactivateServiceCell.iconSize
+        - self.deleteButton.insets.horizontal - self.deleteButton.titleEdgeInsets.horizontal
+      var buttonSize = self.deleteButton.titleLabel?.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity)) ?? .zero
+      buttonSize.width += HomeDeactivateServiceCell.iconSize + HomeDeactivateServiceCell.iconToTitle + self.deleteButton.insets.horizontal
+      buttonSize.height = max(buttonSize.height, HomeDeactivateServiceCell.iconSize) + self.deleteButton.insets.vertical
+
+      return buttonSize
     }
 }
 
