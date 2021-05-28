@@ -51,7 +51,7 @@
 "home_view.info.protection.title" = "So können Sie sich schützen";
 "home_view.info_header.title" = "Informationen";
 "home_view.info_header.do_today" = "Cosa vuoi fare oggi?";
-"home_view.info.green_certificate.title" = "Recupera Digital Green Certificate";
+"home_view.info.green_certificate.title" = "Digital Green\nCertificate";
 "home_view.info.update_countries.title" = "Wenn Sie in ein anderes europäisches Land reisen";
 "home_view.info.load_data.title" = "Segnala positività in autonomia";
 "home_view.service.active.discover_more" = "Mehr erfahren";
@@ -69,8 +69,8 @@
 "home_view.green_certificate.not_present_qr_label" = "Nessun certificato attivo";
 "home_view.green_certificate.retrive_button" = "Recupera Digital Green certificate";
 "home_view.green_certificate.delete_button" = "Elimina codice";
-"home_view.green_certificate.confirm.title" = "Attenzione";
-"home_view.green_certificate.confirm.messagge" = "Se elimini il certificato dovrai generarne un altro inserendo tutti i dati richiesti, sei sicuro di voler procedere?";
+"home_view.green_certificate.confirm.title" = "Elimina Digital Green Certificate";
+"home_view.green_certificate.confirm.messagge" = "Sei sicuro di voler eliminare il tuo Digital Green Certificate?";
 "home_view.retrive_green_certificate.title" = "Recupera Digital Green certificate";
 "home_view.retrive_green_certificate.header" = "Questa funzione ti permette di generare il tuo Digital Green Certificate inserendo direttamente i dati richiesti.";
 "home_view.retrive_green_certificate.discover_more_title" = "discover_more_title";
@@ -79,7 +79,7 @@
 "home_view.retrive_green_certificate.input_code_type_label" = "Tipologia del codice";
 "home_view.retrive_green_certificate.input_code_type_placeholder" = "Seleziona tipologia";
 "home_view.retrive_green_certificate.input_code_label" = "Codice";
-"home_view.retrive_green_certificate.input_code_placeholder" = "Inserisci il codice";
+"home_view.retrive_green_certificate.input_code_placeholder" = "NRFE/CUN/NUCG/OTP";
 "home_view.retrive_green_certificate.input_code_cun_label" = "Codice CUN";
 "home_view.retrive_green_certificate.input_code_cun_placeholder" = "CUN";
 "home_view.retrive_green_certificate.input_code_otp_label" = "Codice OTP";
@@ -262,9 +262,11 @@
 "settings.setting.load_data_autonomous_call_center.title" = "Rufen Sie das Callcenter unter\n800.91.24.91 an";
 "settings.setting.load_data_autonomous.choice" = "oder";
 "settings.setting.load_data_autonomous.call_center.title" = "Rufen Sie das Callcenter";
-"settings.setting.load_data_autonomous.cun.placeholder" = "CUN des positiven Tampons";
+"settings.setting.load_data_autonomous.cun.label" = "CUN des positiven Tampons";
+"settings.setting.load_data_autonomous.cun.placeholder" = "Inserisci codice";
 "settings.setting.load_data_autonomous.health_card.placeholder" = "Letzten 8-stellige Nummern der Gesundheitskarte";
-"settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Startdatum des Symptoms";
+"settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Data";
+"settings.setting.load_data_autonomous.symptoms_date.label" = "Startdatum des Symptoms";
 "settings.setting.load_data_autonomous.asymptomatic.message" = "Keine Symptome";
 "settings.setting.load_data_autonomous.asymptomatic.alert.title" = "Beachtung";
 "settings.setting.load_data_autonomous.asymptomatic.alert.message" = "Es ist wichtig, das genaue Datum des Symptombeginns mitzuteilen, um eine genaue Kontaktverfolgung einzuleiten. Wählen Sie \"keine Symptome\" nur, wenn keine Symptome vorliegen oder wenn nach dem Tupfer Symptome auftreten.";

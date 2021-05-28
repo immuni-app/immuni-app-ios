@@ -37,20 +37,37 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
             if let codeType = self.localState.codeType {
                 code = self.validateCode(code: self.localState.code, codeType: codeType)
                 if self.localState.code == "" {
-                    message += L10n.Settings.Setting.LoadDataAutonomous.FormError.Cun.message
+                    switch codeType {
+                      case .cun:
+                        message += L10n.HomeView.RetriveGreenCertificate.FormError.codeCunRequired
+                      case .nrfe:
+                        message += L10n.HomeView.RetriveGreenCertificate.FormError.codeNrfeRequired
+                      case .nucg:
+                        message += L10n.HomeView.RetriveGreenCertificate.FormError.codeNucgRequired
+                      case .otp:
+                        message += L10n.HomeView.RetriveGreenCertificate.FormError.codeOtpRequired
+                    }
                 } else if code == nil {
-                    message += L10n.Settings.Setting.LoadDataAutonomous.FormError.Cun.Invalid.message
+                    switch codeType {
+                      case .cun:
+                        message += L10n.HomeView.RetriveGreenCertificate.FormError.codeCunWrong
+                      case .nrfe:
+                        message += L10n.HomeView.RetriveGreenCertificate.FormError.codeNfreWrong
+                      case .nucg:
+                        message += L10n.HomeView.RetriveGreenCertificate.FormError.codeNucgWrong
+                      case .otp:
+                        message += L10n.HomeView.RetriveGreenCertificate.FormError.codeOptWrong
+                    }
                 }
             }
             else {
                 message += L10n.HomeView.RetriveGreenCertificate.FormError.codeTypeRequired
-                message += L10n.HomeView.RetriveGreenCertificate.FormError.codeRequired
             }
             if !self.validateHealthCard(healthCard: self.localState.healtCard) {
-                message += L10n.Settings.Setting.LoadDataAutonomous.FormError.HealtCard.message
+                message += L10n.HomeView.RetriveGreenCertificate.FormError.healthCardRequired
             }
             if !self.validateHealthCardDate(date: self.localState.healtCardDate) {
-                message += L10n.Settings.Setting.LoadDataAutonomous.FormError.SymptomsDate.message
+                message += L10n.HomeView.RetriveGreenCertificate.FormError.healthCardDateRequired
             }
             
             if message != "" {

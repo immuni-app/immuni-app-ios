@@ -113,7 +113,7 @@ open class TextFieldCun: UIView, ModellableView {
 extension TextFieldCun {
     enum Style {
         static func title(_ label: UILabel) {
-            let content = L10n.Settings.Setting.LoadDataAutonomous.Cun.placeholder
+            let content = L10n.Settings.Setting.LoadDataAutonomous.Cun.label
             TempuraStyles.styleShrinkableLabel(
                 label,
                 content: content,

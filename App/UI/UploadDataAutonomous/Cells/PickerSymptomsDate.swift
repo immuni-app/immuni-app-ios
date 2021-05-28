@@ -128,7 +128,7 @@ open class PickerSymptomsDate: UIView, ModellableView {
 extension PickerSymptomsDate {
     enum Style {
         static func title(_ label: UILabel) {
-            let content = L10n.Settings.Setting.LoadDataAutonomous.SymptomsDate.placeholder
+            let content = L10n.Settings.Setting.LoadDataAutonomous.SymptomsDate.label
             TempuraStyles.styleShrinkableLabel(
                 label,
                 content: content,
