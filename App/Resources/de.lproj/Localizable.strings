@@ -97,6 +97,7 @@
 "home_view.retrive_green_certificate.form_error.code_wrong" = "- Il codice inserito non risulta formalmente valido\n";
 "home_view.retrive_green_certificate.form_error.health_card_required" = "- Il numero di Tessera Sanitaria inserito non risulta formalmente valido. Assicurati di aver inserito le ultime 8 cifre della tua Tessera sanitaria associata ad un tampone positivo\n";
 "home_view.retrive_green_certificate.form_error.health_card_date_required" = "- Inserisci la data di scadenza della Tessera Sanitaria\n";
+"home_view.retrive_green_certificate.loading" = "Recupero DGC in corso..";
 "how_it_works_tile_1" = "Immuni ordnet jedem Handy einen Zufallscode zu";
 "how_it_works_tile_2" = "Wenn Handys aufeinander treffen, tauschen sie ihre Zufallscodes aus";
 "how_it_works_tile_3" = "Positiv getestete Nutzer entscheiden, ob sie ihre Zufallscodes freigeben möchten";

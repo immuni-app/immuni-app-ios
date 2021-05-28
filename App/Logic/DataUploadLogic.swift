@@ -155,7 +155,7 @@ extension Logic.DataUpload {
 
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
         var state = context.getState()
-        try context.awaitDispatch(Logic.Loading.Show())
+        try context.awaitDispatch(Logic.Loading.Show(message: L10n.HomeView.RetriveGreenCertificate.loading))
 
         do {
             var codeWithPrefix: String

@@ -130,7 +130,7 @@ class RetriveGreenCertificateView: UIView, ViewControllerModellableView {
         Self.Style.container(container)
 
         SharedStyle.navigationBackButton(backButton)
-        SharedStyle.primaryButton(actionButton, title: L10n.UploadData.Verify.button)
+        SharedStyle.primaryButton(actionButton, title: L10n.confirm)
     }
 
     // MARK: - Update
