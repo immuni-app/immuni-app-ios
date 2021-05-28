@@ -43,8 +43,8 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
                 }
             }
             else {
-                message += "- Inserire la tipologia del codice\n"
-                message += L10n.Settings.Setting.LoadDataAutonomous.FormError.Cun.message
+                message += L10n.HomeView.RetriveGreenCertificate.FormError.codeTypeRequired
+                message += L10n.HomeView.RetriveGreenCertificate.FormError.codeRequired
             }
             if !self.validateHealthCard(healthCard: self.localState.healtCard) {
                 message += L10n.Settings.Setting.LoadDataAutonomous.FormError.HealtCard.message
