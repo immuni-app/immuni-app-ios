@@ -75,7 +75,7 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
                 return
             } else {
                 guard let code = code, let codeType = self.localState.codeType else { return }
-                self.verifyCode(code: code, codeType: codeType, lastHisNumber: self.localState.healtCard, healthCardDate: self.localState.healtCardDate)
+                self.retriveDgc(code: code, codeType: codeType, lastHisNumber: self.localState.healtCard, healthCardDate: self.localState.healtCardDate)
             }
         }
 
@@ -103,66 +103,17 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
         }
         switch codeType {
           case .nrfe:
-            return self.validateNrfe(code: code)
+            return CodeType.validateNrfe(code: code)
 
           case .cun:
-            return self.validateCun(code: code)
+            return CodeType.validateCun(code: code)
 
           case .nucg:
-            return self.validateNucg(code: code)
+            return CodeType.validateNucg(code: code)
 
           case .otp:
-            return self.validateOtp(code: code)
+            return CodeType.validateOtp(code: code)
         }
-    }
-
-    private func validateCun(code: String?) -> String? {
-        guard let code = code else {
-            return nil
-        }
-        if code != "", code.count == CodeType.lengthCun {
-            let cun = OTP(code: code)
-            if cun.verifyCode() {
-                return cun.rawValue
-            }
-        }
-        return nil
-    }
-    
-    private func validateOtp(code: String?) -> String? {
-        guard let code = code else {
-            return nil
-        }
-        if code != "", code.count == CodeType.lengthOtp {
-            let otp = AuthCodeOtp(code: code)
-            if otp.verifyCode() {
-                return otp.rawValue
-            }
-        }
-        return nil
-    }
-    
-    private func validateNucg(code: String?) -> String? {
-        guard let code = code else {
-            return nil
-        }
-        if code != "", code.count == CodeType.lengthNucg {
-            let nucg = Nucg(code: code)
-            if nucg.verifyCode() {
-                return nucg.rawValue
-            }
-        }
-        return nil
-    }
-    
-    private func validateNrfe(code: String?) -> String? {
-        guard let code = code else {
-            return nil
-        }
-        if code != "", code.count == CodeType.lengthNrfe, code.hasPrefix("99")  {
-            return code
-        }
-        return nil
     }
 
     private func validateHealthCardDate(date: String?) -> Bool {
@@ -185,7 +136,7 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
         return false
     }
 
-    private func verifyCode(code: String, codeType: CodeType, lastHisNumber: String, healthCardDate: String) {
+    private func retriveDgc(code: String, codeType: CodeType, lastHisNumber: String, healthCardDate: String) {
         localState.isLoading = true
 
         dispatch(Logic.DataUpload.RetriveDigitalGreenCertificate(code: code, lastHisNumber: lastHisNumber, healthCardDate: healthCardDate, codeType: codeType))
@@ -228,6 +179,54 @@ public enum CodeType: String {
     
     static func getCodeList() -> [String] {
         return [CodeType.nrfe.rawValue, CodeType.cun.rawValue, CodeType.nucg.rawValue, CodeType.otp.rawValue]
+    }
+    static func validateCun(code: String?) -> String? {
+        guard let code = code else {
+            return nil
+        }
+        if code != "", code.count == CodeType.lengthCun {
+            let cun = OTP(code: code)
+            if cun.verifyCode() {
+                return cun.rawValue
+            }
+        }
+        return nil
+    }
+    
+    static func validateOtp(code: String?) -> String? {
+        guard let code = code else {
+            return nil
+        }
+        if code != "", code.count == CodeType.lengthOtp {
+            let otp = AuthCodeOtp(code: code)
+            if otp.verifyCode() {
+                return otp.rawValue
+            }
+        }
+        return nil
+    }
+    
+    static func validateNucg(code: String?) -> String? {
+        guard let code = code else {
+            return nil
+        }
+        if code != "", code.count == CodeType.lengthNucg {
+            let nucg = Nucg(code: code)
+            if nucg.verifyCode() {
+                return nucg.rawValue
+            }
+        }
+        return nil
+    }
+    
+    static func validateNrfe(code: String?) -> String? {
+        guard let code = code else {
+            return nil
+        }
+        if code != "", code.count == CodeType.lengthNrfe, code.hasPrefix("99")  {
+            return code
+        }
+        return nil
     }
 }
 
