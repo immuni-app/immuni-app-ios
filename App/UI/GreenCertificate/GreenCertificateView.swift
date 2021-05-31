@@ -20,6 +20,8 @@ struct GreenCertificateVM: ViewModelWithLocalState {
 
     /// True if it's not possible to execute a new request.
     let isLoading: Bool
+    
+    var state: CardView = .qr
 
     var greenCertificate: String?
 
@@ -57,17 +59,19 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
     private let inactiveImage = UIImageView()
 
     private var backButton = ImageButton()
+    private var qrTab = UIImageView()
+    private var dataTab = UIImageView()
     let scrollView = UIScrollView()
     private let headerView = GreenCertificateHeaderView()
 
     private let container = UIView()
     
-    private var showQr = true
-
     private var qrCode = UIImageView()
     private var actionButton = ButtonWithInsets()
     private var deleteButton = ButtonWithInsets()
     private var stateLabel = UILabel()
+    private var nameLabel = UILabel()
+    private var surnameLabel = UILabel()
 
     var lineView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 1.0))
     
@@ -107,8 +111,39 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         deleteButton.on(.touchUpInside) { [weak self] _ in
             self?.didTapDeleteGreenCertificate?()
            }
+        
+        container.addGestureRecognizer(createSwipeGestureRecognizer(for: .left))
+        container.addGestureRecognizer(createSwipeGestureRecognizer(for: .right))
 
        }
+    @objc private func didSwipe(_ sender: UISwipeGestureRecognizer) {
+        // Current Frame
+        var frame = container.frame
+
+        switch sender.direction {
+          case .up:
+            frame.origin.y -= 100.0
+          case .down:
+            frame.origin.y += 100.0
+          case .left:
+            model?.state = .data
+            frame.origin.x -= 100.0
+          case .right:
+            model?.state = .qr
+            frame.origin.x += 100.0
+          default:
+            break
+        }
+    }
+    private func createSwipeGestureRecognizer(for direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer {
+        // Initialize Swipe Gesture Recognizer
+        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(didSwipe))
+
+        // Configure Swipe Gesture Recognizer
+        swipeGestureRecognizer.direction = direction
+
+        return swipeGestureRecognizer
+    }
     // MARK: - Style
     
     func generateQRCode(from string: String) -> UIImage? {
@@ -150,6 +185,9 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
           shadow: .grayDark
         )
         
+        Self.Style.stateLabel(nameLabel, text: "Mario", color: Palette.purple)
+        Self.Style.stateLabel(surnameLabel, text: "Rossi", color: Palette.purple)
+        
         lineView.layer.borderWidth = 1.0
         lineView.layer.borderColor = Palette.grayExtraWhite.cgColor
         
@@ -165,32 +203,51 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             return
         }
         if let greenCertificate = model.greenCertificate {
-          showQr = true
-//          let qr = self.generateQRCode(from: greenCertificate)
             
           let dataDecoded: Data? = Data(base64Encoded: greenCertificate, options: .ignoreUnknownCharacters)
           if let dataDecoded = dataDecoded{
             let decodedimage = UIImage(data: dataDecoded)
             Self.Style.imageContent(qrCode, image: decodedimage!)
           }
-//          yourImageView.image = decodedimage
-            
-          addSubview(qrCode)
-          addSubview(deleteButton)
-          scrollView.addSubview(qrCode)
-          scrollView.addSubview(deleteButton)
+            switch model.state {
+              case .data:
+                addSubview(nameLabel)
+                scrollView.addSubview(nameLabel)
+                addSubview(surnameLabel)
+                scrollView.addSubview(surnameLabel)
+                qrCode.removeFromSuperview()
+                deleteButton.removeFromSuperview()
+                Self.Style.imageContent(dataTab, image: Asset.Tabbar.settingsSelected.image)
+                Self.Style.imageContent(qrTab, image: Asset.Tabbar.settingsUnselected.image)
+              case .qr:
+                addSubview(qrCode)
+                addSubview(deleteButton)
+                scrollView.addSubview(qrCode)
+                scrollView.addSubview(deleteButton)
+                surnameLabel.removeFromSuperview()
+                nameLabel.removeFromSuperview()
+                Self.Style.imageContent(qrTab, image: Asset.Tabbar.settingsSelected.image)
+                Self.Style.imageContent(dataTab, image: Asset.Tabbar.settingsUnselected.image)
+            }
+          addSubview(qrTab)
+          addSubview(dataTab)
+          scrollView.addSubview(qrTab)
+          scrollView.addSubview(dataTab)
           inactiveLabel.removeFromSuperview()
           inactiveImage.removeFromSuperview()
           Self.Style.stateLabel(stateLabel,text: L10n.HomeView.GreenCertificate.activeLabel, color: Palette.purple)
         }
         else{
-          showQr = false
           container.addSubview(inactiveLabel)
           scrollView.addSubview(inactiveLabel)
           container.addSubview(inactiveImage)
           scrollView.addSubview(inactiveImage)
           qrCode.removeFromSuperview()
+          nameLabel.removeFromSuperview()
+          surnameLabel.removeFromSuperview()
           deleteButton.removeFromSuperview()
+          qrTab.removeFromSuperview()
+          dataTab.removeFromSuperview()
           Self.Style.stateLabel(stateLabel,text: L10n.HomeView.GreenCertificate.inactiveLabel, color: Palette.grayPurple)
         }
         
@@ -229,7 +286,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
           .below(of: headerView)
           .marginTop(20)
           .horizontally(25)
-          .height(UIDevice.getByScreen(normal: 500, short: 460))
+          .height(UIDevice.getByScreen(normal: 540, short: 500))
         
         stateLabel.pin
           .minHeight(25)
@@ -245,7 +302,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
           .width(container.frame.width)
           .height(1)
         
-        if showQr {
+        if model?.greenCertificate != nil {
         
             qrCode.pin
               .below(of: headerView)
@@ -260,6 +317,34 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
               .minHeight(25)
               .below(of: qrCode)
               .marginTop(20)
+            
+            nameLabel.pin
+                .minHeight(25)
+                .below(of: headerView)
+                .marginTop(100)
+                .sizeToFit(.width)
+                .horizontally(25)
+                
+            surnameLabel.pin
+                .minHeight(25)
+                .below(of: nameLabel)
+                .marginTop(20)
+                .sizeToFit(.width)
+                .horizontally(25)
+            
+            qrTab.pin
+                .marginRight(15)
+                .hCenter()
+                .below(of: lineView)
+                .marginTop(UIDevice.getByScreen(normal: 430, short: 350))
+                .sizeToFit()
+            
+            dataTab.pin
+                .marginLeft(15)
+                .hCenter()
+                .below(of: lineView)
+                .marginTop(UIDevice.getByScreen(normal: 430, short: 350))
+                .sizeToFit()
         }
         else {
             inactiveImage.pin
@@ -391,4 +476,8 @@ private extension GreenCertificateView {
             imageView.contentMode = .scaleAspectFit
         }
     }
+}
+enum CardView {
+    case qr
+    case data
 }
