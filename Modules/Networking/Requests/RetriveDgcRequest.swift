@@ -16,7 +16,9 @@ import Alamofire
 import Foundation
 import Models
 
-public struct RetriveDgcRequest: HTTPRequest {
+public struct RetriveDgcRequest: ModelResponseSerializer {    
+    public typealias Model = DigitalGreenCertificate
+
 
   // swiftlint:disable:next force_unwrapping
     public var baseURL = URL(string: "http://192.168.1.186:3001")!

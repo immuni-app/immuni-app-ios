@@ -166,12 +166,14 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         }
         if let greenCertificate = model.greenCertificate {
           showQr = true
-//          let qr = self.generateQRCode(from: greenCertificate)
             
           let dataDecoded: Data? = Data(base64Encoded: greenCertificate, options: .ignoreUnknownCharacters)
-          if let dataDecoded = dataDecoded{
-            let decodedimage = UIImage(data: dataDecoded)
-            Self.Style.imageContent(qrCode, image: decodedimage!)
+          if let dataDecoded = dataDecoded, let decodedimage = UIImage(data: dataDecoded) {
+            Self.Style.imageContent(qrCode, image: decodedimage)
+            if let imageToSave = decodedimage.addImagePadding(x: 20, y: 20) {
+                UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, nil)
+            }
+            
           }
 //          yourImageView.image = decodedimage
             
@@ -183,7 +185,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
           inactiveImage.removeFromSuperview()
           Self.Style.stateLabel(stateLabel,text: L10n.HomeView.GreenCertificate.activeLabel, color: Palette.purple)
         }
-        else{
+        else {
           showQr = false
           container.addSubview(inactiveLabel)
           scrollView.addSubview(inactiveLabel)
@@ -390,5 +392,19 @@ private extension GreenCertificateView {
             imageView.image = image
             imageView.contentMode = .scaleAspectFit
         }
+    }
+}
+extension UIImage {
+
+    func addImagePadding(x: CGFloat, y: CGFloat) -> UIImage? {
+        let width: CGFloat = size.width + x
+        let height: CGFloat = size.height + y
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: width, height: height), false, 0)
+        let origin: CGPoint = CGPoint(x: (width - size.width) / 2, y: (height - size.height) / 2)
+        draw(at: origin)
+        let imageWithPadding = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return imageWithPadding
     }
 }
