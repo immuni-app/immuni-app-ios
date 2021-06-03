@@ -27,5 +27,41 @@ struct UserState: Codable {
   var covidStatus: CovidStatus = .neutral
     
   /// The Digital Green Certificate
-  var greenCertificate: String?
+  var greenCertificates: [GreenCertificate]?
 }
+struct GreenCertificate: Codable {
+
+  /// The Dgc's id
+  var id: String
+    
+  /// The owner's name
+  var name: String
+    
+  /// The owner's birth
+  var birth: String
+    
+  /// The Digital Green Certificate
+  var greenCertificate: String
+    
+  /// The Digital Green Certificate detail
+  var detailGreenCertificate: DetailDigitalGreenCertificate
+
+
+}
+public struct DetailDigitalGreenCertificate: Codable {
+
+   var disease: String
+   var vaccineType: String
+   var vaccineName: String
+   var vaccineProducer: String
+   var numberOfDoses: String
+   var dateLastAdministration: String
+   var vaccinationCuntry: String
+   var certificateAuthority: String
+   var paragraph: String
+   var url: String
+    
+  // swiftlint:enable force_unwrapping
+}
+
+

@@ -29,31 +29,62 @@ class GreenCertificateVC: ViewControllerWithLocalState<GreenCertificateView> {
         rootView.didTapRetriveGreenCertificate = { [weak self] in
             self?.dispatch(Logic.Home.ShowRetriveGreenCertificate())
         }
-        rootView.didTapDeleteGreenCertificate = { [weak self] in
+        rootView.didTapDeleteGreenCertificate = { [weak self] index in
             let deleteConfirmBox = UIAlertController(
                 title: L10n.HomeView.GreenCertificate.Confirm.title,
                 message: L10n.HomeView.GreenCertificate.Confirm.messagge,
                 preferredStyle: UIAlertController.Style.alert
             )
             deleteConfirmBox.addAction(UIAlertAction(title: L10n.confirm, style: .default, handler: { (_: UIAlertAction!) in
-                self?.dispatch(Logic.Home.DeleteGreenCertificate())
+               
+                guard let id = self?.viewModel?.greenCertificates?[index].id,
+                      let greenCertificates = self?.viewModel?.greenCertificates else { return }
+                self?.dispatch(Logic.Home.DeleteGreenCertificate(id: id))
+                self?.viewModel?.greenCertificates = greenCertificates.filter { $0.id != greenCertificates[index].id }
+                if index > 0 {
+                    self?.viewModel?.currentDgc = index-1
+                }
+
             }))
             deleteConfirmBox.addAction(UIAlertAction(title: L10n.cancel, style: .cancel))
             self?.present(deleteConfirmBox, animated: true, completion: nil)
             
         }
-        rootView.didTapDiscoverMore = { [weak self] in
-            self?.dispatch(Logic.PermissionTutorial.ShowHowToUploadWhenPositiveAutonomous())
+        
+        rootView.didTapDiscoverMore = { [weak self] dgc in
+            self?.dispatch(Logic.Home.ShowGreenCertificateDetail(dgc: dgc))
         }
-
+        
+        rootView.didTapSaveGreenCertificate = { [weak self] index in
+            guard let self = self, let model = self.viewModel else { return }
+            
+            if let greenCertificates = model.greenCertificates {
+                
+                let dataDecoded: Data? = Data(base64Encoded: greenCertificates[model.currentDgc].greenCertificate, options: .ignoreUnknownCharacters)
+              if let dataDecoded = dataDecoded, let decodedimage = UIImage(data: dataDecoded) {
+                if let imageToSave = decodedimage.addImagePadding(x: 20, y: 20) {
+                    UIImageWriteToSavedPhotosAlbum(imageToSave, self,  #selector(self.imageSaved(_:didFinishSavingWithError:contextInfo:)), nil)
+                }
+              }
+           
+        }
+        }
     }
+    @objc private func imageSaved(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if ((error) != nil) {
+            dispatch(Logic.DataUpload.ShowSaveGreenCertificateErrorAlert())
+        } else {
+            dispatch(Logic.DataUpload.SaveDigitalGreenCertificate())
+        }
+    }
+
 }
 
 // MARK: - LocalState
 
 struct GreenCertificateLS: LocalState {
     
-    var greenCertificate: String?
+    var greenCertificates: [GreenCertificate]?
 
     /// True if it's not possible to execute a new request.
     var isLoading: Bool = false

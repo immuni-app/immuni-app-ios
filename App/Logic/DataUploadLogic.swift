@@ -83,7 +83,7 @@ extension Logic.DataUpload {
          }
        }
     
-    /// Shows the alert that there is an error in loading data
+  /// Shows the alert that there is an error in loading data
   struct ShowAutonomousUploadErrorAlert: AppSideEffect {
     let message: String
     
@@ -92,6 +92,22 @@ extension Logic.DataUpload {
     let model = Alert.Model(
         title: L10n.Settings.Setting.LoadDataAutonomous.FormError.title,
         message: message,
+        preferredStyle: .alert,
+        actions: [
+            .init(title: L10n.UploadData.ApiError.action, style: .cancel)
+        ]
+    )
+
+    try context.awaitDispatch(Logic.Alert.Show(alertModel: model))
+    }
+}
+  /// Shows the alert that there is an error in saving data
+  struct ShowSaveGreenCertificateErrorAlert: AppSideEffect {
+    
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+    let model = Alert.Model(
+        title: L10n.UploadData.UnauthorizedCun.title,
+        message: L10n.ConfirmData.GreenCertificate.Error.Alert.title,
         preferredStyle: .alert,
         actions: [
             .init(title: L10n.UploadData.ApiError.action, style: .cancel)
@@ -159,8 +175,24 @@ extension Logic.DataUpload {
         do {
 
             let data = try `await`(context.dependencies.networkManager.retriveDigitalGreenCertificate(tokenType: codeType.rawValue.lowercased(), lastHisNumber: lastHisNumber, healthCardDate: healthCardDate, code: code))
+            let dgc = GreenCertificate(
+                id: "jkaSD£4rQwsas2",
+                name: "Rossi Mario",
+                birth: "1991-07-25",
+                greenCertificate: data.result.qr,
+                detailGreenCertificate: DetailDigitalGreenCertificate(
+                    disease: "XXX12",
+                    vaccineType: "XXX2",
+                    vaccineName: "XXX3",
+                    vaccineProducer: "XXX4",
+                    numberOfDoses: "XXX5",
+                    dateLastAdministration: "XXX6",
+                    vaccinationCuntry: "XXX7",
+                    certificateAuthority: "XXX8",
+                    paragraph: "Questo certificato non è un documento di viaggio. Le evidenze scientifiche sulla vaccinazione, sui test e sulla guarigione da COVID-19 continuano ad evolversi, anche in considerazione delle nuove varianti del virus. Prima di viaggiare, si prega di sontrollare le misure di salute pubblica applicate nel luogo di destinazione e le relative restrizioneanche consultando il sito:",
+                    url: "https://reopen.europa.eu/it"))
 
-          try context.awaitDispatch(Logic.CovidStatus.UpdateGreenCertificate(newGreenCertificate: data.result.qr))
+            try context.awaitDispatch(Logic.CovidStatus.UpdateGreenCertificate(newGreenCertificate: dgc))
 
           } catch {
             try `await`(context.dispatch(Logic.Loading.Hide()))
@@ -174,6 +206,18 @@ extension Logic.DataUpload {
 
         try context.awaitDispatch(Hide(Screen.confirmation, animated: true))
         try context.awaitDispatch(Hide(Screen.retriveGreenCertificate, animated: true))
+        }
+      }
+    
+    /// Save digital green certificate in gallery
+    struct SaveDigitalGreenCertificate: AppSideEffect {
+
+      func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+
+        try context.awaitDispatch(Show(Screen.confirmation, animated: true, context: ConfirmationLS.saveGreenCertificateCompleted))
+        try `await`(Promise<Void>(resolved: ()).defer(2))
+
+        try context.awaitDispatch(Hide(Screen.confirmation, animated: true))
         }
       }
    

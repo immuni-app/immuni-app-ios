@@ -21,9 +21,8 @@ struct GreenCertificateVM: ViewModelWithLocalState {
     /// True if it's not possible to execute a new request.
     let isLoading: Bool
     
-    var state: CardView = .qr
-
-    var greenCertificate: String?
+    var currentDgc: Int = 0
+    var greenCertificates: [GreenCertificate]?
 
     enum StatusGreenCertificate: Int {
       case active
@@ -40,7 +39,7 @@ extension GreenCertificateVM {
     init?(state : AppState?, localState: GreenCertificateLS) {
         isLoading = localState.isLoading
         self.status = .inactive
-        self.greenCertificate = state?.user.greenCertificate
+        self.greenCertificates = state?.user.greenCertificates
     }
 }
 
@@ -48,7 +47,6 @@ extension GreenCertificateVM {
 
 class GreenCertificateView: UIView, ViewControllerModellableView {
     typealias VM = GreenCertificateVM
-
     private static let horizontalSpacing: CGFloat = 30.0
     static let orderLeftMargin: CGFloat = UIDevice.getByScreen(normal: 70, narrow: 50)
     static let tabBarHeight: CGFloat = 69
@@ -59,27 +57,36 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
     private let inactiveImage = UIImageView()
 
     private var backButton = ImageButton()
-    private var qrTab = UIImageView()
-    private var dataTab = UIImageView()
+
     let scrollView = UIScrollView()
-    private let headerView = GreenCertificateHeaderView()
 
     private let container = UIView()
     
     private var qrCode = UIImageView()
     private var actionButton = ButtonWithInsets()
     private var deleteButton = ButtonWithInsets()
-    private var stateLabel = UILabel()
+    private var saveButton = ButtonWithInsets()
+    private var swipeLabel = UILabel()
+    
     private var nameLabel = UILabel()
-    private var surnameLabel = UILabel()
+    private var name = UILabel()
+    
+    private var birthLabel = UILabel()
+    private var birth = UILabel()
+    
+    private var idLabel = UILabel()
+    private var id = UILabel()
+    private var discoverMore = TextButton()
+
 
     var lineView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 1.0))
     
     var didTapBack: Interaction?
 
-    var didTapDiscoverMore: Interaction?
+    var didTapDiscoverMore: CustomInteraction<GreenCertificate>?
     var didTapRetriveGreenCertificate: Interaction?
-    var didTapDeleteGreenCertificate: Interaction?
+    var didTapDeleteGreenCertificate: CustomInteraction<Int>?
+    var didTapSaveGreenCertificate: CustomInteraction<Int>?
 
 
     // MARK: - Setup
@@ -88,9 +95,9 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         addSubview(container)
 
         container.addSubview(lineView)
-        container.addSubview(stateLabel)
         container.addSubview(qrCode)
         container.addSubview(deleteButton)
+        container.addSubview(saveButton)
 
         addSubview(actionButton)
         addSubview(backgroundGradientView)
@@ -98,7 +105,6 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         addSubview(title)
         addSubview(backButton)
         scrollView.addSubview(actionButton)
-        scrollView.addSubview(headerView)
 
         scrollView.addSubview(container)
 
@@ -109,13 +115,26 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             self?.didTapRetriveGreenCertificate?()
            }
         deleteButton.on(.touchUpInside) { [weak self] _ in
-            self?.didTapDeleteGreenCertificate?()
+            if let index = self?.model?.currentDgc {
+                self?.didTapDeleteGreenCertificate?(index)
+            }
            }
+        saveButton.on(.touchUpInside) { [weak self] _ in
+            if let index = self?.model?.currentDgc {
+                self?.didTapSaveGreenCertificate?(index)
+            }
+
+        }
+        discoverMore.on(.touchUpInside) { [weak self] _ in
+            guard let index = self?.model?.currentDgc, let dgc = self?.model?.greenCertificates?[index] else { return }
+            self?.didTapDiscoverMore?(dgc)
+        }
         
         container.addGestureRecognizer(createSwipeGestureRecognizer(for: .left))
         container.addGestureRecognizer(createSwipeGestureRecognizer(for: .right))
 
        }
+    
     @objc private func didSwipe(_ sender: UISwipeGestureRecognizer) {
         // Current Frame
         var frame = container.frame
@@ -126,10 +145,15 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
           case .down:
             frame.origin.y += 100.0
           case .left:
-            model?.state = .data
+            if let currentDgc = model?.currentDgc, let length = model?.greenCertificates?.count,
+               currentDgc < (length-1){
+                model?.currentDgc += 1
+            }
             frame.origin.x -= 100.0
           case .right:
-            model?.state = .qr
+            if let currentDgc = model?.currentDgc, currentDgc > 0 {
+                model?.currentDgc -= 1
+            }
             frame.origin.x += 100.0
           default:
             break
@@ -166,6 +190,8 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
      }
 
     func style() {
+        Self.Style.discoverMore(discoverMore)
+        Self.Style.swipeLabel(swipeLabel,text: L10n.HomeView.GreenCertificate.swipeLabel)
         Self.Style.background(self)
         Self.Style.backgroundGradient(backgroundGradientView)
         Self.Style.scrollView(scrollView)
@@ -176,17 +202,25 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         SharedStyle.primaryButton(
           deleteButton,
           title: L10n.HomeView.GreenCertificate.deleteButton,
-          icon: Asset.Home.trash.image,
+          icon: Asset.Tabbar.settingsSelected.image,
           spacing: 8,
-          tintColor: Palette.white,
-          backgroundColor: Palette.grayDark,
+          tintColor: Palette.purple,
+          backgroundColor: UIColor.clear,
           insets: UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 20),
           cornerRadius: 21,
           shadow: .grayDark
         )
-        
-        Self.Style.stateLabel(nameLabel, text: "Mario", color: Palette.purple)
-        Self.Style.stateLabel(surnameLabel, text: "Rossi", color: Palette.purple)
+        SharedStyle.primaryButton(
+          saveButton,
+          title: L10n.HomeView.GreenCertificate.saveButton,
+          icon: Asset.Tabbar.settingsSelected.image,
+          spacing: 8,
+          tintColor: Palette.purple,
+          backgroundColor: UIColor.clear,
+          insets: UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 20),
+          cornerRadius: 21,
+          shadow: .grayDark
+        )
         
         lineView.layer.borderWidth = 1.0
         lineView.layer.borderColor = Palette.grayExtraWhite.cgColor
@@ -202,43 +236,71 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         guard let model = self.model else {
             return
         }
-        if let greenCertificate = model.greenCertificate {
+        if let greenCertificates = model.greenCertificates, greenCertificates.count > 0, model.currentDgc < greenCertificates.count, model.currentDgc >= 0 {
             
-          let dataDecoded: Data? = Data(base64Encoded: greenCertificate, options: .ignoreUnknownCharacters)
+            let dataDecoded: Data? = Data(base64Encoded: greenCertificates[model.currentDgc].greenCertificate, options: .ignoreUnknownCharacters)
           if let dataDecoded = dataDecoded, let decodedimage = UIImage(data: dataDecoded) {
             Self.Style.imageContent(qrCode, image: decodedimage)
-            if let imageToSave = decodedimage.addImagePadding(x: 20, y: 20) {
-                UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, nil)
-            }
-            
           }
-            switch model.state {
-              case .data:
-                addSubview(nameLabel)
-                scrollView.addSubview(nameLabel)
-                addSubview(surnameLabel)
-                scrollView.addSubview(surnameLabel)
-                qrCode.removeFromSuperview()
-                deleteButton.removeFromSuperview()
-                Self.Style.imageContent(dataTab, image: Asset.Tabbar.settingsSelected.image)
-                Self.Style.imageContent(qrTab, image: Asset.Tabbar.settingsUnselected.image)
-              case .qr:
-                addSubview(qrCode)
-                addSubview(deleteButton)
-                scrollView.addSubview(qrCode)
-                scrollView.addSubview(deleteButton)
-                surnameLabel.removeFromSuperview()
-                nameLabel.removeFromSuperview()
-                Self.Style.imageContent(qrTab, image: Asset.Tabbar.settingsSelected.image)
-                Self.Style.imageContent(dataTab, image: Asset.Tabbar.settingsUnselected.image)
+            if let oldModel = oldModel, oldModel.currentDgc != model.currentDgc {
+                let transition = CATransition()
+                transition.type = CATransitionType.push
+                transition.subtype = (oldModel.currentDgc < model.currentDgc) ? CATransitionSubtype.fromRight : CATransitionSubtype.fromLeft
+                container.layer.add(transition, forKey: nil)
+                qrCode.layer.add(transition, forKey: nil)
+                deleteButton.layer.add(transition, forKey: nil)
+                saveButton.layer.add(transition, forKey: nil)
+                nameLabel.layer.add(transition, forKey: nil)
+                name.layer.add(transition, forKey: nil)
+                birthLabel.layer.add(transition, forKey: nil)
+                birth.layer.add(transition, forKey: nil)
+                idLabel.layer.add(transition, forKey: nil)
+                id.layer.add(transition, forKey: nil)
+                discoverMore.layer.add(transition, forKey: nil)
+                lineView.layer.add(transition, forKey: nil)
+                swipeLabel.layer.add(transition, forKey: nil)
+
             }
-          addSubview(qrTab)
-          addSubview(dataTab)
-          scrollView.addSubview(qrTab)
-          scrollView.addSubview(dataTab)
+      
+            if greenCertificates.count > 1 {
+                addSubview(swipeLabel)
+                scrollView.addSubview(swipeLabel)
+            }
+            else {
+                swipeLabel.removeFromSuperview()
+            }
+            addSubview(qrCode)
+            addSubview(deleteButton)
+            addSubview(saveButton)
+            addSubview(nameLabel)
+            addSubview(name)
+            addSubview(birthLabel)
+            addSubview(birth)
+            addSubview(idLabel)
+            addSubview(id)
+            addSubview(discoverMore)
+            addSubview(lineView)
+
+            scrollView.addSubview(lineView)
+            scrollView.addSubview(discoverMore)
+            scrollView.addSubview(qrCode)
+            scrollView.addSubview(deleteButton)
+            scrollView.addSubview(saveButton)
+            scrollView.addSubview(nameLabel)
+            scrollView.addSubview(name)
+            scrollView.addSubview(birthLabel)
+            scrollView.addSubview(birth)
+            scrollView.addSubview(idLabel)
+            scrollView.addSubview(id)
+            Self.Style.value(name,text: greenCertificates[model.currentDgc].name)
+            Self.Style.value(birth,text: greenCertificates[model.currentDgc].birth)
+            Self.Style.value(id,text: greenCertificates[model.currentDgc].id)
+            Self.Style.label(nameLabel,text: "Cognome e nome")
+            Self.Style.label(birthLabel,text: "Data di nasciata (aaaa-mm-gg)")
+            Self.Style.label(idLabel,text: "Identificativo univoco del certificato")
+          
           inactiveLabel.removeFromSuperview()
           inactiveImage.removeFromSuperview()
-          Self.Style.stateLabel(stateLabel,text: L10n.HomeView.GreenCertificate.activeLabel, color: Palette.purple)
         }
         else{
           container.addSubview(inactiveLabel)
@@ -246,12 +308,19 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
           container.addSubview(inactiveImage)
           scrollView.addSubview(inactiveImage)
           qrCode.removeFromSuperview()
-          nameLabel.removeFromSuperview()
-          surnameLabel.removeFromSuperview()
+          swipeLabel.removeFromSuperview()
           deleteButton.removeFromSuperview()
-          qrTab.removeFromSuperview()
-          dataTab.removeFromSuperview()
-          Self.Style.stateLabel(stateLabel,text: L10n.HomeView.GreenCertificate.inactiveLabel, color: Palette.grayPurple)
+          saveButton.removeFromSuperview()
+          nameLabel.removeFromSuperview()
+          name.removeFromSuperview()
+          birthLabel.removeFromSuperview()
+          birth.removeFromSuperview()
+          idLabel.removeFromSuperview()
+          id.removeFromSuperview()
+          lineView.removeFromSuperview()
+          discoverMore.removeFromSuperview()
+
+          
         }
         
         setNeedsLayout()
@@ -261,6 +330,11 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        var dgcIsPresent = false
+        if let greenCertificates = model?.greenCertificates, greenCertificates.count > 0 {
+            dgcIsPresent = true
+        }
 
         backgroundGradientView.pin.all()
 
@@ -280,79 +354,109 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             .marginTop(5)
             .bottom(universalSafeAreaInsets.bottom)
 
-        headerView.pin
-            .horizontally()
-            .sizeToFit(.width)
-            .top(30)
-        
         container.pin
-          .below(of: headerView)
-          .marginTop(20)
+          .top(20)
           .horizontally(25)
-          .height(UIDevice.getByScreen(normal: 540, short: 500))
+          .height(dgcIsPresent ? UIDevice.getByScreen(normal: 760, short: 700) : UIDevice.getByScreen(normal: 400, short: 380))
         
-        stateLabel.pin
-          .minHeight(25)
-          .marginTop(40)
-          .below(of: headerView)
-          .sizeToFit(.width)
-          .horizontally(25)
-
-        lineView.pin
-          .below(of: headerView)
-          .marginTop(80)
-          .hCenter()
-          .width(container.frame.width)
-          .height(1)
-        
-        if model?.greenCertificate != nil {
+        if dgcIsPresent {
         
             qrCode.pin
-              .below(of: headerView)
-              .marginTop(100)
+              .below(of: title)
+              .marginTop(60)
               .hCenter()
-              .width(container.frame.width*0.9)
-              .height(container.frame.width*0.9)
+              .width(container.frame.width*0.94)
+              .height(container.frame.width*0.94)
             
+            swipeLabel.pin
+              .minHeight(25)
+              .below(of: qrCode)
+              .marginTop(10)
+              .sizeToFit(.width)
+              .horizontally(25)
+        
+            nameLabel.pin
+              .minHeight(25)
+              .below(of: qrCode)
+              .marginTop(55)
+              .sizeToFit(.width)
+              .horizontally(25)
+              .marginLeft(10)
+            
+            name.pin
+              .minHeight(25)
+              .below(of: nameLabel)
+              .marginTop(5)
+              .sizeToFit(.width)
+              .horizontally(25)
+              .marginLeft(10)
+            
+            birthLabel.pin
+              .minHeight(25)
+              .below(of: name)
+              .marginTop(15)
+              .sizeToFit(.width)
+              .horizontally(25)
+              .marginLeft(10)
+
+            birth.pin
+              .minHeight(25)
+              .below(of: birthLabel)
+              .marginTop(5)
+              .sizeToFit(.width)
+              .horizontally(25)
+              .marginLeft(10)
+
+            idLabel.pin
+              .minHeight(25)
+              .below(of: birth)
+              .marginTop(15)
+              .sizeToFit(.width)
+              .horizontally(25)
+              .marginLeft(10)
+
+            id.pin
+              .minHeight(25)
+              .below(of: idLabel)
+              .marginTop(5)
+              .sizeToFit(.width)
+              .horizontally(25)
+              .marginLeft(10)
+            
+            discoverMore.pin
+                .below(of: id)
+                .marginTop(10)
+                .horizontally(30)
+                .sizeToFit(.width)
+            
+            lineView.pin
+                .below(of: discoverMore)
+                .marginTop(10)
+                .hCenter()
+                .width(container.frame.width)
+                .height(1)
+
             deleteButton.pin
+              .right(35)
               .hCenter()
               .size(self.buttonSize(for: self.bounds.width))
               .minHeight(25)
-              .below(of: qrCode)
-              .marginTop(20)
+              .below(of: lineView)
+              .marginTop(5)
             
-            nameLabel.pin
-                .minHeight(25)
-                .below(of: headerView)
-                .marginTop(100)
-                .sizeToFit(.width)
-                .horizontally(25)
-                
-            surnameLabel.pin
-                .minHeight(25)
-                .below(of: nameLabel)
-                .marginTop(20)
-                .sizeToFit(.width)
-                .horizontally(25)
-            
-            qrTab.pin
-                .marginRight(15)
-                .hCenter()
-                .below(of: lineView)
-                .marginTop(UIDevice.getByScreen(normal: 430, short: 350))
-                .sizeToFit()
-            
-            dataTab.pin
-                .marginLeft(15)
-                .hCenter()
-                .below(of: lineView)
-                .marginTop(UIDevice.getByScreen(normal: 430, short: 350))
-                .sizeToFit()
+            saveButton.pin
+              .left(35)
+              .hCenter()
+              .size(self.buttonSize(for: self.bounds.width))
+              .minHeight(25)
+              .below(of: lineView)
+              .marginTop(5)
+
         }
         else {
             inactiveImage.pin
-              .below(of: headerView)
-              .marginTop(150)
+              .below(of: title)
+              .marginTop(100)
               .hCenter()
               .width(200)
               .height(200)
@@ -373,20 +477,31 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: actionButton.frame.maxY)
     }
     func buttonSize(for width: CGFloat) -> CGSize {
-      let labelWidth = width - 2 * HomeView.cellHorizontalInset - HomeDeactivateServiceCell.iconSize
+      let labelWidth = width - 2 * HomeView.cellHorizontalInset - 35
         - self.deleteButton.insets.horizontal - self.deleteButton.titleEdgeInsets.horizontal
       var buttonSize = self.deleteButton.titleLabel?.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity)) ?? .zero
-      buttonSize.width += HomeDeactivateServiceCell.iconSize + HomeDeactivateServiceCell.iconToTitle + self.deleteButton.insets.horizontal
-      buttonSize.height = max(buttonSize.height, HomeDeactivateServiceCell.iconSize) + self.deleteButton.insets.vertical
+      buttonSize.width += 45 + HomeDeactivateServiceCell.iconToTitle + self.deleteButton.insets.horizontal
+      buttonSize.height = max(buttonSize.height, 30) + self.deleteButton.insets.vertical
 
       return buttonSize
     }
+ 
 }
 
 // MARK: - Style
 
 private extension GreenCertificateView {
     enum Style {
+        
+        static func discoverMore(_ button: TextButton) {
+            let textStyle = TextStyles.pSemibold.byAdding(
+                .color(Palette.primary),
+                .alignment(.center)
+            )
+            button.contentHorizontalAlignment = .center
+            button.contentVerticalAlignment = .bottom
+            button.attributedTitle = "Piu dettagli".styled(with: textStyle)
+        }
         
         static func actionButton(
           _ button: ButtonWithInsets,
@@ -460,13 +575,34 @@ private extension GreenCertificateView {
             )
         }
         
-        static func stateLabel(_ label: UILabel, text: String, color: UIColor) {
-            
-            let textStyle = TextStyles.pSemibold.byAdding(
-                .color(color),
+        static func swipeLabel(_ label: UILabel, text: String) {
+            let textStyle = TextStyles.p.byAdding(
+                .color(Palette.grayNormal),
                 .alignment(.center)
             )
-
+            TempuraStyles.styleStandardLabel(
+                label,
+                content: text,
+                style: textStyle
+            )
+        }
+        static func label(_ label: UILabel, text: String) {
+            let textStyle = TextStyles.p.byAdding(
+                .color(Palette.grayNormal),
+                .alignment(.left)
+            )
+            TempuraStyles.styleStandardLabel(
+                label,
+                content: text,
+                style: textStyle
+            )
+        }
+        
+        static func value(_ label: UILabel, text: String) {
+            let textStyle = TextStyles.pSemibold.byAdding(
+                .color(Palette.grayDark),
+                .alignment(.left)
+            )
             TempuraStyles.styleStandardLabel(
                 label,
                 content: text,

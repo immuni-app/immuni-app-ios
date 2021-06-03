@@ -50,4 +50,7 @@ extension ConfirmationLS {
   static var retriveGreenCertificateCompleted: Self {
     return .init(title: L10n.ConfirmData.GreenCertificate.title, details: "")
   }
+  static var saveGreenCertificateCompleted: Self {
+    return .init(title: L10n.ConfirmData.GreenCertificateSaved.title, details: "")
+  }
 }

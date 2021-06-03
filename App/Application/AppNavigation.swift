@@ -47,6 +47,7 @@ enum Screen: String, CaseIterable {
   case suggestions
   case greenCertificate
   case retriveGreenCertificate
+  case greenCertificateDetail
 
   // settings
   case settings
@@ -136,7 +137,7 @@ extension WelcomeVC: RoutableWithConfiguration {
         let localState = context as? PermissionTutorialLS ?? AppLogger.fatalError("Invalid context")
         return PermissionTutorialVC(store: self.store, localState: localState)
       },
-
+        
       .hide(Screen.permissionTutorial): .dismissModally(behaviour: .hard),
       .hide(Screen.privacy): .dismissModally(behaviour: .hard)
     ]
@@ -517,6 +518,10 @@ extension HomeNC: RoutableWithConfiguration {
       .show(Screen.greenCertificate): .push { _ in
         return GreenCertificateVC(store: self.store, localState: GreenCertificateLS())
           },
+      .show(Screen.greenCertificateDetail): .presentModally { context in
+        let ls = context as? GreenCertificateDetailLS ?? AppLogger.fatalError("invalid context")
+        return GreenCertificateDetailVC(store: self.store, localState: ls)
+          },
       .show(Screen.retriveGreenCertificate): .push { _ in
         return RetriveGreenCertificateVC(store: self.store, localState: RetriveGreenCertificateLS())
           },
@@ -525,6 +530,7 @@ extension HomeNC: RoutableWithConfiguration {
       .hide(Screen.uploadDataAutonomous): .pop,
       .hide(Screen.greenCertificate): .pop,
       .hide(Screen.retriveGreenCertificate): .pop,
+      .hide(Screen.greenCertificateDetail): .dismissModally(behaviour: .hard),
 
     ]
   }
@@ -572,6 +578,15 @@ extension GreenCertificateVC: RoutableWithConfiguration {
 extension RetriveGreenCertificateVC: RoutableWithConfiguration {
   var routeIdentifier: RouteElementIdentifier {
     return Screen.retriveGreenCertificate.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [:]
+  }
+}
+extension GreenCertificateDetailVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.greenCertificateDetail.rawValue
   }
 
   var navigationConfiguration: [NavigationRequest: NavigationInstruction] {

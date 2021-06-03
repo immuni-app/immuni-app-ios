@@ -153,9 +153,22 @@ extension Logic.Home {
   struct ShowGreenCertificate: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
         
-      try context.awaitDispatch(Show(Screen.greenCertificate, animated: true, context: GreenCertificateLS(greenCertificate: context.getState().user.greenCertificate)))
+      try context.awaitDispatch(Show(Screen.greenCertificate, animated: true, context: GreenCertificateLS(greenCertificates: context.getState().user.greenCertificates)))
         }
       }
+  /// Shows the Green certificate detail
+  struct ShowGreenCertificateDetail: AppSideEffect {
+    let dgc: GreenCertificate
+    
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        try context
+            .awaitDispatch(Show(
+            Screen.greenCertificateDetail,
+            animated: true,
+                context: GreenCertificateDetailLS(greenCertificate: dgc)
+            ))
+          }
+    }
   /// Shows the  ShowRetriveGreenCertificateVC screen
   struct ShowRetriveGreenCertificate: AppSideEffect {
       
@@ -166,10 +179,12 @@ extension Logic.Home {
       }
   /// Delete the GreenCertificate
   struct DeleteGreenCertificate: AppSideEffect {
-        
+    
+    let id: String
+    
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
             
-      try context.awaitDispatch(Logic.CovidStatus.UpdateGreenCertificate(newGreenCertificate: nil))
+      try context.awaitDispatch(Logic.CovidStatus.DeleteGreenCertificate(id: id))
         }
       }
 }
