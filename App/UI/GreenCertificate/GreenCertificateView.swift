@@ -202,7 +202,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         SharedStyle.primaryButton(
           deleteButton,
           title: L10n.HomeView.GreenCertificate.deleteButton,
-          icon: Asset.Tabbar.settingsSelected.image,
+          icon: Asset.Home.deleteQr.image,
           spacing: 8,
           tintColor: Palette.purple,
           backgroundColor: UIColor.clear,
@@ -213,7 +213,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         SharedStyle.primaryButton(
           saveButton,
           title: L10n.HomeView.GreenCertificate.saveButton,
-          icon: Asset.Tabbar.settingsSelected.image,
+          icon: Asset.Home.saveQr.image,
           spacing: 8,
           tintColor: Palette.purple,
           backgroundColor: UIColor.clear,
@@ -437,7 +437,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
                 .height(1)
 
             deleteButton.pin
-              .right(35)
+              .right(45)
               .hCenter()
               .size(self.buttonSize(for: self.bounds.width))
               .minHeight(25)
@@ -445,7 +445,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
               .marginTop(5)
             
             saveButton.pin
-              .left(35)
+              .left(45)
               .hCenter()
               .size(self.buttonSize(for: self.bounds.width))
               .minHeight(25)

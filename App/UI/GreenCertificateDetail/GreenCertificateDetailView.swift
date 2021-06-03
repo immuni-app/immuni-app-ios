@@ -122,7 +122,7 @@ class GreenCertificateDetailView: UIView, ViewControllerModellableView {
         closeButton.on(.touchUpInside) { [weak self] _ in
             self?.didTapBack?()
         }
-        self.contactButton.on(.touchUpInside) { [weak self] _ in
+        contactButton.on(.touchUpInside) { [weak self] _ in
             guard let url = self?.model?.greenCertificate.detailGreenCertificate.url else { return }
             self?.didTapContact?(url)
         }
