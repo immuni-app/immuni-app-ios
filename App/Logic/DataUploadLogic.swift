@@ -19,6 +19,8 @@ import Katana
 import Models
 import Networking
 import Tempura
+import CoreImage
+import SwiftDGC
 
 extension Logic {
   enum DataUpload {}
@@ -175,24 +177,12 @@ extension Logic.DataUpload {
         do {
 
             let data = try `await`(context.dependencies.networkManager.retriveDigitalGreenCertificate(tokenType: codeType.rawValue.lowercased(), lastHisNumber: lastHisNumber, healthCardDate: healthCardDate, code: code))
-            let dgc = GreenCertificate(
-                id: "jkaSD£4rQwsas2",
-                name: "Rossi Mario",
-                birth: "1991-07-25",
-                greenCertificate: data.result.qr,
-                detailGreenCertificate: DetailDigitalGreenCertificate(
-                    disease: "XXX12",
-                    vaccineType: "XXX2",
-                    vaccineName: "XXX3",
-                    vaccineProducer: "XXX4",
-                    numberOfDoses: "XXX5",
-                    dateLastAdministration: "XXX6",
-                    vaccinationCuntry: "XXX7",
-                    certificateAuthority: "XXX8",
-                    paragraph: "Questo certificato non è un documento di viaggio. Le evidenze scientifiche sulla vaccinazione, sui test e sulla guarigione da COVID-19 continuano ad evolversi, anche in considerazione delle nuove varianti del virus. Prima di viaggiare, si prega di sontrollare le misure di salute pubblica applicate nel luogo di destinazione e le relative restrizioneanche consultando il sito:",
-                    url: "https://reopen.europa.eu/it"))
-
-            try context.awaitDispatch(Logic.CovidStatus.UpdateGreenCertificate(newGreenCertificate: dgc))
+                        
+            let dgc = detectQRCode(qr: data.result.qr)
+            
+            if let dgc = dgc {
+                try context.awaitDispatch(Logic.CovidStatus.UpdateGreenCertificate(newGreenCertificate: dgc))
+            }
 
           } catch {
             try `await`(context.dispatch(Logic.Loading.Hide()))
@@ -207,7 +197,96 @@ extension Logic.DataUpload {
         try context.awaitDispatch(Hide(Screen.confirmation, animated: true))
         try context.awaitDispatch(Hide(Screen.retriveGreenCertificate, animated: true))
         }
+    
+      private func detectQRCode(qr: String) -> GreenCertificate? {
+        let data = Data(base64Encoded: qr)
+        guard let data = data else { return nil }
+        let image = UIImage(data: data)
+        
+        if let image = image, let ciImage = CIImage.init(image: image){
+            var options: [String: Any]
+            let context = CIContext()
+            options = [CIDetectorAccuracy: CIDetectorAccuracyHigh]
+            let qrDetector = CIDetector(ofType: CIDetectorTypeQRCode, context: context, options: options)
+            if ciImage.properties.keys.contains((kCGImagePropertyOrientation as String)){
+                options = [CIDetectorImageOrientation: ciImage.properties[(kCGImagePropertyOrientation as String)] ?? 1]
+            } else {
+                options = [CIDetectorImageOrientation: 1]
+                }
+            let features = qrDetector?.features(in: ciImage, options: options)
+            var hcert : HCert?
+            var dgc: GreenCertificate? = nil
+
+            for case let row as CIQRCodeFeature in features! {
+                hcert = HCert(from: row.messageString!)
+                guard let hcert = hcert else { return nil }
+                var type: CertificateType?
+                print("gigi type", hcert.type)
+                switch hcert.type.rawValue {
+                    case "test":
+                        type = .test
+                    case "vaccine":
+                        type = .vaccine
+                    case "recovery":
+                        type = .recovery
+                    default:
+                        type = nil
+                }
+                guard let type = type else { return nil }
+                
+                dgc = GreenCertificate(
+                    id: hcert.uvci,
+                    name: hcert.fullName,
+                    birth: hcert.dateOfBirth?.dateString ?? "---",
+                    greenCertificate: qr,
+                    certificateType: type
+                    )
+                switch hcert.type.rawValue {
+                    case "test":
+                        print()
+                    case "vaccine":
+                        let detail = DetailVaccineCertificate(
+                            disease: hcert.info[6].content,
+                            vaccineType: hcert.info[9].content,
+                            vaccineName: hcert.info[8].content,
+                            vaccineProducer: hcert.info[7].content,
+                            numberOfDoses: hcert.info[1].content,
+                            dateLastAdministration: hcert.info[5].content,
+                            vaccinationCuntry: hcert.info[10].content,
+                            certificateAuthority: hcert.info[11].content
+                            )
+                    case "recovery":
+                        let detail = DetailRecoveryCertificate(
+                            disease: hcert.info[5].content,
+                            dateFirstTestResult: "---",
+                            countryOfTest: hcert.info[8].content,
+                            certificateIssuer: hcert.info[9].content,
+                            certificateValidFrom: hcert.info[6].content,
+                            certificateValidUntil: hcert.info[7].content,
+                            dateLastAdministration: "---",
+                            vaccinationCuntry: hcert.info[8].content,
+                            certificateAuthority: hcert.info[9].content
+                        )
+                default:
+                    print()
+                }
+                print("gigi", hcert.dateOfBirth ?? "no name")
+                print("gigi", hcert.certTypeString ?? "no name")
+                print("gigi", hcert.kidStr ?? "no name")
+                print("gigi", hcert.uvci ?? "no name")
+                print("gigi", hcert.isValid ?? "no name")
+                print("gigi", hcert.type ?? "no name")
+                for (index,item) in hcert.info.enumerated() {
+                    print("gigi header", index, item.header ?? "no name")
+                    print("gigi content", index, item.content ?? "no name")
+
+                }
+                return dgc
+                 }
+             }
+        return nil
       }
+    }
     
     /// Save digital green certificate in gallery
     struct SaveDigitalGreenCertificate: AppSideEffect {

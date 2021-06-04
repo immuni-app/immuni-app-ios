@@ -43,12 +43,21 @@ struct GreenCertificate: Codable {
   /// The Digital Green Certificate
   var greenCertificate: String
     
-  /// The Digital Green Certificate detail
-  var detailGreenCertificate: DetailDigitalGreenCertificate
+  /// The Vaccine Certificate detail
+  var detailVaccineCertificate: DetailVaccineCertificate?
+    
+  /// The Test Certificate detail
+  var detailTestCertificate: DetailTestCertificate?
+    
+  /// The Recover Certificate detail
+  var detailRecoveryCertificate: DetailRecoveryCertificate?
+        
+  /// The type of Certificate
+  var certificateType: CertificateType
 
 
 }
-public struct DetailDigitalGreenCertificate: Codable {
+public struct DetailVaccineCertificate: Codable {
 
    var disease: String
    var vaccineType: String
@@ -58,10 +67,42 @@ public struct DetailDigitalGreenCertificate: Codable {
    var dateLastAdministration: String
    var vaccinationCuntry: String
    var certificateAuthority: String
-   var paragraph: String
-   var url: String
     
   // swiftlint:enable force_unwrapping
+}
+public struct DetailTestCertificate: Codable {
+
+   var disease: String
+   var typeOfTest: String
+   var testResult: String
+   var ratTestNameAndManufacturer: String
+   var dateTimeOfSampleCollection: String
+   var dateTimeOfTestResult: String
+   var testingCentre: String
+   var countryOfTest: String
+   var certificateIssuer: String
+
+  // swiftlint:enable force_unwrapping
+}
+public struct DetailRecoveryCertificate: Codable {
+
+   var disease: String
+   var dateFirstTestResult: String
+   var countryOfTest: String
+   var certificateIssuer: String
+   var certificateValidFrom: String
+   var certificateValidUntil: String
+   var dateLastAdministration: String
+   var vaccinationCuntry: String
+   var certificateAuthority: String
+
+  // swiftlint:enable force_unwrapping
+}
+
+public enum CertificateType: String, Codable {
+    case vaccine = "vaccine"
+    case test = "test"
+    case recovery = "recovery"
 }
 
 

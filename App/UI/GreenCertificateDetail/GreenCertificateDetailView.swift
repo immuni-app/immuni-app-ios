@@ -123,8 +123,8 @@ class GreenCertificateDetailView: UIView, ViewControllerModellableView {
             self?.didTapBack?()
         }
         contactButton.on(.touchUpInside) { [weak self] _ in
-            guard let url = self?.model?.greenCertificate.detailGreenCertificate.url else { return }
-            self?.didTapContact?(url)
+//            guard let url = self?.model?.greenCertificate else { return }
+//            self?.didTapContact?(url)
         }
 
     }
@@ -155,16 +155,16 @@ class GreenCertificateDetailView: UIView, ViewControllerModellableView {
         guard let model = self.model else {
             return
         }
-        Self.Style.value(disease, text: model.greenCertificate.detailGreenCertificate.disease)
-        Self.Style.value(vaccineType, text: model.greenCertificate.detailGreenCertificate.vaccineType)
-        Self.Style.value(vaccineName, text: model.greenCertificate.detailGreenCertificate.vaccineName)
-        Self.Style.value(vaccineProducer, text: model.greenCertificate.detailGreenCertificate.vaccineProducer)
-        Self.Style.value(numberOfDoses, text: model.greenCertificate.detailGreenCertificate.numberOfDoses)
-        Self.Style.value(dateLastAdministration, text: model.greenCertificate.detailGreenCertificate.dateLastAdministration)
-        Self.Style.value(vaccinationCuntry, text: model.greenCertificate.detailGreenCertificate.vaccinationCuntry)
-        Self.Style.value(certificateAuthority, text: model.greenCertificate.detailGreenCertificate.certificateAuthority)
-        Self.Style.label(paragraph, text: model.greenCertificate.detailGreenCertificate.paragraph)
-        Self.Style.contactButton(self.contactButton, content: model.greenCertificate.detailGreenCertificate.url)
+//        Self.Style.value(disease, text: model.greenCertificate.detailGreenCertificate.disease)
+//        Self.Style.value(vaccineType, text: model.greenCertificate.detailGreenCertificate.vaccineType)
+//        Self.Style.value(vaccineName, text: model.greenCertificate.detailGreenCertificate.vaccineName)
+//        Self.Style.value(vaccineProducer, text: model.greenCertificate.detailGreenCertificate.vaccineProducer)
+//        Self.Style.value(numberOfDoses, text: model.greenCertificate.detailGreenCertificate.numberOfDoses)
+//        Self.Style.value(dateLastAdministration, text: model.greenCertificate.detailGreenCertificate.dateLastAdministration)
+//        Self.Style.value(vaccinationCuntry, text: model.greenCertificate.detailGreenCertificate.vaccinationCuntry)
+//        Self.Style.value(certificateAuthority, text: model.greenCertificate.detailGreenCertificate.certificateAuthority)
+//        Self.Style.label(paragraph, text: model.greenCertificate.detailGreenCertificate.paragraph)
+//        Self.Style.contactButton(self.contactButton, content: model.greenCertificate.detailGreenCertificate.url)
 
 
     }
