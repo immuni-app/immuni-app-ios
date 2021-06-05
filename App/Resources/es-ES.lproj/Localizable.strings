@@ -118,8 +118,8 @@
 "home_view.retrive_green_certificate.input_code_placeholder" = "NRFE/CUN/NUCG/OTP";
 "home_view.retrive_green_certificate.input_code_cun_label" = "Codice CUN";
 "home_view.retrive_green_certificate.input_code_cun_placeholder" = "CUN";
-"home_view.retrive_green_certificate.input_code_otp_label" = "Authcode";
-"home_view.retrive_green_certificate.input_code_otp_placeholder" = "Authcode";
+"home_view.retrive_green_certificate.input_code_authcode_label" = "Authcode";
+"home_view.retrive_green_certificate.input_code_authcode_placeholder" = "Authcode";
 "home_view.retrive_green_certificate.input_code_nucg_label" = "NUCG";
 "home_view.retrive_green_certificate.input_code_nucg_placeholder" = "NUCG";
 "home_view.retrive_green_certificate.input_code_nrfe_label" = "NRFE";
@@ -130,11 +130,11 @@
 "home_view.retrive_green_certificate.input_health_card_date_placeholder" = "Data scadenza";
 "home_view.retrive_green_certificate.form_error.code_type_required" = "- Seleziona la tipologia del codice.\n";
 "home_view.retrive_green_certificate.form_error.code_cun_required" = "- Inserisci gli ultimi 10 caratteri del codice CUN che ti è stato comunicato.\n";
-"home_view.retrive_green_certificate.form_error.code_otp_required" = "- Inserisci gli ultimi 12caratteri del codice OTP che ti è stato comunicato.\n";
+"home_view.retrive_green_certificate.form_error.code_authcode_required" = "- Inserisci gli ultimi 12 caratteri del codice Authcode che ti è stato comunicato.\n";
 "home_view.retrive_green_certificate.form_error.code_nucg_required" = "- Inserisci gli ultimi 10 caratteri del codice NUCG che ti è stato comunicato.\n";
 "home_view.retrive_green_certificate.form_error.code_nrfe_required" = "- Inserisci gli ultimi 17 caratteri del codice NRFE che ti è stato comunicato.\n";
 "home_view.retrive_green_certificate.form_error.code_cun_wrong" = "- Il CUN inserito non risulta formalmente valido. Assicurati di aver inserito le ultime 10 cifre del CUN che hai ricevuto per SMS o nel referto associato a un tampone positivo.\n";
-"home_view.retrive_green_certificate.form_error.code_opt_wrong" = "- Il codice OTP inserito non risulta formalmente valido. Assicurati di aver inserito le ultime 12 cifre del codice OTP che hai ricevuto.\n";
+"home_view.retrive_green_certificate.form_error.code_authcode_wrong" = "- Il codice Authcode inserito non risulta formalmente valido. Assicurati di aver inserito le ultime 12 cifre del codice Authcode che hai ricevuto.\n";
 "home_view.retrive_green_certificate.form_error.code_nucg_wrong" = "- Il codice NUCG inserito non risulta formalmente valido. Assicurati di aver inserito le ultime 10 cifre del codice NUCG che hai ricevuto.\n";
 "home_view.retrive_green_certificate.form_error.code_nfre_wrong" = "- Il codice NRFE inserito non risulta formalmente valido. Assicurati di aver inserito le ultime 17 cifre del codice NRFE che hai ricevuto.\n";
 "home_view.retrive_green_certificate.form_error.health_card_required" = "- Il numero di Tessera Sanitaria inserito non risulta formalmente valido. Assicurati di aver inserito le ultime 8 cifre della tua Tessera sanitaria associata ad un tampone positivo.\n";

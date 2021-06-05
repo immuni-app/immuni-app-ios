@@ -1,4 +1,4 @@
-// AuthCodeOtp.swift
+// Authcode.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -15,8 +15,8 @@
 import Extensions
 import Foundation
 
-/// Struct that represents an AuthCodeOtp.
-public struct AuthCodeOtp {
+/// Struct that represents an AuthCode.
+public struct Authcode {
 
     /// The caracters of the code
     let characters: [Character]
@@ -27,7 +27,7 @@ public struct AuthCodeOtp {
     }
 }
 
-extension AuthCodeOtp: RawRepresentable {
+extension Authcode: RawRepresentable {
     public var rawValue: String {
         return String(characters)
     }
@@ -50,7 +50,7 @@ extension AuthCodeOtp: RawRepresentable {
     }
 }
 
-public extension AuthCodeOtp {
+public extension Authcode {
 
     func verifyCode() -> Bool {
         
@@ -80,7 +80,7 @@ public extension AuthCodeOtp {
     }
 }
 
-private extension AuthCodeOtp {
+private extension Authcode {
     /// Verifies that the given check digit is valid for the given code
     private static func verify(checkDigit: Character, for code: [Character]) -> Bool {
         let calculated = Self.checkDigit(for: code)

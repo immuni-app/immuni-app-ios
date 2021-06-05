@@ -132,8 +132,8 @@ extension TextFieldCode {
                 content = L10n.HomeView.RetriveGreenCertificate.inputCodeCunLabel
               case .nucg:
                 content = L10n.HomeView.RetriveGreenCertificate.inputCodeNucgLabel
-              case .otp:
-                content = L10n.HomeView.RetriveGreenCertificate.inputCodeOtpLabel
+              case .authcode:
+                content = L10n.HomeView.RetriveGreenCertificate.inputCodeAuthcodeLabel
               case .none:
                 content = L10n.HomeView.RetriveGreenCertificate.inputCodeLabel
             }
@@ -192,8 +192,8 @@ extension TextFieldCode {
                 placeholder = NSAttributedString(string: L10n.HomeView.RetriveGreenCertificate.inputCodeCunPlaceholder)
               case .nucg:
                 placeholder = NSAttributedString(string: L10n.HomeView.RetriveGreenCertificate.inputCodeNucgPlaceholder)
-              case .otp:
-                placeholder = NSAttributedString(string: L10n.HomeView.RetriveGreenCertificate.inputCodeOtpPlaceholder)
+              case .authcode:
+                placeholder = NSAttributedString(string: L10n.HomeView.RetriveGreenCertificate.inputCodeAuthcodePlaceholder)
               case .none:
                 placeholder = NSAttributedString(string: L10n.HomeView.RetriveGreenCertificate.inputCodePlaceholder)
                 }
@@ -210,8 +210,8 @@ extension TextFieldCode {
             return CodeType.prefixCun
           case .nucg:
             return CodeType.prefixNucg
-          case .otp:
-            return CodeType.prefixOtp
+          case .authcode:
+            return CodeType.prefixAuthcode
         case .none:
             return ""
         }
@@ -262,8 +262,8 @@ extension TextFieldCode: UITextFieldDelegate {
             lengthCode = CodeType.lengthCun
           case .nucg:
             lengthCode = CodeType.lengthNucg
-          case .otp:
-            lengthCode = CodeType.lengthOtp
+          case .authcode:
+            lengthCode = CodeType.lengthAuthcode
           default:
             return false
         }

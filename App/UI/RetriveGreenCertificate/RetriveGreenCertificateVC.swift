@@ -44,8 +44,8 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
                         message += L10n.HomeView.RetriveGreenCertificate.FormError.codeNrfeRequired
                       case .nucg:
                         message += L10n.HomeView.RetriveGreenCertificate.FormError.codeNucgRequired
-                      case .otp:
-                        message += L10n.HomeView.RetriveGreenCertificate.FormError.codeOtpRequired
+                      case .authcode:
+                        message += L10n.HomeView.RetriveGreenCertificate.FormError.codeAuthcodeRequired
                     }
                 } else if code == nil {
                     switch codeType {
@@ -55,8 +55,8 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
                         message += L10n.HomeView.RetriveGreenCertificate.FormError.codeNfreWrong
                       case .nucg:
                         message += L10n.HomeView.RetriveGreenCertificate.FormError.codeNucgWrong
-                      case .otp:
-                        message += L10n.HomeView.RetriveGreenCertificate.FormError.codeOptWrong
+                      case .authcode:
+                        message += L10n.HomeView.RetriveGreenCertificate.FormError.codeAuthcodeWrong
                     }
                 }
             }
@@ -111,8 +111,8 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
           case .nucg:
             return CodeType.validateNucg(code: code)
 
-          case .otp:
-            return CodeType.validateOtp(code: code)
+          case .authcode:
+            return CodeType.validateAuthcode(code: code)
         }
     }
 
@@ -165,20 +165,20 @@ public enum CodeType: String {
     public static let prefixNrfe = ""
     public static let prefixCun = "CUN-"
     public static let prefixNucg = "NUCG-"
-    public static let prefixOtp = ""
+    public static let prefixAuthcode = ""
     
     public static let lengthNrfe = 17
     public static let lengthCun = 10
     public static let lengthNucg = 10
-    public static let lengthOtp = 12
+    public static let lengthAuthcode = 12
 
     case nrfe = "NRFE"
     case cun = "CUN"
     case nucg = "NUCG"
-    case otp = "OTP"
+    case authcode = "AUTHCODE"
     
     static func getCodeList() -> [String] {
-        return [CodeType.nrfe.rawValue, CodeType.cun.rawValue, CodeType.nucg.rawValue, CodeType.otp.rawValue]
+        return [CodeType.nrfe.rawValue, CodeType.cun.rawValue, CodeType.nucg.rawValue, CodeType.authcode.rawValue]
     }
     static func validateCun(code: String?) -> String? {
         guard let code = code else {
@@ -193,14 +193,14 @@ public enum CodeType: String {
         return nil
     }
     
-    static func validateOtp(code: String?) -> String? {
+    static func validateAuthcode(code: String?) -> String? {
         guard let code = code else {
             return nil
         }
-        if code != "", code.count == CodeType.lengthOtp {
-            let otp = AuthCodeOtp(code: code)
-            if otp.verifyCode() {
-                return otp.rawValue
+        if code != "", code.count == CodeType.lengthAuthcode {
+            let authcode = Authcode(code: code)
+            if authcode.verifyCode() {
+                return authcode.rawValue
             }
         }
         return nil
