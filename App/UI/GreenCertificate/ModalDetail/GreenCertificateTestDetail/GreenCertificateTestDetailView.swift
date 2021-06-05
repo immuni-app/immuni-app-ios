@@ -46,24 +46,34 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
     
     //Test fields
     private var diseaseTestLabel = UILabel()
+    private var diseaseTestLabelEn = UILabel()
     private var diseaseTest = UILabel()
     private var typeOfTestLabel = UILabel()
+    private var typeOfTestLabelEn = UILabel()
     private var typeOfTest = UILabel()
     private var testResultLabel = UILabel()
+    private var testResultLabelEn = UILabel()
     private var testResult = UILabel()
     private var ratTestNameAndManufacturerLabel = UILabel()
+    private var ratTestNameAndManufacturerLabelEn = UILabel()
     private var ratTestNameAndManufacturer = UILabel()
     private var naaTestNameLabel = UILabel()
+    private var naaTestNameLabelEn = UILabel()
     private var naaTestName = UILabel()
     private var dateTimeOfSampleCollectionLabel = UILabel()
+    private var dateTimeOfSampleCollectionLabelEn = UILabel()
     private var dateTimeOfSampleCollection = UILabel()
     private var dateTimeOfTestResultLabel = UILabel()
+    private var dateTimeOfTestResultLabelEn = UILabel()
     private var dateTimeOfTestResult = UILabel()
     private var testingCentreLabel = UILabel()
+    private var testingCentreLabelEn = UILabel()
     private var testingCentre = UILabel()
     private var countryOfTestLabel = UILabel()
+    private var countryOfTestLabelEn = UILabel()
     private var countryOfTest = UILabel()
     private var certificateIssuerLabel = UILabel()
+    private var certificateIssuerLabelEn = UILabel()
     private var certificateIssuer = UILabel()
     
     private var paragraph = UILabel()
@@ -85,34 +95,50 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
 
         addSubview(diseaseTestLabel)
         scrollView.addSubview(diseaseTestLabel)
+        addSubview(diseaseTestLabelEn)
+        scrollView.addSubview(diseaseTestLabelEn)
         addSubview(diseaseTest)
         scrollView.addSubview(diseaseTest)
+        addSubview(typeOfTestLabelEn)
+        scrollView.addSubview(typeOfTestLabelEn)
         addSubview(typeOfTestLabel)
         scrollView.addSubview(typeOfTestLabel)
         addSubview(typeOfTest)
         scrollView.addSubview(typeOfTest)
         addSubview(testResultLabel)
         scrollView.addSubview(testResultLabel)
+        addSubview(testResultLabelEn)
+        scrollView.addSubview(testResultLabelEn)
         addSubview(testResult)
         scrollView.addSubview(testResult)
         addSubview(dateTimeOfSampleCollectionLabel)
         scrollView.addSubview(dateTimeOfSampleCollectionLabel)
+        addSubview(dateTimeOfSampleCollectionLabelEn)
+        scrollView.addSubview(dateTimeOfSampleCollectionLabelEn)
         addSubview(dateTimeOfSampleCollection)
         scrollView.addSubview(dateTimeOfSampleCollection)
         addSubview(dateTimeOfTestResultLabel)
         scrollView.addSubview(dateTimeOfTestResultLabel)
+        addSubview(dateTimeOfTestResultLabelEn)
+        scrollView.addSubview(dateTimeOfTestResultLabelEn)
         addSubview(dateTimeOfTestResult)
         scrollView.addSubview(dateTimeOfTestResult)
         addSubview(testingCentreLabel)
         scrollView.addSubview(testingCentreLabel)
+        addSubview(testingCentreLabelEn)
+        scrollView.addSubview(testingCentreLabelEn)
         addSubview(testingCentre)
         scrollView.addSubview(testingCentre)
         addSubview(countryOfTestLabel)
         scrollView.addSubview(countryOfTestLabel)
+        addSubview(countryOfTestLabelEn)
+        scrollView.addSubview(countryOfTestLabelEn)
         addSubview(countryOfTest)
         scrollView.addSubview(countryOfTest)
         addSubview(certificateIssuerLabel)
         scrollView.addSubview(certificateIssuerLabel)
+        addSubview(certificateIssuerLabelEn)
+        scrollView.addSubview(certificateIssuerLabelEn)
         addSubview(certificateIssuer)
         scrollView.addSubview(certificateIssuer)
         
@@ -136,7 +162,6 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
         Self.Style.scrollView(scrollView)
         Self.Style.headerTitle(title, content: L10n.HomeView.GreenCertificate.Detail.title)
         
-        //Test fields
         Self.Style.label(diseaseTestLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.disease)
         Self.Style.label(typeOfTestLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.typeOfTest)
         Self.Style.label(testResultLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.testResult)
@@ -147,6 +172,17 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
         Self.Style.label(testingCentreLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.testingCentre)
         Self.Style.label(countryOfTestLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.countryOfTest)
         Self.Style.label(certificateIssuerLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.certificateIssuer)
+        
+        Self.Style.label(diseaseTestLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.diseaseEn)
+        Self.Style.label(typeOfTestLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.typeOfTestEn)
+        Self.Style.label(testResultLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.testResultEn)
+        Self.Style.label(ratTestNameAndManufacturerLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.ratTestNameAndManufacturerEn)
+        Self.Style.label(naaTestNameLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.naaTestNameEn)
+        Self.Style.label(dateTimeOfSampleCollectionLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.dateTimeOfSampleCollectionEn)
+        Self.Style.label(dateTimeOfTestResultLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.dateTimeOfTestResultEn)
+        Self.Style.label(testingCentreLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.testingCentreEn)
+        Self.Style.label(countryOfTestLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.countryOfTestEn)
+        Self.Style.label(certificateIssuerLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.certificateIssuerEn)
     
         Self.Style.closeButton(self.closeButton)
 
@@ -177,6 +213,8 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
                 Self.Style.value(ratTestNameAndManufacturer, text: ratTestNameAndManufacturerValue)
                 addSubview(ratTestNameAndManufacturerLabel)
                 scrollView.addSubview(ratTestNameAndManufacturerLabel)
+                addSubview(ratTestNameAndManufacturerLabelEn)
+                scrollView.addSubview(ratTestNameAndManufacturerLabelEn)
                 addSubview(ratTestNameAndManufacturer)
                 scrollView.addSubview(ratTestNameAndManufacturer)
             }
@@ -184,6 +222,8 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
                 Self.Style.value(naaTestName, text: naaTestNameValue)
                 addSubview(naaTestNameLabel)
                 scrollView.addSubview(naaTestNameLabel)
+                addSubview(naaTestNameLabelEn)
+                scrollView.addSubview(naaTestNameLabelEn)
                 addSubview(naaTestName)
                 scrollView.addSubview(naaTestName)
             }
@@ -217,10 +257,17 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
           .horizontally(30)
           .sizeToFit()
       
-        diseaseTestLabel.pin
+        diseaseTestLabelEn.pin
           .minHeight(25)
           .below(of: title)
           .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        diseaseTestLabel.pin
+          .minHeight(25)
+          .below(of: diseaseTestLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -233,10 +280,17 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        typeOfTestLabel.pin
+        typeOfTestLabelEn.pin
           .minHeight(25)
           .below(of: diseaseTest)
           .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        typeOfTestLabel.pin
+          .minHeight(25)
+          .below(of: typeOfTestLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -249,10 +303,17 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        testResultLabel.pin
+        testResultLabelEn.pin
           .minHeight(25)
           .below(of: typeOfTest)
           .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        testResultLabel.pin
+          .minHeight(25)
+          .below(of: testResultLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -265,10 +326,17 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        ratTestNameAndManufacturerLabel.pin
+        ratTestNameAndManufacturerLabelEn.pin
           .minHeight(25)
           .below(of: testResult)
           .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        ratTestNameAndManufacturerLabel.pin
+          .minHeight(25)
+          .below(of: ratTestNameAndManufacturerLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -281,10 +349,17 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        naaTestNameLabel.pin
+        naaTestNameLabelEn.pin
           .minHeight(25)
           .below(of: testResult)
           .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        naaTestNameLabel.pin
+          .minHeight(25)
+          .below(of: naaTestNameLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -297,10 +372,17 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        dateTimeOfSampleCollectionLabel.pin
+        dateTimeOfSampleCollectionLabelEn.pin
           .minHeight(25)
           .below(of: testResult)
-          .marginTop(110)
+          .marginTop(140)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        dateTimeOfSampleCollectionLabel.pin
+          .minHeight(25)
+          .below(of: dateTimeOfSampleCollectionLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -313,10 +395,17 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        dateTimeOfTestResultLabel.pin
+        dateTimeOfTestResultLabelEn.pin
           .minHeight(25)
           .below(of: dateTimeOfSampleCollection)
           .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        dateTimeOfTestResultLabel.pin
+          .minHeight(25)
+          .below(of: dateTimeOfTestResultLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -329,10 +418,17 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        testingCentreLabel.pin
+        testingCentreLabelEn.pin
           .minHeight(25)
           .below(of: dateTimeOfTestResult)
           .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        testingCentreLabel.pin
+          .minHeight(25)
+          .below(of: testingCentreLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -345,10 +441,17 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        countryOfTestLabel.pin
+        countryOfTestLabelEn.pin
           .minHeight(25)
           .below(of: testingCentre)
           .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        countryOfTestLabel.pin
+          .minHeight(25)
+          .below(of: countryOfTestLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -361,10 +464,17 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        certificateIssuerLabel.pin
+        certificateIssuerLabelEn.pin
           .minHeight(25)
           .below(of: countryOfTest)
           .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        certificateIssuerLabel.pin
+          .minHeight(25)
+          .below(of: certificateIssuerLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -453,7 +563,10 @@ private extension GreenCertificateTestDetailView {
         static func label(_ label: UILabel, text: String) {
             let textStyle = TextStyles.p.byAdding(
                 .color(Palette.grayNormal),
-                .alignment(.left)
+                .alignment(.left),
+                .xmlRules([
+                    .style("i", TextStyles.i)
+                ])
             )
             TempuraStyles.styleStandardLabel(
                 label,

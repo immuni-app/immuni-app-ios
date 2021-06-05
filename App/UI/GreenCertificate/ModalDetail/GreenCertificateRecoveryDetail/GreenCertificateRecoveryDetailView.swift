@@ -44,18 +44,23 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
     let scrollView = UIScrollView()
     private var closeButton = ImageButton()
     
-    //Recovery fields
     private var diseaseRecoveryLabel = UILabel()
+    private var diseaseRecoveryLabelEn = UILabel()
     private var diseaseRecovery = UILabel()
     private var dateFirstTestResultLabel = UILabel()
+    private var dateFirstTestResultLabelEn = UILabel()
     private var dateFirstTestResult = UILabel()
     private var countryOfTestRecoveryLabel = UILabel()
+    private var countryOfTestRecoveryLabelEn = UILabel()
     private var countryOfTestRecovery = UILabel()
     private var certificateIssuerRecoveryLabel = UILabel()
+    private var certificateIssuerRecoveryLabelEn = UILabel()
     private var certificateIssuerRecovery = UILabel()
     private var certificateValidFromLabel = UILabel()
+    private var certificateValidFromLabelEn = UILabel()
     private var certificateValidFrom = UILabel()
     private var certificateValidUntilLabel = UILabel()
+    private var certificateValidUntilLabelEn = UILabel()
     private var certificateValidUntil = UILabel()
     
     private var paragraph = UILabel()
@@ -75,26 +80,39 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
         
         addSubview(diseaseRecoveryLabel)
         scrollView.addSubview(diseaseRecoveryLabel)
+        addSubview(diseaseRecoveryLabelEn)
+        scrollView.addSubview(diseaseRecoveryLabelEn)
         addSubview(diseaseRecovery)
         scrollView.addSubview(diseaseRecovery)
         addSubview(dateFirstTestResultLabel)
         scrollView.addSubview(dateFirstTestResultLabel)
+        addSubview(dateFirstTestResultLabelEn)
+        scrollView.addSubview(dateFirstTestResultLabelEn)
         addSubview(dateFirstTestResult)
         scrollView.addSubview(dateFirstTestResult)
         addSubview(countryOfTestRecoveryLabel)
         scrollView.addSubview(countryOfTestRecoveryLabel)
+        addSubview(countryOfTestRecoveryLabelEn)
+        scrollView.addSubview(countryOfTestRecoveryLabelEn)
         addSubview(countryOfTestRecovery)
         scrollView.addSubview(countryOfTestRecovery)
         addSubview(certificateIssuerRecoveryLabel)
         scrollView.addSubview(certificateIssuerRecoveryLabel)
+        addSubview(certificateIssuerRecoveryLabelEn)
+        scrollView.addSubview(certificateIssuerRecoveryLabelEn)
         addSubview(certificateIssuerRecovery)
         scrollView.addSubview(certificateIssuerRecovery)
         addSubview(certificateValidFromLabel)
         scrollView.addSubview(certificateValidFromLabel)
+        addSubview(certificateValidFromLabelEn)
+        scrollView.addSubview(certificateValidFromLabelEn)
         addSubview(certificateValidFrom)
         scrollView.addSubview(certificateValidFrom)
         addSubview(certificateValidUntilLabel)
         scrollView.addSubview(certificateValidUntilLabel)
+        addSubview(certificateValidUntilLabelEn)
+        scrollView.addSubview(certificateValidUntilLabelEn)
+        
         addSubview(certificateValidUntil)
         scrollView.addSubview(certificateValidUntil)
         
@@ -121,13 +139,19 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
         Self.Style.scrollView(scrollView)
         Self.Style.headerTitle(title, content: L10n.HomeView.GreenCertificate.Detail.title)
         
-        //Recovery fields
         Self.Style.label(diseaseRecoveryLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.disease)
         Self.Style.label(dateFirstTestResultLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.dateFirstTestResult)
         Self.Style.label(countryOfTestRecoveryLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.countryOfTest)
         Self.Style.label(certificateIssuerRecoveryLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.certificateIssuer)
         Self.Style.label(certificateValidFromLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.certificateValidFrom)
         Self.Style.label(certificateValidUntilLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.certificateValidUntil)
+        
+        Self.Style.label(diseaseRecoveryLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.diseaseEn)
+        Self.Style.label(dateFirstTestResultLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.dateFirstTestResultEn)
+        Self.Style.label(countryOfTestRecoveryLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.countryOfTestEn)
+        Self.Style.label(certificateIssuerRecoveryLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.certificateIssuerEn)
+        Self.Style.label(certificateValidFromLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.certificateValidFromEn)
+        Self.Style.label(certificateValidUntilLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.certificateValidUntilEn)
     
         Self.Style.closeButton(self.closeButton)
 
@@ -172,10 +196,17 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
           .horizontally(30)
           .sizeToFit()
         
-        diseaseRecoveryLabel.pin
+        diseaseRecoveryLabelEn.pin
           .minHeight(25)
           .below(of: title)
           .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        diseaseRecoveryLabel.pin
+          .minHeight(25)
+          .below(of: diseaseRecoveryLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -188,10 +219,17 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        dateFirstTestResultLabel.pin
+        dateFirstTestResultLabelEn.pin
           .minHeight(25)
           .below(of: diseaseRecovery)
           .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        dateFirstTestResultLabel.pin
+          .minHeight(25)
+          .below(of: dateFirstTestResultLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -204,10 +242,17 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        countryOfTestRecoveryLabel.pin
+        countryOfTestRecoveryLabelEn.pin
           .minHeight(25)
           .below(of: dateFirstTestResult)
           .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        countryOfTestRecoveryLabel.pin
+          .minHeight(25)
+          .below(of: countryOfTestRecoveryLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -220,10 +265,17 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        certificateIssuerRecoveryLabel.pin
+        certificateIssuerRecoveryLabelEn.pin
           .minHeight(25)
           .below(of: countryOfTestRecovery)
           .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        certificateIssuerRecoveryLabel.pin
+          .minHeight(25)
+          .below(of: certificateIssuerRecoveryLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -236,10 +288,17 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        certificateValidFromLabel.pin
+        certificateValidFromLabelEn.pin
           .minHeight(25)
           .below(of: certificateIssuerRecovery)
           .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        certificateValidFromLabel.pin
+          .minHeight(25)
+          .below(of: certificateValidFromLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -252,10 +311,17 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        certificateValidUntilLabel.pin
+        certificateValidUntilLabelEn.pin
           .minHeight(25)
           .below(of: certificateValidFrom)
           .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        certificateValidUntilLabel.pin
+          .minHeight(25)
+          .below(of: certificateValidUntilLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -343,7 +409,10 @@ private extension GreenCertificateRecoveryDetailView {
         static func label(_ label: UILabel, text: String) {
             let textStyle = TextStyles.p.byAdding(
                 .color(Palette.grayNormal),
-                .alignment(.left)
+                .alignment(.left),
+                .xmlRules([
+                    .style("i", TextStyles.i)
+                ])
             )
             TempuraStyles.styleStandardLabel(
                 label,

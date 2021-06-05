@@ -69,12 +69,15 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
     private var swipeLabel = UILabel()
     
     private var nameLabel = UILabel()
+    private var nameLabelEn = UILabel()
     private var name = UILabel()
     
     private var birthLabel = UILabel()
+    private var birthLabelEn = UILabel()
     private var birth = UILabel()
     
     private var idLabel = UILabel()
+    private var idLabelEn = UILabel()
     private var id = UILabel()
     private var discoverMore = TextButton()
 
@@ -97,7 +100,6 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         container.addSubview(lineView)
         container.addSubview(qrCode)
         container.addSubview(deleteButton)
-        container.addSubview(saveButton)
 
         addSubview(actionButton)
         addSubview(backgroundGradientView)
@@ -170,25 +172,6 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
     }
     // MARK: - Style
     
-    func generateQRCode(from string: String) -> UIImage? {
-
-      // Get data from the string
-      let data = string.data(using: String.Encoding.ascii)
-      // Get a QR CIFilter
-      guard let qrFilter = CIFilter(name: "CIQRCodeGenerator") else { return nil}
-      // Input the data
-      qrFilter.setValue(data, forKey: "inputMessage")
-      // Get the output image
-      guard let qrImage = qrFilter.outputImage else { return nil}
-      // Scale the image
-      let transform = CGAffineTransform(scaleX: 10, y: 10)
-      let scaledQrImage = qrImage.transformed(by: transform)
-      // Do some processing to get the UIImage
-      let context = CIContext()
-      guard let cgImage = context.createCGImage(scaledQrImage, from: scaledQrImage.extent) else { return nil}
-      return UIImage(cgImage: cgImage)
-     }
-
     func style() {
         Self.Style.discoverMore(discoverMore)
         Self.Style.swipeLabel(swipeLabel,text: L10n.HomeView.GreenCertificate.swipeLabel)
@@ -249,12 +232,14 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
                 container.layer.add(transition, forKey: nil)
                 qrCode.layer.add(transition, forKey: nil)
                 deleteButton.layer.add(transition, forKey: nil)
-                saveButton.layer.add(transition, forKey: nil)
                 nameLabel.layer.add(transition, forKey: nil)
+                nameLabelEn.layer.add(transition, forKey: nil)
                 name.layer.add(transition, forKey: nil)
                 birthLabel.layer.add(transition, forKey: nil)
+                birthLabelEn.layer.add(transition, forKey: nil)
                 birth.layer.add(transition, forKey: nil)
                 idLabel.layer.add(transition, forKey: nil)
+                idLabelEn.layer.add(transition, forKey: nil)
                 id.layer.add(transition, forKey: nil)
                 discoverMore.layer.add(transition, forKey: nil)
                 lineView.layer.add(transition, forKey: nil)
@@ -271,11 +256,13 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             }
             addSubview(qrCode)
             addSubview(deleteButton)
-            addSubview(saveButton)
             addSubview(nameLabel)
+            addSubview(nameLabelEn)
             addSubview(name)
             addSubview(birthLabel)
+            addSubview(birthLabelEn)
             addSubview(birth)
+            addSubview(idLabelEn)
             addSubview(idLabel)
             addSubview(id)
             addSubview(discoverMore)
@@ -285,12 +272,14 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             scrollView.addSubview(discoverMore)
             scrollView.addSubview(qrCode)
             scrollView.addSubview(deleteButton)
-            scrollView.addSubview(saveButton)
             scrollView.addSubview(nameLabel)
+            scrollView.addSubview(nameLabelEn)
             scrollView.addSubview(name)
             scrollView.addSubview(birthLabel)
+            scrollView.addSubview(birthLabelEn)
             scrollView.addSubview(birth)
             scrollView.addSubview(idLabel)
+            scrollView.addSubview(idLabelEn)
             scrollView.addSubview(id)
             Self.Style.value(name, text: greenCertificates[model.currentDgc].name)
             Self.Style.value(birth, text: greenCertificates[model.currentDgc].birth)
@@ -298,6 +287,9 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             Self.Style.label(nameLabel,text: L10n.HomeView.GreenCertificate.Label.name)
             Self.Style.label(birthLabel,text: L10n.HomeView.GreenCertificate.Label.date)
             Self.Style.label(idLabel,text: L10n.HomeView.GreenCertificate.Label.id)
+            Self.Style.label(nameLabelEn,text: L10n.HomeView.GreenCertificate.Label.nameEn)
+            Self.Style.label(birthLabelEn,text: L10n.HomeView.GreenCertificate.Label.dateEn)
+            Self.Style.label(idLabelEn,text: L10n.HomeView.GreenCertificate.Label.idEn)
           
           inactiveLabel.removeFromSuperview()
           inactiveImage.removeFromSuperview()
@@ -310,12 +302,14 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
           qrCode.removeFromSuperview()
           swipeLabel.removeFromSuperview()
           deleteButton.removeFromSuperview()
-          saveButton.removeFromSuperview()
           nameLabel.removeFromSuperview()
+          nameLabelEn.removeFromSuperview()
           name.removeFromSuperview()
           birthLabel.removeFromSuperview()
+          birthLabelEn.removeFromSuperview()
           birth.removeFromSuperview()
           idLabel.removeFromSuperview()
+          idLabelEn.removeFromSuperview()
           id.removeFromSuperview()
           lineView.removeFromSuperview()
           discoverMore.removeFromSuperview()
@@ -357,7 +351,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         container.pin
           .top(20)
           .horizontally(25)
-          .height(dgcIsPresent ? UIDevice.getByScreen(normal: 760, short: 700) : UIDevice.getByScreen(normal: 400, short: 380))
+          .height(dgcIsPresent ? UIDevice.getByScreen(normal: 840, short: 800) : UIDevice.getByScreen(normal: 400, short: 380))
         
         if dgcIsPresent {
         
@@ -375,10 +369,17 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
               .sizeToFit(.width)
               .horizontally(25)
         
-            nameLabel.pin
+            nameLabelEn.pin
               .minHeight(25)
               .below(of: qrCode)
               .marginTop(55)
+              .sizeToFit(.width)
+              .horizontally(25)
+              .marginLeft(10)
+            
+            nameLabel.pin
+              .minHeight(25)
+              .below(of: nameLabelEn)
               .sizeToFit(.width)
               .horizontally(25)
               .marginLeft(10)
@@ -391,10 +392,17 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
               .horizontally(25)
               .marginLeft(10)
             
-            birthLabel.pin
+            birthLabelEn.pin
               .minHeight(25)
               .below(of: name)
               .marginTop(15)
+              .sizeToFit(.width)
+              .horizontally(25)
+              .marginLeft(10)
+            
+            birthLabel.pin
+              .minHeight(25)
+              .below(of: birthLabelEn)
               .sizeToFit(.width)
               .horizontally(25)
               .marginLeft(10)
@@ -407,10 +415,17 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
               .horizontally(25)
               .marginLeft(10)
 
-            idLabel.pin
+            idLabelEn.pin
               .minHeight(25)
               .below(of: birth)
               .marginTop(15)
+              .sizeToFit(.width)
+              .horizontally(25)
+              .marginLeft(10)
+            
+            idLabel.pin
+              .minHeight(25)
+              .below(of: idLabelEn)
               .sizeToFit(.width)
               .horizontally(25)
               .marginLeft(10)
@@ -437,21 +452,12 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
                 .height(1)
 
             deleteButton.pin
-              .right(45)
               .hCenter()
               .size(self.buttonSize(for: self.bounds.width))
               .minHeight(25)
               .below(of: lineView)
               .marginTop(5)
-            
-            saveButton.pin
-              .left(45)
-              .hCenter()
-              .size(self.buttonSize(for: self.bounds.width))
-              .minHeight(25)
-              .below(of: lineView)
-              .marginTop(5)
-
+        
         }
         else {
             inactiveImage.pin
@@ -589,7 +595,10 @@ private extension GreenCertificateView {
         static func label(_ label: UILabel, text: String) {
             let textStyle = TextStyles.p.byAdding(
                 .color(Palette.grayNormal),
-                .alignment(.left)
+                .alignment(.left),
+                .xmlRules([
+                    .style("i", TextStyles.i)
+                ])
             )
             TempuraStyles.styleStandardLabel(
                 label,

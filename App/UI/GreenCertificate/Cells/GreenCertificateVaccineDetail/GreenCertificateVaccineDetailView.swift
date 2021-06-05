@@ -44,22 +44,29 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
     let scrollView = UIScrollView()
     private var closeButton = ImageButton()
     
-    // Vaccine fields
     private var diseaseVaccineLabel = UILabel()
+    private var diseaseVaccineLabelEn = UILabel()
     private var diseaseVaccine = UILabel()
     private var vaccineTypeLabel = UILabel()
+    private var vaccineTypeLabelEn = UILabel()
     private var vaccineType = UILabel()
     private var vaccineNameLabel = UILabel()
+    private var vaccineNameLabelEn = UILabel()
     private var vaccineName = UILabel()
     private var vaccineProducerLabel = UILabel()
+    private var vaccineProducerLabelEn = UILabel()
     private var vaccineProducer = UILabel()
     private var numberOfDosesVaccineLabel = UILabel()
+    private var numberOfDosesVaccineLabelEn = UILabel()
     private var numberOfDosesVaccine = UILabel()
     private var dateLastAdministrationVaccineLabel = UILabel()
+    private var dateLastAdministrationVaccineLabelEn = UILabel()
     private var dateLastAdministrationVaccine = UILabel()
     private var vaccinationCuntryLabel = UILabel()
+    private var vaccinationCuntryLabelEn = UILabel()
     private var vaccinationCuntry = UILabel()
     private var certificateAuthorityVaccineLabel = UILabel()
+    private var certificateAuthorityVaccineLabelEn = UILabel()
     private var certificateAuthorityVaccine = UILabel()
     
     private var paragraph = UILabel()
@@ -79,34 +86,59 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
         
         addSubview(diseaseVaccineLabel)
         scrollView.addSubview(diseaseVaccineLabel)
+        addSubview(diseaseVaccineLabelEn)
+        scrollView.addSubview(diseaseVaccineLabelEn)
+        
         addSubview(diseaseVaccine)
         scrollView.addSubview(diseaseVaccine)
         addSubview(vaccineTypeLabel)
         scrollView.addSubview(vaccineTypeLabel)
+        addSubview(vaccineTypeLabelEn)
+        scrollView.addSubview(vaccineTypeLabelEn)
+        
         addSubview(vaccineType)
         scrollView.addSubview(vaccineType)
+        
         addSubview(vaccineNameLabel)
         scrollView.addSubview(vaccineNameLabel)
+        addSubview(vaccineNameLabelEn)
+        scrollView.addSubview(vaccineNameLabelEn)
+        
         addSubview(vaccineName)
         scrollView.addSubview(vaccineName)
         addSubview(vaccineProducerLabel)
         scrollView.addSubview(vaccineProducerLabel)
+        addSubview(vaccineProducerLabelEn)
+        scrollView.addSubview(vaccineProducerLabelEn)
+        
         addSubview(vaccineProducer)
         scrollView.addSubview(vaccineProducer)
         addSubview(numberOfDosesVaccineLabel)
         scrollView.addSubview(numberOfDosesVaccineLabel)
+        addSubview(numberOfDosesVaccineLabelEn)
+        scrollView.addSubview(numberOfDosesVaccineLabelEn)
+        
         addSubview(numberOfDosesVaccine)
         scrollView.addSubview(numberOfDosesVaccine)
         addSubview(dateLastAdministrationVaccineLabel)
         scrollView.addSubview(dateLastAdministrationVaccineLabel)
+        addSubview(dateLastAdministrationVaccineLabelEn)
+        scrollView.addSubview(dateLastAdministrationVaccineLabelEn)
+        
         addSubview(dateLastAdministrationVaccine)
         scrollView.addSubview(dateLastAdministrationVaccine)
         addSubview(vaccinationCuntryLabel)
         scrollView.addSubview(vaccinationCuntryLabel)
+        addSubview(vaccinationCuntryLabelEn)
+        scrollView.addSubview(vaccinationCuntryLabelEn)
+        
         addSubview(vaccinationCuntry)
         scrollView.addSubview(vaccinationCuntry)
         addSubview(certificateAuthorityVaccineLabel)
         scrollView.addSubview(certificateAuthorityVaccineLabel)
+        addSubview(certificateAuthorityVaccineLabelEn)
+        scrollView.addSubview(certificateAuthorityVaccineLabelEn)
+        
         addSubview(certificateAuthorityVaccine)
         scrollView.addSubview(certificateAuthorityVaccine)
         
@@ -133,7 +165,6 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
         Self.Style.scrollView(scrollView)
         Self.Style.headerTitle(title, content: L10n.HomeView.GreenCertificate.Detail.title)
     
-        //Vaccine fields
         Self.Style.label(diseaseVaccineLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.disease)
         Self.Style.label(vaccineTypeLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineType)
         Self.Style.label(vaccineNameLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineName)
@@ -142,8 +173,16 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
         Self.Style.label(dateLastAdministrationVaccineLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.dateLastAdministration)
         Self.Style.label(vaccinationCuntryLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccinationCuntry)
         Self.Style.label(certificateAuthorityVaccineLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.certificateAuthority)
-
         
+        Self.Style.label(diseaseVaccineLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.diseaseEn)
+        Self.Style.label(vaccineTypeLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineTypeEn)
+        Self.Style.label(vaccineNameLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineNameEn)
+        Self.Style.label(vaccineProducerLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineProducerEn)
+        Self.Style.label(numberOfDosesVaccineLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.numberOfDosesEn)
+        Self.Style.label(dateLastAdministrationVaccineLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.dateLastAdministrationEn)
+        Self.Style.label(vaccinationCuntryLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccinationCuntryEn)
+        Self.Style.label(certificateAuthorityVaccineLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.certificateAuthorityEn)
+
         Self.Style.closeButton(self.closeButton)
 
     }
@@ -188,10 +227,17 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
           .horizontally(30)
           .sizeToFit()
      
-        diseaseVaccineLabel.pin
+        diseaseVaccineLabelEn.pin
           .minHeight(25)
           .below(of: title)
           .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        diseaseVaccineLabel.pin
+          .minHeight(25)
+          .below(of: diseaseVaccineLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -204,10 +250,17 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        vaccineTypeLabel.pin
+        vaccineTypeLabelEn.pin
           .minHeight(25)
           .below(of: diseaseVaccine)
           .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        vaccineTypeLabel.pin
+          .minHeight(25)
+          .below(of: vaccineTypeLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -220,10 +273,17 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        vaccineNameLabel.pin
+        vaccineNameLabelEn.pin
           .minHeight(25)
           .below(of: vaccineType)
           .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        vaccineNameLabel.pin
+          .minHeight(25)
+          .below(of: vaccineNameLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -236,10 +296,17 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        vaccineProducerLabel.pin
+        vaccineProducerLabelEn.pin
           .minHeight(25)
           .below(of: vaccineName)
           .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        vaccineProducerLabel.pin
+          .minHeight(25)
+          .below(of: vaccineProducerLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -252,10 +319,17 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        numberOfDosesVaccineLabel.pin
+        numberOfDosesVaccineLabelEn.pin
           .minHeight(25)
           .below(of: vaccineProducer)
           .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        numberOfDosesVaccineLabel.pin
+          .minHeight(25)
+          .below(of: numberOfDosesVaccineLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -268,10 +342,17 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        dateLastAdministrationVaccineLabel.pin
+        dateLastAdministrationVaccineLabelEn.pin
           .minHeight(25)
           .below(of: numberOfDosesVaccine)
           .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        dateLastAdministrationVaccineLabel.pin
+          .minHeight(25)
+          .below(of: dateLastAdministrationVaccineLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -284,10 +365,17 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        vaccinationCuntryLabel.pin
+        vaccinationCuntryLabelEn.pin
           .minHeight(25)
           .below(of: dateLastAdministrationVaccine)
           .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        vaccinationCuntryLabel.pin
+          .minHeight(25)
+          .below(of: vaccinationCuntryLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -300,10 +388,17 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        certificateAuthorityVaccineLabel.pin
+        certificateAuthorityVaccineLabelEn.pin
           .minHeight(25)
           .below(of: vaccinationCuntry)
           .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        certificateAuthorityVaccineLabel.pin
+          .minHeight(25)
+          .below(of: certificateAuthorityVaccineLabelEn)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
@@ -391,7 +486,10 @@ private extension GreenCertificateVaccineDetailView {
         static func label(_ label: UILabel, text: String) {
             let textStyle = TextStyles.p.byAdding(
                 .color(Palette.grayNormal),
-                .alignment(.left)
+                .alignment(.left),
+                .xmlRules([
+                    .style("i", TextStyles.i)
+                ])
             )
             TempuraStyles.styleStandardLabel(
                 label,
