@@ -1,4 +1,4 @@
-// GreenCertificateDetailView.swift
+// GreenCertificateRecoveryDetailView.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -16,13 +16,13 @@ import Foundation
 import Models
 import Tempura
 
-struct GreenCertificateDetailVM: ViewModelWithLocalState {
+struct GreenCertificateRecoveryDetailVM: ViewModelWithLocalState {
     
     let greenCertificate: GreenCertificate
 }
 
-extension GreenCertificateDetailVM {
-    init?(state: AppState?, localState : GreenCertificateDetailLS) {
+extension GreenCertificateRecoveryDetailVM {
+    init?(state: AppState?, localState : GreenCertificateRecoveryDetailLS) {
         guard let _ = state else {
             return nil
         }
@@ -32,8 +32,8 @@ extension GreenCertificateDetailVM {
 }
 // MARK: - View
 
-class GreenCertificateDetailView: UIView, ViewControllerModellableView {
-    typealias VM = GreenCertificateDetailVM
+class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
+    typealias VM = GreenCertificateRecoveryDetailVM
 
     private static let horizontalSpacing: CGFloat = 30.0
     static let orderRightMargin: CGFloat = UIDevice.getByScreen(normal: 70, narrow: 50)
@@ -44,33 +44,24 @@ class GreenCertificateDetailView: UIView, ViewControllerModellableView {
     let scrollView = UIScrollView()
     private var closeButton = ImageButton()
     
-    private var diseaseLabel = UILabel()
-    private var disease = UILabel()
-    
-    private var vaccineTypeLabel = UILabel()
-    private var vaccineType = UILabel()
-    
-    private var vaccineNameLabel = UILabel()
-    private var vaccineName = UILabel()
-    
-    private var vaccineProducerLabel = UILabel()
-    private var vaccineProducer = UILabel()
-    
-    private var numberOfDosesLabel = UILabel()
-    private var numberOfDoses = UILabel()
-    
-    private var dateLastAdministrationLabel = UILabel()
-    private var dateLastAdministration = UILabel()
-    
-    private var vaccinationCuntryLabel = UILabel()
-    private var vaccinationCuntry = UILabel()
-    
-    private var certificateAuthorityLabel = UILabel()
-    private var certificateAuthority = UILabel()
+    //Recovery fields
+    private var diseaseRecoveryLabel = UILabel()
+    private var diseaseRecovery = UILabel()
+    private var dateFirstTestResultLabel = UILabel()
+    private var dateFirstTestResult = UILabel()
+    private var countryOfTestRecoveryLabel = UILabel()
+    private var countryOfTestRecovery = UILabel()
+    private var certificateIssuerRecoveryLabel = UILabel()
+    private var certificateIssuerRecovery = UILabel()
+    private var certificateValidFromLabel = UILabel()
+    private var certificateValidFrom = UILabel()
+    private var certificateValidUntilLabel = UILabel()
+    private var certificateValidUntil = UILabel()
     
     private var paragraph = UILabel()
     private var contactButton = TextButton()
 
+    
     var didTapBack: Interaction?
     var didTapContact: CustomInteraction<String>?
     
@@ -82,49 +73,41 @@ class GreenCertificateDetailView: UIView, ViewControllerModellableView {
         addSubview(title)
         addSubview(closeButton)
         
-        addSubview(diseaseLabel)
-        addSubview(disease)
-        addSubview(vaccineTypeLabel)
-        addSubview(vaccineType)
-        addSubview(vaccineNameLabel)
-        addSubview(vaccineName)
-        addSubview(vaccineProducerLabel)
-        addSubview(vaccineProducer)
-        addSubview(numberOfDosesLabel)
-        addSubview(numberOfDoses)
-        addSubview(dateLastAdministrationLabel)
-        addSubview(dateLastAdministration)
-        addSubview(vaccinationCuntryLabel)
-        addSubview(vaccinationCuntry)
-        addSubview(certificateAuthorityLabel)
-        addSubview(certificateAuthority)
-        addSubview(paragraph)
+        addSubview(diseaseRecoveryLabel)
+        scrollView.addSubview(diseaseRecoveryLabel)
+        addSubview(diseaseRecovery)
+        scrollView.addSubview(diseaseRecovery)
+        addSubview(dateFirstTestResultLabel)
+        scrollView.addSubview(dateFirstTestResultLabel)
+        addSubview(dateFirstTestResult)
+        scrollView.addSubview(dateFirstTestResult)
+        addSubview(countryOfTestRecoveryLabel)
+        scrollView.addSubview(countryOfTestRecoveryLabel)
+        addSubview(countryOfTestRecovery)
+        scrollView.addSubview(countryOfTestRecovery)
+        addSubview(certificateIssuerRecoveryLabel)
+        scrollView.addSubview(certificateIssuerRecoveryLabel)
+        addSubview(certificateIssuerRecovery)
+        scrollView.addSubview(certificateIssuerRecovery)
+        addSubview(certificateValidFromLabel)
+        scrollView.addSubview(certificateValidFromLabel)
+        addSubview(certificateValidFrom)
+        scrollView.addSubview(certificateValidFrom)
+        addSubview(certificateValidUntilLabel)
+        scrollView.addSubview(certificateValidUntilLabel)
+        addSubview(certificateValidUntil)
+        scrollView.addSubview(certificateValidUntil)
+        
         addSubview(contactButton)
         scrollView.addSubview(contactButton)
-        scrollView.addSubview(diseaseLabel)
-        scrollView.addSubview(disease)
-        scrollView.addSubview(vaccineTypeLabel)
-        scrollView.addSubview(vaccineType)
-        scrollView.addSubview(vaccineNameLabel)
-        scrollView.addSubview(vaccineName)
-        scrollView.addSubview(vaccineProducerLabel)
-        scrollView.addSubview(vaccineProducer)
-        scrollView.addSubview(numberOfDosesLabel)
-        scrollView.addSubview(numberOfDoses)
-        scrollView.addSubview(dateLastAdministrationLabel)
-        scrollView.addSubview(dateLastAdministration)
-        scrollView.addSubview(vaccinationCuntryLabel)
-        scrollView.addSubview(vaccinationCuntry)
-        scrollView.addSubview(certificateAuthorityLabel)
-        scrollView.addSubview(certificateAuthority)
+        
         scrollView.addSubview(paragraph)
 
         closeButton.on(.touchUpInside) { [weak self] _ in
             self?.didTapBack?()
         }
         contactButton.on(.touchUpInside) { [weak self] _ in
-//            guard let url = self?.model?.greenCertificate else { return }
-//            self?.didTapContact?(url)
+            self?.didTapContact?(L10n.HomeView.GreenCertificate.Detail.url)
         }
 
     }
@@ -136,15 +119,16 @@ class GreenCertificateDetailView: UIView, ViewControllerModellableView {
         Self.Style.backgroundGradient(backgroundGradientView)
 
         Self.Style.scrollView(scrollView)
-        Self.Style.headerTitle(title, content: "EU Digital Covid\nCertificate")
-        Self.Style.label(diseaseLabel, text: "Malattia o agente beraglio")
-        Self.Style.label(vaccineTypeLabel, text: "Tipo di vaccino")
-        Self.Style.label(vaccineNameLabel, text: "Denominazione del vaccino")
-        Self.Style.label(vaccineProducerLabel, text: "Produttore o titolare dell'AIC del vaccino")
-        Self.Style.label(numberOfDosesLabel, text: "Numero della dose effettuata/numero\ntotale dosi previste")
-        Self.Style.label(dateLastAdministrationLabel, text: "Data dell'ultima somministrazione")
-        Self.Style.label(vaccinationCuntryLabel, text: "Nazionein cui è stata eseguita la vaccinazione")
-        Self.Style.label(certificateAuthorityLabel, text: "Ente che ha rilasciato il certificato")
+        Self.Style.headerTitle(title, content: L10n.HomeView.GreenCertificate.Detail.title)
+        
+        //Recovery fields
+        Self.Style.label(diseaseRecoveryLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.disease)
+        Self.Style.label(dateFirstTestResultLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.dateFirstTestResult)
+        Self.Style.label(countryOfTestRecoveryLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.countryOfTest)
+        Self.Style.label(certificateIssuerRecoveryLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.certificateIssuer)
+        Self.Style.label(certificateValidFromLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.certificateValidFrom)
+        Self.Style.label(certificateValidUntilLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.certificateValidUntil)
+    
         Self.Style.closeButton(self.closeButton)
 
     }
@@ -155,16 +139,18 @@ class GreenCertificateDetailView: UIView, ViewControllerModellableView {
         guard let model = self.model else {
             return
         }
-//        Self.Style.value(disease, text: model.greenCertificate.detailGreenCertificate.disease)
-//        Self.Style.value(vaccineType, text: model.greenCertificate.detailGreenCertificate.vaccineType)
-//        Self.Style.value(vaccineName, text: model.greenCertificate.detailGreenCertificate.vaccineName)
-//        Self.Style.value(vaccineProducer, text: model.greenCertificate.detailGreenCertificate.vaccineProducer)
-//        Self.Style.value(numberOfDoses, text: model.greenCertificate.detailGreenCertificate.numberOfDoses)
-//        Self.Style.value(dateLastAdministration, text: model.greenCertificate.detailGreenCertificate.dateLastAdministration)
-//        Self.Style.value(vaccinationCuntry, text: model.greenCertificate.detailGreenCertificate.vaccinationCuntry)
-//        Self.Style.value(certificateAuthority, text: model.greenCertificate.detailGreenCertificate.certificateAuthority)
-//        Self.Style.label(paragraph, text: model.greenCertificate.detailGreenCertificate.paragraph)
-//        Self.Style.contactButton(self.contactButton, content: model.greenCertificate.detailGreenCertificate.url)
+        
+        if let detailRecoveryCertificate = model.greenCertificate.detailRecoveryCertificate {
+            Self.Style.value(diseaseRecovery, text: detailRecoveryCertificate.disease)
+            Self.Style.value(dateFirstTestResult, text: detailRecoveryCertificate.dateFirstTestResult)
+            Self.Style.value(countryOfTestRecovery, text: detailRecoveryCertificate.countryOfTest)
+            Self.Style.value(certificateIssuerRecovery, text: detailRecoveryCertificate.certificateIssuer)
+            Self.Style.value(certificateValidFrom, text: detailRecoveryCertificate.certificateValidFrom)
+            Self.Style.value(certificateValidUntil, text: detailRecoveryCertificate.certificateValidUntil)
+        }
+        
+        Self.Style.label(paragraph, text: L10n.HomeView.GreenCertificate.Detail.paragraph)
+        Self.Style.contactButton(self.contactButton, content: L10n.HomeView.GreenCertificate.Detail.url)
 
 
     }
@@ -186,7 +172,7 @@ class GreenCertificateDetailView: UIView, ViewControllerModellableView {
           .horizontally(30)
           .sizeToFit()
         
-        diseaseLabel.pin
+        diseaseRecoveryLabel.pin
           .minHeight(25)
           .below(of: title)
           .marginTop(30)
@@ -194,129 +180,97 @@ class GreenCertificateDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        disease.pin
+        diseaseRecovery.pin
           .minHeight(25)
-          .below(of: diseaseLabel)
+          .below(of: diseaseRecoveryLabel)
           .marginTop(5)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
         
-        vaccineTypeLabel.pin
+        dateFirstTestResultLabel.pin
           .minHeight(25)
-          .below(of: disease)
-          .marginTop(15)
+          .below(of: diseaseRecovery)
+          .marginTop(30)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
         
-        vaccineType.pin
+        dateFirstTestResult.pin
           .minHeight(25)
-          .below(of: vaccineTypeLabel)
+          .below(of: dateFirstTestResultLabel)
           .marginTop(5)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
         
-        vaccineNameLabel.pin
+        countryOfTestRecoveryLabel.pin
           .minHeight(25)
-          .below(of: vaccineType)
-          .marginTop(15)
+          .below(of: dateFirstTestResult)
+          .marginTop(30)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
         
-        vaccineName.pin
+        countryOfTestRecovery.pin
           .minHeight(25)
-          .below(of: vaccineNameLabel)
+          .below(of: countryOfTestRecoveryLabel)
           .marginTop(5)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
         
-        vaccineProducerLabel.pin
+        certificateIssuerRecoveryLabel.pin
           .minHeight(25)
-          .below(of: vaccineName)
-          .marginTop(15)
+          .below(of: countryOfTestRecovery)
+          .marginTop(30)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
         
-        vaccineProducer.pin
+        certificateIssuerRecovery.pin
           .minHeight(25)
-          .below(of: vaccineProducerLabel)
+          .below(of: certificateIssuerRecoveryLabel)
           .marginTop(5)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
         
-        numberOfDosesLabel.pin
+        certificateValidFromLabel.pin
           .minHeight(25)
-          .below(of: vaccineProducer)
-          .marginTop(15)
+          .below(of: certificateIssuerRecovery)
+          .marginTop(30)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
         
-        numberOfDoses.pin
+        certificateValidFrom.pin
           .minHeight(25)
-          .below(of: numberOfDosesLabel)
+          .below(of: certificateValidFromLabel)
           .marginTop(5)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
         
-        dateLastAdministrationLabel.pin
+        certificateValidUntilLabel.pin
           .minHeight(25)
-          .below(of: numberOfDoses)
-          .marginTop(15)
+          .below(of: certificateValidFrom)
+          .marginTop(30)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
         
-        dateLastAdministration.pin
+        certificateValidUntil.pin
           .minHeight(25)
-          .below(of: dateLastAdministrationLabel)
+          .below(of: certificateValidUntilLabel)
           .marginTop(5)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
-        
-        vaccinationCuntryLabel.pin
-          .minHeight(25)
-          .below(of: dateLastAdministration)
-          .marginTop(15)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        vaccinationCuntry.pin
-          .minHeight(25)
-          .below(of: vaccinationCuntryLabel)
-          .marginTop(5)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        certificateAuthorityLabel.pin
-          .minHeight(25)
-          .below(of: vaccinationCuntry)
-          .marginTop(15)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        certificateAuthority.pin
-          .minHeight(25)
-          .below(of: certificateAuthorityLabel)
-          .marginTop(5)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
+    
         paragraph.pin
           .minHeight(25)
-          .below(of: certificateAuthority)
+          .below(of: certificateValidUntil)
           .marginTop(15)
           .sizeToFit(.width)
           .horizontally(25)
@@ -342,7 +296,7 @@ class GreenCertificateDetailView: UIView, ViewControllerModellableView {
 
 // MARK: - Style
 
-private extension GreenCertificateDetailView {
+private extension GreenCertificateRecoveryDetailView {
     enum Style {
         
         static func closeButton(_ btn: ImageButton) {

@@ -157,16 +157,35 @@ extension Logic.Home {
         }
       }
   /// Shows the Green certificate detail
-  struct ShowGreenCertificateDetail: AppSideEffect {
+  struct ShowGreenCertificateVaccineDetail: AppSideEffect {
     let dgc: GreenCertificate
     
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-        try context
-            .awaitDispatch(Show(
-            Screen.greenCertificateDetail,
-            animated: true,
-                context: GreenCertificateDetailLS(greenCertificate: dgc)
-            ))
+        switch dgc.certificateType {
+        case .test:
+            try context
+                .awaitDispatch(Show(
+                Screen.greenCertificateTestDetail,
+                animated: true,
+                    context: GreenCertificateTestDetailLS(greenCertificate: dgc)
+                ))
+        case .vaccine:
+            try context
+                .awaitDispatch(Show(
+                Screen.greenCertificateVaccineDetail,
+                animated: true,
+                    context: GreenCertificateVaccineDetailLS(greenCertificate: dgc)
+                ))
+        case .recovery:
+            try context
+                .awaitDispatch(Show(
+                Screen.greenCertificateRecoveryDetail,
+                animated: true,
+                    context: GreenCertificateRecoveryDetailLS(greenCertificate: dgc)
+                ))
+   
+        }
+        
           }
     }
   /// Shows the  ShowRetriveGreenCertificateVC screen

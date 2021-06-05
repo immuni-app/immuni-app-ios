@@ -47,7 +47,9 @@ enum Screen: String, CaseIterable {
   case suggestions
   case greenCertificate
   case retriveGreenCertificate
-  case greenCertificateDetail
+  case greenCertificateVaccineDetail
+  case greenCertificateRecoveryDetail
+  case greenCertificateTestDetail
 
   // settings
   case settings
@@ -518,10 +520,18 @@ extension HomeNC: RoutableWithConfiguration {
       .show(Screen.greenCertificate): .push { _ in
         return GreenCertificateVC(store: self.store, localState: GreenCertificateLS())
           },
-      .show(Screen.greenCertificateDetail): .presentModally { context in
-        let ls = context as? GreenCertificateDetailLS ?? AppLogger.fatalError("invalid context")
-        return GreenCertificateDetailVC(store: self.store, localState: ls)
+      .show(Screen.greenCertificateVaccineDetail): .presentModally { context in
+        let ls = context as? GreenCertificateVaccineDetailLS ?? AppLogger.fatalError("invalid context")
+        return GreenCertificateVaccineDetailVC(store: self.store, localState: ls)
           },
+      .show(Screen.greenCertificateRecoveryDetail): .presentModally { context in
+        let ls = context as? GreenCertificateRecoveryDetailLS ?? AppLogger.fatalError("invalid context")
+        return GreenCertificateRecoveryDetailVC(store: self.store, localState: ls)
+        },
+      .show(Screen.greenCertificateTestDetail): .presentModally { context in
+        let ls = context as? GreenCertificateTestDetailLS ?? AppLogger.fatalError("invalid context")
+        return GreenCertificateTestDetailVC(store: self.store, localState: ls)
+        },
       .show(Screen.retriveGreenCertificate): .push { _ in
         return RetriveGreenCertificateVC(store: self.store, localState: RetriveGreenCertificateLS())
           },
@@ -530,7 +540,9 @@ extension HomeNC: RoutableWithConfiguration {
       .hide(Screen.uploadDataAutonomous): .pop,
       .hide(Screen.greenCertificate): .pop,
       .hide(Screen.retriveGreenCertificate): .pop,
-      .hide(Screen.greenCertificateDetail): .dismissModally(behaviour: .hard),
+      .hide(Screen.greenCertificateVaccineDetail): .dismissModally(behaviour: .hard),
+      .hide(Screen.greenCertificateRecoveryDetail): .dismissModally(behaviour: .hard),
+      .hide(Screen.greenCertificateTestDetail): .dismissModally(behaviour: .hard),
 
     ]
   }
@@ -584,9 +596,27 @@ extension RetriveGreenCertificateVC: RoutableWithConfiguration {
     return [:]
   }
 }
-extension GreenCertificateDetailVC: RoutableWithConfiguration {
+extension GreenCertificateVaccineDetailVC: RoutableWithConfiguration {
   var routeIdentifier: RouteElementIdentifier {
-    return Screen.greenCertificateDetail.rawValue
+    return Screen.greenCertificateVaccineDetail.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [:]
+  }
+}
+extension GreenCertificateRecoveryDetailVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.greenCertificateRecoveryDetail.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [:]
+  }
+}
+extension GreenCertificateTestDetailVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.greenCertificateTestDetail.rawValue
   }
 
   var navigationConfiguration: [NavigationRequest: NavigationInstruction] {

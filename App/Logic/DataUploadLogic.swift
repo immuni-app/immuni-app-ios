@@ -162,6 +162,7 @@ extension Logic.DataUpload {
   }
     /// Retrive digital green certificate
     struct RetriveDigitalGreenCertificate: AppSideEffect {
+        
       let code: String
       let lastHisNumber: String
       let healthCardDate: String
@@ -179,9 +180,14 @@ extension Logic.DataUpload {
             let data = try `await`(context.dependencies.networkManager.retriveDigitalGreenCertificate(tokenType: codeType.rawValue.lowercased(), lastHisNumber: lastHisNumber, healthCardDate: healthCardDate, code: code))
                         
             let dgc = detectQRCode(qr: data.result.qr)
-            
+
             if let dgc = dgc {
                 try context.awaitDispatch(Logic.CovidStatus.UpdateGreenCertificate(newGreenCertificate: dgc))
+            }
+            else {
+                try `await`(context.dispatch(Logic.Loading.Hide()))
+                try context.awaitDispatch(ShowCustomErrorAlert(message: L10n.HomeView.GreenCertificate.Decode.error))
+                return
             }
 
           } catch {
@@ -220,18 +226,22 @@ extension Logic.DataUpload {
             for case let row as CIQRCodeFeature in features! {
                 hcert = HCert(from: row.messageString!)
                 guard let hcert = hcert else { return nil }
+                
                 var type: CertificateType?
-                print("gigi type", hcert.type)
-                switch hcert.type.rawValue {
-                    case "test":
-                        type = .test
-                    case "vaccine":
-                        type = .vaccine
-                    case "recovery":
-                        type = .recovery
-                    default:
-                        type = nil
+                
+                if hcert.body["t"].count > 0 {
+                    type = .test
                 }
+                else if hcert.body["v"].count > 0 {
+                    type = .vaccine
+                }
+                else if hcert.body["r"].count > 0 {
+                    type = .recovery
+                }
+                else {
+                    type = nil
+                }
+
                 guard let type = type else { return nil }
                 
                 dgc = GreenCertificate(
@@ -241,46 +251,47 @@ extension Logic.DataUpload {
                     greenCertificate: qr,
                     certificateType: type
                     )
-                switch hcert.type.rawValue {
-                    case "test":
-                        print()
-                    case "vaccine":
-                        let detail = DetailVaccineCertificate(
-                            disease: hcert.info[6].content,
-                            vaccineType: hcert.info[9].content,
-                            vaccineName: hcert.info[8].content,
-                            vaccineProducer: hcert.info[7].content,
-                            numberOfDoses: hcert.info[1].content,
-                            dateLastAdministration: hcert.info[5].content,
-                            vaccinationCuntry: hcert.info[10].content,
-                            certificateAuthority: hcert.info[11].content
-                            )
-                    case "recovery":
-                        let detail = DetailRecoveryCertificate(
-                            disease: hcert.info[5].content,
-                            dateFirstTestResult: "---",
-                            countryOfTest: hcert.info[8].content,
-                            certificateIssuer: hcert.info[9].content,
-                            certificateValidFrom: hcert.info[6].content,
-                            certificateValidUntil: hcert.info[7].content,
-                            dateLastAdministration: "---",
-                            vaccinationCuntry: hcert.info[8].content,
-                            certificateAuthority: hcert.info[9].content
+                switch type {
+                case .test:
+                    let detail = DetailTestCertificate(
+                        disease: "COVID-19",
+                        typeOfTest: hcert.body["t"][0]["tt"].string ?? "---",
+                        testResult: hcert.body["t"][0]["tr"].string ?? "---",
+                        ratTestNameAndManufacturer: hcert.body["t"][0]["ma"].string ?? "",
+                        naaTestName: hcert.body["t"][0]["nm"].string ?? "",
+                        dateTimeOfSampleCollection: hcert.body["t"][0]["sc"].string ?? "---",
+                        dateTimeOfTestResult: hcert.body["t"][0]["dr"].string ?? "---",
+                        testingCentre: hcert.body["t"][0]["tc"].string ?? "---",
+                        countryOfTest: hcert.body["t"][0]["co"].string ?? "---",
+                        certificateIssuer: hcert.body["t"][0]["is"].string ?? "---"
+                    )
+                    dgc?.detailTestCertificate = detail
+                       
+                case .vaccine:
+                    let detail = DetailVaccineCertificate(
+                        disease: "COVID-19",
+                        vaccineType: hcert.body["v"][0]["vp"].string ?? "---",
+                        vaccineName: hcert.body["v"][0]["mp"].string ?? "---",
+                        vaccineProducer: hcert.body["v"][0]["ma"].string ?? "---",
+                        numberOfDoses: (hcert.body["v"][0]["dn"].description ?? "-")+"/"+(hcert.body["v"][0]["sd"].description ?? "-"),
+                        dateLastAdministration: hcert.body["v"][0]["dt"].string ?? "---",
+                        vaccinationCuntry: hcert.body["v"][0]["co"].string ?? "---",
+                        certificateAuthority: hcert.body["v"][0]["is"].string ?? "---"
                         )
-                default:
-                    print()
-                }
-                print("gigi", hcert.dateOfBirth ?? "no name")
-                print("gigi", hcert.certTypeString ?? "no name")
-                print("gigi", hcert.kidStr ?? "no name")
-                print("gigi", hcert.uvci ?? "no name")
-                print("gigi", hcert.isValid ?? "no name")
-                print("gigi", hcert.type ?? "no name")
-                for (index,item) in hcert.info.enumerated() {
-                    print("gigi header", index, item.header ?? "no name")
-                    print("gigi content", index, item.content ?? "no name")
+                    dgc?.detailVaccineCertificate = detail
 
+                case .recovery:
+                    let detail = DetailRecoveryCertificate(
+                        disease: "COVID-19",
+                        dateFirstTestResult: hcert.body["r"][0]["fr"].string ?? "---",
+                        countryOfTest: hcert.body["r"][0]["co"].string ?? "---",
+                        certificateIssuer: hcert.body["r"][0]["is"].string ?? "---",
+                        certificateValidFrom: hcert.body["r"][0]["df"].string ?? "---",
+                        certificateValidUntil: hcert.body["r"][0]["du"].string ?? "---"
+                    )
+                    dgc?.detailRecoveryCertificate = detail
                 }
+
                 return dgc
                  }
              }
@@ -499,6 +510,21 @@ extension Logic.DataUpload {
       try context.awaitDispatch(Logic.Alert.Show(alertModel: model))
       }
     }
+  /// Shows custom alert
+  struct ShowCustomErrorAlert: AppSideEffect {
+      let message: String
+      func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        let model = Alert.Model(
+          title: L10n.Settings.Setting.LoadDataAutonomous.Asymptomatic.Alert.title,
+          message: message,
+          preferredStyle: .alert,
+          actions: [
+            .init(title: L10n.UploadData.ApiError.action, style: .cancel),
+            ]
+          )
+        try context.awaitDispatch(Logic.Alert.Show(alertModel: model))
+        }
+      }
 
   /// Shows the alert that Asymptomatic warning
   struct ShowAsymptomaticAlert: AppSideEffect {

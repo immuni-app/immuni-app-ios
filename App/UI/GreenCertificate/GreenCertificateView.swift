@@ -292,12 +292,12 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             scrollView.addSubview(birth)
             scrollView.addSubview(idLabel)
             scrollView.addSubview(id)
-            Self.Style.value(name,text: greenCertificates[model.currentDgc].name)
-            Self.Style.value(birth,text: greenCertificates[model.currentDgc].birth)
-            Self.Style.value(id,text: greenCertificates[model.currentDgc].id)
-            Self.Style.label(nameLabel,text: "Cognome e nome")
-            Self.Style.label(birthLabel,text: "Data di nasciata (aaaa-mm-gg)")
-            Self.Style.label(idLabel,text: "Identificativo univoco del certificato")
+            Self.Style.value(name, text: greenCertificates[model.currentDgc].name)
+            Self.Style.value(birth, text: greenCertificates[model.currentDgc].birth)
+            Self.Style.value(id, text: greenCertificates[model.currentDgc].id)
+            Self.Style.label(nameLabel,text: L10n.HomeView.GreenCertificate.Label.name)
+            Self.Style.label(birthLabel,text: L10n.HomeView.GreenCertificate.Label.date)
+            Self.Style.label(idLabel,text: L10n.HomeView.GreenCertificate.Label.id)
           
           inactiveLabel.removeFromSuperview()
           inactiveImage.removeFromSuperview()
@@ -606,7 +606,8 @@ private extension GreenCertificateView {
             TempuraStyles.styleStandardLabel(
                 label,
                 content: text,
-                style: textStyle
+                style: textStyle,
+                numberOfLines: 2
             )
         }
         

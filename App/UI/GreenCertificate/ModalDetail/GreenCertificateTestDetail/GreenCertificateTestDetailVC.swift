@@ -1,4 +1,4 @@
-// GreenCertificateDetailVC.swift
+// GreenCertificateTestDetailVC.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -16,14 +16,14 @@ import Foundation
 import Models
 import Tempura
 
-class GreenCertificateDetailVC: ViewControllerWithLocalState<GreenCertificateDetailView> {
+class GreenCertificateTestDetailVC: ViewControllerWithLocalState<GreenCertificateTestDetailView> {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
     override func setupInteraction() {
         rootView.didTapBack = { [weak self] in
-            self?.dispatch(Hide(Screen.greenCertificateDetail, animated: true))
+            self?.dispatch(Hide(Screen.greenCertificateTestDetail, animated: true))
         }
         rootView.didTapContact = { [weak self] url in
             guard let url = URL(string: url) else { return }
@@ -34,7 +34,7 @@ class GreenCertificateDetailVC: ViewControllerWithLocalState<GreenCertificateDet
 
 // MARK: - LocalState
 
-struct GreenCertificateDetailLS: LocalState {
+struct GreenCertificateTestDetailLS: LocalState {
     
     let greenCertificate: GreenCertificate
 }

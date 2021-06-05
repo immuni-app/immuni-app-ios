@@ -52,7 +52,7 @@ class GreenCertificateVC: ViewControllerWithLocalState<GreenCertificateView> {
         }
         
         rootView.didTapDiscoverMore = { [weak self] dgc in
-            self?.dispatch(Logic.Home.ShowGreenCertificateDetail(dgc: dgc))
+            self?.dispatch(Logic.Home.ShowGreenCertificateVaccineDetail(dgc: dgc))
         }
         
         rootView.didTapSaveGreenCertificate = { [weak self] index in
