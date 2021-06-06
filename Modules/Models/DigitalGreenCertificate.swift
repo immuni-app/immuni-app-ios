@@ -17,27 +17,10 @@ import Foundation
 
 public struct DigitalGreenCertificate: Codable {
   enum CodingKeys: String, CodingKey {
-    case code
-    case message
-    case result
-   
+    case qrcode
   }
 
-  public let code: String
-  public let message: String
-  public let result: ResultDigitalGreenCertificate
-
-  // swiftlint:enable force_unwrapping
-}
-public struct ResultDigitalGreenCertificate: Codable {
-  enum CodingKeys: String, CodingKey {
-    case qr
-    case message
-   
-  }
-
-  public let qr: String
-  public let message: String
+  public let qrcode: String
 
   // swiftlint:enable force_unwrapping
 }

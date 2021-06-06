@@ -46,6 +46,9 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
     
     private var certificateTypeLabel = UILabel()
     private var validUntilLabel = UILabel()
+    private var validUntilLabelEn = UILabel()
+    private var validUntil = UILabel()
+
 
     private var diseaseTestLabel = UILabel()
     private var diseaseTestLabelEn = UILabel()
@@ -99,6 +102,10 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
         scrollView.addSubview(certificateTypeLabel)
         addSubview(validUntilLabel)
         scrollView.addSubview(validUntilLabel)
+        addSubview(validUntilLabelEn)
+        scrollView.addSubview(validUntilLabelEn)
+        addSubview(validUntil)
+        scrollView.addSubview(validUntil)
 
         addSubview(diseaseTestLabel)
         scrollView.addSubview(diseaseTestLabel)
@@ -168,7 +175,9 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
         
         Self.Style.subTitle(certificateTypeLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.certificateType)
         
-        Self.Style.value(validUntilLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.validUntil)
+        Self.Style.label(validUntilLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.validUntil)
+        Self.Style.label(validUntilLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.validUntilEn)
+        Self.Style.value(validUntil, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.validUntilValue)
 
         Self.Style.scrollView(scrollView)
         Self.Style.headerTitle(title, content: L10n.HomeView.GreenCertificate.Detail.title)
@@ -229,7 +238,7 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
                 addSubview(ratTestNameAndManufacturer)
                 scrollView.addSubview(ratTestNameAndManufacturer)
             }
-            if let naaTestNameValue =  detailTestCertificate.naaTestName, naaTestNameValue != ""  {
+            else if let naaTestNameValue =  detailTestCertificate.naaTestName, naaTestNameValue != ""  {
                 Self.Style.value(naaTestName, text: naaTestNameValue)
                 addSubview(naaTestNameLabel)
                 scrollView.addSubview(naaTestNameLabel)
@@ -341,7 +350,7 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        validUntilLabel.pin
+        validUntilLabelEn.pin
           .minHeight(25)
           .below(of: typeOfTest)
           .marginTop(30)
@@ -349,9 +358,24 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        testResultLabelEn.pin
+        validUntilLabel.pin
+          .minHeight(25)
+          .below(of: validUntilLabelEn)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        validUntil.pin
           .minHeight(25)
           .below(of: validUntilLabel)
+          .marginTop(5)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        testResultLabelEn.pin
+          .minHeight(25)
+          .below(of: validUntil)
           .marginTop(30)
           .sizeToFit(.width)
           .horizontally(25)

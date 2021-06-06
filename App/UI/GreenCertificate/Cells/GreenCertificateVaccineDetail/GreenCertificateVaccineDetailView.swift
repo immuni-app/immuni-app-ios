@@ -46,6 +46,8 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
     
     private var certificateTypeLabel = UILabel()
     private var validUntilLabel = UILabel()
+    private var validUntilLabelEn = UILabel()
+    private var validUntil = UILabel()
 
     private var diseaseVaccineLabel = UILabel()
     private var diseaseVaccineLabelEn = UILabel()
@@ -91,6 +93,10 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
         scrollView.addSubview(certificateTypeLabel)
         addSubview(validUntilLabel)
         scrollView.addSubview(validUntilLabel)
+        addSubview(validUntilLabelEn)
+        scrollView.addSubview(validUntilLabelEn)
+        addSubview(validUntil)
+        scrollView.addSubview(validUntil)
         
         addSubview(diseaseVaccineLabel)
         scrollView.addSubview(diseaseVaccineLabel)
@@ -175,7 +181,10 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
         
         Self.Style.subTitle(certificateTypeLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.certificateType)
     
+        Self.Style.label(validUntilLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.validUntilEn)
+        Self.Style.label(validUntilLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.validUntil)
         Self.Style.label(diseaseVaccineLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.disease)
+
         Self.Style.label(vaccineTypeLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineType)
         Self.Style.label(vaccineNameLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineName)
         Self.Style.label(vaccineProducerLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineProducer)
@@ -232,10 +241,10 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
                 Self.Style.value(vaccineProducer, text: "---")
             }
             if detailVaccineCertificate.doseNumber == detailVaccineCertificate.totalSeriesOfDoses {
-                Self.Style.value(validUntilLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.ValidUntil.first)
+                Self.Style.value(validUntil, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.ValidUntil.first)
             }
             else{
-                Self.Style.value(validUntilLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.ValidUntil.second)
+                Self.Style.value(validUntil, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.ValidUntil.second)
             }
             Self.Style.value(numberOfDosesVaccine, text: "\(detailVaccineCertificate.doseNumber) \(L10n.HomeView.GreenCertificate.Detail.of) \(detailVaccineCertificate.totalSeriesOfDoses)")
             Self.Style.value(dateLastAdministrationVaccine, text: detailVaccineCertificate.dateLastAdministration)
@@ -319,7 +328,7 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        validUntilLabel.pin
+        validUntilLabelEn.pin
           .minHeight(25)
           .below(of: vaccineType)
           .marginTop(30)
@@ -327,9 +336,24 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        vaccineNameLabelEn.pin
+        validUntilLabel.pin
+          .minHeight(25)
+          .below(of: validUntilLabelEn)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        validUntil.pin
           .minHeight(25)
           .below(of: validUntilLabel)
+          .marginTop(5)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        vaccineNameLabelEn.pin
+          .minHeight(25)
+          .below(of: validUntil)
           .marginTop(30)
           .sizeToFit(.width)
           .horizontally(25)

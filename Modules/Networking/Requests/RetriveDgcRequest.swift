@@ -15,34 +15,64 @@
 import Alamofire
 import Foundation
 import Models
-
-public struct RetriveDgcRequest: ModelResponseSerializer {    
-    public typealias Model = DigitalGreenCertificate
+import Extensions
 
 
+public struct RetriveDgcRequest: FixedSizeJSONRequest {
+    
   // swiftlint:disable:next force_unwrapping
-    public var baseURL = URL(string: "http://192.168.1.186:3001")!
-//  public var baseURL = URL(string: "https://upload.immuni.gov.it")!
+  public var baseURL = URL(string: "https://upload.immuni.gov.it")!
   public var path = "/v1/ingestion/get-dgc"
-  public var method: HTTPMethod = .get
-  public var cachePolicy: NSURLRequest.CachePolicy = .immuniPolicy
+  public var method: HTTPMethod = .post
+  public var cachePolicy: NSURLRequest.CachePolicy = .reloadIgnoringLocalAndRemoteCacheData
 
-  public let parameters: [String: Any]
+  public let jsonParameter: Body
+  public let now: () -> Date
+  public let code: String
+  public var targetSize: Int
+
 
   public var headers: [HTTPHeader] {
-      return HTTPHeader.defaultImmuniHeaders + [
-        .authorization(bearerToken: self.code.sha256)
+    return HTTPHeader.defaultImmuniHeaders + [
+      .authorization(bearerToken: self.code.sha256),
+      .contentType("application/json; charset=UTF-8"),
+      .dummyData(false),
+      .clientClock(self.now())
       ]
     }
-    
-  public let code: String
 
-  init(tokenType: String, lastHisNumber: String, healthCardDate: String, code: String) {
-    self.parameters = [
-      "token_typestring": tokenType,
-      "health_card_date": healthCardDate,
-      "last_his_number" : lastHisNumber
-    ]
-    self.code = code
+  public init(body: Body, code: String, now: @escaping () -> Date, targetSize: Int) {
+      self.jsonParameter = body
+      self.code = code
+      self.now = now
+      self.targetSize = targetSize
+    }
+}
+
+public extension RetriveDgcRequest {
+  struct Body: Encodable {
+    public let lastHisNumber: String
+    public let hisExpiringDate: String
+    public let tokenType: String
+  
+    /// Create a Retrive dgc  request body.
+    /// A padding is added automatically so that both valid both dummy requests will have the same size.
+    public init(
+      lastHisNumber: String,
+      hisExpiringDate: String,
+      tokenType: String
+    ) {
+        self.lastHisNumber = lastHisNumber
+        self.hisExpiringDate = hisExpiringDate
+        self.tokenType = tokenType
+    }
   }
+}
+
+public extension RetriveDgcRequest.Body {
+  enum CodingKeys: String, CodingKey {
+    case lastHisNumber = "last_his_number"
+    case hisExpiringDate = "his_expiring_date"
+    case tokenType = "token_type"
+    }
 }

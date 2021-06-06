@@ -165,7 +165,7 @@ extension Logic.DataUpload {
         
       let code: String
       let lastHisNumber: String
-      let healthCardDate: String
+      let hisExpiringDate: String
       let codeType: CodeType
 
       enum Error: Swift.Error {
@@ -173,23 +173,48 @@ extension Logic.DataUpload {
       }
 
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        let state = context.getState()
         try context.awaitDispatch(Logic.Loading.Show(message: L10n.HomeView.RetriveGreenCertificate.loading))
 
         do {
+            let requestSize = state.configuration.ingestionRequestTargetSize
+            let body = RetriveDgcRequest.Body(
+                lastHisNumber: lastHisNumber,
+                hisExpiringDate: hisExpiringDate,
+                tokenType: codeType.rawValue.lowercased()
+            )
+            print(body)
+            let data = try `await`(context.dependencies.networkManager.retriveDigitalGreenCertificate(
+                                    body: body,
+                                    code: code,
+                                    requestSize: requestSize))
+            let json = try? JSONSerialization.jsonObject(with: data, options: [])
 
-            let data = try `await`(context.dependencies.networkManager.retriveDigitalGreenCertificate(tokenType: codeType.rawValue.lowercased(), lastHisNumber: lastHisNumber, healthCardDate: healthCardDate, code: code))
-                        
-            let dgc = detectQRCode(qr: data.result.qr)
+            if let object = json as? [String: Any] {
 
-            if let dgc = dgc {
-                try context.awaitDispatch(Logic.CovidStatus.UpdateGreenCertificate(newGreenCertificate: dgc))
+                if let qrcode = object["qrcode"] as? String {
+                    let dgc = detectQRCode(qr: qrcode)
+                    if let dgc = dgc {
+                        try context.awaitDispatch(Logic.CovidStatus.UpdateGreenCertificate(newGreenCertificate: dgc))
+                    }
+                    else {
+                        try `await`(context.dispatch(Logic.Loading.Hide()))
+                        try context.awaitDispatch(ShowCustomErrorAlert(message: L10n.HomeView.GreenCertificate.Decode.error))
+                        return
+                    }
+                }
+                else {
+                    try `await`(context.dispatch(Logic.Loading.Hide()))
+                    try context.awaitDispatch(ShowCustomErrorAlert(message: L10n.HomeView.GreenCertificate.Decode.error))
+                    return
+                }
             }
             else {
                 try `await`(context.dispatch(Logic.Loading.Hide()))
                 try context.awaitDispatch(ShowCustomErrorAlert(message: L10n.HomeView.GreenCertificate.Decode.error))
                 return
             }
-
+            
           } catch {
             try `await`(context.dispatch(Logic.Loading.Hide()))
             try context.awaitDispatch(ShowErrorAlert(error: error, retryDispatchable: self))
@@ -263,7 +288,7 @@ extension Logic.DataUpload {
                         dateTimeOfTestResult: hcert.body["t"][0]["dr"].string ?? "---",
                         testingCentre: hcert.body["t"][0]["tc"].string ?? "---",
                         countryOfTest: hcert.body["t"][0]["co"].string ?? "---",
-                        certificateIssuer: hcert.body["t"][0]["is"].string ?? "---"
+                        certificateIssuer: L10n.HomeView.GreenCertificate.Detail.certificateIssuer
                     )
                     dgc?.detailTestCertificate = detail
                        
@@ -277,7 +302,7 @@ extension Logic.DataUpload {
                         totalSeriesOfDoses: hcert.body["v"][0]["sd"].description,
                         dateLastAdministration: hcert.body["v"][0]["dt"].string ?? "---",
                         vaccinationCuntry: hcert.body["v"][0]["co"].string ?? "---",
-                        certificateAuthority: hcert.body["v"][0]["is"].string ?? "---"
+                        certificateAuthority: L10n.HomeView.GreenCertificate.Detail.certificateIssuer
                         )
                     dgc?.detailVaccineCertificate = detail
 
@@ -286,7 +311,7 @@ extension Logic.DataUpload {
                         disease: hcert.body["r"][0]["tg"].string ?? "---",
                         dateFirstTestResult: hcert.body["r"][0]["fr"].string ?? "---",
                         countryOfTest: hcert.body["r"][0]["co"].string ?? "---",
-                        certificateIssuer: hcert.body["r"][0]["is"].string ?? "---",
+                        certificateIssuer: L10n.HomeView.GreenCertificate.Detail.certificateIssuer,
                         certificateValidFrom: hcert.body["r"][0]["df"].string ?? "---",
                         certificateValidUntil: hcert.body["r"][0]["du"].string ?? "---"
                     )

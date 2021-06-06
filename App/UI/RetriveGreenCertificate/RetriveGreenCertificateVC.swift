@@ -66,7 +66,7 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
             if !self.validateHealthCard(healthCard: self.localState.healtCard) {
                 message += L10n.HomeView.RetriveGreenCertificate.FormError.healthCardRequired
             }
-            if !self.validateHealthCardDate(date: self.localState.healtCardDate) {
+            if !self.validateHealthCardDate(date: self.localState.hisExpiringDate) {
                 message += L10n.HomeView.RetriveGreenCertificate.FormError.healthCardDateRequired
             }
             
@@ -75,7 +75,7 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
                 return
             } else {
                 guard let code = code, let codeType = self.localState.codeType else { return }
-                self.retriveDgc(code: code, codeType: codeType, lastHisNumber: self.localState.healtCard, healthCardDate: self.localState.healtCardDate)
+                self.retriveDgc(code: code, codeType: codeType, lastHisNumber: self.localState.healtCard, hisExpiringDate: self.localState.hisExpiringDate)
             }
         }
 
@@ -89,7 +89,7 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
             self?.localState.healtCard = value
         }
         rootView.didChangeHealthCardDateValue = { [weak self] value in
-            self?.localState.healtCardDate = value
+            self?.localState.hisExpiringDate = value
         }
         rootView.didChangeCodeType = { [weak self] value in
             self?.localState.code = ""
@@ -136,10 +136,10 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
         return false
     }
 
-    private func retriveDgc(code: String, codeType: CodeType, lastHisNumber: String, healthCardDate: String) {
+    private func retriveDgc(code: String, codeType: CodeType, lastHisNumber: String, hisExpiringDate: String) {
         localState.isLoading = true
 
-        dispatch(Logic.DataUpload.RetriveDigitalGreenCertificate(code: code, lastHisNumber: lastHisNumber, healthCardDate: healthCardDate, codeType: codeType))
+        dispatch(Logic.DataUpload.RetriveDigitalGreenCertificate(code: code, lastHisNumber: lastHisNumber, hisExpiringDate: hisExpiringDate, codeType: codeType))
             .then {
                 self.localState.isLoading = false
             }
@@ -154,7 +154,7 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
 struct RetriveGreenCertificateLS: LocalState {
     var code: String = ""
     var healtCard: String = ""
-    var healtCardDate: String = ""
+    var hisExpiringDate: String = ""
     var codeType: CodeType?
 
     /// True if it's not possible to execute a new request.
