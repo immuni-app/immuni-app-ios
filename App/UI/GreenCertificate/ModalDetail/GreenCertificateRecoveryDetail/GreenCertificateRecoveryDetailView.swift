@@ -44,6 +44,8 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
     let scrollView = UIScrollView()
     private var closeButton = ImageButton()
     
+    private var certificateTypeLabel = UILabel()
+
     private var diseaseRecoveryLabel = UILabel()
     private var diseaseRecoveryLabelEn = UILabel()
     private var diseaseRecovery = UILabel()
@@ -77,6 +79,9 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
         addSubview(scrollView)
         addSubview(title)
         addSubview(closeButton)
+        
+        addSubview(certificateTypeLabel)
+        scrollView.addSubview(certificateTypeLabel)
         
         addSubview(diseaseRecoveryLabel)
         scrollView.addSubview(diseaseRecoveryLabel)
@@ -138,6 +143,7 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
 
         Self.Style.scrollView(scrollView)
         Self.Style.headerTitle(title, content: L10n.HomeView.GreenCertificate.Detail.title)
+        Self.Style.subTitle(certificateTypeLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.certificateType)
         
         Self.Style.label(diseaseRecoveryLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.disease)
         Self.Style.label(dateFirstTestResultLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.dateFirstTestResult)
@@ -196,9 +202,17 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
           .horizontally(30)
           .sizeToFit()
         
-        diseaseRecoveryLabelEn.pin
+        certificateTypeLabel.pin
           .minHeight(25)
           .below(of: title)
+          .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        diseaseRecoveryLabelEn.pin
+          .minHeight(25)
+          .below(of: certificateTypeLabel)
           .marginTop(30)
           .sizeToFit(.width)
           .horizontally(25)
@@ -413,6 +427,18 @@ private extension GreenCertificateRecoveryDetailView {
                 .xmlRules([
                     .style("i", TextStyles.i)
                 ])
+            )
+            TempuraStyles.styleStandardLabel(
+                label,
+                content: text,
+                style: textStyle
+            )
+        }
+        static func subTitle(_ label: UILabel, text: String) {
+            let textStyle = TextStyles.pSemibold.byAdding(
+                .color(Palette.grayDark),
+                .alignment(.center),
+                .font(UIFont.boldSystemFont(ofSize: 18.0))
             )
             TempuraStyles.styleStandardLabel(
                 label,

@@ -44,6 +44,9 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
     let scrollView = UIScrollView()
     private var closeButton = ImageButton()
     
+    private var certificateTypeLabel = UILabel()
+    private var validUntilLabel = UILabel()
+
     private var diseaseVaccineLabel = UILabel()
     private var diseaseVaccineLabelEn = UILabel()
     private var diseaseVaccine = UILabel()
@@ -83,6 +86,11 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
         addSubview(scrollView)
         addSubview(title)
         addSubview(closeButton)
+        
+        addSubview(certificateTypeLabel)
+        scrollView.addSubview(certificateTypeLabel)
+        addSubview(validUntilLabel)
+        scrollView.addSubview(validUntilLabel)
         
         addSubview(diseaseVaccineLabel)
         scrollView.addSubview(diseaseVaccineLabel)
@@ -164,6 +172,8 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
 
         Self.Style.scrollView(scrollView)
         Self.Style.headerTitle(title, content: L10n.HomeView.GreenCertificate.Detail.title)
+        
+        Self.Style.subTitle(certificateTypeLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.certificateType)
     
         Self.Style.label(diseaseVaccineLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.disease)
         Self.Style.label(vaccineTypeLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineType)
@@ -195,11 +205,39 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
         }
         
         if let detailVaccineCertificate = model.greenCertificate.detailVaccineCertificate {
-            Self.Style.value(diseaseVaccine, text: detailVaccineCertificate.disease)
-            Self.Style.value(vaccineType, text: detailVaccineCertificate.vaccineType)
-            Self.Style.value(vaccineName, text: detailVaccineCertificate.vaccineName)
-            Self.Style.value(vaccineProducer, text: detailVaccineCertificate.vaccineProducer)
-            Self.Style.value(numberOfDosesVaccine, text: detailVaccineCertificate.numberOfDoses)
+            
+            if let diseaseTarget = Disease(rawValue: detailVaccineCertificate.disease) {
+                Self.Style.value(diseaseVaccine, text: diseaseTarget.getDescription())
+            }
+            else{
+                Self.Style.value(vaccineType, text: "---")
+            }
+            
+            if let vaccineTypeValue = VaccineType(rawValue: detailVaccineCertificate.vaccineType) {
+                Self.Style.value(vaccineType, text: vaccineTypeValue.getDescription())
+            }
+            else{
+                Self.Style.value(vaccineType, text: "---")
+            }
+            if let vaccineNameValue = VaccineName(rawValue: detailVaccineCertificate.vaccineName) {
+                Self.Style.value(vaccineName, text: vaccineNameValue.getDescription())
+            }
+            else{
+                Self.Style.value(vaccineName, text: "---")
+            }
+            if let vaccineProducerValue = VaccineProducer(rawValue: detailVaccineCertificate.vaccineProducer) {
+                Self.Style.value(vaccineProducer, text: vaccineProducerValue.getDescription())
+            }
+            else{
+                Self.Style.value(vaccineProducer, text: "---")
+            }
+            if detailVaccineCertificate.doseNumber == detailVaccineCertificate.totalSeriesOfDoses {
+                Self.Style.value(validUntilLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.ValidUntil.first)
+            }
+            else{
+                Self.Style.value(validUntilLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.ValidUntil.second)
+            }
+            Self.Style.value(numberOfDosesVaccine, text: "\(detailVaccineCertificate.doseNumber) \(L10n.HomeView.GreenCertificate.Detail.of) \(detailVaccineCertificate.totalSeriesOfDoses)")
             Self.Style.value(dateLastAdministrationVaccine, text: detailVaccineCertificate.dateLastAdministration)
             Self.Style.value(vaccinationCuntry, text: detailVaccineCertificate.vaccinationCuntry)
             Self.Style.value(certificateAuthorityVaccine, text: detailVaccineCertificate.certificateAuthority)
@@ -226,10 +264,18 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
           .top(60)
           .horizontally(30)
           .sizeToFit()
+        
+        certificateTypeLabel.pin
+          .minHeight(25)
+          .below(of: title)
+          .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
      
         diseaseVaccineLabelEn.pin
           .minHeight(25)
-          .below(of: title)
+          .below(of: certificateTypeLabel)
           .marginTop(30)
           .sizeToFit(.width)
           .horizontally(25)
@@ -273,9 +319,17 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        vaccineNameLabelEn.pin
+        validUntilLabel.pin
           .minHeight(25)
           .below(of: vaccineType)
+          .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        vaccineNameLabelEn.pin
+          .minHeight(25)
+          .below(of: validUntilLabel)
           .marginTop(30)
           .sizeToFit(.width)
           .horizontally(25)
@@ -518,6 +572,140 @@ private extension GreenCertificateVaccineDetailView {
                 content: text,
                 style: textStyle
             )
+        }
+        static func subTitle(_ label: UILabel, text: String) {
+            let textStyle = TextStyles.pSemibold.byAdding(
+                .color(Palette.grayDark),
+                .alignment(.center),
+                .font(UIFont.boldSystemFont(ofSize: 18.0))
+            )
+            TempuraStyles.styleStandardLabel(
+                label,
+                content: text,
+                style: textStyle
+            )
+        }
+    }
+}
+
+public enum VaccineType: String {
+    
+    private static let COVID19 = "covid-19 vaccines"
+    private static let MRNA = "SARS-CoV-2 mRNA vaccine"
+    private static let ANTIGEN = "SARS-CoV-2 antigen vaccine"
+
+    case mRNA = "1119349007"
+    case antigen = "1119305005"
+    case covid19 = "J07BX03"
+    
+    func getDescription() -> String{
+        switch self {
+        case .covid19:
+            return Self.COVID19
+        case .mRNA:
+            return Self.MRNA
+        case .antigen:
+            return Self.ANTIGEN
+        }
+    }
+}
+public enum VaccineProducer: String {
+
+    case ORG_100001699 = "ORG-100001699"
+    case ORG_100030215 = "ORG-100030215"
+    case ORG_100001417 = "ORG-100001417"
+    case ORG_100031184 = "ORG-100031184"
+    case ORG_100006270 = "ORG-100006270"
+    case ORG_100013793 = "ORG-100013793"
+    case ORG_100020693 = "ORG-100020693"
+    case ORG_100010771 = "ORG-100010771"
+    case ORG_100024420 = "ORG-100024420"
+    case ORG_100032020 = "ORG-100032020"
+    case Gamaleya_Research_Institute = "Gamaleya-Research-Institute"
+    case Vector_Institute = "Vector-Institute"
+    case Sinovac_Biotech = "Sinovac-Biotech"
+    case Bharat_Biotech = "Bharat-Biotech"
+
+    func getDescription() -> String{
+        switch self {
+        case .ORG_100001699:
+            return "AstraZeneca AB"
+        case .ORG_100030215:
+            return "Biontech Manufacturing GmbH"
+        case .ORG_100001417:
+            return "Janssen-Cilag International"
+        case .ORG_100031184:
+            return "Moderna Biotech Spain S.L."
+        case .ORG_100006270:
+            return "Curevac AG"
+        case .ORG_100013793:
+            return "CanSino Biologics"
+        case .ORG_100020693:
+            return "China Sinopharm International Corp. - Beijing location"
+        case .ORG_100010771:
+            return "Sinopharm Weiqida Europe Pharmaceutical s.r.o. - Prague location"
+        case .ORG_100024420:
+            return "Sinopharm Zhijun (Shenzhen) Pharmaceutical Co. Ltd. - Shenzhen location"
+        case .ORG_100032020:
+            return "Novavax CZ AS"
+        case .Gamaleya_Research_Institute:
+            return "Gamaleya Research Institute"
+        case .Vector_Institute:
+            return "Vector Institute"
+        case .Sinovac_Biotech:
+            return "Sinovac Biotech"
+        case .Bharat_Biotech:
+            return "Bharat Biotech"
+        }
+    }
+}
+public enum VaccineName: String {
+
+    case ORG_100001699 = "ORG-100001699"
+    case ORG_100030215 = "ORG-100030215"
+    case ORG_100001417 = "ORG-100001417"
+    case ORG_100031184 = "ORG-100031184"
+    case ORG_100006270 = "ORG-100006270"
+    case ORG_100013793 = "ORG-100013793"
+    case ORG_100020693 = "ORG-100020693"
+    case ORG_100010771 = "ORG-100010771"
+    case ORG_100024420 = "ORG-100024420"
+    case ORG_100032020 = "ORG-100032020"
+    case GamaleyaResearchInstitute = "Gamaleya-Research-Institute"
+    case VectorInstitute = "Vector-Institute"
+    case SinovacBiotech = "Sinovac-Biotech"
+    case BharatBiotech = "Bharat-Biotech"
+    
+    func getDescription() -> String{
+        switch self {
+        case .ORG_100001699:
+            return "AstraZeneca AB"
+        case .ORG_100030215:
+            return "Biontech Manufacturing GmbH"
+        case .ORG_100001417:
+            return "Janssen-Cilag International"
+        case .ORG_100031184:
+            return "Moderna Biotech Spain S.L."
+        case .ORG_100006270:
+            return "Curevac AG"
+        case .ORG_100013793:
+            return "CanSino Biologics"
+        case .ORG_100020693:
+            return "China Sinopharm International Corp. - Beijing location"
+        case .ORG_100010771:
+            return "Sinopharm Weiqida Europe Pharmaceutical s.r.o. - Prague location"
+        case .ORG_100024420:
+            return "Sinopharm Zhijun (Shenzhen) Pharmaceutical Co. Ltd. - Shenzhen location"
+        case .ORG_100032020:
+            return "Novavax CZ AS"
+        case .GamaleyaResearchInstitute:
+            return "Gamaleya Research Institute"
+        case .VectorInstitute:
+            return "Vector Institute"
+        case .SinovacBiotech:
+            return "Sinovac Biotech"
+        case .BharatBiotech:
+            return "Bharat Biotech"
         }
     }
 }

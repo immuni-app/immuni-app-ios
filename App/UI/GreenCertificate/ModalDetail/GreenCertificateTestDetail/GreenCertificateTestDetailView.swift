@@ -44,7 +44,9 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
     let scrollView = UIScrollView()
     private var closeButton = ImageButton()
     
-    //Test fields
+    private var certificateTypeLabel = UILabel()
+    private var validUntilLabel = UILabel()
+
     private var diseaseTestLabel = UILabel()
     private var diseaseTestLabelEn = UILabel()
     private var diseaseTest = UILabel()
@@ -92,6 +94,11 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
         addSubview(closeButton)
         addSubview(contactButton)
         scrollView.addSubview(contactButton)
+        
+        addSubview(certificateTypeLabel)
+        scrollView.addSubview(certificateTypeLabel)
+        addSubview(validUntilLabel)
+        scrollView.addSubview(validUntilLabel)
 
         addSubview(diseaseTestLabel)
         scrollView.addSubview(diseaseTestLabel)
@@ -158,6 +165,10 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
     func style() {
         Self.Style.background(self)
         Self.Style.backgroundGradient(backgroundGradientView)
+        
+        Self.Style.subTitle(certificateTypeLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.certificateType)
+        
+        Self.Style.value(validUntilLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.validUntil)
 
         Self.Style.scrollView(scrollView)
         Self.Style.headerTitle(title, content: L10n.HomeView.GreenCertificate.Detail.title)
@@ -227,8 +238,27 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
                 addSubview(naaTestName)
                 scrollView.addSubview(naaTestName)
             }
-            Self.Style.value(dateTimeOfSampleCollection, text: String(detailTestCertificate.dateTimeOfSampleCollection.split(separator: "T")[0] ?? "---"))
-            Self.Style.value(dateTimeOfTestResult, text: String(detailTestCertificate.dateTimeOfTestResult.split(separator: "T")[0] ?? "---"))
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            let dateFormatterView = DateFormatter()
+            dateFormatterView.dateFormat = "yyyy-MM-dd"
+            
+            let dateTimeOfSampleCollectionValue = dateFormatter.date(from: detailTestCertificate.dateTimeOfSampleCollection)
+            let dateTimeOfTestResultValue = dateFormatter.date(from: detailTestCertificate.dateTimeOfTestResult)
+
+            if let dateTimeOfSampleCollectionValue = dateTimeOfSampleCollectionValue {
+                Self.Style.value(dateTimeOfSampleCollection, text: dateFormatterView.string(from: dateTimeOfSampleCollectionValue))
+            }
+            else{
+                Self.Style.value(dateTimeOfSampleCollection, text: "---")
+            }
+            if let dateTimeOfTestResultValue = dateTimeOfTestResultValue {
+                Self.Style.value(dateTimeOfTestResult, text: dateFormatterView.string(from: dateTimeOfTestResultValue))
+            }
+            else{
+                Self.Style.value(dateTimeOfTestResult, text: "---")
+            }
+            
             Self.Style.value(testingCentre, text: detailTestCertificate.testingCentre)
             Self.Style.value(countryOfTest, text: detailTestCertificate.countryOfTest)
             Self.Style.value(certificateIssuer, text: detailTestCertificate.certificateIssuer)
@@ -256,10 +286,18 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
           .top(60)
           .horizontally(30)
           .sizeToFit()
+        
+        certificateTypeLabel.pin
+          .minHeight(25)
+          .below(of: title)
+          .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
       
         diseaseTestLabelEn.pin
           .minHeight(25)
-          .below(of: title)
+          .below(of: certificateTypeLabel)
           .marginTop(30)
           .sizeToFit(.width)
           .horizontally(25)
@@ -303,9 +341,17 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        testResultLabelEn.pin
+        validUntilLabel.pin
           .minHeight(25)
           .below(of: typeOfTest)
+          .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        testResultLabelEn.pin
+          .minHeight(25)
+          .below(of: validUntilLabel)
           .marginTop(30)
           .sizeToFit(.width)
           .horizontally(25)
@@ -583,6 +629,19 @@ private extension GreenCertificateTestDetailView {
 
           button.contentHorizontalAlignment = .left
           button.attributedTitle = content.styled(with: textStyle)
+        }
+        
+        static func subTitle(_ label: UILabel, text: String) {
+            let textStyle = TextStyles.pSemibold.byAdding(
+                .color(Palette.grayDark),
+                .alignment(.center),
+                .font(UIFont.boldSystemFont(ofSize: 18.0))
+            )
+            TempuraStyles.styleStandardLabel(
+                label,
+                content: text,
+                style: textStyle
+            )
         }
         
         static func value(_ label: UILabel, text: String) {

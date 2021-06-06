@@ -64,7 +64,8 @@ public struct DetailVaccineCertificate: Codable {
    var vaccineType: String
    var vaccineName: String
    var vaccineProducer: String
-   var numberOfDoses: String
+   var doseNumber: String
+   var totalSeriesOfDoses: String
    var dateLastAdministration: String
    var vaccinationCuntry: String
    var certificateAuthority: String
@@ -130,5 +131,38 @@ public enum TestResult: String {
         }
     }
 }
+public enum Disease: String {
+    
+    private static let COVID19 = "Covid-19"
+    
+    case covid19 = "840539006"
+    
+    func getDescription() -> String{
+        switch self {
+        case .covid19:
+            return Self.COVID19
+        }
+    }
+}
+public enum TargetDisease: String {
+    
+    private static let COVID19 = "Covid-19"
+    
+    case covid19 = "840539006"
+    
+    func getDescription() -> String{
+        switch self {
+        case .covid19:
+            return Self.COVID19
+        }
+    }
+}
+
+
+
+
+
+
+
 
 

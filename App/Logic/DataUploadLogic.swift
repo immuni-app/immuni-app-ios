@@ -241,7 +241,7 @@ extension Logic.DataUpload {
                 else {
                     type = nil
                 }
-
+                print(hcert.body)
                 guard let type = type else { return nil }
                 
                 dgc = GreenCertificate(
@@ -254,7 +254,7 @@ extension Logic.DataUpload {
                 switch type {
                 case .test:
                     let detail = DetailTestCertificate(
-                        disease: "COVID-19",
+                        disease: hcert.body["t"][0]["tg"].string ?? "---",
                         typeOfTest: hcert.body["t"][0]["tt"].string ?? "---",
                         testResult: hcert.body["t"][0]["tr"].string ?? "---",
                         ratTestNameAndManufacturer: hcert.body["t"][0]["ma"].string ?? "",
@@ -269,11 +269,12 @@ extension Logic.DataUpload {
                        
                 case .vaccine:
                     let detail = DetailVaccineCertificate(
-                        disease: "COVID-19",
+                        disease: hcert.body["v"][0]["tg"].string ?? "---",
                         vaccineType: hcert.body["v"][0]["vp"].string ?? "---",
                         vaccineName: hcert.body["v"][0]["mp"].string ?? "---",
                         vaccineProducer: hcert.body["v"][0]["ma"].string ?? "---",
-                        numberOfDoses: (hcert.body["v"][0]["dn"].description ?? "-")+"/"+(hcert.body["v"][0]["sd"].description ?? "-"),
+                        doseNumber: hcert.body["v"][0]["dn"].description,
+                        totalSeriesOfDoses: hcert.body["v"][0]["sd"].description,
                         dateLastAdministration: hcert.body["v"][0]["dt"].string ?? "---",
                         vaccinationCuntry: hcert.body["v"][0]["co"].string ?? "---",
                         certificateAuthority: hcert.body["v"][0]["is"].string ?? "---"
@@ -282,7 +283,7 @@ extension Logic.DataUpload {
 
                 case .recovery:
                     let detail = DetailRecoveryCertificate(
-                        disease: "COVID-19",
+                        disease: hcert.body["r"][0]["tg"].string ?? "---",
                         dateFirstTestResult: hcert.body["r"][0]["fr"].string ?? "---",
                         countryOfTest: hcert.body["r"][0]["co"].string ?? "---",
                         certificateIssuer: hcert.body["r"][0]["is"].string ?? "---",

@@ -80,8 +80,12 @@
 "home_view.green_certificate.label.id_en" = "<i>Unique identifier of the certificate</i>";
 "home_view.green_certificate.decode.error" = "Si è verificato un problema durante la decodifica del certificato.";
 "home_view.green_certificate.detail.title" = "EU Digital Covid\nCertificate";
+"home_view.green_certificate.detail.of" = "di";
 "home_view.green_certificate.detail.paragraph" = "Questo certificato non è un documento di viaggio. Le evidenze scientifiche sulla vaccinazione, sui test e sulla guarigione da COVID-19 continuano ad evolversi, anche in considerazione delle nuove varianti del virus. Prima di viaggiare, si prega di controllare le misure di salute pubblica applicate nel luogo di destinazione e le relativerestrizioni anche consultanto il sito:";
 "home_view.green_certificate.detail.url" = "https://reopen.europa.eu/";
+"home_view.green_certificate.detail.label.vaccine.certificate_type" = "Dati Vaccino";
+"home_view.green_certificate.detail.label.vaccine.valid_until.first" = "Certificazione valida 270 giorni (9 mesi) dalla data dell'ultima somministrazione";
+"home_view.green_certificate.detail.label.vaccine.valid_until.second" = "Certificazione valida fino alla prossima dose";
 "home_view.green_certificate.detail.label.vaccine.disease" = "Malattia o agente bersaglio";
 "home_view.green_certificate.detail.label.vaccine.vaccine_type" = "Tipo di vaccino";
 "home_view.green_certificate.detail.label.vaccine.vaccine_name" = "Denominazione del vaccino";
@@ -110,6 +114,7 @@
 "home_view.green_certificate.detail.label.recovery.certificate_issuer_en" = "<i>Ente che ha rilasciato il certificato</i>";
 "home_view.green_certificate.detail.label.recovery.certificate_valid_from_en" = "<i>Certificato valido da:</i>";
 "home_view.green_certificate.detail.label.recovery.certificate_valid_until_en" = "<i>Certificato valido a:</i>";
+"home_view.green_certificate.detail.label.recovery.certificate_type" = "Dati Certificato di Guarigione";
 "home_view.green_certificate.detail.label.test.disease" = "Malattia o agente bersaglio";
 "home_view.green_certificate.detail.label.test.type_of_test" = "Tipo di Test";
 "home_view.green_certificate.detail.label.test.test_result" = "Risultato del test";
@@ -130,6 +135,8 @@
 "home_view.green_certificate.detail.label.test.testing_centre_en" = "<i>Centro in cui è stato fatto il test</i>";
 "home_view.green_certificate.detail.label.test.country_of_test_en" = "<i>Nazione in cui è stato eseguito il test</i>";
 "home_view.green_certificate.detail.label.test.certificate_issuer_en" = "<i>Ente che ha rilasciato il certificato</i>";
+"home_view.green_certificate.detail.label.test.certificate_type" = "Dati Tampone";
+"home_view.green_certificate.detail.label.test.valid_until" = "Certificazione valida 48 ore dall'ora del prelievo";
 "home_view.green_certificate.detail.testType.quick" = "Test antigenico rapido";
 "home_view.green_certificate.detail.testType.molecular" = "Test molecolare";
 "home_view.green_certificate.detail.testResult.positive" = "Positivo";
