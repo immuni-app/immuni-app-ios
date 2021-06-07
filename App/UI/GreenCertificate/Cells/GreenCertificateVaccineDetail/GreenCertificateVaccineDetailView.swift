@@ -572,8 +572,7 @@ private extension GreenCertificateVaccineDetailView {
             TempuraStyles.styleStandardLabel(
                 label,
                 content: text,
-                style: textStyle,
-                numberOfLines: 2
+                style: textStyle
             )
         }
         
@@ -595,8 +594,7 @@ private extension GreenCertificateVaccineDetailView {
             TempuraStyles.styleStandardLabel(
                 label,
                 content: text,
-                style: textStyle,
-                numberOfLines: 2
+                style: textStyle
             )
         }
         static func subTitle(_ label: UILabel, text: String) {

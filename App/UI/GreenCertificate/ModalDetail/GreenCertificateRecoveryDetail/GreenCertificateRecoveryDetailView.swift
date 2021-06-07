@@ -406,8 +406,7 @@ private extension GreenCertificateRecoveryDetailView {
                 style: TextStyles.navbarSmallTitle.byAdding(
                     .color(Palette.grayDark),
                     .alignment(.center)
-                ),
-                numberOfLines: 2
+                )
             )
         }
         static func headerTitle(_ label: UILabel, content: String) {
@@ -416,8 +415,7 @@ private extension GreenCertificateRecoveryDetailView {
             content: content,
             style: TextStyles.h1.byAdding(
               .color(Palette.grayDark)
-            ),
-            numberOfLines: 2
+            )
           )
         }
         static func label(_ label: UILabel, text: String) {
@@ -431,8 +429,7 @@ private extension GreenCertificateRecoveryDetailView {
             TempuraStyles.styleStandardLabel(
                 label,
                 content: text,
-                style: textStyle,
-                numberOfLines: 2
+                style: textStyle
             )
         }
         static func subTitle(_ label: UILabel, text: String) {
@@ -465,8 +462,7 @@ private extension GreenCertificateRecoveryDetailView {
             TempuraStyles.styleStandardLabel(
                 label,
                 content: text,
-                style: textStyle,
-                numberOfLines: 2
+                style: textStyle
             )
         }
     }

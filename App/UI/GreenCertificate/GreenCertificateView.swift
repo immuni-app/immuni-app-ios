@@ -491,7 +491,6 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
 
       return buttonSize
     }
- 
 }
 
 // MARK: - Style
@@ -500,13 +499,13 @@ private extension GreenCertificateView {
     enum Style {
         
         static func discoverMore(_ button: TextButton) {
-            let textStyle = TextStyles.pSemibold.byAdding(
+            let textStyle = TextStyles.pBold.byAdding(
                 .color(Palette.primary),
                 .alignment(.center)
             )
             button.contentHorizontalAlignment = .center
             button.contentVerticalAlignment = .bottom
-            button.attributedTitle = "Piu dettagli".styled(with: textStyle)
+            button.attributedTitle = L10n.HomeView.GreenCertificate.discoverMore.styled(with: textStyle)
         }
         
         static func actionButton(
@@ -581,7 +580,7 @@ private extension GreenCertificateView {
         }
         
         static func swipeLabel(_ label: UILabel, text: String) {
-            let textStyle = TextStyles.p.byAdding(
+            let textStyle = TextStyles.s.byAdding(
                 .color(Palette.grayNormal),
                 .alignment(.center)
             )

@@ -249,19 +249,26 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
             }
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            let dateFormatterUtc = DateFormatter()
+            dateFormatterUtc.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ+00:00"
+            
             let dateFormatterView = DateFormatter()
             dateFormatterView.dateFormat = "yyyy-MM-dd"
             
-            let dateTimeOfSampleCollectionValue = dateFormatter.date(from: detailTestCertificate.dateTimeOfSampleCollection)
-            let dateTimeOfTestResultValue = dateFormatter.date(from: detailTestCertificate.dateTimeOfTestResult)
-
-            if let dateTimeOfSampleCollectionValue = dateTimeOfSampleCollectionValue {
+            if let dateTimeOfSampleCollectionValue = dateFormatter.date(from: detailTestCertificate.dateTimeOfSampleCollection) {
                 Self.Style.value(dateTimeOfSampleCollection, text: dateFormatterView.string(from: dateTimeOfSampleCollectionValue))
             }
-            else{
+            else if let dateTimeOfSampleCollectionValue = dateFormatterUtc.date(from: detailTestCertificate.dateTimeOfSampleCollection) {
+                Self.Style.value(dateTimeOfSampleCollection, text: dateFormatterView.string(from: dateTimeOfSampleCollectionValue))
+            }
+            else {
                 Self.Style.value(dateTimeOfSampleCollection, text: "---")
             }
-            if let dateTimeOfTestResultValue = dateTimeOfTestResultValue {
+            
+            if let dateTimeOfTestResultValue = dateFormatter.date(from: detailTestCertificate.dateTimeOfTestResult) {
+                Self.Style.value(dateTimeOfTestResult, text: dateFormatterView.string(from: dateTimeOfTestResultValue))
+            }
+            else if let dateTimeOfTestResultValue = dateFormatterUtc.date(from: detailTestCertificate.dateTimeOfTestResult) {
                 Self.Style.value(dateTimeOfTestResult, text: dateFormatterView.string(from: dateTimeOfTestResultValue))
             }
             else{
@@ -373,32 +380,9 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        testResultLabelEn.pin
-          .minHeight(25)
-          .below(of: validUntil)
-          .marginTop(30)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        testResultLabel.pin
-          .minHeight(25)
-          .below(of: testResultLabelEn)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        testResult.pin
-          .minHeight(25)
-          .below(of: testResultLabel)
-          .marginTop(5)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
         ratTestNameAndManufacturerLabelEn.pin
           .minHeight(25)
-          .below(of: testResult)
+          .below(of: validUntil)
           .marginTop(30)
           .sizeToFit(.width)
           .horizontally(25)
@@ -421,7 +405,7 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
         
         naaTestNameLabelEn.pin
           .minHeight(25)
-          .below(of: testResult)
+          .below(of: validUntil)
           .marginTop(30)
           .sizeToFit(.width)
           .horizontally(25)
@@ -444,7 +428,7 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
         
         dateTimeOfSampleCollectionLabelEn.pin
           .minHeight(25)
-          .below(of: testResult)
+          .below(of: validUntil)
           .marginTop(140)
           .sizeToFit(.width)
           .horizontally(25)
@@ -488,9 +472,32 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        testingCentreLabelEn.pin
+        testResultLabelEn.pin
           .minHeight(25)
           .below(of: dateTimeOfTestResult)
+          .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        testResultLabel.pin
+          .minHeight(25)
+          .below(of: testResultLabelEn)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        testResult.pin
+          .minHeight(25)
+          .below(of: testResultLabel)
+          .marginTop(5)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        testingCentreLabelEn.pin
+          .minHeight(25)
+          .below(of: testResult)
           .marginTop(30)
           .sizeToFit(.width)
           .horizontally(25)
@@ -616,8 +623,7 @@ private extension GreenCertificateTestDetailView {
                 style: TextStyles.navbarSmallTitle.byAdding(
                     .color(Palette.grayDark),
                     .alignment(.center)
-                ),
-                numberOfLines: 2
+                )
             )
         }
         static func headerTitle(_ label: UILabel, content: String) {
@@ -626,8 +632,7 @@ private extension GreenCertificateTestDetailView {
             content: content,
             style: TextStyles.h1.byAdding(
               .color(Palette.grayDark)
-            ),
-            numberOfLines: 2
+            )
           )
         }
         static func label(_ label: UILabel, text: String) {
@@ -641,8 +646,7 @@ private extension GreenCertificateTestDetailView {
             TempuraStyles.styleStandardLabel(
                 label,
                 content: text,
-                style: textStyle,
-                numberOfLines: 2
+                style: textStyle
             )
         }
         
@@ -676,8 +680,7 @@ private extension GreenCertificateTestDetailView {
             TempuraStyles.styleStandardLabel(
                 label,
                 content: text,
-                style: textStyle,
-                numberOfLines: 2
+                style: textStyle
             )
         }
     }

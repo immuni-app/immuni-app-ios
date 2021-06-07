@@ -271,10 +271,10 @@ extension Logic.DataUpload {
                 }
                 print(hcert.body)
                 guard let type = type else { return nil }
-                
+                                
                 dgc = GreenCertificate(
                     id: hcert.uvci,
-                    name: hcert.fullName,
+                    name: "\(hcert.body["nam"]["fn"].string ?? "---") \(hcert.body["nam"]["gn"].string ?? "---")",
                     birth: hcert.dateOfBirth?.dateString ?? "---",
                     greenCertificate: qr,
                     certificateType: type
@@ -282,7 +282,7 @@ extension Logic.DataUpload {
                 switch type {
                 case .test:
                     let detail = DetailTestCertificate(
-                        disease: hcert.body["t"][0]["tg"].string ?? "---",
+                        disease: TargetDisease.COVID19,
                         typeOfTest: hcert.body["t"][0]["tt"].string ?? "---",
                         testResult: hcert.body["t"][0]["tr"].string ?? "---",
                         ratTestNameAndManufacturer: hcert.body["t"][0]["ma"].string ?? "",
@@ -297,7 +297,7 @@ extension Logic.DataUpload {
                        
                 case .vaccine:
                     let detail = DetailVaccineCertificate(
-                        disease: hcert.body["v"][0]["tg"].string ?? "---",
+                        disease: TargetDisease.COVID19,
                         vaccineType: hcert.body["v"][0]["vp"].string ?? "---",
                         vaccineName: hcert.body["v"][0]["mp"].string ?? "---",
                         vaccineProducer: hcert.body["v"][0]["ma"].string ?? "---",
@@ -311,7 +311,7 @@ extension Logic.DataUpload {
 
                 case .recovery:
                     let detail = DetailRecoveryCertificate(
-                        disease: hcert.body["r"][0]["tg"].string ?? "---",
+                        disease: TargetDisease.COVID19,
                         dateFirstTestResult: hcert.body["r"][0]["fr"].string ?? "---",
                         countryOfTest: hcert.body["r"][0]["co"].string ?? "---",
                         certificateIssuer: L10n.HomeView.GreenCertificate.Detail.certificateIssuer,

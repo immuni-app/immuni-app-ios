@@ -146,7 +146,7 @@ public enum Disease: String {
 }
 public enum TargetDisease: String {
     
-    private static let COVID19 = "Covid-19"
+    public static let COVID19 = "Covid-19"
     
     case covid19 = "840539006"
     
