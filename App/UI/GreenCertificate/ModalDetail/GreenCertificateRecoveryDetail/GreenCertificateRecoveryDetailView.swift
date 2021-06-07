@@ -435,10 +435,9 @@ private extension GreenCertificateRecoveryDetailView {
             )
         }
         static func subTitle(_ label: UILabel, text: String) {
-            let textStyle = TextStyles.pSemibold.byAdding(
+            let textStyle = TextStyles.h3.byAdding(
                 .color(Palette.grayDark),
-                .alignment(.center),
-                .font(UIFont.boldSystemFont(ofSize: 18.0))
+                .alignment(.center)
             )
             TempuraStyles.styleStandardLabel(
                 label,

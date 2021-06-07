@@ -215,6 +215,9 @@ extension Logic.DataUpload {
                 return
             }
             
+        } catch NetworkManager.Error.noDgcFound {
+            try context.awaitDispatch(ShowCustomErrorAlert(message: L10n.HomeView.GreenCertificate.Error.noDgcFound))
+            return
           } catch {
             try `await`(context.dispatch(Logic.Loading.Hide()))
             try context.awaitDispatch(ShowErrorAlert(error: error, retryDispatchable: self))
@@ -597,7 +600,12 @@ extension Logic.DataUpload {
         message = L10n.UploadData.ApiError.message
         cancelAction = L10n.UploadData.ApiError.action
 
-      }
+      case .noDgcFound:
+        title = L10n.UploadData.ApiError.title
+        message = L10n.HomeView.GreenCertificate.Error.noDgcFound
+        cancelAction = L10n.UploadData.ApiError.action
+
+        }
 
       let model = Alert.Model(
         title: title,

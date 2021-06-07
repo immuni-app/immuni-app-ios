@@ -157,7 +157,7 @@ extension Logic.Home {
         }
       }
   /// Shows the Green certificate detail
-  struct ShowGreenCertificateVaccineDetail: AppSideEffect {
+  struct ShowGreenCertificateDetail: AppSideEffect {
     let dgc: GreenCertificate
     
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {

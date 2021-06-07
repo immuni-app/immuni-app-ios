@@ -576,8 +576,7 @@ private extension GreenCertificateView {
                 style: TextStyles.p.byAdding(
                     .color(Palette.grayNormal),
                     .alignment(.center)
-                ),
-                numberOfLines: 1
+                )
             )
         }
         
