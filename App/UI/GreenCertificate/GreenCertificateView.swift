@@ -566,7 +566,7 @@ private extension GreenCertificateView {
                     .color(Palette.grayDark),
                     .alignment(.center)
                 ),
-                numberOfLines: 1
+                numberOfLines: 2
             )
         }
         static func inactiveLabel(_ label: UILabel, text: String) {
@@ -602,7 +602,8 @@ private extension GreenCertificateView {
             TempuraStyles.styleStandardLabel(
                 label,
                 content: text,
-                style: textStyle
+                style: textStyle,
+                numberOfLines: 2
             )
         }
         

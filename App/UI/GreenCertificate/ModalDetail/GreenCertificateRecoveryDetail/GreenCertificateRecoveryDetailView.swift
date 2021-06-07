@@ -431,7 +431,8 @@ private extension GreenCertificateRecoveryDetailView {
             TempuraStyles.styleStandardLabel(
                 label,
                 content: text,
-                style: textStyle
+                style: textStyle,
+                numberOfLines: 2
             )
         }
         static func subTitle(_ label: UILabel, text: String) {
@@ -464,7 +465,8 @@ private extension GreenCertificateRecoveryDetailView {
             TempuraStyles.styleStandardLabel(
                 label,
                 content: text,
-                style: textStyle
+                style: textStyle,
+                numberOfLines: 2
             )
         }
     }

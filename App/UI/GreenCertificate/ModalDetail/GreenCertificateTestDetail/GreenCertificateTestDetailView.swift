@@ -641,7 +641,8 @@ private extension GreenCertificateTestDetailView {
             TempuraStyles.styleStandardLabel(
                 label,
                 content: text,
-                style: textStyle
+                style: textStyle,
+                numberOfLines: 2
             )
         }
         
@@ -675,7 +676,8 @@ private extension GreenCertificateTestDetailView {
             TempuraStyles.styleStandardLabel(
                 label,
                 content: text,
-                style: textStyle
+                style: textStyle,
+                numberOfLines: 2
             )
         }
     }
