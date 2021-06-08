@@ -17,7 +17,7 @@
 "confirm_data.close_verify_alert.title" = "Sind Sie sicher, dass Sie schließen möchten?";
 "confirm_data.confirmation.subtitle" = "Danke für Ihren Beitrag";
 "confirm_data.confirmation.title" = "Die Daten wurden erfolgreich hochgeladen";
-"confirm_data.green_certificate.title" = "Digitales EU-Covid-Zertifikat erfolgreich wiederhergestellt";
+"confirm_data.green_certificate.title" = "EU Digital Covid Certificate erfolgreich wiederhergestellt";
 "confirm_data.green_certificate.error.alert.title" = "Si è verificato un errore nel salvataggio del certificato";
 "confirm_data.green_certificate_saved.title" = "EU Digital Covid Certificate salvato in galleria";
 "confirm_data.exposure_permission.overlay.hint" = "Tippen Sie auf \"<b>OK</b>\" in dem Popup-Fenster, das unten angezeigt wird";
@@ -68,12 +68,12 @@
 "home_view.green_certificate.discover_more" = "Mehr Details";
 "home_view.green_certificate.label" = "Il tuo Digital Green Certificate";
 "home_view.green_certificate.swipe_label" = "Scrollen Sie, um andere\nZertifikate anzuzeigen";
-"home_view.green_certificate.not_present_qr_label" = "Das digitale Covid-Zertifikat der EU wurde noch nicht wiederhergestellt";
-"home_view.green_certificate.retrive_button" = "Recupera EU Digital Covid\nCertificate";
+"home_view.green_certificate.not_present_qr_label" = "Das EU Digital Covid Certificate wurde noch nicht wiederhergestellt";
+"home_view.green_certificate.retrive_button" = "Abrufen des EU Digital\nCovid Certificate";
 "home_view.green_certificate.delete_button" = "Löschen";
 "home_view.green_certificate.save_button" = "Salva";
-"home_view.green_certificate.confirm.title" = "Digitales EU-Covid-Zertifikat löschen";
-"home_view.green_certificate.confirm.messagge" = "Êtes-vous sûr de vouloir supprimer votre certificat numérique Covid de l'UE ?";
+"home_view.green_certificate.confirm.title" = "EU Digital Covid Certificate löschen";
+"home_view.green_certificate.confirm.messagge" = "Möchten Sie Ihr EU Digital Covid Certificate wirklich löschen?";
 "home_view.green_certificate.label.name" = "Vorname und Nachname";
 "home_view.green_certificate.label.name_en" = "<i>Surname(s) and forename(s)</i>";
 "home_view.green_certificate.label.date_en" = "<i>Date of birth (yyyy-mm-dd)</i>";
@@ -81,7 +81,7 @@
 "home_view.green_certificate.label.date" = "Geburtsdatum";
 "home_view.green_certificate.label.id" = "Eindeutige Kennung des Zertifikats";
 "home_view.green_certificate.decode.error" = "Beim Abrufen des Zertifikats ist ein Problem aufgetreten.";
-"home_view.green_certificate.error.no_dgc_found" = "Kein digitales EU-Covid-Zertifikat gefunden";
+"home_view.green_certificate.error.no_dgc_found" = "Kein EU Digital Covid Certificate gefunden";
 "home_view.green_certificate.detail.title" = "EU Digital Covid\nCertificate";
 "home_view.green_certificate.detail.of" = "von";
 "home_view.green_certificate.detail.paragraph" = "Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19-Impfung, -Tests und -Wiederherstellung entwickeln sich weiter, auch unter Berücksichtigung der neuen Varianten des Virus. Bitte informieren Sie sich vor der Reise über die am Zielort geltenden Gesundheitsmaßnahmen und die damit verbundenen Einschränkungen auch auf der Website:";
@@ -90,7 +90,7 @@
 "home_view.green_certificate.detail.label.vaccine.certificate_type" = "Impfbescheinigung";
 "home_view.green_certificate.detail.label.vaccine.valid_until.first" = "Zertifizierung gültig für 270 Tage (9 Monate) ab dem Datum der letzten Verabreichung";
 "home_view.green_certificate.detail.label.vaccine.valid_until.second" = "Zertifizierung gültig bis zur nächsten Dosis";
-"home_view.green_certificate.detail.label.vaccine.valid_until" = "Validità dell'EU Digital Covid Certificate";
+"home_view.green_certificate.detail.label.vaccine.valid_until" = "Gültigkeit des EU Digital Covid Certificate";
 "home_view.green_certificate.detail.label.vaccine.valid_until_en" = "<i>Validity of the EU Digital Covid Certificate</i>";
 "home_view.green_certificate.detail.label.vaccine.disease" = "Zielkrankheit oder -wirkstoff";
 "home_view.green_certificate.detail.label.vaccine.vaccine_type" = "Art des verabreichten Impfstoffs";
@@ -149,7 +149,7 @@
 "home_view.green_certificate.detail.testType.molecular" = "Test molecolare";
 "home_view.green_certificate.detail.testResult.positive" = "Positivo";
 "home_view.green_certificate.detail.testResult.negative" = "Negativo";
-"home_view.retrive_green_certificate.title" = "Abrufen des digitalen EU-Covid-Zertifikats";
+"home_view.retrive_green_certificate.title" = "Abrufen des EU Digital Covid Certificate";
 "home_view.retrive_green_certificate.header" = "Mit dieser Funktion können Sie die grüne COVID-19-Zertifizierung (EU Digital Covid Certificate) von der nationalen Plattform-DGC des Gesundheitsministeriums herunterladen, indem Sie die erforderlichen Daten eingeben.";
 "home_view.retrive_green_certificate.discover_more_title" = "So erwerben Sie das EU Digital Covid Certificate";
 "home_view.retrive_green_certificate.discover_more_1" = "Das \"EU Digital Covid Certificate\", in Italien \"COVID-19 Green Certification\", wird vom Gesundheitsministerium in digitaler Form an diejenigen ausgestellt, die geimpft wurden oder ein negatives Ergebnis beim Molekular- / Antigentest erhalten haben oder von denen geheilt wurde COVID-19.";
@@ -185,7 +185,7 @@
 "home_view.retrive_green_certificate.form_error.code_nfre_wrong" = "- Der eingegebene NRFE-Code ist formal nicht gültig. Stellen Sie sicher, dass Sie die letzten 17 Ziffern des erhaltenen NRFE-Codes eingegeben haben.\n";
 "home_view.retrive_green_certificate.form_error.health_card_required" = "- Il numero di Tessera Sanitaria inserito non risulta formalmente valido. Assicurati di aver inserito le ultime 8 cifre della tua Tessera sanitaria associata ad un tampone positivo.\n";
 "home_view.retrive_green_certificate.form_error.health_card_date_required" = "- Geben Sie das Ablaufdatum der Gesundheitskarte ein.\n";
-"home_view.retrive_green_certificate.loading" = "Die Wiederherstellung des digitalen\nCovid-Zertifikats der EU läuft..";
+"home_view.retrive_green_certificate.loading" = "Die Wiederherstellung des EU\nDigital Covid Certificate läuft..";
 "how_it_works_tile_1" = "Immuni ordnet jedem Handy einen Zufallscode zu";
 "how_it_works_tile_2" = "Wenn Handys aufeinander treffen, tauschen sie ihre Zufallscodes aus";
 "how_it_works_tile_3" = "Positiv getestete Nutzer entscheiden, ob sie ihre Zufallscodes freigeben möchten";
