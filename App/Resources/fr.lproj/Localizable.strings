@@ -110,7 +110,7 @@
 "home_view.green_certificate.detail.label.recovery.disease" = "Maladie cible ou agent dont la personne est guérie";
 "home_view.green_certificate.detail.label.recovery.date_first_test_result" = "Date du premier test moléculaire positif";
 "home_view.green_certificate.detail.label.recovery.country_of_test" = "État membre où le premier test moléculaire positif a été effectué";
-"home_view.green_certificate.detail.label.recovery.certificate_issuer" = "Structure ayant délivré la certification verte COVID-19";
+"home_view.green_certificate.detail.label.recovery.certificate_issuer" = "Structure ayant délivré la certification";
 "home_view.green_certificate.detail.label.recovery.certificate_valid_from" = "Attestation valable du";
 "home_view.green_certificate.detail.label.recovery.certificate_valid_until" = "Attestation valable jusqu'au";
 "home_view.green_certificate.detail.label.recovery.disease_en" = "<i>Disease or agent the citizen has recovered from</i>";
@@ -129,7 +129,7 @@
 "home_view.green_certificate.detail.label.test.date_time_of_test_result" = "Date et heure du résultat du test (facultatif pour les tests antigéniques rapides)";
 "home_view.green_certificate.detail.label.test.testing_centre" = "Centre ou établissement où le test a été effectué";
 "home_view.green_certificate.detail.label.test.country_of_test" = "État membre où le test a été effectué";
-"home_view.green_certificate.detail.label.test.certificate_issuer" = "Structure ayant délivré la certification verte COVID-19";
+"home_view.green_certificate.detail.label.test.certificate_issuer" = "Structure ayant délivré la certification";
 "home_view.green_certificate.detail.label.test.disease_en" = "<i>Disease or agent targeted</i>";
 "home_view.green_certificate.detail.label.test.type_of_test_en" = "<i>Type of the test</i>";
 "home_view.green_certificate.detail.label.test.test_result_en" = "<i>Result of the test</i>";

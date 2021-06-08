@@ -156,6 +156,19 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
         addSubview(certificateIssuer)
         scrollView.addSubview(certificateIssuer)
         
+        addSubview(naaTestNameLabel)
+        scrollView.addSubview(naaTestNameLabel)
+        addSubview(naaTestNameLabelEn)
+        scrollView.addSubview(naaTestNameLabelEn)
+        addSubview(naaTestName)
+        scrollView.addSubview(naaTestName)
+        addSubview(ratTestNameAndManufacturerLabel)
+        scrollView.addSubview(ratTestNameAndManufacturerLabel)
+        addSubview(ratTestNameAndManufacturerLabelEn)
+        scrollView.addSubview(ratTestNameAndManufacturerLabelEn)
+        addSubview(ratTestNameAndManufacturer)
+        scrollView.addSubview(ratTestNameAndManufacturer)
+        
         scrollView.addSubview(paragraph)
 
         closeButton.on(.touchUpInside) { [weak self] _ in
@@ -231,22 +244,17 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
             }
             if let ratTestNameAndManufacturerValue =  detailTestCertificate.ratTestNameAndManufacturer, ratTestNameAndManufacturerValue != "" {
                 Self.Style.value(ratTestNameAndManufacturer, text: ratTestNameAndManufacturerValue)
-                addSubview(ratTestNameAndManufacturerLabel)
-                scrollView.addSubview(ratTestNameAndManufacturerLabel)
-                addSubview(ratTestNameAndManufacturerLabelEn)
-                scrollView.addSubview(ratTestNameAndManufacturerLabelEn)
-                addSubview(ratTestNameAndManufacturer)
-                scrollView.addSubview(ratTestNameAndManufacturer)
             }
-            else if let naaTestNameValue =  detailTestCertificate.naaTestName, naaTestNameValue != ""  {
+            else {
+                Self.Style.value(ratTestNameAndManufacturer, text: "---")
+            }
+            if let naaTestNameValue =  detailTestCertificate.naaTestName, naaTestNameValue != ""  {
                 Self.Style.value(naaTestName, text: naaTestNameValue)
-                addSubview(naaTestNameLabel)
-                scrollView.addSubview(naaTestNameLabel)
-                addSubview(naaTestNameLabelEn)
-                scrollView.addSubview(naaTestNameLabelEn)
-                addSubview(naaTestName)
-                scrollView.addSubview(naaTestName)
             }
+            else {
+                Self.Style.value(naaTestName, text: "---")
+            }
+            
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
             let dateFormatterUtc = DateFormatter()
@@ -405,7 +413,7 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
         
         naaTestNameLabelEn.pin
           .minHeight(25)
-          .below(of: validUntil)
+          .below(of: ratTestNameAndManufacturer)
           .marginTop(30)
           .sizeToFit(.width)
           .horizontally(25)
@@ -428,8 +436,8 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
         
         dateTimeOfSampleCollectionLabelEn.pin
           .minHeight(25)
-          .below(of: validUntil)
-          .marginTop(140)
+          .below(of: naaTestName)
+          .marginTop(30)
           .sizeToFit(.width)
           .horizontally(25)
           .marginLeft(10)
