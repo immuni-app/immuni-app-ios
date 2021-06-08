@@ -183,7 +183,6 @@ extension Logic.DataUpload {
                 hisExpiringDate: hisExpiringDate,
                 tokenType: codeType.rawValue.lowercased()
             )
-            print(body)
             let data = try `await`(context.dependencies.networkManager.retriveDigitalGreenCertificate(
                                     body: body,
                                     code: code,
@@ -216,6 +215,7 @@ extension Logic.DataUpload {
             }
             
         } catch NetworkManager.Error.noDgcFound {
+            try `await`(context.dispatch(Logic.Loading.Hide()))
             try context.awaitDispatch(ShowCustomErrorAlert(message: L10n.HomeView.GreenCertificate.Error.noDgcFound))
             return
           } catch {
@@ -250,7 +250,6 @@ extension Logic.DataUpload {
             let features = qrDetector?.features(in: ciImage, options: options)
             var hcert : HCert?
             var dgc: GreenCertificate? = nil
-
             for case let row as CIQRCodeFeature in features! {
                 hcert = HCert(from: row.messageString!)
                 guard let hcert = hcert else { return nil }
@@ -269,7 +268,6 @@ extension Logic.DataUpload {
                 else {
                     type = nil
                 }
-                print(hcert.body)
                 guard let type = type else { return nil }
                                 
                 dgc = GreenCertificate(
