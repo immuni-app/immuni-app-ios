@@ -29,6 +29,11 @@ targetTemplates:
 options:
   developmentLanguage: "en-GB"
 
+packages:
+  SwiftDGC:
+    url: https://github.com/eu-digital-green-certificates/dgca-app-core-ios.git
+    branch: main
+
 targets:
   Immuni:
     platform: iOS
@@ -170,6 +175,7 @@ targets:
       - target: Extensions
       - target: Models
       - target: ImmuniExposureNotification
+      - package: SwiftDGC
 
   Persistence:
     templates:
