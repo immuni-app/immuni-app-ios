@@ -148,6 +148,64 @@ extension Logic.Home {
       context.dispatch(Hide(Screen.fixActiveService, animated: true))
     }
   }
+    
+  /// Shows the Green Certificate screen
+  struct ShowGreenCertificate: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        
+      try context.awaitDispatch(Show(Screen.greenCertificate, animated: true, context: GreenCertificateLS(greenCertificates: context.getState().user.greenCertificates)))
+        }
+      }
+  /// Shows the Green certificate detail
+  struct ShowGreenCertificateDetail: AppSideEffect {
+    let dgc: GreenCertificate
+    
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        switch dgc.certificateType {
+        case .test:
+            try context
+                .awaitDispatch(Show(
+                Screen.greenCertificateTestDetail,
+                animated: true,
+                    context: GreenCertificateTestDetailLS(greenCertificate: dgc)
+                ))
+        case .vaccine:
+            try context
+                .awaitDispatch(Show(
+                Screen.greenCertificateVaccineDetail,
+                animated: true,
+                    context: GreenCertificateVaccineDetailLS(greenCertificate: dgc)
+                ))
+        case .recovery:
+            try context
+                .awaitDispatch(Show(
+                Screen.greenCertificateRecoveryDetail,
+                animated: true,
+                    context: GreenCertificateRecoveryDetailLS(greenCertificate: dgc)
+                ))
+   
+        }
+        
+          }
+    }
+  /// Shows the  ShowRetriveGreenCertificateVC screen
+  struct ShowRetriveGreenCertificate: AppSideEffect {
+      
+      func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+          
+        try context.awaitDispatch(Show(Screen.retriveGreenCertificate, animated: true, context: RetriveGreenCertificateLS()))
+          }
+      }
+  /// Delete the GreenCertificate
+  struct DeleteGreenCertificate: AppSideEffect {
+    
+    let id: String
+    
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+            
+      try context.awaitDispatch(Logic.CovidStatus.DeleteGreenCertificate(id: id))
+        }
+      }
 }
 
 // MARK: Helpers

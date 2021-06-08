@@ -56,6 +56,7 @@ enum AnimationAsset: String, CaseIterable, Equatable {
   case welcome4 = "welcomeFourth"
   case cardFlagEuropa
   case cardDataUpload
+  case cardDgc = "dgc"
 }
 
 extension AnimationAsset {
@@ -113,6 +114,8 @@ extension AnimationAsset {
       return AnimationAsset.cardFlagEuropaAnimation
     case .cardDataUpload:
       return AnimationAsset.cardDataUploadAnimation
+    case .cardDgc:
+      return AnimationAsset.cardDgcAnimation
     }
   }
 
@@ -141,4 +144,5 @@ extension AnimationAsset {
   static let welcome4Animation = Animation.named(AnimationAsset.welcome4.rawValue)
   static let cardFlagEuropaAnimation = Animation.named(AnimationAsset.cardFlagEuropa.rawValue)
   static let cardDataUploadAnimation = Animation.named(AnimationAsset.cardDataUpload.rawValue)
+  static let cardDgcAnimation = Animation.named(AnimationAsset.cardDgc.rawValue)
 }

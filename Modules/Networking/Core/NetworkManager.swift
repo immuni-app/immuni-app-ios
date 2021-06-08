@@ -118,6 +118,15 @@ public extension NetworkManager {
   func sendDummyIngestionRequest(requestSize: Int) -> Promise<Void> {
     return self.request(DummyIngestionRequest(now: self.unwrappedDependencies.now, targetSize: requestSize)).safeVoid
   }
+  /// Returns the Digital Green Certificate
+  func retriveDigitalGreenCertificate(body: RetriveDgcRequest.Body, code: String, requestSize: Int) -> Promise<Data> {
+    return self.request(RetriveDgcRequest(
+                            body: body,
+                            code: code,
+                            now: self.unwrappedDependencies.now,
+                            targetSize: requestSize
+                            ))
+  }
 }
 
 // MARK: - Analytics Service requests
@@ -172,6 +181,8 @@ public extension NetworkManager {
     case noBatchesFound = 1301
     /// Raised when the OTP has already been auhorized.
     case otpAlreadyAuthorized = 1400
+    /// Raised when no Dgc found.
+    case noDgcFound = 1102
 
   }
 }

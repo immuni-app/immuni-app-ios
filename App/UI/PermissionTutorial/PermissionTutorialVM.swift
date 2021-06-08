@@ -515,6 +515,29 @@ extension PermissionTutorialVM.Content {
         action: nil
       )
     }
+    
+  static var howToRetriveDigitalGreenCertificate: Self {
+    return PermissionTutorialVM.Content(
+        title: L10n.HomeView.RetriveGreenCertificate.discoverMoreTitle,
+        items: [
+          .spacer(.big),
+          .textualContent(L10n.HomeView.RetriveGreenCertificate.discoverMore1, isDark: false),
+          .spacer(.small),
+          .textualContent(L10n.HomeView.RetriveGreenCertificate.discoverMore2, isDark: false),
+          .spacer(.small),
+          .textualContent(L10n.HomeView.RetriveGreenCertificate.discoverMore3, isDark: false),
+          .spacer(.small),
+          .textualContent(L10n.HomeView.RetriveGreenCertificate.discoverMore4, isDark: false),
+          .spacer(.small),
+          .textualContent(L10n.HomeView.RetriveGreenCertificate.discoverMore5, isDark: false),
+          .spacer(.small),
+          .textualContent(L10n.HomeView.RetriveGreenCertificate.discoverMore6, isDark: false),
+          .spacer(.big)
+          ],
+          mainActionTitle: nil,
+          action: nil
+        )
+      }
 
   static var whyProvinceRegion: Self {
     return PermissionTutorialVM.Content(

@@ -157,6 +157,17 @@ extension Logic.PermissionTutorial {
           ))
       }
     }
+  /// Shows the how to retrive Digital Green Certificate
+  struct ShowHowToRetriveDigitalGreenCertificate: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      try context
+        .awaitDispatch(Show(
+            Screen.permissionTutorial,
+            animated: true,
+            context: PermissionTutorialLS(content: .howToRetriveDigitalGreenCertificate)
+          ))
+        }
+    }
   /// Shows further explainations about how to verify that Immuni is working
   struct ShowVerifyImmuniWorks: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {

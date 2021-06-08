@@ -41,6 +41,10 @@ class HomeVC: ViewController<HomeView> {
     self.rootView.didTapInfo = { [weak self] info in
       self?.handleDidTapInfo(info)
     }
+    
+    self.rootView.didTapDoToday = { [weak self] todo in
+      self?.handleDidTapDoToday(todo)
+    }
 
     self.rootView.didTapDeactivateService = { [weak self] in
       self?.dispatch(Logic.Home.ShowDeactivateService())
@@ -58,12 +62,21 @@ class HomeVC: ViewController<HomeView> {
 
     case .protection:
       self.dispatch(Logic.Suggestions.ShowSuggestions())
-
-    case .updateCountry:
-      self.dispatch(Logic.Settings.ShowUpdateCountry())
-        
-    case .dataUpload:
-      self.dispatch(Logic.Settings.ShowChooseDataUploadMode())
     }
   }
+    
+  func handleDidTapDoToday(_ todo: HomeVM.DoTodayKind) {
+    switch todo {
+
+      case .updateCountry:
+        self.dispatch(Logic.Settings.ShowUpdateCountry())
+          
+      case .dataUpload:
+        self.dispatch(Logic.Settings.ShowChooseDataUploadMode())
+          
+      case .greenCertificate:
+        self.dispatch(Logic.Home.ShowGreenCertificate())
+      }
+    }
 }
+

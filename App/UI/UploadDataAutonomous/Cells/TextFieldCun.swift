@@ -30,7 +30,7 @@ open class TextFieldCun: UIView, ModellableView {
         setup()
         style()
     }
-
+    private let label = UILabel()
     private let container = UIView()
     private let textFieldIcon = UIImageView()
     private let textfield = UITextField()
@@ -42,6 +42,7 @@ open class TextFieldCun: UIView, ModellableView {
 
     public func setup() {
         addSubview(container)
+        addSubview(label)
         container.addSubview(textFieldIcon)
         container.addSubview(textfield)
 
@@ -62,6 +63,7 @@ open class TextFieldCun: UIView, ModellableView {
     public func style() {
         Self.Style.container(container)
         Self.Style.textfield(textfield)
+        Self.Style.title(label)
     }
 
     public func update(oldModel _: TextFieldCunVM?) {
@@ -77,9 +79,15 @@ open class TextFieldCun: UIView, ModellableView {
     override open func layoutSubviews() {
         super.layoutSubviews()
 
+        label.pin
+            .horizontally(25)
+            .sizeToFit(.width)
+        
         container.pin
+            .marginTop(30)
             .vertically()
             .horizontally(15)
+            .below(of: label)
 
         textFieldIcon.pin
             .size(24)
@@ -104,6 +112,18 @@ open class TextFieldCun: UIView, ModellableView {
 
 extension TextFieldCun {
     enum Style {
+        static func title(_ label: UILabel) {
+            let content = L10n.Settings.Setting.LoadDataAutonomous.Cun.label
+            TempuraStyles.styleShrinkableLabel(
+                label,
+                content: content,
+                style: TextStyles.pSemibold.byAdding(
+                    .color(Palette.grayDark),
+                    .alignment(.left)
+                ),
+                numberOfLines: 1
+            )
+        }
         static func container(_ view: UIView) {
             view.backgroundColor = Palette.white
             view.layer.cornerRadius = 15
