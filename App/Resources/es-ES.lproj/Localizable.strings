@@ -86,7 +86,7 @@
 "home_view.green_certificate.detail.paragraph" = "Este certificado no es un documento de viaje. La evidencia científica sobre la vacunación, las pruebas y la recuperación del COVID-19 continúa evolucionando, incluso teniendo en cuenta las nuevas variantes del virus. Antes de viajar, verifica las medidas de salud pública aplicadas en el lugar de destino y las restricciones relacionadas también consultando el sitio web:";
 "home_view.green_certificate.detail.url" = "https://reopen.europa.eu/";
 "home_view.green_certificate.detail.certificate_issuer" = "Ministero della Salute";
-"home_view.green_certificate.detail.label.vaccine.certificate_type" = "Datos de vacunas";
+"home_view.green_certificate.detail.label.vaccine.certificate_type" = "Certificado de vacunacion";
 "home_view.green_certificate.detail.label.vaccine.valid_until.first" = "Certificación válida por 270 días (9 meses) a partir de la fecha de la última administración";
 "home_view.green_certificate.detail.label.vaccine.valid_until.second" = "Certificación válida hasta la próxima dosis";
 "home_view.green_certificate.detail.label.vaccine.valid_until" = "Validità dell'EU Digital Covid Certificate";
@@ -111,15 +111,15 @@
 "home_view.green_certificate.detail.label.recovery.date_first_test_result" = "Fecha de la primera prueba molecular positiva";
 "home_view.green_certificate.detail.label.recovery.country_of_test" = "Estado miembro donde se realizó la primera prueba molecular positiva";
 "home_view.green_certificate.detail.label.recovery.certificate_issuer" = "Estructura que emitió la certificación verde COVID-19";
-"home_view.green_certificate.detail.label.recovery.certificate_valid_from" = "Certificado válido desde (aaaa-mm-dd)";
-"home_view.green_certificate.detail.label.recovery.certificate_valid_until" = "Certificato valido a:";
+"home_view.green_certificate.detail.label.recovery.certificate_valid_from" = "Certificado válido desde";
+"home_view.green_certificate.detail.label.recovery.certificate_valid_until" = "Certificado válido hasta";
 "home_view.green_certificate.detail.label.recovery.disease_en" = "<i>Disease or agent the citizen has recovered from</i>";
 "home_view.green_certificate.detail.label.recovery.date_first_test_result_en" = "<i>Date of first positive NAAT test result (yyyy-mm-dd)</i>";
 "home_view.green_certificate.detail.label.recovery.country_of_test_en" = "<i>Member State of test</i>";
 "home_view.green_certificate.detail.label.recovery.certificate_issuer_en" = "<i>Certificate issuer</i>";
 "home_view.green_certificate.detail.label.recovery.certificate_valid_from_en" = "<i>Certificate valid From (yyyy-mm-dd)</i>";
 "home_view.green_certificate.detail.label.recovery.certificate_valid_until_en" = "<i>Certificate valid Until (yyyy-mm-dd)</i>";
-"home_view.green_certificate.detail.label.recovery.certificate_type" = "Certificado de datos de curación";
+"home_view.green_certificate.detail.label.recovery.certificate_type" = "Certificado de curación";
 "home_view.green_certificate.detail.label.test.disease" = "Enfermedad o agente objetivo";
 "home_view.green_certificate.detail.label.test.type_of_test" = "Tipo de prueba";
 "home_view.green_certificate.detail.label.test.test_result" = "Resultado de la prueba";
@@ -140,7 +140,7 @@
 "home_view.green_certificate.detail.label.test.testing_centre_en" = "<i>Testing centre or facility</i>";
 "home_view.green_certificate.detail.label.test.country_of_test_en" = "<i>Member State of test</i>";
 "home_view.green_certificate.detail.label.test.certificate_issuer_en" = "<i>Certificate issuer</i>";
-"home_view.green_certificate.detail.label.test.certificate_type" = "Datos del hisopo";
+"home_view.green_certificate.detail.label.test.certificate_type" = "Certificado de prueba";
 "home_view.green_certificate.detail.label.test.valid_until" = "Validez del Certificado Covid Digital de la UE";
 "home_view.green_certificate.detail.label.test.valid_until_en" = "<i>Validity of the EU Digital Covid Certificate</i>";
 "home_view.green_certificate.detail.label.test.valid_until_value" = "Certificación válida por 48 horas desde el momento de la extracción.";

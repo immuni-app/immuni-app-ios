@@ -87,7 +87,7 @@
 "home_view.green_certificate.detail.paragraph" = "Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19-Impfung, -Tests und -Wiederherstellung entwickeln sich weiter, auch unter Berücksichtigung der neuen Varianten des Virus. Bitte informieren Sie sich vor der Reise über die am Zielort geltenden Gesundheitsmaßnahmen und die damit verbundenen Einschränkungen auch auf der Website:";
 "home_view.green_certificate.detail.url" = "https://reopen.europa.eu/";
 "home_view.green_certificate.detail.certificate_issuer" = "Ministero della Salute";
-"home_view.green_certificate.detail.label.vaccine.certificate_type" = "Impfstoffdaten";
+"home_view.green_certificate.detail.label.vaccine.certificate_type" = "Impfbescheinigung";
 "home_view.green_certificate.detail.label.vaccine.valid_until.first" = "Zertifizierung gültig für 270 Tage (9 Monate) ab dem Datum der letzten Verabreichung";
 "home_view.green_certificate.detail.label.vaccine.valid_until.second" = "Zertifizierung gültig bis zur nächsten Dosis";
 "home_view.green_certificate.detail.label.vaccine.valid_until" = "Validità dell'EU Digital Covid Certificate";
@@ -112,15 +112,15 @@
 "home_view.green_certificate.detail.label.recovery.date_first_test_result" = "Datum des ersten positiven Molekulartests";
 "home_view.green_certificate.detail.label.recovery.country_of_test" = "Mitgliedstaat, in dem der erste positive Molekulartest durchgeführt wurde";
 "home_view.green_certificate.detail.label.recovery.certificate_issuer" = "Struktur, die die grüne COVID-19-Zertifizierung ausgestellt hat";
-"home_view.green_certificate.detail.label.recovery.certificate_valid_from" = "Zertifikat gültig ab";
-"home_view.green_certificate.detail.label.recovery.certificate_valid_until" = "Zertifikat gültig am";
+"home_view.green_certificate.detail.label.recovery.certificate_valid_from" = "Zertifizierung gültig ab";
+"home_view.green_certificate.detail.label.recovery.certificate_valid_until" = "Zertifizierung gültig bis";
 "home_view.green_certificate.detail.label.recovery.disease_en" = "<i>Disease or agent the citizen has recovered from</i>";
 "home_view.green_certificate.detail.label.recovery.date_first_test_result_en" = "<i>Date of first positive NAAT test result (yyyy-mm-dd)</i>";
 "home_view.green_certificate.detail.label.recovery.country_of_test_en" = "<i>Member State of test</i>";
 "home_view.green_certificate.detail.label.recovery.certificate_issuer_en" = "<i>Certificate issuer</i>";
 "home_view.green_certificate.detail.label.recovery.certificate_valid_from_en" = "<i>Certificate valid From (yyyy-mm-dd)</i>";
 "home_view.green_certificate.detail.label.recovery.certificate_valid_until_en" = "<i>Certificate valid Until (yyyy-mm-dd)</i>";
-"home_view.green_certificate.detail.label.recovery.certificate_type" = "Datenzertifikat der Heilung";
+"home_view.green_certificate.detail.label.recovery.certificate_type" = "Heilungsurkunde";
 "home_view.green_certificate.detail.label.test.disease" = "Zielkrankheit oder -wirkstoff";
 "home_view.green_certificate.detail.label.test.type_of_test" = "Testtyp";
 "home_view.green_certificate.detail.label.test.test_result" = "Testergebnis";
@@ -141,7 +141,7 @@
 "home_view.green_certificate.detail.label.test.testing_centre_en" = "<i>Testing centre or facility</i>";
 "home_view.green_certificate.detail.label.test.country_of_test_en" = "<i>Member State of test</i>";
 "home_view.green_certificate.detail.label.test.certificate_issuer_en" = "<i>Certificate issuer</i>";
-"home_view.green_certificate.detail.label.test.certificate_type" = "Pufferdatene";
+"home_view.green_certificate.detail.label.test.certificate_type" = "Test Zertifikat";
 "home_view.green_certificate.detail.label.test.valid_until" = "Gültigkeit des EU Digital Covid Certificate";
 "home_view.green_certificate.detail.label.test.valid_until_en" = "<i>Validity of the EU Digital Covid Certificate</i>";
 "home_view.green_certificate.detail.label.test.valid_until_value" = "Bescheinigung gültig für 48 Stunden ab dem Zeitpunkt der Abholung";

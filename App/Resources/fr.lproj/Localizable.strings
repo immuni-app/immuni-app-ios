@@ -86,7 +86,7 @@
 "home_view.green_certificate.detail.paragraph" = "Ce certificat n'est pas un document de voyage. Les preuves scientifiques sur la vaccination, les tests et la récupération COVID-19 continuent d'évoluer, y compris en tenant compte des nouvelles variantes du virus. Avant de voyager, veuillez vérifier les mesures de santé publique appliquées dans le lieu de destination et les restrictions y afférentes également en consultant le site Internet :";
 "home_view.green_certificate.detail.url" = "https://reopen.europa.eu/";
 "home_view.green_certificate.detail.certificate_issuer" = "Ministero della Salute";
-"home_view.green_certificate.detail.label.vaccine.certificate_type" = "Données vaccinales";
+"home_view.green_certificate.detail.label.vaccine.certificate_type" = "Certificat de vaccination";
 "home_view.green_certificate.detail.label.vaccine.valid_until.first" = "Certification valable 270 jours (9 mois) à compter de la date de la dernière administration";
 "home_view.green_certificate.detail.label.vaccine.valid_until.second" = "Certification valable jusqu'à la prochaine dose";
 "home_view.green_certificate.detail.label.vaccine.valid_until" = "Validità dell'EU Digital Covid Certificate";
@@ -111,15 +111,15 @@
 "home_view.green_certificate.detail.label.recovery.date_first_test_result" = "Date du premier test moléculaire positif";
 "home_view.green_certificate.detail.label.recovery.country_of_test" = "État membre où le premier test moléculaire positif a été effectué";
 "home_view.green_certificate.detail.label.recovery.certificate_issuer" = "Structure ayant délivré la certification verte COVID-19";
-"home_view.green_certificate.detail.label.recovery.certificate_valid_from" = "Certificat valide du";
-"home_view.green_certificate.detail.label.recovery.certificate_valid_until" = "Certificat valide à";
+"home_view.green_certificate.detail.label.recovery.certificate_valid_from" = "Attestation valable du";
+"home_view.green_certificate.detail.label.recovery.certificate_valid_until" = "Attestation valable jusqu'au";
 "home_view.green_certificate.detail.label.recovery.disease_en" = "<i>Disease or agent the citizen has recovered from</i>";
 "home_view.green_certificate.detail.label.recovery.date_first_test_result_en" = "<i>Date of first positive NAAT test result (yyyy-mm-dd)</i>";
 "home_view.green_certificate.detail.label.recovery.country_of_test_en" = "<i>Member State of test</i>";
 "home_view.green_certificate.detail.label.recovery.certificate_issuer_en" = "<i>Certificate issuer</i>";
 "home_view.green_certificate.detail.label.recovery.certificate_valid_from_en" = "<i>Certificate valid From (yyyy-mm-dd)</i>";
 "home_view.green_certificate.detail.label.recovery.certificate_valid_until_en" = "<i>Certificate valid Until (yyyy-mm-dd)</i>";
-"home_view.green_certificate.detail.label.recovery.certificate_type" = "Données Certificat de guérison";
+"home_view.green_certificate.detail.label.recovery.certificate_type" = "Certificat de guérison";
 "home_view.green_certificate.detail.label.test.disease" = "Maladie ou agent cible";
 "home_view.green_certificate.detail.label.test.type_of_test" = "Type de test";
 "home_view.green_certificate.detail.label.test.test_result" = "Résultat du test";
@@ -140,7 +140,7 @@
 "home_view.green_certificate.detail.label.test.testing_centre_en" = "<i>Testing centre or facility</i>";
 "home_view.green_certificate.detail.label.test.country_of_test_en" = "<i>Member State of test</i>";
 "home_view.green_certificate.detail.label.test.certificate_issuer_en" = "<i>Certificate issuer</i>";
-"home_view.green_certificate.detail.label.test.certificate_type" = "Données tampon";
+"home_view.green_certificate.detail.label.test.certificate_type" = "Certificat de test";
 "home_view.green_certificate.detail.label.test.valid_until" = "Validité du certificat numérique Covid de l'UE";
 "home_view.green_certificate.detail.label.test.valid_until_en" = "<i>Validity of the EU Digital Covid Certificate</i>";
 "home_view.green_certificate.detail.label.test.valid_until_value" = "Attestation valable 48h à compter de la collecte";
