@@ -172,11 +172,17 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
         
         if let detailRecoveryCertificate = model.greenCertificate.detailRecoveryCertificate {
             Self.Style.value(diseaseRecovery, text: detailRecoveryCertificate.disease)
-            Self.Style.value(dateFirstTestResult, text: detailRecoveryCertificate.dateFirstTestResult)
-            Self.Style.value(countryOfTestRecovery, text: detailRecoveryCertificate.countryOfTest)
-            Self.Style.value(certificateIssuerRecovery, text: detailRecoveryCertificate.certificateIssuer)
-            Self.Style.value(certificateValidFrom, text: detailRecoveryCertificate.certificateValidFrom)
-            Self.Style.value(certificateValidUntil, text: detailRecoveryCertificate.certificateValidUntil)
+            
+            Self.Style.value(dateFirstTestResult, text: detailRecoveryCertificate.dateFirstTestResult.isEmpty ? "---" : detailRecoveryCertificate.dateFirstTestResult)
+            
+            Self.Style.value(countryOfTestRecovery, text: detailRecoveryCertificate.countryOfTest.isEmpty ? "---" : detailRecoveryCertificate.countryOfTest)
+            
+            Self.Style.value(certificateIssuerRecovery, text: detailRecoveryCertificate.certificateIssuer.isEmpty ? "---" : detailRecoveryCertificate.certificateIssuer)
+            
+            Self.Style.value(certificateValidFrom, text:
+                                detailRecoveryCertificate.certificateValidFrom.isEmpty ? "---" : detailRecoveryCertificate.certificateValidFrom)
+            
+            Self.Style.value(certificateValidUntil, text: detailRecoveryCertificate.certificateValidUntil.isEmpty ? "---" : detailRecoveryCertificate.certificateValidUntil)
         }
         
         Self.Style.label(paragraph, text: L10n.HomeView.GreenCertificate.Detail.paragraph)

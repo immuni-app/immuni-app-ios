@@ -281,8 +281,9 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             scrollView.addSubview(idLabel)
             scrollView.addSubview(idLabelEn)
             scrollView.addSubview(id)
-            Self.Style.value(name, text: greenCertificates[model.currentDgc].name)
-            Self.Style.value(birth, text: greenCertificates[model.currentDgc].birth)
+            
+            Self.Style.value(name, text: greenCertificates[model.currentDgc].name.isEmpty ? "---" : greenCertificates[model.currentDgc].name)
+            Self.Style.value(birth, text: greenCertificates[model.currentDgc].birth.isEmpty ? "---" : greenCertificates[model.currentDgc].birth)
             Self.Style.value(id, text: greenCertificates[model.currentDgc].id)
             Self.Style.label(nameLabel,text: L10n.HomeView.GreenCertificate.Label.name)
             Self.Style.label(birthLabel,text: L10n.HomeView.GreenCertificate.Label.date)
