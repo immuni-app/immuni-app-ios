@@ -92,8 +92,8 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
             return nil
         }
         if cun != "", cun.count == 10 {
-            let otp = OTP(cun: cun)
-            if otp.verifyCun() {
+            let otp = OTP(code: cun)
+            if otp.verifyCode() {
                 return otp
             }
         }

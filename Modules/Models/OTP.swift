@@ -41,8 +41,8 @@ public struct OTP {
     }
 
     /// Generates a new valid CUN with the given string
-    public init(cun: String) {
-        characters = Array(cun)
+    public init(code: String) {
+        characters = Array(code)
         otpType = .cun
     }
 }
@@ -91,7 +91,7 @@ public extension OTP {
         return [first, middle, last].map { String($0) }
     }
 
-    func verifyCun() -> Bool {
+    func verifyCode() -> Bool {
         
         var characters = self.characters
         let checkDigit = characters.removeLast()

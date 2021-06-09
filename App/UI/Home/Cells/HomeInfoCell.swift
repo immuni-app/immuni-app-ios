@@ -26,10 +26,6 @@ struct HomeInfoCellVM: ViewModel {
       return AnimationAsset.cardDoctor.animation
     case .app:
       return AnimationAsset.cardPerson.animation
-    case .updateCountry:
-      return AnimationAsset.cardFlagEuropa.animation
-    case .dataUpload:
-      return AnimationAsset.cardDataUpload.animation
     }
   }
 
@@ -39,10 +35,6 @@ struct HomeInfoCellVM: ViewModel {
       return L10n.HomeView.Info.Protection.title
     case .app:
       return L10n.HomeView.Info.App.title
-    case .updateCountry:
-      return L10n.HomeView.Info.UpdateCountries.title
-    case .dataUpload:
-        return L10n.Settings.Setting.loadData
     }
   }
 
@@ -52,10 +44,6 @@ struct HomeInfoCellVM: ViewModel {
       return false
     case .app:
       return true
-    case .updateCountry:
-      return false
-    case .dataUpload:
-      return true
     }
   }
 
@@ -64,10 +52,6 @@ struct HomeInfoCellVM: ViewModel {
     case .protection:
       return .cardPurple
     case .app:
-      return .cardLightBlue
-    case .updateCountry:
-      return .cardLightBlue
-    case .dataUpload:
       return .cardLightBlue
     }
   }
@@ -82,6 +66,7 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
   let container = UIView()
   let icon = AnimationView()
   let title = UILabel()
+  let cardImageNew = UIImageView()
   var actionButton = TextButton()
 
   var didTapAction: Interaction?
@@ -108,6 +93,7 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
     self.contentView.addSubview(self.container)
 
     self.container.addSubview(self.icon)
+    self.container.addSubview(self.cardImageNew)
     self.container.addSubview(self.title)
     self.container.addSubview(self.actionButton)
 
@@ -122,7 +108,6 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
     guard let model = self.model else {
       return
     }
-
     Self.Style.icon(self.icon, animation: model.animation)
     Self.Style.shadow(self.contentView, shadow: model.shadow)
     Self.Style.container(self.container, lightContent: model.lightContent)
@@ -143,6 +128,12 @@ class HomeInfoCell: UICollectionViewCell, ModellableView, ReusableView {
       .right()
       .aspectRatio(self.icon.intrinsicContentSize.width / self.icon.intrinsicContentSize.height)
       .width(Self.iconWidth)
+    
+    self.cardImageNew.pin
+        .top()
+        .left()
+        .aspectRatio(self.cardImageNew.intrinsicContentSize.width / self.cardImageNew.intrinsicContentSize.height)
+        .width(Self.iconWidth * 0.65)
 
     self.title.pin
       .left(HomeView.cellHorizontalInset)
@@ -213,5 +204,9 @@ private extension HomeInfoCell {
       view.backgroundBehavior = .pauseAndRestore
       view.playIfPossible()
     }
+    static func logoNew(_ imageView: UIImageView) {
+        imageView.image = Asset.Home.cardImageNew.image
+    }
+    
   }
 }

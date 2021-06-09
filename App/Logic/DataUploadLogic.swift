@@ -19,6 +19,8 @@ import Katana
 import Models
 import Networking
 import Tempura
+import CoreImage
+import SwiftDGC
 
 extension Logic {
   enum DataUpload {}
@@ -83,7 +85,7 @@ extension Logic.DataUpload {
          }
        }
     
-    /// Shows the alert that there is an error in loading data
+  /// Shows the alert that there is an error in loading data
   struct ShowAutonomousUploadErrorAlert: AppSideEffect {
     let message: String
     
@@ -92,6 +94,22 @@ extension Logic.DataUpload {
     let model = Alert.Model(
         title: L10n.Settings.Setting.LoadDataAutonomous.FormError.title,
         message: message,
+        preferredStyle: .alert,
+        actions: [
+            .init(title: L10n.UploadData.ApiError.action, style: .cancel)
+        ]
+    )
+
+    try context.awaitDispatch(Logic.Alert.Show(alertModel: model))
+    }
+}
+  /// Shows the alert that there is an error in saving data
+  struct ShowSaveGreenCertificateErrorAlert: AppSideEffect {
+    
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+    let model = Alert.Model(
+        title: L10n.UploadData.UnauthorizedCun.title,
+        message: L10n.ConfirmData.GreenCertificate.Error.Alert.title,
         preferredStyle: .alert,
         actions: [
             .init(title: L10n.UploadData.ApiError.action, style: .cancel)
@@ -142,6 +160,183 @@ extension Logic.DataUpload {
       try context.awaitDispatch(ShowConfirmData(code: self.code))
     }
   }
+    /// Generate digital green certificate
+    struct GenerateDigitalGreenCertificate: AppSideEffect {
+        
+      let code: String
+      let lastHisNumber: String
+      let hisExpiringDate: String
+      let codeType: CodeType
+
+      enum Error: Swift.Error {
+        case verificationFailed
+      }
+
+      func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        let state = context.getState()
+        try context.awaitDispatch(Logic.Loading.Show(message: L10n.HomeView.GenerateGreenCertificate.loading))
+
+        do {
+            let requestSize = state.configuration.ingestionRequestTargetSize
+            let body = GenerateDgcRequest.Body(
+                lastHisNumber: lastHisNumber,
+                hisExpiringDate: hisExpiringDate,
+                tokenType: codeType.rawValue.lowercased()
+            )
+            let data = try `await`(context.dependencies.networkManager.generateDigitalGreenCertificate(
+                                    body: body,
+                                    code: code,
+                                    requestSize: requestSize))
+            let json = try? JSONSerialization.jsonObject(with: data, options: [])
+
+            if let object = json as? [String: Any] {
+
+                if let qrcode = object["qrcode"] as? String {
+                    let dgc = detectQRCode(qr: qrcode)
+                    if let dgc = dgc {
+                        try context.awaitDispatch(Logic.CovidStatus.UpdateGreenCertificate(newGreenCertificate: dgc))
+                    }
+                    else {
+                        try `await`(context.dispatch(Logic.Loading.Hide()))
+                        try context.awaitDispatch(ShowCustomErrorAlert(message: L10n.HomeView.GreenCertificate.Decode.error))
+                        return
+                    }
+                }
+                else {
+                    try `await`(context.dispatch(Logic.Loading.Hide()))
+                    try context.awaitDispatch(ShowCustomErrorAlert(message: L10n.HomeView.GreenCertificate.Decode.error))
+                    return
+                }
+            }
+            else {
+                try `await`(context.dispatch(Logic.Loading.Hide()))
+                try context.awaitDispatch(ShowCustomErrorAlert(message: L10n.HomeView.GreenCertificate.Decode.error))
+                return
+            }
+            
+        } catch NetworkManager.Error.noDgcFound {
+            try `await`(context.dispatch(Logic.Loading.Hide()))
+            try context.awaitDispatch(ShowCustomErrorAlert(message: L10n.HomeView.GreenCertificate.Error.noDgcFound))
+            return
+          } catch {
+            try `await`(context.dispatch(Logic.Loading.Hide()))
+            try context.awaitDispatch(ShowErrorAlert(error: error, retryDispatchable: self))
+            return
+          }
+        try `await`(context.dispatch(Logic.Loading.Hide()))
+
+        try context.awaitDispatch(Show(Screen.confirmation, animated: true, context: ConfirmationLS.generateGreenCertificateCompleted))
+        try `await`(Promise<Void>(resolved: ()).defer(2))
+
+        try context.awaitDispatch(Hide(Screen.confirmation, animated: true))
+        try context.awaitDispatch(Hide(Screen.generateGreenCertificate, animated: true))
+        }
+    
+      private func detectQRCode(qr: String) -> GreenCertificate? {
+        let data = Data(base64Encoded: qr)
+        guard let data = data else { return nil }
+        let image = UIImage(data: data)
+        
+        if let image = image, let ciImage = CIImage.init(image: image){
+            var options: [String: Any]
+            let context = CIContext()
+            options = [CIDetectorAccuracy: CIDetectorAccuracyHigh]
+            let qrDetector = CIDetector(ofType: CIDetectorTypeQRCode, context: context, options: options)
+            if ciImage.properties.keys.contains((kCGImagePropertyOrientation as String)){
+                options = [CIDetectorImageOrientation: ciImage.properties[(kCGImagePropertyOrientation as String)] ?? 1]
+            } else {
+                options = [CIDetectorImageOrientation: 1]
+                }
+            let features = qrDetector?.features(in: ciImage, options: options)
+            var hcert : HCert?
+            var dgc: GreenCertificate? = nil
+            for case let row as CIQRCodeFeature in features! {
+                hcert = HCert(from: row.messageString!)
+                guard let hcert = hcert else { return nil }
+                
+                var type: CertificateType?
+                
+                if hcert.body["t"].count > 0 {
+                    type = .test
+                }
+                else if hcert.body["v"].count > 0 {
+                    type = .vaccine
+                }
+                else if hcert.body["r"].count > 0 {
+                    type = .recovery
+                }
+                else {
+                    type = nil
+                }
+                guard let type = type else { return nil }
+                                
+                dgc = GreenCertificate(
+                    id: hcert.uvci,
+                    name: "\(hcert.body["nam"]["fn"].string ?? "---") \(hcert.body["nam"]["gn"].string ?? "---")",
+                    birth: hcert.dateOfBirth?.dateString ?? "---",
+                    greenCertificate: qr,
+                    certificateType: type
+                    )
+                switch type {
+                case .test:
+                    let detail = DetailTestCertificate(
+                        disease: TargetDisease.COVID19,
+                        typeOfTest: hcert.body["t"][0]["tt"].string ?? "---",
+                        testResult: hcert.body["t"][0]["tr"].string ?? "---",
+                        ratTestNameAndManufacturer: hcert.body["t"][0]["ma"].string ?? "",
+                        naaTestName: hcert.body["t"][0]["nm"].string ?? "",
+                        dateTimeOfSampleCollection: hcert.body["t"][0]["sc"].string ?? "---",
+                        dateTimeOfTestResult: hcert.body["t"][0]["dr"].string ?? "---",
+                        testingCentre: hcert.body["t"][0]["tc"].string ?? "---",
+                        countryOfTest: hcert.body["t"][0]["co"].string ?? "---",
+                        certificateIssuer: L10n.HomeView.GreenCertificate.Detail.certificateIssuer
+                    )
+                    dgc?.detailTestCertificate = detail
+                       
+                case .vaccine:
+                    let detail = DetailVaccineCertificate(
+                        disease: TargetDisease.COVID19,
+                        vaccineType: hcert.body["v"][0]["vp"].string ?? "---",
+                        vaccineName: hcert.body["v"][0]["mp"].string ?? "---",
+                        vaccineProducer: hcert.body["v"][0]["ma"].string ?? "---",
+                        doseNumber: hcert.body["v"][0]["dn"].description,
+                        totalSeriesOfDoses: hcert.body["v"][0]["sd"].description,
+                        dateLastAdministration: hcert.body["v"][0]["dt"].string ?? "---",
+                        vaccinationCuntry: hcert.body["v"][0]["co"].string ?? "---",
+                        certificateAuthority: L10n.HomeView.GreenCertificate.Detail.certificateIssuer
+                        )
+                    dgc?.detailVaccineCertificate = detail
+
+                case .recovery:
+                    let detail = DetailRecoveryCertificate(
+                        disease: TargetDisease.COVID19,
+                        dateFirstTestResult: hcert.body["r"][0]["fr"].string ?? "---",
+                        countryOfTest: hcert.body["r"][0]["co"].string ?? "---",
+                        certificateIssuer: L10n.HomeView.GreenCertificate.Detail.certificateIssuer,
+                        certificateValidFrom: hcert.body["r"][0]["df"].string ?? "---",
+                        certificateValidUntil: hcert.body["r"][0]["du"].string ?? "---"
+                    )
+                    dgc?.detailRecoveryCertificate = detail
+                }
+
+                return dgc
+                 }
+             }
+        return nil
+      }
+    }
+    
+    /// Save digital green certificate in gallery
+    struct SaveDigitalGreenCertificate: AppSideEffect {
+
+      func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+
+        try context.awaitDispatch(Show(Screen.confirmation, animated: true, context: ConfirmationLS.saveGreenCertificateCompleted))
+        try `await`(Promise<Void>(resolved: ()).defer(2))
+
+        try context.awaitDispatch(Hide(Screen.confirmation, animated: true))
+        }
+      }
    
   /// Performs the validation of the provided OTP
   struct VerifyCun: AppSideEffect {
@@ -342,6 +537,21 @@ extension Logic.DataUpload {
       try context.awaitDispatch(Logic.Alert.Show(alertModel: model))
       }
     }
+  /// Shows custom alert
+  struct ShowCustomErrorAlert: AppSideEffect {
+      let message: String
+      func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        let model = Alert.Model(
+          title: L10n.Settings.Setting.LoadDataAutonomous.Asymptomatic.Alert.title,
+          message: message,
+          preferredStyle: .alert,
+          actions: [
+            .init(title: L10n.UploadData.ApiError.action, style: .cancel),
+            ]
+          )
+        try context.awaitDispatch(Logic.Alert.Show(alertModel: model))
+        }
+      }
 
   /// Shows the alert that Asymptomatic warning
   struct ShowAsymptomaticAlert: AppSideEffect {
@@ -388,7 +598,12 @@ extension Logic.DataUpload {
         message = L10n.UploadData.ApiError.message
         cancelAction = L10n.UploadData.ApiError.action
 
-      }
+      case .noDgcFound:
+        title = L10n.UploadData.ApiError.title
+        message = L10n.HomeView.GreenCertificate.Error.noDgcFound
+        cancelAction = L10n.UploadData.ApiError.action
+
+        }
 
       let model = Alert.Model(
         title: title,

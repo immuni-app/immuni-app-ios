@@ -15,7 +15,6 @@ def shared_pods
   pod 'Tempura', '= 4.4.0'
   pod 'Logging', '= 1.2.0'
   pod 'HydraAsync', '= 1.2.2'
-  pod 'Alamofire', '= 5.2.1'
 end
 
 target 'Immuni' do
@@ -23,7 +22,7 @@ target 'Immuni' do
   pod 'lottie-ios', '= 3.1.8'
   pod 'PinLayout', '= 1.8.13'
   pod 'ZIPFoundation', '= 0.9.11'
-
+  pod 'DropDown'
   shared_pods
 
   target 'Immuni Tests' do

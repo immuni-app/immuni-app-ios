@@ -29,6 +29,11 @@ targetTemplates:
 options:
   developmentLanguage: "en-GB"
 
+packages:
+  SwiftDGC:
+    url: https://github.com/eu-digital-green-certificates/dgca-app-core-ios.git
+    branch: main
+
 targets:
   Immuni:
     platform: iOS
@@ -85,7 +90,7 @@ targets:
         CFBundleName: Immuni
         CFBundleDisplayName: Immuni
         CFBundleIcons: {}
-        CFBundleShortVersionString: "2.4.0"
+        CFBundleShortVersionString: "2.5.0"
         CFBundleVersion: "${BUNDLE_VERSION}"
         ENAPIVersion: 1
         ENDeveloperRegion: IT
@@ -106,6 +111,7 @@ targets:
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
         UI_TEST_DIR: $(SOURCE_ROOT)/UITests/Screenshots
         UIViewControllerBasedStatusBarAppearance: YES
+        NSCameraUsageDescription: "not used"
 
     scheme:
       gatherCoverageData: true
@@ -170,6 +176,7 @@ targets:
       - target: Extensions
       - target: Models
       - target: ImmuniExposureNotification
+      - package: SwiftDGC
 
   Persistence:
     templates:

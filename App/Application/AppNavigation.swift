@@ -45,6 +45,11 @@ enum Screen: String, CaseIterable {
   case home
   case fixActiveService
   case suggestions
+  case greenCertificate
+  case generateGreenCertificate
+  case greenCertificateVaccineDetail
+  case greenCertificateRecoveryDetail
+  case greenCertificateTestDetail
 
   // settings
   case settings
@@ -89,6 +94,9 @@ extension AppDelegate {
     
     case .chooseDataUploadMode:
       mainViewController = HomeNC(store: self.store)
+    
+    case .greenCertificate:
+      mainViewController = HomeNC(store: self.store)
 
     default:
       AppLogger.fatalError("Root screen not handled: \(rootScreen.rawValue)")
@@ -131,7 +139,7 @@ extension WelcomeVC: RoutableWithConfiguration {
         let localState = context as? PermissionTutorialLS ?? AppLogger.fatalError("Invalid context")
         return PermissionTutorialVC(store: self.store, localState: localState)
       },
-
+        
       .hide(Screen.permissionTutorial): .dismissModally(behaviour: .hard),
       .hide(Screen.privacy): .dismissModally(behaviour: .hard)
     ]
@@ -373,6 +381,11 @@ extension HomeVC: RoutableWithConfiguration {
 
         return FixActiveService(with: self.store, navigationContext: navigationContext)
       },
+      .show(Screen.confirmation): .presentModally { context in
+        let localState = context as? ConfirmationLS ?? AppLogger.fatalError("Invalid context")
+        return ConfirmationVC(store: self.store, localState: localState)
+      },
+
 
       .hide(Screen.fixActiveService): .dismissModally(behaviour: .hard)
     ]
@@ -503,10 +516,33 @@ extension HomeNC: RoutableWithConfiguration {
       .show(Screen.chooseDataUploadMode): .push { _ in
           return ChooseDataUploadModeVC(store: self.store, localState: ChooseDataUploadModeLS())
         },
-        
+
+      .show(Screen.greenCertificate): .push { _ in
+        return GreenCertificateVC(store: self.store, localState: GreenCertificateLS())
+          },
+      .show(Screen.greenCertificateVaccineDetail): .presentModally { context in
+        let ls = context as? GreenCertificateVaccineDetailLS ?? AppLogger.fatalError("invalid context")
+        return GreenCertificateVaccineDetailVC(store: self.store, localState: ls)
+          },
+      .show(Screen.greenCertificateRecoveryDetail): .presentModally { context in
+        let ls = context as? GreenCertificateRecoveryDetailLS ?? AppLogger.fatalError("invalid context")
+        return GreenCertificateRecoveryDetailVC(store: self.store, localState: ls)
+        },
+      .show(Screen.greenCertificateTestDetail): .presentModally { context in
+        let ls = context as? GreenCertificateTestDetailLS ?? AppLogger.fatalError("invalid context")
+        return GreenCertificateTestDetailVC(store: self.store, localState: ls)
+        },
+      .show(Screen.generateGreenCertificate): .push { _ in
+        return GenerateGreenCertificateVC(store: self.store, localState: GenerateGreenCertificateLS())
+          },
       .hide(Screen.uploadData): .pop,
       .hide(Screen.chooseDataUploadMode): .pop,
       .hide(Screen.uploadDataAutonomous): .pop,
+      .hide(Screen.greenCertificate): .pop,
+      .hide(Screen.generateGreenCertificate): .pop,
+      .hide(Screen.greenCertificateVaccineDetail): .dismissModally(behaviour: .hard),
+      .hide(Screen.greenCertificateRecoveryDetail): .dismissModally(behaviour: .hard),
+      .hide(Screen.greenCertificateTestDetail): .dismissModally(behaviour: .hard),
 
     ]
   }
@@ -535,6 +571,52 @@ extension UploadDataAutonomousVC: RoutableWithConfiguration {
 extension ChooseDataUploadModeVC: RoutableWithConfiguration {
   var routeIdentifier: RouteElementIdentifier {
     return Screen.chooseDataUploadMode.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [:]
+  }
+}
+
+extension GreenCertificateVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.greenCertificate.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [:]
+  }
+}
+extension GenerateGreenCertificateVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.generateGreenCertificate.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [:]
+  }
+}
+extension GreenCertificateVaccineDetailVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.greenCertificateVaccineDetail.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [:]
+  }
+}
+extension GreenCertificateRecoveryDetailVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.greenCertificateRecoveryDetail.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [:]
+  }
+}
+extension GreenCertificateTestDetailVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.greenCertificateTestDetail.rawValue
   }
 
   var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
