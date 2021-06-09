@@ -14,10 +14,10 @@
 
 import Tempura
 import UIKit
-import DropDown
-public struct TextFieldCodeTypeVM: ViewModel {}
 
-open class TextFieldCodeType: UIView, ModellableView {
+public struct PickerHealthCardDateVM: ViewModel {}
+
+open class PickerHealthCardDate: UIView, ModellableView {
     override public init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -30,53 +30,40 @@ open class TextFieldCodeType: UIView, ModellableView {
         style()
     }
 
-    private let container = UIView()
-    private let selectIcon = UIImageView()
-    private let dropDownIcon = UIImageView()
-    public let textfield = UITextField()
-    private let dropdown = DropDown()
     private let label = UILabel()
+    private let container = UIView()
+    private let pickerIcon = UIImageView()
+    public let textfield = UITextField()
+    var onFocus: Bool = false
 
+    var didChangePickerValue: CustomInteraction<String>?
 
-    var didChangeCodeType: CustomInteraction<CodeType>?
+    @objc func tapDone() {
+        if let datePicker = textfield.inputView as? UIDatePicker {
+            let dateformatter = DateFormatter()
+            dateformatter.dateStyle = .medium
+            textfield.text = dateformatter.string(from: datePicker.date)
+            dateformatter.dateFormat = "yyyy-MM-dd"
+            didChangePickerValue?(dateformatter.string(from: datePicker.date))
+        }
+        textfield.resignFirstResponder()
+    }
 
     public func setup() {
-
-        addSubview(container)
+        textfield.setInputViewDatePicker(target: self, selector: #selector(tapDone))
+        
         addSubview(label)
-        container.addSubview(selectIcon)
-        container.addSubview(dropDownIcon)
+        addSubview(container)
+        container.addSubview(pickerIcon)
         container.addSubview(textfield)
 
         textfield.delegate = self
 
-        let tapGestureSelect = UITapGestureRecognizer(target: self, action: #selector(didTapSelect))
-        textfield.addGestureRecognizer(tapGestureSelect)
-        textfield.inputView = UIView()
-    }
-    @objc private func didTapSelect() {
-        Self.Style.pickerIcon(selectIcon, onFocus: true)
-        self.dropdown.cornerRadius = 15
-        self.dropdown.backgroundColor = Palette.white
-        self.dropdown.selectedTextColor = Palette.purple
-        self.dropdown.cellConfiguration = { (index, item) in
-            return "  \(item)"
-          }
-        self.dropdown.dataSource = CodeType.getCodeList()
-        self.dropdown.anchorView = self.container
-        self.dropdown.bottomOffset = CGPoint(x: 0, y: (self.container.frame.size.height+10))
-        self.dropdown.show()
-        self.dropdown.selectionAction = { [weak self] (index: Int, item: String) in
-            guard let self = self, let codeType = CodeType(rawValue: item) else { return }
-            self.textfield.text = item
-            
-            self.didChangeCodeType?(codeType)
-            Self.Style.pickerIcon(self.selectIcon, onFocus: false)
-            }
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapContainer))
+        container.addGestureRecognizer(tapGesture)
     }
 
     @objc private func didTapContainer() {
-
         if textfield.isFirstResponder {
             textfield.resignFirstResponder()
         } else {
@@ -86,17 +73,16 @@ open class TextFieldCodeType: UIView, ModellableView {
 
     public func style() {
         Self.Style.container(container)
-        Self.Style.dropDownIcon(dropDownIcon)
         Self.Style.title(label)
     }
 
-    public func update(oldModel _: TextFieldCodeTypeVM?) {
-        guard let _ = model else {
+    public func update(oldModel _: PickerHealthCardDateVM?) {
+        guard let model = model else {
             return
         }
 
         Self.Style.shadow(container)
-        Self.Style.pickerIcon(selectIcon, onFocus: false)
+        Self.Style.pickerIcon(pickerIcon, onFocus: onFocus, isEnabled: self.textfield.isEnabled)
         Self.Style.textfield(textfield, isEnabled: self.textfield.isEnabled)
 
         setNeedsLayout()
@@ -113,19 +99,14 @@ open class TextFieldCodeType: UIView, ModellableView {
             .vertically()
             .horizontally(15)
             .below(of: label)
-        
-        selectIcon.pin
+
+        pickerIcon.pin
             .size(24)
             .left(12)
             .vCenter()
-        
-        dropDownIcon.pin
-            .size(24)
-            .right(12)
-            .vCenter()
 
         textfield.pin
-            .after(of: selectIcon)
+            .after(of: pickerIcon)
             .horizontally(36)
             .marginLeft(5)
             .vertically(5)
@@ -140,10 +121,10 @@ open class TextFieldCodeType: UIView, ModellableView {
 
 // MARK: - Style
 
-extension TextFieldCodeType {
+extension PickerHealthCardDate {
     enum Style {
         static func title(_ label: UILabel) {
-            let content = L10n.HomeView.RetriveGreenCertificate.inputCodeTypeLabel
+            let content = L10n.HomeView.GenerateGreenCertificate.inputHealthCardDateLabel
             TempuraStyles.styleShrinkableLabel(
                 label,
                 content: content,
@@ -163,16 +144,16 @@ extension TextFieldCodeType {
             view.addShadow(.textfieldFocus)
         }
 
-        static func pickerIcon(_ view: UIImageView, onFocus: Bool) {
-            view.image = Asset.Home.tipology.image
+        static func pickerIcon(_ view: UIImageView, onFocus: Bool, isEnabled: Bool) {
+            view.image = Asset.Settings.UploadData.calendar.image
             view.contentMode = .scaleAspectFit
             view.image = view.image?.withRenderingMode(.alwaysTemplate)
-            view.tintColor = onFocus ? Palette.primary : Palette.grayNormal
-        }
-        
-        static func dropDownIcon(_ view: UIImageView) {
-            view.image = Asset.Home.down.image
-            view.contentMode = .scaleAspectFit
+            if isEnabled {
+                view.tintColor = onFocus ? Palette.primary : Palette.grayNormal
+            }
+            else {
+                view.tintColor = Palette.grayExtraWhite
+            }
         }
 
         static func textfield(_ textfield: UITextField, isEnabled: Bool) {
@@ -189,7 +170,7 @@ extension TextFieldCodeType {
             textfield.typingAttributes = textStyle.attributes
             textfield.defaultTextAttributes = textStyle.attributes
 
-            let placeholder = NSAttributedString(string: L10n.HomeView.RetriveGreenCertificate.inputCodeTypePlaceholder)
+            let placeholder = NSAttributedString(string: L10n.HomeView.GenerateGreenCertificate.inputHealthCardDatePlaceholder)
             textfield.attributedPlaceholder = placeholder.styled(with: placeholderStyle)
         }
     }
@@ -197,22 +178,68 @@ extension TextFieldCodeType {
 
 // MARK: - Delegate
 
-extension TextFieldCodeType: UITextFieldDelegate {
-  
-    public func textFieldDidBeginEditing(_: UITextField) {}
+extension PickerHealthCardDate: UITextFieldDelegate {
+    public func textFieldDidBeginEditing(_: UITextField) {
+        onFocus = true
+    }
 
-    public func textFieldDidEndEditing(_: UITextField) {}
+    public func textFieldDidEndEditing(_: UITextField) {
+        onFocus = false
+    }
 
     public func textField(
         _ textField: UITextField,
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool {
-        return false
+        let result = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
+        didChangePickerValue?(result)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            // don't do it sync as the textfield is not immediately updated
+            self.update(oldModel: self.model)
+        }
+
+        return true
     }
 
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return false
+    }
+}
+
+private extension UITextField {
+    func setInputViewDatePicker(target: Any, selector: Selector) {
+        // Create a UIDatePicker object and assign to inputView
+        let screenWidth = UIScreen.main.bounds.width
+        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 216))
+
+        datePicker.datePickerMode = .date
+        // iOS 14 and above
+        if #available(iOS 14, *) { // Added condition for iOS 14
+            datePicker.preferredDatePickerStyle = .wheels
+            datePicker.sizeToFit()
+        }
+        datePicker.backgroundColor = .white
+
+//        datePicker.minimumDate = Calendar.current.date(byAdding: .day, value: -13, to: Date())
+//        datePicker.maximumDate = Calendar.current.date(byAdding: .day, value: 0, to: Date())
+
+        inputView = datePicker
+        // Create a toolbar and assign it to inputAccessoryView
+        let toolBar = UIToolbar(frame: CGRect(x: 0.0, y: 0.0, width: screenWidth, height: 44.0))
+        let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancel = UIBarButtonItem(title: L10n.cancel, style: .plain, target: nil, action: #selector(tapCancelPickerHealthCardDate))
+
+        let barButton = UIBarButtonItem(title: L10n.confirm, style: .plain, target: target, action: selector)
+        cancel.tintColor = Palette.purple
+        barButton.tintColor = Palette.purple
+        toolBar.setItems([cancel, flexible, barButton], animated: true)
+        inputAccessoryView = toolBar
+    }
+
+    @objc func tapCancelPickerHealthCardDate() {
+        resignFirstResponder()
     }
 }

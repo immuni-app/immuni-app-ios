@@ -282,10 +282,10 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
             else{
                 Self.Style.value(dateTimeOfTestResult, text: "---")
             }
-            
-            Self.Style.value(testingCentre, text: detailTestCertificate.testingCentre)
-            Self.Style.value(countryOfTest, text: detailTestCertificate.countryOfTest)
-            Self.Style.value(certificateIssuer, text: detailTestCertificate.certificateIssuer)
+          
+            Self.Style.value(testingCentre, text: detailTestCertificate.testingCentre.isEmpty ? "---" : detailTestCertificate.testingCentre)
+            Self.Style.value(countryOfTest, text: detailTestCertificate.countryOfTest.isEmpty ? "---" : detailTestCertificate.countryOfTest)
+            Self.Style.value(certificateIssuer, text: detailTestCertificate.certificateIssuer.isEmpty ? "---" : detailTestCertificate.certificateIssuer)
         }
 
         Self.Style.label(paragraph, text: L10n.HomeView.GreenCertificate.Detail.paragraph)

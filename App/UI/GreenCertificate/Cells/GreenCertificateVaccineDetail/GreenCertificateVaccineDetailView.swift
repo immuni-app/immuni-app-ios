@@ -215,12 +215,7 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
         
         if let detailVaccineCertificate = model.greenCertificate.detailVaccineCertificate {
             
-            if let diseaseTarget = Disease(rawValue: detailVaccineCertificate.disease) {
-                Self.Style.value(diseaseVaccine, text: diseaseTarget.getDescription())
-            }
-            else{
-                Self.Style.value(vaccineType, text: "---")
-            }
+            Self.Style.value(diseaseVaccine, text: detailVaccineCertificate.disease)
             
             if let vaccineTypeValue = VaccineType(rawValue: detailVaccineCertificate.vaccineType) {
                 Self.Style.value(vaccineType, text: vaccineTypeValue.getDescription())
@@ -240,16 +235,21 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
             else{
                 Self.Style.value(vaccineProducer, text: "---")
             }
-            if detailVaccineCertificate.doseNumber == detailVaccineCertificate.totalSeriesOfDoses {
+            if detailVaccineCertificate.doseNumber == detailVaccineCertificate.totalSeriesOfDoses,
+               !detailVaccineCertificate.doseNumber.isEmpty {
                 Self.Style.value(validUntil, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.ValidUntil.first)
             }
             else{
                 Self.Style.value(validUntil, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.ValidUntil.second)
             }
-            Self.Style.value(numberOfDosesVaccine, text: "\(detailVaccineCertificate.doseNumber) \(L10n.HomeView.GreenCertificate.Detail.of) \(detailVaccineCertificate.totalSeriesOfDoses)")
-            Self.Style.value(dateLastAdministrationVaccine, text: detailVaccineCertificate.dateLastAdministration)
-            Self.Style.value(vaccinationCuntry, text: detailVaccineCertificate.vaccinationCuntry)
-            Self.Style.value(certificateAuthorityVaccine, text: detailVaccineCertificate.certificateAuthority)
+            Self.Style.value(numberOfDosesVaccine, text: "\(detailVaccineCertificate.doseNumber.isEmpty ? "-" : detailVaccineCertificate.doseNumber) \(L10n.HomeView.GreenCertificate.Detail.of) \(detailVaccineCertificate.totalSeriesOfDoses.isEmpty ? "-" : detailVaccineCertificate.totalSeriesOfDoses)")
+            
+            Self.Style.value(dateLastAdministrationVaccine, text: detailVaccineCertificate.dateLastAdministration.isEmpty ? "---" : detailVaccineCertificate.dateLastAdministration)
+            
+            Self.Style.value(vaccinationCuntry, text: detailVaccineCertificate.vaccinationCuntry.isEmpty ? "---" : detailVaccineCertificate.vaccinationCuntry)
+            
+            Self.Style.value(certificateAuthorityVaccine, text:
+                                detailVaccineCertificate.certificateAuthority.isEmpty ? "---" : detailVaccineCertificate.certificateAuthority)
         }
         Self.Style.label(paragraph, text: L10n.HomeView.GreenCertificate.Detail.paragraph)
         Self.Style.contactButton(self.contactButton, content: L10n.HomeView.GreenCertificate.Detail.url)

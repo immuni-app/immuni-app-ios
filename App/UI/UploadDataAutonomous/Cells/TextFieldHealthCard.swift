@@ -153,7 +153,7 @@ extension TextFieldHealthCard {
             textfield.defaultTextAttributes = textStyle.attributes
             textfield.keyboardType = .numberPad
 
-            let placeholder = NSAttributedString(string: L10n.HomeView.RetriveGreenCertificate.inputHealthCardPlaceholder)
+            let placeholder = NSAttributedString(string: L10n.HomeView.GenerateGreenCertificate.inputHealthCardPlaceholder)
             textfield.attributedPlaceholder = placeholder.styled(with: placeholderStyle)
         }
     }

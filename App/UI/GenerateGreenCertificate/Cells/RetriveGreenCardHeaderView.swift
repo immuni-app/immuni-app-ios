@@ -1,4 +1,4 @@
-// RetriveGreenCardHeaderView.swift
+// GenerateGreenCardHeaderView.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -16,15 +16,15 @@ import Foundation
 import Lottie
 import Tempura
 
-struct RetriveGreenCardHeaderVM: ViewModel {}
+struct GenerateGreenCardHeaderVM: ViewModel {}
 
 // MARK: - View
 
-class RetriveGreenCardHeaderView: UIView, ModellableView {
+class GenerateGreenCardHeaderView: UIView, ModellableView {
     static let horizontalMargin: CGFloat = 30.0
     static let textToDiscoverMore: CGFloat = 10.0
 
-    typealias VM = RetriveGreenCardHeaderVM
+    typealias VM = GenerateGreenCardHeaderVM
 
     var didTapDiscoverMore: Interaction?
 
@@ -96,14 +96,14 @@ class RetriveGreenCardHeaderView: UIView, ModellableView {
 
 // MARK: - Style
 
-private extension RetriveGreenCardHeaderView {
+private extension GenerateGreenCardHeaderView {
     enum Style {
         static func background(_ view: UIView) {
             view.backgroundColor = .clear
         }
 
         static func message(_ label: UILabel) {
-            let content = L10n.HomeView.RetriveGreenCertificate.header
+            let content = L10n.HomeView.GenerateGreenCertificate.header
 
             let textStyle = TextStyles.p.byAdding(
                 .color(Palette.grayNormal),

@@ -87,7 +87,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
     var didTapBack: Interaction?
 
     var didTapDiscoverMore: CustomInteraction<GreenCertificate>?
-    var didTapRetriveGreenCertificate: Interaction?
+    var didTapGenerateGreenCertificate: Interaction?
     var didTapDeleteGreenCertificate: CustomInteraction<Int>?
     var didTapSaveGreenCertificate: CustomInteraction<Int>?
 
@@ -114,7 +114,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             self?.didTapBack?()
            }
         actionButton.on(.touchUpInside) { [weak self] _ in
-            self?.didTapRetriveGreenCertificate?()
+            self?.didTapGenerateGreenCertificate?()
            }
         deleteButton.on(.touchUpInside) { [weak self] _ in
             if let index = self?.model?.currentDgc {
@@ -281,8 +281,9 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             scrollView.addSubview(idLabel)
             scrollView.addSubview(idLabelEn)
             scrollView.addSubview(id)
-            Self.Style.value(name, text: greenCertificates[model.currentDgc].name)
-            Self.Style.value(birth, text: greenCertificates[model.currentDgc].birth)
+            
+            Self.Style.value(name, text: greenCertificates[model.currentDgc].name.isEmpty ? "---" : greenCertificates[model.currentDgc].name)
+            Self.Style.value(birth, text: greenCertificates[model.currentDgc].birth.isEmpty ? "---" : greenCertificates[model.currentDgc].birth)
             Self.Style.value(id, text: greenCertificates[model.currentDgc].id)
             Self.Style.label(nameLabel,text: L10n.HomeView.GreenCertificate.Label.name)
             Self.Style.label(birthLabel,text: L10n.HomeView.GreenCertificate.Label.date)
@@ -517,7 +518,7 @@ private extension GreenCertificateView {
           shadow: UIView.Shadow = .cardPrimary
         ) {
           
-          let text = L10n.HomeView.GreenCertificate.retriveButton
+          let text = L10n.HomeView.GreenCertificate.generateButton
           let textStyle = TextStyles.pSemibold.byAdding([
             .color(tintColor),
             .alignment(.center)

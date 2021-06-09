@@ -127,15 +127,15 @@ extension TextFieldCode {
             var content: String
             switch (codeType) {
               case .nrfe:
-                content = L10n.HomeView.RetriveGreenCertificate.inputCodeNrfeLabel
+                content = L10n.HomeView.GenerateGreenCertificate.inputCodeNrfeLabel
               case .cun:
-                content = L10n.HomeView.RetriveGreenCertificate.inputCodeCunLabel
+                content = L10n.HomeView.GenerateGreenCertificate.inputCodeCunLabel
               case .nucg:
-                content = L10n.HomeView.RetriveGreenCertificate.inputCodeNucgLabel
+                content = L10n.HomeView.GenerateGreenCertificate.inputCodeNucgLabel
               case .authcode:
-                content = L10n.HomeView.RetriveGreenCertificate.inputCodeAuthcodeLabel
+                content = L10n.HomeView.GenerateGreenCertificate.inputCodeAuthcodeLabel
               case .none:
-                content = L10n.HomeView.RetriveGreenCertificate.inputCodeLabel
+                content = L10n.HomeView.GenerateGreenCertificate.inputCodeLabel
             }
             
             TempuraStyles.styleShrinkableLabel(
@@ -187,15 +187,15 @@ extension TextFieldCode {
             
             switch (codeType) {
               case .nrfe:
-                placeholder = NSAttributedString(string: L10n.HomeView.RetriveGreenCertificate.inputCodeNrfePlaceholder)
+                placeholder = NSAttributedString(string: L10n.HomeView.GenerateGreenCertificate.inputCodeNrfePlaceholder)
               case .cun:
-                placeholder = NSAttributedString(string: L10n.HomeView.RetriveGreenCertificate.inputCodeCunPlaceholder)
+                placeholder = NSAttributedString(string: L10n.HomeView.GenerateGreenCertificate.inputCodeCunPlaceholder)
               case .nucg:
-                placeholder = NSAttributedString(string: L10n.HomeView.RetriveGreenCertificate.inputCodeNucgPlaceholder)
+                placeholder = NSAttributedString(string: L10n.HomeView.GenerateGreenCertificate.inputCodeNucgPlaceholder)
               case .authcode:
-                placeholder = NSAttributedString(string: L10n.HomeView.RetriveGreenCertificate.inputCodeAuthcodePlaceholder)
+                placeholder = NSAttributedString(string: L10n.HomeView.GenerateGreenCertificate.inputCodeAuthcodePlaceholder)
               case .none:
-                placeholder = NSAttributedString(string: L10n.HomeView.RetriveGreenCertificate.inputCodePlaceholder)
+                placeholder = NSAttributedString(string: L10n.HomeView.GenerateGreenCertificate.inputCodePlaceholder)
                 }
             
             textfield.attributedPlaceholder = placeholder.styled(with: placeholderStyle)

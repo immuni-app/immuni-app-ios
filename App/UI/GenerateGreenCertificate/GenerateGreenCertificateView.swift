@@ -1,4 +1,4 @@
-// RetriveGreenCertificateView.swift
+// GenerateGreenCertificateView.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -17,7 +17,7 @@ import Models
 import Tempura
 import DropDown
 
-struct RetriveGreenCertificateVM: ViewModelWithLocalState {
+struct GenerateGreenCertificateVM: ViewModelWithLocalState {
     var textFieldCodeVM: TextFieldCodeVM = TextFieldCodeVM(codeType: nil)
     var textFieldHealthCardVM: TextFieldHealthCardVM { TextFieldHealthCardVM() }
     var pickerFieldVM: PickerHealthCardDateVM { PickerHealthCardDateVM() }
@@ -27,8 +27,8 @@ struct RetriveGreenCertificateVM: ViewModelWithLocalState {
     let isLoading: Bool
 }
 
-extension RetriveGreenCertificateVM {
-    init?(state _: AppState?, localState: RetriveGreenCertificateLS) {
+extension GenerateGreenCertificateVM {
+    init?(state _: AppState?, localState: GenerateGreenCertificateLS) {
         isLoading = localState.isLoading
         self.textFieldCodeVM.codeType = localState.codeType
     }
@@ -36,8 +36,8 @@ extension RetriveGreenCertificateVM {
 
 // MARK: - View
 
-class RetriveGreenCertificateView: UIView, ViewControllerModellableView {
-    typealias VM = RetriveGreenCertificateVM
+class GenerateGreenCertificateView: UIView, ViewControllerModellableView {
+    typealias VM = GenerateGreenCertificateVM
 
     private static let horizontalSpacing: CGFloat = 30.0
     static let orderLeftMargin: CGFloat = UIDevice.getByScreen(normal: 70, narrow: 50)
@@ -48,7 +48,7 @@ class RetriveGreenCertificateView: UIView, ViewControllerModellableView {
 
     private var backButton = ImageButton()
     let scrollView = UIScrollView()
-    private let headerView = RetriveGreenCardHeaderView()
+    private let headerView = GenerateGreenCardHeaderView()
 
     private let textFieldCode = TextFieldCode()
     private let textFieldHealthCard = TextFieldHealthCard()
@@ -213,7 +213,7 @@ class RetriveGreenCertificateView: UIView, ViewControllerModellableView {
 
 // MARK: - Style
 
-private extension RetriveGreenCertificateView {
+private extension GenerateGreenCertificateView {
     enum Style {
         
         static func container(_ view: UIView) {
@@ -238,7 +238,7 @@ private extension RetriveGreenCertificateView {
         }
 
         static func title(_ label: UILabel) {
-            let content = L10n.HomeView.RetriveGreenCertificate.title
+            let content = L10n.HomeView.GenerateGreenCertificate.title
             TempuraStyles.styleShrinkableLabel(
                 label,
                 content: content,
@@ -246,7 +246,7 @@ private extension RetriveGreenCertificateView {
                     .color(Palette.grayDark),
                     .alignment(.center)
                 ),
-                numberOfLines: 1
+                numberOfLines: 2
             )
         }
     }
