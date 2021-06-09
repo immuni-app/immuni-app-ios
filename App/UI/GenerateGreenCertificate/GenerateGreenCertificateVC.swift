@@ -1,4 +1,4 @@
-// RetriveGreenCertificateVC.swift
+// GenerateGreenCertificateVC.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -16,14 +16,14 @@ import Foundation
 import Models
 import Tempura
 
-class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertificateView> {
+class GenerateGreenCertificateVC: ViewControllerWithLocalState<GenerateGreenCertificateView> {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
     override func setupInteraction() {
         rootView.didTapBack = { [weak self] in
-            self?.dispatch(Hide(Screen.retriveGreenCertificate, animated: true))
+            self?.dispatch(Hide(Screen.generateGreenCertificate, animated: true))
         }
 
         rootView.didTapActionButton = { [weak self] in
@@ -39,35 +39,35 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
                 if self.localState.code == "" {
                     switch codeType {
                       case .cun:
-                        message += L10n.HomeView.RetriveGreenCertificate.FormError.codeCunRequired
+                        message += L10n.HomeView.GenerateGreenCertificate.FormError.codeCunRequired
                       case .nrfe:
-                        message += L10n.HomeView.RetriveGreenCertificate.FormError.codeNrfeRequired
+                        message += L10n.HomeView.GenerateGreenCertificate.FormError.codeNrfeRequired
                       case .nucg:
-                        message += L10n.HomeView.RetriveGreenCertificate.FormError.codeNucgRequired
+                        message += L10n.HomeView.GenerateGreenCertificate.FormError.codeNucgRequired
                       case .authcode:
-                        message += L10n.HomeView.RetriveGreenCertificate.FormError.codeAuthcodeRequired
+                        message += L10n.HomeView.GenerateGreenCertificate.FormError.codeAuthcodeRequired
                     }
                 } else if code == nil {
                     switch codeType {
                       case .cun:
-                        message += L10n.HomeView.RetriveGreenCertificate.FormError.codeCunWrong
+                        message += L10n.HomeView.GenerateGreenCertificate.FormError.codeCunWrong
                       case .nrfe:
-                        message += L10n.HomeView.RetriveGreenCertificate.FormError.codeNfreWrong
+                        message += L10n.HomeView.GenerateGreenCertificate.FormError.codeNfreWrong
                       case .nucg:
-                        message += L10n.HomeView.RetriveGreenCertificate.FormError.codeNucgWrong
+                        message += L10n.HomeView.GenerateGreenCertificate.FormError.codeNucgWrong
                       case .authcode:
-                        message += L10n.HomeView.RetriveGreenCertificate.FormError.codeAuthcodeWrong
+                        message += L10n.HomeView.GenerateGreenCertificate.FormError.codeAuthcodeWrong
                     }
                 }
             }
             else {
-                message += L10n.HomeView.RetriveGreenCertificate.FormError.codeTypeRequired
+                message += L10n.HomeView.GenerateGreenCertificate.FormError.codeTypeRequired
             }
             if !self.validateHealthCard(healthCard: self.localState.healtCard) {
-                message += L10n.HomeView.RetriveGreenCertificate.FormError.healthCardRequired
+                message += L10n.HomeView.GenerateGreenCertificate.FormError.healthCardRequired
             }
             if !self.validateHealthCardDate(date: self.localState.hisExpiringDate) {
-                message += L10n.HomeView.RetriveGreenCertificate.FormError.healthCardDateRequired
+                message += L10n.HomeView.GenerateGreenCertificate.FormError.healthCardDateRequired
             }
             
             if message != "" {
@@ -75,12 +75,12 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
                 return
             } else {
                 guard let code = code, let codeType = self.localState.codeType else { return }
-                self.retriveDgc(code: code, codeType: codeType, lastHisNumber: self.localState.healtCard, hisExpiringDate: self.localState.hisExpiringDate)
+                self.generateDgc(code: code, codeType: codeType, lastHisNumber: self.localState.healtCard, hisExpiringDate: self.localState.hisExpiringDate)
             }
         }
 
         rootView.didTapDiscoverMore = { [weak self] in
-            self?.dispatch(Logic.PermissionTutorial.ShowHowToRetriveDigitalGreenCertificate())
+            self?.dispatch(Logic.PermissionTutorial.ShowHowToGenerateDigitalGreenCertificate())
         }
         rootView.didChangeCodeValue = { [weak self] value in
             self?.localState.code = self?.localState.codeType == .nrfe ? value : value.uppercased()
@@ -136,10 +136,10 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
         return false
     }
 
-    private func retriveDgc(code: String, codeType: CodeType, lastHisNumber: String, hisExpiringDate: String) {
+    private func generateDgc(code: String, codeType: CodeType, lastHisNumber: String, hisExpiringDate: String) {
         localState.isLoading = true
 
-        dispatch(Logic.DataUpload.RetriveDigitalGreenCertificate(code: code, lastHisNumber: lastHisNumber, hisExpiringDate: hisExpiringDate, codeType: codeType))
+        dispatch(Logic.DataUpload.GenerateDigitalGreenCertificate(code: code, lastHisNumber: lastHisNumber, hisExpiringDate: hisExpiringDate, codeType: codeType))
             .then {
                 self.localState.isLoading = false
             }
@@ -151,7 +151,7 @@ class RetriveGreenCertificateVC: ViewControllerWithLocalState<RetriveGreenCertif
 
 // MARK: - LocalState
 
-struct RetriveGreenCertificateLS: LocalState {
+struct GenerateGreenCertificateLS: LocalState {
     var code: String = ""
     var healtCard: String = ""
     var hisExpiringDate: String = ""

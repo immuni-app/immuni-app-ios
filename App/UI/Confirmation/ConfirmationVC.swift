@@ -47,7 +47,7 @@ extension ConfirmationLS {
   static var uploadDataCompleted: Self {
     return .init(title: L10n.ConfirmData.Confirmation.title, details: L10n.ConfirmData.Confirmation.subtitle)
   }
-  static var retriveGreenCertificateCompleted: Self {
+  static var generateGreenCertificateCompleted: Self {
     return .init(title: L10n.ConfirmData.GreenCertificate.title, details: "")
   }
   static var saveGreenCertificateCompleted: Self {

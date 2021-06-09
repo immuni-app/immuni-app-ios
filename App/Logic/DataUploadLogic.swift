@@ -160,8 +160,8 @@ extension Logic.DataUpload {
       try context.awaitDispatch(ShowConfirmData(code: self.code))
     }
   }
-    /// Retrive digital green certificate
-    struct RetriveDigitalGreenCertificate: AppSideEffect {
+    /// Generate digital green certificate
+    struct GenerateDigitalGreenCertificate: AppSideEffect {
         
       let code: String
       let lastHisNumber: String
@@ -174,16 +174,16 @@ extension Logic.DataUpload {
 
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
         let state = context.getState()
-        try context.awaitDispatch(Logic.Loading.Show(message: L10n.HomeView.RetriveGreenCertificate.loading))
+        try context.awaitDispatch(Logic.Loading.Show(message: L10n.HomeView.GenerateGreenCertificate.loading))
 
         do {
             let requestSize = state.configuration.ingestionRequestTargetSize
-            let body = RetriveDgcRequest.Body(
+            let body = GenerateDgcRequest.Body(
                 lastHisNumber: lastHisNumber,
                 hisExpiringDate: hisExpiringDate,
                 tokenType: codeType.rawValue.lowercased()
             )
-            let data = try `await`(context.dependencies.networkManager.retriveDigitalGreenCertificate(
+            let data = try `await`(context.dependencies.networkManager.generateDigitalGreenCertificate(
                                     body: body,
                                     code: code,
                                     requestSize: requestSize))
@@ -225,11 +225,11 @@ extension Logic.DataUpload {
           }
         try `await`(context.dispatch(Logic.Loading.Hide()))
 
-        try context.awaitDispatch(Show(Screen.confirmation, animated: true, context: ConfirmationLS.retriveGreenCertificateCompleted))
+        try context.awaitDispatch(Show(Screen.confirmation, animated: true, context: ConfirmationLS.generateGreenCertificateCompleted))
         try `await`(Promise<Void>(resolved: ()).defer(2))
 
         try context.awaitDispatch(Hide(Screen.confirmation, animated: true))
-        try context.awaitDispatch(Hide(Screen.retriveGreenCertificate, animated: true))
+        try context.awaitDispatch(Hide(Screen.generateGreenCertificate, animated: true))
         }
     
       private func detectQRCode(qr: String) -> GreenCertificate? {

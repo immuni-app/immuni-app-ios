@@ -1,4 +1,4 @@
-// RetriveDgcRequest.swift
+// GenerateDgcRequest.swift
 // Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@ import Models
 import Extensions
 
 
-public struct RetriveDgcRequest: FixedSizeJSONRequest {
+public struct GenerateDgcRequest: FixedSizeJSONRequest {
     
   // swiftlint:disable:next force_unwrapping
   public var baseURL = URL(string: "https://upload.immuni.gov.it")!
@@ -49,13 +49,13 @@ public struct RetriveDgcRequest: FixedSizeJSONRequest {
     }
 }
 
-public extension RetriveDgcRequest {
+public extension GenerateDgcRequest {
   struct Body: Encodable {
     public let lastHisNumber: String
     public let hisExpiringDate: String
     public let tokenType: String
   
-    /// Create a Retrive dgc  request body.
+    /// Create a Generate dgc  request body.
     /// A padding is added automatically so that both valid both dummy requests will have the same size.
     public init(
       lastHisNumber: String,
@@ -69,7 +69,7 @@ public extension RetriveDgcRequest {
   }
 }
 
-public extension RetriveDgcRequest.Body {
+public extension GenerateDgcRequest.Body {
   enum CodingKeys: String, CodingKey {
     case lastHisNumber = "last_his_number"
     case hisExpiringDate = "his_expiring_date"

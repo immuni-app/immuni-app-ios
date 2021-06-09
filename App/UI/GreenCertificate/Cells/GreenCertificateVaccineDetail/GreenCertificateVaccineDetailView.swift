@@ -215,12 +215,7 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
         
         if let detailVaccineCertificate = model.greenCertificate.detailVaccineCertificate {
             
-            if let diseaseTarget = Disease(rawValue: detailVaccineCertificate.disease) {
-                Self.Style.value(diseaseVaccine, text: diseaseTarget.getDescription())
-            }
-            else{
-                Self.Style.value(vaccineType, text: "---")
-            }
+            Self.Style.value(diseaseVaccine, text: detailVaccineCertificate.disease)
             
             if let vaccineTypeValue = VaccineType(rawValue: detailVaccineCertificate.vaccineType) {
                 Self.Style.value(vaccineType, text: vaccineTypeValue.getDescription())

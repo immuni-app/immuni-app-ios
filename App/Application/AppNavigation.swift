@@ -46,7 +46,7 @@ enum Screen: String, CaseIterable {
   case fixActiveService
   case suggestions
   case greenCertificate
-  case retriveGreenCertificate
+  case generateGreenCertificate
   case greenCertificateVaccineDetail
   case greenCertificateRecoveryDetail
   case greenCertificateTestDetail
@@ -532,14 +532,14 @@ extension HomeNC: RoutableWithConfiguration {
         let ls = context as? GreenCertificateTestDetailLS ?? AppLogger.fatalError("invalid context")
         return GreenCertificateTestDetailVC(store: self.store, localState: ls)
         },
-      .show(Screen.retriveGreenCertificate): .push { _ in
-        return RetriveGreenCertificateVC(store: self.store, localState: RetriveGreenCertificateLS())
+      .show(Screen.generateGreenCertificate): .push { _ in
+        return GenerateGreenCertificateVC(store: self.store, localState: GenerateGreenCertificateLS())
           },
       .hide(Screen.uploadData): .pop,
       .hide(Screen.chooseDataUploadMode): .pop,
       .hide(Screen.uploadDataAutonomous): .pop,
       .hide(Screen.greenCertificate): .pop,
-      .hide(Screen.retriveGreenCertificate): .pop,
+      .hide(Screen.generateGreenCertificate): .pop,
       .hide(Screen.greenCertificateVaccineDetail): .dismissModally(behaviour: .hard),
       .hide(Screen.greenCertificateRecoveryDetail): .dismissModally(behaviour: .hard),
       .hide(Screen.greenCertificateTestDetail): .dismissModally(behaviour: .hard),
@@ -587,9 +587,9 @@ extension GreenCertificateVC: RoutableWithConfiguration {
     return [:]
   }
 }
-extension RetriveGreenCertificateVC: RoutableWithConfiguration {
+extension GenerateGreenCertificateVC: RoutableWithConfiguration {
   var routeIdentifier: RouteElementIdentifier {
-    return Screen.retriveGreenCertificate.rawValue
+    return Screen.generateGreenCertificate.rawValue
   }
 
   var navigationConfiguration: [NavigationRequest: NavigationInstruction] {

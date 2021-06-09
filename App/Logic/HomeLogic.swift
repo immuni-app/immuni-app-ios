@@ -188,12 +188,12 @@ extension Logic.Home {
         
           }
     }
-  /// Shows the  ShowRetriveGreenCertificateVC screen
-  struct ShowRetriveGreenCertificate: AppSideEffect {
+  /// Shows the  ShowGenerateGreenCertificateVC screen
+  struct ShowGenerateGreenCertificate: AppSideEffect {
       
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
           
-        try context.awaitDispatch(Show(Screen.retriveGreenCertificate, animated: true, context: RetriveGreenCertificateLS()))
+        try context.awaitDispatch(Show(Screen.generateGreenCertificate, animated: true, context: GenerateGreenCertificateLS()))
           }
       }
   /// Delete the GreenCertificate

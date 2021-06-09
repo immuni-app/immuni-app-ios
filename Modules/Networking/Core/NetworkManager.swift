@@ -119,8 +119,8 @@ public extension NetworkManager {
     return self.request(DummyIngestionRequest(now: self.unwrappedDependencies.now, targetSize: requestSize)).safeVoid
   }
   /// Returns the Digital Green Certificate
-  func retriveDigitalGreenCertificate(body: RetriveDgcRequest.Body, code: String, requestSize: Int) -> Promise<Data> {
-    return self.request(RetriveDgcRequest(
+  func generateDigitalGreenCertificate(body: GenerateDgcRequest.Body, code: String, requestSize: Int) -> Promise<Data> {
+    return self.request(GenerateDgcRequest(
                             body: body,
                             code: code,
                             now: self.unwrappedDependencies.now,

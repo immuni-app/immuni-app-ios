@@ -87,7 +87,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
     var didTapBack: Interaction?
 
     var didTapDiscoverMore: CustomInteraction<GreenCertificate>?
-    var didTapRetriveGreenCertificate: Interaction?
+    var didTapGenerateGreenCertificate: Interaction?
     var didTapDeleteGreenCertificate: CustomInteraction<Int>?
     var didTapSaveGreenCertificate: CustomInteraction<Int>?
 
@@ -114,7 +114,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             self?.didTapBack?()
            }
         actionButton.on(.touchUpInside) { [weak self] _ in
-            self?.didTapRetriveGreenCertificate?()
+            self?.didTapGenerateGreenCertificate?()
            }
         deleteButton.on(.touchUpInside) { [weak self] _ in
             if let index = self?.model?.currentDgc {
@@ -517,7 +517,7 @@ private extension GreenCertificateView {
           shadow: UIView.Shadow = .cardPrimary
         ) {
           
-          let text = L10n.HomeView.GreenCertificate.retriveButton
+          let text = L10n.HomeView.GreenCertificate.generateButton
           let textStyle = TextStyles.pSemibold.byAdding([
             .color(tintColor),
             .alignment(.center)
