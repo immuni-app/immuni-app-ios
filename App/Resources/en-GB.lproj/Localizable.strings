@@ -95,7 +95,7 @@
 "home_view.green_certificate.detail.label.vaccine.vaccine_type" = "Tipo di vaccino somministrato";
 "home_view.green_certificate.detail.label.vaccine.vaccine_name" = "Denominazione del vaccino";
 "home_view.green_certificate.detail.label.vaccine.vaccine_producer" = "Produttore o titolare dell'AIC del vaccino";
-"home_view.green_certificate.detail.label.vaccine.number_of_doses" = "Numero della dose effettuata/numero totale doci previste";
+"home_view.green_certificate.detail.label.vaccine.number_of_doses" = "Numero della dose effettuata/numero totale dosi previste";
 "home_view.green_certificate.detail.label.vaccine.date_last_administration" = "Data dell'ultima somministrazione";
 "home_view.green_certificate.detail.label.vaccine.vaccination_cuntry" = "Stato Membro in cui è stata eseguita la vaccinazione";
 "home_view.green_certificate.detail.label.vaccine.certificate_authority" = "Struttura che ha rilasciato la certificazione";
@@ -169,7 +169,7 @@
 "home_view.generate_green_certificate.input_code_nucg_placeholder" = "Enter the code";
 "home_view.generate_green_certificate.input_code_nrfe_label" = "NRFE";
 "home_view.generate_green_certificate.input_code_nrfe_placeholder" = "Enter the code";
-"home_view.generate_green_certificate.input_health_card_label" = "The last eight digits of your Health ID Card";
+"home_view.generate_green_certificate.input_health_card_label" = "The last 8 digits of your Health ID Card";
 "home_view.generate_green_certificate.input_health_card_placeholder" = "Health insurance card";
 "home_view.generate_green_certificate.input_health_card_date_label" = "Health Card expiry date";
 "home_view.generate_green_certificate.input_health_card_date_placeholder" = "Expiry date";
@@ -345,7 +345,7 @@
 "settings.setting.load_data_autonomous.call_center.title" = "Call the Call Center";
 "settings.setting.load_data_autonomous.cun.label" = "CUN of the positive swab";
 "settings.setting.load_data_autonomous.cun.placeholder" = "Enter the code";
-"settings.setting.load_data_autonomous.health_card.placeholder" = "The last eight digits of your Health ID Card";
+"settings.setting.load_data_autonomous.health_card.placeholder" = "The last 8 digits of your Health ID Card";
 "settings.setting.load_data_autonomous.symptoms_date.placeholder" = "Date";
 "settings.setting.load_data_autonomous.symptoms_date.label" = "Initial beginning date of the Symptoms";
 "settings.setting.load_data_autonomous.asymptomatic.message" = "No symptoms";
