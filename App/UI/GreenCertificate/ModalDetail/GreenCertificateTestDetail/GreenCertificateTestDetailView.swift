@@ -261,7 +261,7 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
             dateFormatterUtc.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ+00:00"
             
             let dateFormatterView = DateFormatter()
-            dateFormatterView.dateFormat = "yyyy-MM-dd"
+            dateFormatterView.dateFormat = "yyyy-MM-dd HH:mm:ss"
             
             if let dateTimeOfSampleCollectionValue = dateFormatter.date(from: detailTestCertificate.dateTimeOfSampleCollection) {
                 Self.Style.value(dateTimeOfSampleCollection, text: dateFormatterView.string(from: dateTimeOfSampleCollectionValue))
