@@ -1,5 +1,7 @@
 "accessibility.app_name" = "Immuni";
 "accessibility.back" = "Zurück";
+"accessibility.next" = "Nach vorne";
+"accessibility.prev" = "Zurück";
 "accessibility.close" = "Schließen";
 "app_exit_message" = "Sind Sie sicher, dass Sie schließen möchten?";
 "app_exit_title" = "Schließen";
@@ -67,7 +69,7 @@
 "home_view.green_certificate.header" = "Il Digital Green Certificate ti permette di certificare la tua immunità al COVID-19.";
 "home_view.green_certificate.discover_more" = "Mehr Details";
 "home_view.green_certificate.label" = "Il tuo Digital Green Certificate";
-"home_view.green_certificate.swipe_label" = "Scrollen Sie, um andere\nZertifikate anzuzeigen";
+"home_view.green_certificate.swipe_label" = "Scrollen Sie, um andere Zertifikate anzuzeigen";
 "home_view.green_certificate.not_present_qr_label" = "Das EU Digital Covid Certificate wurde noch nicht wiederhergestellt";
 "home_view.green_certificate.generate_button" = "Abrufen des EU Digital\nCovid Certificate";
 "home_view.green_certificate.delete_button" = "Löschen";
