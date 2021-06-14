@@ -66,7 +66,7 @@
 "home_view.green_certificate.header" = "Il Digital Green Certificate ti permette di certificare la tua immunità al COVID-19.";
 "home_view.green_certificate.discover_more" = "More details";
 "home_view.green_certificate.label" = "Il tuo Digital Green Certificate";
-"home_view.green_certificate.swipe_label" = "Scroll to view other\ncertificates";
+"home_view.green_certificate.swipe_label" = "Swipe to view other\ncertificates";
 "home_view.green_certificate.not_present_qr_label" = "The EU Digital Covid Certificate has not yet been recovered";
 "home_view.green_certificate.generate_button" = "Retrieve EU Digital Covid\nCertificate";
 "home_view.green_certificate.delete_button" = "Delete";
