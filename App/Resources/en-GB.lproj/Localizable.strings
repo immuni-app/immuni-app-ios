@@ -143,7 +143,7 @@
 "home_view.green_certificate.detail.label.test.country_of_test_en" = "<i>Member State of test</i>";
 "home_view.green_certificate.detail.label.test.certificate_issuer_en" = "<i>Certificate issuer</i>";
 "home_view.green_certificate.detail.label.test.certificate_type" = "Test certificate";
-"home_view.green_certificate.detail.label.test.valid_until" = "Validity of the EU Digital Covid Certificate";
+"home_view.green_certificate.detail.label.test.valid_until" = "Validità dell'EU Digital Covid Certificate";
 "home_view.green_certificate.detail.label.test.valid_until_en" = "<i>Validity of the EU Digital Covid Certificate</i>";
 "home_view.green_certificate.detail.label.test.valid_until_value" = "Certification valid for 48 hours from the time of collection";
 "home_view.green_certificate.detail.testType.quick" = "Test antigenico rapido";
