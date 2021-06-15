@@ -285,7 +285,6 @@ extension Logic.DataUpload {
                         testResult: hcert.body["t"][0]["tr"].string ?? "---",
                         ratTestNameAndManufacturer: hcert.body["t"][0]["ma"].string ?? "",
                         dateTimeOfSampleCollection: hcert.body["t"][0]["sc"].string ?? "---",
-                        dateTimeOfTestResult: hcert.body["t"][0]["dr"].string ?? "---",
                         testingCentre: hcert.body["t"][0]["tc"].string ?? "---",
                         countryOfTest: hcert.body["t"][0]["co"].string ?? "---",
                         certificateIssuer: L10n.HomeView.GreenCertificate.Detail.certificateIssuer

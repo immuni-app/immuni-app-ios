@@ -81,7 +81,7 @@ public struct DetailTestCertificate: Codable {
    var ratTestNameAndManufacturer: String?
    var naaTestName: String?
    var dateTimeOfSampleCollection: String
-   var dateTimeOfTestResult: String
+   var dateTimeOfTestResult: String?
    var testingCentre: String
    var countryOfTest: String
    var certificateIssuer: String

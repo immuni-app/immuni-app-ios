@@ -65,9 +65,6 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
     private var dateTimeOfSampleCollectionLabel = UILabel()
     private var dateTimeOfSampleCollectionLabelEn = UILabel()
     private var dateTimeOfSampleCollection = UILabel()
-    private var dateTimeOfTestResultLabel = UILabel()
-    private var dateTimeOfTestResultLabelEn = UILabel()
-    private var dateTimeOfTestResult = UILabel()
     private var testingCentreLabel = UILabel()
     private var testingCentreLabelEn = UILabel()
     private var testingCentre = UILabel()
@@ -128,12 +125,6 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
         scrollView.addSubview(dateTimeOfSampleCollectionLabelEn)
         addSubview(dateTimeOfSampleCollection)
         scrollView.addSubview(dateTimeOfSampleCollection)
-        addSubview(dateTimeOfTestResultLabel)
-        scrollView.addSubview(dateTimeOfTestResultLabel)
-        addSubview(dateTimeOfTestResultLabelEn)
-        scrollView.addSubview(dateTimeOfTestResultLabelEn)
-        addSubview(dateTimeOfTestResult)
-        scrollView.addSubview(dateTimeOfTestResult)
         addSubview(testingCentreLabel)
         scrollView.addSubview(testingCentreLabel)
         addSubview(testingCentreLabelEn)
@@ -184,7 +175,6 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
         Self.Style.label(testResultLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.testResult)
         Self.Style.label(ratTestNameAndManufacturerLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.ratTestNameAndManufacturer)
         Self.Style.label(dateTimeOfSampleCollectionLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.dateTimeOfSampleCollection)
-        Self.Style.label(dateTimeOfTestResultLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.dateTimeOfTestResult)
         Self.Style.label(testingCentreLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.testingCentre)
         Self.Style.label(countryOfTestLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.countryOfTest)
         Self.Style.label(certificateIssuerLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.certificateIssuer)
@@ -195,7 +185,6 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
         Self.Style.label(ratTestNameAndManufacturerLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.ratTestNameAndManufacturerEn)
         
         Self.Style.label(dateTimeOfSampleCollectionLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.dateTimeOfSampleCollectionEn)
-        Self.Style.label(dateTimeOfTestResultLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.dateTimeOfTestResultEn)
         Self.Style.label(testingCentreLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.testingCentreEn)
         Self.Style.label(countryOfTestLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.countryOfTestEn)
         Self.Style.label(certificateIssuerLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.certificateIssuerEn)
@@ -256,16 +245,6 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
             }
             else {
                 Self.Style.value(dateTimeOfSampleCollection, text: "---")
-            }
-            
-            if let dateTimeOfTestResultValue = dateFormatter.date(from: detailTestCertificate.dateTimeOfTestResult) {
-                Self.Style.value(dateTimeOfTestResult, text: dateFormatterView.string(from: dateTimeOfTestResultValue))
-            }
-            else if let dateTimeOfTestResultValue = dateFormatterUtc.date(from: detailTestCertificate.dateTimeOfTestResult) {
-                Self.Style.value(dateTimeOfTestResult, text: dateFormatterView.string(from: dateTimeOfTestResultValue))
-            }
-            else{
-                Self.Style.value(dateTimeOfTestResult, text: "---")
             }
           
             Self.Style.value(testingCentre, text: detailTestCertificate.testingCentre.isEmpty ? "---" : detailTestCertificate.testingCentre)
@@ -423,32 +402,9 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        dateTimeOfTestResultLabelEn.pin
-          .minHeight(25)
-          .below(of: dateTimeOfSampleCollection)
-          .marginTop(30)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        dateTimeOfTestResultLabel.pin
-          .minHeight(25)
-          .below(of: dateTimeOfTestResultLabelEn)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        dateTimeOfTestResult.pin
-          .minHeight(25)
-          .below(of: dateTimeOfTestResultLabel)
-          .marginTop(5)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
         testResultLabelEn.pin
           .minHeight(25)
-          .below(of: dateTimeOfTestResult)
+          .below(of: dateTimeOfSampleCollection)
           .marginTop(30)
           .sizeToFit(.width)
           .horizontally(25)
