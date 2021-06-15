@@ -383,7 +383,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         container.pin
           .top(20)
           .horizontally(25)
-          .height(dgcIsPresent ? UIDevice.getByScreen(normal: 850, short: 810) : UIDevice.getByScreen(normal: 400, short: 380))
+          .height(dgcIsPresent ? UIDevice.getByScreen(normal: 860, short: 810) : UIDevice.getByScreen(normal: 400, short: 380))
         
         if dgcIsPresent {
         
@@ -696,8 +696,7 @@ private extension GreenCertificateView {
             TempuraStyles.styleStandardLabel(
                 label,
                 content: text,
-                style: textStyle,
-                numberOfLines: 2
+                style: textStyle
             )
         }
         

@@ -62,9 +62,6 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
     private var ratTestNameAndManufacturerLabel = UILabel()
     private var ratTestNameAndManufacturerLabelEn = UILabel()
     private var ratTestNameAndManufacturer = UILabel()
-    private var naaTestNameLabel = UILabel()
-    private var naaTestNameLabelEn = UILabel()
-    private var naaTestName = UILabel()
     private var dateTimeOfSampleCollectionLabel = UILabel()
     private var dateTimeOfSampleCollectionLabelEn = UILabel()
     private var dateTimeOfSampleCollection = UILabel()
@@ -156,19 +153,6 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
         addSubview(certificateIssuer)
         scrollView.addSubview(certificateIssuer)
         
-        addSubview(naaTestNameLabel)
-        scrollView.addSubview(naaTestNameLabel)
-        addSubview(naaTestNameLabelEn)
-        scrollView.addSubview(naaTestNameLabelEn)
-        addSubview(naaTestName)
-        scrollView.addSubview(naaTestName)
-        addSubview(ratTestNameAndManufacturerLabel)
-        scrollView.addSubview(ratTestNameAndManufacturerLabel)
-        addSubview(ratTestNameAndManufacturerLabelEn)
-        scrollView.addSubview(ratTestNameAndManufacturerLabelEn)
-        addSubview(ratTestNameAndManufacturer)
-        scrollView.addSubview(ratTestNameAndManufacturer)
-        
         scrollView.addSubview(paragraph)
 
         closeButton.on(.touchUpInside) { [weak self] _ in
@@ -199,7 +183,6 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
         Self.Style.label(typeOfTestLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.typeOfTest)
         Self.Style.label(testResultLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.testResult)
         Self.Style.label(ratTestNameAndManufacturerLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.ratTestNameAndManufacturer)
-        Self.Style.label(naaTestNameLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.naaTestName)
         Self.Style.label(dateTimeOfSampleCollectionLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.dateTimeOfSampleCollection)
         Self.Style.label(dateTimeOfTestResultLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.dateTimeOfTestResult)
         Self.Style.label(testingCentreLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.testingCentre)
@@ -210,7 +193,7 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
         Self.Style.label(typeOfTestLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.typeOfTestEn)
         Self.Style.label(testResultLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.testResultEn)
         Self.Style.label(ratTestNameAndManufacturerLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.ratTestNameAndManufacturerEn)
-        Self.Style.label(naaTestNameLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.naaTestNameEn)
+        
         Self.Style.label(dateTimeOfSampleCollectionLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.dateTimeOfSampleCollectionEn)
         Self.Style.label(dateTimeOfTestResultLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.dateTimeOfTestResultEn)
         Self.Style.label(testingCentreLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.testingCentreEn)
@@ -243,16 +226,18 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
                 Self.Style.value(testResult, text: "---")
             }
             if let ratTestNameAndManufacturerValue =  detailTestCertificate.ratTestNameAndManufacturer, ratTestNameAndManufacturerValue != "" {
+                addSubview(ratTestNameAndManufacturerLabel)
+                scrollView.addSubview(ratTestNameAndManufacturerLabel)
+                addSubview(ratTestNameAndManufacturerLabelEn)
+                scrollView.addSubview(ratTestNameAndManufacturerLabelEn)
+                addSubview(ratTestNameAndManufacturer)
+                scrollView.addSubview(ratTestNameAndManufacturer)
                 Self.Style.value(ratTestNameAndManufacturer, text: ratTestNameAndManufacturerValue)
             }
             else {
-                Self.Style.value(ratTestNameAndManufacturer, text: "---")
-            }
-            if let naaTestNameValue =  detailTestCertificate.naaTestName, naaTestNameValue != ""  {
-                Self.Style.value(naaTestName, text: naaTestNameValue)
-            }
-            else {
-                Self.Style.value(naaTestName, text: "---")
+                ratTestNameAndManufacturerLabelEn.removeFromSuperview()
+                ratTestNameAndManufacturerLabel.removeFromSuperview()
+                ratTestNameAndManufacturer.removeFromSuperview()
             }
             
             let dateFormatter = DateFormatter()
@@ -298,6 +283,10 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        var isMolecular = false
+        if let detailTestCertificate = self.model?.greenCertificate.detailTestCertificate, let ratTestNameAndManufacturerValue =  detailTestCertificate.ratTestNameAndManufacturer, ratTestNameAndManufacturerValue != "" {
+            isMolecular = true
+        }
 
         backgroundGradientView.pin.all()
         
@@ -411,32 +400,9 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        naaTestNameLabelEn.pin
-          .minHeight(25)
-          .below(of: ratTestNameAndManufacturer)
-          .marginTop(30)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        naaTestNameLabel.pin
-          .minHeight(25)
-          .below(of: naaTestNameLabelEn)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        naaTestName.pin
-          .minHeight(25)
-          .below(of: naaTestNameLabel)
-          .marginTop(5)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
         dateTimeOfSampleCollectionLabelEn.pin
           .minHeight(25)
-          .below(of: naaTestName)
+          .below(of: isMolecular ? ratTestNameAndManufacturer : validUntil)
           .marginTop(30)
           .sizeToFit(.width)
           .horizontally(25)
@@ -693,5 +659,30 @@ private extension GreenCertificateTestDetailView {
         }
     }
 }
-
+public enum TestType: String {
+    case molecularTest = "LP6464-4"
+    case quickTest = "LP217198-3"
+    
+    func getDescription() -> String{
+        switch self {
+        case .molecularTest:
+            return L10n.HomeView.GreenCertificate.Detail.TestType.molecular
+        case .quickTest:
+            return L10n.HomeView.GreenCertificate.Detail.TestType.quick
+        }
+    }
+}
+public enum TestResult: String {
+    case negative = "260415000"
+    case positive = "260373001"
+    
+    func getDescription() -> String{
+        switch self {
+        case .positive:
+            return L10n.HomeView.GreenCertificate.Detail.TestResult.positive
+        case .negative:
+            return L10n.HomeView.GreenCertificate.Detail.TestResult.negative
+        }
+    }
+}
 
