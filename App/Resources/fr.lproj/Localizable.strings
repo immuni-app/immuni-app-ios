@@ -100,7 +100,7 @@
 "home_view.green_certificate.detail.label.vaccine.number_of_doses" = "Nombre de dose délivrée / nombre total de doses prévues";
 "home_view.green_certificate.detail.label.vaccine.date_last_administration" = "Date de la dernière administration";
 "home_view.green_certificate.detail.label.vaccine.vaccination_cuntry" = "État dans lequel la vaccination a été effectuée";
-"home_view.green_certificate.detail.label.vaccine.certificate_authority" = "Structure qui a délivré la certification";
+"home_view.green_certificate.detail.label.vaccine.certificate_authority" = "Sujet qui a délivré la certification";
 "home_view.green_certificate.detail.label.vaccine.disease_en" = "<i>Disease or agent targeted</i>";
 "home_view.green_certificate.detail.label.vaccine.vaccine_type_en" = "<i>Vaccine/prophylaxis</i>";
 "home_view.green_certificate.detail.label.vaccine.vaccine_name_en" = "<i>Vaccine medicinal product</i>";
@@ -112,7 +112,7 @@
 "home_view.green_certificate.detail.label.recovery.disease" = "Maladie cible ou agent dont la personne est guérie";
 "home_view.green_certificate.detail.label.recovery.date_first_test_result" = "Date du premier test moléculaire positif";
 "home_view.green_certificate.detail.label.recovery.country_of_test" = "État dans lequel le premier test moléculaire positif a été effectué";
-"home_view.green_certificate.detail.label.recovery.certificate_issuer" = "Structure qui a délivré la certification";
+"home_view.green_certificate.detail.label.recovery.certificate_issuer" = "Sujet qui a délivré la certification";
 "home_view.green_certificate.detail.label.recovery.certificate_valid_from" = "Attestation valable du";
 "home_view.green_certificate.detail.label.recovery.certificate_valid_until" = "Attestation valable jusqu'au";
 "home_view.green_certificate.detail.label.recovery.disease_en" = "<i>Disease or agent the citizen has recovered from</i>";
@@ -130,7 +130,7 @@
 "home_view.green_certificate.detail.label.test.date_time_of_sample_collection" = "Date et heure du prélèvement de l'échantillon";
 "home_view.green_certificate.detail.label.test.testing_centre" = "Centre ou établissement où le test a été effectué";
 "home_view.green_certificate.detail.label.test.country_of_test" = "État dans lequel le test a été effectué";
-"home_view.green_certificate.detail.label.test.certificate_issuer" = "Structure qui a délivré la certification";
+"home_view.green_certificate.detail.label.test.certificate_issuer" = "Sujet qui a délivré la certification";
 "home_view.green_certificate.detail.label.test.disease_en" = "<i>Disease or agent targeted</i>";
 "home_view.green_certificate.detail.label.test.type_of_test_en" = "<i>Type of the test</i>";
 "home_view.green_certificate.detail.label.test.test_result_en" = "<i>Result of the test</i>";
