@@ -284,7 +284,6 @@ extension Logic.DataUpload {
                         typeOfTest: hcert.body["t"][0]["tt"].string ?? "---",
                         testResult: hcert.body["t"][0]["tr"].string ?? "---",
                         ratTestNameAndManufacturer: hcert.body["t"][0]["ma"].string ?? "",
-                        naaTestName: hcert.body["t"][0]["nm"].string ?? "",
                         dateTimeOfSampleCollection: hcert.body["t"][0]["sc"].string ?? "---",
                         dateTimeOfTestResult: hcert.body["t"][0]["dr"].string ?? "---",
                         testingCentre: hcert.body["t"][0]["tc"].string ?? "---",

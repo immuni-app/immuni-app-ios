@@ -58,6 +58,7 @@ struct GreenCertificate: Codable {
 
 
 }
+
 public struct DetailVaccineCertificate: Codable {
 
    var disease: String
@@ -105,58 +106,7 @@ public enum CertificateType: String, Codable {
     case recovery = "recovery"
 }
 
-public enum TestType: String {
-    case molecularTest = "LP6464-4"
-    case quickTest = "LP217198-3"
-    
-    func getDescription() -> String{
-        switch self {
-        case .molecularTest:
-            return L10n.HomeView.GreenCertificate.Detail.TestType.molecular
-        case .quickTest:
-            return L10n.HomeView.GreenCertificate.Detail.TestType.quick
-        }
-    }
-}
-public enum TestResult: String {
-    case negative = "260415000"
-    case positive = "260373001"
-    
-    func getDescription() -> String{
-        switch self {
-        case .positive:
-            return L10n.HomeView.GreenCertificate.Detail.TestResult.positive
-        case .negative:
-            return L10n.HomeView.GreenCertificate.Detail.TestResult.negative
-        }
-    }
-}
-public enum Disease: String {
-    
-    private static let COVID19 = "Covid-19"
-    
-    case covid19 = "840539006"
-    
-    func getDescription() -> String{
-        switch self {
-        case .covid19:
-            return Self.COVID19
-        }
-    }
-}
-public enum TargetDisease: String {
-    
-    public static let COVID19 = "Covid-19"
-    
-    case covid19 = "840539006"
-    
-    func getDescription() -> String{
-        switch self {
-        case .covid19:
-            return Self.COVID19
-        }
-    }
-}
+
 
 
 

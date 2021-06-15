@@ -725,3 +725,16 @@ extension UIImage {
         return imageWithPadding
     }
 }
+public enum TargetDisease: String {
+    
+    public static let COVID19 = "Covid-19"
+    
+    case covid19 = "840539006"
+    
+    func getDescription() -> String{
+        switch self {
+        case .covid19:
+            return Self.COVID19
+        }
+    }
+}
