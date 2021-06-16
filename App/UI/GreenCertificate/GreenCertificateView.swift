@@ -81,6 +81,10 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
     private var id = UILabel()
     private var discoverMore = TextButton()
 
+    private var pagerLabel = UILabel()
+    private var nextButton = ImageButton()
+    private var previousButton = ImageButton()
+
 
     var lineView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 1.0))
     
@@ -125,12 +129,23 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             if let index = self?.model?.currentDgc {
                 self?.didTapSaveGreenCertificate?(index)
             }
-
         }
         discoverMore.on(.touchUpInside) { [weak self] _ in
             guard let index = self?.model?.currentDgc, let dgc = self?.model?.greenCertificates?[index] else { return }
             self?.didTapDiscoverMore?(dgc)
         }
+        nextButton.on(.touchUpInside) { [weak self] _ in
+            if let currentDgc = self?.model?.currentDgc, let length = self?.model?.greenCertificates?.count,
+               currentDgc < (length-1){
+                self?.model?.currentDgc += 1
+            }
+           }
+        previousButton.on(.touchUpInside) { [weak self] _ in
+            if let currentDgc = self?.model?.currentDgc, currentDgc > 0 {
+                self?.model?.currentDgc -= 1
+            }
+        }
+
         
         container.addGestureRecognizer(createSwipeGestureRecognizer(for: .left))
         container.addGestureRecognizer(createSwipeGestureRecognizer(for: .right))
@@ -244,15 +259,30 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
                 discoverMore.layer.add(transition, forKey: nil)
                 lineView.layer.add(transition, forKey: nil)
                 swipeLabel.layer.add(transition, forKey: nil)
+                pagerLabel.layer.add(transition, forKey: nil)
 
             }
       
             if greenCertificates.count > 1 {
                 addSubview(swipeLabel)
                 scrollView.addSubview(swipeLabel)
+                addSubview(pagerLabel)
+                addSubview(nextButton)
+                addSubview(previousButton)
+                scrollView.addSubview(pagerLabel)
+                scrollView.addSubview(nextButton)
+                scrollView.addSubview(previousButton)
+                Self.Style.pagerLabel(pagerLabel, text: "\(String(model.currentDgc+1))/\(String(greenCertificates.count))")
+                
+                Self.Style.pagerNextIcon(nextButton, isEnabled: model.currentDgc+1 == greenCertificates.count ? false : true)
+                Self.Style.pagerPrevIcon(previousButton, isEnabled: model.currentDgc == 0 ? false : true)
             }
             else {
                 swipeLabel.removeFromSuperview()
+                pagerLabel.removeFromSuperview()
+                nextButton.removeFromSuperview()
+                previousButton.removeFromSuperview()
+
             }
             addSubview(qrCode)
             addSubview(deleteButton)
@@ -281,7 +311,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             scrollView.addSubview(idLabel)
             scrollView.addSubview(idLabelEn)
             scrollView.addSubview(id)
-            
+
             Self.Style.value(name, text: greenCertificates[model.currentDgc].name.isEmpty ? "---" : greenCertificates[model.currentDgc].name)
             Self.Style.value(birth, text: greenCertificates[model.currentDgc].birth.isEmpty ? "---" : greenCertificates[model.currentDgc].birth)
             Self.Style.value(id, text: greenCertificates[model.currentDgc].id)
@@ -314,7 +344,9 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
           id.removeFromSuperview()
           lineView.removeFromSuperview()
           discoverMore.removeFromSuperview()
-
+          pagerLabel.removeFromSuperview()
+          nextButton.removeFromSuperview()
+          previousButton.removeFromSuperview()
           
         }
         
@@ -352,7 +384,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         container.pin
           .top(20)
           .horizontally(25)
-          .height(dgcIsPresent ? UIDevice.getByScreen(normal: 840, short: 800) : UIDevice.getByScreen(normal: 400, short: 380))
+          .height(dgcIsPresent ? UIDevice.getByScreen(normal: 860, short: 810) : UIDevice.getByScreen(normal: 400, short: 380))
         
         if dgcIsPresent {
         
@@ -369,11 +401,31 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
               .marginTop(10)
               .sizeToFit(.width)
               .horizontally(25)
+            
+            previousButton.pin
+                .left(40)
+                .below(of: swipeLabel)
+                .sizeToFit()
+                .vCenter()
+            
+            pagerLabel.pin
+              .minHeight(25)
+              .below(of: swipeLabel)
+              .sizeToFit(.width)
+              .horizontally(25)
+              .vCenter()
+
+            
+            nextButton.pin
+                .right(40)
+                .below(of: swipeLabel)
+                .sizeToFit()
+                .vCenter()
         
             nameLabelEn.pin
               .minHeight(25)
               .below(of: qrCode)
-              .marginTop(55)
+              .marginTop(80)
               .sizeToFit(.width)
               .horizontally(25)
               .marginLeft(10)
@@ -499,6 +551,19 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
 private extension GreenCertificateView {
     enum Style {
         
+        static func pagerNextIcon(_ button: ImageButton, isEnabled: Bool) {
+            button.image = isEnabled ? Asset.Common.nextOn.image : Asset.Common.nextOff.image
+
+            button.isAccessibilityElement = true
+            button.accessibilityLabel = L10n.Accessibility.next
+        }
+        static func pagerPrevIcon(_ button: ImageButton, isEnabled: Bool) {
+            button.image = isEnabled ? Asset.Common.prevsOn.image : Asset.Common.prevOff.image
+
+            button.isAccessibilityElement = true
+            button.accessibilityLabel = L10n.Accessibility.prev
+        }
+
         static func discoverMore(_ button: TextButton) {
             let textStyle = TextStyles.pBold.byAdding(
                 .color(Palette.primary),
@@ -606,6 +671,21 @@ private extension GreenCertificateView {
                 numberOfLines: 2
             )
         }
+        static func pagerLabel(_ label: UILabel, text: String) {
+            let textStyle = TextStyles.p.byAdding(
+                .color(Palette.grayNormal),
+                .alignment(.center),
+                .xmlRules([
+                    .style("i", TextStyles.i)
+                ])
+            )
+            TempuraStyles.styleStandardLabel(
+                label,
+                content: text,
+                style: textStyle,
+                numberOfLines: 2
+            )
+        }
         
         static func value(_ label: UILabel, text: String) {
             let textStyle = TextStyles.pSemibold.byAdding(
@@ -615,8 +695,7 @@ private extension GreenCertificateView {
             TempuraStyles.styleStandardLabel(
                 label,
                 content: text,
-                style: textStyle,
-                numberOfLines: 2
+                style: textStyle
             )
         }
         
@@ -642,5 +721,18 @@ extension UIImage {
         UIGraphicsEndImageContext()
 
         return imageWithPadding
+    }
+}
+public enum TargetDisease: String {
+    
+    public static let COVID19 = "Covid-19"
+    
+    case covid19 = "840539006"
+    
+    func getDescription() -> String{
+        switch self {
+        case .covid19:
+            return Self.COVID19
+        }
     }
 }
