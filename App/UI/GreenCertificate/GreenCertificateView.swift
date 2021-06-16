@@ -86,7 +86,6 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
     private var previousButton = ImageButton()
 
 
-
     var lineView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 1.0))
     
     var didTapBack: Interaction?
@@ -146,6 +145,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
                 self?.model?.currentDgc -= 1
             }
         }
+
         
         container.addGestureRecognizer(createSwipeGestureRecognizer(for: .left))
         container.addGestureRecognizer(createSwipeGestureRecognizer(for: .right))
@@ -282,6 +282,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
                 pagerLabel.removeFromSuperview()
                 nextButton.removeFromSuperview()
                 previousButton.removeFromSuperview()
+
             }
             addSubview(qrCode)
             addSubview(deleteButton)
@@ -296,7 +297,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             addSubview(id)
             addSubview(discoverMore)
             addSubview(lineView)
-            
+
             scrollView.addSubview(lineView)
             scrollView.addSubview(discoverMore)
             scrollView.addSubview(qrCode)
@@ -420,7 +421,6 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
                 .below(of: swipeLabel)
                 .sizeToFit()
                 .vCenter()
-
         
             nameLabelEn.pin
               .minHeight(25)
@@ -544,7 +544,6 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
 
       return buttonSize
     }
-    
 }
 
 // MARK: - Style
@@ -564,7 +563,7 @@ private extension GreenCertificateView {
             button.isAccessibilityElement = true
             button.accessibilityLabel = L10n.Accessibility.prev
         }
-        
+
         static func discoverMore(_ button: TextButton) {
             let textStyle = TextStyles.pBold.byAdding(
                 .color(Palette.primary),

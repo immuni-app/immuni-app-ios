@@ -144,6 +144,7 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
         addSubview(certificateIssuer)
         scrollView.addSubview(certificateIssuer)
         
+
         scrollView.addSubview(paragraph)
 
         closeButton.on(.touchUpInside) { [weak self] _ in
@@ -227,6 +228,7 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
                 ratTestNameAndManufacturerLabelEn.removeFromSuperview()
                 ratTestNameAndManufacturerLabel.removeFromSuperview()
                 ratTestNameAndManufacturer.removeFromSuperview()
+
             }
             
             let dateFormatter = DateFormatter()
@@ -246,6 +248,7 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
             else {
                 Self.Style.value(dateTimeOfSampleCollection, text: "---")
             }
+
           
             Self.Style.value(testingCentre, text: detailTestCertificate.testingCentre.isEmpty ? "---" : detailTestCertificate.testingCentre)
             Self.Style.value(countryOfTest, text: detailTestCertificate.countryOfTest.isEmpty ? "---" : detailTestCertificate.countryOfTest)
@@ -266,6 +269,7 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
         if let detailTestCertificate = self.model?.greenCertificate.detailTestCertificate, let ratTestNameAndManufacturerValue =  detailTestCertificate.ratTestNameAndManufacturer, ratTestNameAndManufacturerValue != "" {
             isMolecular = true
         }
+
 
         backgroundGradientView.pin.all()
         

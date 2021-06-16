@@ -114,5 +114,3 @@ public enum CertificateType: String, Codable {
 
 
 
-
-
