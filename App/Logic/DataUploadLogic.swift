@@ -273,10 +273,11 @@ extension Logic.DataUpload {
                 dgc = GreenCertificate(
                     id: hcert.uvci,
                     name: "\(hcert.body["nam"]["fn"].string ?? "---") \(hcert.body["nam"]["gn"].string ?? "---")",
-                    birth: hcert.dateOfBirth?.dateString ?? "---",
+                    birth: hcert.dateOfBirth,
                     greenCertificate: qr,
                     certificateType: type
                     )
+                print(hcert)
                 switch type {
                 case .test:
                     let detail = DetailTestCertificate(
