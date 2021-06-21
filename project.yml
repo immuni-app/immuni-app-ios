@@ -31,8 +31,8 @@ options:
 
 packages:
   SwiftDGC:
-    url: https://github.com/eu-digital-green-certificates/dgca-app-core-ios.git
-    branch: main
+    url: https://github.com/immuni-app/immuni-dcc-core-ios.git
+    branch: feature/immuni-dgc
 
 targets:
   Immuni:

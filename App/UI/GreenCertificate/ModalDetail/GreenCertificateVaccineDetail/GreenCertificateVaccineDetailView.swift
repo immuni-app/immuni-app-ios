@@ -227,7 +227,7 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
                 Self.Style.value(vaccineName, text: vaccineNameValue.getDescription())
             }
             else{
-                Self.Style.value(vaccineName, text: "---")
+                Self.Style.value(vaccineName, text: detailVaccineCertificate.vaccineName != "" ? detailVaccineCertificate.vaccineName : "---")
             }
             if let vaccineProducerValue = VaccineProducer(rawValue: detailVaccineCertificate.vaccineProducer) {
                 Self.Style.value(vaccineProducer, text: vaccineProducerValue.getDescription())
@@ -699,6 +699,19 @@ public enum VaccineName: String {
     case SinovacBiotech = "Sinovac-Biotech"
     case BharatBiotech = "Bharat-Biotech"
     
+    case EU_1_20_1528 = "EU/1/20/1528"
+    case EU_1_20_1507 = "EU/1/20/1507"
+    case EU_1_21_1529 = "EU/1/21/1529"
+    case EU_1_20_1525 = "EU/1/20/1525"
+    case CVnCoV = "CVnCoV"
+    case Sputnik_V = "Sputnik-V"
+    case Convidecia = "Convidecia"
+    case EpiVacCorona = "EpiVacCorona"
+    case BBIBP_CorV = "BBIBP-CorV"
+    case Inactivated_SARS_CoV_2_Vero_Cell = "Inactivated-SARS-CoV-2-Vero-Cell"
+    case CoronaVac = "CoronaVac"
+    case Covaxin = "Covaxin"
+    
     func getDescription() -> String{
         switch self {
         case .ORG_100001699:
@@ -729,6 +742,30 @@ public enum VaccineName: String {
             return "Sinovac Biotech"
         case .BharatBiotech:
             return "Bharat Biotech"
+        case .EU_1_20_1528:
+            return "Comirnaty"
+        case .EU_1_20_1507:
+            return "COVID-19 Vaccine Moderna"
+        case .EU_1_21_1529:
+            return "Vaxzevria"
+        case .EU_1_20_1525:
+            return "COVID-19 Vaccine Janssen"
+        case .CVnCoV:
+            return "CVnCoV"
+        case .Sputnik_V:
+            return "Sputnik-V"
+        case .Convidecia:
+            return "Convidecia"
+        case .EpiVacCorona:
+            return "EpiVacCorona"
+        case .BBIBP_CorV:
+            return "BBIBP-CorV"
+        case .Inactivated_SARS_CoV_2_Vero_Cell:
+            return "Inactivated SARS-CoV-2 (Vero Cell)"
+        case .CoronaVac:
+            return "CoronaVac"
+        case .Covaxin:
+            return "Covaxin (also known as BBV152 A, B, C)"
         }
     }
 }
