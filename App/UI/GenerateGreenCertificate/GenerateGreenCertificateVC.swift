@@ -178,7 +178,12 @@ public enum CodeType: String {
     case authcode = "AUTHCODE"
     
     static func getCodeList() -> [String] {
-        return [CodeType.nrfe.rawValue, CodeType.cun.rawValue, CodeType.nucg.rawValue, CodeType.authcode.rawValue]
+        return [
+            CodeType.authcode.rawValue,
+            CodeType.nrfe.rawValue,
+            CodeType.cun.rawValue,
+            CodeType.nucg.rawValue
+        ]
     }
     static func validateCun(code: String?) -> String? {
         guard let code = code else {
