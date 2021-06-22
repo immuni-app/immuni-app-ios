@@ -111,7 +111,6 @@ targets:
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
         UI_TEST_DIR: $(SOURCE_ROOT)/UITests/Screenshots
         UIViewControllerBasedStatusBarAppearance: YES
-        NSCameraUsageDescription: "not used"
 
     scheme:
       gatherCoverageData: true
