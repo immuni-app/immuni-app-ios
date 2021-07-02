@@ -97,7 +97,6 @@ class DataUploadAutonomousModeView: UIView, ModellableView {
             .vertically()
             .horizontally(25)
             .marginTop(DataUploadAutonomousModeView.labelTopMargin)
-            .height(250)
 
         title.pin
             .left(Self.labelLeftMargin)
@@ -130,7 +129,7 @@ class DataUploadAutonomousModeView: UIView, ModellableView {
 
         var buttonSize = actionButton.titleLabel?.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity)) ?? .zero
 
-        buttonSize.width = width - DataUploadAutonomousModeView.orderRightMargin - DataUploadAutonomousModeView.labelLeftMargin
+        buttonSize.width = width - DataUploadAutonomousModeView.orderRightMargin - DataUploadAutonomousModeView.labelLeftMargin-20
         buttonSize.height = DataUploadAutonomousModeView.buttonMinHeight
 
         return buttonSize

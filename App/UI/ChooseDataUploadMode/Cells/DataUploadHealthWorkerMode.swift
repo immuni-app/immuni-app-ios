@@ -100,7 +100,6 @@ class DataUploadHealthWorkerModeView: UIView, ModellableView, ReusableView {
             .vertically()
             .horizontally(25)
             .marginTop(Self.labelTopMargin)
-            .height(240)
 
         title.pin
             .left(Self.labelLeftMargin)
@@ -134,7 +133,7 @@ class DataUploadHealthWorkerModeView: UIView, ModellableView, ReusableView {
 
         var buttonSize = actionButton.titleLabel?.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity)) ?? .zero
 
-        buttonSize.width = width - DataUploadHealthWorkerModeView.orderRightMargin - DataUploadHealthWorkerModeView.labelLeftMargin
+        buttonSize.width = width - DataUploadHealthWorkerModeView.orderRightMargin - DataUploadHealthWorkerModeView.labelLeftMargin-20
         buttonSize.height = DataUploadAutonomousModeView.buttonMinHeight
 
         return buttonSize

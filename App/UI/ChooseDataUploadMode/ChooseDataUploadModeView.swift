@@ -122,7 +122,7 @@ class ChooseDataUploadModeView: UIView, ViewControllerModellableView {
             .horizontally()
             .sizeToFit(.width)
             .below(of: healthWorkerModeCard)
-            .marginTop(22)
+            .marginTop(15)
 
         scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: autonomousModeCard.frame.maxY)
     }

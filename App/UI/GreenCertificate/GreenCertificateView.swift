@@ -384,7 +384,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         container.pin
           .top(20)
           .horizontally(25)
-          .height(dgcIsPresent ? UIDevice.getByScreen(normal: 860, short: 810) : UIDevice.getByScreen(normal: 400, short: 380))
+          .height(dgcIsPresent ? self.getSize() : UIDevice.getByScreen(normal: 400, short: 380))
         
         if dgcIsPresent {
         
@@ -400,7 +400,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
               .below(of: qrCode)
               .marginTop(10)
               .sizeToFit(.width)
-              .horizontally(25)
+              .horizontally(30)
             
             previousButton.pin
                 .left(40)
@@ -425,7 +425,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             nameLabelEn.pin
               .minHeight(25)
               .below(of: qrCode)
-              .marginTop(80)
+              .marginTop(85)
               .sizeToFit(.width)
               .horizontally(25)
               .marginLeft(10)
@@ -544,6 +544,52 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
 
       return buttonSize
     }
+    func getSize() -> CGFloat{
+            let fontCategory = UIApplication.shared.preferredContentSizeCategory
+                switch fontCategory {
+                case UIContentSizeCategory.accessibilityExtraExtraExtraLarge:
+                    return UIDevice.getByScreen(normal: 950, narrow: 950)
+
+                case UIContentSizeCategory.accessibilityExtraExtraLarge:
+                    return UIDevice.getByScreen(normal: 950, narrow: 950)
+
+                case UIContentSizeCategory.accessibilityExtraLarge:
+                    return UIDevice.getByScreen(normal: 950, narrow: 950)
+
+                case UIContentSizeCategory.accessibilityLarge:
+                    return UIDevice.getByScreen(normal: 950, narrow: 950)
+
+                case UIContentSizeCategory.accessibilityMedium:
+                    return UIDevice.getByScreen(normal: 950, narrow: 950)
+
+                case UIContentSizeCategory.extraExtraExtraLarge:
+                    return UIDevice.getByScreen(normal: 950, narrow: 950)
+                    
+                case UIContentSizeCategory.extraExtraLarge:
+                    return UIDevice.getByScreen(normal: 900, narrow: 880)
+
+                case UIContentSizeCategory.extraLarge:
+                    return UIDevice.getByScreen(normal: 900, narrow: 830)
+
+                case UIContentSizeCategory.large:
+                    return UIDevice.getByScreen(normal: 890, narrow: 800)
+
+                case UIContentSizeCategory.medium:
+                    return UIDevice.getByScreen(normal: 880, narrow: 780)
+
+                case UIContentSizeCategory.small:
+                    return UIDevice.getByScreen(normal: 870, narrow: 770)
+
+                case UIContentSizeCategory.extraSmall:
+                    return UIDevice.getByScreen(normal: 860, narrow: 760)
+
+                case UIContentSizeCategory.unspecified:
+                    return UIDevice.getByScreen(normal: 950, narrow: 950)
+
+                default:
+                    return UIDevice.getByScreen(normal: 950, narrow: 950)
+                }
+        }
 }
 
 // MARK: - Style
