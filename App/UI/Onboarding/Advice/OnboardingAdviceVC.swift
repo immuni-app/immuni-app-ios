@@ -17,7 +17,7 @@ import Tempura
 
 final class OnboardingAdviceVC: ViewControllerWithLocalState<OnboardingAdviceView> {
   override var preferredStatusBarStyle: UIStatusBarStyle {
-    return .darkContent
+    return traitCollection.userInterfaceStyle == .dark ? .lightContent : .darkContent
   }
 
   override func setupInteraction() {}

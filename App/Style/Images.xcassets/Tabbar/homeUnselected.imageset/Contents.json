@@ -3,6 +3,16 @@
     {
       "filename" : "homeUnselected.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "homeUnselected-dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

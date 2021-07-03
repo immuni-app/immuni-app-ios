@@ -18,7 +18,7 @@ import UIKit
 
 class SettingsNC: UINavigationController {
   override var preferredStatusBarStyle: UIStatusBarStyle {
-    return .darkContent
+    return traitCollection.userInterfaceStyle == .dark ? .lightContent : .darkContent
   }
 
   var store: PartialStore<AppState>

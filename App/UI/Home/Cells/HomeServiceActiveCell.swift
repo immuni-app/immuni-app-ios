@@ -248,6 +248,13 @@ class HomeServiceActiveCell: UICollectionViewCell, ModellableView, ReusableView,
     }
   }
 
+  override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    guard previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle else { return }
+    self.update(oldModel: model)
+    self.setNeedsLayout()
+  }
+
   private func serviceActiveSize(_ size: CGSize) -> CGSize {
     let topSafeArea = self.superview?.universalSafeAreaInsets.top ?? 0
     let labelWidth = size.width - HomeView.cellHorizontalInset - HomeServiceActiveCell.titleRightMargin

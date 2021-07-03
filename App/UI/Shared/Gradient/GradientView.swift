@@ -71,4 +71,11 @@ open class GradientView: UIView {
       self.gradientLayer.frame = self.bounds
     }
   }
+
+  override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    guard previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle else { return }
+    self.update()
+    self.setNeedsLayout()
+  }
 }

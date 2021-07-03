@@ -3,6 +3,16 @@
     {
       "filename" : "settingsSelected.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "settingsSelected-dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

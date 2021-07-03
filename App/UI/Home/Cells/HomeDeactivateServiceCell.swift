@@ -81,6 +81,13 @@ class HomeDeactivateServiceCell: UICollectionViewCell, ModellableView, ReusableV
       .vCenter()
   }
 
+  override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    guard previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle else { return }
+    self.style()
+    self.setNeedsLayout()
+  }
+
   func buttonSize(for width: CGFloat) -> CGSize {
     let labelWidth = width - 2 * HomeView.cellHorizontalInset - HomeDeactivateServiceCell.iconSize
       - self.button.insets.horizontal - self.button.titleEdgeInsets.horizontal

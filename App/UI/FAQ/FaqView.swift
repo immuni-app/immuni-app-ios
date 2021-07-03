@@ -222,6 +222,7 @@ private extension FaqView {
 
     static func separator(_ view: UIImageView) {
       view.image = Asset.Common.separator.image
+      view.tintColor = Palette.grayExtraWhite
     }
 
     static func header(_ view: UIView) {

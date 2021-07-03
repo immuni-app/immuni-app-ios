@@ -60,7 +60,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, RootInstaller {
 
     let window = UIWindow(frame: UIScreen.main.bounds)
     self.window = window
-    window.overrideUserInterfaceStyle = .light
     window.makeKeyAndVisible()
 
     self.store.dependencies?.navigator.start(
