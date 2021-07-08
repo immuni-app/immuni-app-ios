@@ -39,6 +39,9 @@ setup:
 	gem install cocoapods -v 1.9.1
 	brew bundle
 	eval "$$add_pre_commit_script"
+	npm install -g @commitlint/cli @commitlint/config-conventional
+	sed -e "/^[//].*/d" -e "s/export default/module.exports = { rules: /g" -e "s/};/}};/g" -e "/^$$/d" CI/danger/commitlint/rules.ts > commitlint.config.js
+	eval "$$add_commit_msg_script"
 
 ###
 
@@ -69,3 +72,16 @@ ENDOFFILE
 chmod +x .git/hooks/pre-commit
 endef
 export add_pre_commit_script = $(value _add_pre_commit)
+
+# Define commit msg script to auto check commit msg
+define _add_commit_msg
+
+cat > .git/hooks/commit-msg << ENDOFFILE
+#!/bin/sh
+
+cat \$1 | commitlint
+ENDOFFILE
+
+chmod +x .git/hooks/commit-msg
+endef
+export add_commit_msg_script = $(value _add_commit_msg) 
