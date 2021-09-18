@@ -480,7 +480,7 @@ public extension Dictionary where Key == String, Value == [String: String] {
         "molecular_test": "Certificazione valida 72 ore dall'ora del prelievo",
         "rapid_test": "Certificazione valida 48 ore dall'ora del prelievo",
         "vaccine_first_dose": "Certificazione valida fino alla prossima dose",
-        "vaccine_fully_completed": "Certificazione valida 1365 giorni (12 mesi) dalla data dell'ultima somministrazione"
+        "vaccine_fully_completed": "Certificazione valida 365 giorni (12 mesi) dalla data dell'ultima somministrazione"
       ]
     ]
     return values
