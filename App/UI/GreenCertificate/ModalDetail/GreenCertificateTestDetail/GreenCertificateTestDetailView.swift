@@ -228,7 +228,7 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
         Self.Style.value(self.testResult, text: "---")
       }
       if let ratTestNameAndManufacturerValue = detailTestCertificate.ratTestNameAndManufacturer,
-         ratTestNameAndManufacturerValue != ""
+         !ratTestNameAndManufacturerValue.isEmpty
       {
         addSubview(self.ratTestNameAndManufacturerLabel)
         self.scrollView.addSubview(self.ratTestNameAndManufacturerLabel)
