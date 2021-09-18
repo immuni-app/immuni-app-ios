@@ -1,5 +1,5 @@
 // Configuration.swift
-// Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
+// Copyright (C) 2021 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -46,11 +46,12 @@ public struct Configuration: Codable {
     case supportPhone = "support_phone"
     case supportPhoneOpeningTime = "support_phone_opening_time"
     case supportPhoneClosingTime = "support_phone_closing_time"
+    case eudccExpiration = "eudcc_expiration"
   }
 
   /// Countries of interest map
   public let countries: [String: [String: String]]
-    
+
   // Allowed regions self upload
   public let allowedRegionsSelfUpload: [String]
 
@@ -109,7 +110,8 @@ public struct Configuration: Codable {
   /// are really considered as dictionaries by Codable
   /// https://bugs.swift.org/browse/SR-7788
   public let faqURL: [String: URL]
-
+  /// eudccExpiration - Dictionary with Expiration
+  public let eudccExpiration: [String: [String: String]]
   /// Probability with which the app sends analytics data in case of match. Value in the [0, 1] range.
   public let operationalInfoWithExposureSamplingRate: Double
 
@@ -163,6 +165,11 @@ public struct Configuration: Codable {
     return self.faqURL[language.rawValue] ?? self.faqURL[UserLanguage.english.rawValue]
   }
 
+  /// eudccExpiration
+  public func eudccExpiration(for language: UserLanguage) -> [String: String]? {
+    return self.eudccExpiration[language.rawValue] ?? self.eudccExpiration[UserLanguage.english.rawValue]
+  }
+
   /// The Terms Of Use url for the given language. it returns english version if the given
   /// language is not available.
   /// Note that the method may still fail in case of missing english version
@@ -180,7 +187,28 @@ public struct Configuration: Codable {
   /// Public initializer to allow testing
   public init(
     countries: [String: [String: String]] = .defaultCountries,
-    allowedRegionsSelfUpload: [String] = ["Abruzzo", "Basilicata", "Calabria", "Campania", "Emilia-Romagna", "Friuli-Venezia Giulia", "Lazio", "Liguria", "Lombardia", "Marche", "Molise", "Piemonte", "Puglia", "Sardegna", "Sicilia", "Toscana", "Trentino-Alto Adige", "Umbria", "Valle d'Aosta", "Veneto"],
+    allowedRegionsSelfUpload: [String] = [
+      "Abruzzo",
+      "Basilicata",
+      "Calabria",
+      "Campania",
+      "Emilia-Romagna",
+      "Friuli-Venezia Giulia",
+      "Lazio",
+      "Liguria",
+      "Lombardia",
+      "Marche",
+      "Molise",
+      "Piemonte",
+      "Puglia",
+      "Sardegna",
+      "Sicilia",
+      "Toscana",
+      "Trentino-Alto Adige",
+      "Umbria",
+      "Valle d'Aosta",
+      "Veneto"
+    ],
     minimumBuildVersion: Int = 1,
     serviceNotActiveNotificationPeriod: TimeInterval = 86400,
     osForceUpdateNotificationPeriod: TimeInterval = 86400,
@@ -193,6 +221,7 @@ public struct Configuration: Codable {
     privacyNoticeURL: [String: URL] = .defaultPrivacyNoticeURL,
     termsOfUseURL: [String: URL] = .defaultTermsOfUseURL,
     faqURL: [String: URL] = .defaultFAQURL,
+    eudccExpiration: [String: [String: String]] = .defaultEudcc,
     operationalInfoWithExposureSamplingRate: Double = 1,
     operationalInfoWithoutExposureSamplingRate: Double = 0.6,
     dummyAnalyticsWaitingTime: Double = 2_592_000,
@@ -223,6 +252,7 @@ public struct Configuration: Codable {
     self.privacyNoticeURL = privacyNoticeURL
     self.termsOfUseURL = termsOfUseURL
     self.faqURL = faqURL
+    self.eudccExpiration = eudccExpiration
     self.operationalInfoWithExposureSamplingRate = operationalInfoWithExposureSamplingRate
     self.operationalInfoWithoutExposureSamplingRate = operationalInfoWithoutExposureSamplingRate
     self.dummyAnalyticsMeanStochasticDelay = dummyAnalyticsWaitingTime
@@ -419,5 +449,40 @@ public extension Dictionary where Key == String, Value == [String: String] {
     ]
     return values
   }
-}
 
+  static var defaultEudcc: [String: [String: String]] {
+    let values = [
+      "de": [
+        "molecular_test": "Bescheinigung gültig für 72 Stunden ab dem Zeitpunkt der Abholung",
+        "rapid_test": "Bescheinigung gültig für 48 Stunden ab dem Zeitpunkt der Abholung",
+        "vaccine_first_dose": "Zertifizierung gültig bis zur nächsten Dosis",
+        "vaccine_fully_completed": "Zertifizierung gültig für 365 Tage (12 Monate) ab dem Datum der letzten Verabreichung"
+      ],
+      "en": [
+        "molecular_test": "Certification valid for 72 hours from the time of collection",
+        "rapid_test": "Certification valid for 48 hours from the time of collection",
+        "vaccine_first_dose": "Certification valid until next dose",
+        "vaccine_fully_completed": "Certification valid for 365 days (12 months) from the date of the last administration"
+      ],
+      "es": [
+        "molecular_test": "Certificación válida por 72 horas desde el momento de la recogida.",
+        "rapid_test": "Certificación válida por 48 horas desde el momento de la recogida.",
+        "vaccine_first_dose": "Certificación válida hasta la próxima dosis",
+        "vaccine_fully_completed": "Certificación válida por 365 días (12 meses) a partir de la fecha de la última administración."
+      ],
+      "fr": [
+        "molecular_test": "Attestation valable 72h à compter de la collecte",
+        "rapid_test": "Attestation valable 48h à compter de la collecte",
+        "vaccine_first_dose": "Certification valable jusqu'à la prochaine dose",
+        "vaccine_fully_completed": "Certification valable 365 jours (12 mois) à compter de la date de la dernière administration"
+      ],
+      "it": [
+        "molecular_test": "Certificazione valida 72 ore dall'ora del prelievo",
+        "rapid_test": "Certificazione valida 48 ore dall'ora del prelievo",
+        "vaccine_first_dose": "Certificazione valida fino alla prossima dose",
+        "vaccine_fully_completed": "Certificazione valida 1365 giorni (12 mesi) dalla data dell'ultima somministrazione"
+      ]
+    ]
+    return values
+  }
+}
