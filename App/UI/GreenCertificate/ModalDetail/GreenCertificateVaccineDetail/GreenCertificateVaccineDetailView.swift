@@ -1,5 +1,5 @@
 // GreenCertificateVaccineDetailView.swift
-// Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
+// Copyright (C) 2021 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -17,755 +17,797 @@ import Models
 import Tempura
 
 struct GreenCertificateVaccineDetailVM: ViewModelWithLocalState {
-    
-    let greenCertificate: GreenCertificate
+  let greenCertificate: GreenCertificate
+}
+
+struct configurationStateVaccine {
+  static var _state = ["": ["": ""]]
 }
 
 extension GreenCertificateVaccineDetailVM {
-    init?(state: AppState?, localState : GreenCertificateVaccineDetailLS) {
-        guard let _ = state else {
-            return nil
-        }
-
-        self.greenCertificate = localState.greenCertificate
+  init?(state: AppState?, localState: GreenCertificateVaccineDetailLS) {
+    guard let _ = state else {
+      return nil
     }
+
+    self.greenCertificate = localState.greenCertificate
+    configurationStateVaccine._state = (state?.configuration.eudccExpiration)!
+  }
 }
+
 // MARK: - View
 
 class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
-    typealias VM = GreenCertificateVaccineDetailVM
+  typealias VM = GreenCertificateVaccineDetailVM
 
-    private static let horizontalSpacing: CGFloat = 30.0
-    static let orderRightMargin: CGFloat = UIDevice.getByScreen(normal: 70, narrow: 50)
-    static let labelLeftMargin: CGFloat = 25
+  private static let horizontalSpacing: CGFloat = 30.0
+  static let orderRightMargin: CGFloat = UIDevice.getByScreen(normal: 70, narrow: 50)
+  static let labelLeftMargin: CGFloat = 25
 
-    private let backgroundGradientView = GradientView()
-    private let title = UILabel()
-    let scrollView = UIScrollView()
-    private var closeButton = ImageButton()
-    
-    private var certificateTypeLabel = UILabel()
-    private var validUntilLabel = UILabel()
-    private var validUntilLabelEn = UILabel()
-    private var validUntil = UILabel()
+  private let backgroundGradientView = GradientView()
+  private let title = UILabel()
+  let scrollView = UIScrollView()
+  private var closeButton = ImageButton()
 
-    private var diseaseVaccineLabel = UILabel()
-    private var diseaseVaccineLabelEn = UILabel()
-    private var diseaseVaccine = UILabel()
-    private var vaccineTypeLabel = UILabel()
-    private var vaccineTypeLabelEn = UILabel()
-    private var vaccineType = UILabel()
-    private var vaccineNameLabel = UILabel()
-    private var vaccineNameLabelEn = UILabel()
-    private var vaccineName = UILabel()
-    private var vaccineProducerLabel = UILabel()
-    private var vaccineProducerLabelEn = UILabel()
-    private var vaccineProducer = UILabel()
-    private var numberOfDosesVaccineLabel = UILabel()
-    private var numberOfDosesVaccineLabelEn = UILabel()
-    private var numberOfDosesVaccine = UILabel()
-    private var dateLastAdministrationVaccineLabel = UILabel()
-    private var dateLastAdministrationVaccineLabelEn = UILabel()
-    private var dateLastAdministrationVaccine = UILabel()
-    private var vaccinationCuntryLabel = UILabel()
-    private var vaccinationCuntryLabelEn = UILabel()
-    private var vaccinationCuntry = UILabel()
-    private var certificateAuthorityVaccineLabel = UILabel()
-    private var certificateAuthorityVaccineLabelEn = UILabel()
-    private var certificateAuthorityVaccine = UILabel()
-    
-    private var paragraph = UILabel()
-    private var contactButton = TextButton()
+  private var certificateTypeLabel = UILabel()
+  private var validUntilLabel = UILabel()
+  private var validUntilLabelEn = UILabel()
+  private var validUntil = UILabel()
 
-    
-    var didTapBack: Interaction?
-    var didTapContact: CustomInteraction<String>?
-    
-    // MARK: - Setup
+  private var diseaseVaccineLabel = UILabel()
+  private var diseaseVaccineLabelEn = UILabel()
+  private var diseaseVaccine = UILabel()
+  private var vaccineTypeLabel = UILabel()
+  private var vaccineTypeLabelEn = UILabel()
+  private var vaccineType = UILabel()
+  private var vaccineNameLabel = UILabel()
+  private var vaccineNameLabelEn = UILabel()
+  private var vaccineName = UILabel()
+  private var vaccineProducerLabel = UILabel()
+  private var vaccineProducerLabelEn = UILabel()
+  private var vaccineProducer = UILabel()
+  private var numberOfDosesVaccineLabel = UILabel()
+  private var numberOfDosesVaccineLabelEn = UILabel()
+  private var numberOfDosesVaccine = UILabel()
+  private var dateLastAdministrationVaccineLabel = UILabel()
+  private var dateLastAdministrationVaccineLabelEn = UILabel()
+  private var dateLastAdministrationVaccine = UILabel()
+  private var vaccinationCuntryLabel = UILabel()
+  private var vaccinationCuntryLabelEn = UILabel()
+  private var vaccinationCuntry = UILabel()
+  private var certificateAuthorityVaccineLabel = UILabel()
+  private var certificateAuthorityVaccineLabelEn = UILabel()
+  private var certificateAuthorityVaccine = UILabel()
 
-    func setup() {
-        addSubview(backgroundGradientView)
-        addSubview(scrollView)
-        addSubview(title)
-        addSubview(closeButton)
-        
-        addSubview(certificateTypeLabel)
-        scrollView.addSubview(certificateTypeLabel)
-        addSubview(validUntilLabel)
-        scrollView.addSubview(validUntilLabel)
-        addSubview(validUntilLabelEn)
-        scrollView.addSubview(validUntilLabelEn)
-        addSubview(validUntil)
-        scrollView.addSubview(validUntil)
-        
-        addSubview(diseaseVaccineLabel)
-        scrollView.addSubview(diseaseVaccineLabel)
-        addSubview(diseaseVaccineLabelEn)
-        scrollView.addSubview(diseaseVaccineLabelEn)
-        
-        addSubview(diseaseVaccine)
-        scrollView.addSubview(diseaseVaccine)
-        addSubview(vaccineTypeLabel)
-        scrollView.addSubview(vaccineTypeLabel)
-        addSubview(vaccineTypeLabelEn)
-        scrollView.addSubview(vaccineTypeLabelEn)
-        
-        addSubview(vaccineType)
-        scrollView.addSubview(vaccineType)
-        
-        addSubview(vaccineNameLabel)
-        scrollView.addSubview(vaccineNameLabel)
-        addSubview(vaccineNameLabelEn)
-        scrollView.addSubview(vaccineNameLabelEn)
-        
-        addSubview(vaccineName)
-        scrollView.addSubview(vaccineName)
-        addSubview(vaccineProducerLabel)
-        scrollView.addSubview(vaccineProducerLabel)
-        addSubview(vaccineProducerLabelEn)
-        scrollView.addSubview(vaccineProducerLabelEn)
-        
-        addSubview(vaccineProducer)
-        scrollView.addSubview(vaccineProducer)
-        addSubview(numberOfDosesVaccineLabel)
-        scrollView.addSubview(numberOfDosesVaccineLabel)
-        addSubview(numberOfDosesVaccineLabelEn)
-        scrollView.addSubview(numberOfDosesVaccineLabelEn)
-        
-        addSubview(numberOfDosesVaccine)
-        scrollView.addSubview(numberOfDosesVaccine)
-        addSubview(dateLastAdministrationVaccineLabel)
-        scrollView.addSubview(dateLastAdministrationVaccineLabel)
-        addSubview(dateLastAdministrationVaccineLabelEn)
-        scrollView.addSubview(dateLastAdministrationVaccineLabelEn)
-        
-        addSubview(dateLastAdministrationVaccine)
-        scrollView.addSubview(dateLastAdministrationVaccine)
-        addSubview(vaccinationCuntryLabel)
-        scrollView.addSubview(vaccinationCuntryLabel)
-        addSubview(vaccinationCuntryLabelEn)
-        scrollView.addSubview(vaccinationCuntryLabelEn)
-        
-        addSubview(vaccinationCuntry)
-        scrollView.addSubview(vaccinationCuntry)
-        addSubview(certificateAuthorityVaccineLabel)
-        scrollView.addSubview(certificateAuthorityVaccineLabel)
-        addSubview(certificateAuthorityVaccineLabelEn)
-        scrollView.addSubview(certificateAuthorityVaccineLabelEn)
-        
-        addSubview(certificateAuthorityVaccine)
-        scrollView.addSubview(certificateAuthorityVaccine)
-        
-        scrollView.addSubview(paragraph)
-        addSubview(contactButton)
-        scrollView.addSubview(contactButton)
-        
+  private var paragraph = UILabel()
+  private var contactButton = TextButton()
 
-        closeButton.on(.touchUpInside) { [weak self] _ in
-            self?.didTapBack?()
-        }
-        contactButton.on(.touchUpInside) { [weak self] _ in
-            self?.didTapContact?(L10n.HomeView.GreenCertificate.Detail.url)
-        }
+  var didTapBack: Interaction?
+  var didTapContact: CustomInteraction<String>?
 
+  // MARK: - Setup
+
+  func setup() {
+    addSubview(self.backgroundGradientView)
+    addSubview(self.scrollView)
+    addSubview(self.title)
+    addSubview(self.closeButton)
+
+    addSubview(self.certificateTypeLabel)
+    self.scrollView.addSubview(self.certificateTypeLabel)
+    addSubview(self.validUntilLabel)
+    self.scrollView.addSubview(self.validUntilLabel)
+    addSubview(self.validUntilLabelEn)
+    self.scrollView.addSubview(self.validUntilLabelEn)
+    addSubview(self.validUntil)
+    self.scrollView.addSubview(self.validUntil)
+
+    addSubview(self.diseaseVaccineLabel)
+    self.scrollView.addSubview(self.diseaseVaccineLabel)
+    addSubview(self.diseaseVaccineLabelEn)
+    self.scrollView.addSubview(self.diseaseVaccineLabelEn)
+
+    addSubview(self.diseaseVaccine)
+    self.scrollView.addSubview(self.diseaseVaccine)
+    addSubview(self.vaccineTypeLabel)
+    self.scrollView.addSubview(self.vaccineTypeLabel)
+    addSubview(self.vaccineTypeLabelEn)
+    self.scrollView.addSubview(self.vaccineTypeLabelEn)
+
+    addSubview(self.vaccineType)
+    self.scrollView.addSubview(self.vaccineType)
+
+    addSubview(self.vaccineNameLabel)
+    self.scrollView.addSubview(self.vaccineNameLabel)
+    addSubview(self.vaccineNameLabelEn)
+    self.scrollView.addSubview(self.vaccineNameLabelEn)
+
+    addSubview(self.vaccineName)
+    self.scrollView.addSubview(self.vaccineName)
+    addSubview(self.vaccineProducerLabel)
+    self.scrollView.addSubview(self.vaccineProducerLabel)
+    addSubview(self.vaccineProducerLabelEn)
+    self.scrollView.addSubview(self.vaccineProducerLabelEn)
+
+    addSubview(self.vaccineProducer)
+    self.scrollView.addSubview(self.vaccineProducer)
+    addSubview(self.numberOfDosesVaccineLabel)
+    self.scrollView.addSubview(self.numberOfDosesVaccineLabel)
+    addSubview(self.numberOfDosesVaccineLabelEn)
+    self.scrollView.addSubview(self.numberOfDosesVaccineLabelEn)
+
+    addSubview(self.numberOfDosesVaccine)
+    self.scrollView.addSubview(self.numberOfDosesVaccine)
+    addSubview(self.dateLastAdministrationVaccineLabel)
+    self.scrollView.addSubview(self.dateLastAdministrationVaccineLabel)
+    addSubview(self.dateLastAdministrationVaccineLabelEn)
+    self.scrollView.addSubview(self.dateLastAdministrationVaccineLabelEn)
+
+    addSubview(self.dateLastAdministrationVaccine)
+    self.scrollView.addSubview(self.dateLastAdministrationVaccine)
+    addSubview(self.vaccinationCuntryLabel)
+    self.scrollView.addSubview(self.vaccinationCuntryLabel)
+    addSubview(self.vaccinationCuntryLabelEn)
+    self.scrollView.addSubview(self.vaccinationCuntryLabelEn)
+
+    addSubview(self.vaccinationCuntry)
+    self.scrollView.addSubview(self.vaccinationCuntry)
+    addSubview(self.certificateAuthorityVaccineLabel)
+    self.scrollView.addSubview(self.certificateAuthorityVaccineLabel)
+    addSubview(self.certificateAuthorityVaccineLabelEn)
+    self.scrollView.addSubview(self.certificateAuthorityVaccineLabelEn)
+
+    addSubview(self.certificateAuthorityVaccine)
+    self.scrollView.addSubview(self.certificateAuthorityVaccine)
+
+    self.scrollView.addSubview(self.paragraph)
+    addSubview(self.contactButton)
+    self.scrollView.addSubview(self.contactButton)
+
+    self.closeButton.on(.touchUpInside) { [weak self] _ in
+      self?.didTapBack?()
     }
-
-    // MARK: - Style
-
-    func style() {
-        Self.Style.background(self)
-        Self.Style.backgroundGradient(backgroundGradientView)
-
-        Self.Style.scrollView(scrollView)
-        Self.Style.headerTitle(title, content: L10n.HomeView.GreenCertificate.Detail.title)
-        
-        Self.Style.subTitle(certificateTypeLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.certificateType)
-    
-        Self.Style.label(validUntilLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.validUntilEn)
-        Self.Style.label(validUntilLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.validUntil)
-        Self.Style.label(diseaseVaccineLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.disease)
-
-        Self.Style.label(vaccineTypeLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineType)
-        Self.Style.label(vaccineNameLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineName)
-        Self.Style.label(vaccineProducerLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineProducer)
-        Self.Style.label(numberOfDosesVaccineLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.numberOfDoses)
-        Self.Style.label(dateLastAdministrationVaccineLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.dateLastAdministration)
-        Self.Style.label(vaccinationCuntryLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccinationCuntry)
-        Self.Style.label(certificateAuthorityVaccineLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.certificateAuthority)
-        
-        Self.Style.label(diseaseVaccineLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.diseaseEn)
-        Self.Style.label(vaccineTypeLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineTypeEn)
-        Self.Style.label(vaccineNameLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineNameEn)
-        Self.Style.label(vaccineProducerLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineProducerEn)
-        Self.Style.label(numberOfDosesVaccineLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.numberOfDosesEn)
-        Self.Style.label(dateLastAdministrationVaccineLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.dateLastAdministrationEn)
-        Self.Style.label(vaccinationCuntryLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccinationCuntryEn)
-        Self.Style.label(certificateAuthorityVaccineLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.certificateAuthorityEn)
-
-        Self.Style.closeButton(self.closeButton)
-
+    self.contactButton.on(.touchUpInside) { [weak self] _ in
+      self?.didTapContact?(L10n.HomeView.GreenCertificate.Detail.url)
     }
+  }
 
-    // MARK: - Update
+  // MARK: - Style
 
-    func update(oldModel _: VM?) {
-        guard let model = self.model else {
-            return
-        }
-        
-        if let detailVaccineCertificate = model.greenCertificate.detailVaccineCertificate {
-            
-            Self.Style.value(diseaseVaccine, text: detailVaccineCertificate.disease)
-            
-            if let vaccineTypeValue = VaccineType(rawValue: detailVaccineCertificate.vaccineType) {
-                Self.Style.value(vaccineType, text: vaccineTypeValue.getDescription())
-            }
-            else{
-                Self.Style.value(vaccineType, text: "---")
-            }
-            if let vaccineNameValue = VaccineName(rawValue: detailVaccineCertificate.vaccineName) {
-                Self.Style.value(vaccineName, text: vaccineNameValue.getDescription())
-            }
-            else{
-                Self.Style.value(vaccineName, text: detailVaccineCertificate.vaccineName != "" ? detailVaccineCertificate.vaccineName : "---")
-            }
-            if let vaccineProducerValue = VaccineProducer(rawValue: detailVaccineCertificate.vaccineProducer) {
-                Self.Style.value(vaccineProducer, text: vaccineProducerValue.getDescription())
-            }
-            else{
-                Self.Style.value(vaccineProducer, text: "---")
-            }
-            if detailVaccineCertificate.doseNumber == detailVaccineCertificate.totalSeriesOfDoses,
-               !detailVaccineCertificate.doseNumber.isEmpty {
-                Self.Style.value(validUntil, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.ValidUntil.first)
-            }
-            else{
-                Self.Style.value(validUntil, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.ValidUntil.second)
-            }
-            Self.Style.value(numberOfDosesVaccine, text: "\(detailVaccineCertificate.doseNumber.isEmpty ? "-" : detailVaccineCertificate.doseNumber) \(L10n.HomeView.GreenCertificate.Detail.of) \(detailVaccineCertificate.totalSeriesOfDoses.isEmpty ? "-" : detailVaccineCertificate.totalSeriesOfDoses)")
-            
-            Self.Style.value(dateLastAdministrationVaccine, text: detailVaccineCertificate.dateLastAdministration.isEmpty ? "---" : detailVaccineCertificate.dateLastAdministration)
-            
-            Self.Style.value(vaccinationCuntry, text: detailVaccineCertificate.vaccinationCuntry.isEmpty ? "---" : detailVaccineCertificate.vaccinationCuntry)
-            
-            Self.Style.value(certificateAuthorityVaccine, text:
-                                detailVaccineCertificate.certificateAuthority.isEmpty ? "---" : detailVaccineCertificate.certificateAuthority)
-        }
-        Self.Style.label(paragraph, text: L10n.HomeView.GreenCertificate.Detail.paragraph)
-        Self.Style.contactButton(self.contactButton, content: L10n.HomeView.GreenCertificate.Detail.url)
+  func style() {
+    Self.Style.background(self)
+    Self.Style.backgroundGradient(self.backgroundGradientView)
 
+    Self.Style.scrollView(self.scrollView)
+    Self.Style.headerTitle(self.title, content: L10n.HomeView.GreenCertificate.Detail.title)
 
+    Self.Style.subTitle(self.certificateTypeLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.certificateType)
+
+    Self.Style.label(self.validUntilLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.validUntilEn)
+    Self.Style.label(self.validUntilLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.validUntil)
+    Self.Style.label(self.diseaseVaccineLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.disease)
+
+    Self.Style.label(self.vaccineTypeLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineType)
+    Self.Style.label(self.vaccineNameLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineName)
+    Self.Style.label(self.vaccineProducerLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineProducer)
+    Self.Style.label(self.numberOfDosesVaccineLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.numberOfDoses)
+    Self.Style.label(
+      self.dateLastAdministrationVaccineLabel,
+      text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.dateLastAdministration
+    )
+    Self.Style.label(self.vaccinationCuntryLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccinationCuntry)
+    Self.Style.label(
+      self.certificateAuthorityVaccineLabel,
+      text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.certificateAuthority
+    )
+
+    Self.Style.label(self.diseaseVaccineLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.diseaseEn)
+    Self.Style.label(self.vaccineTypeLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineTypeEn)
+    Self.Style.label(self.vaccineNameLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineNameEn)
+    Self.Style.label(self.vaccineProducerLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineProducerEn)
+    Self.Style.label(
+      self.numberOfDosesVaccineLabelEn,
+      text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.numberOfDosesEn
+    )
+    Self.Style.label(
+      self.dateLastAdministrationVaccineLabelEn,
+      text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.dateLastAdministrationEn
+    )
+    Self.Style.label(
+      self.vaccinationCuntryLabelEn,
+      text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccinationCuntryEn
+    )
+    Self.Style.label(
+      self.certificateAuthorityVaccineLabelEn,
+      text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.certificateAuthorityEn
+    )
+
+    Self.Style.closeButton(self.closeButton)
+  }
+
+  // MARK: - Update
+
+  func update(oldModel _: VM?) {
+    guard let model = self.model else {
+      return
     }
+    let lan = Locale.current.languageCode ?? "en"
+    let validUntilCompleteVaccine = configurationStateVaccine._state[lan]!["vaccine_fully_completed"]
+    let validUntilnotCompleteVaccine = configurationStateVaccine._state[lan]!["vaccine_first_dose"]
 
-    // MARK: - Layout
+    if let detailVaccineCertificate = model.greenCertificate.detailVaccineCertificate {
+      Self.Style.value(self.diseaseVaccine, text: detailVaccineCertificate.disease)
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
+      if let vaccineTypeValue = VaccineType(rawValue: detailVaccineCertificate.vaccineType) {
+        Self.Style.value(self.vaccineType, text: vaccineTypeValue.getDescription())
+      } else {
+        Self.Style.value(self.vaccineType, text: "---")
+      }
+      if let vaccineNameValue = VaccineName(rawValue: detailVaccineCertificate.vaccineName) {
+        Self.Style.value(self.vaccineName, text: vaccineNameValue.getDescription())
+      } else {
+        Self.Style.value(
+          self.vaccineName,
+          text: detailVaccineCertificate.vaccineName != "" ? detailVaccineCertificate.vaccineName : "---"
+        )
+      }
+      if let vaccineProducerValue = VaccineProducer(rawValue: detailVaccineCertificate.vaccineProducer) {
+        Self.Style.value(self.vaccineProducer, text: vaccineProducerValue.getDescription())
+      } else {
+        Self.Style.value(self.vaccineProducer, text: "---")
+      }
+      if detailVaccineCertificate.doseNumber == detailVaccineCertificate.totalSeriesOfDoses,
+         !detailVaccineCertificate.doseNumber.isEmpty
+      {
+        // vaccino completo seba
+        Self.Style.value(
+          self.validUntil,
+          text: validUntilCompleteVaccine?
+            .description ?? "Certification valid for 365 days (12 months) from the date of the last administration"
+        )
+      } else {
+        Self.Style.value(
+          self.validUntil,
+          text: validUntilnotCompleteVaccine?.description ?? "SCertification valid until next dose"
+        )
+      }
+      Self.Style.value(
+        self.numberOfDosesVaccine,
+        text: "\(detailVaccineCertificate.doseNumber.isEmpty ? "-" : detailVaccineCertificate.doseNumber) \(L10n.HomeView.GreenCertificate.Detail.of) \(detailVaccineCertificate.totalSeriesOfDoses.isEmpty ? "-" : detailVaccineCertificate.totalSeriesOfDoses)"
+      )
 
-        backgroundGradientView.pin.all()
-        
-        closeButton.pin
-          .top(30)
-          .right(28)
-          .sizeToFit()
-        
-        title.pin
-          .top(60)
-          .horizontally(30)
-          .sizeToFit()
-        
-        certificateTypeLabel.pin
-          .minHeight(25)
-          .below(of: title)
-          .marginTop(30)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-     
-        diseaseVaccineLabelEn.pin
-          .minHeight(25)
-          .below(of: certificateTypeLabel)
-          .marginTop(30)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        diseaseVaccineLabel.pin
-          .minHeight(25)
-          .below(of: diseaseVaccineLabelEn)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        diseaseVaccine.pin
-          .minHeight(25)
-          .below(of: diseaseVaccineLabel)
-          .marginTop(5)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        vaccineTypeLabelEn.pin
-          .minHeight(25)
-          .below(of: diseaseVaccine)
-          .marginTop(30)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        vaccineTypeLabel.pin
-          .minHeight(25)
-          .below(of: vaccineTypeLabelEn)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        vaccineType.pin
-          .minHeight(25)
-          .below(of: vaccineTypeLabel)
-          .marginTop(5)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        validUntilLabelEn.pin
-          .minHeight(25)
-          .below(of: vaccineType)
-          .marginTop(30)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        validUntilLabel.pin
-          .minHeight(25)
-          .below(of: validUntilLabelEn)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        validUntil.pin
-          .minHeight(25)
-          .below(of: validUntilLabel)
-          .marginTop(5)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        vaccineNameLabelEn.pin
-          .minHeight(25)
-          .below(of: validUntil)
-          .marginTop(30)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        vaccineNameLabel.pin
-          .minHeight(25)
-          .below(of: vaccineNameLabelEn)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        vaccineName.pin
-          .minHeight(25)
-          .below(of: vaccineNameLabel)
-          .marginTop(5)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        vaccineProducerLabelEn.pin
-          .minHeight(25)
-          .below(of: vaccineName)
-          .marginTop(30)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        vaccineProducerLabel.pin
-          .minHeight(25)
-          .below(of: vaccineProducerLabelEn)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        vaccineProducer.pin
-          .minHeight(25)
-          .below(of: vaccineProducerLabel)
-          .marginTop(5)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        numberOfDosesVaccineLabelEn.pin
-          .minHeight(25)
-          .below(of: vaccineProducer)
-          .marginTop(30)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        numberOfDosesVaccineLabel.pin
-          .minHeight(25)
-          .below(of: numberOfDosesVaccineLabelEn)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        numberOfDosesVaccine.pin
-          .minHeight(25)
-          .below(of: numberOfDosesVaccineLabel)
-          .marginTop(5)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        dateLastAdministrationVaccineLabelEn.pin
-          .minHeight(25)
-          .below(of: numberOfDosesVaccine)
-          .marginTop(30)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        dateLastAdministrationVaccineLabel.pin
-          .minHeight(25)
-          .below(of: dateLastAdministrationVaccineLabelEn)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        dateLastAdministrationVaccine.pin
-          .minHeight(25)
-          .below(of: dateLastAdministrationVaccineLabel)
-          .marginTop(5)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        vaccinationCuntryLabelEn.pin
-          .minHeight(25)
-          .below(of: dateLastAdministrationVaccine)
-          .marginTop(30)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        vaccinationCuntryLabel.pin
-          .minHeight(25)
-          .below(of: vaccinationCuntryLabelEn)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        vaccinationCuntry.pin
-          .minHeight(25)
-          .below(of: vaccinationCuntryLabel)
-          .marginTop(5)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        certificateAuthorityVaccineLabelEn.pin
-          .minHeight(25)
-          .below(of: vaccinationCuntry)
-          .marginTop(30)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        certificateAuthorityVaccineLabel.pin
-          .minHeight(25)
-          .below(of: certificateAuthorityVaccineLabelEn)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        certificateAuthorityVaccine.pin
-          .minHeight(25)
-          .below(of: certificateAuthorityVaccineLabel)
-          .marginTop(5)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-     
-        paragraph.pin
-          .minHeight(25)
-          .below(of: certificateAuthorityVaccine)
-          .marginTop(15)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        contactButton.pin
-          .minHeight(25)
-          .below(of: paragraph)
-          .marginTop(15)
-          .sizeToFit(.width)
-          .horizontally(25)
-          .marginLeft(10)
-        
-        scrollView.pin
-            .horizontally()
-            .below(of: title)
-            .marginTop(5)
-            .bottom(universalSafeAreaInsets.bottom)
+      Self.Style.value(
+        self.dateLastAdministrationVaccine,
+        text: detailVaccineCertificate.dateLastAdministration.isEmpty ? "---" : detailVaccineCertificate
+          .dateLastAdministration
+      )
 
-        scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: contactButton.frame.maxY)
+      Self.Style.value(
+        self.vaccinationCuntry,
+        text: detailVaccineCertificate.vaccinationCuntry.isEmpty ? "---" : detailVaccineCertificate.vaccinationCuntry
+      )
+
+      Self.Style.value(
+        self.certificateAuthorityVaccine,
+        text:
+        detailVaccineCertificate.certificateAuthority.isEmpty ? "---" : detailVaccineCertificate
+          .certificateAuthority
+      )
     }
+    Self.Style.label(self.paragraph, text: L10n.HomeView.GreenCertificate.Detail.paragraph)
+    Self.Style.contactButton(self.contactButton, content: L10n.HomeView.GreenCertificate.Detail.url)
+  }
+
+  // MARK: - Layout
+
+  override func layoutSubviews() {
+    super.layoutSubviews()
+
+    self.backgroundGradientView.pin.all()
+
+    self.closeButton.pin
+      .top(30)
+      .right(28)
+      .sizeToFit()
+
+    self.title.pin
+      .top(60)
+      .horizontally(30)
+      .sizeToFit()
+
+    self.certificateTypeLabel.pin
+      .minHeight(25)
+      .below(of: self.title)
+      .marginTop(30)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.diseaseVaccineLabelEn.pin
+      .minHeight(25)
+      .below(of: self.certificateTypeLabel)
+      .marginTop(30)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.diseaseVaccineLabel.pin
+      .minHeight(25)
+      .below(of: self.diseaseVaccineLabelEn)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.diseaseVaccine.pin
+      .minHeight(25)
+      .below(of: self.diseaseVaccineLabel)
+      .marginTop(5)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.vaccineTypeLabelEn.pin
+      .minHeight(25)
+      .below(of: self.diseaseVaccine)
+      .marginTop(30)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.vaccineTypeLabel.pin
+      .minHeight(25)
+      .below(of: self.vaccineTypeLabelEn)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.vaccineType.pin
+      .minHeight(25)
+      .below(of: self.vaccineTypeLabel)
+      .marginTop(5)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.validUntilLabelEn.pin
+      .minHeight(25)
+      .below(of: self.vaccineType)
+      .marginTop(30)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.validUntilLabel.pin
+      .minHeight(25)
+      .below(of: self.validUntilLabelEn)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.validUntil.pin
+      .minHeight(25)
+      .below(of: self.validUntilLabel)
+      .marginTop(5)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.vaccineNameLabelEn.pin
+      .minHeight(25)
+      .below(of: self.validUntil)
+      .marginTop(30)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.vaccineNameLabel.pin
+      .minHeight(25)
+      .below(of: self.vaccineNameLabelEn)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.vaccineName.pin
+      .minHeight(25)
+      .below(of: self.vaccineNameLabel)
+      .marginTop(5)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.vaccineProducerLabelEn.pin
+      .minHeight(25)
+      .below(of: self.vaccineName)
+      .marginTop(30)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.vaccineProducerLabel.pin
+      .minHeight(25)
+      .below(of: self.vaccineProducerLabelEn)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.vaccineProducer.pin
+      .minHeight(25)
+      .below(of: self.vaccineProducerLabel)
+      .marginTop(5)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.numberOfDosesVaccineLabelEn.pin
+      .minHeight(25)
+      .below(of: self.vaccineProducer)
+      .marginTop(30)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.numberOfDosesVaccineLabel.pin
+      .minHeight(25)
+      .below(of: self.numberOfDosesVaccineLabelEn)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.numberOfDosesVaccine.pin
+      .minHeight(25)
+      .below(of: self.numberOfDosesVaccineLabel)
+      .marginTop(5)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.dateLastAdministrationVaccineLabelEn.pin
+      .minHeight(25)
+      .below(of: self.numberOfDosesVaccine)
+      .marginTop(30)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.dateLastAdministrationVaccineLabel.pin
+      .minHeight(25)
+      .below(of: self.dateLastAdministrationVaccineLabelEn)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.dateLastAdministrationVaccine.pin
+      .minHeight(25)
+      .below(of: self.dateLastAdministrationVaccineLabel)
+      .marginTop(5)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.vaccinationCuntryLabelEn.pin
+      .minHeight(25)
+      .below(of: self.dateLastAdministrationVaccine)
+      .marginTop(30)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.vaccinationCuntryLabel.pin
+      .minHeight(25)
+      .below(of: self.vaccinationCuntryLabelEn)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.vaccinationCuntry.pin
+      .minHeight(25)
+      .below(of: self.vaccinationCuntryLabel)
+      .marginTop(5)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.certificateAuthorityVaccineLabelEn.pin
+      .minHeight(25)
+      .below(of: self.vaccinationCuntry)
+      .marginTop(30)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.certificateAuthorityVaccineLabel.pin
+      .minHeight(25)
+      .below(of: self.certificateAuthorityVaccineLabelEn)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.certificateAuthorityVaccine.pin
+      .minHeight(25)
+      .below(of: self.certificateAuthorityVaccineLabel)
+      .marginTop(5)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.paragraph.pin
+      .minHeight(25)
+      .below(of: self.certificateAuthorityVaccine)
+      .marginTop(15)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.contactButton.pin
+      .minHeight(25)
+      .below(of: self.paragraph)
+      .marginTop(15)
+      .sizeToFit(.width)
+      .horizontally(25)
+      .marginLeft(10)
+
+    self.scrollView.pin
+      .horizontally()
+      .below(of: self.title)
+      .marginTop(5)
+      .bottom(universalSafeAreaInsets.bottom)
+
+    self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: self.contactButton.frame.maxY)
+  }
 }
 
 // MARK: - Style
 
 private extension GreenCertificateVaccineDetailView {
-    enum Style {
-        
-        static func closeButton(_ btn: ImageButton) {
-          SharedStyle.closeButton(btn)
-        }
-        
-        static func background(_ view: UIView) {
-            view.backgroundColor = Palette.grayWhite
-        }
-
-        static func backgroundGradient(_ gradientView: GradientView) {
-            gradientView.isUserInteractionEnabled = false
-            gradientView.gradient = Palette.gradientScrollOverlay
-        }
-
-        static func scrollView(_ scrollView: UIScrollView) {
-            scrollView.backgroundColor = .clear
-            scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
-            scrollView.showsVerticalScrollIndicator = false
-        }
-
-        static func title(_ label: UILabel) {
-            let content = L10n.Settings.Setting.loadData
-            TempuraStyles.styleShrinkableLabel(
-                label,
-                content: content,
-                style: TextStyles.navbarSmallTitle.byAdding(
-                    .color(Palette.grayDark),
-                    .alignment(.center)
-                ),
-                numberOfLines: 2
-            )
-        }
-        static func headerTitle(_ label: UILabel, content: String) {
-          TempuraStyles.styleStandardLabel(
-            label,
-            content: content,
-            style: TextStyles.h1.byAdding(
-              .color(Palette.grayDark)
-            ),
-            numberOfLines: 2
-          )
-        }
-        static func label(_ label: UILabel, text: String) {
-            let textStyle = TextStyles.p.byAdding(
-                .color(Palette.grayNormal),
-                .alignment(.left),
-                .xmlRules([
-                    .style("i", TextStyles.i)
-                ])
-            )
-            TempuraStyles.styleStandardLabel(
-                label,
-                content: text,
-                style: textStyle
-            )
-        }
-        
-        static func contactButton(_ button: TextButton, content: String) {
-          let textStyle = TextStyles.pLink.byAdding(
-            .color(Palette.primary),
-            .underline(.single, Palette.primary)
-          )
-
-          button.contentHorizontalAlignment = .left
-          button.attributedTitle = content.styled(with: textStyle)
-        }
-        
-        static func value(_ label: UILabel, text: String) {
-            let textStyle = TextStyles.pSemibold.byAdding(
-                .color(Palette.grayDark),
-                .alignment(.left)
-            )
-            TempuraStyles.styleStandardLabel(
-                label,
-                content: text,
-                style: textStyle
-            )
-        }
-        static func subTitle(_ label: UILabel, text: String) {
-            let textStyle = TextStyles.h3.byAdding(
-                .color(Palette.grayDark),
-                .alignment(.center)
-            )
-            TempuraStyles.styleStandardLabel(
-                label,
-                content: text,
-                style: textStyle
-            )
-        }
+  enum Style {
+    static func closeButton(_ btn: ImageButton) {
+      SharedStyle.closeButton(btn)
     }
+
+    static func background(_ view: UIView) {
+      view.backgroundColor = Palette.grayWhite
+    }
+
+    static func backgroundGradient(_ gradientView: GradientView) {
+      gradientView.isUserInteractionEnabled = false
+      gradientView.gradient = Palette.gradientScrollOverlay
+    }
+
+    static func scrollView(_ scrollView: UIScrollView) {
+      scrollView.backgroundColor = .clear
+      scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
+      scrollView.showsVerticalScrollIndicator = false
+    }
+
+    static func title(_ label: UILabel) {
+      let content = L10n.Settings.Setting.loadData
+      TempuraStyles.styleShrinkableLabel(
+        label,
+        content: content,
+        style: TextStyles.navbarSmallTitle.byAdding(
+          .color(Palette.grayDark),
+          .alignment(.center)
+        ),
+        numberOfLines: 2
+      )
+    }
+
+    static func headerTitle(_ label: UILabel, content: String) {
+      TempuraStyles.styleStandardLabel(
+        label,
+        content: content,
+        style: TextStyles.h1.byAdding(
+          .color(Palette.grayDark)
+        ),
+        numberOfLines: 2
+      )
+    }
+
+    static func label(_ label: UILabel, text: String) {
+      let textStyle = TextStyles.p.byAdding(
+        .color(Palette.grayNormal),
+        .alignment(.left),
+        .xmlRules([
+          .style("i", TextStyles.i)
+        ])
+      )
+      TempuraStyles.styleStandardLabel(
+        label,
+        content: text,
+        style: textStyle
+      )
+    }
+
+    static func contactButton(_ button: TextButton, content: String) {
+      let textStyle = TextStyles.pLink.byAdding(
+        .color(Palette.primary),
+        .underline(.single, Palette.primary)
+      )
+
+      button.contentHorizontalAlignment = .left
+      button.attributedTitle = content.styled(with: textStyle)
+    }
+
+    static func value(_ label: UILabel, text: String) {
+      let textStyle = TextStyles.pSemibold.byAdding(
+        .color(Palette.grayDark),
+        .alignment(.left)
+      )
+      TempuraStyles.styleStandardLabel(
+        label,
+        content: text,
+        style: textStyle
+      )
+    }
+
+    static func subTitle(_ label: UILabel, text: String) {
+      let textStyle = TextStyles.h3.byAdding(
+        .color(Palette.grayDark),
+        .alignment(.center)
+      )
+      TempuraStyles.styleStandardLabel(
+        label,
+        content: text,
+        style: textStyle
+      )
+    }
+  }
 }
 
 public enum VaccineType: String {
-    
-    private static let COVID19 = "covid-19 vaccines"
-    private static let MRNA = "SARS-CoV-2 mRNA vaccine"
-    private static let ANTIGEN = "SARS-CoV-2 antigen vaccine"
+  private static let COVID19 = "covid-19 vaccines"
+  private static let MRNA = "SARS-CoV-2 mRNA vaccine"
+  private static let ANTIGEN = "SARS-CoV-2 antigen vaccine"
 
-    case mRNA = "1119349007"
-    case antigen = "1119305005"
-    case covid19 = "J07BX03"
-    
-    func getDescription() -> String{
-        switch self {
-        case .covid19:
-            return Self.COVID19
-        case .mRNA:
-            return Self.MRNA
-        case .antigen:
-            return Self.ANTIGEN
-        }
+  case mRNA = "1119349007"
+  case antigen = "1119305005"
+  case covid19 = "J07BX03"
+
+  func getDescription() -> String {
+    switch self {
+    case .covid19:
+      return Self.COVID19
+    case .mRNA:
+      return Self.MRNA
+    case .antigen:
+      return Self.ANTIGEN
     }
+  }
 }
+
 public enum VaccineProducer: String {
+  case ORG_100001699 = "ORG-100001699"
+  case ORG_100030215 = "ORG-100030215"
+  case ORG_100001417 = "ORG-100001417"
+  case ORG_100031184 = "ORG-100031184"
+  case ORG_100006270 = "ORG-100006270"
+  case ORG_100013793 = "ORG-100013793"
+  case ORG_100020693 = "ORG-100020693"
+  case ORG_100010771 = "ORG-100010771"
+  case ORG_100024420 = "ORG-100024420"
+  case ORG_100032020 = "ORG-100032020"
+  case Gamaleya_Research_Institute = "Gamaleya-Research-Institute"
+  case Vector_Institute = "Vector-Institute"
+  case Sinovac_Biotech = "Sinovac-Biotech"
+  case Bharat_Biotech = "Bharat-Biotech"
 
-    case ORG_100001699 = "ORG-100001699"
-    case ORG_100030215 = "ORG-100030215"
-    case ORG_100001417 = "ORG-100001417"
-    case ORG_100031184 = "ORG-100031184"
-    case ORG_100006270 = "ORG-100006270"
-    case ORG_100013793 = "ORG-100013793"
-    case ORG_100020693 = "ORG-100020693"
-    case ORG_100010771 = "ORG-100010771"
-    case ORG_100024420 = "ORG-100024420"
-    case ORG_100032020 = "ORG-100032020"
-    case Gamaleya_Research_Institute = "Gamaleya-Research-Institute"
-    case Vector_Institute = "Vector-Institute"
-    case Sinovac_Biotech = "Sinovac-Biotech"
-    case Bharat_Biotech = "Bharat-Biotech"
-
-    func getDescription() -> String{
-        switch self {
-        case .ORG_100001699:
-            return "AstraZeneca AB"
-        case .ORG_100030215:
-            return "Biontech Manufacturing GmbH"
-        case .ORG_100001417:
-            return "Janssen-Cilag International"
-        case .ORG_100031184:
-            return "Moderna Biotech Spain S.L."
-        case .ORG_100006270:
-            return "Curevac AG"
-        case .ORG_100013793:
-            return "CanSino Biologics"
-        case .ORG_100020693:
-            return "China Sinopharm International Corp. - Beijing location"
-        case .ORG_100010771:
-            return "Sinopharm Weiqida Europe Pharmaceutical s.r.o. - Prague location"
-        case .ORG_100024420:
-            return "Sinopharm Zhijun (Shenzhen) Pharmaceutical Co. Ltd. - Shenzhen location"
-        case .ORG_100032020:
-            return "Novavax CZ AS"
-        case .Gamaleya_Research_Institute:
-            return "Gamaleya Research Institute"
-        case .Vector_Institute:
-            return "Vector Institute"
-        case .Sinovac_Biotech:
-            return "Sinovac Biotech"
-        case .Bharat_Biotech:
-            return "Bharat Biotech"
-        }
+  func getDescription() -> String {
+    switch self {
+    case .ORG_100001699:
+      return "AstraZeneca AB"
+    case .ORG_100030215:
+      return "Biontech Manufacturing GmbH"
+    case .ORG_100001417:
+      return "Janssen-Cilag International"
+    case .ORG_100031184:
+      return "Moderna Biotech Spain S.L."
+    case .ORG_100006270:
+      return "Curevac AG"
+    case .ORG_100013793:
+      return "CanSino Biologics"
+    case .ORG_100020693:
+      return "China Sinopharm International Corp. - Beijing location"
+    case .ORG_100010771:
+      return "Sinopharm Weiqida Europe Pharmaceutical s.r.o. - Prague location"
+    case .ORG_100024420:
+      return "Sinopharm Zhijun (Shenzhen) Pharmaceutical Co. Ltd. - Shenzhen location"
+    case .ORG_100032020:
+      return "Novavax CZ AS"
+    case .Gamaleya_Research_Institute:
+      return "Gamaleya Research Institute"
+    case .Vector_Institute:
+      return "Vector Institute"
+    case .Sinovac_Biotech:
+      return "Sinovac Biotech"
+    case .Bharat_Biotech:
+      return "Bharat Biotech"
     }
+  }
 }
-public enum VaccineName: String {
 
-    case ORG_100001699 = "ORG-100001699"
-    case ORG_100030215 = "ORG-100030215"
-    case ORG_100001417 = "ORG-100001417"
-    case ORG_100031184 = "ORG-100031184"
-    case ORG_100006270 = "ORG-100006270"
-    case ORG_100013793 = "ORG-100013793"
-    case ORG_100020693 = "ORG-100020693"
-    case ORG_100010771 = "ORG-100010771"
-    case ORG_100024420 = "ORG-100024420"
-    case ORG_100032020 = "ORG-100032020"
-    case GamaleyaResearchInstitute = "Gamaleya-Research-Institute"
-    case VectorInstitute = "Vector-Institute"
-    case SinovacBiotech = "Sinovac-Biotech"
-    case BharatBiotech = "Bharat-Biotech"
-    
-    case EU_1_20_1528 = "EU/1/20/1528"
-    case EU_1_20_1507 = "EU/1/20/1507"
-    case EU_1_21_1529 = "EU/1/21/1529"
-    case EU_1_20_1525 = "EU/1/20/1525"
-    case CVnCoV = "CVnCoV"
-    case Sputnik_V = "Sputnik-V"
-    case Convidecia = "Convidecia"
-    case EpiVacCorona = "EpiVacCorona"
-    case BBIBP_CorV = "BBIBP-CorV"
-    case Inactivated_SARS_CoV_2_Vero_Cell = "Inactivated-SARS-CoV-2-Vero-Cell"
-    case CoronaVac = "CoronaVac"
-    case Covaxin = "Covaxin"
-    
-    func getDescription() -> String{
-        switch self {
-        case .ORG_100001699:
-            return "AstraZeneca AB"
-        case .ORG_100030215:
-            return "Biontech Manufacturing GmbH"
-        case .ORG_100001417:
-            return "Janssen-Cilag International"
-        case .ORG_100031184:
-            return "Moderna Biotech Spain S.L."
-        case .ORG_100006270:
-            return "Curevac AG"
-        case .ORG_100013793:
-            return "CanSino Biologics"
-        case .ORG_100020693:
-            return "China Sinopharm International Corp. - Beijing location"
-        case .ORG_100010771:
-            return "Sinopharm Weiqida Europe Pharmaceutical s.r.o. - Prague location"
-        case .ORG_100024420:
-            return "Sinopharm Zhijun (Shenzhen) Pharmaceutical Co. Ltd. - Shenzhen location"
-        case .ORG_100032020:
-            return "Novavax CZ AS"
-        case .GamaleyaResearchInstitute:
-            return "Gamaleya Research Institute"
-        case .VectorInstitute:
-            return "Vector Institute"
-        case .SinovacBiotech:
-            return "Sinovac Biotech"
-        case .BharatBiotech:
-            return "Bharat Biotech"
-        case .EU_1_20_1528:
-            return "Comirnaty"
-        case .EU_1_20_1507:
-            return "COVID-19 Vaccine Moderna"
-        case .EU_1_21_1529:
-            return "Vaxzevria"
-        case .EU_1_20_1525:
-            return "COVID-19 Vaccine Janssen"
-        case .CVnCoV:
-            return "CVnCoV"
-        case .Sputnik_V:
-            return "Sputnik-V"
-        case .Convidecia:
-            return "Convidecia"
-        case .EpiVacCorona:
-            return "EpiVacCorona"
-        case .BBIBP_CorV:
-            return "BBIBP-CorV"
-        case .Inactivated_SARS_CoV_2_Vero_Cell:
-            return "Inactivated SARS-CoV-2 (Vero Cell)"
-        case .CoronaVac:
-            return "CoronaVac"
-        case .Covaxin:
-            return "Covaxin (also known as BBV152 A, B, C)"
-        }
+public enum VaccineName: String {
+  case ORG_100001699 = "ORG-100001699"
+  case ORG_100030215 = "ORG-100030215"
+  case ORG_100001417 = "ORG-100001417"
+  case ORG_100031184 = "ORG-100031184"
+  case ORG_100006270 = "ORG-100006270"
+  case ORG_100013793 = "ORG-100013793"
+  case ORG_100020693 = "ORG-100020693"
+  case ORG_100010771 = "ORG-100010771"
+  case ORG_100024420 = "ORG-100024420"
+  case ORG_100032020 = "ORG-100032020"
+  case GamaleyaResearchInstitute = "Gamaleya-Research-Institute"
+  case VectorInstitute = "Vector-Institute"
+  case SinovacBiotech = "Sinovac-Biotech"
+  case BharatBiotech = "Bharat-Biotech"
+
+  case EU_1_20_1528 = "EU/1/20/1528"
+  case EU_1_20_1507 = "EU/1/20/1507"
+  case EU_1_21_1529 = "EU/1/21/1529"
+  case EU_1_20_1525 = "EU/1/20/1525"
+  case CVnCoV
+  case Sputnik_V = "Sputnik-V"
+  case Convidecia
+  case EpiVacCorona
+  case BBIBP_CorV = "BBIBP-CorV"
+  case Inactivated_SARS_CoV_2_Vero_Cell = "Inactivated-SARS-CoV-2-Vero-Cell"
+  case CoronaVac
+  case Covaxin
+
+  func getDescription() -> String {
+    switch self {
+    case .ORG_100001699:
+      return "AstraZeneca AB"
+    case .ORG_100030215:
+      return "Biontech Manufacturing GmbH"
+    case .ORG_100001417:
+      return "Janssen-Cilag International"
+    case .ORG_100031184:
+      return "Moderna Biotech Spain S.L."
+    case .ORG_100006270:
+      return "Curevac AG"
+    case .ORG_100013793:
+      return "CanSino Biologics"
+    case .ORG_100020693:
+      return "China Sinopharm International Corp. - Beijing location"
+    case .ORG_100010771:
+      return "Sinopharm Weiqida Europe Pharmaceutical s.r.o. - Prague location"
+    case .ORG_100024420:
+      return "Sinopharm Zhijun (Shenzhen) Pharmaceutical Co. Ltd. - Shenzhen location"
+    case .ORG_100032020:
+      return "Novavax CZ AS"
+    case .GamaleyaResearchInstitute:
+      return "Gamaleya Research Institute"
+    case .VectorInstitute:
+      return "Vector Institute"
+    case .SinovacBiotech:
+      return "Sinovac Biotech"
+    case .BharatBiotech:
+      return "Bharat Biotech"
+    case .EU_1_20_1528:
+      return "Comirnaty"
+    case .EU_1_20_1507:
+      return "COVID-19 Vaccine Moderna"
+    case .EU_1_21_1529:
+      return "Vaxzevria"
+    case .EU_1_20_1525:
+      return "COVID-19 Vaccine Janssen"
+    case .CVnCoV:
+      return "CVnCoV"
+    case .Sputnik_V:
+      return "Sputnik-V"
+    case .Convidecia:
+      return "Convidecia"
+    case .EpiVacCorona:
+      return "EpiVacCorona"
+    case .BBIBP_CorV:
+      return "BBIBP-CorV"
+    case .Inactivated_SARS_CoV_2_Vero_Cell:
+      return "Inactivated SARS-CoV-2 (Vero Cell)"
+    case .CoronaVac:
+      return "CoronaVac"
+    case .Covaxin:
+      return "Covaxin (also known as BBV152 A, B, C)"
     }
+  }
 }
