@@ -11,7 +11,7 @@ platform :ios, '13.0'
 # precaution against unwanted updates of the 3rd party libraries
 
 def shared_pods
-  pod 'Katana', '= 3.2.0'
+  pod 'Katana', :git => 'https://github.com/KatanaImmuni/katana-swift.git', :branch => 'ReleaseImmuni'
   pod 'Tempura', '= 4.4.0'
   pod 'Logging', '= 1.2.0'
   pod 'HydraAsync', '= 1.2.2'
