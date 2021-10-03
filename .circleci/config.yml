@@ -310,12 +310,15 @@ commands:
       - run:
           name: "[pr_setup] Install danger"
           command: |
-            # Install Node.js 12.x and npm
-            curl -sL https://deb.nodesource.com/setup_12.x | bash -
+            # Setup certificates
+            apt-get update && apt-get install libgnutls30
+
+            # Install Node.js 16.x and npm
+            curl -sSL https://deb.nodesource.com/setup_16.x | bash -
             apt-get install -y nodejs
 
             ## Install the Yarn package manager
-            curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+            curl -sSL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
             echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
             apt-get update && apt-get install yarn
 
