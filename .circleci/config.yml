@@ -293,8 +293,8 @@ commands:
               git checkout 7b9920fd94bf67c81f2616b0c359a0243f06b767
               make
 
-              # Install swiftformat
-              mint install nicklockwood/SwiftFormat
+              # Install swiftformat – note that 0.48.12 is not compatible with Mint
+              mint install nicklockwood/SwiftFormat@0.48.13
 
               mkdir $HOME/bin
               cp /usr/local/bin/swiftformat $HOME/bin
