@@ -20,8 +20,8 @@ struct GreenCertificateTestDetailVM: ViewModelWithLocalState {
   let greenCertificate: GreenCertificate
 }
 
-struct configurationState {
-  static var _state = ["": ["": ""]]
+struct ConfigurationState {
+  static var state = ["": ["": ""]]
 }
 
 extension GreenCertificateTestDetailVM {
@@ -30,7 +30,7 @@ extension GreenCertificateTestDetailVM {
       return nil
     }
     self.greenCertificate = localState.greenCertificate
-    configurationState._state = state.configuration.eudccExpiration
+    ConfigurationState.state = state.configuration.eudccExpiration
   }
 }
 
@@ -661,8 +661,8 @@ public enum TestType: String {
 
   func gedValidUntilValue() -> String {
     let lan = Locale.current.languageCode ?? "en"
-    let validUntilValueMolecularTest:String? = configurationState._state[lan]?["molecular_test"]
-    let validUntilValueQuickTest:String? = configurationState._state[lan]?["rapid_test"]
+    let validUntilValueMolecularTest:String? = ConfigurationState.state[lan]?["molecular_test"]
+    let validUntilValueQuickTest:String? = ConfigurationState.state[lan]?["rapid_test"]
 
     switch self {
     case .molecularTest:

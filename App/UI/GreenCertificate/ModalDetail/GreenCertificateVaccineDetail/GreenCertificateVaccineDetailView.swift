@@ -20,8 +20,8 @@ struct GreenCertificateVaccineDetailVM: ViewModelWithLocalState {
   let greenCertificate: GreenCertificate
 }
 
-struct configurationStateVaccine {
-  static var _state = ["": ["": ""]]
+struct ConfigurationStateVaccine {
+  static var state = ["": ["": ""]]
 }
 
 extension GreenCertificateVaccineDetailVM {
@@ -31,7 +31,7 @@ extension GreenCertificateVaccineDetailVM {
     }
 
     self.greenCertificate = localState.greenCertificate
-    configurationStateVaccine._state = (state?.configuration.eudccExpiration)!
+    ConfigurationStateVaccine.state = (state?.configuration.eudccExpiration)!
   }
 }
 
@@ -232,8 +232,8 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
       return
     }
     let lan = Locale.current.languageCode ?? "en"
-    let validUntilCompleteVaccine = configurationStateVaccine._state[lan]!["vaccine_fully_completed"]
-    let validUntilnotCompleteVaccine = configurationStateVaccine._state[lan]!["vaccine_first_dose"]
+    let validUntilCompleteVaccine = ConfigurationStateVaccine.state[lan]!["vaccine_fully_completed"]
+    let validUntilnotCompleteVaccine = ConfigurationStateVaccine.state[lan]!["vaccine_first_dose"]
 
     if let detailVaccineCertificate = model.greenCertificate.detailVaccineCertificate {
       Self.Style.value(self.diseaseVaccine, text: detailVaccineCertificate.disease)
