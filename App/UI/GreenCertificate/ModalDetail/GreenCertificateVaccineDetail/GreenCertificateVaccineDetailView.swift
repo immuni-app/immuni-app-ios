@@ -675,137 +675,137 @@ public enum VaccineType: String {
 }
 
 public enum VaccineProducer: String {
-  case ORG100001699 = "ORG-100001699"
-  case ORG100030215 = "ORG-100030215"
-  case ORG100001417 = "ORG-100001417"
-  case ORG100031184 = "ORG-100031184"
-  case ORG100006270 = "ORG-100006270"
-  case ORG100013793 = "ORG-100013793"
-  case ORG100020693 = "ORG-100020693"
-  case ORG100010771 = "ORG-100010771"
-  case ORG100024420 = "ORG-100024420"
-  case ORG100032020 = "ORG-100032020"
-  case GamaleyaResearchInstitute = "Gamaleya-Research-Institute"
-  case VectorInstitute = "Vector-Institute"
-  case SinovacBiotech = "Sinovac-Biotech"
-  case BharatBiotech = "Bharat-Biotech"
+  case org100001699 = "ORG-100001699"
+  case org100030215 = "ORG-100030215"
+  case org100001417 = "ORG-100001417"
+  case org100031184 = "ORG-100031184"
+  case org100006270 = "ORG-100006270"
+  case org100013793 = "ORG-100013793"
+  case org100020693 = "ORG-100020693"
+  case org100010771 = "ORG-100010771"
+  case org100024420 = "ORG-100024420"
+  case org100032020 = "ORG-100032020"
+  case gamaleyaResearchInstitute = "Gamaleya-Research-Institute"
+  case vectorInstitute = "Vector-Institute"
+  case sinovacBiotech = "Sinovac-Biotech"
+  case bharatBiotech = "Bharat-Biotech"
 
   func getDescription() -> String {
     switch self {
-    case .ORG100001699:
+    case .org100001699:
       return "AstraZeneca AB"
-    case .ORG100030215:
+    case .org100030215:
       return "Biontech Manufacturing GmbH"
-    case .ORG100001417:
+    case .org100001417:
       return "Janssen-Cilag International"
-    case .ORG100031184:
+    case .org100031184:
       return "Moderna Biotech Spain S.L."
-    case .ORG100006270:
+    case .org100006270:
       return "Curevac AG"
-    case .ORG100013793:
+    case .org100013793:
       return "CanSino Biologics"
-    case .ORG100020693:
+    case .org100020693:
       return "China Sinopharm International Corp. - Beijing location"
-    case .ORG100010771:
+    case .org100010771:
       return "Sinopharm Weiqida Europe Pharmaceutical s.r.o. - Prague location"
-    case .ORG100024420:
+    case .org100024420:
       return "Sinopharm Zhijun (Shenzhen) Pharmaceutical Co. Ltd. - Shenzhen location"
-    case .ORG100032020:
+    case .org100032020:
       return "Novavax CZ AS"
-    case .GamaleyaResearchInstitute:
+    case .gamaleyaResearchInstitute:
       return "Gamaleya Research Institute"
-    case .VectorInstitute:
+    case .vectorInstitute:
       return "Vector Institute"
-    case .SinovacBiotech:
+    case .sinovacBiotech:
       return "Sinovac Biotech"
-    case .BharatBiotech:
+    case .bharatBiotech:
       return "Bharat Biotech"
     }
   }
 }
 
 public enum VaccineName: String {
-  case ORG100001699 = "ORG-100001699"
-  case ORG100030215 = "ORG-100030215"
-  case ORG100001417 = "ORG-100001417"
-  case ORG100031184 = "ORG-100031184"
-  case ORG100006270 = "ORG-100006270"
-  case ORG100013793 = "ORG-100013793"
-  case ORG100020693 = "ORG-100020693"
-  case ORG100010771 = "ORG-100010771"
-  case ORG100024420 = "ORG-100024420"
-  case ORG100032020 = "ORG-100032020"
-  case GamaleyaResearchInstitute = "Gamaleya-Research-Institute"
-  case VectorInstitute = "Vector-Institute"
-  case SinovacBiotech = "Sinovac-Biotech"
-  case BharatBiotech = "Bharat-Biotech"
+  case org100001699 = "ORG-100001699"
+  case org100030215 = "ORG-100030215"
+  case org100001417 = "ORG-100001417"
+  case org100031184 = "ORG-100031184"
+  case org100006270 = "ORG-100006270"
+  case org100013793 = "ORG-100013793"
+  case org100020693 = "ORG-100020693"
+  case org100010771 = "ORG-100010771"
+  case org100024420 = "ORG-100024420"
+  case org100032020 = "ORG-100032020"
+  case gamaleyaResearchInstitute = "Gamaleya-Research-Institute"
+  case vectorInstitute = "Vector-Institute"
+  case sinovacBiotech = "Sinovac-Biotech"
+  case bharatBiotech = "Bharat-Biotech"
 
-  case EU1201528 = "EU/1/20/1528"
-  case EU1201507 = "EU/1/20/1507"
-  case EU1211529 = "EU/1/21/1529"
-  case EU1201525 = "EU/1/20/1525"
-  case CVnCoV
-  case SputnikV = "Sputnik-V"
-  case Convidecia
-  case EpiVacCorona
-  case BBIBPCorV = "BBIBP-CorV"
-  case InactivatedSARSCoV2VeroCell = "Inactivated-SARS-CoV-2-Vero-Cell"
-  case CoronaVac
-  case Covaxin
+  case eu1201528 = "EU/1/20/1528"
+  case eu1201507 = "EU/1/20/1507"
+  case eu1211529 = "EU/1/21/1529"
+  case eu1201525 = "EU/1/20/1525"
+  case cvnCoV
+  case sputnikV = "Sputnik-V"
+  case convidecia
+  case epiVacCorona
+  case bbibpCorV = "BBIBP-CorV"
+  case inactivatedSARSCoV2VeroCell = "Inactivated-SARS-CoV-2-Vero-Cell"
+  case coronaVac
+  case covaxin
 
   func getDescription() -> String {
     switch self {
-    case .ORG100001699:
+    case .org100001699:
       return "AstraZeneca AB"
-    case .ORG100030215:
+    case .org100030215:
       return "Biontech Manufacturing GmbH"
-    case .ORG100001417:
+    case .org100001417:
       return "Janssen-Cilag International"
-    case .ORG100031184:
+    case .org100031184:
       return "Moderna Biotech Spain S.L."
-    case .ORG100006270:
+    case .org100006270:
       return "Curevac AG"
-    case .ORG100013793:
+    case .org100013793:
       return "CanSino Biologics"
-    case .ORG100020693:
+    case .org100020693:
       return "China Sinopharm International Corp. - Beijing location"
-    case .ORG100010771:
+    case .org100010771:
       return "Sinopharm Weiqida Europe Pharmaceutical s.r.o. - Prague location"
-    case .ORG100024420:
+    case .org100024420:
       return "Sinopharm Zhijun (Shenzhen) Pharmaceutical Co. Ltd. - Shenzhen location"
-    case .ORG100032020:
+    case .org100032020:
       return "Novavax CZ AS"
-    case .GamaleyaResearchInstitute:
+    case .gamaleyaResearchInstitute:
       return "Gamaleya Research Institute"
-    case .VectorInstitute:
+    case .vectorInstitute:
       return "Vector Institute"
-    case .SinovacBiotech:
+    case .sinovacBiotech:
       return "Sinovac Biotech"
-    case .BharatBiotech:
+    case .bharatBiotech:
       return "Bharat Biotech"
-    case .EU1201528:
+    case .eu1201528:
       return "Comirnaty"
-    case .EU1201507:
+    case .eu1201507:
       return "COVID-19 Vaccine Moderna"
-    case .EU1211529:
+    case .eu1211529:
       return "Vaxzevria"
-    case .EU1201525:
+    case .eu1201525:
       return "COVID-19 Vaccine Janssen"
-    case .CVnCoV:
+    case .cvnCoV:
       return "CVnCoV"
-    case .SputnikV:
+    case .sputnikV:
       return "Sputnik-V"
-    case .Convidecia:
+    case .convidecia:
       return "Convidecia"
-    case .EpiVacCorona:
+    case .epiVacCorona:
       return "EpiVacCorona"
-    case .BBIBPCorV:
+    case .bbibpCorV:
       return "BBIBP-CorV"
-    case .InactivatedSARSCoV2VeroCell:
+    case .inactivatedSARSCoV2VeroCell:
       return "Inactivated SARS-CoV-2 (Vero Cell)"
-    case .CoronaVac:
+    case .coronaVac:
       return "CoronaVac"
-    case .Covaxin:
+    case .covaxin:
       return "Covaxin (also known as BBV152 A, B, C)"
     }
   }
