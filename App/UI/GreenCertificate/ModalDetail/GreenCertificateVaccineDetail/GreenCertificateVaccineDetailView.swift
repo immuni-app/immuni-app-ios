@@ -256,10 +256,9 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
       } else {
         Self.Style.value(self.vaccineProducer, text: "---")
       }
-      if detailVaccineCertificate.doseNumber == detailVaccineCertificate.totalSeriesOfDoses,
+      if detailVaccineCertificate.doseNumber >= detailVaccineCertificate.totalSeriesOfDoses,
          !detailVaccineCertificate.doseNumber.isEmpty
       {
-        // vaccino completo seba
         Self.Style.value(
           self.validUntil,
           text: validUntilCompleteVaccine?
@@ -268,7 +267,7 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
       } else {
         Self.Style.value(
           self.validUntil,
-          text: validUntilnotCompleteVaccine?.description ?? "SCertification valid until next dose"
+          text: validUntilnotCompleteVaccine?.description ?? "Certification valid until next dose"
         )
       }
       Self.Style.value(
