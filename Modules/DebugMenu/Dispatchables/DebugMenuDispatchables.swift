@@ -69,8 +69,8 @@ public struct DebugMenuSideEffectContext: AnySideEffectContext {
   }
 
   /// Method to dispatch a `Dispatchable`
-  public func dispatch(_ dispatchable: Dispatchable) -> Promise<Void> {
-    return self.anyContext.dispatch(dispatchable)
+  public func anyDispatch(_ dispatchable: Dispatchable) -> Promise<Any> {
+    return self.anyContext.anyDispatch(dispatchable)
   }
 }
 
@@ -85,11 +85,12 @@ public protocol DebugMenuSideEffect: AnySideEffect {
 // Conformance of `DebugMenuSideEffect` to `AnySideEffect`
 public extension DebugMenuSideEffect {
   /// Implementation of the `sideEffect` requirement for `AnySideEffectContext`
-  func sideEffect(_ context: AnySideEffectContext) throws {
+  func anySideEffect(_ context: AnySideEffectContext) throws -> Any {
     guard let debugMenuContext = DebugMenuSideEffectContext(context) else {
       throw DebugMenuError.invalidSideEffectContext
     }
 
     try self.sideEffect(debugMenuContext)
+    return ()
   }
 }

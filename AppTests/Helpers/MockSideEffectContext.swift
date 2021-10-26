@@ -23,7 +23,7 @@ struct MockSideEffectContext: AnySideEffectContext {
   var anyDependencies: SideEffectDependencyContainer
 
   var getState: GetState
-  var dispatch: PromisableStoreDispatch
+  var dispatch: AnyDispatch
 
   func getAnyState() -> State {
     return self.getState()
@@ -33,7 +33,7 @@ struct MockSideEffectContext: AnySideEffectContext {
     return self.dispatch(dispatchable)
   }
 
-  init(getState: @escaping GetState, dispatch: @escaping PromisableStoreDispatch) {
+  init(getState: @escaping GetState, dispatch: @escaping AnyDispatch) {
     self.anyDependencies = EmptySideEffectDependencyContainer(dispatch: dispatch, getState: getState)
     self.getState = getState
     self.dispatch = dispatch

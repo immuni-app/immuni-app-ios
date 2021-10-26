@@ -163,13 +163,13 @@ class TabbarView: UIView, ViewControllerModellableView {
     self.collection.pin
       .width(min(700, self.bounds.width)).hCenter()
       .height(TabbarView.tabBarHeight)
-      .bottom(self.universalSafeAreaInsets.bottom)
+      .bottom(self.safeAreaInsets.bottom)
 
     self.shadow.pin.all()
 
     self.container.pin
       .width(min(700, self.bounds.width)).hCenter()
-      .height(TabbarView.tabBarHeight + self.universalSafeAreaInsets.bottom)
+      .height(TabbarView.tabBarHeight + self.safeAreaInsets.bottom)
       .bottom()
   }
 }

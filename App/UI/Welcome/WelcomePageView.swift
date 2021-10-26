@@ -76,7 +76,7 @@ class WelcomePageView: UIView, ModellableView {
 
     self.animationView.pin
       .horizontally()
-      .top(self.universalSafeAreaInsets.top)
+      .top(self.safeAreaInsets.top)
       .above(of: self.titleLabel)
       .marginBottom(30)
       .align(.center)

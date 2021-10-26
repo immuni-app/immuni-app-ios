@@ -143,20 +143,20 @@ extension Logic.DataUpload {
       do {
         // Send the request
         let requestSize = state.configuration.ingestionRequestTargetSize
-        try await(context.dependencies.networkManager.validateOTP(self.code, requestSize: requestSize))
+        try Hydra.await(context.dependencies.networkManager.validateOTP(self.code, requestSize: requestSize))
         try context.awaitDispatch(MarkOTPValidationSuccessfulAttempt())
       } catch NetworkManager.Error.unauthorizedOTP {
         // User is not authorized. Bubble up the error to the calling ViewController
-        try await(context.dispatch(Logic.Loading.Hide()))
+        try Hydra.await(context.dispatch(Logic.Loading.Hide()))
         try context.awaitDispatch(MarkOTPValidationFailedAttempt(date: context.dependencies.now()))
         throw Error.verificationFailed
       } catch {
-        try await(context.dispatch(Logic.Loading.Hide()))
+        try Hydra.await(context.dispatch(Logic.Loading.Hide()))
         try context.awaitDispatch(ShowErrorAlert(error: error, retryDispatchable: self))
         return
       }
 
-      try await(context.dispatch(Logic.Loading.Hide()))
+      try Hydra.await(context.dispatch(Logic.Loading.Hide()))
       try context.awaitDispatch(ShowConfirmData(code: self.code))
     }
   }
@@ -362,24 +362,24 @@ extension Logic.DataUpload {
       do {
         // Send the request
         let requestSize = state.configuration.ingestionRequestTargetSize
-        try await(context.dependencies.networkManager.validateCUN(self.code, lastHisNumber: self.lastHisNumber, symptomsStartedOn: self.symptomsStartedOn, requestSize: requestSize))
+        try Hydra.await(context.dependencies.networkManager.validateCUN(self.code, lastHisNumber: self.lastHisNumber, symptomsStartedOn: self.symptomsStartedOn, requestSize: requestSize))
         } catch NetworkManager.Error.unauthorizedOTP {
           // User is not authorized. Bubble up the error to the calling ViewController
-          try await(context.dispatch(Logic.Loading.Hide()))
+          try Hydra.await(context.dispatch(Logic.Loading.Hide()))
             try context.awaitDispatch(ShowCunErrorAlert(title: L10n.UploadData.VpnError.title, message: L10n.UploadData.ErrorCun.message))
           throw Error.verificationFailed
         } catch NetworkManager.Error.otpAlreadyAuthorized {
             // cun Already Authorized. Bubble up the error to the calling ViewController
-            try await(context.dispatch(Logic.Loading.Hide()))
+          try Hydra.await(context.dispatch(Logic.Loading.Hide()))
             try context.awaitDispatch(ShowCunErrorAlert(title: L10n.UploadData.UnauthorizedCun.title, message: L10n.UploadData.UnauthorizedCun.message))
               
             throw Error.verificationFailed
           } catch {
-          try await(context.dispatch(Logic.Loading.Hide()))
+            try Hydra.await(context.dispatch(Logic.Loading.Hide()))
           try context.awaitDispatch(ShowErrorAlert(error: error, retryDispatchable: self))
           return
         }
-        try await(context.dispatch(Logic.Loading.Hide()))
+      try Hydra.await(context.dispatch(Logic.Loading.Hide()))
         try context.awaitDispatch(ShowConfirmData(code: self.code))
       }
     }
@@ -432,7 +432,7 @@ extension Logic.DataUpload {
 
       let keys: [TemporaryExposureKey]
       do {
-        keys = try await(context.dependencies.exposureNotificationManager.getDiagnosisKeys())
+        keys = try Hydra.await(context.dependencies.exposureNotificationManager.getDiagnosisKeys())
         try context.awaitDispatch(Hide(Screen.permissionOverlay, animated: false))
       } catch {
         // The user declined sharing the keys.
@@ -442,7 +442,7 @@ extension Logic.DataUpload {
 
       // Wait for the key window to be restored
       if #available(iOS 13.7, *) {
-        try await(context.dependencies.application.waitForWindowRestored())
+        try Hydra.await(context.dependencies.application.waitForWindowRestored())
       }
 
       // Start loading
@@ -464,10 +464,10 @@ extension Logic.DataUpload {
       // Send the data to the backend
       do {
         let requestSize = state.configuration.ingestionRequestTargetSize
-        try await(context.dependencies.networkManager.uploadData(body: requestBody, otp: self.code, requestSize: requestSize))
-        try await(context.dispatch(Logic.Loading.Hide()))
+        try Hydra.await(context.dependencies.networkManager.uploadData(body: requestBody, otp: self.code, requestSize: requestSize))
+        try Hydra.await(context.dispatch(Logic.Loading.Hide()))
       } catch {
-        try await(context.dispatch(Logic.Loading.Hide()))
+        try Hydra.await(context.dispatch(Logic.Loading.Hide()))
         try context.awaitDispatch(ShowErrorAlert(error: error, retryDispatchable: self))
         return
       }
@@ -476,7 +476,7 @@ extension Logic.DataUpload {
       context.dispatch(Logic.CovidStatus.UpdateStatusWithEvent(event: .dataUpload(currentDate: now.calendarDay)))
 
       try context.awaitDispatch(Show(Screen.confirmation, animated: true, context: ConfirmationLS.uploadDataCompleted))
-      try await(Promise<Void>(resolved: ()).defer(3))
+      try Hydra.await(Promise<Void>(resolved: ()).defer(3))
 
       try context.awaitDispatch(Hide(Screen.confirmation, animated: true))
       try context.awaitDispatch(Hide(Screen.confirmUpload, animated: true))

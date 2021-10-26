@@ -23,7 +23,7 @@ struct DelayedDispatchable: AppSideEffect {
 
   func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
     Promise<Void>.deferring(of: self.delay)
-      .then(in: .background) { _ in context.dispatch(self.dispatchable) }
+      .then(in: .background) { _ in context.anyDispatch(self.dispatchable) }
   }
 }
 

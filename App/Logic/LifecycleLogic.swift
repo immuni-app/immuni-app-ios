@@ -51,7 +51,7 @@ extension Logic {
         try context.awaitDispatch(PerformFirstLaunchSetupIfNeeded())
 
         // starts the exposure manager if possible
-        try await(context.dependencies.exposureNotificationManager.startIfAuthorized())
+        try Hydra.await(context.dependencies.exposureNotificationManager.startIfAuthorized())
 
         // clears `PositiveExposureResults` older than 14 days from the `ExposureDetectionState`
         try context.awaitDispatch(Logic.ExposureDetection.ClearOutdatedResults(now: context.dependencies.now()))
@@ -228,7 +228,7 @@ extension Logic {
         try context.awaitDispatch(Logic.DataUpload.UpdateDummyTrafficOpportunityWindowIfExpired())
 
         // Update the configuration, with a timeout. Continue in any case in order not to waste an Exposure Detection cycle.
-        try? await(context.dispatch(Logic.Configuration.DownloadAndUpdateConfiguration()).timeout(timeout: 10))
+        try? Hydra.await(context.dispatch(Logic.Configuration.DownloadAndUpdateConfiguration()).timeout(timeout: 10))
 
         // Dispatch the exposure detection
         context.dispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .background(self.task)))
@@ -255,7 +255,7 @@ extension Logic.Lifecycle {
         .timeout(timeout: 10)
 
       // Fail silently in case of error (for example, the timeout triggering)
-      try? await(configurationFetch)
+      try? Hydra.await(configurationFetch)
 
       /// Initialize the stochastic parameters required for the generation of dummy ingestion traffic.
       try context.awaitDispatch(Logic.DataUpload.UpdateDummyTrafficOpportunityWindow())
@@ -267,8 +267,8 @@ extension Logic.Lifecycle {
 
   struct RefreshAuthorizationStatuses: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      let pushStatus = try await(context.dependencies.pushNotification.getCurrentAuthorizationStatus())
-      let exposureStatus = try await(context.dependencies.exposureNotificationManager.getStatus())
+      let pushStatus = try Hydra.await(context.dependencies.pushNotification.getCurrentAuthorizationStatus())
+      let exposureStatus = try Hydra.await(context.dependencies.exposureNotificationManager.getStatus())
 
       try context.awaitDispatch(UpdateAuthorizationStatus(
         pushNotificationAuthorizationStatus: pushStatus,

@@ -29,7 +29,7 @@ import Tempura
 
 final class AppDependencies: NSObject, SideEffectDependencyContainer, NavigationProvider {
   let getAppState: () -> AppState
-  let dispatch: PromisableStoreDispatch
+  let dispatch: AnyDispatch
 
   // MARK: App Managers and utilities
 
@@ -57,7 +57,7 @@ final class AppDependencies: NSObject, SideEffectDependencyContainer, Navigation
     let debugMenu: DebugMenu
   #endif
 
-  required init(dispatch: @escaping PromisableStoreDispatch, getState: @escaping GetState) {
+  required init(dispatch: @escaping AnyDispatch, getState: @escaping GetState) {
     let getAppState: () -> AppState = {
       guard let state = getState() as? AppState else {
         AppLogger.fatalError("Wrong State Type")
@@ -116,7 +116,7 @@ final class AppDependencies: NSObject, SideEffectDependencyContainer, Navigation
   init(
     navigator: Navigator,
     getAppState: @escaping () -> AppState,
-    dispatch: @escaping PromisableStoreDispatch,
+    dispatch: @escaping AnyDispatch,
     kvStorage: KVStorage,
     secretsStorage: SecretsStorage,
     networkManager: NetworkManager,

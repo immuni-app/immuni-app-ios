@@ -135,7 +135,7 @@ class WelcomeView: UIView, ViewControllerModellableView {
       .horizontally(Self.horizontalSpacing)
       .maxWidth(315)
       .height(55)
-      .bottom(self.universalSafeAreaInsets.bottom + UIDevice.getByScreen(normal: 30, short: 20))
+      .bottom(self.safeAreaInsets.bottom + UIDevice.getByScreen(normal: 30, short: 20))
       .justify(.center)
 
     self.discoverMoreButton.pin

@@ -37,8 +37,8 @@ extension Logic.Suggestions {
   /// Triggers the alert dismissal, which is used in case the user is in contact with the ASL
   struct DismissContactNotifications: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      try await(Promise<Void>.alertPromise(
-        using: context.dispatch,
+      try Hydra.await(Promise<Void>.alertPromise(
+        using: context.anyDispatch(_:),
         title: L10n.Suggestions.Alert.AslContactConfirmation.title,
         message: L10n.Suggestions.Alert.AslContactConfirmation.description,
         affermativeAnswer: L10n.Suggestions.Alert.AslContactConfirmation.positiveAnswer,
@@ -53,8 +53,8 @@ extension Logic.Suggestions {
   /// Triggers the alert dismissal, which is used in case the user is in contact with the ASL
   struct HideAlert: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      try await(Promise<Void>.alertPromise(
-        using: context.dispatch,
+      try Hydra.await(Promise<Void>.alertPromise(
+        using: context.anyDispatch(_:),
         title: L10n.Suggestions.Alert.HideAlert.title,
         message: L10n.Suggestions.Alert.HideAlert.description,
         affermativeAnswer: L10n.Suggestions.Alert.HideAlert.positiveAnswer,
@@ -69,8 +69,8 @@ extension Logic.Suggestions {
   /// Triggers the no longer positive
   struct NoLongerPositive: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      try await(Promise<Void>.alertPromise(
-        using: context.dispatch,
+      try Hydra.await(Promise<Void>.alertPromise(
+        using: context.anyDispatch(_:),
         title: L10n.Suggestions.Alert.CovidNegative.title,
         message: L10n.Suggestions.Alert.CovidNegative.description,
         affermativeAnswer: L10n.Suggestions.Alert.CovidNegative.positiveAnswer,
@@ -97,7 +97,7 @@ private extension Promise {
   /// Helper that creates a promise that throws when the user rejects the alert
   /// (that is, negativeAnswer is selected)
   static func alertPromise(
-    using dispatch: @escaping PromisableStoreDispatch,
+    using dispatch: @escaping AnyDispatch,
     title: String,
     message: String,
     affermativeAnswer: String,

@@ -123,7 +123,7 @@ class UploadDataAutonomousVC: ViewControllerWithLocalState<UploadDataAutonomousV
     private func verifyCun(cun: OTP, lastHisNumber: String, symptomsStartedOn: String) {
         localState.isLoading = true
 
-        dispatch(Logic.DataUpload.VerifyCun(code: cun, lastHisNumber: lastHisNumber, symptomsStartedOn: symptomsStartedOn))
+      self.__unsafeDispatch(Logic.DataUpload.VerifyCun(code: cun, lastHisNumber: lastHisNumber, symptomsStartedOn: symptomsStartedOn))
             .then {
                 self.localState.isLoading = false
             }

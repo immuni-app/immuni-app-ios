@@ -139,7 +139,7 @@ class GenerateGreenCertificateVC: ViewControllerWithLocalState<GenerateGreenCert
     private func generateDgc(code: String, codeType: CodeType, lastHisNumber: String, hisExpiringDate: String) {
         localState.isLoading = true
 
-        dispatch(Logic.DataUpload.GenerateDigitalGreenCertificate(code: code, lastHisNumber: lastHisNumber, hisExpiringDate: hisExpiringDate, codeType: codeType))
+      self.__unsafeDispatch(Logic.DataUpload.GenerateDigitalGreenCertificate(code: code, lastHisNumber: lastHisNumber, hisExpiringDate: hisExpiringDate, codeType: codeType))
             .then {
                 self.localState.isLoading = false
             }

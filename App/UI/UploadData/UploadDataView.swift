@@ -168,7 +168,7 @@ class UploadDataView: UIView, ViewControllerModellableView {
 
     self.backButton.pin
       .left(Self.horizontalSpacing)
-      .top(self.universalSafeAreaInsets.top + 20)
+      .top(self.safeAreaInsets.top + 20)
       .sizeToFit()
 
     self.title.pin
@@ -180,7 +180,7 @@ class UploadDataView: UIView, ViewControllerModellableView {
       .horizontally()
       .below(of: self.title)
       .marginTop(5)
-      .bottom(self.universalSafeAreaInsets.bottom)
+      .bottom(self.safeAreaInsets.bottom)
 
     self.headerView.pin
       .horizontally()

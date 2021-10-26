@@ -30,7 +30,7 @@ extension AppDependencies {
   static func mocked(
     navigator: Navigator = Navigator(),
     getAppState: @escaping () -> AppState = { AppState() },
-    dispatch: @escaping PromisableStoreDispatch = { _ in Promise(resolved: ()) },
+    dispatch: @escaping AnyDispatch = { _ in Promise(resolved: ()) },
     kvStorage: KVStorage = KVStorage(userDefaults: .standard, encryptionKey: nil),
     secretsStorage: SecretsStorage = SecretsStorage(bundle: .main),
     requestExecutor: RequestExecutor = MockRequestExecutor(mockedResult: .success(Data())),

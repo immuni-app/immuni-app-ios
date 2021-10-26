@@ -63,7 +63,7 @@ extension Logic.Settings {
 
       try context.awaitDispatch(Logic.Loading.Show())
       do {
-        try await(context.dispatch(Logic.Configuration.PerformFAQFetch()).timeout(timeout: 5))
+        try Hydra.await(context.dispatch(Logic.Configuration.PerformFAQFetch()).timeout(timeout: 5))
         try context.awaitDispatch(Logic.Loading.Hide())
         try context.awaitDispatch(Show(Screen.faq, animated: true))
       } catch {
@@ -139,7 +139,7 @@ extension Logic.Settings {
         return
       }
 
-      try await(context.dependencies.application.goTo(url: url).run())
+      try Hydra.await(context.dependencies.application.goTo(url: url).run())
     }
   }
 
@@ -196,7 +196,7 @@ extension Logic.Settings {
       if self.region.isAbroadRegion {
         // if the user cancels, the promise throws and the flow is interrupted.
         // If the user accepts, instead, the flows continues as expected
-        try await(self.showAbroadConfirmation(dispatch: context.dispatch(_:)))
+        try Hydra.await(self.showAbroadConfirmation(dispatch: context.anyDispatch(_:)))
       }
 
       if
@@ -218,7 +218,7 @@ extension Logic.Settings {
         ))
     }
 
-    private func showAbroadConfirmation(dispatch: @escaping PromisableStoreDispatch) -> Promise<Void> {
+    private func showAbroadConfirmation(dispatch: @escaping AnyDispatch) -> Promise<Void> {
       return Promise { resolve, reject, _ in
         let model = Alert.Model(
           title: L10n.Onboarding.Region.Abroad.Alert.title,
@@ -311,19 +311,19 @@ extension Logic.Settings {
 
       if newCountriesOfInterest.count > Self.selectionLimitOfCountries {
         // the promise throws and the flow is interrupted.
-        try await(self.showCountriesLimitExceededAlert(dispatch: context.dispatch(_:)))
+        try Hydra.await(self.showCountriesLimitExceededAlert(dispatch: context.anyDispatch(_:)))
       }
       if countriesLocal != countriesState {
         // if the user cancels, the promise throws and the flow is interrupted.
         // If the user accepts, instead, the flows continues as expected
-        try await(self.showUpdateCountriesConfirmation(dispatch: context.dispatch(_:)))
+        try Hydra.await(self.showUpdateCountriesConfirmation(dispatch: context.anyDispatch(_:)))
       }
 
       try context.awaitDispatch(Logic.Onboarding.SetUserCountries(countries: newCountriesOfInterest))
       context.dispatch(Hide(Screen.updateCountry, animated: true))
     }
 
-    private func showUpdateCountriesConfirmation(dispatch: @escaping PromisableStoreDispatch) -> Promise<Void> {
+    private func showUpdateCountriesConfirmation(dispatch: @escaping AnyDispatch) -> Promise<Void> {
       return Promise { resolve, reject, _ in
         let model = Alert.Model(
           title: L10n.CountriesOfInterest.Confirm.title,
@@ -344,7 +344,7 @@ extension Logic.Settings {
       }
     }
 
-    private func showCountriesLimitExceededAlert(dispatch: @escaping PromisableStoreDispatch) -> Promise<Void> {
+    private func showCountriesLimitExceededAlert(dispatch: @escaping AnyDispatch) -> Promise<Void> {
       return Promise { _, reject, _ in
         let model = Alert.Model(
           title: L10n.CountriesOfInterest.Alert.title,

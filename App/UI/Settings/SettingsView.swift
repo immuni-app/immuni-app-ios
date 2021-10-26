@@ -192,11 +192,11 @@ class SettingsView: UIView, ViewControllerModellableView {
 
     self.collection.pin
       .horizontally()
-      .top(self.universalSafeAreaInsets.top)
-      .bottom(self.universalSafeAreaInsets.bottom)
+      .top(self.safeAreaInsets.top)
+      .bottom(self.safeAreaInsets.bottom)
 
     self.headerTitle.pin
-      .top(self.universalSafeAreaInsets.top + 20)
+      .top(self.safeAreaInsets.top + 20)
       .horizontally(Self.horizontalSpacing)
       .sizeToFit(.width)
 
@@ -221,7 +221,7 @@ class SettingsView: UIView, ViewControllerModellableView {
     collectionViewLayout.estimatedItemSize = CGSize(width: self.collection.bounds.width, height: 50)
     collectionViewLayout.minimumLineSpacing = 0
 
-    self.collection.contentInset.top = self.headerTitle.frame.maxY - self.universalSafeAreaInsets.top
+    self.collection.contentInset.top = self.headerTitle.frame.maxY - self.safeAreaInsets.top
     self.collection.contentInset.bottom = 20
   }
 }

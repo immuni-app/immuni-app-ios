@@ -50,7 +50,7 @@ public final class PushNotificationManager {
     _ permissions: UNAuthorizationOptions = .all
   ) -> Promise<PushNotificationStatus> {
     return Promise(in: .userInitiated) { resolve, _, _ in
-      let result = try await(self.notificationPermissionsProvider.requestPermissions(permissions: permissions))
+      let result = try Hydra.await(self.notificationPermissionsProvider.requestPermissions(permissions: permissions))
       resolve(PushNotificationStatus(from: result))
     }
   }

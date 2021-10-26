@@ -197,7 +197,7 @@
   /// Shows the list of scheduled notifications
   private struct ShowScheduledNotifications: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      let scheduled = try await(context.dependencies.pushNotification.scheduledLocalNotificationsIds())
+      let scheduled = try Hydra.await(context.dependencies.pushNotification.scheduledLocalNotificationsIds())
       let scheduledMessage = scheduled.map { "- \($0)" }.joined(separator: "\n\n")
 
       let message = """
@@ -233,12 +233,12 @@
   /// Shows the TEKs for the user, including today's.
   private struct ShowDiagnosisKeys: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      try await(context.dependencies.exposureNotificationManager.askAuthorizationAndStart())
+      try Hydra.await(context.dependencies.exposureNotificationManager.askAuthorizationAndStart())
 
       let resultTitle: String
       let resultMessage: String
       do {
-        let keys = try await(context.dependencies.exposureNotificationManager.getDiagnosisKeys())
+        let keys = try Hydra.await(context.dependencies.exposureNotificationManager.getDiagnosisKeys())
 
         resultTitle = "Success"
         resultMessage = "Count: \(keys.count)\n\(keys.map { $0.debugDescription }.joined(separator: ",\n"))"
@@ -267,7 +267,7 @@
       let resultMessage: String
 
       do {
-        try await(context.dependencies.exposureNotificationManager.askAuthorizationAndStart())
+        try Hydra.await(context.dependencies.exposureNotificationManager.askAuthorizationAndStart())
         try context.awaitDispatch(Logic.Configuration.DownloadAndUpdateConfiguration())
         try context.awaitDispatch(Logic.ExposureDetection.PerformExposureDetectionIfNecessary(type: .foreground, forceRun: true))
 

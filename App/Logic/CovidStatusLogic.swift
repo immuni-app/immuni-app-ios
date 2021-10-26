@@ -42,11 +42,11 @@ extension Logic.CovidStatus {
       let enteringDispatchable = newStatus.enteringDispatchables
 
       for item in leavingDispatchable {
-        context.dispatch(item)
+        context.anyDispatch(item)
       }
 
       for item in enteringDispatchable {
-        context.dispatch(item)
+        context.anyDispatch(item)
       }
     }
   }

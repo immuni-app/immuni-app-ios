@@ -23,7 +23,7 @@ import XCTest
 
 final class PersistStoreInterceptTests: XCTestCase {
   var fakeStorage: FakeStorage!
-  var dispatch: PromisableStoreDispatch!
+  var dispatch: AnyDispatch!
   var next: StoreInterceptorNext!
   var persistStoreInterceptor: PersistStoreInterceptorWithLog<ComplexPartialState>!
   var persistStore: PersistStore<ComplexPartialState>!

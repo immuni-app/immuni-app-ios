@@ -22,7 +22,7 @@ public protocol DebugMenuConfigurationProvider: AnyObject {
 
   /// The store dispatch function of the app.
   /// Will be used for dispatching state updates and side effects from the menu.
-  var dispatch: PromisableStoreDispatch { get }
+  var dispatch: AnyDispatch { get }
 
   /// The getState for the Katana store.
   var getState: () -> State { get }

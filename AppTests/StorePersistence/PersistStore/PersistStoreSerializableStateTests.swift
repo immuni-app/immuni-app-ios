@@ -23,7 +23,7 @@ import XCTest
 
 final class PersistStoreSerializableStateTests: XCTestCase {
   var fakeStorage: FakeStorage!
-  var dispatch: PromisableStoreDispatch!
+  var dispatch: AnyDispatch!
   var next: StoreInterceptorNext!
   let encryptionKey = SymmetricKey(size: .bits256)
 

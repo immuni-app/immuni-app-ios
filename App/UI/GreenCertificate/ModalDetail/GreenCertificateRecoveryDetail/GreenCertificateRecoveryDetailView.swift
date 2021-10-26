@@ -374,7 +374,7 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
             .horizontally()
             .below(of: title)
             .marginTop(5)
-            .bottom(universalSafeAreaInsets.bottom)
+            .bottom(self.safeAreaInsets.bottom)
 
         scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: contactButton.frame.maxY)
     }

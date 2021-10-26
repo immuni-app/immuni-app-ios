@@ -79,7 +79,7 @@ extension Logic.DataUpload {
         .exponentialRandom(with: state.configuration.dummyIngestionAverageStartUpDelay)
 
       // Dispatch a delayed action and return
-      context.dispatch(StartIngestionSequenceIfNotCancelled().deferred(of: startDelay))
+      context.anyDispatch(StartIngestionSequenceIfNotCancelled().deferred(of: startDelay))
     }
   }
 
@@ -101,7 +101,7 @@ extension Logic.DataUpload {
         }
 
         let requestSize = state.configuration.ingestionRequestTargetSize
-        try? await(context.dependencies.networkManager.sendDummyIngestionRequest(requestSize: requestSize))
+        try? Hydra.await(context.dependencies.networkManager.sendDummyIngestionRequest(requestSize: requestSize))
 
         let diceRoll = context.dependencies.uniformDistributionGenerator.randomNumberBetweenZeroAndOne()
         let threshold = state.configuration.dummyIngestionRequestProbabilities[safe: executions]
@@ -117,7 +117,7 @@ extension Logic.DataUpload {
           .exponentialRandom(with: state.configuration.dummyIngestionAverageRequestWaitingTime)
 
         // Await for a random time
-        try await(Promise<Void>.deferring(of: interRequestDelay))
+        try Hydra.await(Promise<Void>.deferring(of: interRequestDelay))
         executions += 1
       }
 

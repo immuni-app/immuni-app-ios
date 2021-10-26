@@ -25,7 +25,7 @@ struct WaitForState: AppSideEffect {
       self.checkClosure(context: context, resolve: resolve, reject: reject)
     }
 
-    try await(promise)
+    try Hydra.await(promise)
   }
 
   private func checkClosure(

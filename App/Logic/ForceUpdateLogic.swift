@@ -137,7 +137,7 @@ extension Logic.ForceUpdate {
       let isDebugNotification = state.toggles.isPushNotificationDebugMode
 
       // ask for provisional permissions to the user
-      try await(context.dependencies.pushNotification.askForPermission([.provisional, .alert]))
+      try Hydra.await(context.dependencies.pushNotification.askForPermission([.provisional, .alert]))
 
       // schedule the notification
       context.dependencies.pushNotification.scheduleLocalNotification(

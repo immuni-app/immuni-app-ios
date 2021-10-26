@@ -21,7 +21,7 @@ import Katana
 final class DispatchInterceptor {
   var dispatchedItems: [Dispatchable]
 
-  var dispatchFunction: PromisableStoreDispatch {
+  var dispatchFunction: AnyDispatch {
     return { [weak self] item in
       self?.dispatchedItems.append(item)
       return Promise(resolved: ())

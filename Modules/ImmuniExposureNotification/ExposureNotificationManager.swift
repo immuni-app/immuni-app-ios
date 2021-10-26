@@ -133,7 +133,7 @@ extension ExposureNotificationManager {
   static func synchronized<T>(_ block: @escaping () -> Promise<T>) -> Promise<T> {
     return Promise<T>(in: .custom(queue: self.managerQueue)) { resolve, reject, _ in
       do {
-        resolve(try await(block()))
+        resolve(try Hydra.await(block()))
       } catch {
         reject(error)
       }

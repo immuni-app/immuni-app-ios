@@ -549,7 +549,7 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
       .horizontally()
       .below(of: self.title)
       .marginTop(5)
-      .bottom(universalSafeAreaInsets.bottom)
+      .bottom(self.safeAreaInsets.bottom)
 
     self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: self.contactButton.frame.maxY)
   }
