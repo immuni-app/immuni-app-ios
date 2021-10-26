@@ -14,7 +14,7 @@
 
 import Foundation
 @testable import Immuni
-import Katana
+@testable import Katana
 
 extension SideEffectContext where S == AppState, D == AppDependencies {
   init(dependencies: AppDependencies) {

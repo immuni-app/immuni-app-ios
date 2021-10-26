@@ -116,7 +116,7 @@ struct AnAction: AnyStateUpdater {
 }
 
 struct ASideEffect: AnySideEffect {
-  func sideEffect(_ context: AnySideEffectContext) throws {}
+  func anySideEffect(_ context: AnySideEffectContext) throws -> Any { return () }
 }
 
 class PersistStoreInterceptorWithLog<S: State & Codable>: PersistStoreInterceptor<S> {

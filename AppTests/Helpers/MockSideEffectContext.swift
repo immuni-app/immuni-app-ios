@@ -29,7 +29,7 @@ struct MockSideEffectContext: AnySideEffectContext {
     return self.getState()
   }
 
-  func dispatch(_ dispatchable: Dispatchable) -> Promise<Void> {
+  func anyDispatch(_ dispatchable: Dispatchable) -> Promise<Any> {
     return self.dispatch(dispatchable)
   }
 
