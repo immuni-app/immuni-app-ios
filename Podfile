@@ -32,7 +32,7 @@ target 'Immuni' do
   target 'Immuni UITests' do
     inherit! :search_paths
 
-    pod 'TempuraTesting', '= 8.0.1'
+    pod 'TempuraTesting', '= 9.0.3'
   end
 end
 
