@@ -44,7 +44,7 @@ class UploadDataVC: ViewControllerWithLocalState<UploadDataView> {
 
   private func verifyCode(code: OTP) {
     self.localState.isLoading = true
-    self.dispatch(Logic.DataUpload.VerifyCode(code: code))
+    self.__unsafeDispatch(Logic.DataUpload.VerifyCode(code: code))
       .then {
         self.localState.isLoading = false
         self.localState.recentFailedAttempts = 0

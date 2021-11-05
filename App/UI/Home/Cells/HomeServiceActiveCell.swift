@@ -166,7 +166,7 @@ class HomeServiceActiveCell: UICollectionViewCell, ModellableView, ReusableView,
   }
 
   var minimumHeight: CGFloat {
-    return max(self.superview?.universalSafeAreaInsets.top ?? 0, SharedStyle.cardCornerRadius)
+    return max(self.superview?.safeAreaInsets.top ?? 0, SharedStyle.cardCornerRadius)
   }
 
   override func layoutSubviews() {
@@ -175,7 +175,7 @@ class HomeServiceActiveCell: UICollectionViewCell, ModellableView, ReusableView,
     self.statusBarBackground.pin
       .top()
       .horizontally()
-      .height(self.superview?.universalSafeAreaInsets.top ?? 0)
+      .height(self.superview?.safeAreaInsets.top ?? 0)
 
     self.container.pin
       .horizontally()
@@ -249,7 +249,7 @@ class HomeServiceActiveCell: UICollectionViewCell, ModellableView, ReusableView,
   }
 
   private func serviceActiveSize(_ size: CGSize) -> CGSize {
-    let topSafeArea = self.superview?.universalSafeAreaInsets.top ?? 0
+    let topSafeArea = self.superview?.safeAreaInsets.top ?? 0
     let labelWidth = size.width - HomeView.cellHorizontalInset - HomeServiceActiveCell.titleRightMargin
     let logoSize = self.logo.intrinsicContentSize
     let titleSize = self.title.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
@@ -274,7 +274,7 @@ class HomeServiceActiveCell: UICollectionViewCell, ModellableView, ReusableView,
   }
 
   private func serviceNotActiveSize(_ size: CGSize) -> CGSize {
-    let topSafeArea = self.superview?.universalSafeAreaInsets.top ?? 0
+    let topSafeArea = self.superview?.safeAreaInsets.top ?? 0
     let labelWidth = size.width - HomeView.cellHorizontalInset - HomeServiceActiveCell.titleRightMargin
     let logoSize = self.logo.intrinsicContentSize
     let titleSize = self.title.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))

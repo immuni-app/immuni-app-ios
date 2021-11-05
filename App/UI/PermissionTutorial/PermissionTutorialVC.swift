@@ -38,7 +38,7 @@ final class PermissionTutorialVC: ViewControllerWithLocalState<PermissionTutoria
         return
       }
 
-      self.store.dispatch(dispatchable)
+      self.store.anyDispatch(dispatchable)
     }
 
     self.rootView.userDidScroll = { [weak self] scrollOffset in

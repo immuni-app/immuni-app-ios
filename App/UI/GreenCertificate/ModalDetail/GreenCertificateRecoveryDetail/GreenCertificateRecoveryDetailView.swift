@@ -21,13 +21,17 @@ struct GreenCertificateRecoveryDetailVM: ViewModelWithLocalState {
     let greenCertificate: GreenCertificate
 }
 
+struct ConfigurationStateRecovery {
+  static var state = ["": ["": ""]]
+}
+
 extension GreenCertificateRecoveryDetailVM {
     init?(state: AppState?, localState : GreenCertificateRecoveryDetailLS) {
-        guard let _ = state else {
+        guard let state = state else {
             return nil
         }
-
         self.greenCertificate = localState.greenCertificate
+        ConfigurationStateRecovery.state = state.configuration.eudccExpiration
     }
 }
 // MARK: - View
@@ -64,6 +68,11 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
     private var certificateValidUntilLabel = UILabel()
     private var certificateValidUntilLabelEn = UILabel()
     private var certificateValidUntil = UILabel()
+    
+    private var healingCertificateLabelEn = UILabel()
+    private var healingCertificateLabel = UILabel()
+    
+    private var healingCertificate = UILabel()
     
     private var paragraph = UILabel()
     private var contactButton = TextButton()
@@ -121,6 +130,13 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
         addSubview(certificateValidUntil)
         scrollView.addSubview(certificateValidUntil)
         
+        addSubview(healingCertificateLabelEn)
+        scrollView.addSubview(healingCertificateLabelEn)
+        addSubview(healingCertificateLabel)
+        scrollView.addSubview(healingCertificateLabel)
+        addSubview(healingCertificate)
+        scrollView.addSubview(healingCertificate)
+        
         addSubview(contactButton)
         scrollView.addSubview(contactButton)
         
@@ -158,6 +174,9 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
         Self.Style.label(certificateIssuerRecoveryLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.certificateIssuerEn)
         Self.Style.label(certificateValidFromLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.certificateValidFromEn)
         Self.Style.label(certificateValidUntilLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Recovery.certificateValidUntilEn)
+        
+        Self.Style.label(self.healingCertificateLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.validUntil)
+        Self.Style.label(self.healingCertificateLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Test.validUntilEn)
     
         Self.Style.closeButton(self.closeButton)
 
@@ -183,12 +202,20 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
                                 detailRecoveryCertificate.certificateValidFrom.isEmpty ? "---" : detailRecoveryCertificate.certificateValidFrom)
             
             Self.Style.value(certificateValidUntil, text: detailRecoveryCertificate.certificateValidUntil.isEmpty ? "---" : detailRecoveryCertificate.certificateValidUntil)
+
+            Self.Style.value(healingCertificate, text: self.gedValidUntilValue())
+
         }
         
         Self.Style.label(paragraph, text: L10n.HomeView.GreenCertificate.Detail.paragraph)
         Self.Style.contactButton(self.contactButton, content: L10n.HomeView.GreenCertificate.Detail.url)
 
 
+    }
+    func gedValidUntilValue() -> String {
+      let lan = Locale.current.languageCode ?? "en"
+      let validUntilValueRecovery:String? = ConfigurationStateRecovery.state[lan]?["healing_certificate"]
+       return validUntilValueRecovery?.description ?? "Certification valid in the European Union until the end of validity date and valid only in Italy up to 6 months from the start of validity date"
     }
 
     // MARK: - Layout
@@ -262,9 +289,32 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
           .horizontally(25)
           .marginLeft(10)
         
-        countryOfTestRecoveryLabelEn.pin
+        healingCertificateLabelEn.pin
           .minHeight(25)
           .below(of: dateFirstTestResult)
+          .marginTop(30)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        healingCertificateLabel.pin
+          .minHeight(25)
+          .below(of: healingCertificateLabelEn)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        healingCertificate.pin
+          .minHeight(25)
+          .below(of: healingCertificateLabel)
+          .marginTop(5)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        countryOfTestRecoveryLabelEn.pin
+          .minHeight(25)
+          .below(of: healingCertificate)
           .marginTop(30)
           .sizeToFit(.width)
           .horizontally(25)
@@ -374,7 +424,7 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
             .horizontally()
             .below(of: title)
             .marginTop(5)
-            .bottom(universalSafeAreaInsets.bottom)
+            .bottom(self.safeAreaInsets.bottom)
 
         scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: contactButton.frame.maxY)
     }

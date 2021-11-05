@@ -105,7 +105,7 @@ class HomeView: UIView, ViewControllerModellableView {
   }
 
   private func afterLayout() {
-    self.collection.contentInset.top = -self.universalSafeAreaInsets.top
+    self.collection.contentInset.top = -self.safeAreaInsets.top
     self.collection.contentInset.bottom = 20
     guard let collectionViewLayout = self.collection.collectionViewLayout as? UICollectionViewFlowLayout else {
       return

@@ -76,7 +76,7 @@ extension Logic.Alert {
         _ = context.dispatch(Tempura.Show(Screen.alert, animated: false, context: model))
       }
 
-      try await(promise)
+      try Hydra.await(promise)
     }
   }
 }

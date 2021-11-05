@@ -25,6 +25,7 @@ final class PersistStoreMigrationFreshStartTests: XCTestCase {
   var persistStore: PersistStore<MockStateC>!
   var initStore: (() -> Void)!
   var mockMigrationManager: MockMigrationManager<MockStateC>!
+  var store: Store<MockStateC, EmptySideEffectDependencyContainer>!
 
   let encryptionKey = SymmetricKey(size: .bits256)
 
@@ -42,7 +43,7 @@ final class PersistStoreMigrationFreshStartTests: XCTestCase {
     )
 
     self.initStore = {
-      _ = Store<MockStateC, EmptySideEffectDependencyContainer>(
+        self.store = Store<MockStateC, EmptySideEffectDependencyContainer>(
         interceptors: [self.persistStore.katanaInterceptor],
         stateInitializer: self.persistStore.katanaStateInitializer
       )
@@ -56,6 +57,7 @@ final class PersistStoreMigrationFreshStartTests: XCTestCase {
     self.persistStore = nil
     self.initStore = nil
     self.mockMigrationManager = nil
+    self.store = nil
   }
 
   func testDoesNotPerformMigrations() throws {

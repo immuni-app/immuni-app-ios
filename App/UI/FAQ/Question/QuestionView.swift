@@ -122,8 +122,8 @@ class QuestionView: UIView, ViewControllerModellableView {
 
     self.scrollView.pin
       .horizontally()
-      .top(self.universalSafeAreaInsets.top)
-      .bottom(self.universalSafeAreaInsets.bottom)
+      .top(self.safeAreaInsets.top)
+      .bottom(self.safeAreaInsets.bottom)
 
     self.question.pin
       .left(30)

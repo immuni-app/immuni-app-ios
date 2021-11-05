@@ -34,7 +34,7 @@ extension Logic.Home {
         return
       }
 
-      context.dispatch(dispatchable)
+      context.anyDispatch(dispatchable)
     }
   }
 
@@ -75,7 +75,7 @@ extension Logic.Home {
       // push activated. Move to next step, or dismiss
       let state = context.getState()
       let nextStep = state.nextFixActiveServiceStep ?? DismissFixPermissions()
-      context.dispatch(nextStep)
+      context.anyDispatch(nextStep)
     }
   }
 
@@ -108,7 +108,7 @@ extension Logic.Home {
       // exposure notification activated. Move to next step, or dismiss
       let state = context.getState()
       let nextStep = state.nextFixActiveServiceStep ?? DismissFixPermissions()
-      context.dispatch(nextStep)
+      context.anyDispatch(nextStep)
     }
   }
 
@@ -138,7 +138,7 @@ extension Logic.Home {
       // bluetooth activated. Move to next step, or dismiss
       let state = context.getState()
       let nextStep = state.nextFixActiveServiceStep ?? DismissFixPermissions()
-      context.dispatch(nextStep)
+      context.anyDispatch(nextStep)
     }
   }
 

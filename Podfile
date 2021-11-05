@@ -11,14 +11,14 @@ platform :ios, '13.0'
 # precaution against unwanted updates of the 3rd party libraries
 
 def shared_pods
-  pod 'Katana', '= 3.2.0'
-  pod 'Tempura', '= 4.4.0'
+  pod 'Katana', '= 6.0.0'
+  pod 'Tempura', '= 7.0.1'
   pod 'Logging', '= 1.2.0'
-  pod 'HydraAsync', '= 1.2.2'
+  pod 'HydraAsync', '= 2.0.6'
 end
 
 target 'Immuni' do
-  pod 'BonMot', '= 5.5.1'
+  pod 'BonMot', '= 6.0.0'
   pod 'lottie-ios', '= 3.1.8'
   pod 'PinLayout', '= 1.8.13'
   pod 'ZIPFoundation', '= 0.9.11'
@@ -32,7 +32,7 @@ target 'Immuni' do
   target 'Immuni UITests' do
     inherit! :search_paths
 
-    pod 'TempuraTesting', '= 5.0.1'
+    pod 'TempuraTesting', '= 9.0.3'
   end
 end
 

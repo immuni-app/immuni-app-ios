@@ -41,7 +41,7 @@ extension Logic.Onboarding {
         context.dispatch(Show(Screen.tabBar, animated: false))
       } else {
         // normal onboarding flow
-        context.dispatch(nextStep)
+        context.anyDispatch(nextStep)
       }
     }
   }
@@ -59,14 +59,14 @@ extension Logic.Onboarding {
       if self.region.isAbroadRegion {
         // if the user cancels, the promise throws and the flow is interrupted.
         // If the user accepts, instead, the flows continues as expected
-        try await(self.showAbroadConfirmation(dispatch: context.dispatch(_:)))
+        try Hydra.await(self.showAbroadConfirmation(dispatch: context.anyDispatch(_:)))
       }
 
       if self.region.provinces.count == 1, let province = self.region.provinces.first {
         // province step not necessary
         try context.awaitDispatch(SetUserProvince(province: province))
         let nextStep = context.getState().nextOnboardingStep
-        context.dispatch(nextStep)
+        context.anyDispatch(nextStep)
         return
       }
 
@@ -79,7 +79,7 @@ extension Logic.Onboarding {
         ))
     }
 
-    private func showAbroadConfirmation(dispatch: @escaping PromisableStoreDispatch) -> Promise<Void> {
+    private func showAbroadConfirmation(dispatch: @escaping AnyDispatch) -> Promise<Void> {
       return Promise { resolve, reject, _ in
         let model = Alert.Model(
           title: L10n.Onboarding.Region.Abroad.Alert.title,
@@ -116,7 +116,7 @@ extension Logic.Onboarding {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       try context.awaitDispatch(SetUserProvince(province: self.selectedProvince))
       let nextStep = context.getState().nextOnboardingStep
-      context.dispatch(nextStep)
+      context.anyDispatch(nextStep)
     }
   }
 }
@@ -145,7 +145,7 @@ extension Logic.Onboarding {
       // exposure notification activated. Move to next step
       let state = context.getState()
       let nextStep = state.nextOnboardingStep
-      context.dispatch(nextStep)
+      context.anyDispatch(nextStep)
     }
   }
 
@@ -168,8 +168,8 @@ extension Logic.Onboarding {
             animated: true,
             context: OnboardingPermissionOverlayLS(type: .exposureNotification)
           ))
-        try await(Promise<Void>.deferring(of: 1))
-        _ = try await(context.dependencies.exposureNotificationManager.askAuthorizationAndStart())
+        try Hydra.await(Promise<Void>.deferring(of: 1))
+        _ = try Hydra.await(context.dependencies.exposureNotificationManager.askAuthorizationAndStart())
 
         try context.awaitDispatch(Logic.Lifecycle.ScheduleBackgroundTask())
         try context.awaitDispatch(Hide(Screen.permissionOverlay, animated: false))
@@ -206,7 +206,7 @@ extension Logic.Onboarding {
       // bluetooth activated. Move to next step
       let state = context.getState()
       let nextStep = state.nextOnboardingStep
-      context.dispatch(nextStep)
+      context.anyDispatch(nextStep)
     }
   }
 
@@ -240,14 +240,14 @@ extension Logic.Onboarding {
           animated: true,
           context: OnboardingPermissionOverlayLS(type: .pushNotification)
         ))
-      try await(Promise<Void>.deferring(of: 1))
-      _ = try await(context.dependencies.pushNotification.askForPermission())
+      try Hydra.await(Promise<Void>.deferring(of: 1))
+      _ = try Hydra.await(context.dependencies.pushNotification.askForPermission())
       try context.awaitDispatch(Hide(Screen.permissionOverlay, animated: false))
       try context.awaitDispatch(Logic.Lifecycle.RefreshAuthorizationStatuses())
 
       // navigate away regardless of the user's choice
       let step = context.getState().nextOnboardingStep
-      context.dispatch(step)
+      context.anyDispatch(step)
     }
   }
 }
@@ -261,7 +261,7 @@ extension Logic.Onboarding {
       try context.awaitDispatch(PassPinAdviceStep())
       // move to next step
       let step = context.getState().nextOnboardingStep
-      context.dispatch(step)
+      context.anyDispatch(step)
     }
   }
 
@@ -271,7 +271,7 @@ extension Logic.Onboarding {
       try context.awaitDispatch(PassCommunicationAdviceStep())
       // move to next step
       let step = context.getState().nextOnboardingStep
-      context.dispatch(step)
+      context.anyDispatch(step)
     }
   }
 
@@ -311,7 +311,7 @@ extension Logic.Onboarding {
         animated: true,
         context: OnboardingContainerNC.NavigationContext(child: .onboardingCompleted)
       ))
-      try await(Promise<Void>.deferring(of: 3))
+      try Hydra.await(Promise<Void>.deferring(of: 3))
       context.dispatch(Show(Screen.tabBar, animated: false))
     }
   }

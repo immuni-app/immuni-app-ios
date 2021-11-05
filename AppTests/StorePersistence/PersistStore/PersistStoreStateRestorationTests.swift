@@ -23,7 +23,7 @@ import XCTest
 
 final class PersistStoreStateRestorationTests: XCTestCase {
   var fakeStorage: FakeStorage!
-  var dispatch: PromisableStoreDispatch!
+  var dispatch: AnyDispatch!
   var next: StoreInterceptorNext!
   var persistStore: PersistStore<SerializableState>!
   var store: Store<SerializableState, EmptySideEffectDependencyContainer>!

@@ -367,7 +367,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
 
         backButton.pin
             .left(Self.horizontalSpacing)
-            .top(universalSafeAreaInsets.top + 20)
+            .top(safeAreaInsets.top + 20)
             .sizeToFit()
 
         title.pin
@@ -379,7 +379,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             .horizontally()
             .below(of: title)
             .marginTop(5)
-            .bottom(universalSafeAreaInsets.bottom)
+            .bottom(safeAreaInsets.bottom)
 
         container.pin
           .top(20)

@@ -30,7 +30,7 @@ extension Logic.Configuration {
         return
       }
 
-      let configuration = try await(context.dependencies.networkManager.getConfiguration(for: buildNumber))
+      let configuration = try Hydra.await(context.dependencies.networkManager.getConfiguration(for: buildNumber))
 
       try context.awaitDispatch(UpdateConfiguration(configuration: configuration))
 
@@ -58,7 +58,7 @@ extension Logic.Configuration {
       components.path = ""
       let baseURL = try components.asURL()
 
-      let faqs: [FAQ] = try await(context.dependencies.networkManager.getFAQ(baseURL: baseURL, path: path))
+      let faqs: [FAQ] = try Hydra.await(context.dependencies.networkManager.getFAQ(baseURL: baseURL, path: path))
       try context.awaitDispatch(UpdateFAQs(faqs: faqs, language: state.environment.userLanguage))
     }
   }

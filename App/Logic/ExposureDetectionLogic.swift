@@ -45,7 +45,7 @@ extension Logic.ExposureDetection {
 
       let state = context.getState()
 
-      let outcome = try await(context.dependencies.exposureDetectionExecutor.execute(
+      let outcome = try Hydra.await(context.dependencies.exposureDetectionExecutor.execute(
         exposureDetectionPeriod: self.type.detectionPeriod(using: state.configuration),
         lastExposureDetectionDate: state.exposureDetection.lastDetectionDate,
         latestProcessedKeyChunkIndex: state.exposureDetection.latestProcessedKeyChunkIndex,

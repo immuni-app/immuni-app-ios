@@ -65,7 +65,7 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
       // Check for authorization
       let status: ExposureNotificationStatus
       do {
-        status = try await(enManager.getStatus())
+        status = try Hydra.await(enManager.getStatus())
       } catch {
         resolve(.error(.unableToRetrieveStatus(error)))
         return
@@ -81,7 +81,7 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
       // Download the italian keys
       var keyChunks: [TemporaryExposureKeyChunk] = []
       do {
-        keyChunks = try await(
+        keyChunks = try Hydra.await(
           tekProvider
             .getLatestKeyChunks(
               latestKnownChunkIndex: latestProcessedKeyChunkIndex,
@@ -98,7 +98,7 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
       // Download the foreign keys
       for countryOfInterest in countriesOfInterest {
         do {
-          let keyChunksTemp = try await(
+          let keyChunksTemp = try Hydra.await(
             tekProvider.getLatestKeyChunks(
               latestKnownChunkIndex: countryOfInterest.latestProcessedKeyChunkIndex,
               country: countryOfInterest.country,
@@ -113,7 +113,7 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
       }
       defer {
         // Cleanup the local files of the downloaded chunks
-        try? await(tekProvider.clearLocalResources(for: keyChunks))
+        try? Hydra.await(tekProvider.clearLocalResources(for: keyChunks))
       }
 
       guard !keyChunks.isEmpty else {
@@ -133,7 +133,7 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
       // Retrieve the summary
       let summary: ExposureDetectionSummary
       do {
-        summary = try await(enManager.getDetectionSummary(
+        summary = try Hydra.await(enManager.getDetectionSummary(
           configuration: exposureDetectionConfiguration.toNative(),
           diagnosisKeyURLs: keyChunks.flatMap { $0.localUrls }
         ))
@@ -158,7 +158,7 @@ class ImmuniExposureDetectionExecutor: ExposureDetectionExecutor {
       // Retrieve exposure info
       let exposureInfo: [ExposureInfo]
       do {
-        exposureInfo = try await(enManager.getExposureInfo(
+        exposureInfo = try Hydra.await(enManager.getExposureInfo(
           from: summary,
           userExplanation: userExplanationMessage
         ))

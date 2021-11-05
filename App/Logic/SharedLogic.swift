@@ -47,7 +47,7 @@ extension Logic.Shared {
         return
       }
 
-      try await(context.dependencies.application.goTo(url: url))
+      try Hydra.await(context.dependencies.application.goTo(url: url))
     }
   }
 
@@ -55,7 +55,7 @@ extension Logic.Shared {
   struct OpenURL: AppSideEffect {
     let url: URL
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      try await(context.dependencies.application.goTo(url: self.url))
+      try Hydra.await(context.dependencies.application.goTo(url: self.url))
     }
   }
 
@@ -66,7 +66,7 @@ extension Logic.Shared {
       guard let url = URL(string: "tel://\(self.number.replacingOccurrences(of: " ", with: ""))") else {
         return
       }
-      try await(context.dependencies.application.goTo(url: url))
+      try Hydra.await(context.dependencies.application.goTo(url: url))
     }
   }
 
@@ -77,7 +77,7 @@ extension Logic.Shared {
     guard let url = URL(string: "tel://\(self.number.replacingOccurrences(of: " ", with: ""))") else {
           return
         }
-    try await(context.dependencies.application.goTo(url: url))
+    try Hydra.await(context.dependencies.application.goTo(url: url))
       }
     }
 
@@ -190,7 +190,7 @@ extension Logic.Shared {
         return
       }
 
-      try await(context.dependencies.application.goTo(url: url).run())
+      try Hydra.await(context.dependencies.application.goTo(url: url).run())
     }
   }
 

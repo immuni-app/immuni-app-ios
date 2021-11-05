@@ -137,13 +137,13 @@ class HomeHeaderCardCell: UICollectionViewCell, ModellableView, ReusableView, St
   }
 
   var minimumHeight: CGFloat {
-    return max(self.superview?.universalSafeAreaInsets.top ?? 0, SharedStyle.cardCornerRadius)
+    return max(self.superview?.safeAreaInsets.top ?? 0, SharedStyle.cardCornerRadius)
   }
 
   override func layoutSubviews() {
     super.layoutSubviews()
 
-    let topSafeArea = self.superview?.universalSafeAreaInsets.top ?? 0
+    let topSafeArea = self.superview?.safeAreaInsets.top ?? 0
 
     self.shadow.pin.all()
     self.container.pin.all()
@@ -199,7 +199,7 @@ class HomeHeaderCardCell: UICollectionViewCell, ModellableView, ReusableView, St
   }
 
   override func sizeThatFits(_ size: CGSize) -> CGSize {
-    let topSafeArea = self.superview?.universalSafeAreaInsets.top ?? 0
+    let topSafeArea = self.superview?.safeAreaInsets.top ?? 0
     let shouldShowAnimation = self.model?.shouldShowAnimation ?? false
     let rightMargin = shouldShowAnimation ? Self.labelAnimationMargin : HomeView.cellHorizontalInset
     let labelWidth = size.width - HomeView.cellHorizontalInset - rightMargin

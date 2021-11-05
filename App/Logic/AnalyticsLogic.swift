@@ -319,8 +319,8 @@ extension Logic.Analytics {
     let token: AnalyticsState.AnalyticsToken
 
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-      let deviceCheckToken = try await(context.dependencies.deviceTokenGenerator.generateToken())
-      let validationResponse = try await(
+      let deviceCheckToken = try Hydra.await(context.dependencies.deviceTokenGenerator.generateToken())
+      let validationResponse = try Hydra.await(
         context.dependencies.networkManager
           .validateAnalyticsToken(analyticsToken: self.token.token, deviceToken: deviceCheckToken)
       )
@@ -405,7 +405,7 @@ extension Logic.Analytics {
       }
 
       // Await for the request to be fulfilled but catch errors silently
-      _ = try? await(
+      _ = try? Hydra.await(
         context.dependencies.networkManager
           .sendAnalytics(body: body, analyticsToken: analyticsToken, isDummy: isDummy)
       )

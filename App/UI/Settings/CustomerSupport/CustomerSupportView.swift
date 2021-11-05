@@ -142,7 +142,7 @@ class CustomerSupportView: UIView, ViewControllerModellableView {
     self.contentCollection.contentInset = UIEdgeInsets(
       top: 80,
       left: 0,
-      bottom: self.universalSafeAreaInsets.bottom + 40,
+      bottom: self.safeAreaInsets.bottom + 40,
       right: 0
     )
   }

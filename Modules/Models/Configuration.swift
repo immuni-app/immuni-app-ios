@@ -456,31 +456,36 @@ public extension Dictionary where Key == String, Value == [String: String] {
         "molecular_test": "Bescheinigung gültig für 72 Stunden ab dem Zeitpunkt der Abholung",
         "rapid_test": "Bescheinigung gültig für 48 Stunden ab dem Zeitpunkt der Abholung",
         "vaccine_first_dose": "Zertifizierung gültig bis zur nächsten Dosis",
-        "vaccine_fully_completed": "Zertifizierung gültig für 365 Tage (12 Monate) ab dem Datum der letzten Verabreichung"
+        "vaccine_fully_completed": "Zertifizierung gültig für 365 Tage (12 Monate) ab dem Datum der letzten Verabreichung",
+        "healing_certificate": "Zertifizierung gültig in der Europäischen Union bis zum Gültigkeitsende und nur in Italien bis zu 6 Monate ab Gültigkeitsbeginn gültig"
       ],
       "en": [
         "molecular_test": "Certification valid for 72 hours from the time of collection",
         "rapid_test": "Certification valid for 48 hours from the time of collection",
         "vaccine_first_dose": "Certification valid until next dose",
-        "vaccine_fully_completed": "Certification valid for 365 days (12 months) from the date of the last administration"
+        "vaccine_fully_completed": "Certification valid for 365 days (12 months) from the date of the last administration",
+        "healing_certificate" : "Certification valid in the European Union until the end of validity date and valid only in Italy up to 6 months from the start of validity date"
       ],
       "es": [
         "molecular_test": "Certificación válida por 72 horas desde el momento de la recogida.",
         "rapid_test": "Certificación válida por 48 horas desde el momento de la recogida.",
         "vaccine_first_dose": "Certificación válida hasta la próxima dosis",
-        "vaccine_fully_completed": "Certificación válida por 365 días (12 meses) a partir de la fecha de la última administración."
+        "vaccine_fully_completed": "Certificación válida por 365 días (12 meses) a partir de la fecha de la última administración.",
+        "healing_certificate" : "Certificación válida en la Unión Europea hasta el final de la fecha de validez y válida solo en Italia hasta 6 meses desde el inicio de la fecha de validez"
       ],
       "fr": [
         "molecular_test": "Attestation valable 72h à compter de la collecte",
         "rapid_test": "Attestation valable 48h à compter de la collecte",
         "vaccine_first_dose": "Certification valable jusqu'à la prochaine dose",
-        "vaccine_fully_completed": "Certification valable 365 jours (12 mois) à compter de la date de la dernière administration"
+        "vaccine_fully_completed": "Certification valable 365 jours (12 mois) à compter de la date de la dernière administration",
+        "healing_certificate" : "Certification valable dans l'Union européenne jusqu'à la date de fin de validité et valable uniquement en Italie jusqu'à 6 mois à compter de la date de début de validité"
       ],
       "it": [
         "molecular_test": "Certificazione valida 72 ore dall'ora del prelievo",
         "rapid_test": "Certificazione valida 48 ore dall'ora del prelievo",
         "vaccine_first_dose": "Certificazione valida fino alla prossima dose",
-        "vaccine_fully_completed": "Certificazione valida 365 giorni (12 mesi) dalla data dell'ultima somministrazione"
+        "vaccine_fully_completed": "Certificazione valida 365 giorni (12 mesi) dalla data dell'ultima somministrazione",
+        "healing_certificate" : "Certificazione valida in Unione Europea fino alla data di fine validità e valida solo in Italia fino a 6 mesi dalla data di inizio validità"
       ]
     ]
     return values

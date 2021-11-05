@@ -142,7 +142,7 @@ class FaqView: UIView, ViewControllerModellableView {
 
     self.backButton.pin
       .left(Self.horizontalSpacing)
-      .top(self.universalSafeAreaInsets.top + 20)
+      .top(self.safeAreaInsets.top + 20)
       .sizeToFit()
 
     self.title.pin
@@ -179,10 +179,10 @@ class FaqView: UIView, ViewControllerModellableView {
     self.collection.pin
       .horizontally()
       .below(of: self.separator)
-      .bottom(self.universalSafeAreaInsets.bottom)
+      .bottom(self.safeAreaInsets.bottom)
 
     let keyboardHeight = self.model?.keyboardHeight ?? 0
-    let bottomInset = keyboardHeight > 0 ? keyboardHeight : self.universalSafeAreaInsets.bottom
+    let bottomInset = keyboardHeight > 0 ? keyboardHeight : self.safeAreaInsets.bottom
     self.noResultView.pin
       .sizeToFit()
       .below(of: self.separator)

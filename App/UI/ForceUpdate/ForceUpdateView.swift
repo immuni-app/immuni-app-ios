@@ -156,7 +156,7 @@ class ForceUpdateView: UIView, ViewControllerModellableView {
       self.secondaryButton.pin
         .horizontally(30)
         .height(44)
-        .bottom(self.universalSafeAreaInsets.bottom + 15)
+        .bottom(self.safeAreaInsets.bottom + 15)
 
       self.updateButton.pin
         .horizontally(30)
@@ -167,7 +167,7 @@ class ForceUpdateView: UIView, ViewControllerModellableView {
       self.updateButton.pin
         .horizontally(30)
         .height(55)
-        .bottom(self.universalSafeAreaInsets.bottom + 25)
+        .bottom(self.safeAreaInsets.bottom + 25)
     }
 
     self.contentContainerView.pin
