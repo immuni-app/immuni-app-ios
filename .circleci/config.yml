@@ -288,7 +288,7 @@ commands:
               # Setup Mint package manager for Swift
               git clone https://github.com/yonaskolb/Mint.git
               cd Mint
-              
+
               # Pin Mint revision to address issue with 0.15 on non-Apple platforms
               git checkout 7b9920fd94bf67c81f2616b0c359a0243f06b767
               make
@@ -401,9 +401,9 @@ jobs:
             deb http://ppa.launchpad.net/deadsnakes/ppa/ubuntu xenial main
             EOF
             apt-get update
-            apt-get install -y python3.7-minimal
+            apt-get install -y python3.8-minimal python3.8-distutils
             curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-            python3.7 get-pip.py
+            python3.8 get-pip.py
       - run:
           name: "[scheduler] Setup project path"
           command: echo "export PROJECT_PATH=$(pwd)" >> $BASH_ENV
@@ -411,24 +411,24 @@ jobs:
       - restore_cache:
           name: "[scheduler] Restore Python Cache"
           keys:
-            - pip-packages-v2-{{ .Branch }}-{{ checksum "scheduler/Pipfile.lock" }}
-            - pip-packages-v2-{{ .Branch }}-
-            - pip-packages-v2-
+            - pip-packages-v3-{{ .Branch }}-{{ checksum "scheduler/poetry.lock" }}
+            - pip-packages-v3-{{ .Branch }}-
+            - pip-packages-v3-
+      - run:
+          name: "[scheduler] Configure poetry"
+          command: |
+            pip3 install poetry
+            poetry config virtualenvs.in-project true
       - run:
           name: "[scheduler] Install dependencies"
           working_directory: scheduler
-          environment:
-            PIPENV_NOSPIN: 1
-            PIPENV_VENV_IN_PROJECT: 1
-          command: |
-            pip install pipenv
-            pipenv install
+          command: poetry install
       - save_cache:
           name: "[scheduler] Save Python Cache"
           paths:
             - ~/.cache/pip
             - scheduler/.venv
-          key: pip-packages-v2-{{ .Branch }}-{{ checksum "scheduler/Pipfile.lock" }}
+          key: pip-packages-v3-{{ .Branch }}-{{ checksum "scheduler/poetry.lock" }}
       - run:
           name: "[scheduler] Configure scheduler"
           command: |
@@ -439,7 +439,7 @@ jobs:
           no_output_timeout: 120m
           command: |
             export REPOSITORY="${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}"
-            pipenv run python scheduler.py
+            poetry run python scheduler.py
 
 workflows:
   version: 2
