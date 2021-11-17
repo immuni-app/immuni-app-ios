@@ -291,12 +291,17 @@ extension Logic.Settings {
       let appState = context.getState()
 
       var newCountriesOfInterest: [CountryOfInterest] = []
+        
+      let lan = Locale.current.languageCode ?? "en"
+      // swiftlint:disable:next force_unwrapping
+      let countryList: [String: String] = appState.configuration.countries[lan] ?? appState.configuration.countries["en"]!
+      let countryListIds = countryList.keys
 
       for countryOfInterest in appState.exposureDetection.countriesOfInterest {
-        if self.newCountries.contains(countryOfInterest) {
-          newCountriesOfInterest.append(countryOfInterest)
-        }
-      }
+        if self.newCountries.contains(countryOfInterest) && countryListIds.contains(countryOfInterest.country.countryId) {
+                 newCountriesOfInterest.append(countryOfInterest)
+               }
+             }
 
       for country in self.newCountries {
         if !appState.exposureDetection.countriesOfInterest.contains(country) {
