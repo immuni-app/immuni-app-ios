@@ -183,7 +183,7 @@ extension Logic.DataUpload {
                 hisExpiringDate: hisExpiringDate,
                 tokenType: codeType.rawValue.lowercased()
             )
-            let data = try `await`(context.dependencies.networkManager.generateDigitalGreenCertificate(
+            let data = try Hydra.await(context.dependencies.networkManager.generateDigitalGreenCertificate(
                                     body: body,
                                     code: code,
                                     requestSize: requestSize))
@@ -197,36 +197,36 @@ extension Logic.DataUpload {
                         try context.awaitDispatch(Logic.CovidStatus.UpdateGreenCertificate(newGreenCertificate: dgc))
                     }
                     else {
-                        try `await`(context.dispatch(Logic.Loading.Hide()))
+                        try Hydra.await(context.dispatch(Logic.Loading.Hide()))
                         try context.awaitDispatch(ShowCustomErrorAlert(message: L10n.HomeView.GreenCertificate.Decode.error))
                         return
                     }
                 }
                 else {
-                    try `await`(context.dispatch(Logic.Loading.Hide()))
+                    try Hydra.await(context.dispatch(Logic.Loading.Hide()))
                     try context.awaitDispatch(ShowCustomErrorAlert(message: L10n.HomeView.GreenCertificate.Decode.error))
                     return
                 }
             }
             else {
-                try `await`(context.dispatch(Logic.Loading.Hide()))
+                try Hydra.await(context.dispatch(Logic.Loading.Hide()))
                 try context.awaitDispatch(ShowCustomErrorAlert(message: L10n.HomeView.GreenCertificate.Decode.error))
                 return
             }
             
         } catch NetworkManager.Error.noDgcFound {
-            try `await`(context.dispatch(Logic.Loading.Hide()))
+            try Hydra.await(context.dispatch(Logic.Loading.Hide()))
             try context.awaitDispatch(ShowCustomErrorAlert(message: L10n.HomeView.GreenCertificate.Error.noDgcFound))
             return
           } catch {
-            try `await`(context.dispatch(Logic.Loading.Hide()))
+            try Hydra.await(context.dispatch(Logic.Loading.Hide()))
             try context.awaitDispatch(ShowErrorAlert(error: error, retryDispatchable: self))
             return
           }
-        try `await`(context.dispatch(Logic.Loading.Hide()))
+        try Hydra.await(context.dispatch(Logic.Loading.Hide()))
 
         try context.awaitDispatch(Show(Screen.confirmation, animated: true, context: ConfirmationLS.generateGreenCertificateCompleted))
-        try `await`(Promise<Void>(resolved: ()).defer(2))
+        try Hydra.await(Promise<Void>(resolved: ()).defer(2))
 
         try context.awaitDispatch(Hide(Screen.confirmation, animated: true))
         try context.awaitDispatch(Hide(Screen.generateGreenCertificate, animated: true))
@@ -331,7 +331,7 @@ extension Logic.DataUpload {
       func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
 
         try context.awaitDispatch(Show(Screen.confirmation, animated: true, context: ConfirmationLS.saveGreenCertificateCompleted))
-        try `await`(Promise<Void>(resolved: ()).defer(2))
+        try Hydra.await(Promise<Void>(resolved: ()).defer(2))
 
         try context.awaitDispatch(Hide(Screen.confirmation, animated: true))
         }
