@@ -17,7 +17,7 @@ version: 2.1
 # Shared settings
 settings:
   xcode: &xcode_version
-    xcode: "12.5.0"
+    xcode: "13.0.0"
 
 # Custom commands
 commands:
