@@ -1,5 +1,5 @@
 // CustomerSupportVM.swift
-// Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
+// Copyright (C) 2021 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -106,21 +106,6 @@ extension CustomerSupportVM {
         .textualContent(L10n.Support.contactSupport),
         .spacer(.small)
       ])
-    }
-
-    // phone contact
-    if
-      let phone = supportPhone,
-      let openingTime = supportPhoneOpeningTime,
-      let closingTime = supportPhoneClosingTime
-    {
-      cells.append(.contact(.phone(number: phone, openingTime: openingTime, closingTime: closingTime)))
-
-      if hasEmailContact {
-        cells.append(.spacer(.tiny))
-      } else {
-        cells.append(.spacer(.small))
-      }
     }
 
     // email contact

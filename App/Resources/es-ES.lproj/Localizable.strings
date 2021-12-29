@@ -360,7 +360,7 @@
 "settings.setting.choose_data_upload.health_worker_mode.message" = "Sigue el procedimiento para\ninformar tu positividad";
 "settings.setting.choose_data_upload.autonomous_mode.title" = "¿Tienes el codigo CUN?";
 "settings.setting.choose_data_upload.autonomous_mode.warning" = "Atención, este servicio no está activo en su Región.";
-"settings.setting.choose_data_upload.autonomous_mode.message" = "Puede ingresar los datos directamente en la aplicación o llamando al centro de llamadas 800.91.24.91";
+"settings.setting.choose_data_upload.autonomous_mode.message" = "Puede ingresar los datos directamente en la aplicación";
 "settings.setting.privacy" = "Política de privacidad";
 "settings.setting.section.data" = "Subida de los datos";
 "settings.setting.section.general" = "General";
