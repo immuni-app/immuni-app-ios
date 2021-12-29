@@ -361,7 +361,7 @@
 "settings.setting.choose_data_upload.health_worker_mode.message" = "Folgen Sie die Anweisungen, um Ihre Positivität zu melden";
 "settings.setting.choose_data_upload.autonomous_mode.title" = "Haben Sie den CUN-Code?";
 "settings.setting.choose_data_upload.autonomous_mode.warning" = "Achtung, dieser Kundendienst ist in Ihrer Region nicht aktiv";
-"settings.setting.choose_data_upload.autonomous_mode.message" = "Sie können die Daten direkt in die App oder telefonisch beim Call Center 800.91.24.91 eingeben";
+"settings.setting.choose_data_upload.autonomous_mode.message" = "Sie können die Daten direkt in die App";
 "settings.setting.privacy" = "Datenschutzerklärung";
 "settings.setting.section.data" = "Hochladen der Daten";
 "settings.setting.section.general" = "Allgemein";
