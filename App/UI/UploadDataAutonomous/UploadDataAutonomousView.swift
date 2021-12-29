@@ -271,28 +271,6 @@ class UploadDataAutonomousView: UIView, ViewControllerModellableView {
       .marginTop(20)
       .horizontally(25)
       .height(0)
-    //
-    //        iconCallCenter.pin
-    //            .size(40)
-    //            .left(48)
-    //            .marginTop(50)
-    //            .below(of: choice)
-    //
-    //        titleCallCenter.pin
-    //            .marginTop(50)
-    //            .marginLeft(20)
-    //            .after(of: iconAutonomous)
-    //            .below(of: choice)
-    //            .horizontally()
-    //            .sizeToFit(.width)
-    //
-    //        actionButtonCallCenter.pin
-    //            .horizontally(45)
-    //            .sizeToFit(.width)
-    //            .minHeight(55)
-    //            .below(of: titleCallCenter)
-    //            .marginTop(25)
-    //
 
     self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: self.containerCallCenter.frame.maxY)
   }

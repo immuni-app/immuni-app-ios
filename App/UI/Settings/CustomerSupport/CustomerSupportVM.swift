@@ -108,21 +108,6 @@ extension CustomerSupportVM {
       ])
     }
 
-    // phone contact
-//    if
-//      let phone = supportPhone,
-//      let openingTime = supportPhoneOpeningTime,
-//      let closingTime = supportPhoneClosingTime
-//    {
-//      cells.append(.contact(.phone(number: phone, openingTime: openingTime, closingTime: closingTime)))
-//
-//      if hasEmailContact {
-//        cells.append(.spacer(.tiny))
-//      } else {
-//        cells.append(.spacer(.small))
-//      }
-//    }
-
     // email contact
     if let email = supportEmail {
       cells.append(contentsOf: [
