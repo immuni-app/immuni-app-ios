@@ -1,5 +1,5 @@
 // HomeLogic.swift
-// Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
+// Copyright (C) 2022 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -12,7 +12,9 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+import Hydra
 import Katana
+import Models
 import Tempura
 
 extension Logic {
@@ -148,64 +150,108 @@ extension Logic.Home {
       context.dispatch(Hide(Screen.fixActiveService, animated: true))
     }
   }
-    
+
   /// Shows the Green Certificate screen
   struct ShowGreenCertificate: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-        
-      try context.awaitDispatch(Show(Screen.greenCertificate, animated: true, context: GreenCertificateLS(greenCertificates: context.getState().user.greenCertificates)))
+      let buildNumber = context.dependencies.bundle.intBuildVersion
+      let formatter = DateFormatter()
+      formatter.timeStyle = .none
+      formatter.dateStyle = .short
+      formatter.timeZone = TimeZone.current
+      let _today = formatter.string(from: Date())
+      let state = context.getState()
+      if state.configuration.latestSettingsUpdate == nil || state.configuration.latestSettingsUpdate != _today || state
+        .configuration.latestBuildNumber != buildNumber
+      {
+        do {
+          let configuration = try Hydra.await(context.dependencies.networkManager.getConfiguration(for: buildNumber!))
+          try context.awaitDispatch(UpdateConfiguration(configuration: configuration, buildNumberV: buildNumber))
+          try context.awaitDispatch(Show(
+            Screen.greenCertificate,
+            animated: true,
+            context: GreenCertificateLS(greenCertificates: context.getState().user.greenCertificates)
+          ))
+        } catch {
+          try context.awaitDispatch(Show(
+            Screen.greenCertificate,
+            animated: true,
+            context: GreenCertificateLS(greenCertificates: context.getState().user.greenCertificates)
+          ))
         }
+      } else {
+        try context.awaitDispatch(Show(
+          Screen.greenCertificate,
+          animated: true,
+          context: GreenCertificateLS(greenCertificates: context.getState().user.greenCertificates)
+        ))
       }
+    }
+  }
+
+  private struct UpdateConfiguration: AppStateUpdater {
+    var configuration: Models.Configuration
+    var buildNumberV: Int?
+
+    func updateState(_ state: inout AppState) {
+      let formatter = DateFormatter()
+      formatter.timeStyle = .none
+      formatter.dateStyle = .short
+      formatter.timeZone = TimeZone.current
+      let _today = formatter.string(from: Date())
+      state.configuration = self.configuration
+      state.configuration.latestSettingsUpdate = _today
+      state.configuration.latestBuildNumber = self.buildNumberV
+    }
+  }
+
   /// Shows the Green certificate detail
   struct ShowGreenCertificateDetail: AppSideEffect {
     let dgc: GreenCertificate
-    
+
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-        switch dgc.certificateType {
-        case .test:
-            try context
-                .awaitDispatch(Show(
-                Screen.greenCertificateTestDetail,
-                animated: true,
-                    context: GreenCertificateTestDetailLS(greenCertificate: dgc)
-                ))
-        case .vaccine:
-            try context
-                .awaitDispatch(Show(
-                Screen.greenCertificateVaccineDetail,
-                animated: true,
-                    context: GreenCertificateVaccineDetailLS(greenCertificate: dgc)
-                ))
-        case .recovery:
-            try context
-                .awaitDispatch(Show(
-                Screen.greenCertificateRecoveryDetail,
-                animated: true,
-                    context: GreenCertificateRecoveryDetailLS(greenCertificate: dgc)
-                ))
-   
-        }
-        
-          }
+      switch self.dgc.certificateType {
+      case .test:
+        try context
+          .awaitDispatch(Show(
+            Screen.greenCertificateTestDetail,
+            animated: true,
+            context: GreenCertificateTestDetailLS(greenCertificate: self.dgc)
+          ))
+      case .vaccine:
+        try context
+          .awaitDispatch(Show(
+            Screen.greenCertificateVaccineDetail,
+            animated: true,
+            context: GreenCertificateVaccineDetailLS(greenCertificate: self.dgc)
+          ))
+      case .recovery:
+        try context
+          .awaitDispatch(Show(
+            Screen.greenCertificateRecoveryDetail,
+            animated: true,
+            context: GreenCertificateRecoveryDetailLS(greenCertificate: self.dgc)
+          ))
+      }
     }
+  }
+
   /// Shows the  ShowGenerateGreenCertificateVC screen
   struct ShowGenerateGreenCertificate: AppSideEffect {
-      
-      func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-          
-        try context.awaitDispatch(Show(Screen.generateGreenCertificate, animated: true, context: GenerateGreenCertificateLS()))
-          }
-      }
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      try context
+        .awaitDispatch(Show(Screen.generateGreenCertificate, animated: true, context: GenerateGreenCertificateLS()))
+    }
+  }
+
   /// Delete the GreenCertificate
   struct DeleteGreenCertificate: AppSideEffect {
-    
     let id: String
-    
+
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-            
-      try context.awaitDispatch(Logic.CovidStatus.DeleteGreenCertificate(id: id))
-        }
-      }
+      try context.awaitDispatch(Logic.CovidStatus.DeleteGreenCertificate(id: self.id))
+    }
+  }
 }
 
 // MARK: Helpers

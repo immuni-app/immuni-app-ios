@@ -1,5 +1,5 @@
 // FaqState.swift
-// Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
+// Copyright (C) 2022 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -23,6 +23,9 @@ struct FaqState: Codable {
 
   /// The language of the latest fetched FAQs
   var latestFetchLanguage: UserLanguage? = nil
+
+  /// latest date download faq
+  var latestFaqUpdate: String? = ""
 
   /// Helper function that returns the fetched FAQs (if any) only if they match the given `language`, nil otherwise.
   // swiftlint:disable:next discouraged_optional_collection
