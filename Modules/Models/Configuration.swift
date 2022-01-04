@@ -1,5 +1,5 @@
 // Configuration.swift
-// Copyright (C) 2021 Presidenza del Consiglio dei Ministri.
+// Copyright (C) 2022 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -47,6 +47,8 @@ public struct Configuration: Codable {
     case supportPhoneOpeningTime = "support_phone_opening_time"
     case supportPhoneClosingTime = "support_phone_closing_time"
     case eudccExpiration = "eudcc_expiration"
+    case latestSettingsUpdate = "latest_settings_update"
+    case latestBuildNumber = "latest_build_number"
   }
 
   /// Countries of interest map
@@ -184,6 +186,8 @@ public struct Configuration: Codable {
     return self.privacyNoticeURL[language.rawValue] ?? self.privacyNoticeURL[UserLanguage.english.rawValue]
   }
 
+  public var latestSettingsUpdate: String?
+  public var latestBuildNumber: Int?
   /// Public initializer to allow testing
   public init(
     countries: [String: [String: String]] = .defaultCountries,
@@ -236,7 +240,9 @@ public struct Configuration: Codable {
     supportEmail: String? = "cittadini@immuni.italia.it",
     supportPhone: String? = "800912491",
     supportPhoneOpeningTime: String? = "7",
-    supportPhoneClosingTime: String? = "22"
+    supportPhoneClosingTime: String? = "22",
+    latestSettingsUpdate: String? = "01/01/2020",
+    latestBuildNumber: Int? = 0
   ) {
     self.countries = countries
     self.allowedRegionsSelfUpload = allowedRegionsSelfUpload
@@ -268,6 +274,8 @@ public struct Configuration: Codable {
     self.supportPhone = supportPhone
     self.supportPhoneOpeningTime = supportPhoneOpeningTime
     self.supportPhoneClosingTime = supportPhoneClosingTime
+    self.latestSettingsUpdate = latestSettingsUpdate
+    self.latestBuildNumber = latestBuildNumber
   }
 
   // swiftlint:enable force_unwrapping
@@ -464,28 +472,28 @@ public extension Dictionary where Key == String, Value == [String: String] {
         "rapid_test": "Certification valid for 48 hours from the time of collection",
         "vaccine_first_dose": "Certification valid until next dose",
         "vaccine_fully_completed": "Certification valid for 365 days (12 months) from the date of the last administration",
-        "healing_certificate" : "Certification valid in the European Union until the end of validity date and valid only in Italy up to 6 months from the start of validity date"
+        "healing_certificate": "Certification valid in the European Union until the end of validity date and valid only in Italy up to 6 months from the start of validity date"
       ],
       "es": [
         "molecular_test": "Certificación válida por 72 horas desde el momento de la recogida.",
         "rapid_test": "Certificación válida por 48 horas desde el momento de la recogida.",
         "vaccine_first_dose": "Certificación válida hasta la próxima dosis",
         "vaccine_fully_completed": "Certificación válida por 365 días (12 meses) a partir de la fecha de la última administración.",
-        "healing_certificate" : "Certificación válida en la Unión Europea hasta el final de la fecha de validez y válida solo en Italia hasta 6 meses desde el inicio de la fecha de validez"
+        "healing_certificate": "Certificación válida en la Unión Europea hasta el final de la fecha de validez y válida solo en Italia hasta 6 meses desde el inicio de la fecha de validez"
       ],
       "fr": [
         "molecular_test": "Attestation valable 72h à compter de la collecte",
         "rapid_test": "Attestation valable 48h à compter de la collecte",
         "vaccine_first_dose": "Certification valable jusqu'à la prochaine dose",
         "vaccine_fully_completed": "Certification valable 365 jours (12 mois) à compter de la date de la dernière administration",
-        "healing_certificate" : "Certification valable dans l'Union européenne jusqu'à la date de fin de validité et valable uniquement en Italie jusqu'à 6 mois à compter de la date de début de validité"
+        "healing_certificate": "Certification valable dans l'Union européenne jusqu'à la date de fin de validité et valable uniquement en Italie jusqu'à 6 mois à compter de la date de début de validité"
       ],
       "it": [
         "molecular_test": "Certificazione valida 72 ore dall'ora del prelievo",
         "rapid_test": "Certificazione valida 48 ore dall'ora del prelievo",
         "vaccine_first_dose": "Certificazione valida fino alla prossima dose",
         "vaccine_fully_completed": "Certificazione valida 365 giorni (12 mesi) dalla data dell'ultima somministrazione",
-        "healing_certificate" : "Certificazione valida in Unione Europea fino alla data di fine validità e valida solo in Italia fino a 6 mesi dalla data di inizio validità"
+        "healing_certificate": "Certificazione valida in Unione Europea fino alla data di fine validità e valida solo in Italia fino a 6 mesi dalla data di inizio validità"
       ]
     ]
     return values

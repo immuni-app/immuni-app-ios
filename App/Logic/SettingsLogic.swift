@@ -1,5 +1,5 @@
 // SettingsLogic.swift
-// Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
+// Copyright (C) 2022 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -25,37 +25,48 @@ import Tempura
 
 extension Logic {
   enum Settings {}
+  enum FAQError: Error {
+    case invalidConfiguration
+  }
 }
 
 extension Logic.Settings {
   /// Shows the Upload Data screen
   struct ShowUploadData: AppSideEffect {
-    
     let callCenterMode: Bool
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-        try context.awaitDispatch(Logic.DataUpload.ShowUploadData(callCenterMode: self.callCenterMode))
+      try context.awaitDispatch(Logic.DataUpload.ShowUploadData(callCenterMode: self.callCenterMode))
     }
   }
+
   /// Shows the Upload Data Autonomous screen
   struct ShowUploadDataAutonomous: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-    try context.awaitDispatch(Logic.DataUpload.ShowUploadDataAutonomous())
-        }
-      }
-      
+      try context.awaitDispatch(Logic.DataUpload.ShowUploadDataAutonomous())
+    }
+  }
+
   /// Shows the Choose Data Upload Mode screen
   struct ShowChooseDataUploadMode: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-          try context.awaitDispatch(Logic.DataUpload.ShowChooseDataUploadMode())
-        }
-      }
+      try context.awaitDispatch(Logic.DataUpload.ShowChooseDataUploadMode())
+    }
+  }
+
   /// Shows the FAQs screen
   struct ShowFAQs: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
       let state = context.getState()
+      let buildNumber = context.dependencies.bundle.intBuildVersion
+      let formatter = DateFormatter()
+      formatter.timeStyle = .none
+      formatter.dateStyle = .short
+      formatter.timeZone = TimeZone.current
+      let _today = formatter.string(from: Date())
 
-      let hasLocalFAQs = state.faq.faqs(for: state.environment.userLanguage) != nil
-      guard !hasLocalFAQs else {
+      if state.faq.latestFaqUpdate != nil && state.faq.latestFaqUpdate == _today && state.configuration
+        .latestBuildNumber == buildNumber
+      {
         // There are cached FAQs for the user's language.
         try context.awaitDispatch(Show(Screen.faq, animated: true))
         return
@@ -63,12 +74,11 @@ extension Logic.Settings {
 
       try context.awaitDispatch(Logic.Loading.Show())
       do {
-        try Hydra.await(context.dispatch(Logic.Configuration.PerformFAQFetch()).timeout(timeout: 5))
+        try Hydra.await(context.dispatch(PerformFAQFetch(buildNumberV: buildNumber)).timeout(timeout: 5))
         try context.awaitDispatch(Logic.Loading.Hide())
         try context.awaitDispatch(Show(Screen.faq, animated: true))
       } catch {
         try context.awaitDispatch(Logic.Loading.Hide())
-
         // Show an error alert
         let model = Alert.Model(
           title: L10n.UploadData.ConnectionError.title,
@@ -81,6 +91,50 @@ extension Logic.Settings {
 
         context.dispatch(Logic.Alert.Show(alertModel: model))
       }
+    }
+  }
+
+  struct PerformFAQFetch: AppSideEffect {
+    var buildNumberV: Int?
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      let state = context.getState()
+
+      guard
+        let faqURL = state.configuration.faqURL(for: state.environment.userLanguage),
+        var components = URLComponents(url: faqURL, resolvingAgainstBaseURL: false)
+
+      else {
+        return
+      }
+
+      let path = components.path
+
+      // remove path
+      components.path = ""
+      let baseURL = try components.asURL()
+
+      let faqs: [FAQ] = try Hydra.await(context.dependencies.networkManager.getFAQ(baseURL: baseURL, path: path))
+      try context
+        .awaitDispatch(UpdateFAQs(faqs: faqs, language: state.environment.userLanguage, buildNumberV: self.buildNumberV))
+    }
+  }
+
+  /// Updates the local FAQs
+  struct UpdateFAQs: AppStateUpdater {
+    let faqs: [FAQ]
+    let language: UserLanguage
+    var buildNumberV: Int?
+
+    func updateState(_ state: inout AppState) {
+      let formatter = DateFormatter()
+      formatter.timeStyle = .none
+      formatter.dateStyle = .short
+      formatter.timeZone = TimeZone.current
+      let _today = formatter.string(from: Date())
+      state.faq.fetchedFAQs = self.faqs
+      state.faq.latestFetchLanguage = self.language
+      state.faq.latestFaqUpdate = _today
+      state.configuration.latestBuildNumber = self.buildNumberV
     }
   }
 
@@ -291,7 +345,7 @@ extension Logic.Settings {
       let appState = context.getState()
 
       var newCountriesOfInterest: [CountryOfInterest] = []
-        
+
       let lan = Locale.current.languageCode ?? "en"
       // swiftlint:disable:next force_unwrapping
       let countryList: [String: String] = appState.configuration.countries[lan] ?? appState.configuration.countries["en"]!
@@ -299,9 +353,9 @@ extension Logic.Settings {
 
       for countryOfInterest in appState.exposureDetection.countriesOfInterest {
         if self.newCountries.contains(countryOfInterest) && countryListIds.contains(countryOfInterest.country.countryId) {
-                 newCountriesOfInterest.append(countryOfInterest)
-               }
-             }
+          newCountriesOfInterest.append(countryOfInterest)
+        }
+      }
 
       for country in self.newCountries {
         if !appState.exposureDetection.countriesOfInterest.contains(country) {
