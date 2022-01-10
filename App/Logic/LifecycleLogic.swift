@@ -1,5 +1,5 @@
 // LifecycleLogic.swift
-// Copyright (C) 2020 Presidenza del Consiglio dei Ministri.
+// Copyright (C) 2022 Presidenza del Consiglio dei Ministri.
 // Please refer to the AUTHORS file for more information.
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -75,6 +75,14 @@ extension Logic {
 
         // update analytics dummy opportunity window if expired
         try context.awaitDispatch(Logic.Analytics.UpdateDummyTrafficOpportunityWindowIfExpired())
+
+        // Download the Configuration with a given timeout
+        let configurationFetch = context
+          .dispatch(Logic.Configuration.DownloadAndUpdateConfiguration())
+          .timeout(timeout: 10)
+
+        // Fail silently in case of error (for example, the timeout triggering)
+        try? Hydra.await(configurationFetch)
 
         guard !isFirstLaunch else {
           // Nothing else to do if it's the first launch
@@ -248,15 +256,6 @@ extension Logic.Lifecycle {
         // The first launch setup was already performed
         return
       }
-
-      // Download the Configuration with a given timeout
-      let configurationFetch = context
-        .dispatch(Logic.Configuration.DownloadAndUpdateConfiguration())
-        .timeout(timeout: 10)
-
-      // Fail silently in case of error (for example, the timeout triggering)
-      try? Hydra.await(configurationFetch)
-
       /// Initialize the stochastic parameters required for the generation of dummy ingestion traffic.
       try context.awaitDispatch(Logic.DataUpload.UpdateDummyTrafficOpportunityWindow())
 
