@@ -65,6 +65,9 @@
 "home_view.service.not_active.subtitle" = "Intervieni subito per permettere a Immuni di funzionare correttamente.";
 "home_view.service.not_active.title" = "Servizio\n<b>non attivo</b>";
 "home_view.green_certificate.title" = "EU Digital Covid Certificate";
+"home_view.green_certificate.info_modal.message" = "Se stai leggendo questo messaggio vuol dire che hai più di un Certificato Verde COVID-19 installato sul tuo dispositivo: ora sono visualizzati in ordine cronologico a partire dal più recente. Ricordati che puoi eliminarli o spostarti da uno all'altro scorrendo lateralmente con il dito";
+"home_view.green_certificate.info_modal.title" = "Abbiamo cambiato l'ordine dei tuoi Certificati.";
+"home_view.green_certificate.info_modal.button" = "Ho capito";
 "home_view.green_certificate.header" = "Il Digital Green Certificate ti permette di certificare la tua immunità al COVID-19.";
 "home_view.green_certificate.discover_more" = "Più dettagli";
 "home_view.green_certificate.label" = "Il tuo Digital Green Certificate";
@@ -74,7 +77,7 @@
 "home_view.green_certificate.delete_button" = "Elimina";
 "home_view.green_certificate.save_button" = "Salva";
 "home_view.green_certificate.confirm.title" = "Elimina EU Digital Covid Certificate";
-"home_view.green_certificate.confirm.messagge" = "Sei sicuro di voler eliminare il tuo EU Digital Covid Certificate?";
+"home_view.green_certificate.confirm.message" = "Sei sicuro di voler eliminare il tuo EU Digital Covid Certificate?";
 "home_view.green_certificate.label.name" = "Cognome e nome";
 "home_view.green_certificate.label.date" = "Data di nascita";
 "home_view.green_certificate.label.id" = "Identificativo univoco del certificato";
@@ -88,6 +91,7 @@
 "home_view.green_certificate.detail.paragraph" = "Questo certificato non è un documento di viaggio. Le evidenze scientifiche sulla vaccinazione, sui test e sulla guarigione da COVID-19 continuano ad evolversi, anche in considerazioni delle nuove varianti del virus. Prima di viaggiare si prega di controllare le misure di salute pubblica applicate nel luogo di destinazione e le relative restrizioni anche consultando il sito:";
 "home_view.green_certificate.detail.url" = "https://reopen.europa.eu/";
 "home_view.green_certificate.detail.certificate_issuer" = "Ministero della Salute";
+"home_view.green_certificate.detail.label.exemption.certificate_type" = "Certificato di esenzione";
 "home_view.green_certificate.detail.label.vaccine.certificate_type" = "Certificato di vaccinazione";
 "home_view.green_certificate.detail.label.vaccine.valid_until.first" = "Certificazione valida 270 giorni (9 mesi) dalla data dell'ultima somministrazione";
 "home_view.green_certificate.detail.label.vaccine.valid_until.second" = "Certificazione valida fino alla prossima dose";

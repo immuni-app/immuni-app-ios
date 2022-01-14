@@ -22,24 +22,24 @@ struct GreenCertificateVM: ViewModelWithLocalState {
     let isLoading: Bool
     
     var currentDgc: Int = 0
+    var showModalDgc: Bool
     var greenCertificates: [GreenCertificate]?
 
     enum StatusGreenCertificate: Int {
       case active
       case inactive
-
     }
 
     /// The currently status.
     var status: StatusGreenCertificate
-
 }
 
 extension GreenCertificateVM {
     init?(state : AppState?, localState: GreenCertificateLS) {
         isLoading = localState.isLoading
         self.status = .inactive
-        self.greenCertificates = state?.user.greenCertificates
+        self.showModalDgc = state?.user.showModalDgc ?? true
+        self.greenCertificates = state?.user.greenCertificates?.reversed()
     }
 }
 
@@ -94,6 +94,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
     var didTapGenerateGreenCertificate: Interaction?
     var didTapDeleteGreenCertificate: CustomInteraction<Int>?
     var didTapSaveGreenCertificate: CustomInteraction<Int>?
+    var showOrderInfoModal: Interaction?
 
 
     // MARK: - Setup
@@ -146,7 +147,6 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             }
         }
 
-        
         container.addGestureRecognizer(createSwipeGestureRecognizer(for: .left))
         container.addGestureRecognizer(createSwipeGestureRecognizer(for: .right))
 
@@ -234,6 +234,11 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         guard let model = self.model else {
             return
         }
+
+        if model.showModalDgc, let greenCertificates = model.greenCertificates, greenCertificates.count > 1 {
+            self.showOrderInfoModal?()
+        }
+        
         if let greenCertificates = model.greenCertificates, greenCertificates.count > 0, model.currentDgc < greenCertificates.count, model.currentDgc >= 0 {
             
             let dataDecoded: Data? = Data(base64Encoded: greenCertificates[model.currentDgc].greenCertificate, options: .ignoreUnknownCharacters)

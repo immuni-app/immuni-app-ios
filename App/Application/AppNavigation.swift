@@ -50,6 +50,7 @@ enum Screen: String, CaseIterable {
   case greenCertificateVaccineDetail
   case greenCertificateRecoveryDetail
   case greenCertificateTestDetail
+  case greenCertificateExemptionDetail
 
   // settings
   case settings
@@ -532,6 +533,10 @@ extension HomeNC: RoutableWithConfiguration {
         let ls = context as? GreenCertificateTestDetailLS ?? AppLogger.fatalError("invalid context")
         return GreenCertificateTestDetailVC(store: self.store, localState: ls)
         },
+      .show(Screen.greenCertificateExemptionDetail): .presentModally { context in
+        let ls = context as? GreenCertificateExemptionDetailLS ?? AppLogger.fatalError("invalid context")
+        return GreenCertificateExemptionDetailVC(store: self.store, localState: ls)
+        },
       .show(Screen.generateGreenCertificate): .push { _ in
         return GenerateGreenCertificateVC(store: self.store, localState: GenerateGreenCertificateLS())
           },
@@ -543,7 +548,8 @@ extension HomeNC: RoutableWithConfiguration {
       .hide(Screen.greenCertificateVaccineDetail): .dismissModally(behaviour: .hard),
       .hide(Screen.greenCertificateRecoveryDetail): .dismissModally(behaviour: .hard),
       .hide(Screen.greenCertificateTestDetail): .dismissModally(behaviour: .hard),
-
+      .hide(Screen.greenCertificateExemptionDetail): .dismissModally(behaviour: .hard),
+      
     ]
   }
 }
@@ -623,7 +629,15 @@ extension GreenCertificateTestDetailVC: RoutableWithConfiguration {
     return [:]
   }
 }
+extension GreenCertificateExemptionDetailVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.greenCertificateExemptionDetail.rawValue
+  }
 
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [:]
+  }
+}
 extension ConfirmUploadVC: RoutableWithConfiguration {
   var routeIdentifier: RouteElementIdentifier {
     return Screen.confirmUpload.rawValue
