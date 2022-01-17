@@ -91,6 +91,8 @@
 "home_view.green_certificate.detail.of" = "von";
 "home_view.green_certificate.detail.paragraph" = "Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19-Impfung, -Tests und -Wiederherstellung entwickeln sich weiter, auch unter Berücksichtigung der neuen Varianten des Virus. Bitte informieren Sie sich vor der Reise über die am Zielort geltenden Gesundheitsmaßnahmen und die damit verbundenen Einschränkungen auch auf der Website:";
 "home_view.green_certificate.detail.url" = "https://reopen.europa.eu/";
+"home_view.green_certificate.exemption_detail.paragraph" = "Diese Zertifizierung ist nur in Italien gültig und kann verwendet werden, um die grüne COVID-19-Zertifizierung für die Durchführung von Aktivitäten und die Nutzung von Dienstleistungen gemäß der geltenden nationalen Gesetzgebung zu ersetzen\n\nWeitere Informationen und Datenschutzhinweise:";
+"home_view.green_certificate.exemption_detail.url" = "www.dgc.gov.it:www.salute.gov.it";
 "home_view.green_certificate.detail.certificate_issuer" = "Ministero della Salute";
 "home_view.green_certificate.detail.label.exemption.certificate_type" = "Freistellungsbescheinigung";
 "home_view.green_certificate.detail.label.vaccine.certificate_type" = "Impfbescheinigung";
@@ -149,6 +151,18 @@
 "home_view.green_certificate.detail.label.test.valid_until" = "Gültigkeit des EU Digital Covid Certificate";
 "home_view.green_certificate.detail.label.test.valid_until_en" = "<i>Validity of the EU Digital Covid Certificate</i>";
 "home_view.green_certificate.detail.label.test.valid_until_value" = "Bescheinigung gültig für 48 Stunden ab dem Zeitpunkt der Abholung";
+"home_view.green_certificate.detail.label.exemption.disease" = "Zielkrankheit oder -wirkstoff";
+"home_view.green_certificate.detail.label.exemption.disease_en" = "<i>Disease or agent targeted</i>";
+"home_view.green_certificate.detail.label.exemption.fiscal_code_doctor" = "Steuernummer des zertifizierenden Arztes";
+"home_view.green_certificate.detail.label.exemption.fiscal_code_doctor_en" = "<i>Fiscal code of the certifying physician</i>";
+"home_view.green_certificate.detail.label.exemption.valid_from" = "Gültigkeitsbeginn der Zertifizierung";
+"home_view.green_certificate.detail.label.exemption.valid_from_en" = "<i>Valid from</i>";
+"home_view.green_certificate.detail.label.exemption.valid_until" = "Endgültigkeitsdatum der Zertifizierung";
+"home_view.green_certificate.detail.label.exemption.valid_until_en" = "<i>Valid until</i>";
+"home_view.green_certificate.detail.label.exemption.cuev" = "Eindeutiger Impfbefreiungscode (CUEV)";
+"home_view.green_certificate.detail.label.exemption.cuev_en" = "<i>Unique vaccination exemption identifier</i>";
+"home_view.green_certificate.detail.label.exemption.certificate_issuer" = "Subjekt, das die digitale Freistellungsbescheinigung ausgestellt hat";
+"home_view.green_certificate.detail.label.exemption.certificate_issuer_en" = "<i>Certificate issuer</i>";
 "home_view.green_certificate.detail.testType.quick" = "Test antigenico rapido";
 "home_view.green_certificate.detail.testType.molecular" = "Test molecolare";
 "home_view.green_certificate.detail.testResult.positive" = "Positivo";

@@ -325,8 +325,8 @@ extension Logic.DataUpload {
                             fiscalCodeDoctor: hcert.body["e"][0]["fc"].string ?? "---",
                             certificateValidUntil: hcert.body["e"][0]["du"].string ?? "---",
                             vaccinationCuntry: hcert.body["e"][0]["co"].string ?? "---",
-                            cu: hcert.body["e"][0]["cu"].description,
-                            certificateAuthority: L10n.HomeView.GreenCertificate.Detail.certificateIssuer, tg: hcert.body["e"][0]["tg"].string ?? "---",
+                            cuev: hcert.body["e"][0]["cu"].description,
+                            certificateAuthority: L10n.HomeView.GreenCertificate.Detail.certificateIssuer,
                             certificateValidFrom: hcert.body["e"][0]["df"].string ?? "---"
                         )
                         dgc?.id = hcert.body["e"][0]["ci"].description

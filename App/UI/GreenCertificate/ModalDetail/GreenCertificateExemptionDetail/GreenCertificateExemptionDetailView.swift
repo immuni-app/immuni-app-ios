@@ -50,9 +50,6 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
     private var closeButton = ImageButton()
     
     private var certificateTypeLabel = UILabel()
-    private var validUntilLabel = UILabel()
-    private var validUntilLabelEn = UILabel()
-    private var validUntil = UILabel()
     
     private var diseaseExemptionLabel = UILabel()
     private var diseaseExemptionLabelEn = UILabel()
@@ -64,18 +61,13 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
     private var certificateValidUntilLabel = UILabel()
     private var certificateValidUntilLabelEn = UILabel()
     private var certificateValidUntil = UILabel()
-    private var vaccinationCountryLabel = UILabel()
-    private var vaccinationCountryLabelEn = UILabel()
-    private var vaccinationCountry = UILabel()
-    private var cuLabel = UILabel()
-    private var cuLabelEn = UILabel()
-    private var cu = UILabel()
-    private var certificateAuthorityLabel = UILabel()
-    private var certificateAuthorityLabelEn = UILabel()
-    private var certificateAuthority = UILabel()
-    private var tgLabel = UILabel()
-    private var tgLabelEn = UILabel()
-    private var tg = UILabel()
+  
+    private var cuevLabel = UILabel()
+    private var cuevLabelEn = UILabel()
+    private var cuev = UILabel()
+    private var certificateIssuerLabel = UILabel()
+    private var certificateIssuerLabelEn = UILabel()
+    private var certificateIssuer = UILabel()
     private var certificateValidFromLabel = UILabel()
     private var certificateValidFromLabelEn = UILabel()
     private var certificateValidFrom = UILabel()
@@ -96,12 +88,6 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
         
         addSubview(self.certificateTypeLabel)
         self.scrollView.addSubview(self.certificateTypeLabel)
-        addSubview(self.validUntilLabel)
-        self.scrollView.addSubview(self.validUntilLabel)
-        addSubview(self.validUntilLabelEn)
-        self.scrollView.addSubview(self.validUntilLabelEn)
-        addSubview(self.validUntil)
-        self.scrollView.addSubview(self.validUntil)
         
         addSubview(self.diseaseExemptionLabel)
         self.scrollView.addSubview(self.diseaseExemptionLabel)
@@ -123,34 +109,20 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
         self.scrollView.addSubview(self.certificateValidUntilLabelEn)
         addSubview(self.certificateValidUntil)
         self.scrollView.addSubview(self.certificateValidUntil)
-       
-        addSubview(self.vaccinationCountryLabel)
-        self.scrollView.addSubview(self.vaccinationCountryLabel)
-        addSubview(self.vaccinationCountryLabelEn)
-        self.scrollView.addSubview(self.vaccinationCountryLabelEn)
-        addSubview(self.vaccinationCountry)
-        self.scrollView.addSubview(self.vaccinationCountry)
         
-        addSubview(self.cuLabel)
-        self.scrollView.addSubview(self.cuLabel)
-        addSubview(self.cuLabelEn)
-        self.scrollView.addSubview(self.cuLabelEn)
-        addSubview(self.cu)
-        self.scrollView.addSubview(self.cu)
+        addSubview(self.cuevLabel)
+        self.scrollView.addSubview(self.cuevLabel)
+        addSubview(self.cuevLabelEn)
+        self.scrollView.addSubview(self.cuevLabelEn)
+        addSubview(self.cuev)
+        self.scrollView.addSubview(self.cuev)
        
-        addSubview(self.certificateAuthorityLabel)
-        self.scrollView.addSubview(self.certificateAuthorityLabel)
-        addSubview(self.certificateAuthorityLabelEn)
-        self.scrollView.addSubview(self.certificateAuthorityLabelEn)
-        addSubview(self.certificateAuthority)
-        self.scrollView.addSubview(self.certificateAuthority)
-       
-        addSubview(self.tgLabel)
-        self.scrollView.addSubview(self.tgLabel)
-        addSubview(self.tgLabelEn)
-        self.scrollView.addSubview(self.tgLabelEn)
-        addSubview(self.tg)
-        self.scrollView.addSubview(self.tg)
+        addSubview(self.certificateIssuerLabel)
+        self.scrollView.addSubview(self.certificateIssuerLabel)
+        addSubview(self.certificateIssuerLabelEn)
+        self.scrollView.addSubview(self.certificateIssuerLabelEn)
+        addSubview(self.certificateIssuer)
+        self.scrollView.addSubview(self.certificateIssuer)
       
         addSubview(self.certificateValidFromLabel)
         self.scrollView.addSubview(self.certificateValidFromLabel)
@@ -182,44 +154,39 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
         
         Self.Style.subTitle(self.certificateTypeLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.certificateType)
         
-        Self.Style.label(self.validUntilLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.validUntilEn)
-        Self.Style.label(self.validUntilLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.validUntil)
+        Self.Style.label(self.diseaseExemptionLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.disease)
         
-        Self.Style.label(self.diseaseExemptionLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.disease)
+        Self.Style.label(self.fiscalCodeDoctorLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.fiscalCodeDoctor)
+        Self.Style.label(self.certificateValidUntilLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.validUntil)
+       
         
-        Self.Style.label(self.fiscalCodeDoctorLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineType)
-        Self.Style.label(self.certificateValidUntilLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineName)
-        Self.Style.label(self.vaccinationCountryLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineProducer)
-        Self.Style.label(self.cuLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.numberOfDoses)
+        Self.Style.label(self.cuevLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.cuev)
         Self.Style.label(
-            self.certificateAuthorityLabel,
-            text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.dateLastAdministration
+            self.certificateIssuerLabel,
+            text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.certificateIssuer
         )
-        Self.Style.label(self.tgLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccinationCuntry)
+       
         Self.Style.label(
             self.certificateValidFromLabel,
-            text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.certificateAuthority
+            text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.validFrom
         )
         
-        Self.Style.label(self.diseaseExemptionLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.diseaseEn)
-        Self.Style.label(self.fiscalCodeDoctorLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineTypeEn)
-        Self.Style.label(self.certificateValidUntilLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineNameEn)
-        Self.Style.label(self.vaccinationCountryLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineProducerEn)
+        Self.Style.label(self.diseaseExemptionLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.diseaseEn)
+        Self.Style.label(self.fiscalCodeDoctorLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.fiscalCodeDoctorEn)
+        Self.Style.label(self.certificateValidUntilLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.validUntilEn)
+      
         Self.Style.label(
-            self.cuLabelEn,
-            text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.numberOfDosesEn
+            self.cuevLabelEn,
+            text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.cuevEn
         )
         Self.Style.label(
-            self.certificateAuthorityLabelEn,
-            text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.dateLastAdministrationEn
+            self.certificateIssuerLabelEn,
+            text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.certificateIssuerEn
         )
-        Self.Style.label(
-            self.tgLabelEn,
-            text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccinationCuntryEn
-        )
+      
         Self.Style.label(
             self.certificateValidFromLabelEn,
-            text: L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.certificateAuthorityEn
+            text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.validFromEn
         )
         
         Self.Style.closeButton(self.closeButton)
@@ -231,9 +198,6 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
         guard let model = self.model else {
             return
         }
-        let lan = Locale.current.languageCode ?? "en"
-        let validUntilCompleteVaccine = ConfigurationStateExemption.state[lan]!["vaccine_fully_completed"]
-        let validUntilnotCompleteVaccine = ConfigurationStateExemption.state[lan]!["vaccine_first_dose"]
         
         if let detailExemptionCertificate = model.greenCertificate.detailExemptionCertificate {
             Self.Style.value(self.diseaseExemption, text: detailExemptionCertificate.disease)
@@ -248,34 +212,26 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
                 text: detailExemptionCertificate.certificateValidUntil.isEmpty ? "---" : detailExemptionCertificate
                     .certificateValidUntil
             )
+ 
             Self.Style.value(
-                self.vaccinationCountry,
-                text: detailExemptionCertificate.vaccinationCuntry.isEmpty ? "---" : detailExemptionCertificate
-                    .vaccinationCuntry
+                self.cuev,
+                text: detailExemptionCertificate.cuev.isEmpty ? "---" : detailExemptionCertificate
+                    .cuev
             )
             Self.Style.value(
-                self.cu,
-                text: detailExemptionCertificate.cu.isEmpty ? "---" : detailExemptionCertificate
-                    .cu
-            )
-            Self.Style.value(
-                self.certificateAuthority,
+                self.certificateIssuer,
                 text: detailExemptionCertificate.certificateAuthority.isEmpty ? "---" : detailExemptionCertificate
                     .certificateAuthority
             )
-            Self.Style.value(
-                self.tg,
-                text: detailExemptionCertificate.tg.isEmpty ? "---" : detailExemptionCertificate
-                    .tg
-            )
+          
             Self.Style.value(
                 self.certificateValidFrom,
                 text: detailExemptionCertificate.certificateValidFrom.isEmpty ? "---" : detailExemptionCertificate
                     .certificateValidFrom
             )
         }
-        Self.Style.label(self.paragraph, text: L10n.HomeView.GreenCertificate.Detail.paragraph)
-        Self.Style.contactButton(self.contactButton, content: L10n.HomeView.GreenCertificate.Detail.url)
+        Self.Style.label(self.paragraph, text: L10n.HomeView.GreenCertificate.ExemptionDetail.paragraph)
+        Self.Style.contactButton(self.contactButton, content: L10n.HomeView.GreenCertificate.ExemptionDetail.url)
     }
     
     // MARK: - Layout
@@ -349,124 +305,9 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
             .horizontally(25)
             .marginLeft(10)
         
-        self.certificateValidUntilLabelEn.pin
-            .minHeight(25)
-            .below(of: self.fiscalCodeDoctor)
-            .marginTop(30)
-            .sizeToFit(.width)
-            .horizontally(25)
-            .marginLeft(10)
-        
-        self.certificateValidUntilLabel.pin
-            .minHeight(25)
-            .below(of: self.certificateValidUntilLabelEn)
-            .sizeToFit(.width)
-            .horizontally(25)
-            .marginLeft(10)
-        
-        self.certificateValidUntil.pin
-            .minHeight(25)
-            .below(of: self.certificateValidUntilLabel)
-            .marginTop(5)
-            .sizeToFit(.width)
-            .horizontally(25)
-            .marginLeft(10)
-        
-        self.vaccinationCountryLabelEn.pin
-            .minHeight(25)
-            .below(of: self.certificateValidUntil)
-            .marginTop(30)
-            .sizeToFit(.width)
-            .horizontally(25)
-            .marginLeft(10)
-        
-        self.vaccinationCountryLabel.pin
-            .minHeight(25)
-            .below(of: self.vaccinationCountryLabelEn)
-            .sizeToFit(.width)
-            .horizontally(25)
-            .marginLeft(10)
-        
-        self.vaccinationCountry.pin
-            .minHeight(25)
-            .below(of: self.vaccinationCountryLabel)
-            .marginTop(5)
-            .sizeToFit(.width)
-            .horizontally(25)
-            .marginLeft(10)
-        
-        self.cuLabelEn.pin
-            .minHeight(25)
-            .below(of: self.vaccinationCountry)
-            .marginTop(30)
-            .sizeToFit(.width)
-            .horizontally(25)
-            .marginLeft(10)
-        
-        self.cuLabel.pin
-            .minHeight(25)
-            .below(of: self.cuLabelEn)
-            .sizeToFit(.width)
-            .horizontally(25)
-            .marginLeft(10)
-        
-        self.cu.pin
-            .minHeight(25)
-            .below(of: self.cuLabel)
-            .marginTop(5)
-            .sizeToFit(.width)
-            .horizontally(25)
-            .marginLeft(10)
-        
-        self.certificateAuthorityLabelEn.pin
-            .minHeight(25)
-            .below(of: self.cu)
-            .marginTop(30)
-            .sizeToFit(.width)
-            .horizontally(25)
-            .marginLeft(10)
-        
-        self.certificateAuthorityLabel.pin
-            .minHeight(25)
-            .below(of: self.certificateAuthorityLabelEn)
-            .sizeToFit(.width)
-            .horizontally(25)
-            .marginLeft(10)
-        
-        self.certificateAuthority.pin
-            .minHeight(25)
-            .below(of: self.certificateAuthorityLabel)
-            .marginTop(5)
-            .sizeToFit(.width)
-            .horizontally(25)
-            .marginLeft(10)
-        
-        self.tgLabelEn.pin
-            .minHeight(25)
-            .below(of: self.certificateAuthority)
-            .marginTop(30)
-            .sizeToFit(.width)
-            .horizontally(25)
-            .marginLeft(10)
-        
-        self.tgLabel.pin
-            .minHeight(25)
-            .below(of: self.tgLabelEn)
-            .sizeToFit(.width)
-            .horizontally(25)
-            .marginLeft(10)
-        
-        self.tg.pin
-            .minHeight(25)
-            .below(of: self.tgLabel)
-            .marginTop(5)
-            .sizeToFit(.width)
-            .horizontally(25)
-            .marginLeft(10)
-        
         self.certificateValidFromLabelEn.pin
             .minHeight(25)
-            .below(of: self.tg)
+            .below(of: self.fiscalCodeDoctor)
             .marginTop(30)
             .sizeToFit(.width)
             .horizontally(25)
@@ -487,9 +328,78 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
             .horizontally(25)
             .marginLeft(10)
         
-        self.paragraph.pin
+        self.certificateValidUntilLabelEn.pin
             .minHeight(25)
             .below(of: self.certificateValidFrom)
+            .marginTop(30)
+            .sizeToFit(.width)
+            .horizontally(25)
+            .marginLeft(10)
+        
+        self.certificateValidUntilLabel.pin
+            .minHeight(25)
+            .below(of: self.certificateValidUntilLabelEn)
+            .sizeToFit(.width)
+            .horizontally(25)
+            .marginLeft(10)
+        
+        self.certificateValidUntil.pin
+            .minHeight(25)
+            .below(of: self.certificateValidUntilLabel)
+            .marginTop(5)
+            .sizeToFit(.width)
+            .horizontally(25)
+            .marginLeft(10)
+        
+        self.cuevLabelEn.pin
+            .minHeight(25)
+            .below(of: self.certificateValidUntil)
+            .marginTop(30)
+            .sizeToFit(.width)
+            .horizontally(25)
+            .marginLeft(10)
+        
+        self.cuevLabel.pin
+            .minHeight(25)
+            .below(of: self.cuevLabelEn)
+            .sizeToFit(.width)
+            .horizontally(25)
+            .marginLeft(10)
+        
+        self.cuev.pin
+            .minHeight(25)
+            .below(of: self.cuevLabel)
+            .marginTop(5)
+            .sizeToFit(.width)
+            .horizontally(25)
+            .marginLeft(10)
+        
+        self.certificateIssuerLabelEn.pin
+            .minHeight(25)
+            .below(of: self.cuev)
+            .marginTop(30)
+            .sizeToFit(.width)
+            .horizontally(25)
+            .marginLeft(10)
+        
+        self.certificateIssuerLabel.pin
+            .minHeight(25)
+            .below(of: self.certificateIssuerLabelEn)
+            .sizeToFit(.width)
+            .horizontally(25)
+            .marginLeft(10)
+        
+        self.certificateIssuer.pin
+            .minHeight(25)
+            .below(of: self.certificateIssuerLabel)
+            .marginTop(5)
+            .sizeToFit(.width)
+            .horizontally(25)
+            .marginLeft(10)
+        
+        self.paragraph.pin
+            .minHeight(25)
+            .below(of: self.certificateIssuer)
             .marginTop(15)
             .sizeToFit(.width)
             .horizontally(25)

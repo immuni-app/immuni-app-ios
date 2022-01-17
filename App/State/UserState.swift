@@ -112,10 +112,10 @@ public struct DetailExemptionCertificate: Codable {
     var fiscalCodeDoctor: String
     var certificateValidUntil: String
     var vaccinationCuntry: String
-    var cu: String
+    var cuev: String
     var certificateAuthority: String
-    var tg: String
     var certificateValidFrom: String
+
     
     // swiftlint:enable force_unwrapping
 }
