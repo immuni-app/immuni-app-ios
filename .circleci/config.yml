@@ -274,6 +274,20 @@ commands:
             # Install provisioning profile
             fastlane run install_provisioning_profile path:profile.mobileprovision
 
+  setup_linux:
+    description: Configure the Linux environment.
+    steps:
+      - run:
+          name: "[setup_linux] Install curl"
+          command: apt-get update && apt-get install curl
+      - run:
+          name: "[setup_linux] Resolve Python 2.7 conflict with Swift"
+          command: |
+            # There is a bug with the installation of Python on top of the official Swift Linux Docker image
+            # See https://forums.swift.org/t/lldb-install-precludes-installing-python-in-image/24040
+            mv /usr/lib/python2.7/site-packages /usr/lib/python2.7/dist-packages
+            ln -s dist-packages /usr/lib/python2.7/site-packages
+
   setup_pr_tools:
     description: Configure the pull requests environment.
     steps:
@@ -352,7 +366,7 @@ jobs:
 
   pr_check:
     docker:
-      - image: swift:5.1-bionic-slim
+      - image: swift:5.1-bionic
     resource_class: small
     steps:
       - run:
@@ -369,6 +383,7 @@ jobs:
             fi
       - checkout:
           name: "[pr_check] Checkout the code"
+      - setup_linux
       - setup_pr_tools
       - run:
           name: "[pr_check] Run danger"
@@ -388,10 +403,11 @@ jobs:
 
   scheduler:
     docker:
-      - image: swift:5.1-bionic-slim
+      - image: swift:5.1-bionic
     resource_class: small
     steps:
       - checkout
+      - setup_linux
       - run:
           name: "[scheduler] Initialize scheduler submodule"
           command: git submodule update --init
