@@ -280,9 +280,9 @@ commands:
       - restore_cache:
           name: "[pr_setup] Restore Linux binaries dependency cache"
           keys:
-            - 1-linux-bin-pr-tools
+            - 2-linux-bin-pr-tools
       - run:
-          name: "[pr_setup] Install swiftformat"
+          name: "[pr_setup] Install swiftlint and swiftformat"
           command: |
             if [ ! -f $HOME/bin/swiftformat ]; then
               # Setup Mint package manager for Swift
@@ -293,6 +293,9 @@ commands:
               git checkout 7b9920fd94bf67c81f2616b0c359a0243f06b767
               make
 
+              # Install swiftlint - pinned at 0.39.2 for compatibility
+              mint install realm/SwiftLint@0.39.2
+
               # Install swiftformat – note that 0.48.12 is not compatible with Mint
               mint install nicklockwood/SwiftFormat@0.48.13
 
@@ -301,7 +304,7 @@ commands:
             fi
       - save_cache:
           name: "[pr_setup] Save Linux binaries dependency cache"
-          key: 1-linux-bin-pr-tools
+          key: 2-linux-bin-pr-tools
           paths:
             - /root/bin
       - run:
@@ -349,7 +352,7 @@ jobs:
 
   pr_check:
     docker:
-      - image: norionomura/swiftlint:0.39.2_swift-5.1
+      - image: swift:5.1-bionic-slim
     resource_class: small
     steps:
       - run:
@@ -385,7 +388,7 @@ jobs:
 
   scheduler:
     docker:
-      - image: norionomura/swiftlint:0.39.2_swift-5.1
+      - image: swift:5.1-bionic-slim
     resource_class: small
     steps:
       - checkout
@@ -398,7 +401,7 @@ jobs:
             gpg --keyserver keyserver.ubuntu.com --recv 6A755776
             gpg --export --armor 6A755776 | apt-key add -
             cat \<<EOF > /etc/apt/sources.list.d/deadsnakes.list
-            deb http://ppa.launchpad.net/deadsnakes/ppa/ubuntu xenial main
+            deb http://ppa.launchpad.net/deadsnakes/ppa/ubuntu bionic main
             EOF
             apt-get update
             apt-get install -y python3.8-minimal python3.8-distutils
