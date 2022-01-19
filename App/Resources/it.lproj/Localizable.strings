@@ -90,8 +90,7 @@
 "home_view.green_certificate.detail.of" = "di";
 "home_view.green_certificate.detail.paragraph" = "Questo certificato non è un documento di viaggio. Le evidenze scientifiche sulla vaccinazione, sui test e sulla guarigione da COVID-19 continuano ad evolversi, anche in considerazioni delle nuove varianti del virus. Prima di viaggiare si prega di controllare le misure di salute pubblica applicate nel luogo di destinazione e le relative restrizioni anche consultando il sito:";
 "home_view.green_certificate.detail.url" = "https://reopen.europa.eu/";
-"home_view.green_certificate.exemption_detail.paragraph" = "Questa certificazione è valida solo in Italia e può essere utilizzata in sostituzione della Certificazione verde COVID-19 per lo svolgimento di attività e la fruizione di servizi secondo quanto previsto dalla normativa nazionale vigente\n\nPer ulteriori informazioni e informativa privacy:";
-"home_view.green_certificate.exemption_detail.url" = "www.dgc.gov.it:www.salute.gov.it";
+"home_view.green_certificate.exemption_detail.paragraph" = "Questa certificazione è valida solo in Italia e può essere utilizzata in sostituzione della Certificazione verde COVID-19 per lo svolgimento di attività e la fruizione di servizi secondo quanto previsto dalla normativa nazionale vigente";
 "home_view.green_certificate.detail.certificate_issuer" = "Ministero della Salute";
 "home_view.green_certificate.detail.label.exemption.certificate_type" = "VALIDA SOLO IN ITALIA";
 "home_view.green_certificate.detail.label.vaccine.certificate_type" = "Certificato di vaccinazione";

@@ -90,8 +90,7 @@
 "home_view.green_certificate.detail.of" = "de";
 "home_view.green_certificate.detail.paragraph" = "Este certificado no es un documento de viaje. La evidencia científica sobre la vacunación, las pruebas y la recuperación del COVID-19 continúa evolucionando, incluso teniendo en cuenta las nuevas variantes del virus. Antes de viajar, verifica las medidas de salud pública aplicadas en el lugar de destino y las restricciones relacionadas también consultando el sitio web:";
 "home_view.green_certificate.detail.url" = "https://reopen.europa.eu/";
-"home_view.green_certificate.exemption_detail.paragraph" = "Esta certificación es válida solo en Italia y puede usarse para reemplazar la certificación verde COVID-19 para el desempeño de actividades y el uso de servicios de acuerdo con la legislación nacional vigente\n\nPara más información y política de privacidad:";
-"home_view.green_certificate.exemption_detail.url" = "www.dgc.gov.it:www.salute.gov.it";
+"home_view.green_certificate.exemption_detail.paragraph" = "Esta certificación es válida solo en Italia y puede usarse para reemplazar la certificación verde COVID-19 para el desempeño de actividades y el uso de servicios de acuerdo con la legislación nacional vigente";
 "home_view.green_certificate.detail.certificate_issuer" = "Ministero della Salute";
 "home_view.green_certificate.detail.label.exemption.certificate_type" = "VÁLIDO SOLO EN ITALIA";
 "home_view.green_certificate.detail.label.vaccine.certificate_type" = "Certificado de vacunacion";

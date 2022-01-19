@@ -91,8 +91,7 @@
 "home_view.green_certificate.detail.of" = "von";
 "home_view.green_certificate.detail.paragraph" = "Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19-Impfung, -Tests und -Wiederherstellung entwickeln sich weiter, auch unter Berücksichtigung der neuen Varianten des Virus. Bitte informieren Sie sich vor der Reise über die am Zielort geltenden Gesundheitsmaßnahmen und die damit verbundenen Einschränkungen auch auf der Website:";
 "home_view.green_certificate.detail.url" = "https://reopen.europa.eu/";
-"home_view.green_certificate.exemption_detail.paragraph" = "Diese Zertifizierung ist nur in Italien gültig und kann verwendet werden, um die grüne COVID-19-Zertifizierung für die Durchführung von Aktivitäten und die Nutzung von Dienstleistungen gemäß der geltenden nationalen Gesetzgebung zu ersetzen\n\nWeitere Informationen und Datenschutzhinweise:";
-"home_view.green_certificate.exemption_detail.url" = "www.dgc.gov.it:www.salute.gov.it";
+"home_view.green_certificate.exemption_detail.paragraph" = "Diese Zertifizierung ist nur in Italien gültig und kann verwendet werden, um die grüne COVID-19-Zertifizierung für die Durchführung von Aktivitäten und die Nutzung von Dienstleistungen gemäß der geltenden nationalen Gesetzgebung zu ersetzen";
 "home_view.green_certificate.detail.certificate_issuer" = "Ministero della Salute";
 "home_view.green_certificate.detail.label.exemption.certificate_type" = "NUR IN ITALIEN GÜLTIG";
 "home_view.green_certificate.detail.label.vaccine.certificate_type" = "Impfbescheinigung";

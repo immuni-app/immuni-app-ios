@@ -36,7 +36,6 @@ class GreenCertificateVC: ViewControllerWithLocalState<GreenCertificateView> {
                 preferredStyle: UIAlertController.Style.alert
             )
             deleteConfirmBox.addAction(UIAlertAction(title: L10n.confirm, style: .default, handler: { (_: UIAlertAction!) in
-               let temp = self?.viewModel?.greenCertificates
                 guard let id = self?.viewModel?.greenCertificates?[index].id,
                       let greenCertificates = self?.viewModel?.greenCertificates else { return }
                 self?.dispatch(Logic.Home.DeleteGreenCertificate(id: id))
