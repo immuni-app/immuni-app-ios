@@ -93,7 +93,7 @@
 "home_view.green_certificate.exemption_detail.paragraph" = "Cette certification est valable uniquement en Italie et peut être utilisée pour remplacer la certification verte COVID-19 pour l'exécution d'activités et l'utilisation de services conformément à la législation nationale en vigueur\n\nPour plus d'informations et politique de confidentialité:";
 "home_view.green_certificate.exemption_detail.url" = "www.dgc.gov.it:www.salute.gov.it";
 "home_view.green_certificate.detail.certificate_issuer" = "Ministero della Salute";
-"home_view.green_certificate.detail.label.exemption.certificate_type" = "Certificat d'Exemption";
+"home_view.green_certificate.detail.label.exemption.certificate_type" = "VALABLE UNIQUEMENT EN ITALIE";
 "home_view.green_certificate.detail.label.vaccine.certificate_type" = "Certificat de vaccination";
 "home_view.green_certificate.detail.label.vaccine.valid_until.first" = "Certification valable 270 jours (9 mois) à compter de la date de la dernière administration";
 "home_view.green_certificate.detail.label.vaccine.valid_until.second" = "Certification valable jusqu'à la prochaine dose";
@@ -150,6 +150,7 @@
 "home_view.green_certificate.detail.label.test.valid_until" = "Validité du certificat numérique Covid de l'UE";
 "home_view.green_certificate.detail.label.test.valid_until_en" = "<i>Validity of the EU Digital Covid Certificate</i>";
 "home_view.green_certificate.detail.label.test.valid_until_value" = "Attestation valable 48h à compter de la collecte";
+"home_view.green_certificate.detail.label.exemption.title" = "Certification numérique de l'exemption de vaccination COVID-19";
 "home_view.green_certificate.detail.label.exemption.disease" = "Maladie ou agent cible";
 "home_view.green_certificate.detail.label.exemption.disease_en" = "<i>Disease or agent targeted</i>";
 "home_view.green_certificate.detail.label.exemption.fiscal_code_doctor" = "Code fiscal du médecin certificateur";

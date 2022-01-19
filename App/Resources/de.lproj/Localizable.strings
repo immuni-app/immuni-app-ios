@@ -94,7 +94,7 @@
 "home_view.green_certificate.exemption_detail.paragraph" = "Diese Zertifizierung ist nur in Italien gültig und kann verwendet werden, um die grüne COVID-19-Zertifizierung für die Durchführung von Aktivitäten und die Nutzung von Dienstleistungen gemäß der geltenden nationalen Gesetzgebung zu ersetzen\n\nWeitere Informationen und Datenschutzhinweise:";
 "home_view.green_certificate.exemption_detail.url" = "www.dgc.gov.it:www.salute.gov.it";
 "home_view.green_certificate.detail.certificate_issuer" = "Ministero della Salute";
-"home_view.green_certificate.detail.label.exemption.certificate_type" = "Freistellungsbescheinigung";
+"home_view.green_certificate.detail.label.exemption.certificate_type" = "NUR IN ITALIEN GÜLTIG";
 "home_view.green_certificate.detail.label.vaccine.certificate_type" = "Impfbescheinigung";
 "home_view.green_certificate.detail.label.vaccine.valid_until.first" = "Zertifizierung gültig für 270 Tage (9 Monate) ab dem Datum der letzten Verabreichung";
 "home_view.green_certificate.detail.label.vaccine.valid_until.second" = "Zertifizierung gültig bis zur nächsten Dosis";
@@ -151,6 +151,7 @@
 "home_view.green_certificate.detail.label.test.valid_until" = "Gültigkeit des EU Digital Covid Certificate";
 "home_view.green_certificate.detail.label.test.valid_until_en" = "<i>Validity of the EU Digital Covid Certificate</i>";
 "home_view.green_certificate.detail.label.test.valid_until_value" = "Bescheinigung gültig für 48 Stunden ab dem Zeitpunkt der Abholung";
+"home_view.green_certificate.detail.label.exemption.title" = "Digitale Bescheinigung der COVID-19-Impfbefreiung";
 "home_view.green_certificate.detail.label.exemption.disease" = "Zielkrankheit oder -wirkstoff";
 "home_view.green_certificate.detail.label.exemption.disease_en" = "<i>Disease or agent targeted</i>";
 "home_view.green_certificate.detail.label.exemption.fiscal_code_doctor" = "Steuernummer des zertifizierenden Arztes";

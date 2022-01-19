@@ -25,10 +25,6 @@ class GreenCertificateExemptionDetailVC: ViewControllerWithLocalState<GreenCerti
         rootView.didTapBack = { [weak self] in
             self?.dispatch(Hide(Screen.greenCertificateExemptionDetail, animated: true))
         }
-        rootView.didTapContact = { [weak self] url in
-            guard let url = URL(string: url) else { return }
-            self?.dispatch(Logic.Shared.OpenURL(url: url))
-        }
     }
 }
 

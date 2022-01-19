@@ -73,12 +73,10 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
     private var certificateValidFrom = UILabel()
     
     private var paragraph = UILabel()
-    private var contactButton = TextButton()
     private let flagImage = UIImageView()
 
     
     var didTapBack: Interaction?
-    var didTapContact: CustomInteraction<String>?
     
     // MARK: - Setup
     
@@ -138,15 +136,11 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
         self.scrollView.addSubview(self.certificateValidFrom)
         
         self.scrollView.addSubview(self.paragraph)
-//        addSubview(self.contactButton)
-//        self.scrollView.addSubview(self.contactButton)
         
         self.closeButton.on(.touchUpInside) { [weak self] _ in
             self?.didTapBack?()
         }
-//        self.contactButton.on(.touchUpInside) { [weak self] _ in
-//            self?.didTapContact?(L10n.HomeView.GreenCertificate.Detail.url)
-//        }
+
     }
     
     // MARK: - Style
@@ -238,7 +232,7 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
             )
         }
         Self.Style.label(self.paragraph, text: L10n.HomeView.GreenCertificate.ExemptionDetail.paragraph)
-        Self.Style.contactButton(self.contactButton, content: L10n.HomeView.GreenCertificate.ExemptionDetail.url)
+
     }
     
     // MARK: - Layout
@@ -419,14 +413,6 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
             .horizontally(25)
             .marginLeft(10)
         
-//        self.contactButton.pin
-//            .minHeight(25)
-//            .below(of: self.paragraph)
-//            .marginTop(15)
-//            .sizeToFit(.width)
-//            .horizontally(25)
-//            .marginLeft(10)
-        
         self.scrollView.pin
             .horizontally()
             .below(of: self.title)
@@ -502,16 +488,6 @@ private extension GreenCertificateExemptionDetailView {
             )
         }
         
-        static func contactButton(_ button: TextButton, content: String) {
-            let textStyle = TextStyles.pLink.byAdding(
-                .color(Palette.primary),
-                .underline(.single, Palette.primary)
-            )
-            
-            button.contentHorizontalAlignment = .left
-            button.attributedTitle = content.styled(with: textStyle)
-        }
-        
         static func value(_ label: UILabel, text: String) {
             let textStyle = TextStyles.pSemibold.byAdding(
                 .color(Palette.grayDark),
@@ -527,7 +503,7 @@ private extension GreenCertificateExemptionDetailView {
         static func subTitle(_ label: UILabel, text: String) {
             let textStyle = TextStyles.h3.byAdding(
                 .color(Palette.grayDark),
-                .alignment(.center)
+                .alignment(.left)
             )
             TempuraStyles.styleStandardLabel(
                 label,
