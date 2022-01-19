@@ -74,6 +74,8 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
     
     private var paragraph = UILabel()
     private var contactButton = TextButton()
+    private let flagImage = UIImageView()
+
     
     var didTapBack: Interaction?
     var didTapContact: CustomInteraction<String>?
@@ -85,6 +87,10 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
         addSubview(self.scrollView)
         addSubview(self.title)
         addSubview(self.closeButton)
+        
+        
+        addSubview(self.flagImage)
+        self.scrollView.addSubview(self.flagImage)
         
         addSubview(self.certificateTypeLabel)
         self.scrollView.addSubview(self.certificateTypeLabel)
@@ -132,15 +138,15 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
         self.scrollView.addSubview(self.certificateValidFrom)
         
         self.scrollView.addSubview(self.paragraph)
-        addSubview(self.contactButton)
-        self.scrollView.addSubview(self.contactButton)
+//        addSubview(self.contactButton)
+//        self.scrollView.addSubview(self.contactButton)
         
         self.closeButton.on(.touchUpInside) { [weak self] _ in
             self?.didTapBack?()
         }
-        self.contactButton.on(.touchUpInside) { [weak self] _ in
-            self?.didTapContact?(L10n.HomeView.GreenCertificate.Detail.url)
-        }
+//        self.contactButton.on(.touchUpInside) { [weak self] _ in
+//            self?.didTapContact?(L10n.HomeView.GreenCertificate.Detail.url)
+//        }
     }
     
     // MARK: - Style
@@ -150,7 +156,7 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
         Self.Style.backgroundGradient(self.backgroundGradientView)
         
         Self.Style.scrollView(self.scrollView)
-        Self.Style.headerTitle(self.title, content: L10n.HomeView.GreenCertificate.Detail.title)
+        Self.Style.headerTitle(self.title, content:  L10n.HomeView.GreenCertificate.Detail.Label.Exemption.title)
         
         Self.Style.subTitle(self.certificateTypeLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.certificateType)
         
@@ -188,7 +194,8 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
             self.certificateValidFromLabelEn,
             text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.validFromEn
         )
-        
+        Self.Style.imageContent(flagImage, image: Asset.Home.itaFlag.image)
+
         Self.Style.closeButton(self.closeButton)
     }
     
@@ -249,12 +256,19 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
         self.title.pin
             .top(60)
             .horizontally(30)
-            .sizeToFit()
+            .sizeToFit(.width)
+
+        self.flagImage.pin
+          .below(of: title)
+          .marginTop(-20)
+          .vCenter()
+          .size(120)
+          .horizontally(30)
+
         
         self.certificateTypeLabel.pin
             .minHeight(25)
-            .below(of: self.title)
-            .marginTop(30)
+            .below(of: self.flagImage)
             .sizeToFit(.width)
             .horizontally(25)
             .marginLeft(10)
@@ -405,13 +419,13 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
             .horizontally(25)
             .marginLeft(10)
         
-        self.contactButton.pin
-            .minHeight(25)
-            .below(of: self.paragraph)
-            .marginTop(15)
-            .sizeToFit(.width)
-            .horizontally(25)
-            .marginLeft(10)
+//        self.contactButton.pin
+//            .minHeight(25)
+//            .below(of: self.paragraph)
+//            .marginTop(15)
+//            .sizeToFit(.width)
+//            .horizontally(25)
+//            .marginLeft(10)
         
         self.scrollView.pin
             .horizontally()
@@ -419,7 +433,7 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
             .marginTop(5)
             .bottom(self.safeAreaInsets.bottom)
         
-        self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: self.contactButton.frame.maxY)
+        self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: self.paragraph.frame.maxY)
     }
 }
 
@@ -429,6 +443,10 @@ private extension GreenCertificateExemptionDetailView {
     enum Style {
         static func closeButton(_ btn: ImageButton) {
             SharedStyle.closeButton(btn)
+        }
+        static func imageContent(_ imageView: UIImageView, image: UIImage) {
+            imageView.image = image
+            imageView.contentMode = .scaleAspectFit
         }
         
         static func background(_ view: UIView) {
@@ -465,8 +483,7 @@ private extension GreenCertificateExemptionDetailView {
                 content: content,
                 style: TextStyles.h1.byAdding(
                     .color(Palette.grayDark)
-                ),
-                numberOfLines: 2
+                )
             )
         }
         
