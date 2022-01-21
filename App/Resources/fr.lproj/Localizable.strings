@@ -65,8 +65,8 @@
 "home_view.service.not_active.subtitle" = "Agissez dès maintenant pour permettre à Immuni de fonctionner correctement.";
 "home_view.service.not_active.title" = "Service\n<b>désactivé</b>";
 "home_view.green_certificate.title" = "EU Digital Covid Certificate";
-"home_view.green_certificate.info_modal.message" = "Si vous lisez ce message, cela signifie que plusieurs certificats verts COVID-19 sont installés sur votre appareil : ils sont désormais affichés par ordre chronologique en commençant par le plus récent. N'oubliez pas que vous pouvez les supprimer ou passer de l'un à l'autre en balayant latéralement avec votre doigt";
-"home_view.green_certificate.info_modal.title" = "Nous avons modifié l'ordre de vos certificats.";
+"home_view.green_certificate.info_modal.message" = "Si vous lisez ce message, cela signifie que plusieurs certificats verts COVID-19 sont installés sur votre appareil: ils sont désormais affichés par ordre chronologique en commençant par le plus récent. N'oubliez pas que vous pouvez les supprimer ou passer de l'un à l'autre en balayant latéralement avec votre doigt";
+"home_view.green_certificate.info_modal.title" = "Nous avons modifié l'ordre de vos certificats";
 "home_view.green_certificate.info_modal.button" = "Je comprend";
 "home_view.green_certificate.header" = "Le Certificat Vert Numérique vous permet de certifier votre immunité au COVID-19.";
 "home_view.green_certificate.discover_more" = "Plus de détails";
@@ -85,12 +85,12 @@
 "home_view.green_certificate.label.date_en" = "<i>Date of birth (yyyy-mm-dd)</i>";
 "home_view.green_certificate.label.id_en" = "<i>Unique certificate identifier</i>";
 "home_view.green_certificate.decode.error" = "Un problème est survenu lors de l'acquisition du certificat.";
-"home_view.green_certificate.error.no_dgc_found" = "Aucun EU Digital Covid Certificate trouvé";
+"home_view.green_certificate.error.no_dgc_found" = "Aucun EU Digital Covid Certificate trouvé. Vérifiez que les données saisies sont correctes";
 "home_view.green_certificate.detail.title" = "EU Digital Covid\nCertificate";
 "home_view.green_certificate.detail.of" = "sur";
 "home_view.green_certificate.detail.paragraph" = "Ce certificat n'est pas un document de voyage. Les preuves scientifiques sur la vaccination, les tests et la récupération COVID-19 continuent d'évoluer, y compris en tenant compte des nouvelles variantes du virus. Avant de voyager, veuillez vérifier les mesures de santé publique appliquées dans le lieu de destination et les restrictions y afférentes également en consultant le site Internet :";
 "home_view.green_certificate.detail.url" = "https://reopen.europa.eu/";
-"home_view.green_certificate.exemption_detail.paragraph" = "Cette certification est valable uniquement en Italie et peut être utilisée pour remplacer la certification verte COVID-19 pour l'exécution d'activités et l'utilisation de services conformément à la législation nationale en vigueur";
+"home_view.green_certificate.exemption_detail.paragraph" = "Cette certification est valable uniquement en <b>Italie</b> et peut être utilisée pour remplacer la certification verte COVID-19 pour l'exécution d'activités et l'utilisation de services conformément à la législation nationale en vigueur";
 "home_view.green_certificate.detail.certificate_issuer" = "Ministero della Salute";
 "home_view.green_certificate.detail.label.exemption.certificate_type" = "VALABLE UNIQUEMENT EN ITALIE";
 "home_view.green_certificate.detail.label.vaccine.certificate_type" = "Certificat de vaccination";

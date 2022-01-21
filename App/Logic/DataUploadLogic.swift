@@ -255,7 +255,7 @@ extension Logic.DataUpload {
                     guard let hcert = hcert else { return nil }
                     
                     var type: CertificateType?
-                    print(hcert)
+
                     if hcert.body["t"].count > 0 {
                         type = .test
                     }
@@ -280,7 +280,6 @@ extension Logic.DataUpload {
                         greenCertificate: qr,
                         certificateType: type
                     )
-                    //print(hcert)
                     switch type {
                     case .test:
                         let detail = DetailTestCertificate(

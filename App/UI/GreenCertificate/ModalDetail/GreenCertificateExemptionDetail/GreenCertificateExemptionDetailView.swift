@@ -155,26 +155,20 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
         Self.Style.subTitle(self.certificateTypeLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.certificateType)
         
         Self.Style.label(self.diseaseExemptionLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.disease)
-        
         Self.Style.label(self.fiscalCodeDoctorLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.fiscalCodeDoctor)
         Self.Style.label(self.certificateValidUntilLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.validUntil)
-       
-        
         Self.Style.label(self.cuevLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.cuev)
         Self.Style.label(
-            self.certificateIssuerLabel,
-            text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.certificateIssuer
+            self.certificateIssuerLabel, text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.certificateIssuer
         )
-       
         Self.Style.label(
             self.certificateValidFromLabel,
             text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.validFrom
         )
-        
+
         Self.Style.label(self.diseaseExemptionLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.diseaseEn)
         Self.Style.label(self.fiscalCodeDoctorLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.fiscalCodeDoctorEn)
         Self.Style.label(self.certificateValidUntilLabelEn, text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.validUntilEn)
-      
         Self.Style.label(
             self.cuevLabelEn,
             text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.cuevEn
@@ -183,7 +177,6 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
             self.certificateIssuerLabelEn,
             text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.certificateIssuerEn
         )
-      
         Self.Style.label(
             self.certificateValidFromLabelEn,
             text: L10n.HomeView.GreenCertificate.Detail.Label.Exemption.validFromEn
@@ -201,8 +194,8 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
         }
         
         if let detailExemptionCertificate = model.greenCertificate.detailExemptionCertificate {
-            Self.Style.value(self.diseaseExemption, text: detailExemptionCertificate.disease)
             
+            Self.Style.value(self.diseaseExemption, text: detailExemptionCertificate.disease)
             Self.Style.value(
                 self.fiscalCodeDoctor,
                 text: detailExemptionCertificate.fiscalCodeDoctor.isEmpty ? "---" : detailExemptionCertificate
@@ -213,7 +206,6 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
                 text: detailExemptionCertificate.certificateValidUntil.isEmpty ? "---" : detailExemptionCertificate
                     .certificateValidUntil
             )
- 
             Self.Style.value(
                 self.cuev,
                 text: detailExemptionCertificate.cuev.isEmpty ? "---" : detailExemptionCertificate
@@ -224,7 +216,6 @@ class GreenCertificateExemptionDetailView: UIView, ViewControllerModellableView 
                 text: detailExemptionCertificate.certificateAuthority.isEmpty ? "---" : detailExemptionCertificate
                     .certificateAuthority
             )
-          
             Self.Style.value(
                 self.certificateValidFrom,
                 text: detailExemptionCertificate.certificateValidFrom.isEmpty ? "---" : detailExemptionCertificate
@@ -478,7 +469,9 @@ private extension GreenCertificateExemptionDetailView {
                 .color(Palette.grayNormal),
                 .alignment(.left),
                 .xmlRules([
-                    .style("i", TextStyles.i)
+                    .style("i", TextStyles.i),
+                    .style("b", TextStyles.pBold)
+
                 ])
             )
             TempuraStyles.styleStandardLabel(

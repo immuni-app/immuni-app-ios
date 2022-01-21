@@ -67,7 +67,7 @@
 "home_view.service.not_active.title" = "Service\n<b>nicht aktiv</b>";
 "home_view.green_certificate.title" = "EU Digital Covid Certificate";
 "home_view.green_certificate.info_modal.message" = "Wenn Sie diese Nachricht lesen, bedeutet dies, dass Sie mehr als ein grünes COVID-19-Zertifikat auf Ihrem Gerät installiert haben: Sie werden jetzt in chronologischer Reihenfolge angezeigt, beginnend mit dem neuesten. Denken Sie daran, dass Sie sie löschen oder von einem zum anderen wechseln können, indem Sie mit Ihrem Finger zur Seite wischen";
-"home_view.green_certificate.info_modal.title" = "Wir haben die Reihenfolge Ihrer Zertifikate geändert.";
+"home_view.green_certificate.info_modal.title" = "Wir haben die Reihenfolge Ihrer Zertifikate geändert";
 "home_view.green_certificate.info_modal.button" = "Ich verstehe";
 "home_view.green_certificate.header" = "Il Digital Green Certificate ti permette di certificare la tua immunità al COVID-19.";
 "home_view.green_certificate.discover_more" = "Mehr Details";
@@ -86,12 +86,12 @@
 "home_view.green_certificate.label.date" = "Geburtsdatum";
 "home_view.green_certificate.label.id" = "Eindeutige Kennung des Zertifikats";
 "home_view.green_certificate.decode.error" = "Beim Abrufen des Zertifikats ist ein Problem aufgetreten.";
-"home_view.green_certificate.error.no_dgc_found" = "Kein EU Digital Covid Certificate gefunden";
+"home_view.green_certificate.error.no_dgc_found" = "Kein EU Digital Covid Certificate gefunden. Überprüfen Sie, ob die eingegebenen Daten korrekt sind";
 "home_view.green_certificate.detail.title" = "EU Digital Covid\nCertificate";
 "home_view.green_certificate.detail.of" = "von";
 "home_view.green_certificate.detail.paragraph" = "Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19-Impfung, -Tests und -Wiederherstellung entwickeln sich weiter, auch unter Berücksichtigung der neuen Varianten des Virus. Bitte informieren Sie sich vor der Reise über die am Zielort geltenden Gesundheitsmaßnahmen und die damit verbundenen Einschränkungen auch auf der Website:";
 "home_view.green_certificate.detail.url" = "https://reopen.europa.eu/";
-"home_view.green_certificate.exemption_detail.paragraph" = "Diese Zertifizierung ist nur in Italien gültig und kann verwendet werden, um die grüne COVID-19-Zertifizierung für die Durchführung von Aktivitäten und die Nutzung von Dienstleistungen gemäß der geltenden nationalen Gesetzgebung zu ersetzen";
+"home_view.green_certificate.exemption_detail.paragraph" = "Diese Zertifizierung ist nur in <b>Italien</b> gültig und kann verwendet werden, um die grüne COVID-19-Zertifizierung für die Durchführung von Aktivitäten und die Nutzung von Dienstleistungen gemäß der geltenden nationalen Gesetzgebung zu ersetzen";
 "home_view.green_certificate.detail.certificate_issuer" = "Ministero della Salute";
 "home_view.green_certificate.detail.label.exemption.certificate_type" = "NUR IN ITALIEN GÜLTIG";
 "home_view.green_certificate.detail.label.vaccine.certificate_type" = "Impfbescheinigung";
