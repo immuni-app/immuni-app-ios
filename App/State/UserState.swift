@@ -17,93 +17,114 @@ import Models
 
 /// Slice of state related to the user
 struct UserState: Codable {
-  /// The user's province
-  var province: Province?
-
-  /// The date of the last service not active local notification
-  var lastServiceNotActiveDate = Date.distantPast
-
-  /// The current user's covid status
-  var covidStatus: CovidStatus = .neutral
+    /// The user's province
+    var province: Province?
     
-  /// The Digital Green Certificate
-  var greenCertificates: [GreenCertificate]?
+    /// The date of the last service not active local notification
+    var lastServiceNotActiveDate = Date.distantPast
+    
+    /// The current user's covid status
+    var covidStatus: CovidStatus = .neutral
+    
+    /// Flag to show order info modal of dgcs
+    var showModalDgc: Bool = true
+    
+    /// The Digital Green Certificate
+    var greenCertificates: [GreenCertificate]?
 }
 
 struct GreenCertificate: Codable {
-
-  /// The Dgc's id
-  var id: String
     
-  /// The owner's name
-  var name: String
+    /// The Dgc's id
+    var id: String
     
-  /// The owner's birth
-  var birth: String
+    /// The owner's name
+    var name: String
     
-  /// The Digital Green Certificate
-  var greenCertificate: String
+    /// The owner's birth
+    var birth: String
     
-  /// The Vaccine Certificate detail
-  var detailVaccineCertificate: DetailVaccineCertificate?
+    /// The Digital Green Certificate
+    var greenCertificate: String
     
-  /// The Test Certificate detail
-  var detailTestCertificate: DetailTestCertificate?
+    /// The Vaccine Certificate detail
+    var detailVaccineCertificate: DetailVaccineCertificate?
     
-  /// The Recover Certificate detail
-  var detailRecoveryCertificate: DetailRecoveryCertificate?
-        
-  /// The type of Certificate
-  var certificateType: CertificateType
-
-
+    /// The Test Certificate detail
+    var detailTestCertificate: DetailTestCertificate?
+    
+    /// The Recover Certificate detail
+    var detailRecoveryCertificate: DetailRecoveryCertificate?
+    
+    /// The Exemption Certificate detail
+    var detailExemptionCertificate: DetailExemptionCertificate?
+    
+    /// The type of Certificate
+    var certificateType: CertificateType
+    
+    
 }
 
 public struct DetailVaccineCertificate: Codable {
-
-   var disease: String
-   var vaccineType: String
-   var vaccineName: String
-   var vaccineProducer: String
-   var doseNumber: String
-   var totalSeriesOfDoses: String
-   var dateLastAdministration: String
-   var vaccinationCuntry: String
-   var certificateAuthority: String
     
-  // swiftlint:enable force_unwrapping
+    var disease: String
+    var vaccineType: String
+    var vaccineName: String
+    var vaccineProducer: String
+    var doseNumber: String
+    var totalSeriesOfDoses: String
+    var dateLastAdministration: String
+    var vaccinationCuntry: String
+    var certificateAuthority: String
+    
+    // swiftlint:enable force_unwrapping
 }
 public struct DetailTestCertificate: Codable {
-
-   var disease: String
-   var typeOfTest: String
-   var testResult: String
-   var ratTestNameAndManufacturer: String?
-   var naaTestName: String?
-   var dateTimeOfSampleCollection: String
-   var dateTimeOfTestResult: String?
-   var testingCentre: String
-   var countryOfTest: String
-   var certificateIssuer: String
-
-  // swiftlint:enable force_unwrapping
+    
+    var disease: String
+    var typeOfTest: String
+    var testResult: String
+    var ratTestNameAndManufacturer: String?
+    var naaTestName: String?
+    var dateTimeOfSampleCollection: String
+    var dateTimeOfTestResult: String?
+    var testingCentre: String
+    var countryOfTest: String
+    var certificateIssuer: String
+    
+    // swiftlint:enable force_unwrapping
 }
 public struct DetailRecoveryCertificate: Codable {
+    
+    var disease: String
+    var dateFirstTestResult: String
+    var countryOfTest: String
+    var certificateIssuer: String
+    var certificateValidFrom: String
+    var certificateValidUntil: String
+    
+    // swiftlint:enable force_unwrapping
+}
 
-   var disease: String
-   var dateFirstTestResult: String
-   var countryOfTest: String
-   var certificateIssuer: String
-   var certificateValidFrom: String
-   var certificateValidUntil: String
+public struct DetailExemptionCertificate: Codable {
+    
+    var disease: String
+    var fiscalCodeDoctor: String
+    var certificateValidUntil: String
+    var vaccinationCuntry: String
+    var cuev: String
+    var certificateAuthority: String
+    var certificateValidFrom: String
 
-  // swiftlint:enable force_unwrapping
+    
+    // swiftlint:enable force_unwrapping
 }
 
 public enum CertificateType: String, Codable {
     case vaccine = "vaccine"
     case test = "test"
     case recovery = "recovery"
+    case exemption = "exemption"
 }
 
 

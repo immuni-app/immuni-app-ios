@@ -184,6 +184,13 @@ extension Logic.Home {
                     context: GreenCertificateRecoveryDetailLS(greenCertificate: dgc)
                 ))
    
+        case .exemption:
+            try context
+                .awaitDispatch(Show(
+                Screen.greenCertificateExemptionDetail,
+                animated: true,
+                    context: GreenCertificateExemptionDetailLS(greenCertificate: dgc)
+                ))
         }
         
           }
@@ -206,6 +213,13 @@ extension Logic.Home {
       try context.awaitDispatch(Logic.CovidStatus.DeleteGreenCertificate(id: id))
         }
       }
+  /// Update flag show modal Dgc
+  struct UpdateFlagShowModalDgc: AppSideEffect {
+            
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        try context.awaitDispatch(Logic.CovidStatus.UpdateFlagShowModalDgc())
+        }
+    }
 }
 
 // MARK: Helpers

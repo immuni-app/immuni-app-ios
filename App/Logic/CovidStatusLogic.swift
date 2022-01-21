@@ -82,6 +82,13 @@ extension Logic.CovidStatus {
         }
       }
     }
+  /// Update flag show modal Dgc
+  struct UpdateFlagShowModalDgc: AppStateUpdater {
+      
+      func updateState(_ state: inout AppState) {
+          state.user.showModalDgc = false
+        }
+      }
 }
 
 // MARK: Neutral Logic

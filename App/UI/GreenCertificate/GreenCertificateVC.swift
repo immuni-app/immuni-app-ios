@@ -32,11 +32,10 @@ class GreenCertificateVC: ViewControllerWithLocalState<GreenCertificateView> {
         rootView.didTapDeleteGreenCertificate = { [weak self] index in
             let deleteConfirmBox = UIAlertController(
                 title: L10n.HomeView.GreenCertificate.Confirm.title,
-                message: L10n.HomeView.GreenCertificate.Confirm.messagge,
+                message: L10n.HomeView.GreenCertificate.Confirm.message,
                 preferredStyle: UIAlertController.Style.alert
             )
             deleteConfirmBox.addAction(UIAlertAction(title: L10n.confirm, style: .default, handler: { (_: UIAlertAction!) in
-               
                 guard let id = self?.viewModel?.greenCertificates?[index].id,
                       let greenCertificates = self?.viewModel?.greenCertificates else { return }
                 self?.dispatch(Logic.Home.DeleteGreenCertificate(id: id))
@@ -49,6 +48,18 @@ class GreenCertificateVC: ViewControllerWithLocalState<GreenCertificateView> {
             deleteConfirmBox.addAction(UIAlertAction(title: L10n.cancel, style: .cancel))
             self?.present(deleteConfirmBox, animated: true, completion: nil)
             
+        }
+        
+        rootView.showOrderInfoModal = { [weak self] in
+            let deleteConfirmBox = UIAlertController(
+                title: L10n.HomeView.GreenCertificate.InfoModal.title,
+                message: L10n.HomeView.GreenCertificate.InfoModal.message,
+                preferredStyle: UIAlertController.Style.alert
+            )
+            deleteConfirmBox.addAction(UIAlertAction(title: L10n.HomeView.GreenCertificate.InfoModal.button, style: .default, handler: { (_: UIAlertAction!) in
+                self?.dispatch(Logic.Home.UpdateFlagShowModalDgc())
+            }))
+            self?.present(deleteConfirmBox, animated: true, completion: nil)
         }
         
         rootView.didTapDiscoverMore = { [weak self] dgc in
