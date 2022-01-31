@@ -455,37 +455,42 @@ public extension Dictionary where Key == String, Value == [String: String] {
       "de": [
         "molecular_test": "Bescheinigung gültig für 72 Stunden ab dem Zeitpunkt der Abholung",
         "rapid_test": "Bescheinigung gültig für 48 Stunden ab dem Zeitpunkt der Abholung",
-        "vaccine_first_dose": "Zertifizierung gültig bis zur nächsten Dosis",
-        "vaccine_fully_completed": "Zertifizierung gültig für 365 Tage (12 Monate) ab dem Datum der letzten Verabreichung",
-        "healing_certificate": "Zertifizierung gültig in der Europäischen Union bis zum Gültigkeitsende und nur in Italien bis zu 6 Monate ab Gültigkeitsbeginn gültig"
+        "vaccine_first_dose": "Bescheinigung gültig ab dem 15. Tag ab dem Tag der Verabreichung und bis zur maximalen Zeit, die für die nächste Dosis vorgesehen ist",
+        "vaccine_fully_completed": "Zertifizierung gültig für 180 Tage (6 Monate) ab dem Datum der letzten Verabreichung, vorbehaltlich behördlicher Änderungen",
+        "healing_certificate": "Zertifizierung gültig in der Europäischen Union bis Gültigkeitsende und gültig in Italien 180 Tage (6 Monate) ab Gültigkeitsbeginn, vorbehaltlich behördlicher Änderungen",
+        "vaccine_booster": "Zertifizierung gültig für 180 Tage (6 Monate) ab dem Datum der letzten Verabreichung, vorbehaltlich behördlicher Änderungen"
       ],
       "en": [
         "molecular_test": "Certification valid for 72 hours from the time of collection",
         "rapid_test": "Certification valid for 48 hours from the time of collection",
-        "vaccine_first_dose": "Certification valid until next dose",
-        "vaccine_fully_completed": "Certification valid for 365 days (12 months) from the date of the last administration",
-        "healing_certificate" : "Certification valid in the European Union until the end of validity date and valid only in Italy up to 6 months from the start of validity date"
+        "vaccine_first_dose": "Certification valid from the 15th day from the date of administration and up to the maximum time foreseen for the next dose",
+        "vaccine_fully_completed": "Certification valid for 180 days (6 months) from the date of the last administration, subject to regulatory changes",
+        "healing_certificate": "Certification valid in the European Union until the end of validity date and valid in Italy 180 days (6 months) from the start of validity date, subject to regulatory changes",
+        "vaccine_booster": "Certification valid for 180 days (6 months) from the date of the last administration, subject to regulatory changes"
       ],
       "es": [
         "molecular_test": "Certificación válida por 72 horas desde el momento de la recogida.",
         "rapid_test": "Certificación válida por 48 horas desde el momento de la recogida.",
-        "vaccine_first_dose": "Certificación válida hasta la próxima dosis",
-        "vaccine_fully_completed": "Certificación válida por 365 días (12 meses) a partir de la fecha de la última administración.",
-        "healing_certificate" : "Certificación válida en la Unión Europea hasta el final de la fecha de validez y válida solo en Italia hasta 6 meses desde el inicio de la fecha de validez"
+        "vaccine_first_dose": "Certificación válida desde el día 15 desde la fecha de administración y hasta el tiempo máximo previsto para la siguiente dosis",
+        "vaccine_fully_completed": "Certificación válida por 180 días (6 meses) a partir de la fecha de la última administración, sujeta a cambios regulatorios",
+        "healing_certificate": "Certificación válida en la Unión Europea hasta el final de la fecha de validez y válida en Italia 180 días (6 meses) desde el inicio de la fecha de validez, sujeta a cambios regulatorios",
+        "vaccine_booster": "Certificación válida por 180 días (6 meses) a partir de la fecha de la última administración, sujeta a cambios regulatorios"
       ],
       "fr": [
         "molecular_test": "Attestation valable 72h à compter de la collecte",
         "rapid_test": "Attestation valable 48h à compter de la collecte",
-        "vaccine_first_dose": "Certification valable jusqu'à la prochaine dose",
-        "vaccine_fully_completed": "Certification valable 365 jours (12 mois) à compter de la date de la dernière administration",
-        "healing_certificate" : "Certification valable dans l'Union européenne jusqu'à la date de fin de validité et valable uniquement en Italie jusqu'à 6 mois à compter de la date de début de validité"
+        "vaccine_first_dose": "Certification valable à partir du 15ème jour à compter de la date d'administration et jusqu'à l'heure maximale prévue pour la prochaine dose",
+        "vaccine_fully_completed": "Certification valable 180 jours (6 mois) à compter de la date de la dernière administration, sous réserve de modifications réglementaires",
+        "healing_certificate": "Certification valable dans l'Union européenne jusqu'à la date de fin de validité et valable en Italie 180 jours (6 mois) à compter de la date de début de validité, sous réserve de modifications réglementaires",
+        "vaccine_booster": "Certification valable 180 jours (6 mois) à compter de la date de la dernière administration, sous réserve de modifications réglementaires"
       ],
       "it": [
         "molecular_test": "Certificazione valida 72 ore dall'ora del prelievo",
         "rapid_test": "Certificazione valida 48 ore dall'ora del prelievo",
-        "vaccine_first_dose": "Certificazione valida fino alla prossima dose",
-        "vaccine_fully_completed": "Certificazione valida 365 giorni (12 mesi) dalla data dell'ultima somministrazione",
-        "healing_certificate" : "Certificazione valida in Unione Europea fino alla data di fine validità e valida solo in Italia fino a 6 mesi dalla data di inizio validità"
+        "vaccine_first_dose": "Certificazione valida dal 15° giorno dalla data di somministrazione e fino al tempo massimo previsto per la dose successiva",
+        "vaccine_fully_completed": "Certificazione valida 180 giorni (6 mesi) dalla data dell'ultima somministrazione, salvo modifiche normative",
+        "healing_certificate": "Certificazione valida in Unione Europea fino alla data di fine validità e valida in Italia 180 giorni (6 mesi) dalla data di inizio validità, salvo modifiche normative",
+        "vaccine_booster": "Certificazione valida 180 giorni (6 mesi) dalla data dell'ultima somministrazione, salvo modifiche normative"
       ]
     ]
     return values

@@ -234,6 +234,7 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
     let lan = Locale.current.languageCode ?? "en"
     let validUntilCompleteVaccine = ConfigurationStateVaccine.state[lan]!["vaccine_fully_completed"]
     let validUntilnotCompleteVaccine = ConfigurationStateVaccine.state[lan]!["vaccine_first_dose"]
+    let validUntilBoosterVaccine = ConfigurationStateVaccine.state[lan]!["vaccine_booster"]
 
     if let detailVaccineCertificate = model.greenCertificate.detailVaccineCertificate {
       Self.Style.value(self.diseaseVaccine, text: detailVaccineCertificate.disease)
@@ -256,19 +257,29 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
       } else {
         Self.Style.value(self.vaccineProducer, text: "---")
       }
-      if detailVaccineCertificate.doseNumber >= detailVaccineCertificate.totalSeriesOfDoses,
-         !detailVaccineCertificate.doseNumber.isEmpty
+
+      if detailVaccineCertificate.doseNumber < detailVaccineCertificate.totalSeriesOfDoses
       {
-        Self.Style.value(
-          self.validUntil,
-          text: validUntilCompleteVaccine?
-            .description ?? "Certification valid for 365 days (12 months) from the date of the last administration"
-        )
-      } else {
-        Self.Style.value(
-          self.validUntil,
-          text: validUntilnotCompleteVaccine?.description ?? "Certification valid until next dose"
-        )
+          Self.Style.value(
+            self.validUntil,
+            text: validUntilnotCompleteVaccine?.description ?? "Certification valid from the 15th day from the date of administration and up to the maximum time foreseen for the next dose"
+          )
+      }
+      else if detailVaccineCertificate.doseNumber == detailVaccineCertificate.totalSeriesOfDoses,
+               detailVaccineCertificate.totalSeriesOfDoses < "3"
+      {
+            Self.Style.value(
+                self.validUntil,
+                text: validUntilCompleteVaccine?
+                    .description ?? "Certification valid for 180 days (6 months) from the date of the last administration, subject to regulatory changes"
+                   )
+                 }
+      else {
+          Self.Style.value(
+            self.validUntil,
+            text: validUntilBoosterVaccine?
+              .description ?? "Certification valid for 180 days (6 months) from the date of the last administration, subject to regulatory changes"
+          )
       }
       Self.Style.value(
         self.numberOfDosesVaccine,
