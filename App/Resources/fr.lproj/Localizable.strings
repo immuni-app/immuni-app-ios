@@ -114,6 +114,12 @@
 "home_view.green_certificate.detail.label.vaccine.date_last_administration_en" = "<i>Date of vaccination (yyyy-mm-dd)</i>";
 "home_view.green_certificate.detail.label.vaccine.vaccination_cuntry_en" = "<i>State of vaccination</i>";
 "home_view.green_certificate.detail.label.vaccine.certificate_authority_en" = "<i>Certificate issuer</i>";
+
+"home_view.green_certificate.detail.label.vaccine.vaccine_fully_completed" = "Certification valable 180 jours (6 mois) à compter de la date de la dernière administration, sous réserve de modifications réglementaires";
+"home_view.green_certificate.detail.label.vaccine.vaccine_first_dose" = "Certification valable à partir du 15ème jour à compter de la date d'administration et jusqu'à l'heure maximale prévue pour la prochaine dose";
+"home_view.green_certificate.detail.label.vaccine.vaccine_booster" = "Certification valable 180 jours (6 mois) à compter de la date de la dernière administration, sous réserve de modifications réglementaires";
+
+"home_view.green_certificate.detail.label.recovery.healing_certificate" = "Certification valable dans l'Union européenne jusqu'à la date de fin de validité et valable en Italie 180 jours (6 mois) à compter de la date de début de validité, sous réserve de modifications réglementaires";
 "home_view.green_certificate.detail.label.recovery.disease" = "Maladie cible ou agent dont la personne est guérie";
 "home_view.green_certificate.detail.label.recovery.date_first_test_result" = "Date du premier test moléculaire positif";
 "home_view.green_certificate.detail.label.recovery.country_of_test" = "État dans lequel le premier test moléculaire positif a été effectué";
@@ -127,6 +133,9 @@
 "home_view.green_certificate.detail.label.recovery.certificate_valid_from_en" = "<i>Certificate valid From (yyyy-mm-dd)</i>";
 "home_view.green_certificate.detail.label.recovery.certificate_valid_until_en" = "<i>Certificate valid Until (yyyy-mm-dd)</i>";
 "home_view.green_certificate.detail.label.recovery.certificate_type" = "Certificat de guérison";
+
+"home_view.green_certificate.detail.label.test.molecular_test" = "Attestation valable 72h à compter de la collecte";
+"home_view.green_certificate.detail.label.test.rapid_test" = "Attestation valable 48h à compter de la collecte";
 "home_view.green_certificate.detail.label.test.disease" = "Maladie ou agent cible";
 "home_view.green_certificate.detail.label.test.type_of_test" = "Type de test";
 "home_view.green_certificate.detail.label.test.test_result" = "Résultat du test";

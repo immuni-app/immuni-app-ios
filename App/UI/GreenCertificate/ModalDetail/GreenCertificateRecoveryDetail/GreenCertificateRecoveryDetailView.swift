@@ -215,7 +215,7 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
     func gedValidUntilValue() -> String {
       let lan = Locale.current.languageCode ?? "en"
       let validUntilValueRecovery:String? = ConfigurationStateRecovery.state[lan]?["healing_certificate"]
-       return validUntilValueRecovery?.description ?? "Certification valid in the European Union until the end of validity date and valid in Italy 180 days (6 months) from the start of validity date, subject to regulatory changes"
+        return validUntilValueRecovery?.description ?? L10n.HomeView.GreenCertificate.Detail.Label.Recovery.healingCertificate
     }
 
     // MARK: - Layout
