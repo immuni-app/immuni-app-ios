@@ -666,9 +666,9 @@ public enum TestType: String {
 
     switch self {
     case .molecularTest:
-      return validUntilValueMolecularTest?.description ?? "Certification valid for 72 hours from the time of collection"
+        return validUntilValueMolecularTest?.description ?? L10n.HomeView.GreenCertificate.Detail.Label.Test.molecularTest
     case .quickTest:
-      return validUntilValueQuickTest?.description ?? "Certification valid for 48 hours from the time of collection"
+      return validUntilValueQuickTest?.description ?? L10n.HomeView.GreenCertificate.Detail.Label.Test.rapidTest
     }
   }
 }
