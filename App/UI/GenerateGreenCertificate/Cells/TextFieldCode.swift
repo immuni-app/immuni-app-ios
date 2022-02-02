@@ -132,6 +132,8 @@ extension TextFieldCode {
                 content = L10n.HomeView.GenerateGreenCertificate.inputCodeCunLabel
               case .nucg:
                 content = L10n.HomeView.GenerateGreenCertificate.inputCodeNucgLabel
+              case .cuev:
+                content = L10n.HomeView.GenerateGreenCertificate.inputCodeCuevLabel
               case .authcode:
                 content = L10n.HomeView.GenerateGreenCertificate.inputCodeAuthcodeLabel
               case .none:
@@ -192,6 +194,8 @@ extension TextFieldCode {
                 placeholder = NSAttributedString(string: L10n.HomeView.GenerateGreenCertificate.inputCodeCunPlaceholder)
               case .nucg:
                 placeholder = NSAttributedString(string: L10n.HomeView.GenerateGreenCertificate.inputCodeNucgPlaceholder)
+              case .cuev:
+               placeholder = NSAttributedString(string: L10n.HomeView.GenerateGreenCertificate.inputCodeCuevPlaceholder)
               case .authcode:
                 placeholder = NSAttributedString(string: L10n.HomeView.GenerateGreenCertificate.inputCodeAuthcodePlaceholder)
               case .none:
@@ -210,6 +214,8 @@ extension TextFieldCode {
             return CodeType.prefixCun
           case .nucg:
             return CodeType.prefixNucg
+          case .cuev:
+            return CodeType.prefixCuev
           case .authcode:
             return CodeType.prefixAuthcode
         case .none:
@@ -262,6 +268,8 @@ extension TextFieldCode: UITextFieldDelegate {
             lengthCode = CodeType.lengthCun
           case .nucg:
             lengthCode = CodeType.lengthNucg
+          case .cuev:
+            lengthCode = CodeType.lengthCuev
           case .authcode:
             lengthCode = CodeType.lengthAuthcode
           default:
