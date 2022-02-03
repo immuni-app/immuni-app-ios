@@ -115,11 +115,9 @@
 "home_view.green_certificate.detail.label.vaccine.date_last_administration_en" = "<i>Date of vaccination (yyyy-mm-dd)</i>";
 "home_view.green_certificate.detail.label.vaccine.vaccination_cuntry_en" = "<i>State of vaccination</i>";
 "home_view.green_certificate.detail.label.vaccine.certificate_authority_en" = "<i>Certificate issuer</i>";
-
 "home_view.green_certificate.detail.label.vaccine.vaccine_fully_completed" = "Zertifizierung gültig für 180 Tage (6 Monate) ab dem Datum der letzten Verabreichung, vorbehaltlich behördlicher Änderungen";
 "home_view.green_certificate.detail.label.vaccine.vaccine_first_dose" = "Bescheinigung gültig ab dem 15. Tag ab dem Tag der Verabreichung und bis zur maximalen Zeit, die für die nächste Dosis vorgesehen ist";
 "home_view.green_certificate.detail.label.vaccine.vaccine_booster" = "Zertifizierung gültig für 180 Tage (6 Monate) ab dem Datum der letzten Verabreichung, vorbehaltlich behördlicher Änderungen";
-
 "home_view.green_certificate.detail.label.recovery.healing_certificate" = "Zertifizierung gültig in der Europäischen Union bis Gültigkeitsende und gültig in Italien 180 Tage (6 Monate) ab Gültigkeitsbeginn, vorbehaltlich behördlicher Änderungen";
 "home_view.green_certificate.detail.label.recovery.disease" = "Zielkrankheit oder Erreger, von dem die Person geheilt wird";
 "home_view.green_certificate.detail.label.recovery.date_first_test_result" = "Datum des ersten positiven Molekulartests";
@@ -134,7 +132,6 @@
 "home_view.green_certificate.detail.label.recovery.certificate_valid_from_en" = "<i>Certificate valid From (yyyy-mm-dd)</i>";
 "home_view.green_certificate.detail.label.recovery.certificate_valid_until_en" = "<i>Certificate valid Until (yyyy-mm-dd)</i>";
 "home_view.green_certificate.detail.label.recovery.certificate_type" = "Heilungsurkunde";
-
 "home_view.green_certificate.detail.label.test.molecular_test" = "Bescheinigung gültig für 72 Stunden ab dem Zeitpunkt der Abholung";
 "home_view.green_certificate.detail.label.test.rapid_test" = "Bescheinigung gültig für 48 Stunden ab dem Zeitpunkt der Abholung";
 "home_view.green_certificate.detail.label.test.disease" = "Zielkrankheit oder -wirkstoff";

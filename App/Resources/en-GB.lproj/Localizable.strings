@@ -114,11 +114,9 @@
 "home_view.green_certificate.detail.label.vaccine.date_last_administration_en" = "<i>Date of vaccination (yyyy-mm-dd)</i>";
 "home_view.green_certificate.detail.label.vaccine.vaccination_cuntry_en" = "<i>State of vaccination</i>";
 "home_view.green_certificate.detail.label.vaccine.certificate_authority_en" = "<i>Certificate issuer</i>";
-
 "home_view.green_certificate.detail.label.vaccine.vaccine_fully_completed" = "Certification valid for 180 days (6 months) from the date of the last administration, subject to regulatory changes";
 "home_view.green_certificate.detail.label.vaccine.vaccine_first_dose" = "Certification valid from the 15th day from the date of administration and up to the maximum time foreseen for the next dose";
 "home_view.green_certificate.detail.label.vaccine.vaccine_booster" = "Certification valid for 180 days (6 months) from the date of the last administration, subject to regulatory changes";
-
 "home_view.green_certificate.detail.label.recovery.healing_certificate" = "Certification valid in the European Union until the end of validity date and valid in Italy 180 days (6 months) from the start of validity date, subject to regulatory changes";
 "home_view.green_certificate.detail.label.recovery.disease" = "Malattia o agente bersaglio da cui la persona è guarita";
 "home_view.green_certificate.detail.label.recovery.date_first_test_result" = "Data del primo test molecolare positivo";
@@ -133,7 +131,6 @@
 "home_view.green_certificate.detail.label.recovery.certificate_valid_from_en" = "<i>Certificate valid From (yyyy-mm-dd)</i>";
 "home_view.green_certificate.detail.label.recovery.certificate_valid_until_en" = "<i>Certificate valid Until (yyyy-mm-dd)</i>";
 "home_view.green_certificate.detail.label.recovery.certificate_type" = "Recovery certificate";
-
 "home_view.green_certificate.detail.label.test.molecular_test" = "Certification valid for 72 hours from the time of collection";
 "home_view.green_certificate.detail.label.test.rapid_test" = "Certification valid for 48 hours from the time of collection";
 "home_view.green_certificate.detail.label.test.disease" = "Malattia o agente bersaglio";
