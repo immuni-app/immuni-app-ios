@@ -262,7 +262,7 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
       {
           Self.Style.value(
             self.validUntil,
-            text: validUntilnotCompleteVaccine?.description ?? "Certification valid from the 15th day from the date of administration and up to the maximum time foreseen for the next dose"
+            text: validUntilnotCompleteVaccine?.description ?? L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineFirstDose
           )
       }
       else if detailVaccineCertificate.doseNumber == detailVaccineCertificate.totalSeriesOfDoses,
@@ -271,14 +271,14 @@ class GreenCertificateVaccineDetailView: UIView, ViewControllerModellableView {
             Self.Style.value(
                 self.validUntil,
                 text: validUntilCompleteVaccine?
-                    .description ?? "Certification valid for 180 days (6 months) from the date of the last administration, subject to regulatory changes"
+                    .description ?? L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineFullyCompleted
                    )
                  }
       else {
           Self.Style.value(
             self.validUntil,
             text: validUntilBoosterVaccine?
-              .description ?? "Certification valid for 180 days (6 months) from the date of the last administration, subject to regulatory changes"
+              .description ?? L10n.HomeView.GreenCertificate.Detail.Label.Vaccine.vaccineBooster
           )
       }
       Self.Style.value(

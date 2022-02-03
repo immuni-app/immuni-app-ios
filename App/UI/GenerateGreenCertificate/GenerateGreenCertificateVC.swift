@@ -44,6 +44,8 @@ class GenerateGreenCertificateVC: ViewControllerWithLocalState<GenerateGreenCert
                         message += L10n.HomeView.GenerateGreenCertificate.FormError.codeNrfeRequired
                       case .nucg:
                         message += L10n.HomeView.GenerateGreenCertificate.FormError.codeNucgRequired
+                      case .cuev:
+                        message += L10n.HomeView.GenerateGreenCertificate.FormError.codeCuevRequired
                       case .authcode:
                         message += L10n.HomeView.GenerateGreenCertificate.FormError.codeAuthcodeRequired
                     }
@@ -55,6 +57,8 @@ class GenerateGreenCertificateVC: ViewControllerWithLocalState<GenerateGreenCert
                         message += L10n.HomeView.GenerateGreenCertificate.FormError.codeNfreWrong
                       case .nucg:
                         message += L10n.HomeView.GenerateGreenCertificate.FormError.codeNucgWrong
+                      case .cuev:
+                        message += L10n.HomeView.GenerateGreenCertificate.FormError.codeCuevWrong
                       case .authcode:
                         message += L10n.HomeView.GenerateGreenCertificate.FormError.codeAuthcodeWrong
                     }
@@ -113,6 +117,9 @@ class GenerateGreenCertificateVC: ViewControllerWithLocalState<GenerateGreenCert
 
           case .authcode:
             return CodeType.validateAuthcode(code: code)
+            
+        case .cuev:
+          return CodeType.validateCuev(code: code)
         }
     }
 
@@ -166,23 +173,27 @@ public enum CodeType: String {
     public static let prefixCun = "CUN-"
     public static let prefixNucg = "NUCG-"
     public static let prefixAuthcode = ""
-    
+    public static let prefixCuev = "CUEV-"
+
     public static let lengthNrfe = 17
     public static let lengthCun = 10
     public static let lengthNucg = 10
     public static let lengthAuthcode = 12
+    public static let lengthCuev = 10
 
     case nrfe = "NRFE"
     case cun = "CUN"
     case nucg = "NUCG"
     case authcode = "AUTHCODE"
-    
+    case cuev = "CUEV"
+
     static func getCodeList() -> [String] {
         return [
             CodeType.authcode.rawValue,
             CodeType.nrfe.rawValue,
             CodeType.cun.rawValue,
-            CodeType.nucg.rawValue
+            CodeType.nucg.rawValue,
+            CodeType.cuev.rawValue
         ]
     }
     static func validateCun(code: String?) -> String? {
@@ -219,6 +230,19 @@ public enum CodeType: String {
             let nucg = Nucg(code: code)
             if nucg.verifyCode() {
                 return nucg.rawValue
+            }
+        }
+        return nil
+    }
+    
+    static func validateCuev(code: String?) -> String? {
+        guard let code = code else {
+            return nil
+        }
+        if code != "", code.count == CodeType.lengthCuev {
+            let cuev = Cuev(code: code)
+            if cuev.verifyCode() {
+                return cuev.rawValue
             }
         }
         return nil
