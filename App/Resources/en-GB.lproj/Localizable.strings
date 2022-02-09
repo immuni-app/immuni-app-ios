@@ -175,12 +175,9 @@
 "home_view.generate_green_certificate.title" = "Retrieve EU Digital Covid Certificate";
 "home_view.generate_green_certificate.header" = "This function allows you to download the COVID-19 green certification (EU Digital Covid Certificate) from the national platform-DGC of the Ministry of Health by entering the required data.";
 "home_view.generate_green_certificate.discover_more_title" = "How to acquire the EU Digital Covid Certificate";
-"home_view.generate_green_certificate.discover_more_1" = "The \"EU Digital Covid Certificate\", in Italy \"COVID-19 green certification\", is issued by the Ministry of Health in digital format to those who have been vaccinated or have obtained a negative result on the molecular / antigen test or are cured of COVID- 19.";
-"home_view.generate_green_certificate.discover_more_2" = "The certificate has a two-dimensional barcode (QR code) that contains the essential information of the holder of the certificate and the health event to which the certificate is associated (vaccination, negative test, COVID-19 cure) and digitally signed to guarantee authenticity.";
-"home_view.generate_green_certificate.discover_more_3" = "If you have received the code to recover the certification via email or SMS, you can use this App by entering one of the unique codes CUN, NRFE, NUCG, CUEV (received respectively during the execution of the molecular swab or the execution of the antigenic swab or the preparation of the healing certificate ), or the AUTHCODE authorization code received via e-mail or SMS together with the last 8 digits of the identification number and the expiry date of the Health Card.";
-"home_view.generate_green_certificate.discover_more_4" = "All these codes are uniquely associated with the COVID-19 green certificate relating to the health event that generated it.";
-"home_view.generate_green_certificate.discover_more_5" = "The green COVID–19 certification is shown on the smartphone screen so that it can be viewed and shown on request, in case of verification, even in offline mode. The \"Delete\" button allows you to delete your certificate from your smartphone independently at any time.";
-"home_view.generate_green_certificate.discover_more_6" = "For more information visit the website www.dgc.gov.it";
+"home_view.generate_green_certificate.discover_more_1" = "In Italy, the COVID-19 green certification is issued by the Ministry of Health, in digital format, to those who have been vaccinated or have obtained a negative result in a molecular or antigenic test or are cured of COVID-19. It has a QR code that contains the essential information of the holder and the health event that generated it (vaccination, negative test, recovery from COVID-19) and is digitally signed to guarantee its authenticity.";
+"home_view.generate_green_certificate.discover_more_2" = "You can retrieve your COVID-19 Green Certification with this App by entering the unique code received after vaccination, the swab (CUN, NRFE) or recovery (NUCG), or with the AUTHCODE code, together with the last 8 digits of the identification number and the expiration date of your Health Card. You can also use this App to download the Covid-19 vaccination exemption certification, using the CUEV or AUTHCODE code.";
+"home_view.generate_green_certificate.discover_more_3" = "The green COVID–19 certification is shown on the smartphone screen so that, in case of verification, it can be shown on request even in offline mode. The \"Delete\" button allows you to cancel the certification from your smartphone at any time.";
 "home_view.generate_green_certificate.input_code_type_label" = "Type of Code";
 "home_view.generate_green_certificate.input_code_type_placeholder" = "Select type";
 "home_view.generate_green_certificate.input_code_label" = "Code";
@@ -431,7 +428,8 @@
 "suggestions.instruction.phone_contact" = "<b>If you are having difficulty breathing, contact 112/118.</b>";
 "suggestions.instruction.social_distance" = "<b>Respect physical distancing measures</b> and avoid gatherings.";
 "suggestions.instruction.stay_home.message" = "On indication of the ASL, the quarantine period may be reduced to 10 days in the event of a negative antigen or molecular test performed on the tenth day.";
-"suggestions.instruction.stay_home.title" = "<b>Stay at home for 14 days</b> after the contact date.";
+"suggestions.instruction.stay_home.title" = "<b>Follow the current self-surveillance or quarantine guidelines.</b> For information: <l>quarantine and isolation</l>";
+"suggestions.instruction.stay_home.url" = "https://www.salute.gov.it/portale/nuovocoronavirus/dettaglioFaqNuovoCoronavirus.jsp?lingua=italiano&id=244#19";
 "suggestions.instruction.under_18_message" = "If you're under 18, please have your parents/legal guardian read this message.";
 "suggestions.instruction.use_napkins" = "<b>Cough and sneeze directly into a tissue or into the crook of your elbow.</b>";
 "suggestions.instruction.wash_hands" = "<b>Wash your hands frequently</b> with soap and water or with alcohol hand sanitiser.";

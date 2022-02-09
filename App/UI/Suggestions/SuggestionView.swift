@@ -203,9 +203,10 @@ extension SuggestionsView: UICollectionViewDataSource, UICollectionViewDelegateF
       let cell = self.dequeue(SuggestionsMessageCell.self, for: indexPath, in: collectionView, using: cellModel)
       cell.userDidTapURL = { [weak self] url in self?.userDidTapURL?(url) }
       return cell
-
     case .instruction:
-      return self.dequeue(SuggestionsInstructionCell.self, for: indexPath, in: collectionView, using: cellModel)
+      let cell = self.dequeue(SuggestionsInstructionCell.self, for: indexPath, in: collectionView, using: cellModel)
+      cell.userDidTapURL = { [weak self] url in self?.userDidTapURL?(url) }
+      return cell
     case .button:
       let cell = self.dequeue(SuggestionsButtonCell.self, for: indexPath, in: collectionView, using: cellModel)
       cell.didTapButton = { [weak self] interaction in

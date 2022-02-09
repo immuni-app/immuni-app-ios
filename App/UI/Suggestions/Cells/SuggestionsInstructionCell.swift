@@ -34,6 +34,16 @@ struct SuggestionsInstructionCellVM: ViewModel {
   }
 
   let instruction: Instruction
+    
+  var url: String? {
+    switch self.instruction {
+      case .stayHome:
+        return L10n.Suggestions.Instruction.StayHome.url
+      case .ministerialDecree, .washHands, .useNapkins, .socialDistance, .wearMask, .contactDoctor,
+            .limitMovements, .distance, .checkSymptoms, .isolate, .contactAuthorities:
+        return nil
+      }
+    }
 
   var title: String {
     switch self.instruction {
@@ -96,7 +106,7 @@ struct SuggestionsInstructionCellVM: ViewModel {
   var subtitle: String? {
     switch self.instruction {
     case .ministerialDecree, .washHands, .useNapkins, .socialDistance, .contactAuthorities, .distance,
-         .limitMovements:
+            .limitMovements, .stayHome:
       return nil
     case .checkSymptoms:
       return L10n.Suggestions.Instruction.CheckSymptoms.message
@@ -104,8 +114,6 @@ struct SuggestionsInstructionCellVM: ViewModel {
       return L10n.Suggestions.Instruction.Isolate.message
     case .contactDoctor:
       return L10n.Suggestions.Instruction.ContactDoctor.message
-    case .stayHome:
-      return L10n.Suggestions.Instruction.StayHome.message
     case .wearMask:
       return L10n.Suggestions.Instruction.Mask.message
     }
@@ -128,9 +136,11 @@ class SuggestionsInstructionCell: UICollectionViewCell, ModellableView, Reusable
     SuggestionsInstructionCell.imageToMessage + 2 * SuggestionsInstructionCell.contentInset
 
   let container = UIView()
-  let message = UILabel()
+  let message = UITextView()
   let subtitle = UILabel()
   let icon = UIImageView()
+    
+  var userDidTapURL: CustomInteraction<URL>?
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -149,6 +159,9 @@ class SuggestionsInstructionCell: UICollectionViewCell, ModellableView, Reusable
     self.container.addSubview(self.message)
     self.container.addSubview(self.icon)
     self.container.addSubview(self.subtitle)
+      
+    let gesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+    self.message.addGestureRecognizer(gesture)
   }
 
   func style() {
@@ -161,7 +174,7 @@ class SuggestionsInstructionCell: UICollectionViewCell, ModellableView, Reusable
       return
     }
 
-    Self.Style.title(self.message, content: model.title)
+    Self.Style.title(self.message, content: model.title, url: model.url)
     Self.Style.subtitle(self.subtitle, content: model.subtitle ?? "")
     Self.Style.icon(self.icon, icon: model.icon)
   }
@@ -208,7 +221,19 @@ class SuggestionsInstructionCell: UICollectionViewCell, ModellableView, Reusable
     }
   }
 }
+extension SuggestionsInstructionCell {
+  @objc private func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
 
+    guard
+      self.model?.instruction == .stayHome,
+      let textPosition = self.message.closestPosition(to: gestureRecognizer.location(in: self.message)),
+      let url = self.message.textStyling(at: textPosition, in: .forward)?[NSAttributedString.Key.link] as? URL
+    else {
+      return
+    }
+    self.userDidTapURL?(url)
+  }
+}
 private extension SuggestionsInstructionCell {
   enum Style {
     static func container(_ view: UIView) {
@@ -227,22 +252,40 @@ private extension SuggestionsInstructionCell {
       view.contentMode = .scaleAspectFit
     }
 
-    static func title(_ label: UILabel, content: String) {
+    static func title(_ textView: UITextView, content: String, url: String?) {
+        
+      textView.isSelectable = false
+      textView.isEditable = false
+      textView.isScrollEnabled = false
+      textView.backgroundColor = .clear
+      textView.linkTextAttributes = [.foregroundColor: Palette.primary]
+        
       let boldStyle = TextStyles.pSemibold.byAdding(
-        .color(Palette.grayDark),
-        .alignment(.left)
+          // note: it looks like that by removing this parameter
+          // (which shouldn't be necessary) the calculation of
+          // the height breaks
+        .lineBreakMode(.byWordWrapping),
+        .color(Palette.grayDark)
       )
+        
+      var linkStyle = TextStyles.pSemibold.byAdding(
+        .color(Palette.primary),
+        .underline(.single, Palette.primary)
+      )
+      if let url = url, let url = URL(string: url) {
+        linkStyle.link = url
+      }
+        
       let textStyle = TextStyles.p.byAdding(
         .color(Palette.grayDark),
         .alignment(.left),
-        .xmlRules([.style("b", boldStyle)])
+        .xmlRules([
+            .style("b", boldStyle),
+            .style("l", linkStyle)
+            ])
       )
+      textView.attributedText = content.styled(with: textStyle).adapted()
 
-      TempuraStyles.styleStandardLabel(
-        label,
-        content: content,
-        style: textStyle
-      )
     }
 
     static func subtitle(_ label: UILabel, content: String) {
