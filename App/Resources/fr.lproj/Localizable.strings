@@ -428,7 +428,7 @@
 "suggestions.instruction.phone_contact" = "<b>En cas de difficultés respiratoires, contactez le 112/118.</b>";
 "suggestions.instruction.social_distance" = "<b>Respecter une distance d’au moins un mètre avec les autres</b> et éviter tout rassemblements.";
 "suggestions.instruction.stay_home.message" = "Sur indication de votre société de santé locale, la période de quarantaine peut être réduite à 10 jours en cas de test anti-hygiène ou moléculaire négatif effectué le dixième jour.";
-"suggestions.instruction.stay_home.title" = "<b>Suivez les directives d'autosurveillance ou de quarantaine en vigueur.</b> Pour information: <l>quarantaine et isolement</l>";
+"suggestions.instruction.stay_home.title" = "<b>Suivez les directives d'autosurveillance ou de quarantaine en vigueur.</b> Pour information: <l>En savoir plus</l>";
 "suggestions.instruction.stay_home.url" = "https://www.salute.gov.it/portale/nuovocoronavirus/dettaglioFaqNuovoCoronavirus.jsp?lingua=italiano&id=244#19";
 "suggestions.instruction.under_18_message" = "Si vous avez moins de 18 ans, demandez à vos parents de lire ce message.";
 "suggestions.instruction.use_napkins" = "<b>Tousser ou éternuer dans son coude ou dans son mouchoir.</b>";

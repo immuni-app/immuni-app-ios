@@ -49,6 +49,36 @@ extension Logic.Home {
     }
   }
 
+  /// Shows the stay home discover more
+  struct ShowStayHomeDiscoverMore: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        
+      let state = context.getState()
+      let lan = Locale.current.languageCode ?? "en"
+      let firstMessage = state.configuration.eudccExpiration[lan]!["vaccine_fully_completed"]
+      let secondMessage = state.configuration.eudccExpiration[lan]!["healing_certificate"]
+
+      guard let firstMessage = firstMessage, let secondMessage = secondMessage else { return }
+      let content = PermissionTutorialVM.Content(
+        title: "Title",
+        items: [
+          .spacer(.big),
+          .textualContent(firstMessage, isDark: false),
+          .spacer(.small),
+          .textualContent(secondMessage, isDark: false),
+          .spacer(.big)
+        ],
+        mainActionTitle: nil,
+        action: nil
+      )
+      context.dispatch(Show(
+        Screen.permissionTutorial,
+        animated: true,
+        context: PermissionTutorialLS(content: content)
+        ))
+      }
+    }
+
   /// Shows the push notification step and waits for the fullfilment of the
   fileprivate struct ShowPushNotification: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {

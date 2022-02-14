@@ -140,7 +140,7 @@ class SuggestionsInstructionCell: UICollectionViewCell, ModellableView, Reusable
   let subtitle = UILabel()
   let icon = UIImageView()
     
-  var userDidTapURL: CustomInteraction<URL>?
+  var didTapDiscoverMoreStayHome: Interaction?
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -174,7 +174,7 @@ class SuggestionsInstructionCell: UICollectionViewCell, ModellableView, Reusable
       return
     }
 
-    Self.Style.title(self.message, content: model.title, url: model.url)
+    Self.Style.title(self.message, content: model.title)
     Self.Style.subtitle(self.subtitle, content: model.subtitle ?? "")
     Self.Style.icon(self.icon, icon: model.icon)
   }
@@ -224,14 +224,8 @@ class SuggestionsInstructionCell: UICollectionViewCell, ModellableView, Reusable
 extension SuggestionsInstructionCell {
   @objc private func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
 
-    guard
-      self.model?.instruction == .stayHome,
-      let textPosition = self.message.closestPosition(to: gestureRecognizer.location(in: self.message)),
-      let url = self.message.textStyling(at: textPosition, in: .forward)?[NSAttributedString.Key.link] as? URL
-    else {
-      return
-    }
-    self.userDidTapURL?(url)
+    guard self.model?.instruction == .stayHome else { return }
+    self.didTapDiscoverMoreStayHome?()
   }
 }
 private extension SuggestionsInstructionCell {
@@ -252,7 +246,7 @@ private extension SuggestionsInstructionCell {
       view.contentMode = .scaleAspectFit
     }
 
-    static func title(_ textView: UITextView, content: String, url: String?) {
+    static func title(_ textView: UITextView, content: String) {
         
       textView.isSelectable = false
       textView.isEditable = false
@@ -268,13 +262,10 @@ private extension SuggestionsInstructionCell {
         .color(Palette.grayDark)
       )
         
-      var linkStyle = TextStyles.pSemibold.byAdding(
+      let linkStyle = TextStyles.pSemibold.byAdding(
         .color(Palette.primary),
         .underline(.single, Palette.primary)
       )
-      if let url = url, let url = URL(string: url) {
-        linkStyle.link = url
-      }
         
       let textStyle = TextStyles.p.byAdding(
         .color(Palette.grayDark),

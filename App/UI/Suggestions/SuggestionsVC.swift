@@ -40,6 +40,10 @@ class SuggestionsVC: ViewControllerWithLocalState<SuggestionsView> {
     self.rootView.userDidTapURL = { [weak self] url in
       self?.store.dispatch(Logic.Shared.OpenURL(url: url))
     }
+    
+    self.rootView.didTapDiscoverMoreStayHome = { [weak self] in
+      self?.dispatch(Logic.Home.ShowStayHomeDiscoverMore())
+    }
   }
 
   private func handleInteraction(_ interaction: SuggestionsButtonCellVM.ButtonInteraction) {
