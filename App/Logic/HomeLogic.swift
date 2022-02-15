@@ -55,17 +55,14 @@ extension Logic.Home {
         
       let state = context.getState()
       let lan = Locale.current.languageCode ?? "en"
-      let firstMessage = state.configuration.eudccExpiration[lan]!["vaccine_fully_completed"]
-      let secondMessage = state.configuration.eudccExpiration[lan]!["healing_certificate"]
-
-      guard let firstMessage = firstMessage, let secondMessage = secondMessage else { return }
+      let message = state.configuration.riskExposure[lan]
+      guard let message = message else { return }
+        
       let content = PermissionTutorialVM.Content(
-        title: "Title",
+        title: L10n.Suggestions.StayHome.DiscoverMore.title,
         items: [
           .spacer(.big),
-          .textualContent(firstMessage, isDark: false),
-          .spacer(.small),
-          .textualContent(secondMessage, isDark: false),
+          .textualContent(message, isDark: false),
           .spacer(.big)
         ],
         mainActionTitle: nil,

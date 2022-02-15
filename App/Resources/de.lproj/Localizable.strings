@@ -397,6 +397,7 @@
 "settings.setting.chage_countries" = "Wählen Sie ein europäisches Land aus";
 "settings.update_province.update_province" = "Aktualisieren";
 "settings_app_version" = "Immuni v%s (%d)";
+"suggestions.stay_home.discover_more.title" = "Quarantäne und Isolation";
 "suggestions.alert.asl_contact_confirmation.description" = "Immuni blendet die Kontaktwarnung aus. Sie müssen weiterhin alle Hinweise befolgen, die Sie von Ihrem Arzt oder Ihrer örtlichen Gesundheitsbehörde erhalten haben.";
 "suggestions.alert.asl_contact_confirmation.negative_answer" = "Nein";
 "suggestions.alert.asl_contact_confirmation.positive_answer" = "Ja";
@@ -431,7 +432,7 @@ auch im Freien, wenn es nicht möglich ist, isoliert zu bleiben.";
 "suggestions.instruction.social_distance" = "<b>Respektieren Sie die maßnahmen des körperlichen Abstand</b> und vermeiden Sie Versammlungen.";
 "suggestions.instruction.stay_home.message" = "Bei Angabe der ASL kann die Quarantänezeit auf 10 Tage verkürzt werden, wenn ein negativer
 Anti-Hygiene- oder molekularer Test am zehnten Tag durchgeführt wird.";
-"suggestions.instruction.stay_home.title" = "<b>Befolgen Sie die aktuellen Richtlinien zur Selbstüberwachung oder Quarantäne.</b> Zur Information: <l>Mehr erfahren</l>";
+"suggestions.instruction.stay_home.title" = "<b>Befolgen Sie die aktuellen Richtlinien zur Selbstüberwachung oder Quarantäne.</b>\n\n<l>Mehr erfahren</l>";
 "suggestions.instruction.stay_home.url" = "https://www.salute.gov.it/portale/nuovocoronavirus/dettaglioFaqNuovoCoronavirus.jsp?lingua=italiano&id=244#19";
 "suggestions.instruction.under_18_message" = "Wenn Sie unter 18 Jahre alt sind, zeigen Sie diese Nachricht Ihren Eltern.";
 "suggestions.instruction.use_napkins" = "<b>Husten Sie und Niesen Sie direkt auf einem Papiertaschentuch oder in der Ellbogenbeuge.</b>";
