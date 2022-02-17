@@ -118,6 +118,7 @@
 "home_view.green_certificate.detail.label.vaccine.vaccine_first_dose" = "Certification valable à partir du 15ème jour à compter de la date d'administration et jusqu'à l'heure maximale prévue pour la prochaine dose";
 "home_view.green_certificate.detail.label.vaccine.vaccine_booster" = "Certification valable 180 jours (6 mois) à compter de la date de la dernière administration, sous réserve de modifications réglementaires";
 "home_view.green_certificate.detail.label.recovery.healing_certificate" = "Certification valable dans l'Union européenne jusqu'à la date de fin de validité et valable en Italie 180 jours (6 mois) à compter de la date de début de validité, sous réserve de modifications réglementaires";
+"home_view.green_certificate.detail.label.recovery.cbis" = "Certification valable dans l'Union européenne jusqu'à la date de fin de validité et valable en Italie 540 jours (18 mois) à compter de la date de début de validité, sous réserve de modifications réglementaires";
 "home_view.green_certificate.detail.label.recovery.disease" = "Maladie cible ou agent dont la personne est guérie";
 "home_view.green_certificate.detail.label.recovery.date_first_test_result" = "Date du premier test moléculaire positif";
 "home_view.green_certificate.detail.label.recovery.country_of_test" = "État dans lequel le premier test moléculaire positif a été effectué";

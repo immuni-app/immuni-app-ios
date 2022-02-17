@@ -203,7 +203,7 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
             
             Self.Style.value(certificateValidUntil, text: detailRecoveryCertificate.certificateValidUntil.isEmpty ? "---" : detailRecoveryCertificate.certificateValidUntil)
 
-            Self.Style.value(healingCertificate, text: self.gedValidUntilValue())
+            Self.Style.value(healingCertificate, text: self.gedValidUntilValue(dgcType: model.greenCertificate.dgcType))
 
         }
         
@@ -212,10 +212,17 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
 
 
     }
-    func gedValidUntilValue() -> String {
+    func gedValidUntilValue(dgcType: String?) -> String {
       let lan = Locale.current.languageCode ?? "en"
-      let validUntilValueRecovery:String? = ConfigurationStateRecovery.state[lan]?["healing_certificate"]
-        return validUntilValueRecovery?.description ?? L10n.HomeView.GreenCertificate.Detail.Label.Recovery.healingCertificate
+    
+      switch dgcType {
+        case "cbis":
+          let validUntilValueCbis:String? = ConfigurationStateRecovery.state[lan]?["cbis"]
+          return validUntilValueCbis?.description ?? L10n.HomeView.GreenCertificate.Detail.Label.Recovery.cbis
+        default:
+          let validUntilValueRecovery:String? = ConfigurationStateRecovery.state[lan]?["healing_certificate"]
+          return validUntilValueRecovery?.description ?? L10n.HomeView.GreenCertificate.Detail.Label.Recovery.healingCertificate
+        }
     }
 
     // MARK: - Layout
