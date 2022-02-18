@@ -190,9 +190,8 @@ extension Logic.DataUpload {
                 let json = try? JSONSerialization.jsonObject(with: data, options: [])
                 
                 if let object = json as? [String: Any] {
-                    
                     if let qrcode = object["qrcode"] as? String {
-                        let dgc = detectQRCode(qr: qrcode)
+                        let dgc = detectQRCode(qr: qrcode, dgcType: object["fglTipoDgc"] as? String)
                         if let dgc = dgc {
                             try context.awaitDispatch(Logic.CovidStatus.UpdateGreenCertificate(newGreenCertificate: dgc))
                         }
@@ -232,7 +231,7 @@ extension Logic.DataUpload {
             try context.awaitDispatch(Hide(Screen.generateGreenCertificate, animated: true))
         }
         
-        private func detectQRCode(qr: String) -> GreenCertificate? {
+        private func detectQRCode(qr: String, dgcType: String?) -> GreenCertificate? {
             let data = Data(base64Encoded: qr)
             guard let data = data else { return nil }
             let image = UIImage(data: data)
@@ -280,6 +279,7 @@ extension Logic.DataUpload {
                         greenCertificate: qr,
                         certificateType: type
                     )
+                    dgc?.dgcType = dgcType
                     switch type {
                     case .test:
                         let detail = DetailTestCertificate(

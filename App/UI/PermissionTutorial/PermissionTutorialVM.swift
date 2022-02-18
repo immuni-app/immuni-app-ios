@@ -526,12 +526,6 @@ extension PermissionTutorialVM.Content {
           .textualContent(L10n.HomeView.GenerateGreenCertificate.discoverMore2, isDark: false),
           .spacer(.small),
           .textualContent(L10n.HomeView.GenerateGreenCertificate.discoverMore3, isDark: false),
-          .spacer(.small),
-          .textualContent(L10n.HomeView.GenerateGreenCertificate.discoverMore4, isDark: false),
-          .spacer(.small),
-          .textualContent(L10n.HomeView.GenerateGreenCertificate.discoverMore5, isDark: false),
-          .spacer(.small),
-          .textualContent(L10n.HomeView.GenerateGreenCertificate.discoverMore6, isDark: false),
           .spacer(.big)
           ],
           mainActionTitle: nil,

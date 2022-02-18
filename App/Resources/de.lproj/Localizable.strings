@@ -119,6 +119,7 @@
 "home_view.green_certificate.detail.label.vaccine.vaccine_first_dose" = "Bescheinigung gültig ab dem 15. Tag ab dem Tag der Verabreichung und bis zur maximalen Zeit, die für die nächste Dosis vorgesehen ist";
 "home_view.green_certificate.detail.label.vaccine.vaccine_booster" = "Zertifizierung gültig für 180 Tage (6 Monate) ab dem Datum der letzten Verabreichung, vorbehaltlich behördlicher Änderungen";
 "home_view.green_certificate.detail.label.recovery.healing_certificate" = "Zertifizierung gültig in der Europäischen Union bis Gültigkeitsende und gültig in Italien 180 Tage (6 Monate) ab Gültigkeitsbeginn, vorbehaltlich behördlicher Änderungen";
+"home_view.green_certificate.detail.label.recovery.cbis" = "Zertifizierung gültig in der Europäischen Union bis Gültigkeitsende und gültig in Italien 540 Tage (18 Monate) ab Gültigkeitsbeginn, vorbehaltlich behördlicher Änderungen";
 "home_view.green_certificate.detail.label.recovery.disease" = "Zielkrankheit oder Erreger, von dem die Person geheilt wird";
 "home_view.green_certificate.detail.label.recovery.date_first_test_result" = "Datum des ersten positiven Molekulartests";
 "home_view.green_certificate.detail.label.recovery.country_of_test" = "Zustand, in dem der erste positive Molekulartest durchgeführt wurde";
@@ -176,12 +177,9 @@
 "home_view.generate_green_certificate.title" = "Abrufen des EU Digital Covid Certificate";
 "home_view.generate_green_certificate.header" = "Mit dieser Funktion können Sie die grüne COVID-19-Zertifizierung (EU Digital Covid Certificate) von der nationalen Plattform-DGC des Gesundheitsministeriums herunterladen, indem Sie die erforderlichen Daten eingeben.";
 "home_view.generate_green_certificate.discover_more_title" = "So erwerben Sie das EU Digital Covid Certificate";
-"home_view.generate_green_certificate.discover_more_1" = "Das \"EU Digital Covid Certificate\", in Italien \"COVID-19 Green Certification\", wird vom Gesundheitsministerium in digitaler Form an diejenigen ausgestellt, die geimpft wurden oder ein negatives Ergebnis beim Molekular- / Antigentest erhalten haben oder von denen geheilt wurde COVID-19.";
-"home_view.generate_green_certificate.discover_more_2" = "Das Zertifikat ist mit einem zweidimensionalen Barcode (QR-Code) versehen, der die wesentlichen Angaben des Zertifikatsinhabers und des mit dem Zertifikat verbundenen Gesundheitsereignisses (Impfung, Negativtest, COVID-19-Kur) enthält und zur Garantie der Echtheit digital signiert ist.";
-"home_view.generate_green_certificate.discover_more_3" = "Wenn Sie den Code zum Abrufen der Zertifizierung per E-Mail oder SMS erhalten haben, können Sie diese App verwenden, indem Sie einen der eindeutigen Codes CUN, NRFE, NUCG, CUEV eingeben (erhalten Sie jeweils während der Durchführung des Molekularabstrichs oder beim Antigenabstrich oder bei der Vorbereitung das Heilzertifikat. ) oder den per E-Mail oder SMS erhaltenen Autorisierungscode AUTHCODE zusammen mit den letzten 8 Ziffern der Identifikationsnummer und dem Ablaufdatum der Gesundheitskarte.";
-"home_view.generate_green_certificate.discover_more_4" = "Alle diese Codes sind eindeutig mit dem grünen COVID-19-Zertifikat verbunden, das sich auf das Gesundheitsereignis bezieht, das es generiert hat.";
-"home_view.generate_green_certificate.discover_more_5" = "Die grüne COVID-19-Zertifizierung wird auf dem Smartphone-Bildschirm angezeigt, so dass sie auf Wunsch, bei Verifizierung, auch im Offline-Modus eingesehen und gezeigt werden kann. Über die Schaltfläche „Löschen“ können Sie Ihr Zertifikat jederzeit selbstständig von Ihrem Smartphone löschen.";
-"home_view.generate_green_certificate.discover_more_6" = "Weitere Informationen finden Sie auf der Website www.dgc.gov.it";
+"home_view.generate_green_certificate.discover_more_1" = "In Italien wird die grüne COVID-19-Zertifizierung vom Gesundheitsministerium in digitalem Format an diejenigen ausgestellt, die geimpft wurden oder bei einem molekularen oder antigenen Test ein negatives Ergebnis erzielt haben oder von COVID-19 geheilt sind. Es verfügt über einen QR-Code, der die wesentlichen Informationen des Inhabers und des Gesundheitsereignisses enthält, das ihn generiert hat (Impfung, negativer Test, Genesung von COVID-19) und digital signiert ist, um seine Echtheit zu garantieren.";
+"home_view.generate_green_certificate.discover_more_2" = "Sie können Ihre grüne COVID-19-Zertifizierung mit dieser App abrufen, indem Sie den eindeutigen Code eingeben, den Sie nach der Impfung, dem Abstrich (CUN, NRFE) oder der Genesung (NUCG) oder mit dem AUTHCODE-Code erhalten haben, zusammen mit den letzten 8 Ziffern der Identifikationsnummer und das Ablaufdatum Ihrer Gesundheitskarte. Sie können diese App auch verwenden, um die Covid-19-Impfbefreiungsbescheinigung herunterzuladen, indem Sie den CUEV- oder AUTHCODE-Code verwenden.";
+"home_view.generate_green_certificate.discover_more_3" = "Die grüne COVID-19-Zertifizierung wird auf dem Smartphone-Bildschirm angezeigt, damit sie im Falle einer Verifizierung auf Anfrage auch im Offline-Modus angezeigt werden kann. Über die Schaltfläche „Löschen“ können Sie die Zertifizierung jederzeit von Ihrem Smartphone aus aufheben.";
 "home_view.generate_green_certificate.input_code_type_label" = "Art des Codes";
 "home_view.generate_green_certificate.input_code_type_placeholder" = "Art auswählen";
 "home_view.generate_green_certificate.input_code_label" = "Code";
@@ -400,6 +398,7 @@
 "settings.setting.chage_countries" = "Wählen Sie ein europäisches Land aus";
 "settings.update_province.update_province" = "Aktualisieren";
 "settings_app_version" = "Immuni v%s (%d)";
+"suggestions.stay_home.discover_more.title" = "Quarantäne und Isolation";
 "suggestions.alert.asl_contact_confirmation.description" = "Immuni blendet die Kontaktwarnung aus. Sie müssen weiterhin alle Hinweise befolgen, die Sie von Ihrem Arzt oder Ihrer örtlichen Gesundheitsbehörde erhalten haben.";
 "suggestions.alert.asl_contact_confirmation.negative_answer" = "Nein";
 "suggestions.alert.asl_contact_confirmation.positive_answer" = "Ja";
@@ -434,7 +433,8 @@ auch im Freien, wenn es nicht möglich ist, isoliert zu bleiben.";
 "suggestions.instruction.social_distance" = "<b>Respektieren Sie die maßnahmen des körperlichen Abstand</b> und vermeiden Sie Versammlungen.";
 "suggestions.instruction.stay_home.message" = "Bei Angabe der ASL kann die Quarantänezeit auf 10 Tage verkürzt werden, wenn ein negativer
 Anti-Hygiene- oder molekularer Test am zehnten Tag durchgeführt wird.";
-"suggestions.instruction.stay_home.title" = "<b>Bleiben Sie 14 Tage</b>  nach dem Kontaktdatum zu Hause.";
+"suggestions.instruction.stay_home.title" = "<b>Befolgen Sie die aktuellen Richtlinien zur Selbstüberwachung oder Quarantäne.</b>\n\n<l>Mehr erfahren</l>";
+"suggestions.instruction.stay_home.url" = "https://www.salute.gov.it/portale/nuovocoronavirus/dettaglioFaqNuovoCoronavirus.jsp?lingua=italiano&id=244#19";
 "suggestions.instruction.under_18_message" = "Wenn Sie unter 18 Jahre alt sind, zeigen Sie diese Nachricht Ihren Eltern.";
 "suggestions.instruction.use_napkins" = "<b>Husten Sie und Niesen Sie direkt auf einem Papiertaschentuch oder in der Ellbogenbeuge.</b>";
 "suggestions.instruction.wash_hands" = "<b>Waschen Sie Ihre Hände häufig</b> mit Wasser und Seife oder hydroalkoholischen Lösungen.";

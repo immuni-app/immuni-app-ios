@@ -62,6 +62,9 @@ struct GreenCertificate: Codable {
     /// The type of Certificate
     var certificateType: CertificateType
     
+    /// The type of recovery Certificate 
+    var dgcType: String?
+    
     
 }
 
