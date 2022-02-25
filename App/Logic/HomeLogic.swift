@@ -178,9 +178,13 @@ extension Logic.Home {
     
   /// Shows the Green Certificate screen
   struct ShowGreenCertificate: AppSideEffect {
+      
+    let certificate: GreenCertificate?
+    let favoriteMode: Bool
+      
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
         
-      try context.awaitDispatch(Show(Screen.greenCertificate, animated: true, context: GreenCertificateLS(greenCertificates: context.getState().user.greenCertificates)))
+      try context.awaitDispatch(Show(Screen.greenCertificate, animated: true, context: GreenCertificateLS(greenCertificates: context.getState().user.greenCertificates, selectedCertificate: self.certificate, favoriteMode: self.favoriteMode)))
         }
       }
   /// Shows the Green certificate detail

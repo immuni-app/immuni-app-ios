@@ -211,6 +211,17 @@
 "home_view.generate_green_certificate.form_error.health_card_required" = "- Le numéro de carte Santé saisi n'est pas formellement valide. Assurez-vous d'avoir saisi les 8 derniers chiffres de votre carte Santé associés à un prélèvement positif\n";
 "home_view.generate_green_certificate.form_error.health_card_date_required" = "- Entrez la date d'expiration de la carte de santé\n";
 "home_view.generate_green_certificate.loading" = "Recuperación del EU Digital\nCovid Certificate en curso..";
+
+"certificate.certificates_view.title" = "Vos EU Digital Covid Certificate";
+"certificate.certificates_view.cell.vaccine.label" = "Dose de vaccination";
+"certificate.certificates_view.cell.exemption.label" = "Exemption";
+"certificate.certificates_view.cell.recovery.label" = "Guérison";
+"certificate.certificates_view.cell.molecular_test.label" = "Tampon moléculaire";
+"certificate.certificates_view.cell.rapid_test.label" = "Tampon rapide";
+"certificate.certificates_view.cell.expired.label" = "Expiré en Italie";
+"certificate.certificates_view.cell.valid.label" = "Valable jusqu'en %@ en Italie";
+"certificate.certificates_view.header.message" = "Ajoutez votre EU Digital Covid Certificate à votre domicile pour l'avoir à portée de main tous les jours.";
+
 "how_it_works_tile_1" = "Immuni associe chaque téléphone à un code aléatoire";
 "how_it_works_tile_2" = "Les téléphones qui entrent en contact échangent leurs codes aléatoires respectifs";
 "how_it_works_tile_3" = "La personne testée positive est libre de partager ou non ses codes aléatoires";
@@ -320,6 +331,10 @@
 "permission_tutorial.how_to_upload_positive_autonomous.third" = "Le code CUN est un code alphanumérique national unique (par exemple CUN-AB1234C567) associé au résultat de l'écouvillon moléculaire. Il est communiqué aux citoyens par SMS, e-mail ou dans le dossier de santé électronique.";
 "permission_tutorial.how_to_upload_positive_autonomous.fourth" = "Le numéro de la carte Santé est un code à 20 chiffres qui se trouve sur la dernière ligne au dos de la carte Santé.\nN'oubliez pas qu'il est important de communiquer la date exacte d'apparition des symptômes pour lancer un suivi précis des contacts.";
 "permission_tutorial.how_to_upload_positive.title" = "Comment signaler un résultat positif";
+"permission_tutorial.How_to_add_the_certificate_to_home.title" = "Comment ajouter votre EU Digital Covid Certificate à votre page d'accueil";
+"permission_tutorial.How_to_add_the_certificate_to_home.first" = "Si vous avez déjà récupéré vos EU Digital Covid Certificate, entrez dans la section Certificats, choisissez celui que vous utiliserez tous les jours et ouvrez-le, en bas, sous les détails, vous trouverez l'élément \"Ajouter à l'accueil\". Vous pouvez toujours le supprimer après l'avoir ajouté et en saisir un autre de votre choix.";
+"permission_tutorial.How_to_add_the_certificate_to_home.second" = "A partir de maintenant, le certificat sera toujours sur la page d'accueil lorsque vous ouvrirez l'application Immuni.";
+
 "permission_tutorial.how_to_upload_positive_autonomous.title" = "Comment signaler la positivité";
 "permission_tutorial.notifications.action" = "Accédez à Réglages";
 "permission_tutorial.notifications.first" = "<b>1. Accédez à Réglages</b> en utilisant le bouton ci-dessous";
@@ -478,6 +493,7 @@
 "support_email.body.message" = "Décrivez vos doutes ou problèmes de fonctionnement de l'application au-dessus de la ligne. Si possible, ne supprimez pas le texte ci-dessous. Il permettra au service d'assistance d'Immuni de mieux vous aider.";
 "tabbar.title.home" = "Accueil";
 "tabbar.title.settings" = "Paramètres";
+"tabbar.title.favorites" = "favoris";
 "upload_data.api_error.action" = "OK";
 "upload_data.api_error.message" = "Une erreur s'est produite durant le processus. Merci de bien vouloir réessayer. Si le problème persiste, nous vous suggérons d'utiliser un réseau mobile.";
 "upload_data.api_error.title" = "Une erreur s'est produite";

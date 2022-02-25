@@ -211,6 +211,17 @@
 "home_view.generate_green_certificate.form_error.health_card_required" = "- The health card number entered is not formally valid. Make sure you have entered the last 8 digits of your Health Card associated with a positive swab\n";
 "home_view.generate_green_certificate.form_error.health_card_date_required" = "- Enter the expiration date of the health card\n";
 "home_view.generate_green_certificate.loading" = "EU Digital Covid Certificate\nrecovery in progress..";
+
+"certificate.certificates_view.title" = "Your EU Digital Covid Certificates";
+"certificate.certificates_view.cell.vaccine.label" = "Vaccination dose";
+"certificate.certificates_view.cell.exemption.label" = "Exemption";
+"certificate.certificates_view.cell.recovery.label" = "Healing";
+"certificate.certificates_view.cell.molecular_test.label" = "Molecular buffer";
+"certificate.certificates_view.cell.rapid_test.label" = "Quick buffer";
+"certificate.certificates_view.cell.expired.label" = "Expired in Italy";
+"certificate.certificates_view.cell.valid.label" = "Valid until %@ in Italy";
+"certificate.certificates_view.header.message" = "Add your EU Digital Covid Certificate to your home to have it at your fingertips every day.";
+
 "how_it_works_tile_1" = "Immuni assigns a random code to each phone";
 "how_it_works_tile_2" = "Phones that come into contact exchange their random codes";
 "how_it_works_tile_3" = "Users who test positive can choose if they want to share their random codes";
@@ -316,6 +327,10 @@
 "permission_tutorial.how_to_upload_positive.third" = "If you have received the Unique National Code (CUN), the call center operator 800.91.24.91 will also ask you to provide your health card number.";
 "permission_tutorial.how_to_upload_positive.fourth" = "These authorization processes prevent users who have not actually tested positive for the virus from uploading their data and causing false alarms. The one-time code and the data uploaded are not associated with your identity in any way.";
 "permission_tutorial.how_to_upload_positive.title" = "How to report a positive result";
+"permission_tutorial.How_to_add_the_certificate_to_home.title" = "How to add your EU Digital Covid Certificate to your home page";
+"permission_tutorial.How_to_add_the_certificate_to_home.first" = "If you have already recovered your EU Digital Covid Certificates, enter the Certificates section, choose the one you will use every day and open it, at the bottom, under the details, you will find the item \"Add to home\". You can always remove it after you have it added and enter another of your choice.";
+"permission_tutorial.How_to_add_the_certificate_to_home.second" = "From now on, the certificate will always be on the home page when you open the Immuni app.";
+
 "permission_tutorial.how_to_upload_positive_autonomous.title" = "How can I make a report of testing positive";
 "permission_tutorial.how_to_upload_positive_autonomous.first" = "If you test positive for the virus, you can report it independently to Immuni by uploading the CUN code, the last 8 digits of the health card and the beginning date of the symptoms";
 "permission_tutorial.how_to_upload_positive_autonomous.second" = "By entering this information Immuni will automatically send notifications to other users who have had close contact with you starting two days before the beginning of the symptoms or up to 14 days before the date you took the Swab Test.";
@@ -478,6 +493,7 @@
 "support_email.body.message" = "Above the line, describe your queries or issues with the app. If possible, do not delete the text below. It will help the Immuni Support team to better assist you.";
 "tabbar.title.home" = "Home";
 "tabbar.title.settings" = "Settings";
+"tabbar.title.favorites" = "Favorites";
 "upload_data.api_error.action" = "OK";
 "upload_data.api_error.message" = "An error occurred during the operation. Please try again. If the problem persists, we suggest using a mobile network.";
 "upload_data.api_error.title" = "Something went wrong";

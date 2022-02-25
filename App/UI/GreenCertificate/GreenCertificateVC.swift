@@ -96,6 +96,10 @@ class GreenCertificateVC: ViewControllerWithLocalState<GreenCertificateView> {
 struct GreenCertificateLS: LocalState {
     
     var greenCertificates: [GreenCertificate]?
+    
+    let selectedCertificate: GreenCertificate?
+    
+    let favoriteMode: Bool
 
     /// True if it's not possible to execute a new request.
     var isLoading: Bool = false

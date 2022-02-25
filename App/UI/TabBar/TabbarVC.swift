@@ -22,11 +22,13 @@ class TabbarVC: ViewController<TabbarView>, CustomRouteInspectables {
 
   lazy var homeVC = HomeNC(store: self.store)
   lazy var settingsVC = SettingsNC(store: self.store)
+  lazy var certificatesVC = CertificatesNC(store: self.store)
 
   /// Array of the main VC for each tab
   private lazy var vc: [TabbarVM.Tab: UIViewController] = [
     .home: self.homeVC,
-    .settings: self.settingsVC
+    .settings: self.settingsVC,
+    .certificates: self.certificatesVC
   ]
 
   override func viewDidLayoutSubviews() {

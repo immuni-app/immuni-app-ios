@@ -157,6 +157,18 @@ extension Logic.PermissionTutorial {
           ))
       }
     }
+
+  /// Shows the how to add the certificate to home
+  struct ShowHowToAddTheCertificateToHome: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      try context
+        .awaitDispatch(Show(
+            Screen.permissionTutorial,
+            animated: true,
+            context: PermissionTutorialLS(content: .HowToAddTheCertificateToHome)
+        ))
+      }
+    }
   /// Shows the how to generate Digital Green Certificate
   struct ShowHowToGenerateDigitalGreenCertificate: AppSideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {

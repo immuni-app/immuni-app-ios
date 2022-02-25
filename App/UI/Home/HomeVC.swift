@@ -75,7 +75,7 @@ class HomeVC: ViewController<HomeView> {
         self.dispatch(Logic.Settings.ShowChooseDataUploadMode())
           
       case .greenCertificate:
-        self.dispatch(Logic.Home.ShowGreenCertificate())
+        self.dispatch(Logic.Home.ShowGreenCertificate(certificate: nil, favoriteMode: false))
       }
     }
 }

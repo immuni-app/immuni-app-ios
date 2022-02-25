@@ -24,6 +24,8 @@ struct GreenCertificateVM: ViewModelWithLocalState {
     var currentDgc: Int = 0
     var showModalDgc: Bool
     var greenCertificates: [GreenCertificate]?
+    let selectedCertificate: GreenCertificate?
+    let favoriteMode: Bool
 
     enum StatusGreenCertificate: Int {
       case active
@@ -40,6 +42,14 @@ extension GreenCertificateVM {
         self.status = .inactive
         self.showModalDgc = state?.user.showModalDgc ?? true
         self.greenCertificates = state?.user.greenCertificates?.reversed()
+        self.favoriteMode = localState.favoriteMode
+        self.selectedCertificate = localState.selectedCertificate
+        if let selectedCertificate = self.selectedCertificate, let greenCertificates = self.greenCertificates {
+            let index = greenCertificates.firstIndex(where: {$0.id == selectedCertificate.id})
+            if let index = index {
+                self.currentDgc = index
+            }
+        }
     }
 }
 

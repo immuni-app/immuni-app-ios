@@ -515,7 +515,21 @@ extension PermissionTutorialVM.Content {
         action: nil
       )
     }
-    
+  static var HowToAddTheCertificateToHome: Self {
+      return PermissionTutorialVM.Content(
+        title: L10n.PermissionTutorial.HowToAddTheCertificateToHome.title,
+          items: [
+            .spacer(.big),
+            .textualContent(L10n.PermissionTutorial.HowToAddTheCertificateToHome.first, isDark: false),
+            .spacer(.small),
+            .textualContent(L10n.PermissionTutorial.HowToAddTheCertificateToHome.second, isDark: false),
+            .spacer(.big)
+          ],
+          mainActionTitle: nil,
+          action: nil
+        )
+      }
+
   static var howToGenerateDigitalGreenCertificate: Self {
     return PermissionTutorialVM.Content(
         title: L10n.HomeView.GenerateGreenCertificate.discoverMoreTitle,

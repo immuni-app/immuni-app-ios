@@ -211,6 +211,17 @@
 "home_view.generate_green_certificate.form_error.health_card_required" = "- El numero de la tarjeta Sanitaria introducido no es formalmente valido. Asegurate de haber introducido los últimos 8 caracteres de tu tarjeta sanitaria asociada al hisopo positivo\n";
 "home_view.generate_green_certificate.form_error.health_card_date_required" = "- Ingrese la fecha de vencimiento de la tarjeta sanitaria\n";
 "home_view.generate_green_certificate.loading" = "Récupération du EU Digital\nCovid Certificate en cours..";
+
+"certificate.certificates_view.title" = "Tus EU Digital Covid Certificate";
+"certificate.certificates_view.cell.vaccine.label" = "Dosis vacunal";
+"certificate.certificates_view.cell.exemption.label" = "Exención";
+"certificate.certificates_view.cell.recovery.label" = "Curación";
+"certificate.certificates_view.cell.molecular_test.label" = "Tampón molecular";
+"certificate.certificates_view.cell.rapid_test.label" = "Búfer rápido";
+"certificate.certificates_view.cell.expired.label" = "Caducado en Italia";
+"certificate.certificates_view.cell.valid.label" = "Válido hasta %@ en Italia";
+"certificate.certificates_view.header.message" = "Añade tu EU Digital Covid Certificate a tu casa para tenerlo al alcance de la mano todos los días.";
+
 "how_it_works_tile_1" = "Immuni asocia a cada teléfono un código aleatorio";
 "how_it_works_tile_2" = "Los teléfonos que se detectan entre sí intercambian sus códigos aleatorios";
 "how_it_works_tile_3" = "Las personas que dan positivo deciden si quieren compartir sus códigos aleatorios";
@@ -316,6 +327,10 @@
 "permission_tutorial.how_to_upload_positive.third" = "Si has recibido el Código Nacional Único (CUN) el operador del centro de llamadas 800.91.24.91 te pedirá también el numero de tu “tessera sanitaria” (tarjeta sanitaria).";
 "permission_tutorial.how_to_upload_positive.fourth" = "Estos procesos de autorización previenen que los usuarios que no hayan dado positivo en el virus suban sus datos y generen falsas alarmas. El código de un solo uso y los datos que se suben no están vinculados de ningún modo con tu identidad.";
 "permission_tutorial.how_to_upload_positive.title" = "Cómo informar de un resultado positivo";
+"permission_tutorial.How_to_add_the_certificate_to_home.title" = "Cómo agregar su EU Digital Covid Certificate a su página de inicio";
+"permission_tutorial.How_to_add_the_certificate_to_home.first" = "Si ya recuperó sus EU Digital Covid Certificate, ingrese a la sección Certificados, elija el que usará todos los días y ábralo, en la parte inferior, debajo de los detalles, encontrará el elemento \"Agregar a inicio\". Siempre puede eliminarlo después de agregarlo e ingresar otro de su elección.";
+"permission_tutorial.How_to_add_the_certificate_to_home.second" = "De ahora en adelante, el certificado siempre estará en la página de inicio cuando abra la aplicación Immuni.";
+
 "permission_tutorial.how_to_upload_positive_autonomous.title" = "Cómo informar tu positividad";
 "permission_tutorial.how_to_upload_positive_autonomous.first" = "Si resultas positivo al virus, puedes informarlo por tu cuenta a Immuni cargando el código CUN, las últimas 8 cifras de la tarjeta sanitaria y la fecha de inicio de síntomas.";
 "permission_tutorial.how_to_upload_positive_autonomous.second" = "Al ingresar esta información, Immuni enviará automáticamente notificaciones a otros usuarios que hayan tenido contacto cercano contigo a partir de dos días antes del inicio de los síntomas o hasta 14 días antes de la fecha en que te hicistes el hisopo.";
@@ -478,6 +493,7 @@
 "support_email.body.message" = "Si tienes dudas o problemas con el funcionamiento de la aplicación, descríbelos encima de la línea. Si es posible, no elimines este texto, ya que permitirá al servicio de asistencia de Immuni ayudarte de la mejor forma posible.";
 "tabbar.title.home" = "Inicio";
 "tabbar.title.settings" = "Ajustes";
+"tabbar.title.favorites" = "favoritos";
 "upload_data.api_error.action" = "Aceptar";
 "upload_data.api_error.message" = "Se ha producido un error. Inténtalo de nuevo. Si el problema continúa, te recomendamos utilizar una red móvil.";
 "upload_data.api_error.title" = "Ha habido un problema";

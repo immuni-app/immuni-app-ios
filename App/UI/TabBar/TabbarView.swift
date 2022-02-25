@@ -21,12 +21,15 @@ struct TabbarVM: ViewModelWithState {
   enum Tab: Int {
     case home
     case settings
+    case certificates
 
     var selectedImage: UIImage {
       switch self {
       case .home:
         return Asset.Tabbar.homeSelected.image
       case .settings:
+        return Asset.Tabbar.settingsSelected.image
+      case .certificates:
         return Asset.Tabbar.settingsSelected.image
       }
     }
@@ -37,6 +40,8 @@ struct TabbarVM: ViewModelWithState {
         return Asset.Tabbar.homeUnselected.image
       case .settings:
         return Asset.Tabbar.settingsUnselected.image
+      case .certificates:
+        return Asset.Tabbar.settingsUnselected.image
       }
     }
 
@@ -46,6 +51,8 @@ struct TabbarVM: ViewModelWithState {
         return L10n.Tabbar.Title.home
       case .settings:
         return L10n.Tabbar.Title.settings
+      case .certificates:
+        return L10n.Tabbar.Title.favorites
       }
     }
   }
@@ -86,7 +93,7 @@ struct TabbarVM: ViewModelWithState {
 
 extension TabbarVM {
   init(state: AppState) {
-    self.tabs = [.home, .settings]
+      self.tabs = [.home, .certificates, .settings]
     self.selectedTab = state.environment.selectedTab
   }
 }
