@@ -31,10 +31,7 @@ class GreenCertificateVC: ViewControllerWithLocalState<GreenCertificateView> {
             self?.localState.currentDgc = currentDgc
             self?.viewModel?.addedToHome = true
         }
-        
-        rootView.didTapGenerateGreenCertificate = { [weak self] in
-            self?.dispatch(Logic.Home.ShowGenerateGreenCertificate())
-        }
+
         rootView.didTapDeleteGreenCertificate = { [weak self] index in
             let deleteConfirmBox = UIAlertController(
                 title: L10n.HomeView.GreenCertificate.Confirm.title,

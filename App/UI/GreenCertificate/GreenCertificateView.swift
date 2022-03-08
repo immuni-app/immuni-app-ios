@@ -77,7 +77,6 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
     private let container = UIView()
     
     private var qrCode = UIImageView()
-    private var actionButton = ButtonWithInsets()
     private var deleteButton = ButtonWithInsets()
     private var addToHomeButton = ButtonWithInsets()
     private var swipeLabel = UILabel()
@@ -106,7 +105,6 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
     var didTapBack: Interaction?
 
     var didTapDiscoverMore: CustomInteraction<GreenCertificate>?
-    var didTapGenerateGreenCertificate: Interaction?
     var didTapDeleteGreenCertificate: CustomInteraction<Int>?
     var didTapAddToHomeCertificate: CustomInteraction<Int>?
     var didTapSaveGreenCertificate: CustomInteraction<Int>?
@@ -124,21 +122,17 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         container.addSubview(deleteButton)
         container.addSubview(addToHomeButton)
 
-        addSubview(actionButton)
         addSubview(backgroundGradientView)
         addSubview(scrollView)
         addSubview(title)
         addSubview(backButton)
-        scrollView.addSubview(actionButton)
 
         scrollView.addSubview(container)
 
         backButton.on(.touchUpInside) { [weak self] _ in
             self?.didTapBack?()
            }
-        actionButton.on(.touchUpInside) { [weak self] _ in
-            self?.didTapGenerateGreenCertificate?()
-           }
+
         deleteButton.on(.touchUpInside) { [weak self] _ in
             if let index = self?.model?.currentDgc {
                 self?.didTapDeleteGreenCertificate?(index)
@@ -239,9 +233,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         firstLineView.layer.borderColor = Palette.grayExtraWhite.cgColor
         secondLineView.layer.borderWidth = 1.0
         secondLineView.layer.borderColor = Palette.grayExtraWhite.cgColor
-        
-        Self.Style.actionButton(actionButton, icon: Asset.Home.qr.image)
-        
+                
         SharedStyle.navigationBackButton(backButton)
     }
 
@@ -600,14 +592,8 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
               .horizontally(Self.horizontalSpacing + backButton.intrinsicContentSize.width + 5)
               .sizeToFit(.width)
         }
-        actionButton.pin
-            .horizontally(45)
-            .sizeToFit(.width)
-            .minHeight(25)
-            .below(of: container)
-            .marginTop(20)
     
-        scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: actionButton.frame.maxY)
+        scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: container.frame.maxY)
     }
     func buttonSize(for width: CGFloat) -> CGSize {
       let labelWidth = width - 2 * HomeView.cellHorizontalInset - 35
@@ -702,35 +688,7 @@ private extension GreenCertificateView {
             button.contentVerticalAlignment = .bottom
             button.attributedTitle = L10n.HomeView.GreenCertificate.discoverMore.styled(with: textStyle)
         }
-        
-        static func actionButton(
-          _ button: ButtonWithInsets,
-          icon: UIImage? = nil,
-          tintColor: UIColor = Palette.white,
-          backgroundColor: UIColor = Palette.primary,
-          cornerRadius: CGFloat = 25,
-          shadow: UIView.Shadow = .cardPrimary
-        ) {
-          
-          let text = L10n.HomeView.GreenCertificate.generateButton
-          let textStyle = TextStyles.pSemibold.byAdding([
-            .color(tintColor),
-            .alignment(.center)
-          ])
-
-          button.setBackgroundColor(backgroundColor, for: .normal)
-          button.setAttributedTitle(text.styled(with: textStyle), for: .normal)
-          button.setImage(icon, for: .normal)
-          button.tintColor = tintColor
-          button.insets = UIDevice.getByScreen(normal: .init(deltaX: 25, deltaY: 5), narrow: .init(deltaX: 15, deltaY: 5))
-
-          button.layer.cornerRadius = cornerRadius
-          button.titleLabel?.numberOfLines = 2
-          button.addShadow(shadow)
-          button.imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 60)
-
-        }
-        
+                
         static func container(_ view: UIView) {
           view.backgroundColor = Palette.white
           view.layer.cornerRadius = SharedStyle.cardCornerRadius
