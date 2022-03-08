@@ -30,7 +30,7 @@ struct TabbarVM: ViewModelWithState {
       case .settings:
         return Asset.Tabbar.settingsSelected.image
       case .certificates:
-        return Asset.Tabbar.settingsSelected.image
+        return Asset.Tabbar.certificateSelected.image
       }
     }
 
@@ -41,7 +41,7 @@ struct TabbarVM: ViewModelWithState {
       case .settings:
         return Asset.Tabbar.settingsUnselected.image
       case .certificates:
-        return Asset.Tabbar.settingsUnselected.image
+        return Asset.Tabbar.certificateUnselected.image
       }
     }
 
@@ -52,7 +52,7 @@ struct TabbarVM: ViewModelWithState {
       case .settings:
         return L10n.Tabbar.Title.settings
       case .certificates:
-        return L10n.Tabbar.Title.favorites
+        return L10n.Tabbar.Title.certificates
       }
     }
   }

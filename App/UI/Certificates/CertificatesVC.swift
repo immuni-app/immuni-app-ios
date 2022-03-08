@@ -41,6 +41,10 @@ class CertificatesVC: ViewControllerWithLocalState<CertificatesView> {
       self?.dispatch(Logic.Home.ShowGreenCertificate(certificate: certificate, favoriteMode: true))
     }
       
+    self.rootView.didTapGenerateGreenCertificate = { [weak self] in
+          self?.dispatch(Logic.Home.ShowGenerateGreenCertificate())
+    }
+      
     self.rootView.didTapDiscoverMore = { [weak self] in
       self?.dispatch(Logic.PermissionTutorial.ShowHowToAddTheCertificateToHome())
     }

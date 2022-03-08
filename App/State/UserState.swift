@@ -31,6 +31,9 @@ struct UserState: Codable {
     
     /// The Digital Green Certificate
     var greenCertificates: [GreenCertificate]?
+    
+    /// The Favorite Digital Green Certificate
+    var favoriteGreenCertificate: GreenCertificate?
 }
 
 struct GreenCertificate: Codable {

@@ -16,8 +16,12 @@ import Extensions
 import Foundation
 import Models
 import Tempura
+import SwiftUI
 
 struct HomeVM: ViewModelWithState {
+    
+  var favoriteGreenCertificate: GreenCertificate?
+
   enum HeaderKind: Equatable {
     case risk
     case positive
@@ -38,6 +42,8 @@ struct HomeVM: ViewModelWithState {
     case serviceActiveCard(isServiceActive: Bool)
     case infoHeader
     case doTodayHeader
+    case favoriteDgcHeader
+    case favoriteDgc
     case info(kind: InfoKind)
     case doToday(kind: DoTodayKind)
     case deactivateButton(isEnabled: Bool)
@@ -54,8 +60,7 @@ struct HomeVM: ViewModelWithState {
     guard let oldModel = oldModel else {
       return true
     }
-
-    return self.cellTypes != oldModel.cellTypes
+    return self.cellTypes != oldModel.cellTypes || self.favoriteGreenCertificate?.id != oldModel.favoriteGreenCertificate?.name
   }
 
   func cellType(for indexPath: IndexPath) -> CellType? {
@@ -81,18 +86,27 @@ struct HomeVM: ViewModelWithState {
         return HomeDoTodayHeaderCellVM()
     case .doToday(kind: let kind):
         return HomeDoTodayCellVM(kind: kind)
+    case .favoriteDgcHeader:
+        return HomeFavoriteDgcHeaderCellVM()
+    case .favoriteDgc:
+        return HomeFavoriteDgcCellVM(favoriteGreenCertificate: self.favoriteGreenCertificate)
     }
   }
 }
 
 extension HomeVM {
   init(state: AppState) {
-    self.init(isServiceActive: state.isServiceActive, covidStatus: state.user.covidStatus)
+      self.init(isServiceActive: state.isServiceActive, covidStatus: state.user.covidStatus, favoriteGreenCertificate: state.user.favoriteGreenCertificate)
   }
 
-  init(isServiceActive: Bool, covidStatus: CovidStatus) {
+  init(isServiceActive: Bool, covidStatus: CovidStatus, favoriteGreenCertificate: GreenCertificate?) {
+
+    self.favoriteGreenCertificate = favoriteGreenCertificate
+
     var cells: [CellType] = [
       .serviceActiveCard(isServiceActive: isServiceActive),
+      .favoriteDgcHeader,
+      .favoriteDgc,
       .doTodayHeader,
       .doToday(kind: .greenCertificate),
       .doToday(kind: .dataUpload),
@@ -101,7 +115,7 @@ extension HomeVM {
       .info(kind: .app)
     ]
 
-    switch covidStatus {
+  switch covidStatus {
     case .neutral:
       cells.append(.info(kind: .protection))
     case .risk:
@@ -111,6 +125,10 @@ extension HomeVM {
     }
     
     cells.append(.deactivateButton(isEnabled: isServiceActive))
+      
+    if self.favoriteGreenCertificate == nil {
+      cells.removeAll(where: { $0.self == .favoriteDgc || $0.self == .favoriteDgcHeader })
+    }
 
     self.cellTypes = cells
   }

@@ -26,6 +26,12 @@ class GreenCertificateVC: ViewControllerWithLocalState<GreenCertificateView> {
             self?.dispatch(Hide(Screen.greenCertificate, animated: true))
         }
         
+        rootView.updateCurrentDgc = { [weak self] currentDgc in
+            self?.localState.selectedCertificate = nil
+            self?.localState.currentDgc = currentDgc
+            self?.viewModel?.addedToHome = true
+        }
+        
         rootView.didTapGenerateGreenCertificate = { [weak self] in
             self?.dispatch(Logic.Home.ShowGenerateGreenCertificate())
         }
@@ -38,6 +44,7 @@ class GreenCertificateVC: ViewControllerWithLocalState<GreenCertificateView> {
             deleteConfirmBox.addAction(UIAlertAction(title: L10n.confirm, style: .default, handler: { (_: UIAlertAction!) in
                 guard let id = self?.viewModel?.greenCertificates?[index].id,
                       let greenCertificates = self?.viewModel?.greenCertificates else { return }
+                self?.localState.selectedCertificate = nil
                 self?.dispatch(Logic.Home.DeleteGreenCertificate(id: id))
                 self?.viewModel?.greenCertificates = greenCertificates.filter { $0.id != greenCertificates[index].id }
                 if index > 0 {
@@ -80,6 +87,15 @@ class GreenCertificateVC: ViewControllerWithLocalState<GreenCertificateView> {
            
         }
         }
+        rootView.didTapAddToHomeCertificate = { [weak self] index in
+            guard let self = self, let model = self.viewModel else { return }
+            self.localState.selectedCertificate = nil
+            self.localState.currentDgc = index
+            self.viewModel?.addedToHome = true
+            if let greenCertificates = model.greenCertificates {
+                self.dispatch(Logic.Home.HandleAddToHome(certificate: greenCertificates[index]))
+          }
+        }
     }
     @objc private func imageSaved(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if ((error) != nil) {
@@ -97,9 +113,11 @@ struct GreenCertificateLS: LocalState {
     
     var greenCertificates: [GreenCertificate]?
     
-    let selectedCertificate: GreenCertificate?
-    
+    var selectedCertificate: GreenCertificate?
+
     let favoriteMode: Bool
+    
+    var currentDgc: Int
 
     /// True if it's not possible to execute a new request.
     var isLoading: Bool = false

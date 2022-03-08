@@ -658,6 +658,24 @@ public enum TestType: String {
       return L10n.HomeView.GreenCertificate.Detail.TestType.quick
     }
   }
+    
+  func getDescriptionPreview() -> String {
+    switch self {
+      case .molecularTest:
+        return L10n.Certificate.CertificatesView.Cell.MolecularTest.label
+      case .quickTest:
+        return L10n.Certificate.CertificatesView.Cell.RapidTest.label
+      }
+    }
+    
+  func getKeyValidity() -> String {
+    switch self {
+      case .molecularTest:
+        return "molecular_test"
+      case .quickTest:
+        return "rapid_test"
+      }
+    }
 
   func gedValidUntilValue() -> String {
     let lan = Locale.current.languageCode ?? "en"

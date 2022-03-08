@@ -30,6 +30,9 @@ class HomeVC: ViewController<HomeView> {
   }
 
   override func setupInteraction() {
+      
+    self.rootView.didTapCertificate = { [weak self] certificate in    }
+      
     self.rootView.didTapActivateService = { [weak self] in
       self?.dispatch(Logic.Home.ShowFixActiveService())
     }
@@ -75,7 +78,7 @@ class HomeVC: ViewController<HomeView> {
         self.dispatch(Logic.Settings.ShowChooseDataUploadMode())
           
       case .greenCertificate:
-        self.dispatch(Logic.Home.ShowGreenCertificate(certificate: nil, favoriteMode: false))
+        self.dispatch(Logic.Home.ShowGenerateGreenCertificate())
       }
     }
 }

@@ -38,7 +38,7 @@ struct HomeDoTodayCellVM: ViewModel {
     case .dataUpload:
       return L10n.Settings.Setting.loadData
     case .greenCertificate:
-        return L10n.HomeView.Info.GreenCertificate.title
+      return L10n.HomeView.Info.GreenCertificate.title
     }
   }
 
@@ -116,12 +116,8 @@ class HomeDoTodayCell: UICollectionViewCell, ModellableView, ReusableView {
     guard let model = self.model else {
       return
     }
-    if model.kind == .greenCertificate {
-        Self.Style.logoNew(self.cardImageNew)
-    }
-    else {
-        self.cardImageNew.image = nil
-    }
+
+    self.cardImageNew.image = nil
     Self.Style.icon(self.icon, animation: model.animation)
     Self.Style.shadow(self.contentView, shadow: model.shadow)
     Self.Style.container(self.container, lightContent: model.lightContent)

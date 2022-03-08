@@ -20,12 +20,13 @@ struct GreenCertificateVM: ViewModelWithLocalState {
 
     /// True if it's not possible to execute a new request.
     let isLoading: Bool
-    
-    var currentDgc: Int = 0
+    let favoriteGreenCertificate: GreenCertificate?
+    var currentDgc: Int
     var showModalDgc: Bool
     var greenCertificates: [GreenCertificate]?
-    let selectedCertificate: GreenCertificate?
+    var selectedCertificate: GreenCertificate?
     let favoriteMode: Bool
+    var addedToHome: Bool = false
 
     enum StatusGreenCertificate: Int {
       case active
@@ -40,10 +41,13 @@ extension GreenCertificateVM {
     init?(state : AppState?, localState: GreenCertificateLS) {
         isLoading = localState.isLoading
         self.status = .inactive
+        self.favoriteGreenCertificate = state?.user.favoriteGreenCertificate
         self.showModalDgc = state?.user.showModalDgc ?? true
         self.greenCertificates = state?.user.greenCertificates?.reversed()
         self.favoriteMode = localState.favoriteMode
         self.selectedCertificate = localState.selectedCertificate
+
+        self.currentDgc = localState.currentDgc
         if let selectedCertificate = self.selectedCertificate, let greenCertificates = self.greenCertificates {
             let index = greenCertificates.firstIndex(where: {$0.id == selectedCertificate.id})
             if let index = index {
@@ -75,7 +79,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
     private var qrCode = UIImageView()
     private var actionButton = ButtonWithInsets()
     private var deleteButton = ButtonWithInsets()
-    private var saveButton = ButtonWithInsets()
+    private var addToHomeButton = ButtonWithInsets()
     private var swipeLabel = UILabel()
     
     private var nameLabel = UILabel()
@@ -96,25 +100,29 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
     private var previousButton = ImageButton()
 
 
-    var lineView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 1.0))
-    
+    var firstLineView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 1.0))
+    var secondLineView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 1.0))
+
     var didTapBack: Interaction?
 
     var didTapDiscoverMore: CustomInteraction<GreenCertificate>?
     var didTapGenerateGreenCertificate: Interaction?
     var didTapDeleteGreenCertificate: CustomInteraction<Int>?
+    var didTapAddToHomeCertificate: CustomInteraction<Int>?
     var didTapSaveGreenCertificate: CustomInteraction<Int>?
     var showOrderInfoModal: Interaction?
-
-
+    var updateCurrentDgc: CustomInteraction<Int>?
+    
     // MARK: - Setup
 
     func setup() {
         addSubview(container)
 
-        container.addSubview(lineView)
+        container.addSubview(firstLineView)
+        container.addSubview(secondLineView)
         container.addSubview(qrCode)
         container.addSubview(deleteButton)
+        container.addSubview(addToHomeButton)
 
         addSubview(actionButton)
         addSubview(backgroundGradientView)
@@ -136,9 +144,9 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
                 self?.didTapDeleteGreenCertificate?(index)
             }
            }
-        saveButton.on(.touchUpInside) { [weak self] _ in
+        addToHomeButton.on(.touchUpInside) { [weak self] _ in
             if let index = self?.model?.currentDgc {
-                self?.didTapSaveGreenCertificate?(index)
+                self?.didTapAddToHomeCertificate?(index)
             }
         }
         discoverMore.on(.touchUpInside) { [weak self] _ in
@@ -147,13 +155,17 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         }
         nextButton.on(.touchUpInside) { [weak self] _ in
             if let currentDgc = self?.model?.currentDgc, let length = self?.model?.greenCertificates?.count,
-               currentDgc < (length-1){
-                self?.model?.currentDgc += 1
+              currentDgc < (length-1){
+              self?.model?.currentDgc += 1
+              guard let currentDgc = self?.model?.currentDgc else { return }
+              self?.updateCurrentDgc?(currentDgc)
             }
            }
         previousButton.on(.touchUpInside) { [weak self] _ in
             if let currentDgc = self?.model?.currentDgc, currentDgc > 0 {
-                self?.model?.currentDgc -= 1
+              self?.model?.currentDgc -= 1
+              guard let currentDgc = self?.model?.currentDgc else { return }
+              self?.updateCurrentDgc?(currentDgc)
             }
         }
 
@@ -175,11 +187,15 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             if let currentDgc = model?.currentDgc, let length = model?.greenCertificates?.count,
                currentDgc < (length-1){
                 model?.currentDgc += 1
+                guard let currentDgc = model?.currentDgc else { return }
+                self.updateCurrentDgc?(currentDgc)
             }
             frame.origin.x -= 100.0
           case .right:
             if let currentDgc = model?.currentDgc, currentDgc > 0 {
                 model?.currentDgc -= 1
+                guard let currentDgc = model?.currentDgc else { return }
+                self.updateCurrentDgc?(currentDgc)
             }
             frame.origin.x += 100.0
           default:
@@ -218,20 +234,11 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
           cornerRadius: 21,
           shadow: .grayDark
         )
-        SharedStyle.primaryButton(
-          saveButton,
-          title: L10n.HomeView.GreenCertificate.saveButton,
-          icon: Asset.Home.saveQr.image,
-          spacing: 8,
-          tintColor: Palette.purple,
-          backgroundColor: UIColor.clear,
-          insets: UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 20),
-          cornerRadius: 21,
-          shadow: .grayDark
-        )
         
-        lineView.layer.borderWidth = 1.0
-        lineView.layer.borderColor = Palette.grayExtraWhite.cgColor
+        firstLineView.layer.borderWidth = 1.0
+        firstLineView.layer.borderColor = Palette.grayExtraWhite.cgColor
+        secondLineView.layer.borderWidth = 1.0
+        secondLineView.layer.borderColor = Palette.grayExtraWhite.cgColor
         
         Self.Style.actionButton(actionButton, icon: Asset.Home.qr.image)
         
@@ -244,10 +251,40 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         guard let model = self.model else {
             return
         }
-
+       
         if model.showModalDgc, let greenCertificates = model.greenCertificates, greenCertificates.count > 1 {
             self.showOrderInfoModal?()
         }
+        
+        if let favoriteDgc = model.favoriteGreenCertificate,
+           let greenCertificates = model.greenCertificates, !greenCertificates.isEmpty,
+           favoriteDgc.id == greenCertificates[model.currentDgc].id {
+            SharedStyle.primaryButton(
+              addToHomeButton,
+              title: L10n.HomeView.GreenCertificate.RemoveFromHome.label,
+              icon: Asset.Home.pinSelected.image,
+              spacing: 8,
+              tintColor: Palette.purple,
+              backgroundColor: UIColor.clear,
+              insets: UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 20),
+              cornerRadius: 21,
+              shadow: .grayDark
+            )
+        }
+        else {
+            SharedStyle.primaryButton(
+              addToHomeButton,
+              title: L10n.HomeView.GreenCertificate.AddToHome.label,
+              icon: Asset.Home.pinUnselected.image,
+              spacing: 8,
+              tintColor: Palette.purple,
+              backgroundColor: UIColor.clear,
+              insets: UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 20),
+              cornerRadius: 21,
+              shadow: .grayDark
+            )
+        }
+       
         
         if let greenCertificates = model.greenCertificates, greenCertificates.count > 0, model.currentDgc < greenCertificates.count, model.currentDgc >= 0 {
             
@@ -255,6 +292,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
           if let dataDecoded = dataDecoded, let decodedimage = UIImage(data: dataDecoded) {
             Self.Style.imageContent(qrCode, image: decodedimage)
           }
+
             if let oldModel = oldModel, oldModel.currentDgc != model.currentDgc {
                 let transition = CATransition()
                 transition.type = CATransitionType.push
@@ -262,6 +300,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
                 container.layer.add(transition, forKey: nil)
                 qrCode.layer.add(transition, forKey: nil)
                 deleteButton.layer.add(transition, forKey: nil)
+                addToHomeButton.layer.add(transition, forKey: nil)
                 nameLabel.layer.add(transition, forKey: nil)
                 nameLabelEn.layer.add(transition, forKey: nil)
                 name.layer.add(transition, forKey: nil)
@@ -272,7 +311,8 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
                 idLabelEn.layer.add(transition, forKey: nil)
                 id.layer.add(transition, forKey: nil)
                 discoverMore.layer.add(transition, forKey: nil)
-                lineView.layer.add(transition, forKey: nil)
+                firstLineView.layer.add(transition, forKey: nil)
+                secondLineView.layer.add(transition, forKey: nil)
                 swipeLabel.layer.add(transition, forKey: nil)
                 pagerLabel.layer.add(transition, forKey: nil)
 
@@ -301,6 +341,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             }
             addSubview(qrCode)
             addSubview(deleteButton)
+            addSubview(addToHomeButton)
             addSubview(nameLabel)
             addSubview(nameLabelEn)
             addSubview(name)
@@ -311,12 +352,15 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             addSubview(idLabel)
             addSubview(id)
             addSubview(discoverMore)
-            addSubview(lineView)
+            addSubview(firstLineView)
+            addSubview(secondLineView)
 
-            scrollView.addSubview(lineView)
+            scrollView.addSubview(firstLineView)
+            scrollView.addSubview(secondLineView)
             scrollView.addSubview(discoverMore)
             scrollView.addSubview(qrCode)
             scrollView.addSubview(deleteButton)
+            scrollView.addSubview(addToHomeButton)
             scrollView.addSubview(nameLabel)
             scrollView.addSubview(nameLabelEn)
             scrollView.addSubview(name)
@@ -348,6 +392,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
           qrCode.removeFromSuperview()
           swipeLabel.removeFromSuperview()
           deleteButton.removeFromSuperview()
+          addToHomeButton.removeFromSuperview()
           nameLabel.removeFromSuperview()
           nameLabelEn.removeFromSuperview()
           name.removeFromSuperview()
@@ -357,7 +402,8 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
           idLabel.removeFromSuperview()
           idLabelEn.removeFromSuperview()
           id.removeFromSuperview()
-          lineView.removeFromSuperview()
+          firstLineView.removeFromSuperview()
+          secondLineView.removeFromSuperview()
           discoverMore.removeFromSuperview()
           pagerLabel.removeFromSuperview()
           nextButton.removeFromSuperview()
@@ -430,7 +476,6 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
               .horizontally(25)
               .vCenter()
 
-            
             nextButton.pin
                 .right(40)
                 .below(of: swipeLabel)
@@ -512,8 +557,22 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
                 .horizontally(30)
                 .sizeToFit(.width)
             
-            lineView.pin
+            firstLineView.pin
                 .below(of: discoverMore)
+                .marginTop(10)
+                .hCenter()
+                .width(container.frame.width)
+                .height(1)
+            
+            addToHomeButton.pin
+              .hCenter()
+              .size(self.addToHomeButtonSize(for: self.bounds.width))
+              .minHeight(25)
+              .below(of: firstLineView)
+              .marginTop(5)
+            
+            secondLineView.pin
+                .below(of: addToHomeButton)
                 .marginTop(10)
                 .hCenter()
                 .width(container.frame.width)
@@ -523,7 +582,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
               .hCenter()
               .size(self.buttonSize(for: self.bounds.width))
               .minHeight(25)
-              .below(of: lineView)
+              .below(of: secondLineView)
               .marginTop(5)
         
         }
@@ -556,6 +615,15 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
       var buttonSize = self.deleteButton.titleLabel?.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity)) ?? .zero
       buttonSize.width += 45 + HomeDeactivateServiceCell.iconToTitle + self.deleteButton.insets.horizontal
       buttonSize.height = max(buttonSize.height, 30) + self.deleteButton.insets.vertical
+
+      return buttonSize
+    }
+    func addToHomeButtonSize(for width: CGFloat) -> CGSize {
+      let labelWidth = width - 2 * HomeView.cellHorizontalInset - 35
+        - self.addToHomeButton.insets.horizontal - self.addToHomeButton.titleEdgeInsets.horizontal
+      var buttonSize = self.addToHomeButton.titleLabel?.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity)) ?? .zero
+      buttonSize.width += 45 + HomeDeactivateServiceCell.iconToTitle + self.addToHomeButton.insets.horizontal
+      buttonSize.height = max(buttonSize.height, 30) + self.addToHomeButton.insets.vertical
 
       return buttonSize
     }
