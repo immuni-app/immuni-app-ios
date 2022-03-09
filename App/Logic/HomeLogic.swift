@@ -183,10 +183,98 @@ extension Logic.Home {
     let favoriteMode: Bool
       
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-        
-      try context.awaitDispatch(Show(Screen.greenCertificate, animated: true, context: GreenCertificateLS(greenCertificates: context.getState().user.greenCertificates, selectedCertificate: self.certificate, favoriteMode: self.favoriteMode)))
+        var currentDgc: Int = 0//TODO togliere l opzionale su dertificate, era per l altro punto di accesso che ora non ce piu
+        if let certificate = self.certificate, let greenCertificates = context.getState().user.greenCertificates {
+            var greenCertificatesReversed = greenCertificates.reversed()
+            let index = greenCertificatesReversed.firstIndex(where: {$0.id == certificate.id})
+            if let index = index {
+                currentDgc = greenCertificatesReversed.distance(from: greenCertificatesReversed.startIndex, to: index)
+            }
+        }
+        try context.awaitDispatch(Show(Screen.greenCertificate, animated: true, context: GreenCertificateLS(greenCertificates: context.getState().user.greenCertificates, selectedCertificate: self.certificate, favoriteMode: self.favoriteMode, currentDgc: currentDgc)))
         }
       }
+    
+  /// Handle Add To Home
+  struct HandleAddToHome: AppSideEffect {
+        
+    let certificate: GreenCertificate
+        
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+        let state = context.getState()
+        guard let _ = state.user.favoriteGreenCertificate else {
+            try context.awaitDispatch(AddToHome(dgc: certificate))
+            try context.awaitDispatch(ShowHandleAddToHomeAlert(title: L10n.HomeView.GreenCertificate.Alert.AddedToHome.title, message: L10n.HomeView.GreenCertificate.Alert.AddedToHome.message))
+            return
+          }
+        if certificate.id == state.user.favoriteGreenCertificate?.id {
+          try context.awaitDispatch(RemoveFromHome(dgc: certificate))
+          try context.awaitDispatch(ShowHandleAddToHomeAlert(title: L10n.HomeView.GreenCertificate.Alert.RemovedFromHome.title, message: L10n.HomeView.GreenCertificate.Alert.RemovedFromHome.message))
+          }
+        else {
+            try context.awaitDispatch(ShowReplaceAddedToHomeDialog(certificate: certificate))
+          }
+    }
+  }
+  /// Add To Home
+  struct AddToHome: AppStateUpdater {
+        
+    let dgc: GreenCertificate
+    func updateState(_ state: inout AppState) {
+        state.user.favoriteGreenCertificate = dgc
+      }
+    }
+    
+  /// Remove from Home
+  struct RemoveFromHome: AppStateUpdater {
+          
+    let dgc: GreenCertificate
+    func updateState(_ state: inout AppState) {
+        state.user.favoriteGreenCertificate = nil
+      }
+    }
+    
+  /// Shows the handle add to home alert
+  struct ShowHandleAddToHomeAlert: AppSideEffect {
+      
+    let title: String
+    let message: String
+
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+            
+        let model = Alert.Model(
+            title: title,
+            message: message,
+            preferredStyle: .alert,
+            actions: [
+                .init(title: L10n.HomeView.GreenCertificate.Alert.Ok.label, style: .cancel)
+            ]
+        )
+        try context.awaitDispatch(Logic.Alert.Show(alertModel: model))
+        }
+    }
+  /// Shows the replace added to home dialog
+  struct ShowReplaceAddedToHomeDialog: AppSideEffect {
+
+    let certificate: GreenCertificate
+
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+              
+       let model = Alert.Model(
+            title: L10n.HomeView.GreenCertificate.Dialog.ReplaceAddedToHome.title,
+            message: L10n.HomeView.GreenCertificate.Dialog.ReplaceAddedToHome.message,
+            preferredStyle: .alert,
+            actions: [
+                .init(title: L10n.HomeView.GreenCertificate.Dialog.Cancel.label, style: .cancel),
+                .init(title: L10n.HomeView.GreenCertificate.Dialog.Confirm.label, style: .default, onTap: {
+                    context.dispatch(AddToHome(dgc: certificate))
+                })
+            ]
+        )
+        
+        try context.awaitDispatch(Logic.Alert.Show(alertModel: model))
+        }
+    }
   /// Shows the Green certificate detail
   struct ShowGreenCertificateDetail: AppSideEffect {
     let dgc: GreenCertificate
@@ -234,21 +322,40 @@ extension Logic.Home {
         try context.awaitDispatch(Show(Screen.generateGreenCertificate, animated: true, context: GenerateGreenCertificateLS()))
           }
       }
-  /// Delete the GreenCertificate
-  struct DeleteGreenCertificate: AppSideEffect {
-    
+ 
+  /// Updates the user Green Certificate
+  struct UpdateGreenCertificate: AppStateUpdater {
+      
+    let newGreenCertificate: GreenCertificate
+    func updateState(_ state: inout AppState) {
+        if let dgcs = state.user.greenCertificates {
+            if dgcs.filter({ $0.id == newGreenCertificate.id }).count == 0 {
+                state.user.greenCertificates?.append(newGreenCertificate)
+            }
+        }
+        else{
+            state.user.greenCertificates = [newGreenCertificate]
+          }
+      }
+    }
+  /// Delete the user Green Certificate
+  struct DeleteGreenCertificate: AppStateUpdater {
+      
     let id: String
-    
-    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-            
-      try context.awaitDispatch(Logic.CovidStatus.DeleteGreenCertificate(id: id))
+    func updateState(_ state: inout AppState) {
+        if let dgcs = state.user.greenCertificates {
+        state.user.greenCertificates = dgcs.filter({ $0.id != id })
+        }
+        if let favoriteGreenCertificate = state.user.favoriteGreenCertificate, favoriteGreenCertificate.id == id  {
+            state.user.favoriteGreenCertificate = nil
         }
       }
+    }
   /// Update flag show modal Dgc
-  struct UpdateFlagShowModalDgc: AppSideEffect {
-            
-    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-        try context.awaitDispatch(Logic.CovidStatus.UpdateFlagShowModalDgc())
+  struct UpdateFlagShowModalDgc: AppStateUpdater {
+        
+    func updateState(_ state: inout AppState) {
+        state.user.showModalDgc = false
         }
     }
 }

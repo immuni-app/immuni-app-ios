@@ -48,6 +48,7 @@ public struct Configuration: Codable {
     case supportPhoneClosingTime = "support_phone_closing_time"
     case eudccExpiration = "eudcc_expiration"
     case riskExposure = "risk_exposure"
+    case eudccValidity = "eudcc_validity"
   }
 
   /// Countries of interest map
@@ -115,6 +116,9 @@ public struct Configuration: Codable {
   public let eudccExpiration: [String: [String: String]]
   /// riskExposure - Dictionary with riskExposure
   public let riskExposure: [String: String]
+  /// eudccValidity - Dictionary with eudccValidity
+  public let eudccValidity: [String: Int]
+
   /// Probability with which the app sends analytics data in case of match. Value in the [0, 1] range.
   public let operationalInfoWithExposureSamplingRate: Double
 
@@ -231,6 +235,7 @@ public struct Configuration: Codable {
     faqURL: [String: URL] = .defaultFAQURL,
     eudccExpiration: [String: [String: String]] = .defaultEudcc,
     riskExposure: [String: String] = .defaultRiskExposure,
+    eudccValidity: [String: Int] = .defaultEudccValidity,
     operationalInfoWithExposureSamplingRate: Double = 1,
     operationalInfoWithoutExposureSamplingRate: Double = 0.6,
     dummyAnalyticsWaitingTime: Double = 2_592_000,
@@ -263,6 +268,7 @@ public struct Configuration: Codable {
     self.faqURL = faqURL
     self.eudccExpiration = eudccExpiration
     self.riskExposure = riskExposure
+    self.eudccValidity = eudccValidity
     self.operationalInfoWithExposureSamplingRate = operationalInfoWithExposureSamplingRate
     self.operationalInfoWithoutExposureSamplingRate = operationalInfoWithoutExposureSamplingRate
     self.dummyAnalyticsMeanStochasticDelay = dummyAnalyticsWaitingTime
@@ -525,4 +531,20 @@ public extension Dictionary where Key == String, Value == String {
       return values
     }
 
+}
+public extension Dictionary where Key == String, Value == Int {
+  
+  static var defaultEudccValidity: [String: Int] {
+    let values = [
+        "cbis": 540,
+        "molecular_test": 72,
+        "rapid_test": 48,
+        "vaccine_first_dose": 43,
+        "vaccine_fully_completed": 180,
+        "vaccine_booster": 540,
+        "healing_certificate": 180,
+        "exemption": 540
+        ]
+    return values
+    }
 }

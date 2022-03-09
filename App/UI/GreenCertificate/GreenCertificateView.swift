@@ -67,8 +67,6 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
 
     private let backgroundGradientView = GradientView()
     private let title = UILabel()
-    private let inactiveLabel = UILabel()
-    private let inactiveImage = UIImageView()
 
     private var backButton = ImageButton()
 
@@ -214,8 +212,6 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         Self.Style.backgroundGradient(backgroundGradientView)
         Self.Style.scrollView(scrollView)
         Self.Style.title(title, text: L10n.HomeView.GreenCertificate.title)
-        Self.Style.inactiveLabel(inactiveLabel, text: L10n.HomeView.GreenCertificate.notPresentQrLabel)
-        Self.Style.imageContent(inactiveImage, image: Asset.Home.inactive.image)
         Self.Style.container(container)
         SharedStyle.primaryButton(
           deleteButton,
@@ -243,7 +239,7 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         guard let model = self.model else {
             return
         }
-       
+
         if model.showModalDgc, let greenCertificates = model.greenCertificates, greenCertificates.count > 1 {
             self.showOrderInfoModal?()
         }
@@ -276,10 +272,9 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
               shadow: .grayDark
             )
         }
-       
-        
+
         if let greenCertificates = model.greenCertificates, greenCertificates.count > 0, model.currentDgc < greenCertificates.count, model.currentDgc >= 0 {
-            
+
             let dataDecoded: Data? = Data(base64Encoded: greenCertificates[model.currentDgc].greenCertificate, options: .ignoreUnknownCharacters)
           if let dataDecoded = dataDecoded, let decodedimage = UIImage(data: dataDecoded) {
             Self.Style.imageContent(qrCode, image: decodedimage)
@@ -372,15 +367,8 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
             Self.Style.label(nameLabelEn,text: L10n.HomeView.GreenCertificate.Label.nameEn)
             Self.Style.label(birthLabelEn,text: L10n.HomeView.GreenCertificate.Label.dateEn)
             Self.Style.label(idLabelEn,text: L10n.HomeView.GreenCertificate.Label.idEn)
-          
-          inactiveLabel.removeFromSuperview()
-          inactiveImage.removeFromSuperview()
         }
         else{
-          container.addSubview(inactiveLabel)
-          scrollView.addSubview(inactiveLabel)
-          container.addSubview(inactiveImage)
-          scrollView.addSubview(inactiveImage)
           qrCode.removeFromSuperview()
           swipeLabel.removeFromSuperview()
           deleteButton.removeFromSuperview()
@@ -411,11 +399,6 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        var dgcIsPresent = false
-        if let greenCertificates = model?.greenCertificates, greenCertificates.count > 0 {
-            dgcIsPresent = true
-        }
-
         backgroundGradientView.pin.all()
 
         backButton.pin
@@ -437,164 +420,147 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
         container.pin
           .top(20)
           .horizontally(25)
-          .height(dgcIsPresent ? self.getSize() : UIDevice.getByScreen(normal: 400, short: 380))
+          .height(self.getSize())
+                
+        qrCode.pin
+          .below(of: title)
+          .marginTop(60)
+          .hCenter()
+          .width(container.frame.width*0.94)
+          .height(container.frame.width*0.94)
+            
+        swipeLabel.pin
+          .minHeight(25)
+          .below(of: qrCode)
+          .marginTop(10)
+          .sizeToFit(.width)
+          .horizontally(30)
+            
+        previousButton.pin
+          .left(40)
+          .below(of: swipeLabel)
+          .sizeToFit()
+          .vCenter()
+            
+        pagerLabel.pin
+          .minHeight(25)
+          .below(of: swipeLabel)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .vCenter()
+
+        nextButton.pin
+          .right(40)
+          .below(of: swipeLabel)
+          .sizeToFit()
+          .vCenter()
         
-        if dgcIsPresent {
+        nameLabelEn.pin
+          .minHeight(25)
+          .below(of: qrCode)
+          .marginTop(85)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+            
+        nameLabel.pin
+          .minHeight(25)
+          .below(of: nameLabelEn)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+            
+        name.pin
+          .minHeight(25)
+          .below(of: nameLabel)
+          .marginTop(5)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
         
-            qrCode.pin
-              .below(of: title)
-              .marginTop(60)
-              .hCenter()
-              .width(container.frame.width*0.94)
-              .height(container.frame.width*0.94)
+        birthLabelEn.pin
+          .minHeight(25)
+          .below(of: name)
+          .marginTop(15)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
             
-            swipeLabel.pin
-              .minHeight(25)
-              .below(of: qrCode)
-              .marginTop(10)
-              .sizeToFit(.width)
-              .horizontally(30)
-            
-            previousButton.pin
-                .left(40)
-                .below(of: swipeLabel)
-                .sizeToFit()
-                .vCenter()
-            
-            pagerLabel.pin
-              .minHeight(25)
-              .below(of: swipeLabel)
-              .sizeToFit(.width)
-              .horizontally(25)
-              .vCenter()
-
-            nextButton.pin
-                .right(40)
-                .below(of: swipeLabel)
-                .sizeToFit()
-                .vCenter()
+        birthLabel.pin
+          .minHeight(25)
+          .below(of: birthLabelEn)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
         
-            nameLabelEn.pin
-              .minHeight(25)
-              .below(of: qrCode)
-              .marginTop(85)
-              .sizeToFit(.width)
-              .horizontally(25)
-              .marginLeft(10)
-            
-            nameLabel.pin
-              .minHeight(25)
-              .below(of: nameLabelEn)
-              .sizeToFit(.width)
-              .horizontally(25)
-              .marginLeft(10)
-            
-            name.pin
-              .minHeight(25)
-              .below(of: nameLabel)
-              .marginTop(5)
-              .sizeToFit(.width)
-              .horizontally(25)
-              .marginLeft(10)
-            
-            birthLabelEn.pin
-              .minHeight(25)
-              .below(of: name)
-              .marginTop(15)
-              .sizeToFit(.width)
-              .horizontally(25)
-              .marginLeft(10)
-            
-            birthLabel.pin
-              .minHeight(25)
-              .below(of: birthLabelEn)
-              .sizeToFit(.width)
-              .horizontally(25)
-              .marginLeft(10)
-
-            birth.pin
-              .minHeight(25)
-              .below(of: birthLabel)
-              .marginTop(5)
-              .sizeToFit(.width)
-              .horizontally(25)
-              .marginLeft(10)
-
-            idLabelEn.pin
-              .minHeight(25)
-              .below(of: birth)
-              .marginTop(15)
-              .sizeToFit(.width)
-              .horizontally(25)
-              .marginLeft(10)
-            
-            idLabel.pin
-              .minHeight(25)
-              .below(of: idLabelEn)
-              .sizeToFit(.width)
-              .horizontally(25)
-              .marginLeft(10)
-
-            id.pin
-              .minHeight(25)
-              .below(of: idLabel)
-              .marginTop(5)
-              .sizeToFit(.width)
-              .horizontally(25)
-              .marginLeft(10)
-            
-            discoverMore.pin
-                .below(of: id)
-                .marginTop(10)
-                .horizontally(30)
-                .sizeToFit(.width)
-            
-            firstLineView.pin
-                .below(of: discoverMore)
-                .marginTop(10)
-                .hCenter()
-                .width(container.frame.width)
-                .height(1)
-            
-            addToHomeButton.pin
-              .hCenter()
-              .size(self.addToHomeButtonSize(for: self.bounds.width))
-              .minHeight(25)
-              .below(of: firstLineView)
-              .marginTop(5)
-            
-            secondLineView.pin
-                .below(of: addToHomeButton)
-                .marginTop(10)
-                .hCenter()
-                .width(container.frame.width)
-                .height(1)
-
-            deleteButton.pin
-              .hCenter()
-              .size(self.buttonSize(for: self.bounds.width))
-              .minHeight(25)
-              .below(of: secondLineView)
-              .marginTop(5)
+        birth.pin
+          .minHeight(25)
+          .below(of: birthLabel)
+          .marginTop(5)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
         
-        }
-        else {
-            inactiveImage.pin
-              .below(of: title)
-              .marginTop(100)
-              .hCenter()
-              .width(200)
-              .height(200)
+        idLabelEn.pin
+          .minHeight(25)
+          .below(of: birth)
+          .marginTop(15)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
             
-            inactiveLabel.pin
-              .below(of: inactiveImage)
-              .marginTop(-40)
-              .horizontally(Self.horizontalSpacing + backButton.intrinsicContentSize.width + 5)
-              .sizeToFit(.width)
-        }
+        idLabel.pin
+          .minHeight(25)
+          .below(of: idLabelEn)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+        
+        id.pin
+          .minHeight(25)
+          .below(of: idLabel)
+          .marginTop(5)
+          .sizeToFit(.width)
+          .horizontally(25)
+          .marginLeft(10)
+            
+        discoverMore.pin
+          .below(of: id)
+          .marginTop(10)
+          .horizontally(30)
+          .sizeToFit(.width)
+            
+        firstLineView.pin
+          .below(of: discoverMore)
+          .marginTop(10)
+          .hCenter()
+          .width(container.frame.width)
+          .height(1)
+            
+        addToHomeButton.pin
+          .hCenter()
+          .size(self.addToHomeButtonSize(for: self.bounds.width))
+          .minHeight(25)
+          .below(of: firstLineView)
+          .marginTop(5)
+            
+        secondLineView.pin
+          .below(of: addToHomeButton)
+          .marginTop(10)
+          .hCenter()
+          .width(container.frame.width)
+          .height(1)
+        
+        deleteButton.pin
+          .hCenter()
+          .size(self.buttonSize(for: self.bounds.width))
+          .minHeight(25)
+          .below(of: secondLineView)
+          .marginTop(5)
     
         scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: container.frame.maxY)
     }
+    
     func buttonSize(for width: CGFloat) -> CGSize {
       let labelWidth = width - 2 * HomeView.cellHorizontalInset - 35
         - self.deleteButton.insets.horizontal - self.deleteButton.titleEdgeInsets.horizontal
@@ -614,50 +580,63 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
       return buttonSize
     }
     func getSize() -> CGFloat{
-            let fontCategory = UIApplication.shared.preferredContentSizeCategory
-                switch fontCategory {
-                case UIContentSizeCategory.accessibilityExtraExtraExtraLarge:
-                    return UIDevice.getByScreen(normal: 950, narrow: 950)
+      let fontCategory = UIApplication.shared.preferredContentSizeCategory
+      switch fontCategory {
+        case UIContentSizeCategory.accessibilityExtraExtraExtraLarge:
+          print("getSize() 1 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
+            return UIDevice.getByScreen(normal: 1010, narrow: 1010)
 
-                case UIContentSizeCategory.accessibilityExtraExtraLarge:
-                    return UIDevice.getByScreen(normal: 950, narrow: 950)
+        case UIContentSizeCategory.accessibilityExtraExtraLarge:
+          print("getSize() 2 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
+            return UIDevice.getByScreen(normal: 1010, narrow: 1010)
 
-                case UIContentSizeCategory.accessibilityExtraLarge:
-                    return UIDevice.getByScreen(normal: 950, narrow: 950)
+        case UIContentSizeCategory.accessibilityExtraLarge:
+          print("getSize() 3 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
+            return UIDevice.getByScreen(normal: 1010, narrow: 1010)
 
-                case UIContentSizeCategory.accessibilityLarge:
-                    return UIDevice.getByScreen(normal: 950, narrow: 950)
+        case UIContentSizeCategory.accessibilityLarge:
+          print("getSize() 4 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
+            return UIDevice.getByScreen(normal: 1010, narrow: 1010)
 
-                case UIContentSizeCategory.accessibilityMedium:
-                    return UIDevice.getByScreen(normal: 950, narrow: 950)
+        case UIContentSizeCategory.accessibilityMedium:
+          print("getSize() 5 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
+            return UIDevice.getByScreen(normal: 1010, narrow: 1010)
 
-                case UIContentSizeCategory.extraExtraExtraLarge:
-                    return UIDevice.getByScreen(normal: 950, narrow: 950)
+        case UIContentSizeCategory.extraExtraExtraLarge:
+          print("getSize() 6 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
+            return UIDevice.getByScreen(normal: 1010, narrow: 1010)
                     
-                case UIContentSizeCategory.extraExtraLarge:
-                    return UIDevice.getByScreen(normal: 900, narrow: 880)
+        case UIContentSizeCategory.extraExtraLarge:
+          print("getSize() 7 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
+            return UIDevice.getByScreen(normal: 960, narrow: 940)
 
-                case UIContentSizeCategory.extraLarge:
-                    return UIDevice.getByScreen(normal: 900, narrow: 830)
+        case UIContentSizeCategory.extraLarge:
+          print("getSize() 8 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
+            return UIDevice.getByScreen(normal: 950, narrow: 880)
 
-                case UIContentSizeCategory.large:
-                    return UIDevice.getByScreen(normal: 890, narrow: 800)
+        case UIContentSizeCategory.large:
+          print("getSize() 9 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
+            return UIDevice.getByScreen(normal: 930, narrow: 840)
+          
+        case UIContentSizeCategory.medium:
+          print("getSize() 11 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
+            return UIDevice.getByScreen(normal: 930, narrow: 830)
 
-                case UIContentSizeCategory.medium:
-                    return UIDevice.getByScreen(normal: 880, narrow: 780)
+        case UIContentSizeCategory.small:
+          print("getSize() 22 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
+            return UIDevice.getByScreen(normal: 930, narrow: 830)
 
-                case UIContentSizeCategory.small:
-                    return UIDevice.getByScreen(normal: 870, narrow: 770)
+        case UIContentSizeCategory.extraSmall:
+          print("getSize() 33 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
+            return UIDevice.getByScreen(normal: 930, narrow: 830)
 
-                case UIContentSizeCategory.extraSmall:
-                    return UIDevice.getByScreen(normal: 860, narrow: 760)
+        case UIContentSizeCategory.unspecified:
+          print("getSize() 44 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
+            return UIDevice.getByScreen(normal: 950, narrow: 950)
 
-                case UIContentSizeCategory.unspecified:
-                    return UIDevice.getByScreen(normal: 950, narrow: 950)
-
-                default:
-                    return UIDevice.getByScreen(normal: 950, narrow: 950)
-                }
+        default:
+            return UIDevice.getByScreen(normal: 1010, narrow: 1010)
+            }
         }
 }
 
@@ -719,16 +698,6 @@ private extension GreenCertificateView {
                     .alignment(.center)
                 ),
                 numberOfLines: 2
-            )
-        }
-        static func inactiveLabel(_ label: UILabel, text: String) {
-            TempuraStyles.styleStandardLabel(
-                label,
-                content: text,
-                style: TextStyles.p.byAdding(
-                    .color(Palette.grayNormal),
-                    .alignment(.center)
-                )
             )
         }
         

@@ -19,13 +19,19 @@ struct CertificatesVM: ViewModelWithLocalState {
     
   /// The list of greenCertificates to show
   var greenCertificates: [GreenCertificate]?
+  var greenCertificateAddeToHome: GreenCertificate?
+    
+  var eudccValidity: [String : Int]
 
   func shouldReloadCollection(oldModel: CertificatesVM?) -> Bool {
     guard let oldModel = oldModel else {
       return true
     }
 
-      if self.greenCertificates?.count != oldModel.greenCertificates?.count {
+    if self.greenCertificates?.count != oldModel.greenCertificates?.count {
+      return true
+    }
+    if self.greenCertificateAddeToHome?.id != oldModel.greenCertificateAddeToHome?.id {
       return true
     }
 
@@ -33,10 +39,10 @@ struct CertificatesVM: ViewModelWithLocalState {
   }
     //TODO
   func cellModel(for indexPath: IndexPath) -> ViewModel? {
-    guard let greenCertificates2 = self.greenCertificates, let greenCertificates = greenCertificates2[safe: indexPath.item] else {
+    guard let greenCertificates = self.greenCertificates, let greenCertificate = greenCertificates[safe: indexPath.item] else {
       return nil
     }
-    return CertificateCellVM(greenCertificate: greenCertificates)
+      return CertificateCellVM(greenCertificate: greenCertificate, addedToHome: greenCertificate.id == self.greenCertificateAddeToHome?.id, eudccValidity: self.eudccValidity)
   }
 
   var shouldShowNoResult: Bool { self.greenCertificates?.isEmpty ?? true }
@@ -51,7 +57,9 @@ extension CertificatesVM {
     else {
       return nil
     }
-      self.greenCertificates = greenCertificates.reversed()
+    self.greenCertificates = greenCertificates.reversed()
+    self.greenCertificateAddeToHome = state.user.favoriteGreenCertificate
+    self.eudccValidity = state.configuration.eudccValidity
   }
 }
 

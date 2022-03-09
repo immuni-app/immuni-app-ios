@@ -45,9 +45,13 @@ class GreenCertificateVC: ViewControllerWithLocalState<GreenCertificateView> {
                 self?.dispatch(Logic.Home.DeleteGreenCertificate(id: id))
                 self?.viewModel?.greenCertificates = greenCertificates.filter { $0.id != greenCertificates[index].id }
                 if index > 0 {
-                    self?.viewModel?.currentDgc = index-1
+                    self?.localState.selectedCertificate = nil
+                    self?.localState.currentDgc = index-1
+                    self?.viewModel?.addedToHome = true
                 }
-
+                if self?.viewModel?.greenCertificates?.count == 0 {
+                    self?.dispatch(Hide(Screen.greenCertificate, animated: true))
+                }
             }))
             deleteConfirmBox.addAction(UIAlertAction(title: L10n.cancel, style: .cancel))
             self?.present(deleteConfirmBox, animated: true, completion: nil)
@@ -81,8 +85,7 @@ class GreenCertificateVC: ViewControllerWithLocalState<GreenCertificateView> {
                     UIImageWriteToSavedPhotosAlbum(imageToSave, self,  #selector(self.imageSaved(_:didFinishSavingWithError:contextInfo:)), nil)
                 }
               }
-           
-        }
+          }
         }
         rootView.didTapAddToHomeCertificate = { [weak self] index in
             guard let self = self, let model = self.viewModel else { return }

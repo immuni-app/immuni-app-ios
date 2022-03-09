@@ -25,7 +25,6 @@ class CertificatesView: UIView, ViewControllerModellableView {
 
   private let backgroundGradientView = GradientView()
   private let title = UILabel()
-  private let noResultView = FaqNoResultView()
 
   let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
@@ -36,19 +35,28 @@ class CertificatesView: UIView, ViewControllerModellableView {
   var userDidScroll: CustomInteraction<CGFloat>?
   private let headerView = CertificatesHeaderView()
   var didTapDiscoverMore: Interaction?
+  var didTapGenerateGreenCertificate: Interaction?
+
+  private let containerDgcsNotPresent = UIView()
+  private let inactiveLabel = UILabel()
+  private let inactiveImage = UIImageView()
+  private var actionButton = ButtonWithInsets()
 
 
   // MARK: - Setup
 
   func setup() {
+      
     self.addSubview(self.backgroundGradientView)
-    self.addSubview(self.noResultView)
-    self.addSubview(self.collection)
-    self.addSubview(self.headerView)
     self.addSubview(self.title)
+     self.addSubview(self.collection)
+
       
     self.headerView.didTapDiscoverMore = { [weak self] in
       self?.didTapDiscoverMore?()
+    }
+    self.actionButton.on(.touchUpInside) { [weak self] _ in
+        self?.didTapGenerateGreenCertificate?()
     }
 
     self.collection.register(CertificateCell.self)
@@ -68,6 +76,11 @@ class CertificatesView: UIView, ViewControllerModellableView {
     Self.Style.header(self.headerView)
     Self.Style.collection(self.collection)
     Self.Style.title(self.title)
+    
+    Self.Style.inactiveLabel(inactiveLabel, text: L10n.HomeView.GreenCertificate.notPresentQrLabel)
+    Self.Style.imageContent(inactiveImage, image: Asset.Home.inactive.image)
+    Self.Style.container(containerDgcsNotPresent)
+    Self.Style.actionButton(actionButton, icon: Asset.Home.qr.image)
   }
 
   // MARK: - Update
@@ -76,36 +89,26 @@ class CertificatesView: UIView, ViewControllerModellableView {
     guard let model = self.model else {
       return
     }
-
+      
     if model.shouldReloadCollection(oldModel: oldModel) {
-      self.collection.reloadData()
-      self.noResultView.alpha = model.shouldShowNoResult.cgFloat
-    }
-
-//    if model.shouldUpdateHeader(oldModel: oldModel) {
-//      UIView.update(shouldAnimate: oldModel != nil) {
-//        self.headerView.alpha = model.isHeaderVisible.cgFloat
-//      }
-//    }
-
-//    if model.shouldUpdateSearchStatus(oldModel: oldModel) {
-//      self.searchBar.model = model.searchBarVM
-//
-//      let contentOffset = self.collection.contentOffset
-//      self.setNeedsLayout()
-//      UIView.update(shouldAnimate: oldModel != nil) {
-//        self.title.alpha = model.shouldShowTitle.cgFloat
-//        self.layoutIfNeeded()
-//        self.collection.setContentOffset(contentOffset, animated: false)
-//      }
-//    }
-
-//    if model.shouldUpdateLayout(oldModel: oldModel) {
-//      self.setNeedsLayout()
-//      UIView.update(shouldAnimate: oldModel != nil) {
-//        self.layoutIfNeeded()
-//      }
-//    }
+        if let greenCertificates = model.greenCertificates, greenCertificates.count > 0 {
+            self.addSubview(self.collection)
+            self.addSubview(self.headerView)
+            self.containerDgcsNotPresent.removeFromSuperview()
+            self.actionButton.removeFromSuperview()
+            self.inactiveLabel.removeFromSuperview()
+            self.inactiveImage.removeFromSuperview()
+            self.collection.reloadData()
+          }
+          else{
+              self.addSubview(self.containerDgcsNotPresent)
+              self.addSubview(self.actionButton)
+              self.addSubview(self.inactiveLabel)
+              self.addSubview(self.inactiveImage)
+              self.headerView.removeFromSuperview()
+              self.collection.removeFromSuperview()
+          }
+        }
   }
 
   // MARK: - Layout
@@ -119,32 +122,51 @@ class CertificatesView: UIView, ViewControllerModellableView {
       .top(self.safeAreaInsets.top + 20)
       .horizontally(30)
       .sizeToFit(.width)
-      
+    
     self.headerView.pin
       .horizontally()
       .marginTop(30)
       .sizeToFit(.width)
       .below(of: self.title)
-      
+          
     self.collection.pin
       .horizontally()
       .below(of: self.headerView)
       .bottom(self.safeAreaInsets.bottom)
-
-    self.noResultView.pin
-      .sizeToFit()
-      .below(of: self.title)
-      .bottom(self.safeAreaInsets.bottom)
-      .align(.center)
+        
+    self.containerDgcsNotPresent.pin
+      .below(of: title)
+      .marginTop(30)
+      .horizontally(25)
+      .height(UIDevice.getByScreen(normal: 400, short: 380))
+        
+    self.inactiveImage.pin
+      .below(of: title)
+      .marginTop(100)
       .hCenter()
+      .width(200)
+      .height(200)
+    
+    self.inactiveLabel.pin
+      .below(of: inactiveImage)
+      .marginTop(-40)
+      .horizontally(55)
+      .sizeToFit(.width)
+        
+    self.actionButton.pin
+      .horizontally(45)
+      .sizeToFit(.width)
+      .minHeight(25)
+      .below(of: containerDgcsNotPresent)
+      .marginTop(20)
 
     self.updateAfterLayout()
   }
 
   private func updateAfterLayout() {
     guard
-      let collectionViewLayout = self.collection.collectionViewLayout as? UICollectionViewFlowLayout,
-      collectionViewLayout.estimatedItemSize == .zero // avoid multiple adjust iteration
+      let collectionViewLayout = self.collection.collectionViewLayout as? UICollectionViewFlowLayout//,
+     // collectionViewLayout.estimatedItemSize == .zero // avoid multiple adjust iteration
     else {
       return
     }
@@ -158,6 +180,26 @@ class CertificatesView: UIView, ViewControllerModellableView {
 
 private extension CertificatesView {
   enum Style {
+
+  static func container(_ view: UIView) {
+    view.backgroundColor = Palette.white
+    view.layer.cornerRadius = SharedStyle.cardCornerRadius
+        view.addShadow(.cardLightBlue)
+    }
+  static func imageContent(_ imageView: UIImageView, image: UIImage) {
+        imageView.image = image
+        imageView.contentMode = .scaleAspectFit
+    }
+  static func inactiveLabel(_ label: UILabel, text: String) {
+    TempuraStyles.styleStandardLabel(
+        label,
+        content: text,
+        style: TextStyles.p.byAdding(
+            .color(Palette.grayNormal),
+            .alignment(.center)
+            )
+        )
+      }
     static func backgroundGradient(_ gradientView: GradientView) {
       gradientView.isUserInteractionEnabled = false
       gradientView.gradient = Palette.gradientBackgroundBlueOnBottom
@@ -192,6 +234,32 @@ private extension CertificatesView {
         numberOfLines: 1
       )
     }
+  static func actionButton(
+    _ button: ButtonWithInsets,
+    icon: UIImage? = nil,
+    tintColor: UIColor = Palette.white,
+    backgroundColor: UIColor = Palette.primary,
+    cornerRadius: CGFloat = 25,
+    shadow: UIView.Shadow = .cardPrimary
+    ) {
+        
+    let text = L10n.HomeView.GreenCertificate.generateButton
+    let textStyle = TextStyles.pSemibold.byAdding([
+          .color(tintColor),
+          .alignment(.center)
+        ])
+
+    button.setBackgroundColor(backgroundColor, for: .normal)
+    button.setAttributedTitle(text.styled(with: textStyle), for: .normal)
+    button.setImage(icon, for: .normal)
+    button.tintColor = tintColor
+    button.insets = UIDevice.getByScreen(normal: .init(deltaX: 25, deltaY: 5), narrow: .init(deltaX: 15, deltaY: 5))
+
+    button.layer.cornerRadius = cornerRadius
+    button.titleLabel?.numberOfLines = 2
+    button.addShadow(shadow)
+    button.imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 60)
+      }
   }
 }
 
@@ -217,10 +285,6 @@ extension CertificatesView: UICollectionViewDataSource, UICollectionViewDelegate
     }
     return cell
   }
-
-//  func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-//    self.searchBar.resignFirstResponder()
-//  }
 
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     self.userDidScroll?(scrollView.contentOffset.y)
