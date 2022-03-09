@@ -43,12 +43,13 @@ class GreenCertificateVC: ViewControllerWithLocalState<GreenCertificateView> {
                       let greenCertificates = self?.viewModel?.greenCertificates else { return }
                 self?.localState.selectedCertificate = nil
                 self?.dispatch(Logic.Home.DeleteGreenCertificate(id: id))
-                self?.viewModel?.greenCertificates = greenCertificates.filter { $0.id != greenCertificates[index].id }
                 if index > 0 {
                     self?.localState.selectedCertificate = nil
                     self?.localState.currentDgc = index-1
                     self?.viewModel?.addedToHome = true
                 }
+                self?.viewModel?.greenCertificates = greenCertificates.filter { $0.id != greenCertificates[index].id }
+
                 if self?.viewModel?.greenCertificates?.count == 0 {
                     self?.dispatch(Hide(Screen.greenCertificate, animated: true))
                 }

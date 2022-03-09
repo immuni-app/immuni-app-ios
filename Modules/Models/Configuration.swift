@@ -48,7 +48,7 @@ public struct Configuration: Codable {
     case supportPhoneClosingTime = "support_phone_closing_time"
     case eudccExpiration = "eudcc_expiration"
     case riskExposure = "risk_exposure"
-    case eudccValidity = "eudcc_validity"
+    case euDccDeadlines = "eu_dcc_deadlines"
   }
 
   /// Countries of interest map
@@ -116,8 +116,8 @@ public struct Configuration: Codable {
   public let eudccExpiration: [String: [String: String]]
   /// riskExposure - Dictionary with riskExposure
   public let riskExposure: [String: String]
-  /// eudccValidity - Dictionary with eudccValidity
-  public let eudccValidity: [String: Int]
+  /// eudccValidity - Dictionary with euDccDeadlines
+  public let euDccDeadlines: [String: Int]
 
   /// Probability with which the app sends analytics data in case of match. Value in the [0, 1] range.
   public let operationalInfoWithExposureSamplingRate: Double
@@ -235,7 +235,7 @@ public struct Configuration: Codable {
     faqURL: [String: URL] = .defaultFAQURL,
     eudccExpiration: [String: [String: String]] = .defaultEudcc,
     riskExposure: [String: String] = .defaultRiskExposure,
-    eudccValidity: [String: Int] = .defaultEudccValidity,
+    euDccDeadlines: [String: Int] = .defaultEuDccDeadlines,
     operationalInfoWithExposureSamplingRate: Double = 1,
     operationalInfoWithoutExposureSamplingRate: Double = 0.6,
     dummyAnalyticsWaitingTime: Double = 2_592_000,
@@ -268,7 +268,7 @@ public struct Configuration: Codable {
     self.faqURL = faqURL
     self.eudccExpiration = eudccExpiration
     self.riskExposure = riskExposure
-    self.eudccValidity = eudccValidity
+    self.euDccDeadlines = euDccDeadlines
     self.operationalInfoWithExposureSamplingRate = operationalInfoWithExposureSamplingRate
     self.operationalInfoWithoutExposureSamplingRate = operationalInfoWithoutExposureSamplingRate
     self.dummyAnalyticsMeanStochasticDelay = dummyAnalyticsWaitingTime
@@ -534,7 +534,7 @@ public extension Dictionary where Key == String, Value == String {
 }
 public extension Dictionary where Key == String, Value == Int {
   
-  static var defaultEudccValidity: [String: Int] {
+  static var defaultEuDccDeadlines: [String: Int] {
     let values = [
         "cbis": 540,
         "molecular_test": 72,
