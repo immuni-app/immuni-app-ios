@@ -37,12 +37,12 @@ struct CertificatesVM: ViewModelWithLocalState {
 
     return false
   }
-    //TODO
+
   func cellModel(for indexPath: IndexPath) -> ViewModel? {
     guard let greenCertificates = self.greenCertificates, let greenCertificate = greenCertificates[safe: indexPath.item] else {
       return nil
     }
-      return CertificateCellVM(greenCertificate: greenCertificate, addedToHome: greenCertificate.id == self.greenCertificateAddeToHome?.id, euDccDeadlines: self.euDccDeadlines)
+    return CertificateCellVM(greenCertificate: greenCertificate, addedToHome: greenCertificate.id == self.greenCertificateAddeToHome?.id, euDccDeadlines: self.euDccDeadlines)
   }
 
   var shouldShowNoResult: Bool { self.greenCertificates?.isEmpty ?? true }

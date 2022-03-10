@@ -21,14 +21,12 @@ struct CertificateCellVM: ViewModel {
     
   let greenCertificate: GreenCertificate
   let addedToHome: Bool
-  let eudccValidity: [String: Int]
+  let euDccDeadlines: [String: Int]
 
   var name: String {
       return self.greenCertificate.name
   }
-  var date: String {
-      return self.greenCertificate.birth
-  }
+
   var vaccineDose: String {
     if let detailVaccineCertificate = self.greenCertificate.detailVaccineCertificate {
         return "\(detailVaccineCertificate.doseNumber)/ \(detailVaccineCertificate.totalSeriesOfDoses)"
@@ -119,7 +117,8 @@ class CertificateCell: UICollectionViewCell, ModellableView, ReusableView {
     Self.Style.overlayButton(self.overlayButton)
     Self.Style.pinIcon(self.pinIcon)
   }
-  func checkValidity(eudccValidity: [String: Int], certificate: GreenCertificate) {
+    
+  func checkValidity(euDccDeadlines: [String: Int], certificate: GreenCertificate) {
     switch certificate.certificateType {
       case .vaccine:
        
@@ -137,18 +136,17 @@ class CertificateCell: UICollectionViewCell, ModellableView, ReusableView {
        
         if let detailVaccineCertificate = certificate.detailVaccineCertificate,
            detailVaccineCertificate.doseNumber < detailVaccineCertificate.totalSeriesOfDoses {
-            validityDays = eudccValidity["vaccine_first_dose"]
+            validityDays = euDccDeadlines["vaccine_first_dose"]
         }
         else if let detailVaccineCertificate = certificate.detailVaccineCertificate,
            detailVaccineCertificate.doseNumber == detailVaccineCertificate.totalSeriesOfDoses,
            detailVaccineCertificate.totalSeriesOfDoses < "3"
         {
-            validityDays = eudccValidity["vaccine_fully_completed"]
+            validityDays = euDccDeadlines["vaccine_fully_completed"]
         }
         else {
-            validityDays = eudccValidity["vaccine_booster"]
+            validityDays = euDccDeadlines["vaccine_booster"]
         }
-        print("checkValidity vaccine nome: \(certificate.name), date:\( certificate.detailVaccineCertificate?.dateLastAdministration), validityDays: \(validityDays)")
 
         if let detailVaccineCertificate = certificate.detailVaccineCertificate,
            let validityDays = validityDays,
@@ -170,6 +168,7 @@ class CertificateCell: UICollectionViewCell, ModellableView, ReusableView {
             stateView.layer.borderColor = Palette.red.cgColor
             self.setRoundness(ToCorners: [.topLeft, .topRight, .bottomRight, .bottomLeft], for: stateView, withRadius: SharedStyle.cardCornerRadius)
         }
+        
       case .test:
         
         let dateFormatter = DateFormatter()
@@ -182,19 +181,14 @@ class CertificateCell: UICollectionViewCell, ModellableView, ReusableView {
         dateFormatterView.calendar = Calendar.current
         dateFormatterView.timeZone = TimeZone.current
 
-        let today = Date()
-        
-        let testType = TestType(rawValue: certificate.detailTestCertificate?.typeOfTest ?? "nil")//TODO for debug
-        let validityHours = eudccValidity[testType?.getKeyValidity() ?? "nil"]//TODO for debug
-            
-        print("checkValidity test nome: \(certificate.name), type: \(TestType(rawValue: certificate.detailTestCertificate?.typeOfTest ?? "")), date:\( certificate.detailTestCertificate?.dateTimeOfSampleCollection), validityHours: \(validityHours)")
+        let today = Date().localDate()
 
         if let detailTestCertificate = certificate.detailTestCertificate,
            let testType = TestType(rawValue: detailTestCertificate.typeOfTest),
-           let validityHours = eudccValidity[testType.getKeyValidity()],
+           let validityHours = euDccDeadlines[testType.getKeyValidity()],
            let date = dateFormatter.date(from: detailTestCertificate.dateTimeOfSampleCollection),
            let afterAddTime = Calendar.current.date(byAdding: .hour, value: validityHours, to: date),
-            today > afterAddTime {
+            today < afterAddTime {
             
             Self.Style.expiration(self.expiration, validity: testType.getValidUntilValue())
                 stateView.layer.backgroundColor = Palette.primary.cgColor
@@ -222,16 +216,14 @@ class CertificateCell: UICollectionViewCell, ModellableView, ReusableView {
         dateFormatterView.timeZone = TimeZone.current
 
         let today = Date()
-        var validityDays = eudccValidity["healing_certificate"]
+        var validityDays = euDccDeadlines["healing_certificate"]
         if let dgcType = certificate.dgcType, dgcType == "cbis" {
-            validityDays = eudccValidity["cbis"]
+            validityDays = euDccDeadlines["cbis"]
         }
-        print("checkValidity recovery nome: \(certificate.name), date:\( certificate.detailRecoveryCertificate?.dateFirstTestResult), validityDays: \(validityDays)")
-
 
         if let detailRecoveryCertificate = certificate.detailRecoveryCertificate,
            let validityDays = validityDays,
-           let date = dateFormatter.date(from: detailRecoveryCertificate.dateFirstTestResult),
+           let date = dateFormatter.date(from: detailRecoveryCertificate.certificateValidFrom),
            let afterAddTime = Calendar.current.date(byAdding: .day, value: validityDays, to: date),
             today < afterAddTime {
             let dateToShow = dateFormatterView.string(from: afterAddTime)
@@ -248,6 +240,7 @@ class CertificateCell: UICollectionViewCell, ModellableView, ReusableView {
             stateView.layer.borderColor = Palette.red.cgColor
             self.setRoundness(ToCorners: [.topLeft, .topRight, .bottomRight, .bottomLeft], for: stateView, withRadius: SharedStyle.cardCornerRadius)
         }
+        
       case .exemption:
         
         let dateFormatter = DateFormatter()
@@ -261,27 +254,20 @@ class CertificateCell: UICollectionViewCell, ModellableView, ReusableView {
         dateFormatterView.timeZone = TimeZone.current
 
         let today = Date()
-        let validityDays = eudccValidity["exemption"]
         
-        print("checkValidity exemption nome: \(certificate.name), certificateValidUntil:\( certificate.detailExemptionCertificate?.certificateValidUntil), certificateValidFrom:\( certificate.detailExemptionCertificate?.certificateValidFrom), validityDays: \(validityDays)")
-
-
-        if let detailExemptionCertificate = certificate.detailExemptionCertificate,
-           let validUntil = dateFormatter.date(from: detailExemptionCertificate.certificateValidUntil),
-            today < validUntil {
-            let dateToShow = dateFormatterView.string(from: validUntil)
-            Self.Style.expiration(self.expiration, validity: L10n.Certificate.CertificatesView.Cell.Valid.label(dateToShow))
-                stateView.layer.backgroundColor = Palette.primary.cgColor
-                stateView.layer.borderWidth = 1.0
-                stateView.layer.borderColor = Palette.primary.cgColor
-                self.setRoundness(ToCorners: [.topLeft, .topRight, .bottomRight, .bottomLeft], for: stateView, withRadius: SharedStyle.cardCornerRadius)
+        var maxDateValidity:Date? = nil
+        if let certificateValidUntil = certificate.detailExemptionCertificate?.certificateValidUntil, let certificateValidUntilDate = dateFormatter.date(from: certificateValidUntil) {
+            maxDateValidity = certificateValidUntilDate
         }
-        else if let detailExemptionCertificate = certificate.detailExemptionCertificate,
-            let validityDays = validityDays,
-            let date = dateFormatter.date(from: detailExemptionCertificate.certificateValidFrom),
-            let afterAddTime = Calendar.current.date(byAdding: .day, value: validityDays, to: date),
-            today < afterAddTime {
-            let dateToShow = dateFormatterView.string(from: afterAddTime)
+        else if let validityDays = euDccDeadlines["exemption"],
+               let certificateValidFrom = certificate.detailExemptionCertificate?.certificateValidFrom,
+               let date = dateFormatter.date(from: certificateValidFrom),
+               let afterAddTime = Calendar.current.date(byAdding: .day, value: validityDays, to: date) {
+                maxDateValidity = afterAddTime
+        }
+
+        if let maxDateValidity = maxDateValidity, today < maxDateValidity {
+            let dateToShow = dateFormatterView.string(from: maxDateValidity)
             Self.Style.expiration(self.expiration, validity: L10n.Certificate.CertificatesView.Cell.Valid.label(dateToShow))
             stateView.layer.backgroundColor = Palette.primary.cgColor
             stateView.layer.borderWidth = 1.0
@@ -295,22 +281,10 @@ class CertificateCell: UICollectionViewCell, ModellableView, ReusableView {
             stateView.layer.borderWidth = 1.0
             stateView.layer.borderColor = Palette.red.cgColor
         }
-    }
+     }
   }
-//  func getValidUntilValue() -> String {
-//    let lan = Locale.current.languageCode ?? "en"
-//    let validUntilValueMolecularTest:String? = ConfigurationState.state[lan]?["molecular_test"]
-//    let validUntilValueQuickTest:String? = ConfigurationState.state[lan]?["rapid_test"]
-//
-//    switch self {
-//      case .molecularTest:
-//          return validUntilValueMolecularTest?.description ?? L10n.HomeView.GreenCertificate.Detail.Label.Test.molecularTest
-//      case .quickTest:
-//        return validUntilValueQuickTest?.description ?? L10n.HomeView.GreenCertificate.Detail.Label.Test.rapidTest
-//    }
-//  }
-  func setRoundness(ToCorners corners: UIRectCorner, for view: UIView, withRadius radius: CGFloat) {
 
+  func setRoundness(ToCorners corners: UIRectCorner, for view: UIView, withRadius radius: CGFloat) {
     let path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
     let mask = CAShapeLayer()
     mask.path = path.cgPath
@@ -326,7 +300,7 @@ class CertificateCell: UICollectionViewCell, ModellableView, ReusableView {
     else {
         self.pinIcon.removeFromSuperview()
     }
-    self.checkValidity(eudccValidity: model.eudccValidity, certificate: model.greenCertificate)
+    self.checkValidity(euDccDeadlines: model.euDccDeadlines, certificate: model.greenCertificate)
     Self.Style.title(self.text, name: model.name, type: model.certificateTypeLabel)
 
     self.overlayButton.accessibilityLabel = model.greenCertificate.name
@@ -358,32 +332,21 @@ class CertificateCell: UICollectionViewCell, ModellableView, ReusableView {
         .top(Self.textTop)
         .marginRight(Self.titleToChevron)
         .sizeToFit(.width)
-
       
     self.stateView.pin
-        //.hCenter()
       .below(of: self.text)
       .marginTop(Self.titleToChevron)
-//      .width(5)
-//      .height(20)
       .left(Self.cellInset)
-      //.vCenter()
-      //.bottom(20)
       
     self.expiration.pin
-//      .left()
       .right()
       .marginTop(Self.titleToChevron)
       .below(of: self.text)
       .after(of: self.stateView)
-      //.bottom(20)
       .marginLeft(Self.pinIconTop)
       .marginRight(Self.expirationToChevron)
       .sizeToFit(.width)
-      //.vCenter()
       
-
-
     self.overlayButton.pin
       .horizontally(10)
       .vertically(10)
@@ -392,12 +355,8 @@ class CertificateCell: UICollectionViewCell, ModellableView, ReusableView {
   override func sizeThatFits(_ size: CGSize) -> CGSize {
     let labelWidth = size.width - 2 * Self.containerInset - Self.cellInset - Self.chevronSize - Self.chevronInset
     let textSize = self.text.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
-      //if self.model?.hasSubtitle ?? false {
-        let expirationSize = self.expiration.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
-        return CGSize(width: size.width, height: textSize.height + expirationSize.height + 70)
-
-   // }
-   // return CGSize(width: size.width, height: textSize.height + 70)
+    let expirationSize = self.expiration.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
+    return CGSize(width: size.width, height: textSize.height + expirationSize.height + 70)
   }
 }
 
@@ -467,4 +426,13 @@ private extension CertificateCell {
         imageView.image = Asset.Home.pinSelected.image
     }
   }
+}
+extension Date {
+    func localDate() -> Date {
+        let nowUTC = Date()
+        let timeZoneOffset = Double(TimeZone.current.secondsFromGMT(for: nowUTC))
+        guard let localDate = Calendar.current.date(byAdding: .second, value: Int(timeZoneOffset), to: nowUTC) else {return Date()}
+
+        return localDate
+    }
 }

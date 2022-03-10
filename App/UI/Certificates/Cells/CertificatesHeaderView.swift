@@ -71,7 +71,7 @@ class CertificatesHeaderView: UIView, ModellableView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        super.backgroundColor = .none//TODO
+        super.backgroundColor = .none
 
         discoverMore.pin
             .bottom()

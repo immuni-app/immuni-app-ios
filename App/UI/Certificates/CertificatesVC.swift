@@ -16,6 +16,7 @@ import Foundation
 import Tempura
 
 class CertificatesVC: ViewControllerWithLocalState<CertificatesView> {
+    
   override func setupInteraction() {
     self.rootView.userDidScroll = { [weak self] scrollOffset in
       if scrollOffset > 0 {
@@ -23,14 +24,6 @@ class CertificatesVC: ViewControllerWithLocalState<CertificatesView> {
       } else if scrollOffset < -20 {
         self?.localState.isHeaderVisible = false
       }
-    }
-
-    self.rootView.didChangeSearchStatus = { [weak self] isSearching in
-      self?.localState.isSearching = isSearching
-    }
-
-    self.rootView.didChangeSearchedValue = { [weak self] value in
-      self?.localState.searchFilter = value
     }
 
     self.rootView.didTapBack = { [weak self] in
@@ -52,11 +45,6 @@ class CertificatesVC: ViewControllerWithLocalState<CertificatesView> {
 }
 
 struct CertificatesLS: LocalState {
-
   /// Whether the header is visible in the view. The header is shown only when the content is scrolled.
   var isHeaderVisible: Bool = false
-  /// Whether the user is actively searching through the search bar.
-  var isSearching: Bool = false
-  /// The currently searching string.
-  var searchFilter: String = ""
 }

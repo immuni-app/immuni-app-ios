@@ -183,7 +183,7 @@ extension Logic.Home {
     let favoriteMode: Bool
       
     func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
-        var currentDgc: Int = 0//TODO togliere l opzionale su dertificate, era per l altro punto di accesso che ora non ce piu
+        var currentDgc: Int = 0
         if let certificate = self.certificate, let greenCertificates = context.getState().user.greenCertificates {
             var greenCertificatesReversed = greenCertificates.reversed()
             let index = greenCertificatesReversed.firstIndex(where: {$0.id == certificate.id})

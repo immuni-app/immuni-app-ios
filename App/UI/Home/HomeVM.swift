@@ -60,7 +60,7 @@ struct HomeVM: ViewModelWithState {
     guard let oldModel = oldModel else {
       return true
     }
-    return self.cellTypes != oldModel.cellTypes || self.favoriteGreenCertificate?.id != oldModel.favoriteGreenCertificate?.name
+    return self.cellTypes != oldModel.cellTypes || self.favoriteGreenCertificate?.id != oldModel.favoriteGreenCertificate?.id
   }
 
   func cellType(for indexPath: IndexPath) -> CellType? {

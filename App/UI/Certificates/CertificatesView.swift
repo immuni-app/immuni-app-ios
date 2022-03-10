@@ -28,8 +28,6 @@ class CertificatesView: UIView, ViewControllerModellableView {
 
   let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
-  var didChangeSearchStatus: CustomInteraction<Bool>?
-  var didChangeSearchedValue: CustomInteraction<String>?
   var didTapBack: Interaction?
   var didTapCell: CustomInteraction<GreenCertificate>?
   var userDidScroll: CustomInteraction<CGFloat>?
@@ -49,8 +47,7 @@ class CertificatesView: UIView, ViewControllerModellableView {
       
     self.addSubview(self.backgroundGradientView)
     self.addSubview(self.title)
-     self.addSubview(self.collection)
-
+    self.addSubview(self.collection)
       
     self.headerView.didTapDiscoverMore = { [weak self] in
       self?.didTapDiscoverMore?()
@@ -80,7 +77,7 @@ class CertificatesView: UIView, ViewControllerModellableView {
     Self.Style.inactiveLabel(inactiveLabel, text: L10n.HomeView.GreenCertificate.notPresentQrLabel)
     Self.Style.imageContent(inactiveImage, image: Asset.Home.inactive.image)
     Self.Style.container(containerDgcsNotPresent)
-    Self.Style.actionButton(actionButton, icon: Asset.Home.qr.image)
+    Self.Style.actionButton(actionButton, icon: Asset.Home.qrNew.image)
   }
 
   // MARK: - Update
