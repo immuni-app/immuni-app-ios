@@ -55,8 +55,7 @@
 "home_view.info_header.title" = "Informations";
 "home_view.info_header.do_today" = "Que voulez-vous faire aujourd'hui?";
 "home_view.info_header.favorite_certificate" = "Votre EU Digital Covid Certificate";
-
-"home_view.info.green_certificate.title" = "Se remettre EU Digital\nCovid Certificate";
+"home_view.info.green_certificate.title" = "Récupérer le EU Digital\nCovid Certificate";
 "home_view.info.update_countries.title" = "Si vous vous rendez dans un autre pays européen";
 "home_view.info.load_data.title" = "Segnala positività in autonomia";
 "home_view.service.active.discover_more" = "En savoir plus";
@@ -90,7 +89,6 @@
 "home_view.green_certificate.error.no_dgc_found" = "Aucun EU Digital Covid Certificate trouvé. Vérifiez que les données saisies sont correctes";
 "home_view.green_certificate.remove_from_home.label" = "Retirer du home";
 "home_view.green_certificate.add_to_home.label" = "Ajouter au home";
-
 "home_view.green_certificate.detail.title" = "EU Digital Covid\nCertificate";
 "home_view.green_certificate.detail.of" = "sur";
 "home_view.green_certificate.detail.paragraph" = "Ce certificat n'est pas un document de voyage. Les preuves scientifiques sur la vaccination, les tests et la récupération COVID-19 continuent d'évoluer, y compris en tenant compte des nouvelles variantes du virus. Avant de voyager, veuillez vérifier les mesures de santé publique appliquées dans le lieu de destination et les restrictions y afférentes également en consultant le site Internet :";
@@ -178,7 +176,6 @@
 "home_view.green_certificate.detail.testType.molecular" = "Test molecolare";
 "home_view.green_certificate.detail.testResult.positive" = "Positivo";
 "home_view.green_certificate.detail.testResult.negative" = "Negativo";
-
 "home_view.green_certificate.alert.ok.label" = "Ok";
 "home_view.green_certificate.alert.added_to_home.title" = "Ajouté à la maison";
 "home_view.green_certificate.alert.added_to_home.message" = "Désormais, vous pouvez consulter votre EU Digital Covid Certificate sur la page d'accueil";
@@ -188,7 +185,6 @@
 "home_view.green_certificate.dialog.replace_added_to_home.message" = "Il existe déjà un EU Digital Covid Certificate dans le logement, souhaitez-vous le remplacer par celui-ci?";
 "home_view.green_certificate.dialog.confirm.label" = "Oui, remplacer";
 "home_view.green_certificate.dialog.cancel.label" = "Non";
-
 "home_view.generate_green_certificate.title" = "Récupérer le EU Digital Covid Certificate";
 "home_view.generate_green_certificate.header" = "Cette fonction permet de télécharger la certification verte COVID-19 (EU Digital Covid Certificate) depuis la plateforme nationale-DGC du Ministère de la Santé en saisissant les données requises.";
 "home_view.generate_green_certificate.discover_more_title" = "Comment acquérir le EU Digital Covid Certificate";
@@ -227,7 +223,6 @@
 "home_view.generate_green_certificate.form_error.health_card_required" = "- Le numéro de carte Santé saisi n'est pas formellement valide. Assurez-vous d'avoir saisi les 8 derniers chiffres de votre carte Santé associés à un prélèvement positif\n";
 "home_view.generate_green_certificate.form_error.health_card_date_required" = "- Entrez la date d'expiration de la carte de santé\n";
 "home_view.generate_green_certificate.loading" = "Recuperación del EU Digital\nCovid Certificate en curso..";
-
 "certificate.certificates_view.title" = "Vos EU Digital Covid Certificate";
 "certificate.certificates_view.cell.vaccine.label" = "Dose de vaccination %@";
 "certificate.certificates_view.cell.exemption.label" = "Exemption";
@@ -239,7 +234,6 @@
 "certificate.certificates_view.cell.valid.label" = "Valable jusqu'en %@ en Italie";
 "certificate.certificates_view.cell.valid_test.label" = "Valable %@h à partir du moment de la prise en charge";
 "certificate.certificates_view.header.message" = "Ajoutez votre EU Digital Covid Certificate à votre domicile pour l'avoir à portée de main tous les jours.";
-
 "how_it_works_tile_1" = "Immuni associe chaque téléphone à un code aléatoire";
 "how_it_works_tile_2" = "Les téléphones qui entrent en contact échangent leurs codes aléatoires respectifs";
 "how_it_works_tile_3" = "La personne testée positive est libre de partager ou non ses codes aléatoires";
@@ -351,8 +345,7 @@
 "permission_tutorial.how_to_upload_positive.title" = "Comment signaler un résultat positif";
 "permission_tutorial.How_to_add_the_certificate_to_home.title" = "Comment ajouter votre EU Digital Covid Certificate à votre page d'accueil";
 "permission_tutorial.How_to_add_the_certificate_to_home.first" = "Si vous avez déjà récupéré vos EU Digital Covid Certificate, entrez dans la section Certificats, choisissez celui que vous utiliserez tous les jours et ouvrez-le, en bas, sous les détails, vous trouverez l'élément \"Ajouter à l'accueil\". Vous pouvez toujours le supprimer après l'avoir ajouté et en saisir un autre de votre choix.";
-"permission_tutorial.How_to_add_the_certificate_to_home.second" = "A partir de maintenant, le certificat sera toujours sur la page d'accueil lorsque vous ouvrirez l'application Immuni.";
-
+"permission_tutorial.How_to_add_the_certificate_to_home.second" = "À partir de maintenant, le certificat sera toujours sur la page d'accueil lorsque vous ouvrirez l'application Immuni.";
 "permission_tutorial.how_to_upload_positive_autonomous.title" = "Comment signaler la positivité";
 "permission_tutorial.notifications.action" = "Accédez à Réglages";
 "permission_tutorial.notifications.first" = "<b>1. Accédez à Réglages</b> en utilisant le bouton ci-dessous";

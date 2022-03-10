@@ -47,7 +47,10 @@ class CertificatesView: UIView, ViewControllerModellableView {
       
     self.addSubview(self.backgroundGradientView)
     self.addSubview(self.title)
-    self.addSubview(self.collection)
+    self.addSubview(self.containerDgcsNotPresent)
+    self.addSubview(self.actionButton)
+    self.addSubview(self.inactiveLabel)
+    self.addSubview(self.inactiveImage)
       
     self.headerView.didTapDiscoverMore = { [weak self] in
       self?.didTapDiscoverMore?()

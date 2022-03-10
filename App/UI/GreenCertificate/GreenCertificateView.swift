@@ -583,55 +583,42 @@ class GreenCertificateView: UIView, ViewControllerModellableView {
       let fontCategory = UIApplication.shared.preferredContentSizeCategory
       switch fontCategory {
         case UIContentSizeCategory.accessibilityExtraExtraExtraLarge:
-          print("getSize() 1 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
             return UIDevice.getByScreen(normal: 1010, narrow: 1010)
 
         case UIContentSizeCategory.accessibilityExtraExtraLarge:
-          print("getSize() 2 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
             return UIDevice.getByScreen(normal: 1010, narrow: 1010)
 
         case UIContentSizeCategory.accessibilityExtraLarge:
-          print("getSize() 3 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
             return UIDevice.getByScreen(normal: 1010, narrow: 1010)
 
         case UIContentSizeCategory.accessibilityLarge:
-          print("getSize() 4 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
             return UIDevice.getByScreen(normal: 1010, narrow: 1010)
 
         case UIContentSizeCategory.accessibilityMedium:
-          print("getSize() 5 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
             return UIDevice.getByScreen(normal: 1010, narrow: 1010)
 
         case UIContentSizeCategory.extraExtraExtraLarge:
-          print("getSize() 6 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
             return UIDevice.getByScreen(normal: 1010, narrow: 1010)
                     
         case UIContentSizeCategory.extraExtraLarge:
-          print("getSize() 7 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
             return UIDevice.getByScreen(normal: 960, narrow: 940)
 
         case UIContentSizeCategory.extraLarge:
-          print("getSize() 8 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
             return UIDevice.getByScreen(normal: 950, narrow: 880)
 
         case UIContentSizeCategory.large:
-          print("getSize() 9 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
             return UIDevice.getByScreen(normal: 930, narrow: 840)
           
         case UIContentSizeCategory.medium:
-          print("getSize() 11 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
             return UIDevice.getByScreen(normal: 930, narrow: 830)
 
         case UIContentSizeCategory.small:
-          print("getSize() 22 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
-            return UIDevice.getByScreen(normal: 930, narrow: 830)
+            return UIDevice.getByScreen(normal: 935, narrow: 835)
 
         case UIContentSizeCategory.extraSmall:
-          print("getSize() 33 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
             return UIDevice.getByScreen(normal: 930, narrow: 830)
 
         case UIContentSizeCategory.unspecified:
-          print("getSize() 44 \(UIDevice.getByScreen(normal: 1, narrow: 2))")
             return UIDevice.getByScreen(normal: 950, narrow: 950)
 
         default:

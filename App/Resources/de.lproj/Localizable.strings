@@ -56,8 +56,7 @@
 "home_view.info_header.title" = "Informationen";
 "home_view.info_header.do_today" = "Was willst Du heute machen?";
 "home_view.info_header.favorite_certificate" = "Ihr EU Digital Covid Certificate";
-
-"home_view.info.green_certificate.title" = "Wiederherstellung EU Digital\nCovid Certificate";
+"home_view.info.green_certificate.title" = "Abrufen des EU Digital\nCovid Certificate";
 "home_view.info.update_countries.title" = "Wenn Sie in ein anderes europäisches Land reisen";
 "home_view.info.load_data.title" = "Segnala positività in autonomia";
 "home_view.service.active.discover_more" = "Mehr erfahren";
@@ -178,7 +177,6 @@
 "home_view.green_certificate.detail.testType.molecular" = "Test molecolare";
 "home_view.green_certificate.detail.testResult.positive" = "Positivo";
 "home_view.green_certificate.detail.testResult.negative" = "Negativo";
-
 "home_view.green_certificate.alert.ok.label" = "Ok";
 "home_view.green_certificate.alert.added_to_home.title" = "Zu Hause hinzugefügt";
 "home_view.green_certificate.alert.added_to_home.message" = "Ab sofort können Sie Ihr EU Digital Covid Certificate auf der Startseite einsehen";
@@ -188,7 +186,6 @@
 "home_view.green_certificate.dialog.replace_added_to_home.message" = "Es gibt bereits ein EU Digital Covid Certificate im Haus, möchten Sie es durch dieses ersetzen?";
 "home_view.green_certificate.dialog.confirm.label" = "Ja, ersetzen";
 "home_view.green_certificate.dialog.cancel.label" = "Nein";
-
 "home_view.generate_green_certificate.title" = "Abrufen des EU Digital Covid Certificate";
 "home_view.generate_green_certificate.header" = "Mit dieser Funktion können Sie die grüne COVID-19-Zertifizierung (EU Digital Covid Certificate) von der nationalen Plattform-DGC des Gesundheitsministeriums herunterladen, indem Sie die erforderlichen Daten eingeben.";
 "home_view.generate_green_certificate.discover_more_title" = "So erwerben Sie das EU Digital Covid Certificate";
@@ -227,7 +224,6 @@
 "home_view.generate_green_certificate.form_error.health_card_required" = "- Die eingegebene Gesundheitskartennummer ist formal nicht gültig. Stellen Sie sicher, dass Sie die letzten 8 Ziffern Ihrer Gesundheitskarte eingegeben haben, die einem positiven Tupfer zugeordnet sind\n";
 "home_view.generate_green_certificate.form_error.health_card_date_required" = "- Geben Sie das Ablaufdatum der Gesundheitskarte ein\n";
 "home_view.generate_green_certificate.loading" = "Die Wiederherstellung des EU\nDigital Covid Certificate läuft..";
-
 "certificate.certificates_view.title" = "Ihre EU Digital Covid Certificate";
 "certificate.certificates_view.cell.vaccine.label" = "Impfung %@";
 "certificate.certificates_view.cell.exemption.label" = "Befreiung";
@@ -239,7 +235,6 @@
 "certificate.certificates_view.cell.valid.label" = "Gültig bis %@ in Italien";
 "certificate.certificates_view.cell.valid_test.label" = "Gültig %@ Stunden ab Abholung";
 "certificate.certificates_view.header.message" = "Fügen Sie Ihr EU Digital Covid Certificate zu Hause hinzu, um es jeden Tag zur Hand zu haben.";
-
 "how_it_works_tile_1" = "Immuni ordnet jedem Handy einen Zufallscode zu";
 "how_it_works_tile_2" = "Wenn Handys aufeinander treffen, tauschen sie ihre Zufallscodes aus";
 "how_it_works_tile_3" = "Positiv getestete Nutzer entscheiden, ob sie ihre Zufallscodes freigeben möchten";
@@ -350,9 +345,8 @@
 "permission_tutorial.how_to_upload_positive_autonomous.fourth" = "Die Gesundheitskartennummer ist ein 20-stelliger Code in der letzten Zeile auf der Rückseite der Gesundheitskarte.\nDenken Sie daran, dass es wichtig ist, das genaue Datum des Auftretens der Symptome anzugeben, um eine genaue Kontaktverfolgung einzuleiten.";
 "permission_tutorial.how_to_upload_positive.title" = "So melden Sie das positive Ergebnis";
 "permission_tutorial.How_to_add_the_certificate_to_home.title" = "So fügen Sie Ihrer Homepage Ihr EU Digital Covid Certificate hinzu";
-"permission_tutorial.How_to_add_the_certificate_to_home.first" = "Wenn Sie Ihre EU Digital Covid Certificate bereits wiederhergestellt haben, gehen Sie in den Abschnitt Zertifikate, wählen Sie dasjenige aus, das Sie jeden Tag verwenden werden, und öffnen Sie es unten unter den Details finden Sie den Punkt „Zur Startseite hinzufügen“. Sie können es jederzeit entfernen, nachdem Sie es hinzugefügt haben, und ein anderes Ihrer Wahl eingeben.";
-"permission_tutorial.How_to_add_the_certificate_to_home.second" = "Von nun an ist das Zertifikat immer auf der Startseite, wenn Sie die Immuni-App öffnen.";
-
+"permission_tutorial.How_to_add_the_certificate_to_home.first" = "Wenn Sie Ihre EU Digital Covid Certificate bereits wiederhergestellt haben, gehen Sie in den Abschnitt Zertifikate, wählen Sie dasjenige aus, das Sie jeden Tag verwenden werden, und öffnen Sie es unten unter den Details finden Sie den Punkt „Zur Startseite hinzufügen“. Sie können es jederzeit entfernen, nachdem Sie es hinzugefügt haben, und ein anderes Ihrer Wahl einfügen.";
+"permission_tutorial.How_to_add_the_certificate_to_home.second" = "Ab diesem Moment befindet sich das Zertifikat immer auf der Startseite, wenn Sie die Immuni-App öffnen.";
 "permission_tutorial.how_to_upload_positive_autonomous.title" = "Wie man das Positive Testergebnis anmeldet";
 "permission_tutorial.notifications.action" = "Einstellungen öffnen";
 "permission_tutorial.notifications.first" = "<b>1. Öffnen Sie die Einstellungen</b> über die Schaltfläche unten";
