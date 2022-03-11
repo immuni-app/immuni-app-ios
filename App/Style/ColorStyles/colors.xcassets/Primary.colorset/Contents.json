@@ -1,1 +1,20 @@
-{"info":{"version":1,"author":"xcode"},"colors":[{"idiom":"universal","color":{"color-space":"display-p3","components":{"red":"0.34","green":"0.32","blue":"1.00","alpha":"1.00"}}}]}
+{
+  "colors" : [
+    {
+      "color" : {
+        "color-space" : "display-p3",
+        "components" : {
+          "alpha" : "1.000",
+          "blue" : "0xFF",
+          "green" : "0x51",
+          "red" : "0x56"
+        }
+      },
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -203,7 +203,7 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
             
             Self.Style.value(certificateValidUntil, text: detailRecoveryCertificate.certificateValidUntil.isEmpty ? "---" : detailRecoveryCertificate.certificateValidUntil)
 
-            Self.Style.value(healingCertificate, text: self.gedValidUntilValue(dgcType: model.greenCertificate.dgcType))
+            Self.Style.value(healingCertificate, text: self.getValidUntilValue(dgcType: model.greenCertificate.dgcType))
 
         }
         
@@ -212,7 +212,7 @@ class GreenCertificateRecoveryDetailView: UIView, ViewControllerModellableView {
 
 
     }
-    func gedValidUntilValue(dgcType: String?) -> String {
+    func getValidUntilValue(dgcType: String?) -> String {
       let lan = Locale.current.languageCode ?? "en"
     
       switch dgcType {

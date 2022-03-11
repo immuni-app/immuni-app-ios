@@ -27,6 +27,7 @@ class HomeView: UIView, ViewControllerModellableView {
   var didTapActivateService: Interaction?
   var didTapInfo: CustomInteraction<HomeVM.InfoKind>?
   var didTapDoToday: CustomInteraction<HomeVM.DoTodayKind>?
+  var didTapCertificate: CustomInteraction<GreenCertificate>?
   var didTapHeaderCardInfo: Interaction?
   var didTapDeactivateService: Interaction?
   var didTapActiveServiceDiscoverMore: Interaction?
@@ -40,6 +41,8 @@ class HomeView: UIView, ViewControllerModellableView {
     self.collection.register(HomeServiceActiveCell.self)
     self.collection.register(HomeInfoHeaderCell.self)
     self.collection.register(HomeDoTodayHeaderCell.self)
+    self.collection.register(HomeFavoriteDgcHeaderCell.self)
+    self.collection.register(HomeFavoriteDgcCell.self)
     self.collection.register(HomeInfoCell.self)
     self.collection.register(HomeDeactivateServiceCell.self)
     self.collection.register(HomeDoTodayCell.self)
@@ -148,7 +151,7 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
       return UICollectionViewCell()
     }
 
-    switch cellType {
+  switch cellType {
     case .header:
       let cell = collectionView.dequeueReusableCell(HomeHeaderCardCell.self, for: indexPath)
       cell.model = cellModel as? HomeHeaderCardCellVM
@@ -202,6 +205,19 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
           self?.didTapDoToday?(todoKind)
         }
         return cell
+        
+    case .favoriteDgcHeader:
+      let cell = collectionView.dequeueReusableCell(HomeFavoriteDgcHeaderCell.self, for: indexPath)
+      cell.model = cellModel as? HomeFavoriteDgcHeaderCellVM
+      return cell
+        
+    case .favoriteDgc:
+        let cell = collectionView.dequeueReusableCell(HomeFavoriteDgcCell.self, for: indexPath)
+        cell.model = cellModel as? HomeFavoriteDgcCellVM
+        cell.didTapAction = { [weak self] certificate in
+        self?.didTapCertificate?(certificate)
+        }
+        return cell
     }
   }
 
@@ -211,7 +227,7 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
       return
     }
 
-    switch cellType {
+  switch cellType {
     case .header:
       self.didTapHeaderCardInfo?()
     case .serviceActiveCard(true):
@@ -241,6 +257,10 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
         return
       }
       self.didTapDoToday?(cellModel.kind)
+    case .favoriteDgcHeader:
+        return
+    case .favoriteDgc:
+        return
     }
   }
 }

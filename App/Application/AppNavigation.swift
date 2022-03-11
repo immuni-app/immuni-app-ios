@@ -51,6 +51,9 @@ enum Screen: String, CaseIterable {
   case greenCertificateRecoveryDetail
   case greenCertificateTestDetail
   case greenCertificateExemptionDetail
+    
+  // Certificates
+  case certificates
 
   // settings
   case settings
@@ -372,6 +375,31 @@ extension OnboardingPermissionOverlayVC: RoutableWithConfiguration {
 
 extension HomeVC: RoutableWithConfiguration {
   var routeIdentifier: RouteElementIdentifier {
+    return Screen.certificates.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [
+      .show(Screen.fixActiveService): .presentModally { context in
+        let navigationContext = context as? OnboardingContainerNC.NavigationContext ?? AppLogger.fatalError("Invalid context")
+
+        return FixActiveService(with: self.store, navigationContext: navigationContext)
+      },
+      .show(Screen.confirmation): .presentModally { context in
+        let localState = context as? ConfirmationLS ?? AppLogger.fatalError("Invalid context")
+        return ConfirmationVC(store: self.store, localState: localState)
+      },
+
+
+      .hide(Screen.fixActiveService): .dismissModally(behaviour: .hard)
+    ]
+  }
+}
+
+// MARK: - Certificates
+
+extension CertificatesVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
     return Screen.home.rawValue
   }
 
@@ -518,8 +546,9 @@ extension HomeNC: RoutableWithConfiguration {
           return ChooseDataUploadModeVC(store: self.store, localState: ChooseDataUploadModeLS())
         },
 
-      .show(Screen.greenCertificate): .push { _ in
-        return GreenCertificateVC(store: self.store, localState: GreenCertificateLS())
+      .show(Screen.greenCertificate): .push { context in
+          let ls = context as? GreenCertificateLS ?? AppLogger.fatalError("invalid context")
+          return GreenCertificateVC(store: self.store, localState: ls)
           },
       .show(Screen.greenCertificateVaccineDetail): .presentModally { context in
         let ls = context as? GreenCertificateVaccineDetailLS ?? AppLogger.fatalError("invalid context")
@@ -553,6 +582,51 @@ extension HomeNC: RoutableWithConfiguration {
     ]
   }
 }
+
+// MARK: - Certificates
+
+extension CertificatesNC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.certificates.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [
+     
+      .show(Screen.greenCertificate): .push { context in
+          let ls = context as? GreenCertificateLS ?? AppLogger.fatalError("invalid context")
+          return GreenCertificateVC(store: self.store, localState: ls)
+          },
+      .show(Screen.greenCertificateVaccineDetail): .presentModally { context in
+        let ls = context as? GreenCertificateVaccineDetailLS ?? AppLogger.fatalError("invalid context")
+        return GreenCertificateVaccineDetailVC(store: self.store, localState: ls)
+          },
+      .show(Screen.greenCertificateRecoveryDetail): .presentModally { context in
+        let ls = context as? GreenCertificateRecoveryDetailLS ?? AppLogger.fatalError("invalid context")
+        return GreenCertificateRecoveryDetailVC(store: self.store, localState: ls)
+        },
+      .show(Screen.greenCertificateTestDetail): .presentModally { context in
+        let ls = context as? GreenCertificateTestDetailLS ?? AppLogger.fatalError("invalid context")
+        return GreenCertificateTestDetailVC(store: self.store, localState: ls)
+        },
+      .show(Screen.greenCertificateExemptionDetail): .presentModally { context in
+        let ls = context as? GreenCertificateExemptionDetailLS ?? AppLogger.fatalError("invalid context")
+        return GreenCertificateExemptionDetailVC(store: self.store, localState: ls)
+        },
+      .show(Screen.generateGreenCertificate): .push { _ in
+        return GenerateGreenCertificateVC(store: self.store, localState: GenerateGreenCertificateLS())
+          },
+      .hide(Screen.greenCertificate): .pop,
+      .hide(Screen.generateGreenCertificate): .pop,
+      .hide(Screen.greenCertificateVaccineDetail): .dismissModally(behaviour: .hard),
+      .hide(Screen.greenCertificateRecoveryDetail): .dismissModally(behaviour: .hard),
+      .hide(Screen.greenCertificateTestDetail): .dismissModally(behaviour: .hard),
+      .hide(Screen.greenCertificateExemptionDetail): .dismissModally(behaviour: .hard),
+      
+    ]
+  }
+}
+
 
 // MARK: Upload Data
 

@@ -193,7 +193,7 @@ extension Logic.DataUpload {
                     if let qrcode = object["qrcode"] as? String {
                         let dgc = detectQRCode(qr: qrcode, dgcType: object["fglTipoDgc"] as? String)
                         if let dgc = dgc {
-                            try context.awaitDispatch(Logic.CovidStatus.UpdateGreenCertificate(newGreenCertificate: dgc))
+                            try context.awaitDispatch(Logic.Home.UpdateGreenCertificate(newGreenCertificate: dgc))
                         }
                         else {
                             try Hydra.await(context.dispatch(Logic.Loading.Hide()))
@@ -523,10 +523,9 @@ extension Logic.DataUpload {
                 preferredStyle: .alert,
                 actions: [
                     .init(title: L10n.UploadData.MissingAuthorization.close, style: .cancel),
-                    
-                        .init(title: L10n.UploadData.MissingAuthorization.enable, style: .default, onTap: {
-                            context.dispatch(Logic.PermissionTutorial.ShowActivateExposureNotificationTutorial())
-                        })
+                    .init(title: L10n.UploadData.MissingAuthorization.enable, style: .default, onTap: {
+                        context.dispatch(Logic.PermissionTutorial.ShowActivateExposureNotificationTutorial())
+                    })
                 ]
             )
             

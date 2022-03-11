@@ -218,7 +218,7 @@ class GreenCertificateTestDetailView: UIView, ViewControllerModellableView {
       Self.Style.value(self.diseaseTest, text: detailTestCertificate.disease)
       if let testType = TestType(rawValue: detailTestCertificate.typeOfTest) {
         Self.Style.value(self.typeOfTest, text: testType.getDescription())
-        Self.Style.value(self.validUntil, text: testType.gedValidUntilValue())
+        Self.Style.value(self.validUntil, text: testType.getValidUntilValue())
       } else {
         Self.Style.value(self.typeOfTest, text: "---")
       }
@@ -658,8 +658,26 @@ public enum TestType: String {
       return L10n.HomeView.GreenCertificate.Detail.TestType.quick
     }
   }
+    
+  func getDescriptionPreview() -> String {
+    switch self {
+      case .molecularTest:
+        return L10n.Certificate.CertificatesView.Cell.MolecularTest.label
+      case .quickTest:
+        return L10n.Certificate.CertificatesView.Cell.RapidTest.label
+      }
+    }
+    
+  func getKeyValidity() -> String {
+    switch self {
+      case .molecularTest:
+        return "molecular_test"
+      case .quickTest:
+        return "rapid_test"
+      }
+    }
 
-  func gedValidUntilValue() -> String {
+  func getValidUntilValue() -> String {
     let lan = Locale.current.languageCode ?? "en"
     let validUntilValueMolecularTest:String? = ConfigurationState.state[lan]?["molecular_test"]
     let validUntilValueQuickTest:String? = ConfigurationState.state[lan]?["rapid_test"]
