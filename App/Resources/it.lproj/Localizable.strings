@@ -372,7 +372,7 @@
 "permission_tutorial.verify_immuni_works.third" = "<b>Se entri in contatto con una persona che in seguito risulti positiva al virus, Immuni ti invierà una notifica per avvertirti del rischio di contagio.</b> Aprendo l'app, riceverai indicazioni chiare ed esaustive sul da farsi.";
 
 "permission_tutorial.news.title" = "Novità!";
-"permission_tutorial.news.first" = "Versione 2.0";
+"permission_tutorial.news.first" = "Versione 2.6.0";
 "permission_tutorial.news.second" = "Le tue EU Digital Covid Certificate tutte in un solo posto!";
 "permission_tutorial.news.third" = "Attraverso la barra posizionata in basso potrai ritrovare tutti i tuoi certificati, basta selezionare la voce \"Certificati\".";
 "permission_tutorial.news.fourth" = "Aggiungi a home la tua EU Digital Covid Certificate per averla a portata di mano tutti i giorni.";

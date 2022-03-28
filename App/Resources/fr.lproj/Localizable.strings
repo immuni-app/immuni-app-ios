@@ -364,7 +364,7 @@
 "permission_tutorial.verify_immuni_works.third" = "<b>Si vous entrez en contact avec une personne dont le test de dépistage du virus s'avère positif, Immuni vous enverra une notification pour vous avertir du risque de contagion.</b> En ouvrant l'application, vous recevrez des informations claires et complètes sur ce que vous devez faire.";
 
 "permission_tutorial.news.title" = "Novità!";
-"permission_tutorial.news.first" = "Versione 2.0";
+"permission_tutorial.news.first" = "Versione 2.6.0";
 "permission_tutorial.news.second" = "Le tue EU Digital Covid Certificate tutte in un solo posto!";
 "permission_tutorial.news.third" = "Attraverso la barra posizionata in basso potrai ritrovare tutti i tuoi certificati, basta selezionare la voce \"Certificati\".";
 "permission_tutorial.news.fourth" = "Aggiungi a home la tua EU Digital Covid Certificate per averla a portata di mano tutti i giorni.";
