@@ -56,6 +56,7 @@
 "home_view.info_header.do_today" = "What do you want to do today?";
 "home_view.info_header.favorite_certificate" = "Your EU Digital Covid Certificate";
 "home_view.info.green_certificate.title" = "Retrieve EU Digital\nCovid Certificate";
+"home_view.info.news.title" = "All your certificates\nin one place!";
 "home_view.info.update_countries.title" = "If you are going to another European country";
 "home_view.info.load_data.title" = "Segnala positività in autonomia";
 "home_view.service.active.discover_more" = "Find out more";
@@ -361,6 +362,16 @@
 "permission_tutorial.verify_immuni_works.first" = "<b>If you see \'Service active\', Immuni is already working properly.</b> You don't need to do anything else: the app will continue working, even when you close it.";
 "permission_tutorial.verify_immuni_works.second" = "<b>If there are any problems, you will see \'Service not active\'.</b> Immuni will provide straightforward instructions to get the app working properly again.";
 "permission_tutorial.verify_immuni_works.third" = "<b>If you come into contact with someone who later tests positive for the virus, Immuni will send you a notification to warn you of the risk of infection.</b> When you open the app, you will receive clear and comprehensive guidance on what to do.";
+
+"permission_tutorial.news.title" = "Novità!";
+"permission_tutorial.news.first" = "Versione 2.0";
+"permission_tutorial.news.second" = "Le tue EU Digital Covid Certificate tutte in un solo posto!";
+"permission_tutorial.news.third" = "Attraverso la barra posizionata in basso potrai ritrovare tutti i tuoi certificati, basta selezionare la voce \"Certificati\".";
+"permission_tutorial.news.fourth" = "Aggiungi a home la tua EU Digital Covid Certificate per averla a portata di mano tutti i giorni.";
+"permission_tutorial.news.fifth" = "Se hai già recuperato i tuoi EU Digital Covid Certificate,entra nell  sezione Certificati, scegli quello che utilizzerai tutti i giorni e aprilo, in basso sotto ildettagli, troverai la voce \"Aggiungi a home\".";
+"permission_tutorial.news.sixth" = "Potrai sempre rimuoverlo dopo averlo aggiunto e inserirne un altro a tua scelta.";
+"permission_tutorial.news.seventh" = "Da questo momento il Certificato sarà sempre in home quando aprirai l'app Immuni.";
+
 "permission_tutorial.verify_immuni_works.title" = "How to check that Immuni is working";
 "permission_tutorial.why_province_region.first" = "<b>The National Health Service uses your home region and province details to help prevent new outbreaks,</b> as well as to estimate how widely the app is being used across the country. Your home province is sent to the Ministry of Health server along with information on whether the app is functioning properly and whether you have been informed of a high-risk contact. Immuni fully protects your privacy in collecting this information.";
 "permission_tutorial.why_province_region.second" = "You can change your home region and province at any time from the app's settings menu. We advise you to change them only if you decide to move house. In all other cases, including occasional trips, you do not need to do so.";

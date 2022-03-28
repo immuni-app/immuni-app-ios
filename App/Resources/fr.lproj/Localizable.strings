@@ -56,6 +56,7 @@
 "home_view.info_header.do_today" = "Que voulez-vous faire aujourd'hui?";
 "home_view.info_header.favorite_certificate" = "Votre EU Digital Covid Certificate";
 "home_view.info.green_certificate.title" = "Récupérer le EU Digital\nCovid Certificate";
+"home_view.info.news.title" = "Tous vos certificats\nen un seul endroit!";
 "home_view.info.update_countries.title" = "Si vous vous rendez dans un autre pays européen";
 "home_view.info.load_data.title" = "Segnala positività in autonomia";
 "home_view.service.active.discover_more" = "En savoir plus";
@@ -361,6 +362,16 @@
 "permission_tutorial.verify_immuni_works.first" = "<b>Si vous lisez \"Service activé\", cela signifie qu'Immuni fonctionne déjà correctement.</b> Vous n'avez rien d'autre à faire : l'application continuera de fonctionner même lorsqu'elle sera fermée.";
 "permission_tutorial.verify_immuni_works.second" = "<b>En cas de problème, vous lirez \"Service non activé\".</b> Immuni vous fournira des instructions simples pour rétablir le bon fonctionnement de l'application.";
 "permission_tutorial.verify_immuni_works.third" = "<b>Si vous entrez en contact avec une personne dont le test de dépistage du virus s'avère positif, Immuni vous enverra une notification pour vous avertir du risque de contagion.</b> En ouvrant l'application, vous recevrez des informations claires et complètes sur ce que vous devez faire.";
+
+"permission_tutorial.news.title" = "Novità!";
+"permission_tutorial.news.first" = "Versione 2.0";
+"permission_tutorial.news.second" = "Le tue EU Digital Covid Certificate tutte in un solo posto!";
+"permission_tutorial.news.third" = "Attraverso la barra posizionata in basso potrai ritrovare tutti i tuoi certificati, basta selezionare la voce \"Certificati\".";
+"permission_tutorial.news.fourth" = "Aggiungi a home la tua EU Digital Covid Certificate per averla a portata di mano tutti i giorni.";
+"permission_tutorial.news.fifth" = "Se hai già recuperato i tuoi EU Digital Covid Certificate,entra nell  sezione Certificati, scegli quello che utilizzerai tutti i giorni e aprilo, in basso sotto ildettagli, troverai la voce \"Aggiungi a home\".";
+"permission_tutorial.news.sixth" = "Potrai sempre rimuoverlo dopo averlo aggiunto e inserirne un altro a tua scelta.";
+"permission_tutorial.news.seventh" = "Da questo momento il Certificato sarà sempre in home quando aprirai l'app Immuni.";
+
 "permission_tutorial.verify_immuni_works.title" = "Comment vérifier si Immuni fonctionne";
 "permission_tutorial.why_province_region.first" = "<b>La région et la province de domicile permettent au Service national de santé de prévenir l'apparition de nouveaux foyers épidémiques,</b> tout en permettant d'estimer la diffusion de l'application sur le territoire national. La province de domicile est envoyée sur le serveur du Ministère de la santé avec des informations sur le bon fonctionnement de l'application et le fait que vous ayez été averti ou non d'un contact à risque. Immuni recueille ces informations en respectant la confidentialité de vos données personnelles.";
 "permission_tutorial.why_province_region.second" = "Il est possible de modifier votre région et votre province d'origine à tout moment en accédant aux paramètres de l'application. Nous vous conseillons de les mettre à jour uniquement si vous décidez de changer de lieu de résidence. Dans tous les autres cas, y compris les déplacements occasionnels, ceci n'est pas nécessaire.";

@@ -51,7 +51,8 @@ enum Screen: String, CaseIterable {
   case greenCertificateRecoveryDetail
   case greenCertificateTestDetail
   case greenCertificateExemptionDetail
-    
+  case newsSuggestions
+
   // Certificates
   case certificates
 
@@ -568,7 +569,10 @@ extension HomeNC: RoutableWithConfiguration {
         },
       .show(Screen.generateGreenCertificate): .push { _ in
         return GenerateGreenCertificateVC(store: self.store, localState: GenerateGreenCertificateLS())
-          },
+        },
+      .show(Screen.newsSuggestions): .presentModally { context in
+        return NewsVC(store: self.store, localState: NewsLS())
+        },
       .hide(Screen.uploadData): .pop,
       .hide(Screen.chooseDataUploadMode): .pop,
       .hide(Screen.uploadDataAutonomous): .pop,
@@ -578,7 +582,7 @@ extension HomeNC: RoutableWithConfiguration {
       .hide(Screen.greenCertificateRecoveryDetail): .dismissModally(behaviour: .hard),
       .hide(Screen.greenCertificateTestDetail): .dismissModally(behaviour: .hard),
       .hide(Screen.greenCertificateExemptionDetail): .dismissModally(behaviour: .hard),
-      
+      .hide(Screen.newsSuggestions): .dismissModally(behaviour: .hard),
     ]
   }
 }
@@ -706,6 +710,15 @@ extension GreenCertificateTestDetailVC: RoutableWithConfiguration {
 extension GreenCertificateExemptionDetailVC: RoutableWithConfiguration {
   var routeIdentifier: RouteElementIdentifier {
     return Screen.greenCertificateExemptionDetail.rawValue
+  }
+
+  var navigationConfiguration: [NavigationRequest: NavigationInstruction] {
+    return [:]
+  }
+}
+extension NewsVC: RoutableWithConfiguration {
+  var routeIdentifier: RouteElementIdentifier {
+    return Screen.newsSuggestions.rawValue
   }
 
   var navigationConfiguration: [NavigationRequest: NavigationInstruction] {

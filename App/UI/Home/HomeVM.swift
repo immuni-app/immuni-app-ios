@@ -35,6 +35,7 @@ struct HomeVM: ViewModelWithState {
     case updateCountry
     case dataUpload
     case greenCertificate
+    case news
     }
 
   enum CellType: Equatable {
@@ -108,6 +109,7 @@ extension HomeVM {
       .favoriteDgcHeader,
       .favoriteDgc,
       .doTodayHeader,
+      .doToday(kind: .news),
       .doToday(kind: .greenCertificate),
       .doToday(kind: .dataUpload),
       .doToday(kind: .updateCountry),

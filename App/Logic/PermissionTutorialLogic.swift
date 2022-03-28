@@ -191,4 +191,16 @@ extension Logic.PermissionTutorial {
         ))
     }
   }
+    
+  /// Show News Suggestions
+  struct ShowNewsSuggestions: AppSideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, AppDependencies>) throws {
+      try context
+        .awaitDispatch(Show(
+          Screen.permissionTutorial,
+          animated: true,
+          context: PermissionTutorialLS(content: .news)
+        ))
+      }
+    }
 }

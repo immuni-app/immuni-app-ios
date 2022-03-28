@@ -62,7 +62,6 @@ class HomeVC: ViewController<HomeView> {
     switch info {
     case .app:
       self.dispatch(Logic.PermissionTutorial.ShowHowImmuniWorks(showFaqButton: true))
-
     case .protection:
       self.dispatch(Logic.Suggestions.ShowSuggestions())
     }
@@ -70,15 +69,14 @@ class HomeVC: ViewController<HomeView> {
     
   func handleDidTapDoToday(_ todo: HomeVM.DoTodayKind) {
     switch todo {
-
       case .updateCountry:
         self.dispatch(Logic.Settings.ShowUpdateCountry())
-          
       case .dataUpload:
         self.dispatch(Logic.Settings.ShowChooseDataUploadMode())
-          
       case .greenCertificate:
         self.dispatch(Logic.Home.ShowGenerateGreenCertificate())
+      case .news:
+        self.dispatch(Logic.PermissionTutorial.ShowNewsSuggestions())
       }
     }
 }

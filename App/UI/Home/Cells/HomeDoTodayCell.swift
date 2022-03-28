@@ -28,6 +28,8 @@ struct HomeDoTodayCellVM: ViewModel {
       return AnimationAsset.cardDataUpload.animation
     case .greenCertificate:
       return AnimationAsset.cardDgc.animation
+    case .news:
+      return AnimationAsset.girlNews.animation
     }
   }
 
@@ -39,6 +41,8 @@ struct HomeDoTodayCellVM: ViewModel {
       return L10n.Settings.Setting.loadData
     case .greenCertificate:
       return L10n.HomeView.Info.GreenCertificate.title
+    case .news:
+        return L10n.HomeView.Info.News.title
     }
   }
 
@@ -50,6 +54,8 @@ struct HomeDoTodayCellVM: ViewModel {
       return true
     case .greenCertificate:
       return false
+    case .news:
+      return true
     }
   }
 
@@ -60,6 +66,8 @@ struct HomeDoTodayCellVM: ViewModel {
     case .dataUpload:
       return .cardLightBlue
     case .greenCertificate:
+      return .cardLightBlue
+    case .news:
       return .cardLightBlue
     }
   }
@@ -116,8 +124,12 @@ class HomeDoTodayCell: UICollectionViewCell, ModellableView, ReusableView {
     guard let model = self.model else {
       return
     }
-
-    self.cardImageNew.image = nil
+    if model.kind == .news {
+        Self.Style.logoNew(self.cardImageNew, image: Asset.Home.cardImageNewWhite.image)
+    }
+    else {
+      self.cardImageNew.image = nil
+    }
     Self.Style.icon(self.icon, animation: model.animation)
     Self.Style.shadow(self.contentView, shadow: model.shadow)
     Self.Style.container(self.container, lightContent: model.lightContent)
@@ -214,8 +226,8 @@ private extension HomeDoTodayCell {
       view.backgroundBehavior = .pauseAndRestore
       view.playIfPossible()
     }
-    static func logoNew(_ imageView: UIImageView) {
-        imageView.image = Asset.Home.cardImageNew.image
+      static func logoNew(_ imageView: UIImageView, image: UIImage) {
+        imageView.image = image
     }
     
   }

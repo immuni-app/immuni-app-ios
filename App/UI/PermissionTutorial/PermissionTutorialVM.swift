@@ -443,6 +443,36 @@ extension PermissionTutorialVM.Content {
       action: action
     )
   }
+    
+  static var news: Self {
+    return PermissionTutorialVM.Content(
+        title: L10n.PermissionTutorial.News.title,
+        items: [
+          .spacer(.big),
+          .textualContent(L10n.PermissionTutorial.News.first, isDark: false),
+          .spacer(.big),
+          .textualContent(L10n.PermissionTutorial.News.second, isDark: true),
+          .spacer(.big),
+          .textualContent(L10n.PermissionTutorial.News.third, isDark: false),
+          .spacer(.big),
+          .imageContent(Asset.Home.imageTabBarCertificatesNews.image),
+          .spacer(.big),
+          .textualContent(L10n.PermissionTutorial.News.fourth, isDark: true),
+          .spacer(.big),
+          .textualContent(L10n.PermissionTutorial.News.fifth, isDark: false),
+          .spacer(.big),
+          .imageContent(Asset.Home.imageAddToHomeNews.image),
+          .spacer(.big),
+          .textualContent(L10n.PermissionTutorial.News.sixth, isDark: false),
+          .spacer(.big),
+          .textualContent(L10n.PermissionTutorial.News.seventh, isDark: false),
+          .spacer(.big),
+        ],
+        mainActionTitle: nil,
+        action: nil
+      )
+    }
+
 
   static var verifyImmuniWorks: Self {
     return PermissionTutorialVM.Content(
