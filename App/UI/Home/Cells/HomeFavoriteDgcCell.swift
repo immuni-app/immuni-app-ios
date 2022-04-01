@@ -95,7 +95,7 @@ class HomeFavoriteDgcCell: UICollectionViewCell, ModellableView, ReusableView {
     
     self.title.pin
       .left(HomeView.cellHorizontalInset)
-      .right(Self.iconWidth)
+      .right(Self.placeholderIconSize)
       .sizeToFit(.width)
       .top(Self.placeholderIconTop + (Self.placeholderIconSize/4))
     
@@ -114,13 +114,14 @@ class HomeFavoriteDgcCell: UICollectionViewCell, ModellableView, ReusableView {
   }
 
   override func sizeThatFits(_ size: CGSize) -> CGSize {
-    let labelWidth = size.width - HomeView.cellHorizontalInset - HomeFavoriteDgcCell.iconWidth - 2 * HomeFavoriteDgcCell.containerInset
+    let labelWidth = size.width - HomeView.cellHorizontalInset - HomeFavoriteDgcCell.placeholderIconSize
     let titleSize = self.title.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
-
-    let qrCodeSize = self.qrCode.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
+    let qrCodeHeight = size.width*0.94
+    let qrCodeSize = self.qrCode.sizeThatFits(CGSize(width: size.width*0.94, height: CGFloat.infinity))
     let iconSize = self.placeholderIcon.sizeThatFits(CGSize(width: labelWidth, height: CGFloat.infinity))
+    let height = qrCodeHeight + (3 * Self.placeholderIconTop) + (titleSize.height > iconSize.height ? titleSize.height : iconSize.height)
 
-      return CGSize(width: size.width, height: qrCodeSize.height + (titleSize.height > iconSize.height ? titleSize.height : iconSize.height) * 2 + 3 * Self.containerInset)
+    return CGSize(width: size.width, height: height)
   }
 }
 

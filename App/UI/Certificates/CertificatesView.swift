@@ -89,7 +89,7 @@ class CertificatesView: UIView, ViewControllerModellableView {
     guard let model = self.model else {
       return
     }
-      
+    
     if model.shouldReloadCollection(oldModel: oldModel) {
         if let greenCertificates = model.greenCertificates, greenCertificates.count > 0 {
             self.addSubview(self.collection)
@@ -138,11 +138,11 @@ class CertificatesView: UIView, ViewControllerModellableView {
       .below(of: title)
       .marginTop(30)
       .horizontally(25)
-      .height(UIDevice.getByScreen(normal: 400, short: 380))
+      .height(UIDevice.getByScreen(normal: 400, short: 300))
         
     self.inactiveImage.pin
       .below(of: title)
-      .marginTop(100)
+      .marginTop(UIDevice.getByScreen(normal: 100, short: 40))
       .hCenter()
       .width(200)
       .height(200)
