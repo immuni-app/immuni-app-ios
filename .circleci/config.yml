@@ -279,7 +279,7 @@ commands:
     steps:
       - run:
           name: "[setup_linux] Install curl"
-          command: apt-get update && apt-get install curl
+          command: apt-get update && apt-get install -y curl
       - run:
           name: "[setup_linux] Resolve Python 2.7 conflict with Swift"
           command: |
